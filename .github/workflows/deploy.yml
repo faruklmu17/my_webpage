@@ -5,6 +5,10 @@ on:
     branches:
       - main  # Trigger workflow on push to main branch
 
+permissions:
+  id-token: write  # Needed for deployment to GitHub Pages
+  contents: read   # Grants read access to the repository content
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
