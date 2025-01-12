@@ -9,12 +9,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write  # Allow write access to repository contents (required for pushing changes)
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2  # This action checks out your code
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3  # A simpler, well-supported action for static sites
+        uses: peaceiris/actions-gh-pages@v3  # Action to deploy to GitHub Pages
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./  # Deploy from the root directory
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Use the default token
+          publish_dir: ./  # Publish from the root directory, where your 'index.html' is located
+          publish_branch: gh-pages  # Push to the 'gh-pages' branch
