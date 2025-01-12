@@ -3,19 +3,20 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - main  # Trigger on push to the 'main' branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: read  # Allow reading the content of the repository
+      contents: read  # Read repository contents
       id-token: write  # Required permission for GitHub Pages deployment
+    
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2  # This action checks out your code
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v1
         with:
-          folder: ./  # Deploy from the root folder
+          folder: ./  # Deploy from the root directory
