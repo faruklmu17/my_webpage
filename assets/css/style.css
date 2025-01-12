@@ -1,0 +1,20 @@
+/* assets/css/style.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+  }
+  
+  header {
+    background-color: #007acc;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  h1, h2 {
+    margin: 0;
+  }
+  
