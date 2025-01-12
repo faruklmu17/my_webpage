@@ -8,15 +8,13 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read  # Read repository contents
-      id-token: write  # Required permission for GitHub Pages deployment
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2  # This action checks out your code
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+        uses: peaceiris/actions-gh-pages@v3  # A simpler, well-supported action for static sites
         with:
-          folder: ./  # Deploy from the root directory
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./  # Deploy from the root directory
