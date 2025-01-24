@@ -3,66 +3,187 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Me</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Faruk Hasan - Portfolio</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    :root {
+      --primary-color: #3a6ea5;
+      --secondary-color: #2c3e50;
+      --background-color: #f4f7f6;
+      --text-color: #333;
+      --accent-color: #2980b9;
+      --light-background: #ffffff;
+      --soft-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
+
+    * {
       margin: 0;
       padding: 0;
-      background-color: #f4f4f9;
-      color: #333;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--background-color);
     }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
     header {
-      background: #281097;
-      color: #515571;
-      padding: 1rem 0;
+      background-color: var(--light-background);
+      box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-    header nav ul {
+
+    header nav {
       display: flex;
       justify-content: center;
+      padding: 1rem 0;
+    }
+
+    header nav ul {
+      display: flex;
       list-style: none;
-      margin: 0;
-      padding: 0;
+      gap: 1.5rem;
     }
-    header nav ul li {
-      margin: 0 15px;
-    }
+
     header nav ul li a {
-      color: #671460;
       text-decoration: none;
-      font-weight: bold;
+      color: var(--secondary-color);
+      font-weight: 500;
+      transition: all 0.3s ease;
+      padding: 0.3rem 0.5rem;
+      border-radius: 5px;
     }
+
     header nav ul li a:hover {
-      text-decoration: underline;
+      background-color: rgba(41, 128, 185, 0.1);
+      color: var(--primary-color);
     }
+
+    section {
+      background-color: var(--light-background);
+      border-radius: 12px;
+      box-shadow: var(--soft-shadow);
+      margin-bottom: 2rem;
+      padding: 3rem;
+      transition: transform 0.2s ease;
+    }
+
+    section:hover {
+      transform: translateY(-3px);
+    }
+
     #about {
-      text-align: center;
-      padding: 3rem 2rem;
-      background: linear-gradient(135deg, #1c1c1e 0%, #38383a 100%);
-      color: lightgreen;
-      border-radius: 10px;
-      margin: 2rem auto;
-      max-width: 800px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-    #about h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-    #about p {
-      font-size: 1.2rem;
-      line-height: 1.8;
-      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
       color: white;
+      text-align: center;
+      padding: 2.5rem;
     }
+
+    #about h1 {
+      font-size: 2rem;
+      margin-bottom: 0.8rem;
+      font-weight: 700;
+    }
+
+    #about p {
+      max-width: 800px;
+      margin: 0.8rem auto;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    #career h2, #courses h2, #projects h2, #travel h2, #investment h2, #contact h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--secondary-color);
+      position: relative;
+      font-weight: 600;
+    }
+
+    #career h2::after, #courses h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 3px;
+      background-color: var(--primary-color);
+    }
+
+    #career ul, #courses ul, #projects ul {
+      list-style: none;
+    }
+
+    #career ul > li, #courses ul > li, #projects ul > li {
+      background-color: #f9f9fc;
+      border-left: 4px solid var(--primary-color);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    #career ul > li:hover, #courses ul > li:hover, #projects ul > li:hover {
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      transform: translateY(-3px);
+    }
+
+    #career ul > li strong, #courses ul > li strong {
+      display: block;
+      color: var(--secondary-color);
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    #career ul > li ul {
+      margin-top: 1rem;
+    }
+
+    #career ul > li ul li {
+      position: relative;
+      padding-left: 25px;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+      color: var(--secondary-color);
+    }
+
+    #career ul > li ul li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--primary-color);
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+
     footer {
       text-align: center;
-      background: #333;
-      color: #fff;
-      padding: 1rem 0;
-      margin-top: 2rem;
+      background-color: var(--secondary-color);
+      color: white;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      header nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      section {
+        padding: 2rem 1rem;
+      }
     }
   </style>
 </head>
@@ -73,6 +194,7 @@
         <li><a href="#about">About Me</a></li>
         <li><a href="#career">Career</a></li>
         <li><a href="#courses">Courses</a></li>
+        <li><a href="#projects">Projects</a></li>
         <li><a href="#travel">Travel</a></li>
         <li><a href="#investment">Investment</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -87,18 +209,20 @@
     <p>Alongside my professional journey, I am passionate about teaching, sharing knowledge, and exploring innovations in technology.</p>
   </section>
 
-  <section id="career">
+  <section id="career" class="container">
     <h2>Career</h2>
     <p>With a strong background in quality assurance and software testing, I have contributed significantly to enhancing testing strategies and automation frameworks. Below are highlights from my professional experience:</p>
     <ul>
-      <li><strong>Senior Software QA Engineer, Digital.ai</strong> (2022 – Present):
+      <li>
+        <strong>Senior Software QA Engineer, Digital.ai</strong> (2022 – Present)
         <ul>
           <li>Designed and implemented Playwright test scripts, increasing test coverage and reducing manual efforts.</li>
           <li>Streamlined regression testing, reducing cycle time by 50%.</li>
           <li>Integrated GitHub Actions for automated test execution, improving defect identification speed.</li>
         </ul>
       </li>
-      <li><strong>Software Test Engineer, M.M.Hayes Co</strong> (2020 – 2022):
+      <li>
+        <strong>Software Test Engineer, M.M.Hayes Co</strong> (2020 – 2022)
         <ul>
           <li>Developed Selenium-based frameworks, boosting test efficiency by 30%.</li>
           <li>Reduced regression cycle time by implementing cross-browser testing strategies.</li>
@@ -108,36 +232,43 @@
     </ul>
   </section>
 
-  <section id="courses">
+  <section id="courses" class="container">
     <h2>Courses</h2>
-    <p>I enjoy designing and delivering courses to help others grow in technology and programming. Here are some of my recent courses:</p>
     <ul>
-      <li><strong>Python Fundamentals: Fun and Practical Projects for Beginners</strong> (2024, Udemy): An interactive course focusing on Python basics through real-world projects. <a href="#">Course Link</a></li>
-      <li><strong>Advanced Python/Playwright Development</strong> (2023, Outschool): Hands-on learning for advanced Python topics, equipping learners with professional skills. <a href="#">Course Link</a></li>
+      <li>
+        <strong>Python Fundamentals: Fun and Practical Projects for Beginners</strong> (2024, Udemy)
+        <p>An interactive course focusing on Python basics through real-world projects.</p>
+      </li>
+      <li>
+        <strong>Advanced Python/Playwright Development</strong> (2023, Outschool)
+        <p>Hands-on learning for advanced Python topics, equipping learners with professional skills.</p>
+      </li>
     </ul>
   </section>
 
-  <section id="projects">
+  <section id="projects" class="container">
     <h2>Projects</h2>
-    <p>My GitHub features various projects showcasing my skills in development and automation:</p>
     <ul>
-      <li><strong>Playwright Browser Extension</strong>: A Chrome extension that displays Playwright test results in real-time using TypeScript, JavaScript, and HTML/CSS. <a href="https://github.com/faruklmu17">GitHub Link</a></li>
+      <li>
+        <strong>Playwright Browser Extension</strong>
+        <p>A Chrome extension that displays Playwright test results in real-time using TypeScript, JavaScript, and HTML/CSS.</p>
+        <a href="https://github.com/faruklmu17">GitHub Link</a>
+      </li>
     </ul>
   </section>
 
-  <section id="travel">
+  <section id="travel" class="container">
     <h2>Travel</h2>
     <p>I love exploring new destinations. Here, I share my travel stories and tips.</p>
   </section>
 
-  <section id="investment">
+  <section id="investment" class="container">
     <h2>Investment</h2>
     <p>I focus on dividend investing to achieve early retirement. Follow my journey!</p>
   </section>
 
-  <section id="contact">
+  <section id="contact" class="container">
     <h2>Contact</h2>
-    <p>Feel free to reach out!</p>
     <form>
       <label for="name">Name:</label>
       <input type="text" id="name" name="name" required>
@@ -150,7 +281,5 @@
   <footer>
     <p>&copy; 2025 Faruk Hasan. All Rights Reserved.</p>
   </footer>
-  
-  <script src="assets/js/script.js"></script>
 </body>
 </html>
