@@ -198,16 +198,20 @@ section:hover {
     margin-top: 0.5rem;
   }
 }
+/* Career Section Styling */
+#career {
+  padding: 3rem 0;
+}
 
-#career h2, #courses h2, #projects h2, #travel h2, #investment h2, #contact h2 {
+#career h2 {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   color: var(--secondary-color);
   position: relative;
   font-weight: 600;
 }
 
-#career h2::after, #courses h2::after {
+#career h2::after {
   content: '';
   position: absolute;
   bottom: -10px;
@@ -218,43 +222,107 @@ section:hover {
   background-color: var(--primary-color);
 }
 
-#career ul, #courses ul, #projects ul {
-  list-style: none;
+.career-intro {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 2.5rem;
+  color: var(--secondary-color);
+  font-size: 1.05rem;
+  line-height: 1.6;
 }
 
-#career ul > li, #courses ul > li, #projects ul > li {
+.career-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.career-card {
   background-color: #f9f9fc;
   border-left: 4px solid var(--primary-color);
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
   border-radius: 8px;
+  padding: 1.5rem;
   transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-#career ul > li:hover, #courses ul > li:hover, #projects ul > li:hover {
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-  transform: translateY(-3px);
+.career-card:hover {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transform: translateY(-5px);
 }
 
-#career ul > li strong, #courses ul > li strong {
-  display: block;
-  color: var(--secondary-color);
+.career-header {
   margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.career-header h3 {
+  color: var(--secondary-color);
   font-size: 1.2rem;
-}
-
-#career ul > li ul {
-  margin-top: 1rem;
-}
-
-#career ul > li ul li {
-  position: relative;
-  padding-left: 25px;
   margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.company-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--secondary-color);
+}
+
+.company-name {
+  font-weight: 500;
+  color: var(--primary-color);
+}
+
+.duration {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.achievements {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.achievements li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
   font-size: 0.95rem;
   color: var(--secondary-color);
+  line-height: 1.5;
 }
 
+.achievements li:last-child {
+  margin-bottom: 0;
+}
+
+.achievements li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .career-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .career-card {
+    margin-bottom: 1.5rem;
+  }
+}
 
 
 /* Section container */
