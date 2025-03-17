@@ -425,3 +425,117 @@ section:hover {
       grid-template-columns: 1fr; /* One column on mobile */
   }
 }
+
+/* Full-width Courses Section */
+#courses {
+  width: 100%;
+  padding: 3rem 0;
+  box-sizing: border-box;
+  background-color: #fcfcfd;
+}
+
+.courses-wrapper {
+  width: 90%; /* Use percentage width instead of fixed width */
+  max-width: 1400px; /* Set a maximum width for very large screens */
+  margin: 0 auto;
+}
+
+#courses h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--secondary-color);
+  position: relative;
+  font-weight: 600;
+}
+
+#courses h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background-color: var(--primary-color);
+}
+
+.courses-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.course-card {
+  background-color: #f9f9fc;
+  border-radius: 10px;
+  padding: 1.75rem;
+  position: relative;
+  transition: all 0.3s ease;
+  border-top: 4px solid var(--primary-color);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.course-card:hover {
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transform: translateY(-5px);
+}
+
+.course-badge {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+
+.course-card h3 {
+  color: var(--secondary-color);
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  padding-right: 20px;
+  line-height: 1.4;
+}
+
+.course-year {
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+  opacity: 0.7;
+  margin-bottom: 1rem;
+}
+
+.course-description {
+  color: var(--secondary-color);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .courses-wrapper {
+    width: 95%;
+  }
+  
+  .courses-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .course-card {
+    margin-bottom: 1.5rem;
+  }
+  
+  .course-card:last-child {
+    margin-bottom: 0;
+  }
+}
+
+
