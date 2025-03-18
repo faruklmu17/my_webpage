@@ -682,3 +682,70 @@ section:hover {
     margin-bottom: 0;
   }
 }
+
+/* Social Media Icons */
+.nav-social-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.social-icon {
+  color: var(--secondary-color);
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: rgba(41, 128, 185, 0.1);
+}
+
+/* Deeper colors for social icons by default */
+.social-icon.linkedin {
+  color: #0a66c2; /* Deeper LinkedIn blue */
+}
+
+.social-icon.youtube {
+  color: #c4302b; /* Deeper YouTube red */
+}
+
+.social-icon.facebook {
+  color: #1877f2; /* Facebook blue */
+}
+
+/* Even more intense on hover */
+.social-icon:hover {
+  background-color: rgba(41, 128, 185, 0.2);
+}
+
+.social-icon.linkedin:hover {
+  color: #004182; /* Darker LinkedIn blue */
+}
+
+.social-icon.youtube:hover {
+  color: #990000; /* Darker YouTube red */
+}
+
+.social-icon.facebook:hover {
+  color: #0d5ab9; /* Darker Facebook blue */
+}
+
+/* Update responsive design for social icons */
+@media (max-width: 900px) {
+  .nav-social-container {
+    align-items: center;
+  }
+  
+  .social-icons {
+    margin-top: 1rem;
+  }
+}
