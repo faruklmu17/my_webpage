@@ -425,7 +425,6 @@ section:hover {
       grid-template-columns: 1fr; /* One column on mobile */
   }
 }
-
 /* Full-width Courses Section */
 #courses {
   width: 100%;
@@ -517,6 +516,38 @@ section:hover {
   font-size: 0.95rem;
   line-height: 1.6;
   margin: 0;
+  flex-grow: 1;
+}
+
+/* Course Link Styles */
+.course-link {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+.course-link:hover h3 {
+  color: var(--primary-color);
+}
+
+.course-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-align: center;
+  align-self: flex-start;
+}
+
+.course-button:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
 }
 
 /* Responsive adjustments */
@@ -537,6 +568,7 @@ section:hover {
     margin-bottom: 0;
   }
 }
+
 
 
 /* Full-width Career Section */
