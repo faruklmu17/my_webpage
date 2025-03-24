@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML, CSS, and JavaScript Concepts Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0077b5;
+            --primary-dark: #005885;
+            --secondary-color: #f5f7fa;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --border-color: #e0e0e0;
+            --success-color: #27ae60;
+            --error-color: #e74c3c;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+        }
+        
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .quiz-description {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .progress-container {
+            margin-bottom: 25px;
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: var(--light-gray);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: var(--light-gray);
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.2s;
+        }
+        
+        .question:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .question p {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 17px;
+        }
+        
+        .options {
+            margin-left: 10px;
+        }
+        
+        .option {
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        
+        .option:hover {
+            background-color: rgba(0, 119, 181, 0.05);
+        }
+        
+        .option input[type="radio"] {
+            display: none;
+        }
+        
+        .option label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding-left: 10px;
+            position: relative;
+            width: 100%;
+        }
+        
+        .option label:before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+        
+        .option input[type="radio"]:checked + label:before {
+            border-color: var(--primary-color);
+            background-color: var(--primary-color);
+            box-shadow: inset 0 0 0 4px white;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        
+        button {
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        #results {
+            display: none;
+            margin-top: 40px;
+            padding: 25px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--box-shadow);
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        #score {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 15px;
+            position: relative;
+            box-shadow: inset 0 0 0 6px rgba(0, 119, 181, 0.2);
+        }
+        
+        .answer-key {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--border-color);
+        }
+        
+        .answer-key h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-size: 20px;
+        }
+        
+        .answer-key-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .correct {
+            color: var(--success-color);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .incorrect {
+            color: var(--error-color);
+            text-decoration: line-through;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: var(--light-gray);
+            border-radius: 4px;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .result-feedback {
+            text-align: center;
+            margin: 15px 0 25px;
+            font-size: 18px;
+            color: #666;
+        }
+        
+        .back-to-resources {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .back-to-resources:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>HTML, CSS, and JavaScript Concepts Quiz</h1>
+            <p class="quiz-description">Test your knowledge of web development fundamentals with this 10-question quiz</p>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-text">
+                <span>Your progress</span>
+                <span id="progress-count">0/10 answered</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+        
+        <form id="quiz-form">
+            <div class="question" id="q1">
+                <p>1. What is the purpose of the `&lt;form&gt;` element in this code?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q1a" name="q1" value="a">
+                        <label for="q1a">a) To create a table layout</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1b" name="q1" value="b">
+                        <label for="q1b">b) To define a group of checkboxes</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1c" name="q1" value="c">
+                        <label for="q1c">c) To group the snack and drink selection elements</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1d" name="q1" value="d">
+                        <label for="q1d">d) To submit data to a server</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" id="q2">
+                <p>2. What does the `onchange` attribute do in the `&lt;select&gt;` element?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q2a" name="q2" value="a">
+                        <label for="q2a">a) It changes the background color of the dropdown</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2b" name="q2" value="b">
+                        <label for="q2b">b) It calls the `snackSelection()` function when the selection changes</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2c" name="q2" value="c">
+                        <label for="q2c">c) It prevents the user from changing the selection</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2d" name="q2" value="d">
+                        <label for="q2d">d) It automatically submits the form</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" id="q3">
+                <p>3. What will happen when a user selects a snack?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q3a" name="q3" value="a">
+                        <label for="q3a">a) The page reloads with the selected snack</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3b" name="q3" value="b">
+                        <label for="q3b">b) The snack selection is displayed in the paragraph with id `"snack-select"`</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3c" name="q3" value="c">
+                        <label for="q3c">c) The drink selection changes automatically</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3d" name="q3" value="d">
+                        <label for="q3d">d) An alert box appears</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" id="q4">
+                <p>4. In the `&lt;style&gt;` section, what does `margin: 0 auto;` do for the `&lt;form&gt;`?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q4a" name="q4" value="a">
+                        <label for="q4a">a) Centers the form horizontally</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4b" name="q4" value="b">
+                        <label for="q4b">b) Removes all margins</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4c" name="q4" value="c">
+                        <label for="q4c">c) Makes the form responsive</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4d" name="q4" value="d">
+                        <label for="q4d">d) Adds extra spacing around the form</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" id="q5">
+                <p>5. What is the default value of the snack dropdown when the page loads?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q5a" name="q5" value="a">
+                        <label for="q5a">a) `cookies`</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5b" name="q5" value="b">
+                        <label for="q5b">b) `None`</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5c" name="q5" value="c">
+                        <label for="q5c">c) `Chips`</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5d" name="q5" value="d">
+                        <label for="q5d">d) `Other`</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" id="q6">
+                <p>6. What will happen if the `snackSelection()` function is removed?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q6a" name="q6" value="a">
+                        <label for="q6a">a) The page will not load</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6b" name="q6" value="b">
+                        <label for="q6b">b) The snack selection will not update dynamically</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6c" name="q6" value="c">
+                        <label for="q6c">c) The drink selection will not work</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6d" name="q6" value="d">
+                        <label for="q6d">d) The form will disappear</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" id="q7">
+                <p>7. Which JavaScript method is used to update the content of an HTML element dynamically?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q7a" name="q7" value="a">
+                        <label for="q7a">a) `document.write()`</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7b" name="q7" value="b">
+                        <label for="q7b">b) `document.getElementById().innerHTML`</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7c" name="q7" value="c">
+                        <label for="q7c">c) `console.log()`</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7d" name="q7" value="d">
+                        <label for="q7d">d) `prompt()`</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" id="q8">
+                <p>8. What type of input element is used for the snack and drink selections?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q8a" name="q8" value="a">
+                        <label for="q8a">a) `&lt;input type="text"&gt;`</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8b" name="q8" value="b">
+                        <label for="q8b">b) `&lt;radio&gt;` buttons</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8c" name="q8" value="c">
+                        <label for="q8c">c) `&lt;select&gt;` dropdown menus</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8d" name="q8" value="d">
+                        <label for="q8d">d) `&lt;button&gt;`</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" id="q9">
+                <p>9. Why is `&lt;strong&gt;` used inside the JavaScript update statement?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q9a" name="q9" value="a">
+                        <label for="q9a">a) To make the selected snack value bold</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q9b" name="q9" value="b">
+                        <label for="q9b">b) To store the value in a variable</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q9c" name="q9" value="c">
+                        <label for="q9c">c) To change the font color</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q9d" name="q9" value="d">
+                        <label for="q9d">d) To clear the selection</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" id="q10">
+                <p>10. What will happen if a user selects "Other" in the snack dropdown?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q10a" name="q10" value="a">
+                        <label for="q10a">a) The page crashes</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q10b" name="q10" value="b">
+                        <label for="q10b">b) The text "You have selected: Other" appears</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q10c" name="q10" value="c">
+                        <label for="q10c">c) Nothing happens</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q10d" name="q10" value="d">
+                        <label for="q10d">d) An error message is displayed</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button type="button" id="submit-quiz">
+                    <i class="fas fa-check-circle"></i> Submit Quiz
+                </button>
+            </div>
+        </form>
+
+        <div id="results">
+            <div id="score">
+                <div class="score-circle">0</div>
+            </div>
+            <div class="result-feedback" id="result-feedback"></div>
+            <div class="answer-key">
+                <h3>Answer Key</h3>
+                <div id="answers"></div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="resources.html" class="back-to-resources">
+                    <i class="fas fa-arrow-left"></i> Back to Learning Resources
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Correct answers
+        const correctAnswers = {
+            q1: "d",
+            q2: "b",
+            q3: "b",
+            q4: "a",
+            q5: "b", // Assuming None is the default based on context
+            q6: "b",
+            q7: "b",
+            q8: "c",
+            q9: "a",
+            q10: "b"
+        };
+
+        // Explanations for each answer
+        const explanations = {
+            q1: "The &lt;form&gt; element is used to submit data to a server, typically when a submit button is clicked.",
+            q2: "The onchange attribute triggers the snackSelection() function whenever the user changes the selection in the dropdown.",
+            q3: "When a user selects a snack, the snackSelection() function updates the text in the paragraph with id 'snack-select'.",
+            q4: "margin: 0 auto; centers an element horizontally by setting left and right margins to auto.",
+            q5: "In dropdown menus, the default value is typically the first option, which is often set to 'None' or similar placeholder text.",
+            q6: "Without the snackSelection() function, the snack selection would not update dynamically when changed.",
+            q7: "document.getElementById().innerHTML is used to update the content of an HTML element by its ID.",
+            q8: "The &lt;select&gt; element creates dropdown menus, which were used for both snack and drink selections.",
+            q9: "The &lt;strong&gt; tag is used to make text bold, emphasizing the selected snack value in the displayed message.",
+            q10: "When 'Other' is selected, the text 'You have selected: Other' would appear in the designated paragraph."
+        };
+        
+        // Feedback messages based on score
+        const feedbackMessages = [
+            {min: 0, max: 3, message: "Keep studying! Review the web development basics and try again."},
+            {min: 4, max: 6, message: "Good effort! You have a basic understanding of web concepts, but there's room to grow."},
+            {min: 7, max: 9, message: "Great job! You have a solid understanding of HTML, CSS, and JavaScript concepts."},
+            {min: 10, max: 10, message: "Perfect score! You've mastered the fundamental web development concepts!"}
+        ];
+
+        // Track progress
+        const radioButtons = document.querySelectorAll('input[type="radio"]');
+        const progressFill = document.getElementById('progress-fill');
+        const progressCount = document.getElementById('progress-count');
+        
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', updateProgress);
+        });
+        
+        function updateProgress() {
+            const answered = document.querySelectorAll('input[type="radio"]:checked').length;
+            const total = 10;
+            const percentage = (answered / total) * 100;
+            
+            progressFill.style.width = percentage + '%';
+            progressCount.textContent = answered + '/' + total + ' answered';
+        }
+
+        // Handle quiz submission
+        document.getElementById('submit-quiz').addEventListener('click', function() {
+            const form = document.getElementById('quiz-form');
+            let score = 0;
+            let answersHTML = '';
+
+            // Check each question
+            for (let i = 1; i <= 10; i++) {
+                const questionName = 'q' + i;
+                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                
+                // Build the answer explanation for each question
+                answersHTML += `<div class="answer-key-item"><p><strong>Question ${i}:</strong> `;
+                
+                if (selectedOption) {
+                    const userAnswer = selectedOption.value;
+                    const correctAnswer = correctAnswers[questionName];
+                    
+                    if (userAnswer === correctAnswer) {
+                        score++;
+                        answersHTML += `<span class="correct"><i class="fas fa-check-circle"></i> Your answer: ${userAnswer}) is correct!</span>`;
+                    } else {
+                        answersHTML += `<span class="incorrect"><i class="fas fa-times-circle"></i> Your answer: ${userAnswer})</span> - 
+                                        <span class="correct"><i class="fas fa-check-circle"></i> Correct answer: ${correctAnswer})</span>`;
+                    }
+                } else {
+                    answersHTML += `<span class="incorrect"><i class="fas fa-times-circle"></i> Not answered</span> - 
+                                    <span class="correct"><i class="fas fa-check-circle"></i> Correct answer: ${correctAnswers[questionName]})</span>`;
+                }
+                
+                // Add explanation
+                answersHTML += `<div class="explanation">${explanations[questionName]}</div></p></div>`;
+            }
+
+            // Display score and answers
+            document.querySelector('.score-circle').textContent = score;
+            document.getElementById('answers').innerHTML = answersHTML;
+            
+            // Find appropriate feedback
+            const feedback = feedbackMessages.find(fb => score >= fb.min && score <= fb.max);
+            document.getElementById('result-feedback').textContent = feedback.message;
+            
+            document.getElementById('results').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('results').scrollIntoView({behavior: 'smooth'});
+        });
+    </script>
+</body>
+</html>
