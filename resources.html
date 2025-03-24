@@ -229,9 +229,9 @@
         <div class="quiz-category">
           <button class="category-button">Web Development</button>
           <div class="quiz-dropdown">
-            <h3>HTML, CSS & JavaScript Quizzes</h3>
+            
             <ul>
-              <li><a href="quizzes/html-basics.html">HTML Fundamentals</a></li>
+              <li><a href="#" class="quiz-link" data-quiz="HTML Fundamentals" data-url="wd_project_4_quiz1.html">Project-4 Quiz:1</a></li>
               <li><a href="quizzes/css-basics.html">CSS Styling Basics</a></li>
               <li><a href="quizzes/css-layout.html">CSS Layout & Flexbox</a></li>
               <li><a href="quizzes/js-basics.html">JavaScript Fundamentals</a></li>
@@ -282,20 +282,37 @@
   </div>
 
   <script>
-    // Simple script to update content area when a quiz is selected
+    // Updated script to handle quiz selection and navigation
     document.querySelectorAll('.quiz-dropdown a').forEach(link => {
       link.addEventListener('click', function(e) {
-        // This event handler is just for previewing in the current page
-        // Links will actually navigate to the quiz pages
         e.preventDefault();
         const quizName = this.textContent;
         const contentArea = document.querySelector('.content-area');
         
+        // Get the custom data attribute for the quiz URL
+        const quizUrl = this.dataset.url || '';
+        
         contentArea.innerHTML = `
           <h2>${quizName}</h2>
           <p>You've selected the ${quizName} quiz. This quiz will test your knowledge of key concepts in this area.</p>
-          <button style="padding: 10px 20px; background-color: #0077b5; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px;">Start Quiz</button>
+          <button id="startQuizBtn" style="padding: 10px 20px; background-color: #0077b5; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px;">Start Quiz</button>
         `;
+        
+        // Add click event to the start quiz button
+        const startQuizBtn = document.getElementById('startQuizBtn');
+        startQuizBtn.addEventListener('click', function() {
+          // If it's the HTML Fundamentals quiz or has a custom URL, navigate to that page
+          if (quizName === 'HTML Fundamentals' || quizUrl) {
+            window.location.href = quizUrl || 'wd_project_4_quiz1.html';
+          } else {
+            // For other quizzes, navigate to their respective pages
+            // This keeps the original behavior for non-HTML Fundamentals quizzes
+            const quizPageUrl = link.getAttribute('href');
+            if (quizPageUrl && quizPageUrl !== '#') {
+              window.location.href = quizPageUrl;
+            }
+          }
+        });
       });
     });
   </script>
