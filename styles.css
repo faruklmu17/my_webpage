@@ -513,7 +513,7 @@ section:hover {
   }
 }
 /* Full-width Courses Section */
-#courses {
+courses {
   width: 100%;
   padding: 3rem 0;
   box-sizing: border-box;
@@ -653,6 +653,38 @@ section:hover {
   
   .course-card:last-child {
     margin-bottom: 0;
+  }
+}
+
+/* Course Image Styles */
+.course-image {
+  width: 100%; /* Ensure full width of the card */
+  height: 250px; /* Maintains the existing height */
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex; /* Use flexbox to center the image */
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0; /* Optional: add a light background if image has transparency */
+}
+
+.course-image img {
+  width: 100%; /* Full width of the container */
+  height: 100%; /* Full height of the container */
+  object-fit: contain; /* Shows entire image without cropping */
+  object-position: center; /* Center the image */
+}
+
+.course-card:hover .course-image img {
+  transform: scale(1.02); /* Subtle zoom, reduced from 1.05 */
+  transition: transform 0.3s ease;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .course-image {
+    height: 220px; /* Maintained mobile height */
   }
 }
 
