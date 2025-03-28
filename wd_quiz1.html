@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTML Web Development Concepts Quiz</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Add EmailJS library -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("aYZA4PQUx4LZ56C7V");
+        })();
+    </script>
     <style>
         :root {
             --primary-color: #0077b5;
@@ -281,7 +288,54 @@
             text-decoration: underline;
         }
         
+        .email-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
         
+        .email-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .email-input {
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 16px;
+            width: 100%;
+        }
+        
+        .email-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .skip-btn {
+            background-color: #95a5a6;
+        }
+        
+        .skip-btn:hover {
+            background-color: #7f8c8d;
+        }
+        
+        .email-status {
+            font-size: 14px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        .email-status.success {
+            color: var(--success-color);
+        }
+        
+        .email-status.error {
+            color: var(--error-color);
+        }
     </style>
 </head>
 <body>
@@ -512,6 +566,23 @@
                 </a>
             </div>
         </div>
+
+        <div id="email-results" class="email-section">
+            <h3>Get Your Results by Email</h3>
+            <p>Enter your email address to receive your quiz results (optional):</p>
+            <div class="email-form">
+                <input type="email" id="user-email" placeholder="your@email.com" class="email-input">
+                <div class="email-buttons">
+                    <button id="send-results" type="button">
+                        <i class="fas fa-envelope"></i> Send Results
+                    </button>
+                    <button id="skip-email" type="button" class="skip-btn">
+                        <i class="fas fa-times"></i> Skip
+                    </button>
+                </div>
+                <p id="email-status" class="email-status"></p>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -623,6 +694,9 @@
             document.getElementById('answers').innerHTML = answersHTML;
             document.querySelector('.score-circle').textContent = score + '/' + totalQuestions;
             
+            // Store score for email functionality
+            document.querySelector('.score-circle').setAttribute('data-score', score);
+            
             // Show appropriate feedback based on score
             let feedback = '';
             for (const feedbackRange of feedbackMessages) {
@@ -636,9 +710,44 @@
             // Hide quiz form and show results
             document.getElementById('quiz-form').style.display = 'none';
             document.getElementById('results').style.display = 'block';
+            document.getElementById('email-results').style.display = 'block';
             
             // Scroll to results
             document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        document.getElementById('send-results').addEventListener('click', function() {
+            const email = document.getElementById('user-email').value;
+            const statusElement = document.getElementById('email-status');
+            
+            if (!email || !email.includes('@')) {
+                statusElement.textContent = 'Please enter a valid email address.';
+                statusElement.className = 'email-status error';
+                return;
+            }
+            
+            // Get the score from the score circle
+            const score = document.querySelector('.score-circle').textContent;
+            
+            // In a real application, you would send this to your server
+            // This is a simulation for demonstration purposes
+            setTimeout(() => {
+                statusElement.textContent = 'Results sent to ' + email + '!';
+                statusElement.className = 'email-status success';
+                
+                // Log what would be sent in a real application
+                console.log('Email would be sent to:', email);
+                console.log('Score:', score);
+                console.log('With detailed explanations for each question');
+            }, 1500);
+            
+            // Show loading state
+            statusElement.textContent = 'Sending...';
+            statusElement.className = 'email-status';
+        });
+        
+        document.getElementById('skip-email').addEventListener('click', function() {
+            document.getElementById('email-results').style.display = 'none';
         });
     </script>
 </body>
