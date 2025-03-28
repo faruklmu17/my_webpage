@@ -726,24 +726,35 @@
                 return;
             }
             
-            // Get the score from the score circle
+            // Get the score and prepare answers for email
             const score = document.querySelector('.score-circle').textContent;
+            const feedback = document.getElementById('result-feedback').textContent;
             
-            // In a real application, you would send this to your server
-            // This is a simulation for demonstration purposes
-            setTimeout(() => {
-                statusElement.textContent = 'Results sent to ' + email + '!';
-                statusElement.className = 'email-status success';
-                
-                // Log what would be sent in a real application
-                console.log('Email would be sent to:', email);
-                console.log('Score:', score);
-                console.log('With detailed explanations for each question');
-            }, 1500);
+            // Create template parameters object for EmailJS
+            const templateParams = {
+                to_email: email,
+                quiz_name: 'Web Development Concepts Quiz',
+                score: score,
+                feedback: feedback,
+                answers_html: document.getElementById('answers').innerHTML
+            };
             
             // Show loading state
             statusElement.textContent = 'Sending...';
             statusElement.className = 'email-status';
+            
+            // Send email using EmailJS
+            emailjs.send('service_nqjmg9a', 'template_zjaulgk', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response);
+                    statusElement.textContent = 'Results sent to ' + email + '!';
+                    statusElement.className = 'email-status success';
+                })
+                .catch(function(error) {
+                    console.error('FAILED...', error);
+                    statusElement.textContent = 'Failed to send email: ' + error.text;
+                    statusElement.className = 'email-status error';
+                });
         });
         
         document.getElementById('skip-email').addEventListener('click', function() {
