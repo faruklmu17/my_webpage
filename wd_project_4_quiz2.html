@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Concepts Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f6f8; margin: 0; padding: 20px; }
+        .quiz-container { background: white; max-width: 900px; margin: auto; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .question { margin-bottom: 25px; padding: 15px; background: #eef2f5; border-left: 4px solid #0077b5; border-radius: 5px; }
+        .question p { font-weight: bold; }
+        .options label { display: block; margin-bottom: 8px; cursor: pointer; }
+        .submit-btn { padding: 10px 20px; background: #0077b5; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        .submit-btn:hover { background: #005885; }
+        .results { display: none; margin-top: 30px; padding: 20px; background: #e0f7e9; border: 1px solid #27ae60; border-radius: 5px; }
+        .results strong { color: #27ae60; font-size: 20px; }
+        .answer-item { margin-bottom: 15px; }
+        .correct { color: green; font-weight: bold; }
+        .incorrect { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>JavaScript & Web Concepts Quiz</h1>
+        <p>Answer the following questions to check your understanding of how JavaScript and websites work.</p>
+        <form id="quiz-form"></form>
+        <button class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+        <div id="quiz-results" class="results"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: 'When you pick something from a dropdown menu, the onchange event happens.', type: 'tf', a: 'T', explain: 'The onchange event triggers when a user changes the selected option in a dropdown.' },
+            { q: 'You can change the text inside a paragraph using .value.', type: 'tf', a: 'F', explain: '.value is for form inputs. To change paragraph text, use textContent or innerHTML.' },
+            { q: 'The command parseFloat("2.00") gives you a number.', type: 'tf', a: 'T', explain: 'parseFloat converts a string like "2.00" to the number 2.0.' },
+            { q: 'We can get information from the URL using URLSearchParams.', type: 'tf', a: 'T', explain: 'URLSearchParams is used to extract query parameters from URLs.' },
+            { q: 'Using onclick in HTML is not allowed in HTML5.', type: 'tf', a: 'F', explain: 'onclick is still allowed in HTML5, though using addEventListener is more modern.' },
+            { q: 'Math.random() gives a number between 0 and 1, like 0.57.', type: 'tf', a: 'T', explain: 'Math.random() returns a number between 0 (inclusive) and 1 (exclusive).' },
+            { q: 'The data-* attribute lets you store extra info in HTML tags.', type: 'tf', a: 'T', explain: 'data-* attributes allow embedding custom data in HTML elements.' },
+            { q: 'You should use parseInt() to turn "3.14" into a float.', type: 'tf', a: 'F', explain: 'parseInt will return 3. Use parseFloat to keep the decimal.' },
+            { q: 'You can use textContent to change what shows up on a page.', type: 'tf', a: 'T', explain: 'textContent sets the text content of an element.' },
+            { q: 'window.location.href helps you move to another web page.', type: 'tf', a: 'T', explain: 'Setting window.location.href changes the current page.' },
+            { q: 'What does Math.floor(Math.random()*900)+100 do?', type: 'mc', a: 'b', options: ['a) A random decimal between 0 and 999', 'b) A random whole number between 100 and 999', 'c) Always gives 100', 'd) Gives an error'], explain: 'It generates a random number from 100 to 999.' },
+            { q: 'What does encodeURIComponent help with?', type: 'mc', a: 'c', options: ['a) Decode HTML', 'b) Remove styles', 'c) Make data safe for URLs', 'd) Encrypt data'], explain: 'It encodes special characters so they can be sent in a URL.' },
+            { q: 'Which HTML tag do we use to add JavaScript code?', type: 'mc', a: 'b', options: ['a) <javascript>', 'b) <script>', 'c) <js>', 'd) <code>'], explain: 'JavaScript code is written inside the <script> tag.' },
+            { q: 'What does the # symbol mean in document.querySelector("#id")?', type: 'mc', a: 'c', options: ['a) Tag name', 'b) Class name', 'c) ID name', 'd) Data attribute'], explain: '# means you’re selecting by ID.' },
+            { q: 'Why do we use parseFloat in the snack and drink project?', type: 'mc', a: 'c', options: ['a) Get whole numbers only', 'b) Round decimals', 'c) Change a text number to a decimal number', 'd) Add dollar signs'], explain: 'parseFloat turns strings into decimal numbers.' },
+            { q: 'What is the correct way to change the text inside a <p> element?', type: 'mc', a: 'b', options: ['a) p.value = ...', 'b) p.textContent = ...', 'c) p.input = ...', 'd) p.setText = ...'], explain: 'textContent is the standard way to update paragraph text.' },
+            { q: 'What does document.getElementById("price").textContent = "..." do?', type: 'mc', a: 'a', options: ['a) Changes what the user sees', 'b) Hides the price', 'c) Sends form data', 'd) Finds all <p> tags'], explain: 'It updates the visible content of that element.' },
+            { q: 'Which of these sends the user to a new page?', type: 'mc', a: 'c', options: ['a) document.reload()', 'b) location.go()', 'c) window.location.href = "checkout.html"', 'd) document.goto()'], explain: 'Setting window.location.href navigates to a new page.' },
+            { q: 'If the formattedPrice is missing from the link, what will show?', type: 'mc', a: 'd', options: ['a) 0.00', 'b) null', 'c) 1.00', 'd) UNABLE TO DISPLAY'], explain: 'The fallback in the script is to show "UNABLE TO DISPLAY".' },
+            { q: 'In HTML, what attribute lets you store extra custom data?', type: 'mc', a: 'a', options: ['a) data-*', 'b) custom-data', 'c) dataset', 'd) info'], explain: 'The data-* attribute stores custom information on HTML elements.' },
+            { q: 'Write a function that takes "formattedPrice=2.50" and returns 2.50 as a number.', type: 'code', a: 'function getFormattedPrice(q) { return parseFloat(q.split("=")[1]); }', explain: 'You split by = and convert the second part to a number.' }
+        ];
+
+        const form = document.getElementById('quiz-form');
+        questions.forEach((q, idx) => {
+            const div = document.createElement('div');
+            div.className = 'question';
+            let labelNumber = `${idx + 1}`;
+            if (idx === questions.length - 1) {
+                labelNumber += ' (Bonus)';
+            }
+            let html = `<p>${labelNumber}. ${q.q}</p>`;
+            if (q.type === 'tf') {
+                html += `
+                    <label><input type="radio" name="q${idx}" value="T"> True</label>
+                    <label><input type="radio" name="q${idx}" value="F"> False</label>`;
+            } else if (q.type === 'mc') {
+                q.options.forEach((opt, i) => {
+                    const val = 'abcd'[i];
+                    html += `<label><input type="radio" name="q${idx}" value="${val}"> ${opt}</label>`;
+                });
+            } else if (q.type === 'code') {
+                html += `<textarea name="q${idx}" rows="4" style="width: 100%; font-family: monospace;"></textarea>`;
+            }
+            div.innerHTML = html;
+            form.appendChild(div);
+        });
+
+        function submitQuiz() {
+            let score = 0;
+            const result = document.getElementById('quiz-results');
+            let html = '';
+
+            questions.forEach((q, i) => {
+                const name = 'q' + i;
+                const userAns = (q.type === 'code') ? document.querySelector(`[name=${name}]`).value.trim() : document.querySelector(`input[name=${name}]:checked`)?.value;
+                const isCorrect = userAns === q.a;
+                if (isCorrect) score++;
+
+                html += `<div class="answer-item">
+                    <p><strong>Question ${i + 1}${i === questions.length - 1 ? ' (Bonus)' : ''}:</strong></p>
+                    <p>${q.q}</p>
+                    <p class="${isCorrect ? 'correct' : 'incorrect'}">
+                        Your answer: ${userAns || 'No answer'} - ${isCorrect ? 'Correct' : 'Incorrect'}
+                    </p>
+                    <p><strong>Explanation:</strong> ${q.explain}</p>
+                </div>`;
+            });
+
+            html = `<strong>Your score: ${score}/${questions.length}</strong><hr>` + html;
+            result.innerHTML = html;
+            result.style.display = 'block';
+            result.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

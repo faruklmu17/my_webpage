@@ -732,11 +732,16 @@
             
             // Create template parameters object for EmailJS
             const templateParams = {
-                to_email: email,
+                // Always send to your verified email
+                to_email: 'farukqmul@gmail.com',  
+                // Include user's email in the content
+                user_email: email,  
                 quiz_name: 'Web Development Concepts Quiz',
                 score: score,
                 feedback: feedback,
-                answers_html: document.getElementById('answers').innerHTML
+                answers_html: document.getElementById('answers').innerHTML,
+                // Add a note about who requested the results
+                note: `Quiz results requested by: ${email}`
             };
             
             // Show loading state
