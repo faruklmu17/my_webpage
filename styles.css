@@ -414,32 +414,42 @@ section:hover {
 
 /* Section container */
 .youtube-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  width: 100%;
+  padding: 3rem 0;
+  box-sizing: border-box;
+  background-color: #fcfcfd;
 }
 
-/* Section title */
-.section-title {
+.youtube-section .section-title {
   text-align: center;
-  margin-bottom: 30px;
-  color: #4a6fa5;
-  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: var(--secondary-color);
+  position: relative;
+  font-weight: 600;
 }
 
-.section-title::after {
+.youtube-section .section-title::after {
   content: '';
-  display: block;
-  width: 100px;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
   height: 3px;
-  background-color: #4a6fa5;
-  margin: 10px auto;
+  background-color: var(--primary-color);
 }
 
-/* Grid layout for side-by-side videos */
+/* Video grid container */
+.video-grid-container {
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Update the existing video-grid to work within the container */
 .video-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  grid-template-columns: 1fr 1fr;
   gap: 30px;
 }
 
@@ -456,12 +466,15 @@ section:hover {
   transform: translateY(-5px);
 }
 
-/* Responsive video container */
+/* Standardize video and course image dimensions */
+
+/* Video wrapper - set fixed aspect ratio */
 .video-wrapper {
   position: relative;
   padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
   height: 0;
   overflow: hidden;
+  border-radius: 8px; /* Match course image border-radius */
 }
 
 .video-wrapper iframe {
@@ -473,18 +486,58 @@ section:hover {
   border: none;
 }
 
-/* Video information styles */
-.video-info {
+/* Course Image Styles - match video dimensions */
+.course-image {
+  width: 100%;
+  position: relative;
+  padding-bottom: 56.25%; /* Same 16:9 aspect ratio as videos */
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  background-color: #f0f0f0;
+}
+
+.course-image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Changed from contain to cover for better appearance */
+  object-position: center;
+}
+
+/* Make cards the same height */
+.video-card, .course-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.video-card:hover, .course-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Standardize info sections */
+.video-info, .course-card > *:not(.course-image) {
   padding: 15px;
 }
 
-.video-title {
+/* Make titles the same size */
+.video-title, .course-card h3 {
   font-size: 1.2rem;
   margin-bottom: 10px;
   color: #333;
 }
 
-.video-description {
+/* Make descriptions the same size */
+.video-description, .course-description {
   font-size: 0.9rem;
   color: #666;
   margin-bottom: 15px;
@@ -513,7 +566,7 @@ section:hover {
   }
 }
 /* Full-width Courses Section */
-courses {
+#courses {
   width: 100%;
   padding: 3rem 0;
   box-sizing: border-box;
@@ -521,8 +574,8 @@ courses {
 }
 
 .courses-wrapper {
-  width: 90%; /* Use percentage width instead of fixed width */
-  max-width: 1400px; /* Set a maximum width for very large screens */
+  width: 90%;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
