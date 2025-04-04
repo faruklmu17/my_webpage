@@ -257,89 +257,77 @@ section:hover {
   margin: 0;
 }
 
-/* Tech Stack Section */
+/* Tech Stack Styling */
 .tech-stack {
   margin-top: 2rem;
 }
 
-.tech-stack h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: white; /* Changed to white to match the section */
-  position: relative;
-}
-
-.tech-stack h2::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 40px;
-  height: 3px;
-  background-color: white; /* Changed to white to match the section */
-}
-
 .tech-badges {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr); /* Create two rows with 6 items per row */
-  gap: 0.8rem;
-  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.badge-category {
+  margin-bottom: 1rem;
+}
+
+.badge-category h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #555;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.3rem;
 }
 
 .tech-badge {
-  background: rgba(255, 255, 255, 0.15); /* Semi-transparent white background */
-  color: white;
-  padding: 0.5rem 0.8rem;
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  margin: 0.3rem;
   border-radius: 20px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .tech-badge:hover {
   transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-  background: rgba(255, 255, 255, 0.25); /* Slightly more opaque on hover */
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
 }
 
-/* Responsive adjustments for tech stack */
-@media (max-width: 992px) {
-  .tech-badges {
-    grid-template-columns: repeat(4, 1fr); /* 4 items per row on medium screens */
-  }
+/* Badge color categories */
+.tech-badge.primary {
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  color: white;
 }
 
+.tech-badge.secondary {
+  background: linear-gradient(135deg, #42b883, #347474);
+  color: white;
+}
+
+.tech-badge.tertiary {
+  background: linear-gradient(135deg, #ff8c42, #f05f57);
+  color: white;
+}
+
+.tech-badge.quaternary {
+  background: linear-gradient(135deg, #2193b0, #6dd5ed);
+  color: white;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .tech-badges {
-    grid-template-columns: repeat(3, 1fr); /* 3 items per row on smaller screens */
+    gap: 1rem;
   }
   
-  .tech-stack h2 {
-    text-align: center;
-  }
-  
-  .tech-stack h2::after {
-    left: 50%;
-    transform: translateX(-50%);
+  .tech-badge {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
   }
 }
-
-@media (max-width: 480px) {
-  .tech-badges {
-    grid-template-columns: repeat(2, 1fr); /* 2 items per row on very small screens */
-  }
-}
-
-
-
-
-
-
 
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
