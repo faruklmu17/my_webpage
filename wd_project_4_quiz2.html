@@ -82,13 +82,67 @@
             padding-bottom: 10px;
         }
         
+        /* Category styling for questions */
         .question {
             margin-bottom: 25px;
             padding: 20px;
             background: #eef2f5;
             border-left: 4px solid var(--primary-color);
             border-radius: 5px;
-            transition: transform 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        /* Different category colors */
+        .question.javascript {
+            border-left-color: #f7df1e; /* JavaScript yellow */
+        }
+
+        .question.dom {
+            border-left-color: #e44d26; /* HTML5 orange-red */
+        }
+
+        .question.events {
+            border-left-color: #2965f1; /* CSS3 blue */
+        }
+
+        .question.api {
+            border-left-color: #7248b6; /* Purple for API */
+        }
+
+        .question.data {
+            border-left-color: #27ae60; /* Green for data handling */
+        }
+
+        /* Category badges */
+        .category-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: white;
+        }
+
+        .category-badge.javascript {
+            background-color: #f7df1e;
+            color: #333;
+        }
+
+        .category-badge.dom {
+            background-color: #e44d26;
+        }
+
+        .category-badge.events {
+            background-color: #2965f1;
+        }
+
+        .category-badge.api {
+            background-color: #7248b6;
+        }
+
+        .category-badge.data {
+            background-color: #27ae60;
         }
         
         .question:hover {
@@ -317,11 +371,19 @@
             {min: 21, max: 21, message: "Perfect score! You've mastered JavaScript concepts and web interactions!"}
         ];
 
+        // Add categories to questions
+        const questionCategories = [
+            'javascript', 'dom', 'events', 'api', 'data', 'javascript',
+            'dom', 'events', 'api', 'data', 'javascript', 'dom',
+            'events', 'api', 'data', 'javascript', 'dom', 'events',
+            'api', 'data', 'javascript'
+        ];
+
         // Generate questions in the form
         const form = document.getElementById('quiz-form');
         questions.forEach((q, idx) => {
             const div = document.createElement('div');
-            div.className = 'question';
+            div.className = `question ${questionCategories[idx] || 'javascript'}`;
             
             let labelNumber = `${idx + 1}`;
             if (idx === questions.length - 1) {

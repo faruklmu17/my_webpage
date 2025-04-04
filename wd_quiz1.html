@@ -87,13 +87,66 @@
             transition: width 0.3s ease;
         }
         
+        /* Category styling for questions */
         .question {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             padding: 20px;
-            border-radius: 8px;
-            background-color: var(--light-gray);
+            background: #eef2f5;
             border-left: 4px solid var(--primary-color);
-            transition: transform 0.2s;
+            border-radius: 5px;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        /* Different category colors */
+        .question.html {
+            border-left-color: #e44d26; /* HTML orange-red */
+        }
+
+        .question.css {
+            border-left-color: #2965f1; /* CSS blue */
+        }
+
+        .question.structure {
+            border-left-color: #9b59b6; /* Structure purple */
+        }
+
+        .question.semantics {
+            border-left-color: #3498db; /* Semantics light blue */
+        }
+
+        .question.elements {
+            border-left-color: #f39c12; /* Elements orange */
+        }
+
+        /* Category badges */
+        .category-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: white;
+        }
+
+        .category-badge.html {
+            background-color: #e44d26;
+        }
+
+        .category-badge.css {
+            background-color: #2965f1;
+        }
+
+        .category-badge.structure {
+            background-color: #9b59b6;
+        }
+
+        .category-badge.semantics {
+            background-color: #3498db;
+        }
+
+        .category-badge.elements {
+            background-color: #f39c12;
         }
         
         .question:hover {
