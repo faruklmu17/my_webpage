@@ -396,6 +396,35 @@
         .email-status.error {
             color: var(--error-color);
         }
+
+        /* Quiz statistics styling */
+        .quiz-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .stat-item i {
+            color: var(--primary-color);
+            font-size: 16px;
+        }
+
+        .stat-item span {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
     </style>
 </head>
 <body>
@@ -403,6 +432,16 @@
         <div class="header">
             <h1>Web Development Concepts Quiz</h1>
             <p class="quiz-description">Test your knowledge of web development fundamentals with this 10-question quiz</p>
+            <div class="quiz-stats">
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <span id="times-taken">0</span> attempts
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-chart-line"></i>
+                    Average score: <span id="mean-score">0</span>%
+                </div>
+            </div>
         </div>
         
         <div class="progress-container">
