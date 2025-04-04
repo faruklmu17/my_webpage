@@ -62,7 +62,14 @@
         }
         
         .progress-container {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            padding: 15px 0;
             margin-bottom: 25px;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
         
         .progress-text {
@@ -817,6 +824,44 @@
         
         document.getElementById('skip-email').addEventListener('click', function() {
             document.getElementById('email-results').style.display = 'none';
+        });
+
+        // Define categories for each question
+        const questionCategories = {
+            q1: "html",
+            q2: "structure",
+            q3: "elements",
+            q4: "semantics",
+            q5: "structure",
+            q6: "html",
+            q7: "elements",
+            q8: "semantics",
+            q9: "html",
+            q10: "structure"
+        };
+
+        // Apply categories to questions when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add category classes and badges to each question
+            for (let i = 1; i <= 10; i++) {
+                const questionId = `q${i}`;
+                const category = questionCategories[questionId];
+                const questionElement = document.querySelector(`.question:nth-child(${i})`);
+                
+                if (questionElement && category) {
+                    // Add category class
+                    questionElement.classList.add(category);
+                    
+                    // Add category badge before the question text
+                    const questionText = questionElement.querySelector('p');
+                    if (questionText) {
+                        const categoryBadge = document.createElement('span');
+                        categoryBadge.className = `category-badge ${category}`;
+                        categoryBadge.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                        questionElement.insertBefore(categoryBadge, questionText);
+                    }
+                }
+            }
         });
     </script>
 </body>
