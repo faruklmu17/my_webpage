@@ -15,22 +15,48 @@
     /* Additional styles for quiz resources page */
     .resources-container {
       max-width: 1200px;
-      margin: 30px auto;
-      padding: 20px;
+      margin: 10px auto;
+      padding: 15px;
     }
     
     h2.section-title {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 10px;
       color: #333;
+    }
+    
+    .resource-intro {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .resource-intro p {
+      max-width: 800px;
+      margin: 0 auto;
+      color: #555;
+      line-height: 1.4;
+    }
+
+    .ad-container {
+      width: 100%;
+      margin: 10px 0;
+      text-align: center;
+      clear: both;
+      min-height: 90px;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     
     .quiz-section {
       background-color: white;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      padding: 25px;
-      margin-top: 20px;
+      padding: 15px;
+      margin-top: 10px;
+      margin-bottom: 15px;
     }
     
     .quiz-nav {
@@ -38,7 +64,7 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 15px;
-      margin-bottom: 25px;
+      margin-bottom: 0;
     }
     
     .quiz-category {
@@ -143,19 +169,16 @@
     }
     
     .content-area {
-      padding: 25px;
-      min-height: 250px;
-      background-color: #f9f9f9;
-      border-radius: 8px;
-      text-align: center;
-      margin-bottom: 20px;
+      margin-top: 15px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 15px;
     }
     
     .content-area h2 {
-      color: #333;
       margin-top: 0;
-      margin-bottom: 15px;
-      font-size: 24px;
+      margin-bottom: 10px;
     }
     
     .content-area p {
@@ -462,20 +485,7 @@
       <p>Welcome to my learning resources section. Here you'll find interactive quizzes to test your knowledge on various programming languages and web development topics. Choose a category below to explore available quizzes.</p>
     </div>
     
-    <!-- Top AdSense Banner -->
-    <div class="ad-container">
-      <!-- Google AdSense -->
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
-           data-ad-slot="YOUR_AD_SLOT"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-    </div>
-    
+    <!-- Quiz navigation moved above the ad -->
     <div class="quiz-section">
       <div class="quiz-nav">
         <div class="quiz-category">
