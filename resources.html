@@ -29,7 +29,7 @@
       background-color: white;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      padding: 30px;
+      padding: 25px;
       margin-top: 20px;
     }
     
@@ -37,27 +37,53 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 20px;
-      margin-bottom: 30px;
+      gap: 15px;
+      margin-bottom: 25px;
     }
     
     .quiz-category {
       position: relative;
     }
     
+    /* Updated button styles with different colors for each category */
+    .category-button.python {
+      background-color: #3776AB; /* Python blue */
+      box-shadow: 0 4px 8px rgba(55, 118, 171, 0.3);
+    }
+
+    .category-button.java {
+      background-color: #E76F00; /* Java orange */
+      box-shadow: 0 4px 8px rgba(231, 111, 0, 0.3);
+    }
+
+    .category-button.web {
+      background-color: #2965f1; /* CSS blue */
+      box-shadow: 0 4px 8px rgba(41, 101, 241, 0.3);
+    }
+
+    .category-button.ged {
+      background-color: #7248b6; /* Purple */
+      box-shadow: 0 4px 8px rgba(114, 72, 182, 0.3);
+    }
+
+    /* Modern sleek button style updates */
     .category-button {
-      background-color: #0077b5; /* Match LinkedIn blue to maintain brand consistency */
+      background-color: #0077b5;
       color: white;
       border: none;
-      padding: 12px 25px;
-      font-size: 16px;
-      border-radius: 5px;
+      padding: 12px 20px;
+      font-size: 15px;
+      border-radius: 8px; /* Slightly more rounded */
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      letter-spacing: 0.5px;
     }
-    
+
     .category-button:hover {
-      background-color: #005885;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     }
     
     .quiz-dropdown {
@@ -82,6 +108,7 @@
       margin: 0;
       padding: 10px 15px;
       border-bottom: 1px solid #eee;
+      font-size: 16px;
     }
     
     .quiz-dropdown ul {
@@ -91,8 +118,13 @@
     }
     
     .quiz-dropdown li {
-      padding: 10px 15px;
+      padding: 8px 15px;
       transition: background-color 0.2s;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    
+    .quiz-dropdown li:last-child {
+      border-bottom: none;
     }
     
     .quiz-dropdown li:hover {
@@ -103,6 +135,7 @@
       color: #333;
       text-decoration: none;
       display: block;
+      font-size: 14px;
     }
     
     .quiz-dropdown a:hover {
@@ -110,11 +143,59 @@
     }
     
     .content-area {
-      padding: 20px;
-      min-height: 300px;
+      padding: 25px;
+      min-height: 250px;
       background-color: #f9f9f9;
-      border-radius: 5px;
+      border-radius: 8px;
       text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .content-area h2 {
+      color: #333;
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+    
+    .content-area p {
+      color: #555;
+      margin-bottom: 20px;
+    }
+    
+    /* New feature grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 25px;
+      text-align: left;
+    }
+    
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s;
+    }
+    
+    .feature:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature i {
+      color: #0077b5;
+      font-size: 20px;
+    }
+    
+    .feature p {
+      margin: 0;
+      font-size: 14px;
     }
     
     .ad-container {
@@ -132,7 +213,7 @@
     
     .resource-intro {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
     
     .resource-intro p {
@@ -140,6 +221,31 @@
       margin: 0 auto;
       color: #555;
       line-height: 1.6;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .quiz-nav {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .quiz-category {
+        width: 100%;
+        max-width: 300px;
+      }
+      
+      .category-button {
+        width: 100%;
+      }
+      
+      .quiz-dropdown {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -195,7 +301,7 @@
     <div class="quiz-section">
       <div class="quiz-nav">
         <div class="quiz-category">
-          <button class="category-button">Python Quizzes</button>
+          <button class="category-button python">Python Quizzes</button>
           <div class="quiz-dropdown">
             <h3>Python Quizzes</h3>
             <ul>
@@ -211,7 +317,7 @@
         </div>
         
         <div class="quiz-category">
-          <button class="category-button">Java Quizzes</button>
+          <button class="category-button java">Java Quizzes</button>
           <div class="quiz-dropdown">
             <h3>Java Quizzes</h3>
             <ul>
@@ -227,15 +333,12 @@
         </div>
         
         <div class="quiz-category">
-          <button class="category-button">Web Development</button>
+          <button class="category-button web">HTML, CSS, JavaScript Quizzes</button>
           <div class="quiz-dropdown">
-            
             <ul>
               <li><a href="#" class="quiz-link" data-quiz="Quiz-1 HTML" data-url="wd_quiz1.html">Quiz-1 HTML</a></li>
-
               <li><a href="#" class="quiz-link" data-quiz="HTML Fundamentals" data-url="wd_project_4_quiz1.html">Project-4 Quiz:1</a></li>
               <li><a href="#" class="quiz-link" data-quiz="Project-4" data-url="wd_project_4_quiz2.html">Project-4 Quiz:2</a></li>
-
               <li><a href="quizzes/css-basics.html">CSS Styling Basics</a></li>
               <li><a href="quizzes/css-layout.html">CSS Layout & Flexbox</a></li>
               <li><a href="quizzes/js-basics.html">JavaScript Fundamentals</a></li>
@@ -244,6 +347,45 @@
               <li><a href="quizzes/js-forms.html">Form Validation</a></li>
               <li><a href="quizzes/web-concepts.html">Web Development Concepts</a></li>
             </ul>
+          </div>
+        </div>
+        
+        <!-- New GED Math Quizzes Button -->
+        <div class="quiz-category">
+          <button class="category-button ged">GED Math Quizzes</button>
+          <div class="quiz-dropdown">
+            <h3>GED Math Quizzes</h3>
+            <ul>
+              <li><a href="#" class="quiz-link" data-quiz="Basic Arithmetic" data-url="quizzes/ged-arithmetic.html">Basic Arithmetic</a></li>
+              <li><a href="#" class="quiz-link" data-quiz="Algebra Fundamentals" data-url="quizzes/ged-algebra.html">Algebra Fundamentals</a></li>
+              <li><a href="#" class="quiz-link" data-quiz="Geometry & Measurement" data-url="quizzes/ged-geometry.html">Geometry & Measurement</a></li>
+              <li><a href="#" class="quiz-link" data-quiz="Data Analysis" data-url="quizzes/ged-data.html">Data Analysis & Statistics</a></li>
+              <li><a href="#" class="quiz-link" data-quiz="Word Problems" data-url="quizzes/ged-word-problems.html">Word Problems</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Content area with improved styling -->
+      <div class="content-area">
+        <h2>Interactive Quiz Section</h2>
+        <p>Select any quiz category above to begin testing your knowledge!</p>
+        <div class="features-grid">
+          <div class="feature">
+            <i class="fas fa-check-circle"></i>
+            <p>Immediate feedback on your answers</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-lightbulb"></i>
+            <p>Detailed explanations for each question</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-chart-line"></i>
+            <p>Track your progress over time</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-medal"></i>
+            <p>Earn badges for completing quizzes</p>
           </div>
         </div>
       </div>
@@ -260,13 +402,6 @@
         <script>
              (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
-      </div>
-      
-      <div class="content-area">
-        <h2>Welcome to our Interactive Quiz Section</h2>
-        <p>Hover over any quiz category above and select a specific quiz to begin testing your knowledge!</p>
-        <p>Each quiz is designed to help reinforce key concepts and identify areas for further study.</p>
-        <p>Our quizzes provide immediate feedback and detailed explanations to enhance your learning experience.</p>
       </div>
     </div>
     
