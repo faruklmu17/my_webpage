@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Advanced GED Math Questions</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Add MathJax for LaTeX rendering -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root {
+      --primary-color: #0077b5;
+      --primary-dark: #005885;
+      --secondary-color: #f5f7fa;
+      --text-color: #333;
+      --light-gray: #f5f5f5;
+      --border-color: #e0e0e0;
+      --success-color: #27ae60;
+      --error-color: #e74c3c;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+    }
+    
+    h1 {
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: 30px;
+      font-size: 2.2rem;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+    
+    .quiz-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow);
+      padding: 25px;
+    }
+    
+    .question {
+      margin-bottom: 25px;
+      padding: 20px;
+      background: #eef2f5;
+      border-left: 4px solid var(--primary-color);
+      border-radius: 5px;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+    
+    .question:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .question-header {
+      font-weight: bold;
+      font-size: 1.1em;
+      margin-bottom: 15px;
+      color: var(--primary-dark);
+    }
+    
+    .math-content {
+      margin-bottom: 15px;
+      padding: 10px;
+      background: white;
+      border-radius: 5px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    
+    .option {
+      padding: 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      display: flex;
+      align-items: center;
+    }
+    
+    .option:hover {
+      background-color: #f0f7ff;
+    }
+    
+    .option input[type="radio"] {
+      margin-right: 10px;
+    }
+    
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1em;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+    
+    .submit-btn:hover {
+      background-color: var(--primary-dark);
+    }
+    
+    #results {
+      margin-top: 30px;
+      text-align: center;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow);
+      display: none;
+    }
+    
+    .score-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+    }
+    
+    .score-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2.5em;
+      font-weight: bold;
+      margin-right: 15px;
+    }
+    
+    .score-label {
+      font-size: 1.5em;
+      color: var(--text-color);
+    }
+    
+    .feedback {
+      font-size: 1.2em;
+      color: var(--primary-dark);
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Advanced GED Math Practice</h1>
+
+  <div class="quiz-container">
+    <form id="quiz-form">
+      <div class="question math">
+        <div class="question-header">1. What is the sum of the roots of the equation \( 3x^2 - 7x + 2 = 0 \)?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q1" value="A"> A. 2</label>
+          <label class="option"><input type="radio" name="q1" value="B"> B. 3</label>
+          <label class="option"><input type="radio" name="q1" value="C"> C. \( \frac{7}{3} \)</label>
+          <label class="option"><input type="radio" name="q1" value="D"> D. \( \frac{2}{3} \)</label>
+        </div>
+      </div>
+
+      <div class="question math">
+        <div class="question-header">2. Which value of x satisfies the system of equations?</div>
+        <div class="math-content">
+          \( 2x + 3y = 12 \)  
+          <br>
+          \( 4x - y = 5 \)
+        </div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q2" value="A"> A. 1</label>
+          <label class="option"><input type="radio" name="q2" value="B"> B. 2</label>
+          <label class="option"><input type="radio" name="q2" value="C"> C. 3</label>
+          <label class="option"><input type="radio" name="q2" value="D"> D. 4</label>
+        </div>
+      </div>
+
+      <div class="question math">
+        <div class="question-header">3. A line passes through (1, 5) and (4, -1). What is its slope?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q3" value="A"> A. -2</label>
+          <label class="option"><input type="radio" name="q3" value="B"> B. -2/3</label>
+          <label class="option"><input type="radio" name="q3" value="C"> C. 2/3</label>
+          <label class="option"><input type="radio" name="q3" value="D"> D. -3/2</label>
+        </div>
+      </div>
+
+      <div class="question math">
+        <div class="question-header">4. Let f(x) = 2x + 3 and g(x) = x² - 1. What is f(g(2))?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q4" value="A"> A. 5</label>
+          <label class="option"><input type="radio" name="q4" value="B"> B. 9</label>
+          <label class="option"><input type="radio" name="q4" value="C"> C. 11</label>
+          <label class="option"><input type="radio" name="q4" value="D"> D. 13</label>
+        </div>
+      </div>
+
+      <div class="question math">
+        <div class="question-header">5. What is the volume of a cylinder with radius 3 cm and height 10 cm (in terms of π)?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q5" value="A"> A. 30π cm³</label>
+          <label class="option"><input type="radio" name="q5" value="B"> B. 90π cm³</label>
+          <label class="option"><input type="radio" name="q5" value="C"> C. 100π cm³</label>
+          <label class="option"><input type="radio" name="q5" value="D"> D. 270π cm³</label>
+        </div>
+      </div>
+
+      <div class="question math">
+        <div class="question-header">6. Simplify: \( \frac{3\sqrt{8} + 2\sqrt{18}}{\sqrt{2}} \)</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q6" value="A"> A. 12</label>
+          <label class="option"><input type="radio" name="q6" value="B"> B. 13√2</label>
+          <label class="option"><input type="radio" name="q6" value="C"> C. 15</label>
+          <label class="option"><input type="radio" name="q6" value="D"> D. 12√2</label>
+        </div>
+      </div>
+
+      <div class="question math">
+        <div class="question-header">7. Which is equivalent to \( \left( \frac{16x^4}{y^2} \right)^{\frac{1}{2}} \)?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q7" value="A"> A. \( \frac{4x^2}{y} \)</label>
+          <label class="option"><input type="radio" name="q7" value="B"> B. \( \frac{4x}{y} \)</label>
+          <label class="option"><input type="radio" name="q7" value="C"> C. \( \frac{2x^2}{y} \)</label>
+          <label class="option"><input type="radio" name="q7" value="D"> D. \( \frac{4x^2}{y^2} \)</label>
+        </div>
+      </div>
+
+      <div class="question math">
+        <div class="question-header">8. Solve: \( \frac{2x - 5}{3} \leq 1 \)</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q8" value="A"> A. x ≤ 2</label>
+          <label class="option"><input type="radio" name="q8" value="B"> B. x ≤ 4</label>
+          <label class="option"><input type="radio" name="q8" value="C"> C. x ≤ 3</label>
+          <label class="option"><input type="radio" name="q8" value="D"> D. x ≤ 1</label>
+        </div>
+      </div>
+
+      <div class="question math">
+        <div class="question-header">9. If \( a_n = 5n - 3 \), what is the 12th term?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q9" value="A"> A. 57</label>
+          <label class="option"><input type="radio" name="q9" value="B"> B. 60</label>
+          <label class="option"><input type="radio" name="q9" value="C"> C. 63</label>
+          <label class="option"><input type="radio" name="q9" value="D"> D. 54</label>
+        </div>
+      </div>
+
+      <div class="question math">
+        <div class="question-header">10. A student's score of 96 was recorded as 66. Average was 76 for 20 students. What is the correct average?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q10" value="A"> A. 77</label>
+          <label class="option"><input type="radio" name="q10" value="B"> B. 78</label>
+          <label class="option"><input type="radio" name="q10" value="C"> C. 79</label>
+          <label class="option"><input type="radio" name="q10" value="D"> D. 80</label>
+        </div>
+      </div>
+
+      <button type="button" id="submit-btn" class="submit-btn">Submit Quiz</button>
+    </form>
+  </div>
+
+  <div id="results">
+    <h2>Your Results</h2>
+    <div class="score-container">
+      <div class="score-circle" id="score">0</div>
+      <div class="score-label">out of 10</div>
+    </div>
+    <div id="result-feedback" class="feedback"></div>
+  </div>
+
+  <script>
+    document.getElementById('submit-btn').addEventListener('click', function() {
+      // Define correct answers
+      const correctAnswers = {
+        q1: 'C', // 7/3
+        q2: 'B', // 2
+        q3: 'A', // -2
+        q4: 'C', // 11
+        q5: 'B', // 90π
+        q6: 'D', // 12√2
+        q7: 'A', // 4x²/y
+        q8: 'B', // x ≤ 4
+        q9: 'A', // 57
+        q10: 'B' // 78
+      };
+      
+      let score = 0;
+      
+      // Check each question
+      for (let i = 1; i <= 10; i++) {
+        const questionName = 'q' + i;
+        const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+        
+        if (selectedOption && selectedOption.value === correctAnswers[questionName]) {
+          score++;
+        }
+      }
+      
+      // Display score
+      document.getElementById('score').textContent = score;
+      
+      // Provide feedback based on score
+      let feedback = '';
+      if (score <= 3) {
+        feedback = "Keep studying! Review the concepts and try again.";
+      } else if (score <= 6) {
+        feedback = "Good effort! You're making progress but need more practice.";
+      } else if (score <= 9) {
+        feedback = "Great job! You have a strong understanding of GED math concepts.";
+      } else {
+        feedback = "Perfect score! You're ready for the GED math section!";
+      }
+      
+      document.getElementById('result-feedback').textContent = feedback;
+      document.getElementById('results').style.display = 'block';
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
