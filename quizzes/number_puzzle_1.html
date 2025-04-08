@@ -327,9 +327,35 @@
       <button onclick="checkPuzzle(this)">Check Answer</button>
     </div>
   </div>
-  
-  <!-- Row 4 (for the last puzzle) -->
+
+  <!-- Row 4 -->
   <div class="puzzle-row">
+    <div class="puzzle" data-base1="9" data-product="108">
+      <div class="puzzle-type">Type: Find Missing Number & Sum</div>
+      <div class="circle">108</div>
+      <div class="operation-symbol multiply-symbol">×</div>
+      <div class="row">
+        <div class="circle">9</div>
+        <div class="circle"><input type="number" class="base2-input" placeholder="?"></div>
+      </div>
+      <div class="operation-symbol add-symbol">+</div>
+      <div class="circle"><input type="number" class="sum-input" placeholder="?"></div>
+      <button onclick="checkPuzzle(this)">Check Answer</button>
+    </div>
+
+    <div class="puzzle" data-base1="11" data-base2="8">
+      <div class="puzzle-type">Type: Find Product & Sum</div>
+      <div class="circle"><input type="number" class="product-input" placeholder="?"></div>
+      <div class="operation-symbol multiply-symbol">×</div>
+      <div class="row">
+        <div class="circle">11</div>
+        <div class="circle">8</div>
+      </div>
+      <div class="operation-symbol add-symbol">+</div>
+      <div class="circle"><input type="number" class="sum-input" placeholder="?"></div>
+      <button onclick="checkPuzzle(this)">Check Answer</button>
+    </div>
+  
     <div class="puzzle" data-base1="20" data-base2="16">
       <div class="puzzle-type">Type: Find Product & Sum</div>
       <div class="circle"><input type="number" class="product-input" placeholder="?"></div>
@@ -345,9 +371,23 @@
   </div>
 </div>
 
+<!-- Results Section -->
+<div id="results" style="display: none; margin-top: 30px; text-align: center;">
+  <h2>Your Results</h2>
+  <div class="score-container">
+    <div class="score-circle" id="score">0</div>
+    <div class="score-label">out of 12</div>
+  </div>
+  <div id="result-feedback" class="feedback"></div>
+</div>
+
 <script>
+  let totalScore = 0;
+  const totalPuzzles = 12;
+  
   function checkPuzzle(button) {
     const puzzle = button.parentElement;
+    let isCorrect = true;
 
     const base1Attr = puzzle.dataset.base1;
     const base2Attr = puzzle.dataset.base2;
@@ -368,11 +408,15 @@
     if (base1 !== null && base2 !== null) {
       if (productInput) {
         const userProduct = parseFloat(productInput.value);
-        productInput.parentElement.className = 'circle ' + (userProduct === base1 * base2 ? 'correct' : 'incorrect');
+        const productCorrect = userProduct === base1 * base2;
+        productInput.parentElement.className = 'circle ' + (productCorrect ? 'correct' : 'incorrect');
+        if (!productCorrect) isCorrect = false;
       }
       if (sumInput) {
         const userSum = parseFloat(sumInput.value);
-        sumInput.parentElement.className = 'circle ' + (userSum === base1 + base2 ? 'correct' : 'incorrect');
+        const sumCorrect = userSum === base1 + base2;
+        sumInput.parentElement.className = 'circle ' + (sumCorrect ? 'correct' : 'incorrect');
+        if (!sumCorrect) isCorrect = false;
       }
     }
 
@@ -380,12 +424,16 @@
     else if (base1 !== null && product !== null) {
       if (base2Input) {
         const userBase2 = parseFloat(base2Input.value);
-        base2Input.parentElement.className = 'circle ' + (userBase2 === product / base1 ? 'correct' : 'incorrect');
+        const base2Correct = userBase2 === product / base1;
+        base2Input.parentElement.className = 'circle ' + (base2Correct ? 'correct' : 'incorrect');
+        if (!base2Correct) isCorrect = false;
       }
       if (sumInput && base2Input) {
         const userSum = parseFloat(sumInput.value);
         const userBase2 = parseFloat(base2Input.value);
-        sumInput.parentElement.className = 'circle ' + (userSum === base1 + userBase2 ? 'correct' : 'incorrect');
+        const sumCorrect = userSum === base1 + userBase2;
+        sumInput.parentElement.className = 'circle ' + (sumCorrect ? 'correct' : 'incorrect');
+        if (!sumCorrect) isCorrect = false;
       }
     }
 
@@ -393,13 +441,67 @@
     else if (base2 !== null && sum !== null) {
       if (base1Input) {
         const userBase1 = parseFloat(base1Input.value);
-        base1Input.parentElement.className = 'circle ' + (userBase1 === sum - base2 ? 'correct' : 'incorrect');
+        const base1Correct = userBase1 === sum - base2;
+        base1Input.parentElement.className = 'circle ' + (base1Correct ? 'correct' : 'incorrect');
+        if (!base1Correct) isCorrect = false;
+        
         if (productInput) {
           const userProduct = parseFloat(productInput.value);
-          productInput.parentElement.className = 'circle ' + (userProduct === userBase1 * base2 ? 'correct' : 'incorrect');
+          const productCorrect = userProduct === userBase1 * base2;
+          productInput.parentElement.className = 'circle ' + (productCorrect ? 'correct' : 'incorrect');
+          if (!productCorrect) isCorrect = false;
         }
       }
     }
+    
+    // Update score if all answers in this puzzle are correct
+    if (isCorrect && !puzzle.hasAttribute('data-scored')) {
+      totalScore++;
+      puzzle.setAttribute('data-scored', 'true');
+      updateScore();
+    }
+    
+    // Mark puzzle as attempted regardless of correctness
+    puzzle.setAttribute('data-attempted', 'true');
+    
+    // Check if all puzzles have been attempted
+    checkAllAttempted();
+  }
+  
+  function checkAllAttempted() {
+    const allPuzzles = document.querySelectorAll('.puzzle');
+    const attemptedPuzzles = document.querySelectorAll('.puzzle[data-attempted]');
+    
+    if (attemptedPuzzles.length === allPuzzles.length) {
+      showResults();
+    }
+  }
+  
+  function updateScore() {
+    document.getElementById('score').textContent = totalScore;
+  }
+  
+  function showResults() {
+    // Feedback messages based on score
+    const feedbackMessages = [
+      { min: 0, max: 4, message: "Keep practicing! You'll get better with more practice." },
+      { min: 5, max: 8, message: "Good job! You're getting the hang of it." },
+      { min: 9, max: 11, message: "Excellent work! You have a strong understanding of number relationships." },
+      { min: 12, max: 12, message: "Perfect score! You're a number puzzle master!" }
+    ];
+    
+    // Find appropriate feedback
+    let feedback = "";
+    for (const fb of feedbackMessages) {
+      if (totalScore >= fb.min && totalScore <= fb.max) {
+        feedback = fb.message;
+        break;
+      }
+    }
+    
+    document.getElementById('result-feedback').textContent = feedback;
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
   }
 </script>
 </body>
