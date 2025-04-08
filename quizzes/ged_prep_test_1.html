@@ -281,17 +281,171 @@
     .intro-section p:last-child {
       margin-bottom: 0;
     }
+    
+    /* FAQ styles */
+    .faq-list {
+      margin: 0;
+      padding: 0;
+    }
+    
+    .faq-list dt {
+      font-weight: bold;
+      color: var(--primary-dark);
+      margin-top: 20px;
+      font-size: 1.1em;
+      border-left: 3px solid var(--primary-color);
+      padding-left: 10px;
+    }
+    
+    .faq-list dd {
+      margin-left: 0;
+      margin-top: 8px;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border-color);
+      line-height: 1.6;
+    }
+    
+    .faq-list dd:last-child {
+      border-bottom: none;
+    }
+    
+    /* PDF link style */
+    .intro-section a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 5px;
+      transition: color 0.2s;
+    }
+    
+    .intro-section a:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+    
+    .intro-section a i {
+      margin-right: 5px;
+    }
+    
+    /* Social sharing styles */
+    .social-share-container {
+      max-width: 800px;
+      margin: 0 auto 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: white;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow);
+      padding: 15px;
+    }
+    
+    .share-count {
+      margin-bottom: 10px;
+      font-size: 0.9em;
+      color: #666;
+    }
+    
+    #share-counter {
+      font-weight: bold;
+      font-size: 1.2em;
+      color: var(--primary-color);
+    }
+    
+    .share-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 15px;
+      border-radius: 5px;
+      color: white;
+      text-decoration: none;
+      font-size: 0.9em;
+      transition: opacity 0.2s;
+    }
+    
+    .share-btn:hover {
+      opacity: 0.9;
+    }
+    
+    .share-btn i {
+      margin-right: 5px;
+    }
+    
+    .facebook {
+      background-color: #3b5998;
+    }
+    
+    .twitter {
+      background-color: #1da1f2;
+    }
+    
+    .linkedin {
+      background-color: #0077b5;
+    }
+    
+    .reddit {
+      background-color: #ff4500;
+    }
+    
+    .email {
+      background-color: #777;
+    }
+    
+    @media (max-width: 600px) {
+      .share-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .share-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
   </style>
 </head>
 <body>
 
   <h1>Advanced GED Math Practice Test</h1>
   
+  <!-- Add social sharing buttons -->
+  <div class="social-share-container">
+    <div class="share-count"><span id="share-counter">0</span> shares</div>
+    <div class="share-buttons">
+      <a href="https://www.facebook.com/sharer/sharer.php?u=https://faruk-hasan.com/quizzes/ged_prep_test_1.html" target="_blank" class="share-btn facebook" onclick="incrementShareCount()">
+        <i class="fab fa-facebook-f"></i> Share
+      </a>
+      <a href="https://twitter.com/intent/tweet?url=https://faruk-hasan.com/quizzes/ged_prep_test_1.html&text=Try this free GED Math Practice Test with instant scoring!" target="_blank" class="share-btn twitter" onclick="incrementShareCount()">
+        <i class="fab fa-twitter"></i> Tweet
+      </a>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://faruk-hasan.com/quizzes/ged_prep_test_1.html&title=Advanced GED Math Practice Test&summary=Free GED Math practice test with instant scoring" target="_blank" class="share-btn linkedin" onclick="incrementShareCount()">
+        <i class="fab fa-linkedin-in"></i> Share
+      </a>
+      <a href="https://www.reddit.com/submit?url=https://faruk-hasan.com/quizzes/ged_prep_test_1.html&title=Advanced GED Math Practice Test" target="_blank" class="share-btn reddit" onclick="incrementShareCount()">
+        <i class="fab fa-reddit-alien"></i> Share
+      </a>
+      <a href="mailto:?subject=Free GED Math Practice Test&body=I thought you might find this useful: https://faruk-hasan.com/quizzes/ged_prep_test_1.html" class="share-btn email" onclick="incrementShareCount()">
+        <i class="fas fa-envelope"></i> Email
+      </a>
+    </div>
+  </div>
+  
   <div class="quiz-container">
     <!-- Add an introduction paragraph for SEO -->
     <div class="intro-section">
+      <h2 style="text-align:center;">10 Free GED Math Practice Questions</h2>
       <p>This free GED Math practice test contains 10 advanced questions similar to those you'll encounter on the actual GED exam. The quiz covers key topics including algebra, geometry, data analysis, and word problems. Complete the test to receive instant feedback and explanations for each question.</p>
       <p>Perfect for GED test preparation and assessing your readiness for the math section of the GED exam.</p>
+      <p><a href="ged_math_practice.pdf" download><i class="fas fa-file-pdf"></i> Download this quiz as a PDF</a></p>
     </div>
     
     <!-- Wrap progress elements in a sticky container -->
@@ -432,6 +586,23 @@
     let answeredQuestions = 0;
     const totalQuestions = 10;
     
+    // Load share count from localStorage
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedShareCount = localStorage.getItem('gedQuizShareCount') || 0;
+      document.getElementById('share-counter').textContent = savedShareCount;
+    });
+    
+    // Function to increment share count
+    function incrementShareCount() {
+      const counterElement = document.getElementById('share-counter');
+      let currentCount = parseInt(counterElement.textContent) || 0;
+      currentCount++;
+      counterElement.textContent = currentCount;
+      
+      // Save to localStorage
+      localStorage.setItem('gedQuizShareCount', currentCount);
+    }
+    
     // Update progress when an option is selected
     const radioButtons = document.querySelectorAll('input[type="radio"]');
     radioButtons.forEach(radio => {
@@ -535,6 +706,77 @@
         });
       }
     });
+  </script>
+
+  <!-- Add FAQ section with structured data -->
+  <div class="quiz-container" style="margin-top: 30px;">
+    <h2>GED Math Practice FAQ</h2>
+    <dl class="faq-list">
+      <dt>What topics are covered in the GED Math Test?</dt>
+      <dd>The GED Math test covers four main areas: Basic Math/Number Operations (25-30%), Algebraic Concepts (30%), Geometry (20%), and Data Analysis & Probability (15-20%).</dd>
+      
+      <dt>Is this practice test similar to the real GED exam?</dt>
+      <dd>Yes, these are advanced multiple-choice questions based on official GED test guidelines and format. The questions are designed to match the difficulty level of the actual exam.</dd>
+      
+      <dt>How long is the actual GED Math test?</dt>
+      <dd>The official GED Math test is 115 minutes long and includes approximately 45 questions, including multiple-choice, drag-and-drop, hot spot, and fill-in-the-blank formats.</dd>
+      
+      <dt>What score do I need to pass the GED Math test?</dt>
+      <dd>You need a score of at least 145 out of 200 to pass the GED Math test. A score of 165-174 indicates college readiness, and 175+ demonstrates college readiness with potential credit.</dd>
+      
+      <dt>Can I use a calculator on the GED Math test?</dt>
+      <dd>Yes, you can use the on-screen calculator for most of the GED Math test. There is a small section at the beginning where calculators are not allowed.</dd>
+    </dl>
+  </div>
+
+  <!-- Add FAQ structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What topics are covered in the GED Math Test?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The GED Math test covers four main areas: Basic Math/Number Operations (25-30%), Algebraic Concepts (30%), Geometry (20%), and Data Analysis & Probability (15-20%)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this practice test similar to the real GED exam?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, these are advanced multiple-choice questions based on official GED test guidelines and format. The questions are designed to match the difficulty level of the actual exam."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long is the actual GED Math test?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The official GED Math test is 115 minutes long and includes approximately 45 questions, including multiple-choice, drag-and-drop, hot spot, and fill-in-the-blank formats."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What score do I need to pass the GED Math test?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You need a score of at least 145 out of 200 to pass the GED Math test. A score of 165-174 indicates college readiness, and 175+ demonstrates college readiness with potential credit."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use a calculator on the GED Math test?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, you can use the on-screen calculator for most of the GED Math test. There is a small section at the beginning where calculators are not allowed."
+        }
+      }
+    ]
+  }
   </script>
 
   <!-- Add a footer with related resources -->
