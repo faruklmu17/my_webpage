@@ -3,7 +3,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Interactive Number Puzzles</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Number Puzzles | Math Logic Puzzles for All Ages</title>
+  <meta name="description" content="Free interactive number puzzles that test your math skills with addition and multiplication. Solve fun math logic puzzles with instant feedback and scoring.">
+  <meta name="keywords" content="number puzzles, math puzzles, logic puzzles, interactive math games, math practice, addition puzzles, multiplication puzzles, math brain teasers">
+  
+  <!-- Open Graph tags for social sharing -->
+  <meta property="og:title" content="Interactive Number Puzzles | Math Logic Puzzles for All Ages">
+  <meta property="og:description" content="Challenge your math skills with these interactive number puzzles. Find the missing numbers using addition and multiplication in these engaging brain teasers.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://faruk-hasan.com/quizzes/number_puzzle_1.html">
+  
+  <!-- Canonical URL to prevent duplicate content issues -->
+  <link rel="canonical" href="https://faruk-hasan.com/quizzes/number_puzzle_1.html">
+  
+  <!-- Add structured data for rich results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Game",
+    "name": "Interactive Number Puzzles",
+    "description": "Free interactive number puzzles that test your math skills with addition and multiplication. Solve fun math logic puzzles with instant feedback and scoring.",
+    "educationalUse": "Math Practice",
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "All ages"
+    },
+    "provider": {
+      "@type": "Person",
+      "name": "Faruk Hasan",
+      "url": "https://faruk-hasan.com"
+    },
+    "about": [
+      "Number Puzzles",
+      "Math Logic",
+      "Addition",
+      "Multiplication",
+      "Brain Teasers"
+    ]
+  }
+  </script>
+  
   <style>
     body { 
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -196,9 +236,11 @@
 
 <h1>🧩 Interactive Number Puzzles</h1>
 <div class="intro">
+  <p>Welcome to our collection of interactive number puzzles! These engaging math brain teasers will challenge your addition and multiplication skills.</p>
   <p>Solve the puzzle! Fill in the missing numbers in the circles.</p>
   <p>The <strong>top</strong> circle is the <strong>product</strong> (multiplication) of the two middle numbers.</p>
   <p>The <strong>bottom</strong> circle is the <strong>sum</strong> (addition) of the two middle numbers.</p>
+  <p>Complete all 12 puzzles to test your math logic skills and see your final score!</p>
 </div>
 
 <div class="puzzles-container">
@@ -379,7 +421,190 @@
     <div class="score-label">out of 12</div>
   </div>
   <div id="result-feedback" class="feedback"></div>
+  
+  <!-- Add social sharing buttons -->
+  <div class="share-section">
+    <p>Share your results:</p>
+    <div class="share-buttons">
+      <a href="#" onclick="shareOnFacebook(); return false;" class="share-btn facebook">
+        <i class="fab fa-facebook-f"></i> Share
+      </a>
+      <a href="#" onclick="shareOnTwitter(); return false;" class="share-btn twitter">
+        <i class="fab fa-twitter"></i> Tweet
+      </a>
+      <a href="#" onclick="shareByEmail(); return false;" class="share-btn email">
+        <i class="fas fa-envelope"></i> Email
+      </a>
+    </div>
+  </div>
+  
+  <!-- Add call-to-action -->
+  <div class="cta-section">
+    <p>Want to improve your math skills?</p>
+    <a href="../math_resources.html" class="cta-button">Explore More Math Resources</a>
+  </div>
 </div>
+
+<!-- Add a footer with related resources after the results section -->
+<div class="related-resources">
+  <h3>More Math Puzzles and Games</h3>
+  <ul>
+    <li><a href="number_puzzle_2.html">Advanced Number Puzzles</a></li>
+    <li><a href="math_logic_games.html">Math Logic Games</a></li>
+    <li><a href="multiplication_practice.html">Multiplication Practice</a></li>
+    <li><a href="addition_puzzles.html">Addition Puzzles</a></li>
+    <li><a href="math_brain_teasers.html">Math Brain Teasers</a></li>
+    <li><a href="../games.html">All Math Games</a></li>
+  </ul>
+</div>
+
+<style>
+  /* Add styles for the intro and related resources sections */
+  .intro {
+    max-width: 800px;
+    margin: 0 auto 30px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid #4a90e2;
+    line-height: 1.6;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .related-resources {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .related-resources h3 {
+    color: #4a90e2;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+  }
+  
+  .related-resources ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .related-resources li {
+    margin-bottom: 10px;
+  }
+  
+  .related-resources a {
+    color: #4a90e2;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  .related-resources a:hover {
+    color: #2a6fc9;
+    text-decoration: underline;
+  }
+  
+  /* Add styles for social sharing and CTA */
+  .share-section {
+    margin-top: 25px;
+  }
+  
+  .share-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+  }
+  
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: opacity 0.2s;
+  }
+  
+  .share-btn:hover {
+    opacity: 0.9;
+  }
+  
+  .facebook {
+    background-color: #3b5998;
+  }
+  
+  .twitter {
+    background-color: #1da1f2;
+  }
+  
+  .email {
+    background-color: #ea4335;
+  }
+  
+  .share-btn i {
+    margin-right: 5px;
+  }
+  
+  .cta-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4a90e2;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+  }
+  
+  .cta-button:hover {
+    background-color: #2a6fc9;
+  }
+  
+  /* Style for the score circle */
+  .score-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #4a90e2;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-right: 15px;
+  }
+  
+  .score-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  .score-label {
+    font-size: 1.5em;
+    color: #333;
+  }
+  
+  .feedback {
+    font-size: 1.2em;
+    color: #2a6fc9;
+    margin-top: 15px;
+  }
+</style>
 
 <script>
   let totalScore = 0;
@@ -406,15 +631,19 @@
 
     // Type 1: base1 + base2 → check product and sum
     if (base1 !== null && base2 !== null) {
+      const correctProduct = base1 * base2;
+      const correctSum = base1 + base2;
+      
       if (productInput) {
         const userProduct = parseFloat(productInput.value);
-        const productCorrect = userProduct === base1 * base2;
+        const productCorrect = userProduct === correctProduct;
         productInput.parentElement.className = 'circle ' + (productCorrect ? 'correct' : 'incorrect');
         if (!productCorrect) isCorrect = false;
       }
+      
       if (sumInput) {
         const userSum = parseFloat(sumInput.value);
-        const sumCorrect = userSum === base1 + base2;
+        const sumCorrect = userSum === correctSum;
         sumInput.parentElement.className = 'circle ' + (sumCorrect ? 'correct' : 'incorrect');
         if (!sumCorrect) isCorrect = false;
       }
@@ -422,16 +651,19 @@
 
     // Type 2: base1 + product → check base2 and sum
     else if (base1 !== null && product !== null) {
+      const correctBase2 = product / base1;
+      const correctSum = base1 + correctBase2;
+      
       if (base2Input) {
         const userBase2 = parseFloat(base2Input.value);
-        const base2Correct = userBase2 === product / base1;
+        const base2Correct = userBase2 === correctBase2;
         base2Input.parentElement.className = 'circle ' + (base2Correct ? 'correct' : 'incorrect');
         if (!base2Correct) isCorrect = false;
       }
-      if (sumInput && base2Input) {
+      
+      if (sumInput) {
         const userSum = parseFloat(sumInput.value);
-        const userBase2 = parseFloat(base2Input.value);
-        const sumCorrect = userSum === base1 + userBase2;
+        const sumCorrect = userSum === correctSum;
         sumInput.parentElement.className = 'circle ' + (sumCorrect ? 'correct' : 'incorrect');
         if (!sumCorrect) isCorrect = false;
       }
@@ -439,33 +671,32 @@
 
     // Type 3: base2 + sum → check base1 and product
     else if (base2 !== null && sum !== null) {
+      const correctBase1 = sum - base2;
+      const correctProduct = correctBase1 * base2;
+      
       if (base1Input) {
         const userBase1 = parseFloat(base1Input.value);
-        const base1Correct = userBase1 === sum - base2;
+        const base1Correct = userBase1 === correctBase1;
         base1Input.parentElement.className = 'circle ' + (base1Correct ? 'correct' : 'incorrect');
         if (!base1Correct) isCorrect = false;
-        
-        if (productInput) {
-          const userProduct = parseFloat(productInput.value);
-          const productCorrect = userProduct === userBase1 * base2;
-          productInput.parentElement.className = 'circle ' + (productCorrect ? 'correct' : 'incorrect');
-          if (!productCorrect) isCorrect = false;
-        }
+      }
+      
+      if (productInput) {
+        const userProduct = parseFloat(productInput.value);
+        const productCorrect = userProduct === correctProduct;
+        productInput.parentElement.className = 'circle ' + (productCorrect ? 'correct' : 'incorrect');
+        if (!productCorrect) isCorrect = false;
       }
     }
-    
-    // Update score if all answers in this puzzle are correct
-    if (isCorrect && !puzzle.hasAttribute('data-scored')) {
+
+    // Update the puzzle's appearance based on correctness
+    if (isCorrect) {
+      puzzle.classList.add('solved');
       totalScore++;
-      puzzle.setAttribute('data-scored', 'true');
       updateScore();
+    } else {
+      puzzle.classList.remove('solved');
     }
-    
-    // Mark puzzle as attempted regardless of correctness
-    puzzle.setAttribute('data-attempted', 'true');
-    
-    // Check if all puzzles have been attempted
-    checkAllAttempted();
   }
   
   function checkAllAttempted() {
@@ -482,26 +713,40 @@
   }
   
   function showResults() {
-    // Feedback messages based on score
-    const feedbackMessages = [
-      { min: 0, max: 4, message: "Keep practicing! You'll get better with more practice." },
-      { min: 5, max: 8, message: "Good job! You're getting the hang of it." },
-      { min: 9, max: 11, message: "Excellent work! You have a strong understanding of number relationships." },
-      { min: 12, max: 12, message: "Perfect score! You're a number puzzle master!" }
-    ];
+    let feedback = '';
     
-    // Find appropriate feedback
-    let feedback = "";
-    for (const fb of feedbackMessages) {
-      if (totalScore >= fb.min && totalScore <= fb.max) {
-        feedback = fb.message;
-        break;
-      }
+    if (totalScore <= 3) {
+      feedback = "Keep practicing! Number puzzles help improve your math skills and logical thinking.";
+    } else if (totalScore <= 6) {
+      feedback = "Good effort! You're developing your math logic skills. Keep going!";
+    } else if (totalScore <= 9) {
+      feedback = "Great job! You have strong math skills and logical thinking abilities.";
+    } else {
+      feedback = "Amazing work! You're a number puzzle master with excellent math logic skills!";
     }
     
     document.getElementById('result-feedback').textContent = feedback;
     document.getElementById('results').style.display = 'block';
     document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+  }
+  
+  // Add social sharing functions
+  function shareOnFacebook() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(`I scored ${totalScore} out of 12 on the Interactive Number Puzzles! Can you beat my score?`);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
+  }
+  
+  function shareOnTwitter() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(`I scored ${totalScore} out of 12 on the Interactive Number Puzzles! Can you beat my score? #MathPuzzles #BrainTeasers`);
+    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+  }
+  
+  function shareByEmail() {
+    const subject = encodeURIComponent('Check out this Number Puzzle game!');
+    const body = encodeURIComponent(`I scored ${totalScore} out of 12 on the Interactive Number Puzzles! Try it yourself: ${window.location.href}`);
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
   }
 </script>
 </body>
