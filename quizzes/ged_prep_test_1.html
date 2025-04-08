@@ -2,7 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Advanced GED Math Questions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced GED Math Practice Test | Free GED Math Quiz</title>
+  <meta name="description" content="Free GED Math practice test with 10 advanced questions covering algebra, geometry, and data analysis. Perfect for GED test prep with instant scoring and explanations.">
+  <meta name="keywords" content="GED math practice test, GED math quiz, GED test prep, free GED practice, GED math questions, GED math problems, GED algebra, GED geometry">
+  
+  <!-- Open Graph tags for social sharing -->
+  <meta property="og:title" content="Advanced GED Math Practice Test | Free GED Math Quiz">
+  <meta property="og:description" content="Test your GED math skills with this free practice quiz covering algebra, geometry, and data analysis. Get instant feedback and explanations.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://faruk-hasan.com/quizzes/ged_prep_test_1.html">
+  
+  <!-- Canonical URL to prevent duplicate content issues -->
+  <link rel="canonical" href="https://faruk-hasan.com/quizzes/ged_prep_test_1.html">
+  
+  <!-- Add structured data for rich results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Quiz",
+    "name": "Advanced GED Math Practice Test",
+    "description": "Free GED Math practice test with 10 advanced questions covering algebra, geometry, and data analysis. Perfect for GED test prep with instant scoring and explanations.",
+    "educationalAlignment": {
+      "@type": "AlignmentObject",
+      "alignmentType": "educationalSubject",
+      "targetName": "Mathematics"
+    },
+    "educationalUse": "Practice Quiz",
+    "audience": {
+      "@type": "EducationalAudience",
+      "educationalRole": "student"
+    },
+    "provider": {
+      "@type": "Person",
+      "name": "Faruk Hasan",
+      "url": "https://faruk-hasan.com"
+    },
+    "about": [
+      "GED Math",
+      "Algebra",
+      "Geometry",
+      "Data Analysis",
+      "Test Preparation"
+    ]
+  }
+  </script>
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Add MathJax for LaTeX rendering -->
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -159,13 +204,104 @@
       color: var(--primary-dark);
       margin-top: 15px;
     }
+    
+    /* Add progress bar styles */
+    .progress-wrapper {
+      position: sticky;
+      top: 0;
+      background-color: white;
+      padding-top: 15px;
+      padding-bottom: 5px;
+      z-index: 100;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 15px;
+    }
+    
+    .progress-container {
+      width: 100%;
+      background-color: #f0f0f0;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      height: 10px;
+      overflow: hidden;
+    }
+    
+    #progress-fill {
+      height: 100%;
+      background-color: var(--primary-color);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    
+    #progress-count {
+      text-align: right;
+      font-size: 0.9em;
+      margin-bottom: 5px;
+      color: var(--primary-dark);
+    }
+    
+    /* Add styles for answer review */
+    .answer-key {
+      margin-top: 30px;
+      text-align: left;
+    }
+    
+    .answer-item {
+      background: #f9f9f9;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border-left: 3px solid var(--primary-color);
+    }
+    
+    .correct {
+      color: var(--success-color);
+      font-weight: bold;
+    }
+    
+    .incorrect {
+      color: var(--error-color);
+      font-weight: bold;
+    }
+    
+    /* Add styles for the intro section */
+    .intro-section {
+      margin-bottom: 25px;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      border-left: 4px solid var(--primary-color);
+      line-height: 1.6;
+    }
+    
+    .intro-section p {
+      margin-bottom: 10px;
+    }
+    
+    .intro-section p:last-child {
+      margin-bottom: 0;
+    }
   </style>
 </head>
 <body>
 
-  <h1>Advanced GED Math Practice</h1>
-
+  <h1>Advanced GED Math Practice Test</h1>
+  
   <div class="quiz-container">
+    <!-- Add an introduction paragraph for SEO -->
+    <div class="intro-section">
+      <p>This free GED Math practice test contains 10 advanced questions similar to those you'll encounter on the actual GED exam. The quiz covers key topics including algebra, geometry, data analysis, and word problems. Complete the test to receive instant feedback and explanations for each question.</p>
+      <p>Perfect for GED test preparation and assessing your readiness for the math section of the GED exam.</p>
+    </div>
+    
+    <!-- Wrap progress elements in a sticky container -->
+    <div class="progress-wrapper">
+      <div class="progress-container">
+        <div id="progress-fill"></div>
+      </div>
+      <div id="progress-count">0/10 answered</div>
+    </div>
+    
     <form id="quiz-form">
       <div class="question math">
         <div class="question-header">1. What is the sum of the roots of the equation \( 3x^2 - 7x + 2 = 0 \)?</div>
@@ -283,9 +419,40 @@
       <div class="score-label">out of 10</div>
     </div>
     <div id="result-feedback" class="feedback"></div>
+    
+    <!-- Add answer key section -->
+    <div class="answer-key">
+      <h3>Answer Key</h3>
+      <div id="answers"></div>
+    </div>
   </div>
 
   <script>
+    // Track answered questions
+    let answeredQuestions = 0;
+    const totalQuestions = 10;
+    
+    // Update progress when an option is selected
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+    radioButtons.forEach(radio => {
+      radio.addEventListener('change', updateProgress);
+    });
+    
+    function updateProgress() {
+      // Count answered questions
+      answeredQuestions = 0;
+      for (let i = 1; i <= totalQuestions; i++) {
+        if (document.querySelector(`input[name="q${i}"]:checked`)) {
+          answeredQuestions++;
+        }
+      }
+      
+      // Update progress text and bar
+      document.getElementById('progress-count').textContent = `${answeredQuestions}/${totalQuestions} answered`;
+      const progressPercentage = (answeredQuestions / totalQuestions) * 100;
+      document.getElementById('progress-fill').style.width = `${progressPercentage}%`;
+    }
+    
     document.getElementById('submit-btn').addEventListener('click', function() {
       // Define correct answers
       const correctAnswers = {
@@ -302,15 +469,43 @@
       };
       
       let score = 0;
+      let answersHTML = '';
       
-      // Check each question
+      // Check each question and build answer key HTML
       for (let i = 1; i <= 10; i++) {
         const questionName = 'q' + i;
         const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+        const userAnswer = selectedOption ? selectedOption.value : null;
+        const isCorrect = userAnswer === correctAnswers[questionName];
         
-        if (selectedOption && selectedOption.value === correctAnswers[questionName]) {
+        if (isCorrect) {
           score++;
         }
+        
+        // Get question text
+        const questionText = document.querySelector(`.question:nth-child(${i}) .question-header`).textContent;
+        
+        // Get selected answer text or "No answer"
+        let userAnswerText = "No answer";
+        if (selectedOption) {
+          const optionLabel = selectedOption.parentElement.textContent.trim();
+          userAnswerText = optionLabel;
+        }
+        
+        // Get correct answer text
+        const correctAnswerElement = document.querySelector(`.question:nth-child(${i}) .option input[value="${correctAnswers[questionName]}"]`);
+        const correctAnswerText = correctAnswerElement ? correctAnswerElement.parentElement.textContent.trim() : "";
+        
+        // Add to answer key HTML
+        answersHTML += `
+          <div class="answer-item">
+            <p><strong>Question ${i}:</strong> ${questionText}</p>
+            <p class="${isCorrect ? 'correct' : 'incorrect'}">
+              Your answer: ${userAnswerText} ${isCorrect ? '✓' : '✗'}
+            </p>
+            ${!isCorrect ? `<p><strong>Correct answer:</strong> ${correctAnswerText}</p>` : ''}
+          </div>
+        `;
       }
       
       // Display score
@@ -329,9 +524,68 @@
       }
       
       document.getElementById('result-feedback').textContent = feedback;
+      document.getElementById('answers').innerHTML = answersHTML;
       document.getElementById('results').style.display = 'block';
       document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+      
+      // Tell MathJax to render the newly added content
+      if (typeof MathJax !== 'undefined') {
+        MathJax.typesetPromise([document.getElementById('answers')]).catch(function (err) {
+          console.log('MathJax typesetting failed: ' + err.message);
+        });
+      }
     });
   </script>
+
+  <!-- Add a footer with related resources -->
+  <div class="related-resources">
+    <h3>More GED Math Practice Resources</h3>
+    <ul>
+      <li><a href="ged-arithmetic.html">Basic Arithmetic Practice Quiz</a></li>
+      <li><a href="ged-algebra.html">Algebra Fundamentals Quiz</a></li>
+      <li><a href="ged-geometry.html">Geometry & Measurement Practice</a></li>
+      <li><a href="ged-data.html">Data Analysis & Statistics Quiz</a></li>
+      <li><a href="ged-word-problems.html">Word Problems Practice</a></li>
+      <li><a href="../resources.html">All GED Preparation Resources</a></li>
+    </ul>
+  </div>
+
+  <style>
+    .related-resources {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow);
+    }
+    
+    .related-resources h3 {
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+    
+    .related-resources ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    
+    .related-resources li {
+      margin-bottom: 10px;
+    }
+    
+    .related-resources a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .related-resources a:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+  </style>
 </body>
 </html>
