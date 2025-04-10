@@ -54,11 +54,10 @@ header {
 }
 
 .headline h1 {
-  color: var(--primary-color);
-  font-size: 1.6rem;
-  font-weight: 700;
-  margin-bottom: 0.2rem;
-  letter-spacing: -0.5px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 3.5rem;
+  color: #0077b5;
+  margin-bottom: 0.5rem;
 }
 
 .headline p {
