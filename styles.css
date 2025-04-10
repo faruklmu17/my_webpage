@@ -55,9 +55,15 @@ header {
 
 .headline h1 {
   font-family: 'Dancing Script', cursive;
-  font-size: 4.5rem; /* Increased from 3.5rem to match the image */
+  font-size: 4.5rem; /* Increased size to match the image */
   color: #0077b5;
   margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .headline h1 {
+    font-size: 3.5rem; /* Slightly smaller on mobile devices */
+  }
 }
 
 .headline p {
