@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automation Practice - Login Form for QA Testing</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Practice login form for automation testing. Perfect for QA engineers to practice Selenium, Playwright, Cypress and other automation tools." />
+  <meta name="keywords" content="automation testing, QA practice, Selenium practice, Playwright testing, Cypress automation, login form testing, QA engineer tools" />
+  <meta name="author" content="Faruk Hasan" />
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="Automation Practice - Login Form for QA Testing" />
+  <meta property="og:description" content="Practice login form for automation testing. Perfect for QA engineers to practice Selenium, Playwright, Cypress and other automation tools." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://faruk-hasan.com/automation/automation_practice.html" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --primary-hover: #3a56d4;
+      --secondary-color: #f8f9fa;
+      --text-color: #333;
+      --border-color: #e0e0e0;
+      --error-color: #e63946;
+      --success-color: #2a9d8f;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: var(--text-color);
+    }
+
+    .container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      max-width: 450px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(90deg, var(--primary-color), #4cc9f0);
+    }
+
+    .container h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--primary-color);
+      font-weight: 600;
+      font-size: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-size: 15px;
+      color: #555;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      background-color: #f9f9f9;
+    }
+
+    input[type="text"]:focus, input[type="password"]:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+      outline: none;
+      background-color: #fff;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 12px;
+      margin-bottom: 24px;
+    }
+
+    .actions a {
+      font-size: 14px;
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .actions a:hover {
+      color: var(--primary-hover);
+      text-decoration: underline;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 16px;
+      font-weight: 500;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      box-shadow: 0 4px 6px rgba(67, 97, 238, 0.15);
+    }
+
+    button:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+
+    .toggle {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 15px;
+      color: #555;
+    }
+
+    .toggle a {
+      color: var(--primary-color);
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .toggle a:hover {
+      color: var(--primary-hover);
+      text-decoration: underline;
+    }
+    
+    .form-info {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 13px;
+      color: #777;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+    
+    /* Animation for form switching */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    #confirmPasswordGroup {
+      animation: fadeIn 0.4s ease-out;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Automation Practice Login</h2>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required />
+      </div>
+
+      <div class="form-group" id="confirmPasswordGroup" style="display:none;">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" />
+      </div>
+
+      <div class="actions">
+        <a href="#" id="forgotPassword">Forgot Password?</a>
+      </div>
+
+      <button type="submit" id="submitBtn">Login</button>
+
+      <div class="toggle">
+        Don't have an account? <a onclick="toggleSignup()">Sign up</a>
+      </div>
+      
+      <div class="form-info">
+        This is a practice page for automation testing.<br>
+        Use it to test your Selenium, Playwright, or Cypress skills.
+      </div>
+    </form>
+  </div>
+
+  <script>
+    let isSignup = false;
+  
+    // Load registered users from localStorage
+    let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || {};
+  
+    function toggleSignup() {
+      const confirmPasswordGroup = document.getElementById('confirmPasswordGroup');
+      const button = document.getElementById('submitBtn');
+      const toggleText = document.querySelector('.toggle');
+
+      isSignup = !isSignup;
+      confirmPasswordGroup.style.display = isSignup ? 'block' : 'none';
+      button.textContent = isSignup ? 'Sign Up' : 'Login';
+      toggleText.innerHTML = isSignup
+        ? 'Already have an account? <a onclick="toggleSignup()">Login</a>'
+        : 'Don\'t have an account? <a onclick="toggleSignup()">Sign up</a>';
+    }
+    
+    // Handle forgot password
+    document.getElementById('forgotPassword').addEventListener('click', function(e) {
+      e.preventDefault();
+      alert('Password reset functionality would be implemented here in a real application.');
+    });
+  
+    // Handle form submit
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      // Basic validation
+      if (!username || !password || (isSignup && !confirmPassword)) {
+        alert('Please fill out all required fields.');
+        return;
+      }
+
+      if (isSignup) {
+        // Handle signup
+        if (password !== confirmPassword) {
+          alert('Passwords do not match.');
+          return;
+        }
+        
+        if (registeredUsers[username]) {
+          alert('Username already exists. Please choose another one.');
+          return;
+        }
+        
+        // Register new user
+        registeredUsers[username] = password;
+        localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+        alert('Signup successful! Redirecting to home page...');
+        window.location.href = 'home_page.html';
+      } else {
+        // Handle login
+        if (!registeredUsers[username] || registeredUsers[username] !== password) {
+          alert('Invalid username or password.');
+          return;
+        }
+        
+        alert('Login successful! Redirecting to home page...');
+        window.location.href = 'home_page.html';
+      }
+    });
+  </script>
+</body>
+</html>
