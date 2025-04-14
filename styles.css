@@ -28,7 +28,7 @@ body {
   padding: 2rem 1rem;
 }
 
-/* Enhanced Header Styling */
+/* Enhanced Header Styling with larger round profile image */
 header {
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
@@ -37,7 +37,7 @@ header {
   position: sticky;
   top: 0;
   z-index: 100;
-  padding: 0.8rem 2rem;
+  padding: 0.5rem 0;  /* Small padding to give some space */
   transition: all 0.3s ease;
 }
 
@@ -47,22 +47,106 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding-right: 2rem;
+}
+
+.profile-image {
+  width: 90px;  /* Large but not too large */
+  height: 90px;  /* Keep it square before border-radius */
+  border-radius: 50%;  /* Make it round */
+  overflow: hidden;
+  border: 3px solid var(--primary-color);  /* Add border all around */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+  margin: 0.5rem;
+}
+
+.profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.profile-image:hover img {
+  transform: scale(1.05);
 }
 
 .headline {
   text-align: left;
+  padding: 0.5rem 0;
 }
 
 .headline h1 {
   font-family: 'Dancing Script', cursive;
-  font-size: 4.5rem; /* Increased size to match the image */
+  font-size: 3.2rem;
   color: #0077b5;
   margin-bottom: 0.5rem;
 }
 
-@media (max-width: 768px) {
+.nav-social-container {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem 2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .header-content {
+    flex-direction: column;
+    padding: 0.5rem;
+  }
+  
+  .header-left {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding-right: 0;
+    justify-content: center;
+  }
+  
+  .profile-image {
+    width: 100px;
+    height: 100px;
+    margin: 0.5rem 1rem 0.5rem 0;
+  }
+  
+  .headline {
+    text-align: left;
+  }
+  
   .headline h1 {
-    font-size: 3.5rem; /* Slightly smaller on mobile devices */
+    font-size: 2.8rem;
+  }
+  
+  .nav-social-container {
+    width: 100%;
+    justify-content: center;
+    padding: 0.8rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .header-left {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile-image {
+    width: 120px;
+    height: 120px;
+    margin: 0.5rem auto;
+  }
+  
+  .headline {
+    text-align: center;
+    padding: 0.5rem;
   }
 }
 
@@ -357,28 +441,12 @@ section:hover {
 
 .about-content {
   display: flex;
-  align-items: center;
-  gap: 1.5rem;
+  flex-direction: column;
   margin-top: 1rem;
 }
 
-.about-image {
-  flex-shrink: 0;
-}
-
-.about-image img {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.about-image img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+.about-text {
+  width: 100%;
 }
 
 .about-text p {
@@ -1291,4 +1359,432 @@ section:hover {
   margin-bottom: 1rem;
   line-height: 1.7;
   color: white; /* Ensure all text is white for better contrast against blue background */
+}
+
+/* Three-column About Section */
+.about-container.three-column {
+  grid-template-columns: 1fr 1fr 1fr; /* Create three equal columns */
+  gap: 1.5rem;
+}
+
+/* Update vertical divider for three columns */
+.about-container.three-column::after {
+  content: none; /* Remove the original divider */
+}
+
+.about-container.three-column .about-bio::after,
+.about-container.three-column .tech-stack::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  right: -0.75rem;
+  width: 1px;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Career Highlights in About Section */
+.career-highlights {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.career-highlights .section-title {
+  margin-bottom: 1.5rem;
+  color: white;
+}
+
+.career-card.compact {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.career-card.compact:hover {
+  transform: translateY(-3px);
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.career-card.compact .career-header h3 {
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+  color: white;
+}
+
+.career-card.compact .company-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.career-card.compact .company-name {
+  font-weight: 600;
+  color: #ffffff; /* Brighter white for better visibility */
+  background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+  letter-spacing: 0.5px;
+  position: relative;
+  padding-left: 0.5rem;
+}
+
+.career-card.compact .company-name::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 80%;
+  background: var(--primary-color);
+  border-radius: 2px;
+}
+
+.career-card.compact .achievements {
+  padding-left: 1rem;
+  margin-top: 0.5rem;
+}
+
+.career-card.compact .achievements li {
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  position: relative;
+  padding-left: 1rem;
+  line-height: 1.4;
+}
+
+.career-card.compact .achievements li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+}
+
+.view-more-link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  color: var(--primary-color, #0077b5);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--primary-color, #0077b5);
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.view-more-link:hover {
+  background-color: var(--primary-color, #0077b5);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.view-more-link i {
+  margin-left: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.view-more-link:hover i {
+  transform: translateX(4px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .about-container.three-column {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .career-highlights {
+    grid-column: span 2;
+    margin-top: 2rem;
+  }
+  
+  .about-container.three-column .about-bio::after {
+    content: '';
+  }
+  
+  .about-container.three-column .tech-stack::after {
+    content: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-container.three-column {
+    grid-template-columns: 1fr;
+  }
+  
+  .career-highlights {
+    grid-column: span 1;
+  }
+  
+  .about-container.three-column .about-bio::after {
+    content: none;
+  }
+}
+
+/* Three-column About Section with modern design */
+#about {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  color: white;
+  padding: 3rem 2rem;
+  position: relative;
+  border-radius: 12px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+}
+
+.about-container.three-column {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Remove vertical dividers and use subtle shadows instead */
+.about-container.three-column .about-bio::after,
+.about-container.three-column .tech-stack::after {
+  content: none;
+}
+
+/* Style each column as a card */
+.about-bio, .tech-stack, .career-highlights {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-bio:hover, .tech-stack:hover, .career-highlights:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Section titles with modern underline */
+.section-title {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 0.5rem;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
+}
+
+/* Improve text readability */
+.about-text p {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 400;
+  letter-spacing: 0.2px;
+}
+
+.about-intro {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+  font-weight: 500;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.name-highlight {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  position: relative;
+  display: inline-block;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Tech Stack styling */
+.badge-category {
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.badge-category h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+  color: white;
+  font-weight: 600;
+}
+
+.tech-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tech-badge {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.tech-badge:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Career highlights styling */
+.career-card.compact {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.career-card.compact:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.career-header h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+  color: white;
+  font-weight: 600;
+}
+
+.company-details {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.achievements {
+  list-style: none;
+  padding-left: 1rem;
+}
+
+.achievements li {
+  position: relative;
+  padding-left: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.achievements li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* View more link styling */
+.view-more-link {
+  display: inline-block;
+  margin-top: auto;
+  padding: 0.6rem 1.2rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  align-self: flex-start;
+}
+
+.view-more-link:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.view-more-link i {
+  margin-left: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.view-more-link:hover i {
+  transform: translateX(4px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .about-container.three-column {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .career-highlights {
+    grid-column: span 2;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-container.three-column {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .career-highlights {
+    grid-column: span 1;
+  }
+  
+  #about {
+    padding: 2rem 1rem;
+  }
+  
+  .section-title {
+    text-align: center;
+    font-size: 1.6rem;
+  }
+  
+  .section-title::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
