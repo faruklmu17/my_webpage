@@ -33,15 +33,19 @@
 <body>
   <header>
     <div class="header-content">
-      <div class="headline">
-        <h1>Faruk Hasan</h1>
-        <p><span class="highlight">Software QA Engineer | Automation & AI-Driven Testing Specialist</span></p>
+      <div class="header-left">
+        <div class="profile-image">
+          <img src="me.jpg" alt="Faruk Hasan">
+        </div>
+        <div class="headline">
+          <h1>Faruk Hasan</h1>
+          <p><span class="highlight">Software QA Engineer | Automation & AI-Driven Testing Specialist</span></p>
+        </div>
       </div>
       <div class="nav-social-container">
         <nav>
           <ul>
             <li><a href="#about">About Me</a></li>
-            <li><a href="#career">Career</a></li>
             <li><a href="#courses">Courses</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="resources.html">Resources</a></li>
@@ -57,14 +61,11 @@
   </header>
 
   <section id="about">
-    <div class="about-container">
+    <div class="about-container three-column">
       <!-- Bio Column -->
       <div class="about-bio">
         <h2 class="section-title">About Me</h2>
         <div class="about-content">
-          <div class="about-image">
-            <img src="me.jpg" alt="Faruk Hasan">
-          </div>
           <div class="about-text">
             <p class="about-intro">Hi, I'm <span class="name-highlight">Faruk Hasan</span> — a QA Engineer, educator, and AI enthusiast with over 5 years of experience in automation testing, CI/CD, and cloud infrastructure.</p>
             
@@ -104,7 +105,7 @@
           </div>
         </div>
         
-        <!-- Database Skills - New Category -->
+        <!-- Database Skills -->
         <div class="badge-category">
           <h4>Databases</h4>
           <div class="tech-badges">
@@ -128,10 +129,50 @@
           </div>
         </div>
       </div>
+      
+      <!-- Career Highlights Column -->
+      <div class="career-highlights">
+        <h2 class="section-title">Career Highlights</h2>
+        
+        <div class="career-card compact">
+          <div class="career-header">
+            <h3>Senior Software QA Engineer</h3>
+            <div class="company-details">
+              <span class="company-name">Digital.ai</span>
+              <span class="duration">2022 – Present</span>
+            </div>
+          </div>
+          <ul class="achievements">
+            <li>Design and implement Playwright test scripts, increasing test coverage and reducing manual efforts.</li>
+            <li>Streamline regression testing, reducing cycle time by 50%.</li>
+            <li>Integrate GitHub Actions for automated test execution, improving defect identification speed.</li>
+            <li>Lead cross-functional testing initiatives for enterprise-level applications.</li>
+          </ul>
+        </div>
+
+        <div class="career-card compact">
+          <div class="career-header">
+            <h3>Software Test Engineer</h3>
+            <div class="company-details">
+              <span class="company-name">M.M.Hayes Co</span>
+              <span class="duration">2020 – 2022</span>
+            </div>
+          </div>
+          <ul class="achievements">
+            <li>Developed Selenium-based frameworks, boosting test efficiency by 30%.</li>
+            <li>Trained junior QA engineers, improving team automation proficiency.</li>
+            <li>Reduced regression cycle time by implementing cross-browser testing strategies.</li>
+            <li>Collaborated with developers to implement CI/CD pipelines for continuous testing.</li>
+          </ul>
+        </div>
+        
+        <a href="javascript:void(0)" onclick="openResume()" class="view-more-link">View Full Career <i class="fas fa-arrow-right"></i></a>
+      </div>
     </div>
   </section>
 
-  <section id="career">
+  <!-- Remove the entire Career section -->
+  <!-- <section id="career">
     <div class="career-wrapper">
       <h2>Career</h2>
       
@@ -167,7 +208,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <section id="courses">
     <div class="courses-wrapper">
@@ -419,3 +460,36 @@
   </script>
 </body>
 </html>
+
+<script>
+  function openResume() {
+    // Try multiple possible locations
+    const possiblePaths = [
+      'resume.pdf',
+      'Resume.pdf',
+      '/resume.pdf',
+      '/Resume.pdf',
+      'assets/resume.pdf',
+      'docs/resume.pdf',
+      'files/resume.pdf'
+    ];
+    
+    // Try to fetch each path to see if the file exists
+    Promise.all(possiblePaths.map(path => 
+      fetch(path, { method: 'HEAD' })
+        .then(response => ({ path, exists: response.ok }))
+        .catch(() => ({ path, exists: false }))
+    )).then(results => {
+      // Find the first path that exists
+      const foundPath = results.find(result => result.exists);
+      
+      if (foundPath) {
+        // Open the PDF in a new tab
+        window.open(foundPath.path, '_blank');
+      } else {
+        // Alert the user if no PDF is found
+        alert('Resume PDF not found. Please upload your resume file to the website root directory.');
+      }
+    });
+  }
+</script>
