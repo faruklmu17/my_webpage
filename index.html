@@ -4,7 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Faruk Hasan - Portfolio</title>
+  
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="Faruk Hasan - QA Engineer & Automation Specialist">
+  <meta property="og:description" content="Portfolio of Faruk Hasan, a QA Engineer specializing in automation testing, CI/CD, and AI-driven testing strategies.">
+  <meta property="og:image" content="https://faruk-hasan.com/og-image.jpg">
+  <meta property="og:url" content="https://faruk-hasan.com">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Faruk Hasan - QA Engineer & Automation Specialist">
+  <meta name="twitter:description" content="Portfolio of Faruk Hasan, a QA Engineer specializing in automation testing, CI/CD, and AI-driven testing strategies.">
+  <meta name="twitter:image" content="https://faruk-hasan.com/og-image.jpg">
+  
   <link rel="stylesheet" href="styles.css">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
   <!-- Add Font Awesome for social media icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Add Google Fonts for signature style font -->
@@ -251,6 +269,59 @@
     </div>
   </section>
 
+  <section id="projects">
+    <div class="projects-wrapper">
+      <h2 class="section-title">Projects & GitHub Activity</h2>
+      
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-header">
+            <h3>Playwright Browser Extension</h3>
+            <div class="project-tags">
+              <span class="project-tag">TypeScript</span>
+              <span class="project-tag">Chrome Extension</span>
+              <span class="project-tag">Testing</span>
+            </div>
+          </div>
+          <p class="project-description">A Chrome extension that displays Playwright test results in real-time, providing instant feedback on test execution status.</p>
+          <div class="project-links">
+            <a href="https://github.com/faruklmu17/playwright-extension" class="project-link" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
+            <a href="#" class="project-link demo-link" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-header">
+            <h3>AI-Powered Test Generator</h3>
+            <div class="project-tags">
+              <span class="project-tag">Python</span>
+              <span class="project-tag">AI/ML</span>
+              <span class="project-tag">Automation</span>
+            </div>
+          </div>
+          <p class="project-description">An intelligent test generator that uses machine learning to analyze application behavior and create optimized test cases automatically.</p>
+          <div class="project-links">
+            <a href="https://github.com/faruklmu17/ai-test-generator" class="project-link" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- GitHub Activity Widget -->
+      <div class="github-activity">
+        <h3>My GitHub Contributions</h3>
+        <div class="github-calendar">
+          <!-- GitHub contribution calendar widget -->
+          <img src="https://ghchart.rshah.org/faruklmu17" alt="Faruk Hasan's GitHub Contribution Chart" class="github-chart">
+        </div>
+        <div class="github-stats">
+          <script src="https://gist-it.appspot.com/github/faruklmu17/github-stats/blob/main/generated/overview.svg"></script>
+          <script src="https://gist-it.appspot.com/github/faruklmu17/github-stats/blob/main/generated/languages.svg"></script>
+        </div>
+        <a href="https://github.com/faruklmu17" class="view-more-link" target="_blank">View My GitHub Profile <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
 <!--   
   <section id="projects" class="container">
     <h2>Projects</h2>
@@ -288,7 +359,63 @@
   </section> -->
 
   <footer>
-    <p>&copy; 2025 Faruk Hasan. All rights reserved.</p>
+    <div class="footer-content">
+      <div class="footer-info">
+        <div class="footer-logo">Faruk Hasan</div>
+        <p>QA Engineer | Automation & AI-Driven Testing Specialist</p>
+      </div>
+      
+      <div class="footer-social">
+        <h4>Connect With Me</h4>
+        <div class="social-icons-footer">
+          <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube" target="_blank"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://github.com/faruklmu17" class="social-icon github" aria-label="GitHub" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-share">
+        <h4>Share This Page</h4>
+        <div class="share-buttons">
+          <a href="javascript:void(0)" onclick="shareOnFacebook()" class="share-btn facebook" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="javascript:void(0)" onclick="shareOnTwitter()" class="share-btn twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="javascript:void(0)" onclick="shareOnLinkedIn()" class="share-btn linkedin" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="javascript:void(0)" onclick="shareByEmail()" class="share-btn email" aria-label="Share by Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Faruk Hasan. All rights reserved.</p>
+    </div>
   </footer>
+  
+  <script>
+    // Social sharing functions
+    function shareOnFacebook() {
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent("Check out Faruk Hasan's portfolio - QA Engineer & Automation Testing Specialist");
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
+    }
+    
+    function shareOnTwitter() {
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent("Check out Faruk Hasan's portfolio - QA Engineer & Automation Testing Specialist #QA #Testing #Automation");
+      window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+    }
+    
+    function shareOnLinkedIn() {
+      const url = encodeURIComponent(window.location.href);
+      const title = encodeURIComponent("Faruk Hasan - QA Engineer & Automation Specialist");
+      const summary = encodeURIComponent("Portfolio of Faruk Hasan, a QA Engineer specializing in automation testing, CI/CD, and AI-driven testing strategies.");
+      window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}&summary=${summary}`, '_blank');
+    }
+    
+    function shareByEmail() {
+      const subject = encodeURIComponent("Check out Faruk Hasan's Portfolio");
+      const body = encodeURIComponent(`I thought you might be interested in Faruk Hasan's portfolio: ${window.location.href}`);
+      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    }
+  </script>
 </body>
 </html>

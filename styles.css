@@ -1292,3 +1292,358 @@ section:hover {
   line-height: 1.7;
   color: white; /* Ensure all text is white for better contrast against blue background */
 }
+
+/* Projects & GitHub Activity Section - Updated to match YouTube section */
+#projects {
+  width: 100%;
+  padding: 3rem 0;
+  box-sizing: border-box;
+  background-color: #fcfcfd;
+}
+
+.projects-wrapper {
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+#projects .section-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--secondary-color);
+  position: relative;
+  font-weight: 600;
+}
+
+#projects .section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background-color: var(--primary-color);
+}
+
+/* Projects Grid - Updated to match YouTube video grid */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 3rem;
+}
+
+.project-card {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+}
+
+.project-header {
+  padding: 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.project-header h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.project-tag {
+  background-color: #f0f0f5;
+  color: var(--primary-color);
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+}
+
+.project-description {
+  padding: 15px;
+  margin-bottom: 0;
+  color: #666;
+  font-size: 0.9rem;
+  flex-grow: 1;
+  line-height: 1.6;
+}
+
+.project-links {
+  display: flex;
+  gap: 10px;
+  padding: 0 15px 15px;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 15px;
+  background-color: #4a6fa5;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.project-link:hover {
+  background-color: #3a5985;
+}
+
+.project-link i {
+  margin-right: 0.5rem;
+}
+
+.demo-link {
+  background-color: #6c757d;
+}
+
+.demo-link:hover {
+  background-color: #5a6268;
+}
+
+/* Media queries to match YouTube section */
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* GitHub Activity Styling - Updated to match video cards */
+.github-activity {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 2rem;
+  margin-top: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.github-activity:hover {
+  transform: translateY(-5px);
+}
+
+.github-activity h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+  text-align: center;
+}
+
+.view-more-link {
+  display: inline-block;
+  background-color: #4a6fa5;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+  text-align: center;
+  display: block;
+}
+
+.view-more-link:hover {
+  background-color: #3a5985;
+}
+
+.github-calendar {
+  margin-bottom: 2rem;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.github-chart {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.github-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.github-stats iframe {
+  max-width: 100%;
+  border: none;
+  height: 150px;
+}
+
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .github-stats {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+/* Enhanced Footer with Social Sharing */
+footer {
+  background-color: #2c3e50;
+  color: white;
+  padding: 0;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 3rem 2rem;
+}
+
+.footer-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.footer-info p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.footer-social h4, .footer-share h4 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: white;
+  font-weight: 600;
+}
+
+.social-icons-footer {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-icons-footer .social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.social-icons-footer .social-icon:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+.social-icons-footer .linkedin:hover {
+  background-color: #0077b5;
+}
+
+.social-icons-footer .youtube:hover {
+  background-color: #ff0000;
+}
+
+.social-icons-footer .facebook:hover {
+  background-color: #1877f2;
+}
+
+.social-icons-footer .github:hover {
+  background-color: #333;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.share-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+.share-btn.facebook:hover {
+  background-color: #1877f2;
+}
+
+.share-btn.twitter:hover {
+  background-color: #1da1f2;
+}
+
+.share-btn.linkedin:hover {
+  background-color: #0077b5;
+}
+
+.share-btn.email:hover {
+  background-color: #ea4335;
+}
+
+.footer-bottom {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  text-align: center;
+}
+
+.footer-bottom p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .social-icons-footer, .share-buttons {
+    justify-content: center;
+  }
+}
