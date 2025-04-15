@@ -1361,7 +1361,6 @@ section:hover {
   color: white; /* Ensure all text is white for better contrast against blue background */
 }
 
-<<<<<<< HEAD
 /* Projects & GitHub Activity Section - Updated to match YouTube section */
 #projects {
   width: 100%;
@@ -1515,197 +1514,10 @@ section:hover {
   margin-bottom: 1.5rem;
   color: var(--primary-color);
   text-align: center;
-=======
-/* Three-column About Section */
-.about-container.three-column {
-  grid-template-columns: 1fr 1fr 1fr; /* Create three equal columns */
-  gap: 1.5rem;
-}
-
-/* Update vertical divider for three columns */
-.about-container.three-column::after {
-  content: none; /* Remove the original divider */
-}
-
-.about-container.three-column .about-bio::after,
-.about-container.three-column .tech-stack::after {
-  content: '';
-  position: absolute;
-  top: 10%;
-  bottom: 10%;
-  right: -0.75rem;
-  width: 1px;
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-/* Career Highlights in About Section */
-.career-highlights {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-.career-highlights .section-title {
-  margin-bottom: 1.5rem;
-  color: white;
-}
-
-.career-card.compact {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.career-card.compact:hover {
-  transform: translateY(-3px);
-  background-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.career-card.compact .career-header h3 {
-  font-size: 1rem;
-  margin-bottom: 0.3rem;
-  color: white;
-}
-
-.career-card.compact .company-details {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.85rem;
-  margin-bottom: 0.75rem;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.career-card.compact .company-name {
-  font-weight: 600;
-  color: #ffffff; /* Brighter white for better visibility */
-  background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 10px rgba(255,255,255,0.3);
-  letter-spacing: 0.5px;
-  position: relative;
-  padding-left: 0.5rem;
-}
-
-.career-card.compact .company-name::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 80%;
-  background: var(--primary-color);
-  border-radius: 2px;
-}
-
-.career-card.compact .achievements {
-  padding-left: 1rem;
-  margin-top: 0.5rem;
-}
-
-.career-card.compact .achievements li {
-  font-size: 0.85rem;
-  margin-bottom: 0.5rem;
-  color: rgba(255, 255, 255, 0.9);
-  position: relative;
-  padding-left: 1rem;
-  line-height: 1.4;
-}
-
-.career-card.compact .achievements li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.5rem;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: var(--primary-color);
->>>>>>> a7cdc62af79c5046a8e6c9950b25e9600d2cc53c
 }
 
 .view-more-link {
   display: inline-block;
-<<<<<<< HEAD
-  background-color: #4a6fa5;
-  color: white;
-  padding: 8px 15px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-  margin-top: 1rem;
-  text-align: center;
-  display: block;
-}
-
-.view-more-link:hover {
-  background-color: #3a5985;
-}
-
-.github-calendar {
-  margin-bottom: 2rem;
-  overflow: hidden;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-.github-chart {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.github-stats {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-}
-
-.github-stats iframe {
-  max-width: 100%;
-  border: none;
-  height: 150px;
-}
-
-@media (max-width: 768px) {
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .github-stats {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-}
-
-/* Enhanced Footer with Social Sharing */
-footer {
-  background-color: #2c3e50;
-  color: white;
-  padding: 0;
-}
-
-.footer-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  padding: 3rem 2rem;
-}
-
-.footer-info {
-=======
   margin-top: 1.5rem;
   color: var(--primary-color, #0077b5);
   font-weight: 600;
@@ -1802,28 +1614,8 @@ footer {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   height: 100%;
->>>>>>> a7cdc62af79c5046a8e6c9950b25e9600d2cc53c
-  display: flex;
-  flex-direction: column;
 }
 
-<<<<<<< HEAD
-.footer-logo {
-  font-family: 'Dancing Script', cursive;
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: white;
-}
-
-.footer-info p {
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.6;
-}
-
-.footer-social h4, .footer-share h4 {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-=======
 .about-bio:hover, .tech-stack:hover, .career-highlights:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
@@ -1889,12 +1681,140 @@ footer {
 .badge-category h4 {
   font-size: 1.1rem;
   margin-bottom: 0.8rem;
->>>>>>> a7cdc62af79c5046a8e6c9950b25e9600d2cc53c
   color: white;
   font-weight: 600;
 }
 
-<<<<<<< HEAD
+/* Career Highlights in About Section */
+.career-highlights {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.career-highlights .section-title {
+  margin-bottom: 1.5rem;
+  color: white;
+}
+
+.career-card.compact {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.career-card.compact:hover {
+  transform: translateY(-3px);
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.career-card.compact .career-header h3 {
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+  color: white;
+}
+
+.career-card.compact .company-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.career-card.compact .company-name {
+  font-weight: 600;
+  color: #ffffff; /* Brighter white for better visibility */
+  background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+  letter-spacing: 0.5px;
+  position: relative;
+  padding-left: 0.5rem;
+}
+
+.career-card.compact .company-name::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 80%;
+  background: var(--primary-color);
+  border-radius: 2px;
+}
+
+.career-card.compact .achievements {
+  padding-left: 1rem;
+  margin-top: 0.5rem;
+}
+
+.career-card.compact .achievements li {
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  position: relative;
+  padding-left: 1rem;
+  line-height: 1.4;
+}
+
+.career-card.compact .achievements li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+}
+
+/* Enhanced Footer with Social Sharing */
+footer {
+  background-color: #2c3e50;
+  color: white;
+  padding: 0;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 3rem 2rem;
+}
+
+.footer-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.footer-info p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.footer-social h4, .footer-share h4 {
+  color: white;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
 .social-icons-footer {
   display: flex;
   gap: 1rem;
@@ -1995,148 +1915,5 @@ footer {
   
   .social-icons-footer, .share-buttons {
     justify-content: center;
-=======
-.tech-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.tech-badge {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.tech-badge:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
-}
-
-/* Career highlights styling */
-.career-card.compact {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  transition: all 0.3s ease;
-}
-
-.career-card.compact:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-}
-
-.career-header h3 {
-  font-size: 1.1rem;
-  margin-bottom: 0.3rem;
-  color: white;
-  font-weight: 600;
-}
-
-.company-details {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.8rem;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.achievements {
-  list-style: none;
-  padding-left: 1rem;
-}
-
-.achievements li {
-  position: relative;
-  padding-left: 1rem;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.achievements li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.5rem;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.7);
-}
-
-/* View more link styling */
-.view-more-link {
-  display: inline-block;
-  margin-top: auto;
-  padding: 0.6rem 1.2rem;
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-  border-radius: 25px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  border: none;
-  text-align: center;
-  cursor: pointer;
-  font-size: 0.9rem;
-  letter-spacing: 0.5px;
-  align-self: flex-start;
-}
-
-.view-more-link:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-.view-more-link i {
-  margin-left: 0.5rem;
-  transition: transform 0.3s ease;
-}
-
-.view-more-link:hover i {
-  transform: translateX(4px);
-}
-
-/* Responsive adjustments */
-@media (max-width: 1200px) {
-  .about-container.three-column {
-    grid-template-columns: 1fr 1fr;
-  }
-  
-  .career-highlights {
-    grid-column: span 2;
-    margin-top: 1rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .about-container.three-column {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
-  .career-highlights {
-    grid-column: span 1;
-  }
-  
-  #about {
-    padding: 2rem 1rem;
-  }
-  
-  .section-title {
-    text-align: center;
-    font-size: 1.6rem;
-  }
-  
-  .section-title::after {
-    left: 50%;
-    transform: translateX(-50%);
->>>>>>> a7cdc62af79c5046a8e6c9950b25e9600d2cc53c
   }
 }
