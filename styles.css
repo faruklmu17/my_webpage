@@ -1361,7 +1361,7 @@ section:hover {
   color: white; /* Ensure all text is white for better contrast against blue background */
 }
 
-/* Projects & GitHub Activity Section - Updated to match YouTube section */
+/* Projects & GitHub Activity Section - Fixed to match YouTube section */
 #projects {
   width: 100%;
   padding: 3rem 0;
@@ -1373,6 +1373,7 @@ section:hover {
   width: 90%;
   max-width: 1400px;
   margin: 0 auto;
+  padding: 2rem 0;
 }
 
 #projects .section-title {
@@ -1394,12 +1395,18 @@ section:hover {
   background-color: var(--primary-color);
 }
 
-/* Projects Grid - Updated to match YouTube video grid */
+/* Projects Grid - Explicitly set to match YouTube video grid */
 .projects-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
   margin-bottom: 3rem;
+  width: 100%;
+}
+
+/* Override any conflicting styles */
+.projects-grid {
+  grid-template-columns: repeat(2, 1fr) !important;
 }
 
 .project-card {
@@ -1411,6 +1418,7 @@ section:hover {
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
 }
 
 .project-card:hover {
@@ -1490,7 +1498,11 @@ section:hover {
 /* Media queries to match YouTube section */
 @media (max-width: 768px) {
   .projects-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+  }
+  
+  .projects-wrapper {
+    width: 95%;
   }
 }
 
@@ -1503,47 +1515,57 @@ section:hover {
   padding: 2rem;
   margin-top: 2rem;
   transition: transform 0.3s ease;
+  width: 100%;
+  grid-column: 1 / -1; /* Make it span all columns */
 }
 
-.github-activity:hover {
-  transform: translateY(-5px);
-}
-
-.github-activity h3 {
-  font-size: 1.4rem;
+.github-calendar {
+  width: 100%;
+  overflow-x: auto;
   margin-bottom: 1.5rem;
-  color: var(--primary-color);
-  text-align: center;
 }
 
-.view-more-link {
-  display: inline-block;
+.github-chart {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+}
+
+.github-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
   margin-top: 1.5rem;
-  color: var(--primary-color, #0077b5);
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  border: 1px solid var(--primary-color, #0077b5);
-  background-color: transparent;
-  cursor: pointer;
 }
 
-.view-more-link:hover {
-  background-color: var(--primary-color, #0077b5);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.github-stats iframe {
+  max-width: 100%;
 }
 
-.view-more-link i {
-  margin-left: 0.5rem;
-  transition: transform 0.3s ease;
+/* Projects section layout adjustment */
+.projects-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
 }
 
-.view-more-link:hover i {
-  transform: translateX(4px);
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .github-activity {
+    padding: 1.5rem;
+  }
+  
+  .github-stats {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 /* Responsive adjustments */
