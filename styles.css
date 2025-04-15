@@ -402,16 +402,10 @@ section:hover {
   position: relative;
 }
 
-/* Add vertical divider between columns */
+/* Remove vertical divider between columns */
 .about-container::after {
-  content: '';
-  position: absolute;
-  top: 10%;
-  bottom: 10%;
-  left: 50%;
-  width: 1px;
-  background-color: rgba(255, 255, 255, 0.3);
-  transform: translateX(-50%);
+  content: none; /* Changed from '' to none to completely remove the divider */
+  display: none; /* Added to ensure it's not displayed */
 }
 
 /* Bio column */
@@ -1625,6 +1619,7 @@ section:hover {
 .about-container.three-column .about-bio::after,
 .about-container.three-column .tech-stack::after {
   content: none;
+  display: none;
 }
 
 /* Style each column as a card */
