@@ -47,7 +47,7 @@
           <ul>
             <li><a href="#about">About Me</a></li>
             <li><a href="#courses">Courses</a></li>
-            <li><a href="#projects">Projects</a></li>
+            <!-- Removed projects link -->
             <li><a href="resources.html">Resources</a></li>
           </ul>
         </nav>
@@ -60,72 +60,71 @@
     </div>
   </header>
 
+  <!-- About Me Section -->
   <section id="about">
-    <div class="about-container three-column">
-      <!-- Bio Column -->
-      <div class="about-bio">
-        <h2 class="section-title">About Me</h2>
+    <div class="about-wrapper">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-card">
         <div class="about-content">
+          <p class="about-intro">Hi, I'm <span class="name-highlight">Faruk Hasan</span> — a QA Engineer, educator, and AI enthusiast with over 5 years of experience in automation testing, CI/CD, and cloud infrastructure.</p>
+          
           <div class="about-text">
-            <p class="about-intro">Hi, I'm <span class="name-highlight">Faruk Hasan</span> — a QA Engineer, educator, and AI enthusiast with over 5 years of experience in automation testing, CI/CD, and cloud infrastructure.</p>
-            
             <p>I specialize in building advanced testing frameworks using Playwright with TypeScript and Python, ensuring efficient and reliable software delivery. I also design and teach coding and AI courses for middle and high school students, blending real-world tech skills with hands-on learning.</p>
             
-            <p>Currently, I'm exploring AI-driven QA tools to enhance test reliability, identify flaky tests, and optimize automation strategies.</p>
+            <p>My passion lies at the intersection of quality assurance, education, and emerging technologies. I'm constantly exploring new ways to leverage AI and automation to solve complex problems and create innovative solutions.</p>
           </div>
         </div>
       </div>
-      
+    </div>
+  </section>
+
+  <!-- Skills & Experience Section -->
+  <section id="skills-experience">
+    <div class="skills-container">
       <!-- Tech Stack Column -->
       <div class="tech-stack">
-        <h2 class="section-title">My Tech Stack</h2>
+        <h2 class="section-title">Tech Stack</h2>
         
-        <!-- Testing Tools -->
         <div class="badge-category">
           <h4>Testing</h4>
           <div class="tech-badges">
-            <span class="tech-badge primary">Playwright</span>
-            <span class="tech-badge primary">Selenium</span>
-            <span class="tech-badge primary">Cypress</span>
-            <span class="tech-badge primary">JUnit</span>
-            <span class="tech-badge primary">TestNG</span>
+            <div class="tech-badge testing"><i class="fab fa-js"></i>Playwright</div>
+            <div class="tech-badge testing"><i class="fab fa-python"></i>Pytest</div>
+            <div class="tech-badge testing"><i class="fas fa-vial"></i>Selenium</div>
+            <div class="tech-badge testing"><i class="fas fa-check-circle"></i>Cypress</div>
+            <div class="tech-badge testing"><i class="fas fa-robot"></i>Appium</div>
           </div>
         </div>
         
-        <!-- Programming Languages -->
         <div class="badge-category">
           <h4>Languages</h4>
           <div class="tech-badges">
-            <span class="tech-badge secondary">Python</span>
-            <span class="tech-badge secondary">JavaScript</span>
-            <span class="tech-badge secondary">TypeScript</span>
-            <span class="tech-badge secondary">Java</span>
-            <span class="tech-badge secondary">HTML/CSS</span>
-            <span class="tech-badge secondary">Shell</span>
+            <div class="tech-badge language"><i class="fab fa-python"></i>Python</div>
+            <div class="tech-badge language"><i class="fab fa-js"></i>JavaScript</div>
+            <div class="tech-badge language"><i class="fab fa-java"></i>Java</div>
+            <div class="tech-badge language"><i class="fab fa-html5"></i>HTML/CSS</div>
+            <div class="tech-badge language"><i class="fab fa-node-js"></i>TypeScript</div>
           </div>
         </div>
         
-        <!-- Database Skills -->
         <div class="badge-category">
-          <h4>Databases</h4>
+          <h4>Database</h4>
           <div class="tech-badges">
-            <span class="tech-badge database">MySQL</span>
-            <span class="tech-badge database">PostgreSQL</span>
-            <span class="tech-badge database">MongoDB</span>
-            <span class="tech-badge database">SQLite</span>
+            <div class="tech-badge database"><i class="fas fa-database"></i>MySQL</div>
+            <div class="tech-badge database"><i class="fas fa-server"></i>MongoDB</div>
+            <div class="tech-badge database"><i class="fas fa-table"></i>PostgreSQL</div>
+            <div class="tech-badge database"><i class="fas fa-fire"></i>Firebase</div>
           </div>
         </div>
         
-        <!-- Tools & Frameworks -->
         <div class="badge-category">
-          <h4>Tools & Frameworks</h4>
+          <h4>DevOps & Tools</h4>
           <div class="tech-badges">
-            <span class="tech-badge secondary">Git</span>
-            <span class="tech-badge secondary">Docker</span>
-            <span class="tech-badge secondary">Jenkins</span>
-            <span class="tech-badge secondary">GitHub Actions</span>
-            <span class="tech-badge secondary">AWS</span>
-            <span class="tech-badge secondary">Azure</span>
+            <div class="tech-badge devops"><i class="fab fa-github"></i>GitHub Actions</div>
+            <div class="tech-badge devops"><i class="fab fa-jenkins"></i>Jenkins</div>
+            <div class="tech-badge devops"><i class="fab fa-docker"></i>Docker</div>
+            <div class="tech-badge devops"><i class="fab fa-aws"></i>AWS</div>
+            <div class="tech-badge devops"><i class="fas fa-cloud"></i>Azure</div>
           </div>
         </div>
       </div>
@@ -134,81 +133,32 @@
       <div class="career-highlights">
         <h2 class="section-title">Career Highlights</h2>
         
-        <div class="career-card compact">
-          <div class="career-header">
-            <h3>Senior Software QA Engineer</h3>
-            <div class="company-details">
-              <span class="company-name">Digital.ai</span>
-              <span class="duration">2022 – Present</span>
-            </div>
-          </div>
-          <ul class="achievements">
-            <li>Design and implement Playwright test scripts, increasing test coverage and reducing manual efforts.</li>
-            <li>Streamline regression testing, reducing cycle time by 50%.</li>
-            <li>Integrate GitHub Actions for automated test execution, improving defect identification speed.</li>
-            <li>Lead cross-functional testing initiatives for enterprise-level applications.</li>
-          </ul>
-        </div>
-
-        <div class="career-card compact">
-          <div class="career-header">
-            <h3>Software Test Engineer</h3>
-            <div class="company-details">
-              <span class="company-name">M.M.Hayes Co</span>
-              <span class="duration">2020 – 2022</span>
-            </div>
-          </div>
-          <ul class="achievements">
-            <li>Developed Selenium-based frameworks, boosting test efficiency by 30%.</li>
-            <li>Trained junior QA engineers, improving team automation proficiency.</li>
-            <li>Reduced regression cycle time by implementing cross-browser testing strategies.</li>
-            <li>Collaborated with developers to implement CI/CD pipelines for continuous testing.</li>
-          </ul>
+        <div class="career-card">
+          <h3>Senior Software QA Engineer</h3>
+          <span class="company">Digital.ai</span>
+          <span class="period">2022 - Present</span>
+          <p>Design and implement Playwright test scripts, increasing test coverage and reducing manual efforts.</p>
+          <p>Streamline regression testing, reducing cycle time by 50%.</p>
+          <p>Integrate GitHub Actions for automated test execution, improving defect identification speed.</p>
+          <p>Lead cross-functional testing initiatives for enterprise-level applications.</p>
         </div>
         
-        <a href="javascript:void(0)" onclick="openResume()" class="view-more-link">View Full Career <i class="fas fa-arrow-right"></i></a>
+        <div class="career-card">
+          <h3>Software Test Engineer</h3>
+          <span class="company">M.M.Hayes Co</span>
+          <span class="period">2020 - 2022</span>
+          <p>Developed Selenium-based frameworks, boosting test efficiency by 30%.</p>
+          <p>Trained junior QA engineers, improving team automation proficiency.</p>
+          <p>Reduced regression cycle time by implementing cross-browser testing strategies.</p>
+          <p>Collaborated with developers to implement CI/CD pipelines for continuous testing.</p>
+        </div>
+        
+        <div class="view-more">
+          <a href="javascript:void(0);" onclick="openResume()" id="view-full-career">View Full Career</a>
+        </div>
       </div>
     </div>
   </section>
-
-  <!-- Remove the entire Career section -->
-  <!-- <section id="career">
-    <div class="career-wrapper">
-      <h2>Career</h2>
-      
-      <div class="career-grid">
-        <div class="career-card">
-          <div class="career-header">
-            <h3>Senior Software QA Engineer</h3>
-            <div class="company-details">
-              <span class="company-name">Digital.ai</span>
-              <span class="duration">2022 – Present</span>
-            </div>
-          </div>
-          <ul class="achievements">
-            <li>Design and implement Playwright test scripts, increasing test coverage and reducing manual efforts.</li>
-            <li>Streamline regression testing, reducing cycle time by 50%.</li>
-            <li>Integrate GitHub Actions for automated test execution, improving defect identification speed.</li>
-          </ul>
-        </div>
-
-        <div class="career-card">
-          <div class="career-header">
-            <h3>Software Test Engineer</h3>
-            <div class="company-details">
-              <span class="company-name">M.M.Hayes Co</span>
-              <span class="duration">2020 – 2022</span>
-            </div>
-          </div>
-          <ul class="achievements">
-            <li>Developed Selenium-based frameworks, boosting test efficiency by 30%.</li>
-            <li>Reduced regression cycle time by implementing cross-browser testing strategies.</li>
-            <li>Trained junior QA engineers, improving team automation proficiency.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section> -->
 
   <section id="courses">
     <div class="courses-wrapper">
@@ -310,7 +260,8 @@
     </div>
   </section>
 
-  <section id="projects">
+  <!-- Remove the entire projects section -->
+  <!-- <section id="projects">
     <div class="projects-wrapper">
       <h2 class="section-title">Projects & GitHub Activity</h2>
       
@@ -347,11 +298,9 @@
         </div>
       </div>
       
-      <!-- GitHub Activity Widget -->
       <div class="github-activity">
         <h3>My GitHub Contributions</h3>
         <div class="github-calendar">
-          <!-- GitHub contribution calendar widget -->
           <img src="https://ghchart.rshah.org/faruklmu17" alt="Faruk Hasan's GitHub Contribution Chart" class="github-chart">
         </div>
         <div class="github-stats">
@@ -361,7 +310,7 @@
         <a href="https://github.com/faruklmu17" class="view-more-link" target="_blank">View My GitHub Profile <i class="fas fa-arrow-right"></i></a>
       </div>
     </div>
-  </section>
+  </section> -->
 
 <!--   
   <section id="projects" class="container">

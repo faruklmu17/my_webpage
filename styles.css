@@ -487,39 +487,110 @@ section:hover {
 
 /* Tech badge styling */
 .tech-badge {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  border-radius: 25px;
-  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  margin: 5px;
+  border-radius: 8px;
+  font-size: 0.85rem;
   font-weight: 500;
   transition: all 0.3s ease;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  letter-spacing: 0.5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
 }
 
 .tech-badge:hover {
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+/* Consistent modern gradient styles for all tech categories */
 .tech-badge.primary {
-  background-color: rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, rgba(58, 110, 165, 0.8), rgba(41, 128, 185, 0.8));
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(5px);
 }
 
 .tech-badge.secondary {
-  background-color: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, rgba(52, 152, 219, 0.8), rgba(41, 128, 185, 0.8));
   color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .tech-badge.database {
-  background: linear-gradient(135deg, rgba(41, 128, 185, 0.7), rgba(52, 152, 219, 0.7));
+  background: linear-gradient(135deg, rgba(155, 89, 182, 0.8), rgba(142, 68, 173, 0.8));
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.tech-badge.frontend {
+  background: linear-gradient(135deg, rgba(230, 126, 34, 0.8), rgba(211, 84, 0, 0.8));
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.tech-badge.backend {
+  background: linear-gradient(135deg, rgba(46, 204, 113, 0.8), rgba(39, 174, 96, 0.8));
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.tech-badge.testing {
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.8), rgba(192, 57, 43, 0.8));
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.tech-badge.devops {
+  background: linear-gradient(135deg, rgba(52, 73, 94, 0.8), rgba(44, 62, 80, 0.8));
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.tech-badge.tools {
+  background: linear-gradient(135deg, rgba(241, 196, 15, 0.8), rgba(243, 156, 18, 0.8));
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Badge category styling */
+.badge-category {
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.badge-category:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.badge-category h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+  color: white;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.badge-category h4::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.tech-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 /* Responsive adjustments */
@@ -1932,5 +2003,694 @@ footer {
   
   .social-icons-footer, .share-buttons {
     justify-content: center;
+  }
+}
+/* Clean About Me Section */
+#about {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  color: white;
+  padding: 3rem 2rem;
+  position: relative;
+  border-radius: 12px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+}
+
+.about-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-bio {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-bio:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* New Skills & Experience Section */
+#skills-experience {
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  color: white;
+  padding: 3rem 2rem;
+  position: relative;
+  border-radius: 12px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  margin: 3rem auto;
+}
+
+.skills-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+/* Tech Stack Column */
+.tech-stack {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+}
+
+.tech-stack:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Career Highlights Column */
+.career-highlights {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+}
+
+.career-highlights:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Section titles */
+.section-title {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background-color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .skills-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .section-title {
+    text-align: center;
+  }
+  
+  .section-title::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .about-content, .about-text {
+    text-align: center;
+  }
+}
+
+/* Modern Sleek About Me Section */
+#about {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  color: white;
+  padding: 2.5rem 3rem;
+  position: relative;
+  border-radius: 0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  margin: 0 0 3rem 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Add subtle background pattern */
+#about::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 1%, transparent 6%),
+    radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 1%, transparent 6%);
+  background-size: 60px 60px;
+  opacity: 0.4;
+  z-index: 0;
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.about-bio {
+  background-color: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1.8rem 2.2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.about-bio:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.about-content {
+  display: flex;
+  align-items: center;
+}
+
+.about-text {
+  flex: 1;
+}
+
+.about-intro {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.about-text p {
+  margin-bottom: 0.8rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+}
+
+.about-text p:last-child {
+  margin-bottom: 0;
+}
+
+.name-highlight {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  position: relative;
+  display: inline-block;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Section title with modern styling */
+#about .section-title {
+  font-size: 1.6rem;
+  margin-bottom: 1.2rem;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+#about .section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, white, transparent);
+  border-radius: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #about {
+    padding: 2rem 1.5rem;
+  }
+  
+  .about-bio {
+    padding: 1.5rem;
+  }
+  
+  .about-intro {
+    font-size: 1.05rem;
+  }
+  
+  #about .section-title {
+    font-size: 1.4rem;
+    text-align: center;
+    display: block;
+  }
+  
+  #about .section-title::after {
+    background: linear-gradient(90deg, transparent, white, transparent);
+    left: 0;
+    width: 100%;
+  }
+}
+
+/* About Me Section - Matching Courses & YouTube Sections */
+#about {
+  width: 100%;
+  padding: 3rem 0;
+  box-sizing: border-box;
+  background-color: #fcfcfd;
+}
+
+.about-wrapper {
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+#about .section-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--secondary-color);
+  position: relative;
+  font-weight: 600;
+}
+
+#about .section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background-color: var(--primary-color);
+  border-radius: 3px;
+}
+
+.about-card {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.about-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-intro {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+
+.name-highlight {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.about-text p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+  color: #555;
+}
+
+.about-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* Skills & Experience Section - Matching Courses & YouTube Sections */
+#skills-experience {
+  width: 100%;
+  padding: 3rem 0;
+  box-sizing: border-box;
+  background-color: #fcfcfd;
+}
+
+.skills-container {
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+#skills-experience .section-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--secondary-color);
+  position: relative;
+  font-weight: 600;
+}
+
+#skills-experience .section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background-color: var(--primary-color);
+}
+
+/* Tech Stack Column */
+.tech-stack {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.tech-stack:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.badge-category {
+  margin-bottom: 1.5rem;
+}
+
+.badge-category:last-child {
+  margin-bottom: 0;
+}
+
+.badge-category h4 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--secondary-color);
+  font-weight: 600;
+}
+
+.tech-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.tech-badge {
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.tech-badge i {
+  margin-right: 0.6rem;
+  font-size: 1.1rem;
+}
+
+.tech-badge:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+}
+
+/* About Me Section Height Fix */
+#about {
+  width: 100%;
+  padding: 2rem 0;
+  box-sizing: border-box;
+  background-color: #fcfcfd;
+}
+
+.about-wrapper {
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.about-card {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 1.5rem 2rem;
+  transition: transform 0.3s ease;
+}
+
+.about-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.about-intro {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+  color: var(--secondary-color);
+}
+
+.about-text p {
+  margin-bottom: 0.8rem;
+  line-height: 1.6;
+}
+
+.about-text p:last-child {
+  margin-bottom: 0;
+}
+
+.name-highlight {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: var(--primary-color);
+  position: relative;
+  display: inline-block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #about {
+    padding: 1.5rem 0;
+  }
+  
+  .about-card {
+    padding: 1.2rem;
+  }
+  
+  .about-intro {
+    font-size: 1rem;
+  }
+}
+
+/* About Me Section Title Fix */
+#about h2.section-title {
+  text-align: center !important;
+  margin-bottom: 2rem !important;
+  color: var(--secondary-color) !important;
+  position: relative !important;
+  font-weight: 600 !important;
+  padding-bottom: 15px !important;
+  font-size: 1.8rem !important;
+  width: 100% !important;
+}
+
+#about h2.section-title::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 50px !important;
+  height: 3px !important;
+  background-color: var(--primary-color) !important;
+  border-radius: 3px !important;
+}
+
+/* Override any conflicting styles */
+#about .section-title::after {
+  background: var(--primary-color) !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 50px !important;
+}
+/* Color categories for tech badges */
+.tech-badge.testing {
+  background: linear-gradient(135deg, #3a6ea5, #2980b9);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.tech-badge.language {
+  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.tech-badge.devops {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.tech-badge.database {
+  background: linear-gradient(135deg, #8e44ad, #9b59b6);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.badge-category h4 {
+  position: relative;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+}
+
+.badge-category h4::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background-color: var(--primary-color);
+}
+
+/* Career Highlights Section Fix */
+.career-highlights {
+  background-color: #f9f9fc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 2rem;
+  transition: transform 0.3s ease;
+  color: var(--secondary-color);
+}
+
+.career-highlights:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.career-card {
+  border-left: 3px solid var(--primary-color);
+  padding-left: 1rem;
+  margin-bottom: 1.5rem;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.career-card:last-child {
+  margin-bottom: 0;
+}
+
+.career-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--secondary-color);
+  font-weight: 600;
+}
+
+.career-card .company {
+  font-weight: 600;
+  color: var(--primary-color);
+  display: block;
+}
+
+.career-card .period {
+  font-size: 0.85rem;
+  color: #777;
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.career-card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 0.5rem;
+  position: relative;
+  padding-left: 1.2rem;
+}
+
+.career-card p::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.view-more {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+#view-full-career {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+#view-full-career:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .skills-container {
+    grid-template-columns: 1fr;
+    width: 95%;
+  }
+  
+  .tech-stack, .career-highlights {
+    padding: 1.5rem;
+  }
+  
+  .career-highlights {
+    margin-top: 1rem;
+  }
+}
+
+/* Responsive adjustments to match other sections */
+@media (max-width: 768px) {
+  .about-wrapper {
+    width: 95%;
+  }
+  
+  .about-card {
+    padding: 1.5rem;
   }
 }
