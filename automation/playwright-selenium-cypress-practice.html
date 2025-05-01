@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playwright, Selenium & Cypress Practice | Interactive Automation Testing Playground</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Free interactive playground for QA engineers to practice automation testing with Selenium, Playwright, and Cypress. Complete hands-on missions with dropdowns, checkboxes, drag-drop and more." />
+    <meta name="keywords" content="automation testing, Selenium practice, Playwright testing, Cypress automation, QA practice, test automation framework, web element locators, UI testing, automation scripts, test scenarios, drag and drop, form elements, interactive testing, automation missions" />
+    <meta name="author" content="Faruk Hasan" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <link rel="canonical" href="https://faruk-hasan.com/automation/playwright-selenium-cypress-practice.html" />
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Playwright, Selenium & Cypress Practice | Interactive Automation Testing Playground" />
+    <meta property="og:description" content="Free interactive playground with missions to practice automation testing with Playwright, Selenium and Cypress. Features dropdowns, checkboxes, date pickers, drag-drop and more." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://faruk-hasan.com/automation/playwright-selenium-cypress-practice.html" />
+    <meta property="og:image" content="https://faruk-hasan.com/automation/images/automation-adventure-preview.jpg" />
+    <meta property="og:site_name" content="Automation Testing Practice" />
+    
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Playwright, Selenium & Cypress Practice | Interactive Testing Playground" />
+    <meta name="twitter:description" content="Free interactive playground with missions to practice automation testing with Playwright, Selenium and Cypress. Features various web elements and interactions." />
+    <meta name="twitter:image" content="https://faruk-hasan.com/automation/images/automation-adventure-preview.jpg" />
+    
+    <!-- Structured Data / JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Automation Testing Practice",
+      "url": "https://faruk-hasan.com/automation/playwright-selenium-cypress-practice.html",
+      "description": "Interactive playground for QA engineers to practice automation testing with Selenium, Playwright, and Cypress through mission-based challenges.",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Faruk Hasan"
+      },
+      "keywords": "automation testing, Selenium, Playwright, Cypress, QA practice, interactive missions, test automation, web element locators"
+    }
+    </script>
+    
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>Automation Adventure</h1>
+        <p>Complete interactive missions to level up your automation testing skills!</p>
+        <div id="progress-bar">
+            <div id="progress"></div>
+        </div>
+    </header>
+
+    <!-- Add sticky progress bar -->
+    <div class="sticky-progress">
+        <div id="sticky-progress-bar">
+            <div id="sticky-progress"></div>
+        </div>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="#dropdown">Dropdown Menu</a></li>
+            <li><a href="#checkbox">Checkbox</a></li>
+            <li><a href="#radio">Radio Button</a></li>
+            <li><a href="#date">Date Picker</a></li>
+            <li><a href="#drag-drop">Drag & Drop</a></li>
+            <li><a href="#button">Buttons</a></li>
+            <li><a href="#search">Search Function</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="dropdown">
+            <h2>Mission 1: Dropdown Menu</h2>
+            <p>Select a pizza size from the dropdown below to complete this mission.</p>
+            <div class="mission-content">
+                <select id="pizza-size">
+                    <option value="">-- Select Size --</option>
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                    <option value="extra-large">Extra Large</option>
+                </select>
+                <button onclick="checkDropdown()">Confirm Selection</button>
+                <p id="dropdown-result"></p>
+            </div>
+        </section>
+
+        <section id="checkbox">
+            <h2>Mission 2: Checkbox</h2>
+            <p>Select your favorite pizza toppings using the checkboxes.</p>
+            <div class="mission-content">
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" id="topping1" value="cheese"> Cheese
+                    </label>
+                    <label>
+                        <input type="checkbox" id="topping2" value="pepperoni"> Pepperoni
+                    </label>
+                </div>
+                <button onclick="checkCheckbox()">Confirm Toppings</button>
+                <p id="checkbox-result"></p>
+            </div>
+        </section>
+
+        <section id="radio">
+            <h2>Mission 3: Radio Button</h2>
+            <p>Select your preferred payment method to complete this mission.</p>
+            <div class="mission-content">
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="payment" value="credit"> Credit Card
+                    </label>
+                    <label>
+                        <input type="radio" name="payment" value="paypal"> PayPal
+                    </label>
+                    <label>
+                        <input type="radio" name="payment" value="bitcoin"> Bitcoin
+                    </label>
+                </div>
+                <button onclick="checkRadio()">Confirm Payment</button>
+                <p id="radio-result"></p>
+            </div>
+        </section>
+
+        <section id="date">
+            <h2>Mission 4: Date Picker</h2>
+            <p>Select a delivery date for your pizza to complete this mission.</p>
+            <div class="mission-content">
+                <input type="date" id="date-picker">
+                <button onclick="checkDate()">Confirm Date</button>
+                <p id="date-result"></p>
+            </div>
+        </section>
+
+        <section id="drag-drop">
+            <h2>Mission 5: Drag and Drop</h2>
+            <p>Drag the pizza box into the delivery zone to complete this mission.</p>
+            <div class="mission-content">
+                <div id="drag-container">
+                    <div id="draggable" draggable="true" ondragstart="dragStart(event)">🍕 Pizza Box</div>
+                </div>
+                <div id="drop-container" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    Delivery Zone
+                </div>
+                <p id="drag-result"></p>
+            </div>
+        </section>
+
+        <section id="button">
+            <h2>Mission 6: Button Interaction</h2>
+            <p>Click the button below to complete this simple but essential mission.</p>
+            <div class="mission-content">
+                <button onclick="showMessage()" class="primary-button">Click to Complete</button>
+                <p id="button-result"></p>
+            </div>
+        </section>
+
+        <section id="search">
+            <h2>Mission 7: Search Functionality</h2>
+            <p>Search for your favorite pizza to complete this mission.</p>
+            <div class="mission-content">
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Search for pizzas...">
+                    <button onclick="searchFunction()">Search</button>
+                </div>
+                <p id="search-result"></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Automation Adventure - A playground for testing automation skills</p>
+        <p>&copy; 2025 Automation Adventure. All Rights Reserved.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+    <script>
+        // Load user progress from localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = localStorage.getItem('currentUser');
+            const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || {};
+            
+            if (currentUser && registeredUsers[currentUser]) {
+                // Set initial progress to 66% (completed login)
+                const progress = document.getElementById('progress');
+                const stickyProgress = document.getElementById('sticky-progress');
+                
+                // Initialize user's mission progress if not exists
+                if (!registeredUsers[currentUser].completedMissions) {
+                    registeredUsers[currentUser].completedMissions = [];
+                }
+                
+                updateProgressBar(registeredUsers[currentUser].completedMissions.length);
+                
+                // Listen for mission completions
+                const missionButtons = document.querySelectorAll('.mission-content button');
+                missionButtons.forEach((button, index) => {
+                    button.addEventListener('click', function() {
+                        const missionId = 'mission-' + (index + 1);
+                        if (!registeredUsers[currentUser].completedMissions.includes(missionId)) {
+                            registeredUsers[currentUser].completedMissions.push(missionId);
+                            localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+                            updateProgressBar(registeredUsers[currentUser].completedMissions.length);
+                        }
+                    });
+                });
+            }
+        });
+        
+        function updateProgressBar(completedMissions) {
+            const progress = document.getElementById('progress');
+            const stickyProgress = document.getElementById('sticky-progress');
+            
+            // Calculate progress: 66% for login + up to 34% for missions (7 missions total)
+            const missionProgress = Math.min(completedMissions * (34 / 7), 34);
+            const totalProgress = 66 + missionProgress;
+            
+            if (progress) {
+                progress.style.width = totalProgress + '%';
+            }
+            
+            if (stickyProgress) {
+                stickyProgress.style.width = totalProgress + '%';
+            }
+        }
+    </script>
+</body>
+
+</html>

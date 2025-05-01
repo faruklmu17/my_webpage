@@ -3,18 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QA Practice Dashboard | Automation Testing Playground</title>
+  <title>QA Practice Dashboard | Best Automation Testing Playground for Selenium, Playwright & Cypress</title>
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Interactive dashboard for QA engineers to practice automation testing with various web elements, forms, and dynamic content." />
-  <meta name="keywords" content="QA practice, automation testing, Selenium, Playwright, Cypress, web elements, test automation" />
+  <meta name="description" content="Free interactive playground for QA engineers to practice automation testing with Selenium, Playwright, and Cypress. Features drag-and-drop, forms, alerts, and dynamic elements." />
+  <meta name="keywords" content="QA practice, automation testing, Selenium practice, Playwright examples, Cypress testing, web elements, test automation, QA playground, automation framework, test scripts, locators practice" />
   <meta name="author" content="Faruk Hasan" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="English" />
+  <link rel="canonical" href="https://faruk-hasan.com/automation/home_page.html" />
   
   <!-- Open Graph / Social Media Meta Tags -->
-  <meta property="og:title" content="QA Practice Dashboard | Automation Testing Playground" />
-  <meta property="og:description" content="Interactive dashboard for QA engineers to practice automation testing with various web elements, forms, and dynamic content." />
+  <meta property="og:title" content="QA Practice Dashboard | Best Automation Testing Playground" />
+  <meta property="og:description" content="Free interactive playground for QA engineers to practice automation testing with Selenium, Playwright, and Cypress. Features drag-and-drop, forms, alerts, and dynamic elements." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://faruk-hasan.com/automation/home_page.html" />
+  <meta property="og:image" content="https://faruk-hasan.com/automation/images/qa-dashboard-preview.jpg" />
+  <meta property="og:site_name" content="QA Practice Hub" />
+  
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="QA Practice Dashboard | Automation Testing Playground" />
+  <meta name="twitter:description" content="Free interactive playground for QA engineers to practice automation testing with various web elements, forms, and dynamic content." />
+  <meta name="twitter:image" content="https://faruk-hasan.com/automation/images/qa-dashboard-preview.jpg" />
+  
+  <!-- Structured Data / JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "QA Practice Hub",
+    "url": "https://faruk-hasan.com/automation/home_page.html",
+    "description": "Interactive dashboard for QA engineers to practice automation testing with various web elements, forms, and dynamic content.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Faruk Hasan"
+    },
+    "keywords": "automation testing, Selenium, Playwright, Cypress, QA practice"
+  }
+  </script>
   
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -500,6 +534,7 @@
             <li><a href="#form-practice" id="form-link">Form Practice</a></li>
             <li><a href="#dynamic-content" id="dynamic-link">Dynamic Content</a></li>
             <li><a href="automation_practice.html" id="login-link">Login Page</a></li>
+            <li><a href="automation_practice.html" id="signup-link" onclick="redirectToSignup(event)">Sign Up</a></li>
           </ul>
         </nav>
       </div>
@@ -518,6 +553,31 @@
       <button id="logout-btn" class="btn btn-secondary" style="display: none;">
         <i class="fas fa-sign-out-alt"></i> Logout
       </button>
+    </section>
+
+    <section class="ethnicity-section">
+      <h2>Ethnicity Selection</h2>
+      <p>Please select your ethnicity from the dropdown menu below:</p>
+      
+      <div class="form-group">
+        <label for="ethnicity-select">Ethnicity:</label>
+        <select id="ethnicity-select" class="form-control" onchange="displayEthnicity()">
+          <option value="">Select your ethnicity</option>
+          <option value="asian">Asian</option>
+          <option value="black">Black/African American</option>
+          <option value="hispanic">Hispanic/Latino</option>
+          <option value="native">Native American/Alaska Native</option>
+          <option value="pacific">Pacific Islander</option>
+          <option value="white">White/Caucasian</option>
+          <option value="mixed">Mixed/Multiple Ethnicities</option>
+          <option value="other">Other</option>
+          <option value="prefer_not">Prefer not to say</option>
+        </select>
+      </div>
+      
+      <div class="ethnicity-result">
+        <p>Your selected ethnicity: <span id="ethnicity-display">None selected</span></p>
+      </div>
     </section>
 
     <section id="practice-elements">
@@ -704,5 +764,35 @@
       </div>
     </div>
   </footer>
+  <script>
+    function displayEthnicity() {
+      const select = document.getElementById('ethnicity-select');
+      const display = document.getElementById('ethnicity-display');
+      
+      if (select.value) {
+        // Convert value to more readable format (capitalize first letter, replace underscores with spaces)
+        const readableValue = select.value
+          .split('_')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+        
+        display.textContent = readableValue;
+      } else {
+        display.textContent = "None selected";
+      }
+    }
+    
+    function redirectToSignup(event) {
+      event.preventDefault();
+      window.location.href = 'automation_practice.html';
+      // Add a small delay to ensure the page loads before toggling
+      setTimeout(function() {
+        // This will trigger the signup form toggle on the login page
+        if (typeof toggleSignup === 'function') {
+          toggleSignup();
+        }
+      }, 100);
+    }
+  </script>
 </body>
 </html>

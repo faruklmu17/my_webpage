@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Automation Practice</title>
+  <meta name="description" content="Login page for Automation Practice. Perfect for QA engineers to practice Selenium, Playwright, and Cypress automation." />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --primary-hover: #3a56d4;
+      --secondary-color: #f8f9fa;
+      --text-color: #333;
+      --border-color: #e0e0e0;
+      --error-color: #e63946;
+      --success-color: #2a9d8f;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      color: var(--text-color);
+    }
+
+    .progress-container {
+      width: 100%;
+      max-width: 450px;
+      margin-bottom: 20px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .progress-bar {
+      height: 10px;
+      background-color: #e0e0e0;
+      border-radius: 5px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background-color: var(--primary-color);
+      width: 66%;
+      transition: width 0.5s ease;
+    }
+
+    .progress-text {
+      text-align: center;
+      margin-top: 5px;
+      font-size: 14px;
+      color: var(--primary-color);
+      font-weight: 500;
+    }
+
+    .container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      max-width: 450px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(90deg, var(--primary-color), #4cc9f0);
+    }
+
+    .container h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--primary-color);
+      font-weight: 600;
+      font-size: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-size: 15px;
+      color: #555;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      background-color: #f9f9f9;
+    }
+
+    input:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+      outline: none;
+      background-color: #fff;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 12px;
+      margin-bottom: 24px;
+    }
+
+    .actions a {
+      font-size: 14px;
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .actions a:hover {
+      color: var(--primary-hover);
+      text-decoration: underline;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .toggle {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .toggle a {
+      color: var(--primary-color);
+      text-decoration: none;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .toggle a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Progress bar container -->
+  <div class="progress-container">
+    <h3>Your Progress</h3>
+    <div class="progress-bar">
+      <div class="progress-bar-fill" id="progressBarFill"></div>
+    </div>
+    <div class="progress-text">Step 2 of 3: Login (33%)</div>
+  </div>
+
+  <div class="container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required />
+      </div>
+
+      <div class="actions">
+        <a href="#" id="forgotPassword">Forgot Password?</a>
+      </div>
+
+      <button type="submit">Login</button>
+
+      <div class="toggle">
+        Don't have an account? <a href="signup.html">Sign up</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Load registered users from localStorage
+    let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || {};
+    
+    // Initialize progress bar
+    document.addEventListener('DOMContentLoaded', function() {
+      const progressBarFill = document.getElementById('progressBarFill');
+      const currentUser = localStorage.getItem('currentUser');
+      
+      // Set progress bar to 33% by default (completed signup)
+      progressBarFill.style.width = '33%';
+      document.querySelector('.progress-text').textContent = 'Step 2 of 3: Login (33%)';
+      
+      if (currentUser && registeredUsers[currentUser]) {
+        // Pre-fill username if available
+        document.getElementById('username').value = currentUser;
+        
+        // If user has completed all steps, show their actual progress
+        if (registeredUsers[currentUser].progress > 33) {
+          progressBarFill.style.width = registeredUsers[currentUser].progress + '%';
+          document.querySelector('.progress-text').textContent = 
+            `Progress: ${registeredUsers[currentUser].progress}% complete`;
+        }
+      }
+    });
+    
+    // Handle forgot password
+    document.getElementById('forgotPassword').addEventListener('click', function(e) {
+      e.preventDefault();
+      alert('Password reset functionality would be implemented here in a real application.');
+    });
+  
+    // Handle form submit
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      // Basic validation
+      if (!username || !password) {
+        alert('Please fill out all required fields.');
+        return;
+      }
+
+      // Handle login
+      if (!registeredUsers[username] || registeredUsers[username].password !== password) {
+        alert('Invalid username or password.');
+        return;
+      }
+      
+      // Update progress bar to 66% before redirecting
+      const progressBarFill = document.getElementById('progressBarFill');
+      progressBarFill.style.width = '66%';
+      document.querySelector('.progress-text').textContent = 'Step 2 of 3: Login (66%)';
+      
+      // Update user progress to 66% (completed step 2 of 3)
+      registeredUsers[username].progress = 66;
+      localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+      localStorage.setItem('currentUser', username);
+      
+      // Add a small delay to show the progress update before redirecting
+      setTimeout(function() {
+        alert('Login successful! Redirecting to practice page...');
+        window.location.href = 'playwright-selenium-cypress-practice.html';
+      }, 500);
+    });
+  </script>
+</body>
+</html>
