@@ -1934,3 +1934,109 @@ footer {
     justify-content: center;
   }
 }
+
+/* Skills at a glance section */
+.skills-glance {
+  background-color: #f8f9fa;
+  padding: 1.5rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+.skills-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.skills-title h2 {
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 600;
+  position: relative;
+}
+
+.skills-title h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  border-radius: 2px;
+}
+
+.skills-badges {
+  display: grid;
+  grid-template-columns: repeat(7, auto);
+  gap: 1rem;
+  margin-top: 1rem;
+  max-width: 1000px;
+  justify-content: center;
+}
+
+@media (max-width: 1100px) {
+  .skills-badges {
+    grid-template-columns: repeat(4, auto);
+  }
+}
+
+@media (max-width: 768px) {
+  .skills-badges {
+    grid-template-columns: repeat(3, auto);
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-badges {
+    grid-template-columns: repeat(2, auto);
+  }
+}
+
+.skill-badge {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 30px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  margin-bottom: 0.5rem; /* Add bottom margin for better spacing between rows */
+}
+
+.skill-badge:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #f8f9fa, white);
+}
+
+.skill-badge i {
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  margin-right: 0.5rem;
+}
+
+.skill-badge span {
+  font-weight: 500;
+  color: var(--secondary-color);
+  font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .skills-badges {
+    gap: 0.8rem;
+  }
+  
+  .skill-badge {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
