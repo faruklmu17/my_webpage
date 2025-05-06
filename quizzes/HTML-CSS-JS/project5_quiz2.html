@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .answers {
+      margin-left: 20px;
+    }
+    .submit-btn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .submit-btn:hover {
+      background-color: #45a049;
+    }
+    #result {
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>JavaScript Quiz: Loops and Functions</h1>
+
+  <form id="quizForm">
+    <div class="question">
+      <h3>1. What will be the output of the following code?</h3>
+      <pre>
+let sum = 0;
+for (let i = 1; i <= 5; i++) {
+    sum += i;
+}
+console.log(sum);
+      </pre>
+      <div class="answers">
+        <label><input type="radio" name="q1" value="A"> A) 10</label><br>
+        <label><input type="radio" name="q1" value="B"> B) 15</label><br>
+        <label><input type="radio" name="q1" value="C"> C) 5</label><br>
+        <label><input type="radio" name="q1" value="D"> D) 20</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>2. What is the output of the following while loop?</h3>
+      <pre>
+let i = 0;
+while (i < 3) {
+    console.log(i);
+    i++;
+}
+      </pre>
+      <div class="answers">
+        <label><input type="radio" name="q2" value="A"> A) 0 1 2</label><br>
+        <label><input type="radio" name="q2" value="B"> B) 0 1</label><br>
+        <label><input type="radio" name="q2" value="C"> C) 1 2 3</label><br>
+        <label><input type="radio" name="q2" value="D"> D) 1 2</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>3. What will the output of the following code be?</h3>
+      <pre>
+let i = 0;
+for (i = 0; i < 3; i++) {
+    console.log(i);
+    while (i == 1) {
+        console.log("Inside while loop");
+        break;
+    }
+}
+      </pre>
+      <div class="answers">
+        <label><input type="radio" name="q3" value="A"> A) 0 1 Inside while loop 2</label><br>
+        <label><input type="radio" name="q3" value="B"> B) 0 1 2 Inside while loop</label><br>
+        <label><input type="radio" name="q3" value="C"> C) 0 1 2</label><br>
+        <label><input type="radio" name="q3" value="D"> D) 0 Inside while loop 2</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>4. What is the output of the following code?</h3>
+      <pre>
+let str = "apple,banana,cherry";
+let arr = str.split(",");
+console.log(arr);
+      </pre>
+      <div class="answers">
+        <label><input type="radio" name="q4" value="A"> A) ["apple", "banana", "cherry"]</label><br>
+        <label><input type="radio" name="q4" value="B"> B) ["apple banana cherry"]</label><br>
+        <label><input type="radio" name="q4" value="C"> C) ["apple,banana,cherry"]</label><br>
+        <label><input type="radio" name="q4" value="D"> D) ["apple", "banana", "cherry", ""]</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>5. Which of the following will join the array ["apple", "banana", "cherry"] into a string "apple-banana-cherry"?</h3>
+      <div class="answers">
+        <label><input type="radio" name="q5" value="A"> A) arr.join(" ") </label><br>
+        <label><input type="radio" name="q5" value="B"> B) arr.join("-") </label><br>
+        <label><input type="radio" name="q5" value="C"> C) arr.split("-") </label><br>
+        <label><input type="radio" name="q5" value="D"> D) arr.join(",") </label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>6. What will be the result of the following code?</h3>
+      <pre>
+let arr = [1, 2, 3, 4, 5];
+arr[3] = 10;
+console.log(arr);
+      </pre>
+      <div class="answers">
+        <label><input type="radio" name="q6" value="A"> A) [1, 2, 3, 10, 5]</label><br>
+        <label><input type="radio" name="q6" value="B"> B) [1, 2, 3, 4, 5, 10]</label><br>
+        <label><input type="radio" name="q6" value="C"> C) [1, 2, 3, 4, 5, 6]</label><br>
+        <label><input type="radio" name="q6" value="D"> D) [10, 2, 3, 4, 5]</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>7. Which of the following correctly defines a function named "greet" that logs "Hello, World!"?</h3>
+      <div class="answers">
+        <label><input type="radio" name="q7" value="A"> A) function greet() { console.log("Hello, World!"); }</label><br>
+        <label><input type="radio" name="q7" value="B"> B) function greet() = { console.log("Hello, World!"); }</label><br>
+        <label><input type="radio" name="q7" value="C"> C) function greet { console.log("Hello, World!"); }</label><br>
+        <label><input type="radio" name="q7" value="D"> D) function greet(): { console.log("Hello, World!"); }</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>8. Which of the following is the correct way to call a function named "initialize()" when the page loads?</h3>
+      <div class="answers">
+        <label><input type="radio" name="q8" value="A"> A) <body onload="initialize()"> </label><br>
+        <label><input type="radio" name="q8" value="B"> B) window.onload = initialize(); </label><br>
+        <label><input type="radio" name="q8" value="C"> C) initialize() </label><br>
+        <label><input type="radio" name="q8" value="D"> D) <body onload="initialize()"> </label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>9. The following code produces an infinite loop. What is wrong with it?</h3>
+      <pre>
+let i = 0;
+for (i = 0; i < 10;) {
+    console.log(i);
+}
+      </pre>
+      <div class="answers">
+        <label><input type="radio" name="q9" value="A"> A) The loop condition is incorrect. </label><br>
+        <label><input type="radio" name="q9" value="B"> B) The increment part is missing in the loop. </label><br>
+        <label><input type="radio" name="q9" value="C"> C) The variable i is not defined correctly. </label><br>
+        <label><input type="radio" name="q9" value="D"> D) The loop needs a break statement. </label>
+      </div>
+    </div>
+
+    <div class="question">
+      <h3>10. The following code doesn't produce the correct result. What is wrong?</h3>
+      <pre>
+let text = "apple-banana-cherry";
+let result = text.split("-");
+console.log(result);
+      </pre>
+      <div class="answers">
+        <label><input type="radio" name="q10" value="A"> A) The separator is incorrect; it should be ",". </label><br>
+        <label><input type="radio" name="q10" value="B"> B) split() method is used incorrectly. </label><br>
+        <label><input type="radio" name="q10" value="C"> C) The separator should be a space " ". </label><br>
+        <label><input type="radio" name="q10" value="D"> D) The split() method will not work with dashes. </label>
+      </div>
+    </div>
+
+    <button type="button" class="submit-btn" onclick="submitQuiz()">Submit</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    function submitQuiz() {
+      const form = document.getElementById("quizForm");
+      const resultDiv = document.getElementById("result");
+      let score = 0;
+
+      const answers = {
+        q1: 'B',
+        q2: 'A',
+        q3: 'A',
+        q4: 'A',
+        q5: 'B',
+        q6: 'A',
+        q7: 'A',
+        q8: 'A',
+        q9: 'B',
+        q10: 'A',
+      };
+
+      for (const [key, value] of Object.entries(answers)) {
+        const selectedOption = form.querySelector(`input[name="${key}"]:checked`);
+        if (selectedOption && selectedOption.value === value) {
+          score++;
+        }
+      }
+
+      resultDiv.innerHTML = `You scored ${score} out of 10!`;
+    }
+  </script>
+
+</body>
+</html>
