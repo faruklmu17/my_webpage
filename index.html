@@ -386,6 +386,81 @@
     </div>
   </section>
 
+  <section id="dividend-income">
+    <div class="dividend-wrapper">
+      <h2 class="section-title">Dividend Income Portfolio</h2>
+      <div class="dividend-container">
+        <div class="dividend-info">
+          <p class="dividend-intro">My investment strategy focuses on building a sustainable dividend income stream for early retirement. Below is the current allocation of my dividend portfolio.</p>
+          <div class="dividend-stats">
+            <div class="stat-item">
+              <span class="stat-value">4.2%</span>
+              <span class="stat-label">Average Yield</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">12%</span>
+              <span class="stat-label">Annual Growth</span>
+            </div>
+            <div class="stat-item income-stat">
+              <div class="income-values">
+                <div class="current-income">
+                  <span class="stat-value" id="current-income">$125</span>
+                  <span class="stat-label">Current Monthly</span>
+                </div>
+                <div class="target-income">
+                  <span class="stat-value">$250</span>
+                  <span class="stat-label">2025 Target</span>
+                </div>
+              </div>
+              <div class="income-progress">
+                <canvas id="incomeProgressChart"></canvas>
+                <div class="progress-percentage" id="income-percentage">50%</div>
+              </div>
+            </div>
+          </div>
+          <div class="strategy-container">
+            <a href="javascript:void(0)" class="view-more-link" id="strategy-trigger">View Investment Strategy <i class="fas fa-arrow-right"></i></a>
+            
+            <div id="strategy-card" class="hover-card">
+              <div class="card-content">
+                <h3>My Dividend Investment Strategy</h3>
+                <p>My investment approach focuses on building a sustainable dividend income stream for early retirement through:</p>
+                <ul>
+                  <li><strong>Quality over yield:</strong> Prioritizing companies with sustainable payout ratios and growth potential</li>
+                  <li><strong>Sector diversification:</strong> Spreading investments across multiple industries to reduce risk</li>
+                  <li><strong>Dividend growth:</strong> Focusing on companies with a history of increasing dividends</li>
+                  <li><strong>ETF core:</strong> Using dividend ETFs like SCHD and JEPI as the foundation of the portfolio</li>
+                  <li><strong>Reinvestment:</strong> Automatically reinvesting dividends to compound returns</li>
+                </ul>
+                <p>My goal is to achieve financial independence through a growing passive income stream that eventually covers all living expenses.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dividend-chart">
+          <canvas id="dividendChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+  function toggleStrategySection() {
+    const details = document.getElementById('strategy-details');
+    const toggle = document.getElementById('strategy-toggle');
+    
+    if (details.style.display === 'none') {
+      details.style.display = 'block';
+      toggle.innerHTML = 'Hide Investment Strategy <i class="fas fa-arrow-up"></i>';
+      // Smooth scroll to the details section
+      details.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      details.style.display = 'none';
+      toggle.innerHTML = 'View Investment Strategy <i class="fas fa-arrow-right"></i>';
+    }
+  }
+  </script>
+
 <!--   
   <section id="projects" class="container">
     <h2>Projects</h2>
@@ -515,4 +590,302 @@
       }
     });
   }
+  
+  // Add Chart.js and XLSX libraries
+  document.addEventListener('DOMContentLoaded', function() {
+    // Load Chart.js
+    const chartScript = document.createElement('script');
+    chartScript.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+    
+    // Load XLSX library for Excel parsing
+    const xlsxScript = document.createElement('script');
+    xlsxScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+    
+    // When all scripts are loaded, initialize the chart
+    Promise.all([
+      new Promise(resolve => { chartScript.onload = resolve; }),
+      new Promise(resolve => { xlsxScript.onload = resolve; })
+    ]).then(() => {
+      loadPortfolioData();
+    });
+    
+    document.body.appendChild(chartScript);
+    document.body.appendChild(xlsxScript);
+  });
+  
+  function loadPortfolioData() {
+    // Fetch the Excel file
+    fetch('portfolio_data.xlsx')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.arrayBuffer();
+      })
+      .then(data => {
+        // Parse the Excel file
+        const workbook = XLSX.read(data, { type: 'array' });
+        const firstSheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[firstSheetName];
+        const jsonData = XLSX.utils.sheet_to_json(worksheet);
+        
+        // Process the data for the chart
+        processPortfolioData(jsonData);
+      })
+      .catch(error => {
+        console.error('Error loading portfolio data:', error);
+        // Fallback to default data if file can't be loaded
+        initDividendChartWithDefaultData();
+      });
+  }
+  
+  function processPortfolioData(data) {
+    // Calculate total market value for each position
+    let totalPortfolioValue = 0;
+    let totalDividendIncome = 0;
+    let totalYield = 0;
+    
+    // Add market value to each stock
+    data.forEach(stock => {
+      // Calculate market value (shares * current price)
+      stock.marketValue = stock.Shares * stock['Current Price'];
+      
+      // Calculate annual dividend income
+      stock.dividendIncome = stock.marketValue * (stock['Dividend Yield (%)'] / 100);
+      
+      // Add to totals
+      totalPortfolioValue += stock.marketValue;
+      totalDividendIncome += stock.dividendIncome;
+    });
+    
+    // Calculate overall portfolio yield
+    const portfolioYield = (totalDividendIncome / totalPortfolioValue) * 100;
+    
+    // Sort stocks by market value (descending)
+    data.sort((a, b) => b.marketValue - a.marketValue);
+    
+    // Group smaller positions as "Other" if they're less than 3% of portfolio
+    const threshold = totalPortfolioValue * 0.03;
+    const mainPositions = [];
+    let otherValue = 0;
+    
+    data.forEach(stock => {
+      if (stock.marketValue >= threshold) {
+        mainPositions.push({
+          ticker: stock.Stock,
+          value: stock.marketValue,
+          percentage: (stock.marketValue / totalPortfolioValue) * 100
+        });
+      } else {
+        otherValue += stock.marketValue;
+      }
+    });
+    
+    // Add "Other" category if needed
+    if (otherValue > 0) {
+      mainPositions.push({
+        ticker: 'Other',
+        value: otherValue,
+        percentage: (otherValue / totalPortfolioValue) * 100
+      });
+    }
+    
+    // Prepare data for chart
+    const labels = mainPositions.map(pos => pos.ticker);
+    const values = mainPositions.map(pos => pos.percentage.toFixed(1));
+    
+    // Initialize chart with the processed data
+    initDividendChart(labels, values);
+    
+    // Update portfolio stats
+    updatePortfolioStats(portfolioYield, totalDividendIncome, data);
+  }
+  
+  function updatePortfolioStats(yield, annualIncome, data) {
+    // Calculate growth rate (using the difference between current and purchase prices)
+    let totalGrowth = 0;
+    let totalInvestment = 0;
+    
+    data.forEach(stock => {
+      const investment = stock.Shares * stock['Purchase Price'];
+      const currentValue = stock.Shares * stock['Current Price'];
+      totalInvestment += investment;
+      totalGrowth += (currentValue - investment);
+    });
+    
+    const growthRate = (totalGrowth / totalInvestment) * 100;
+    const monthlyIncome = (annualIncome / 12);
+    const targetMonthlyIncome = 250; // Target monthly income by end of 2025
+    const progressPercentage = (monthlyIncome / targetMonthlyIncome) * 100;
+    
+    // Update the stats display
+    document.querySelector('.dividend-stats .stat-item:nth-child(1) .stat-value').textContent = yield.toFixed(1) + '%';
+    document.querySelector('.dividend-stats .stat-item:nth-child(2) .stat-value').textContent = growthRate.toFixed(1) + '%';
+    document.getElementById('current-income').textContent = '$' + monthlyIncome.toFixed(0);
+    document.getElementById('income-percentage').textContent = progressPercentage.toFixed(0) + '%';
+    
+    // Create the progress chart
+    createIncomeProgressChart(progressPercentage);
+  }
+  
+  function initDividendChart(labels, data) {
+    const ctx = document.getElementById('dividendChart').getContext('2d');
+    
+    // Color palette for the chart
+    const colors = [
+      '#4285F4', // Blue
+      '#34A853', // Green
+      '#FBBC05', // Yellow
+      '#EA4335', // Red
+      '#5F6368', // Grey
+      '#1A73E8', // Light Blue
+      '#188038', // Dark Green
+      '#F29900', // Orange
+      '#D93025', // Dark Red
+      '#9AA0A6', // Light Grey
+      '#185ABC', // Dark Blue
+      '#137333', // Forest Green
+      '#E37400'  // Dark Orange
+    ];
+    
+    // Chart configuration
+    const config = {
+      type: 'pie',
+      data: {
+        labels: labels,
+        datasets: [{
+          data: data,
+          backgroundColor: colors.slice(0, labels.length),
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'right',
+            labels: {
+              font: {
+                family: 'Montserrat',
+                size: 12
+              }
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const label = context.label || '';
+                const value = context.raw || 0;
+                return `${label}: ${value}%`;
+              }
+            }
+          }
+        }
+      }
+    };
+    
+    // Create the chart
+    new Chart(ctx, config);
+  }
+  
+  function createIncomeProgressChart(percentage) {
+    const ctx = document.getElementById('incomeProgressChart').getContext('2d');
+    
+    // Destroy previous chart if it exists
+    if (window.incomeChart) {
+      window.incomeChart.destroy();
+    }
+    
+    // Create new chart
+    window.incomeChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [percentage, 100 - percentage],
+          backgroundColor: [
+            '#28a745', // Green for progress
+            '#e9ecef'  // Light gray for remaining
+          ],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        cutout: '70%',
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            enabled: false
+          }
+        },
+        animation: {
+          animateRotate: true,
+          animateScale: true
+        }
+      }
+    });
+  }
+
+  function initDividendChartWithDefaultData() {
+    // Default data if file loading fails
+    const labels = ['SCHD', 'JEPI', 'T', 'SPYD', 'O', 'PFE', 'XYLD', 'Other'];
+    const data = [25, 20, 15, 10, 10, 8, 7, 5];
+    
+    initDividendChart(labels, data);
+    
+    // Set default stats
+    document.querySelector('.dividend-stats .stat-item:nth-child(1) .stat-value').textContent = '4.2%';
+    document.querySelector('.dividend-stats .stat-item:nth-child(2) .stat-value').textContent = '12%';
+    document.getElementById('current-income').textContent = '$125';
+    document.getElementById('income-percentage').textContent = '50%';
+    
+    // Create default progress chart
+    createIncomeProgressChart(50);
+  }
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const strategyTrigger = document.getElementById('strategy-trigger');
+    const strategyCard = document.getElementById('strategy-card');
+    
+    // Add a small delay before closing to prevent accidental closures
+    let timeout;
+    
+    strategyTrigger.addEventListener('mouseenter', function() {
+      clearTimeout(timeout);
+      strategyCard.classList.add('active');
+    });
+    
+    strategyTrigger.addEventListener('mouseleave', function(e) {
+      // Check if the mouse is moving toward the card
+      const rect = strategyCard.getBoundingClientRect();
+      const isMovingToward = 
+        e.clientX >= rect.left - 20 && 
+        e.clientX <= rect.right + 20 && 
+        e.clientY >= rect.top - 20;
+      
+      if (!isMovingToward) {
+        timeout = setTimeout(() => {
+          if (!strategyCard.matches(':hover')) {
+            strategyCard.classList.remove('active');
+          }
+        }, 300);
+      }
+    });
+    
+    strategyCard.addEventListener('mouseenter', function() {
+      clearTimeout(timeout);
+    });
+    
+    strategyCard.addEventListener('mouseleave', function() {
+      timeout = setTimeout(() => {
+        strategyCard.classList.remove('active');
+      }, 300);
+    });
+  });
 </script>
