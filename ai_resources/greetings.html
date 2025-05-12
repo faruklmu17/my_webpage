@@ -4,20 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Messages</title>
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 40px;
+            font-size: 1.5em;
+        }
+
+        p {
+            background-color: #fff;
+            padding: 10px;
+            margin: 10px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 70%;
+            text-align: center;
+            font-size: 1.2em;
+        }
+
+        p:hover {
+            background-color: #e0f7fa;
+            cursor: pointer;
+        }
+
+        /* Style the container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Add some spacing between paragraphs */
+        p:not(:last-child) {
+            margin-bottom: 15px;
+        }
+
+        /* Add a footer to make the page look complete */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to the Simple Messages Page</h1>
-    <p>Hi there!</p>
-    <p>Hello!</p>
-    <p>Hi again!</p>
-    <p>Hello there!</p>
-    <p>Hi, how are you?</p>
+    <div class="container">
+        <h1>Welcome to the Simple Messages Page</h1>
+        <p>Hi there!</p>
+        <p>Hello!</p>
+        <p>Hi again!</p>
+        <p>Hello there!</p>
+        <p>Hi, how are you?</p>
 
-    <h2>More Greetings</h2>
-    <p>Hey!</p>
-    <p>Good morning!</p>
-    <p>Good afternoon!</p>
-    <p>Good evening!</p>
-    <p>How's it going?</p>
+        <h2>More Greetings</h2>
+        <p>Hey!</p>
+        <p>Good morning!</p>
+        <p>Good afternoon!</p>
+        <p>Good evening!</p>
+        <p>How's it going?</p>
+    </div>
+
+    <footer>
+        <p>Created with ❤️ by Mr. Hasan</p>
+    </footer>
 </body>
 </html>
