@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fraction Addition Quiz</title>
+
+  <!-- MathJax for rendering LaTeX fractions -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      max-width: 800px;
+      width: 100%;
+      margin: 2rem;
+      padding: 2rem;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+    .question {
+      margin-bottom: 1.5rem;
+    }
+    .question > label:first-of-type {
+      font-weight: bold;
+      color: #555;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    label.option {
+      display: block;
+      margin-left: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: normal;
+    }
+    input[type="radio"] {
+      margin-right: 0.5rem;
+    }
+    button {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      display: block;
+      margin: 1rem auto;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #218838;
+    }
+    #results {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: #e9ecef;
+      border-radius: 4px;
+      display: none;
+    }
+    #results h2 {
+      margin-top: 0;
+      color: #333;
+    }
+    #results ul {
+      list-style: none;
+      padding: 0;
+    }
+    #results li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #ddd;
+    }
+    #results li:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Fraction Addition Quiz</h1>
+    <form id="quizForm">
+
+      <!-- 1 -->
+      <div class="question">
+        <label>1. What is \( \tfrac{1}{4} + \tfrac{1}{4} \)?</label>
+        <label class="option"><input type="radio" name="q1" value="A"> A. \( \tfrac{1}{8} \)</label>
+        <label class="option"><input type="radio" name="q1" value="B"> B. \( \tfrac{1}{2} \)</label>
+        <label class="option"><input type="radio" name="q1" value="C"> C. \( \tfrac{2}{4} \)</label>
+        <label class="option"><input type="radio" name="q1" value="D"> D. Both B and C</label>
+      </div>
+
+      <!-- 2 -->
+      <div class="question">
+        <label>2. What is \( \tfrac{1}{2} + \tfrac{1}{2} \)?</label>
+        <label class="option"><input type="radio" name="q2" value="A"> A. \( \tfrac{2}{4} \)</label>
+        <label class="option"><input type="radio" name="q2" value="B"> B. \( \tfrac{1}{1} \)</label>
+        <label class="option"><input type="radio" name="q2" value="C"> C. 1</label>
+        <label class="option"><input type="radio" name="q2" value="D"> D. \( \tfrac{3}{4} \)</label>
+      </div>
+
+      <!-- 3 -->
+      <div class="question">
+        <label>3. Add: \( \tfrac{1}{3} + \tfrac{1}{6} \)</label>
+        <label class="option"><input type="radio" name="q3" value="A"> A. \( \tfrac{1}{2} \)</label>
+        <label class="option"><input type="radio" name="q3" value="B"> B. \( \tfrac{2}{6} \)</label>
+        <label class="option"><input type="radio" name="q3" value="C"> C. \( \tfrac{3}{6} \)</label>
+        <label class="option"><input type="radio" name="q3" value="D"> D. \( \tfrac{1}{9} \)</label>
+      </div>
+
+      <!-- 4 -->
+      <div class="question">
+        <label>4. What is the least common denominator of \( \tfrac{1}{2} \) and \( \tfrac{1}{3} \)?</label>
+        <label class="option"><input type="radio" name="q4" value="A"> A. 2</label>
+        <label class="option"><input type="radio" name="q4" value="B"> B. 6</label>
+        <label class="option"><input type="radio" name="q4" value="C"> C. 3</label>
+        <label class="option"><input type="radio" name="q4" value="D"> D. 12</label>
+      </div>
+
+      <!-- 5 -->
+      <div class="question">
+        <label>5. Add: \( \tfrac{2}{5} + \tfrac{1}{5} \)</label>
+        <label class="option"><input type="radio" name="q5" value="A"> A. \( \tfrac{3}{10} \)</label>
+        <label class="option"><input type="radio" name="q5" value="B"> B. \( \tfrac{3}{5} \)</label>
+        <label class="option"><input type="radio" name="q5" value="C"> C. \( \tfrac{2}{6} \)</label>
+        <label class="option"><input type="radio" name="q5" value="D"> D. \( \tfrac{1}{2} \)</label>
+      </div>
+
+      <!-- 6 -->
+      <div class="question">
+        <label>6. Which of the following sums is equal to 1?</label>
+        <label class="option"><input type="radio" name="q6" value="A"> A. \( \tfrac{3}{4} + \tfrac{1}{2} \)</label>
+        <label class="option"><input type="radio" name="q6" value="B"> B. \( \tfrac{1}{3} + \tfrac{2}{3} \)</label>
+        <label class="option"><input type="radio" name="q6" value="C"> C. \( \tfrac{1}{5} + \tfrac{3}{5} \)</label>
+        <label class="option"><input type="radio" name="q6" value="D"> D. \( \tfrac{2}{3} + \tfrac{1}{4} \)</label>
+      </div>
+
+      <!-- 7 -->
+      <div class="question">
+        <label>7. Add: \( \tfrac{1}{6} + \tfrac{1}{3} \)</label>
+        <label class="option"><input type="radio" name="q7" value="A"> A. \( \tfrac{2}{6} \)</label>
+        <label class="option"><input type="radio" name="q7" value="B"> B. \( \tfrac{3}{6} \)</label>
+        <label class="option"><input type="radio" name="q7" value="C"> C. \( \tfrac{1}{9} \)</label>
+        <label class="option"><input type="radio" name="q7" value="D"> D. \( \tfrac{1}{2} \)</label>
+      </div>
+
+      <!-- 8 -->
+      <div class="question">
+        <label>8. Add: \( \tfrac{2}{3} + \tfrac{3}{4} \)</label>
+        <label class="option"><input type="radio" name="q8" value="A"> A. \( \tfrac{17}{12} \)</label>
+        <label class="option"><input type="radio" name="q8" value="B"> B. \( \tfrac{5}{7} \)</label>
+        <label class="option"><input type="radio" name="q8" value="C"> C. \( \tfrac{1}{6} \)</label>
+        <label class="option"><input type="radio" name="q8" value="D"> D. \( \tfrac{1}{2} \)</label>
+      </div>
+
+      <!-- 9 -->
+      <div class="question">
+        <label>9. Add and simplify: \( \tfrac{5}{8} + \tfrac{1}{4} \)</label>
+        <label class="option"><input type="radio" name="q9" value="A"> A. \( \tfrac{7}{8} \)</label>
+        <label class="option"><input type="radio" name="q9" value="B"> B. \( \tfrac{6}{8} \)</label>
+        <label class="option"><input type="radio" name="q9" value="C"> C. \( \tfrac{3}{4} \)</label>
+        <label class="option"><input type="radio" name="q9" value="D"> D. \( \tfrac{9}{8} \)</label>
+      </div>
+
+      <!-- 10 -->
+      <div class="question">
+        <label>10. \( \tfrac{2}{5} + \tfrac{3}{10} = \)</label>
+        <label class="option"><input type="radio" name="q10" value="A"> A. \( \tfrac{5}{10} \)</label>
+        <label class="option"><input type="radio" name="q10" value="B"> B. \( \tfrac{7}{10} \)</label>
+        <label class="option"><input type="radio" name="q10" value="C"> C. \( \tfrac{6}{15} \)</label>
+        <label class="option"><input type="radio" name="q10" value="D"> D. \( \tfrac{1}{2} \)</label>
+      </div>
+
+      <!-- 11 -->
+      <div class="question">
+        <label>11. \( \tfrac{1}{2} + \tfrac{3}{8} = \)</label>
+        <label class="option"><input type="radio" name="q11" value="A"> A. \( \tfrac{4}{10} \)</label>
+        <label class="option"><input type="radio" name="q11" value="B"> B. \( \tfrac{7}{8} \)</label>
+        <label class="option"><input type="radio" name="q11" value="C"> C. \( \tfrac{3}{4} \)</label>
+        <label class="option"><input type="radio" name="q11" value="D"> D. \( \tfrac{5}{8} \)</label>
+      </div>
+
+      <!-- 12 -->
+      <div class="question">
+        <label>12. Which of the following is correct?</label>
+        <label class="option"><input type="radio" name="q12" value="A"> A. \( \tfrac{5}{6} + \tfrac{2}{3} = \tfrac{7}{6} \)</label>
+        <label class="option"><input type="radio" name="q12" value="B"> B. \( \tfrac{1}{4} + \tfrac{2}{8} = \tfrac{1}{2} \)</label>
+        <label class="option"><input type="radio" name="q12" value="C"> C. \( \tfrac{1}{3} + \tfrac{1}{2} = \tfrac{2}{5} \)</label>
+        <label class="option"><input type="radio" name="q12" value="D"> D. \( \tfrac{2}{5} + \tfrac{2}{10} = \tfrac{4}{10} \)</label>
+      </div>
+
+      <!-- 13 -->
+      <div class="question">
+        <label>13. Add: \( \tfrac{1}{9} + \tfrac{4}{27} \)</label>
+        <label class="option"><input type="radio" name="q13" value="A"> A. \( \tfrac{7}{27} \)</label>
+        <label class="option"><input type="radio" name="q13" value="B"> B. \( \tfrac{5}{18} \)</label>
+        <label class="option"><input type="radio" name="q13" value="C"> C. \( \tfrac{1}{3} \)</label>
+        <label class="option"><input type="radio" name="q13" value="D"> D. \( \tfrac{6}{27} \)</label>
+      </div>
+
+      <!-- 14 -->
+      <div class="question">
+        <label>14. What is \( \tfrac{3}{4} + \tfrac{2}{5} \) in simplest form?</label>
+        <label class="option"><input type="radio" name="q14" value="A"> A. \( \tfrac{29}{20} \)</label>
+        <label class="option"><input type="radio" name="q14" value="B"> B. \( \tfrac{23}{20} \)</label>
+        <label class="option"><input type="radio" name="q14" value="C"> C. \( \tfrac{13}{9} \)</label>
+        <label class="option"><input type="radio" name="q14" value="D"> D. \( \tfrac{1}{2} \)</label>
+      </div>
+
+      <!-- 15 (corrected) -->
+      <div class="question">
+        <label>15. Add and simplify: \( \tfrac{7}{10} + \tfrac{5}{6} \)</label>
+        <label class="option"><input type="radio" name="q15" value="A"> A. \( \tfrac{23}{15} \)</label>
+        <label class="option"><input type="radio" name="q15" value="B"> B. \( \tfrac{12}{16} \)</label>
+        <label class="option"><input type="radio" name="q15" value="C"> C. 1</label>
+        <label class="option"><input type="radio" name="q15" value="D"> D. \( \tfrac{13}{15} \)</label>
+      </div>
+
+      <!-- 16 -->
+      <div class="question">
+        <label>16. \( \tfrac{5}{12} + \tfrac{7}{18} = \)</label>
+        <label class="option"><input type="radio" name="q16" value="A"> A. \( \tfrac{29}{36} \)</label>
+        <label class="option"><input type="radio" name="q16" value="B"> B. \( \tfrac{12}{20} \)</label>
+        <label class="option"><input type="radio" name="q16" value="C"> C. 1</label>
+        <label class="option"><input type="radio" name="q16" value="D"> D. \( \tfrac{28}{36} \)</label>
+      </div>
+
+      <!-- 17 -->
+      <div class="question">
+        <label>17. A recipe uses \( \tfrac{3}{4} \) cup of milk and \( \tfrac{2}{3} \) cup of cream. How much liquid is used in total?</label>
+        <label class="option"><input type="radio" name="q17" value="A"> A. \( \tfrac{17}{12} \) cups</label>
+        <label class="option"><input type="radio" name="q17" value="B"> B. \( \tfrac{5}{6} \) cups</label>
+        <label class="option"><input type="radio" name="q17" value="C"> C. 1 cup</label>
+        <label class="option"><input type="radio" name="q17" value="D"> D. 1 ½ cups</label>
+      </div>
+
+      <!-- 18 (corrected) -->
+      <div class="question">
+        <label>18. \( \tfrac{11}{20} + \tfrac{13}{15} = \)</label>
+        <label class="option"><input type="radio" name="q18" value="A"> A. \( \tfrac{85}{60} \)</label>
+        <label class="option"><input type="radio" name="q18" value="B"> B. \( \tfrac{110}{300} \)</label>
+        <label class="option"><input type="radio" name="q18" value="C"> C. \( \tfrac{18}{35} \)</label>
+        <label class="option"><input type="radio" name="q18" value="D"> D. \( \tfrac{24}{25} \)</label>
+      </div>
+
+      <!-- 19 (corrected) -->
+      <div class="question">
+        <label>19. Add and simplify: \( \tfrac{7}{8} + \tfrac{9}{10} \)</label>
+        <label class="option"><input type="radio" name="q19" value="A"> A. \( \tfrac{71}{40} \)</label>
+        <label class="option"><input type="radio" name="q19" value="B"> B. \( \tfrac{143}{80} \)</label>
+        <label class="option"><input type="radio" name="q19" value="C"> C. \( \tfrac{13}{10} \)</label>
+        <label class="option"><input type="radio" name="q19" value="D"> D. \( \tfrac{17}{16} \)</label>
+      </div>
+
+      <!-- 20 -->
+      <div class="question">
+        <label>20. A student spent \( \tfrac{2}{5} \) of their day studying, \( \tfrac{1}{3} \) helping at home, and \( \tfrac{1}{4} \) playing. How much of their day was used?</label>
+        <label class="option"><input type="radio" name="q20" value="A"> A. \( \tfrac{59}{60} \)</label>
+        <label class="option"><input type="radio" name="q20" value="B"> B. \( \tfrac{13}{15} \)</label>
+        <label class="option"><input type="radio" name="q20" value="C"> C. 1</label>
+        <label class="option"><input type="radio" name="q20" value="D"> D. 1 ⅕</label>
+      </div>
+
+      <button type="submit">Submit Answers</button>
+    </form>
+
+    <div id="results">
+      <h2>Your Answers</h2>
+      <ul id="answersList"></ul>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('quizForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const resultsDiv = document.getElementById('results');
+      const answersList = document.getElementById('answersList');
+      answersList.innerHTML = '';
+      for (let i = 1; i <= 20; i++) {
+        const sel = document.querySelector(`input[name="q${i}"]:checked`);
+        const answer = sel ? sel.value : '(no answer provided)';
+        const li = document.createElement('li');
+        li.textContent = `Q${i}: ${answer}`;
+        answersList.appendChild(li);
+      }
+      resultsDiv.style.display = 'block';
+      resultsDiv.scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
+
