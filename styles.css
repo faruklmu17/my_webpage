@@ -1974,14 +1974,14 @@ footer {
 
 .skills-badges {
   display: grid;
-  grid-template-columns: repeat(7, auto);
+  grid-template-columns: repeat(8, auto);
   gap: 1rem;
   margin-top: 1rem;
-  max-width: 1000px;
+  max-width: 1200px;
   justify-content: center;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
   .skills-badges {
     grid-template-columns: repeat(4, auto);
   }
