@@ -2320,10 +2320,36 @@ footer {
 }
 
 /* Blog Section Styles */
+#blog {
+  width: 100%;
+  padding: 3rem 0;
+  box-sizing: border-box;
+  background-color: #fcfcfd;
+}
+
 .blog-wrapper {
-  max-width: 1200px;
+  width: 90%;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem;
+}
+
+#blog h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--secondary-color);
+  position: relative;
+  font-weight: 600;
+}
+
+#blog h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background-color: var(--primary-color);
 }
 
 .blog-grid {
