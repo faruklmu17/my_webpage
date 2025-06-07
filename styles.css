@@ -2321,7 +2321,7 @@ footer {
 
 /* Blog Section Styles */
 .blog-section {
-  padding: 4rem 0;
+  padding: 1rem 0 2rem; /* Reduced top padding from 2rem to 1rem */
   background-color: #fcfcfd;
 }
 
@@ -2329,11 +2329,13 @@ footer {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
+  padding-top: 0.5rem; /* Added small top padding to container */
 }
 
 .blog-section .section-title {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-top: 0.5rem; /* Added small top margin */
+  margin-bottom: 1.5rem; /* Reduced from 2rem to 1.5rem */
   color: var(--secondary-color);
   position: relative;
   font-weight: 600;
