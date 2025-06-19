@@ -1,0 +1,328 @@
+/* Blog-specific styles */
+.blog-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    line-height: 1.7;
+}
+
+.blog-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+}
+
+.blog-title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--secondary-color);
+    line-height: 1.3;
+}
+
+.blog-meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.blog-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.blog-content {
+    font-size: 1.05rem;
+    color: #333;
+}
+
+.blog-content h2 {
+    font-size: 1.8rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--secondary-color);
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 0.5rem;
+}
+
+.blog-content h3 {
+    font-size: 1.4rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+}
+
+.blog-content h4 {
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+}
+
+.blog-content p {
+    margin-bottom: 1.5rem;
+}
+
+.blog-content ul, .blog-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+}
+
+.blog-content li {
+    margin-bottom: 0.5rem;
+}
+
+.blog-content a {
+    color: var(--accent-color);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-color);
+    transition: all 0.2s ease;
+}
+
+.blog-content a:hover {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.blog-content code {
+    background-color: #1e1e1e; /* Dark background for inline code */
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    color: #f8f8f8; /* Light text color for inline code */
+}
+
+.blog-content pre {
+    background-color: #1e1e1e; /* Dark background for code blocks */
+    padding: 1rem;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+    border: 1px solid #333;
+}
+
+.blog-content pre code {
+    background-color: transparent;
+    padding: 0;
+    color: #f8f8f8; /* Light text color for code */
+    font-size: 0.9rem;
+    line-height: 1.5;
+    font-family: 'Courier New', monospace;
+}
+
+.blog-content blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding-left: 1rem;
+    margin-left: 0;
+    margin-right: 0;
+    font-style: italic;
+    color: #555;
+}
+
+.blog-content hr {
+    border: none;
+    height: 1px;
+    background-color: #eee;
+    margin: 2rem 0;
+}
+
+.blog-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin: 1.5rem 0;
+    box-shadow: var(--soft-shadow);
+}
+
+.blog-content .image-caption {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: -1rem;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.blog-content .note {
+    background-color: #f8f9fa;
+    border-left: 4px solid var(--accent-color);
+    padding: 1rem;
+    margin: 1.5rem 0;
+    border-radius: 0 5px 5px 0;
+}
+
+.blog-content .warning {
+    background-color: #fff8f8;
+    border-left: 4px solid #e74c3c;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    border-radius: 0 5px 5px 0;
+}
+
+.blog-content .tip {
+    background-color: #f0f8ff;
+    border-left: 4px solid #3498db;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    border-radius: 0 5px 5px 0;
+}
+
+.blog-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+}
+
+.blog-author {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.blog-author-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.blog-author-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.blog-author-info h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--secondary-color);
+}
+
+.blog-author-info p {
+    margin: 0;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.blog-share {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.blog-share a {
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+}
+
+.blog-share a:hover {
+    color: var(--primary-color);
+}
+
+.back-to-blog {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 2rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+}
+
+.back-to-blog i {
+    margin-right: 0.5rem;
+}
+
+/* Code syntax highlighting */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #6a9955;
+}
+
+.token.punctuation {
+    color: #d4d4d4;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    color: #b5cea8;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    color: #ce9178;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    color: #d4d4d4;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    color: #569cd6;
+}
+
+.token.function,
+.token.class-name {
+    color: #dcdcaa;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+    color: #d16969;
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold;
+}
+
+.token.italic {
+    font-style: italic;
+}
+
+.token.entity {
+    cursor: help;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .blog-container {
+        padding: 1.5rem;
+    }
+    
+    .blog-title {
+        font-size: 2rem;
+    }
+    
+    .blog-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .blog-content {
+        font-size: 1rem;
+    }
+}
