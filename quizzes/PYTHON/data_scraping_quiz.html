@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>🕵️ Data Scraping Quiz | Python Web Scraping for Beginners</title>
+      
+        <!-- SEO Meta Tags -->
+        <meta name="description" content="Test your knowledge of data scraping and Python web scraping tools like Beautiful Soup and Requests. Perfect for beginners and students!" />
+        <meta name="keywords" content="data scraping quiz, web scraping quiz, python scraping quiz, beautiful soup, requests, beginner python quiz, web scraping practice" />
+        <meta name="author" content="Faruk Hasan" />
+      
+        <!-- Open Graph / Social Media -->
+        <meta property="og:title" content="🕵️ Data Scraping Quiz" />
+        <meta property="og:description" content="A fun 10-question quiz on data scraping, Beautiful Soup, and Python Requests. Great for students learning web scraping!" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://yourdomain.com/data-scraping-quiz" />
+        <meta property="og:image" content="https://yourdomain.com/assets/quiz-thumbnail.png" />
+      
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="🕵️ Data Scraping Quiz" />
+        <meta name="twitter:description" content="A beginner-friendly quiz on Python web scraping. Learn and test your skills!" />
+        <meta name="twitter:image" content="https://yourdomain.com/assets/quiz-thumbnail.png" />
+      
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+          }
+          h1 {
+            text-align: center;
+          }
+          .question {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+          }
+          .question h3 {
+            margin-top: 0;
+          }
+          .feedback {
+            font-weight: bold;
+          }
+          button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+          }
+          button:hover {
+            background-color: #45a049;
+          }
+        </style>
+      </head>
+      
+<body>
+  <h1>🕵️ Data Scraping Quiz</h1>
+
+  <!-- Question 1 -->
+  <div class="question" id="q1">
+    <h3>1. What is data scraping?</h3>
+    <form>
+      <label><input type="radio" name="q1" value="A" /> A) Posting content to the internet</label><br>
+      <label><input type="radio" name="q1" value="B" /> B) Automatically collecting data from websites</label><br>
+      <label><input type="radio" name="q1" value="C" /> C) Writing reviews of websites</label><br>
+      <label><input type="radio" name="q1" value="D" /> D) Drawing pictures of websites</label>
+    </form>
+    <p class="feedback" id="feedback-q1"></p>
+  </div>
+
+  <!-- Question 2 -->
+  <div class="question" id="q2">
+    <h3>2. Why is data scraping useful?</h3>
+    <form>
+      <label><input type="radio" name="q2" value="A" /> A) To hack into websites</label><br>
+      <label><input type="radio" name="q2" value="B" /> B) To avoid using search engines</label><br>
+      <label><input type="radio" name="q2" value="C" /> C) To extract useful info and save time</label><br>
+      <label><input type="radio" name="q2" value="D" /> D) To watch more YouTube videos</label>
+    </form>
+    <p class="feedback" id="feedback-q2"></p>
+  </div>
+
+  <!-- Question 3 -->
+  <div class="question" id="q3">
+    <h3>3. What tool helps us connect to a website and get its content in Python?</h3>
+    <form>
+      <label><input type="radio" name="q3" value="A" /> A) Excel</label><br>
+      <label><input type="radio" name="q3" value="B" /> B) Requests</label><br>
+      <label><input type="radio" name="q3" value="C" /> C) Beautiful Soup</label><br>
+      <label><input type="radio" name="q3" value="D" /> D) Google Docs</label>
+    </form>
+    <p class="feedback" id="feedback-q3"></p>
+  </div>
+
+  <!-- Question 4 -->
+  <div class="question" id="q4">
+    <h3>4. Which Python tool helps you extract parts of a webpage like titles and links?</h3>
+    <form>
+      <label><input type="radio" name="q4" value="A" /> A) Beautiful Soup</label><br>
+      <label><input type="radio" name="q4" value="B" /> B) Flask</label><br>
+      <label><input type="radio" name="q4" value="C" /> C) Jupyter Notebook</label><br>
+      <label><input type="radio" name="q4" value="D" /> D) Matplotlib</label>
+    </form>
+    <p class="feedback" id="feedback-q4"></p>
+  </div>
+
+  <!-- Question 5 -->
+  <div class="question" id="q5">
+    <h3>5. What is the purpose of parsing HTML?</h3>
+    <form>
+      <label><input type="radio" name="q5" value="A" /> A) To make the site look better</label><br>
+      <label><input type="radio" name="q5" value="B" /> B) To upload files to the site</label><br>
+      <label><input type="radio" name="q5" value="C" /> C) To stop pop-up ads</label><br>
+      <label><input type="radio" name="q5" value="D" /> D) To break the code into pieces for easy reading and extraction</label>
+    </form>
+    <p class="feedback" id="feedback-q5"></p>
+  </div>
+
+  <!-- Question 6 -->
+  <div class="question" id="q6">
+    <h3>6. Before scraping a website, what should you always check?</h3>
+    <form>
+      <label><input type="radio" name="q6" value="A" /> A) The site’s background music</label><br>
+      <label><input type="radio" name="q6" value="B" /> B) The site's comment section</label><br>
+      <label><input type="radio" name="q6" value="C" /> C) The site's color theme</label><br>
+      <label><input type="radio" name="q6" value="D" /> D) The robots.txt file</label>
+    </form>
+    <p class="feedback" id="feedback-q6"></p>
+  </div>
+
+  <!-- Question 7 -->
+  <div class="question" id="q7">
+    <h3>7. What is Google Colab mainly used for in this context?</h3>
+    <form>
+      <label><input type="radio" name="q7" value="A" /> A) Writing and running Python code online</label><br>
+      <label><input type="radio" name="q7" value="B" /> B) Sharing photos</label><br>
+      <label><input type="radio" name="q7" value="C" /> C) Making presentations</label><br>
+      <label><input type="radio" name="q7" value="D" /> D) Drawing web pages</label>
+    </form>
+    <p class="feedback" id="feedback-q7"></p>
+  </div>
+
+  <!-- Question 8 -->
+  <div class="question" id="q8">
+    <h3>8. What does this code do? response = requests.get("https://www.google.com")</h3>
+    <form>
+      <label><input type="radio" name="q8" value="A" /> A) Deletes a file</label><br>
+      <label><input type="radio" name="q8" value="B" /> B) Visits Google's homepage and gets the HTML</label><br>
+      <label><input type="radio" name="q8" value="C" /> C) Starts a YouTube video</label><br>
+      <label><input type="radio" name="q8" value="D" /> D) Sends an email</label>
+    </form>
+    <p class="feedback" id="feedback-q8"></p>
+  </div>
+
+  <!-- Question 9 -->
+  <div class="question" id="q9">
+    <h3>9. True or False: Beautiful Soup can work without Requests.</h3>
+    <form>
+      <label><input type="radio" name="q9" value="A" /> A) True</label><br>
+      <label><input type="radio" name="q9" value="B" /> B) False</label>
+    </form>
+    <p class="feedback" id="feedback-q9"></p>
+  </div>
+
+  <!-- Question 10 -->
+  <div class="question" id="q10">
+    <h3>10. Which best describes the role of the scraper code?</h3>
+    <form>
+      <label><input type="radio" name="q10" value="A" /> A) It installs computer games</label><br>
+      <label><input type="radio" name="q10" value="B" /> B) It draws pictures from the web</label><br>
+      <label><input type="radio" name="q10" value="C" /> C) It makes websites run faster</label><br>
+      <label><input type="radio" name="q10" value="D" /> D) It collects and organizes data from a website automatically</label>
+    </form>
+    <p class="feedback" id="feedback-q10"></p>
+  </div>
+
+  <button onclick="checkAnswers()">Submit Answers</button>
+
+  <script>
+    const answers = {
+      q1: "B",
+      q2: "C",
+      q3: "B",
+      q4: "A",
+      q5: "D",
+      q6: "D",
+      q7: "A",
+      q8: "B",
+      q9: "B",
+      q10: "D"
+    };
+
+    function checkAnswers() {
+      for (const [questionId, correct] of Object.entries(answers)) {
+        const radios = document.querySelectorAll(`input[name="${questionId}"]`);
+        let selected = null;
+        radios.forEach(r => {
+          if (r.checked) selected = r.value;
+        });
+
+        const feedback = document.getElementById(`feedback-${questionId}`);
+        if (selected === correct) {
+          feedback.textContent = "✅ Correct!";
+          feedback.style.color = "green";
+        } else {
+          feedback.textContent = `❌ Incorrect. Correct answer: ${correct}`;
+          feedback.style.color = "red";
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
