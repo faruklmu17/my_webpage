@@ -395,20 +395,22 @@
 .blog-header {
     text-align: center;
     margin-bottom: 3rem;
-    padding: 3rem 2rem;
+    padding: 2rem;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
     backdrop-filter: blur(10px);
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 50;
 }
 
 .blog-title {
-    font-size: 3rem;
+    font-size: 2.5rem;
     background: linear-gradient(135deg, #667eea, #764ba2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     font-weight: 700;
     line-height: 1.2;
 }
@@ -416,8 +418,8 @@
 .blog-meta {
     display: flex;
     justify-content: center;
-    gap: 2rem;
-    margin-bottom: 1.5rem;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .blog-meta-item {
@@ -436,7 +438,7 @@
 }
 
 .blog-header p {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #555;
     line-height: 1.6;
     max-width: 600px;
@@ -689,5 +691,15 @@ footer::before {
 
 .blog-content section:nth-child(odd) {
     animation-delay: 0.2s;
+}
+
+/* Ensure proper stacking order */
+body {
+    position: relative;
+}
+
+/* Add top margin to account for any sticky elements */
+.blog-container {
+    margin-top: 1rem;
 }
 </style>
