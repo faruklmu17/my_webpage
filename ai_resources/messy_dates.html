@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mixed Date Formats</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f8ff;
+            margin: 40px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e88e5;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        li.date {
+            padding: 12px 20px;
+            border-bottom: 1px solid #eee;
+            font-size: 1.1em;
+        }
+
+        li.date:nth-child(odd) {
+            background-color: #e3f2fd;
+        }
+
+        li.date:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Event Dates</h1>
+    <ul>
+        <li class="date">July 25, 2025</li>
+        <li class="date">2025-07-24</li>
+        <li class="date">07/23/2025</li>
+        <li class="date">25-07-2025</li>
+        <li class="date">2025.07.22</li>
+        <li class="date">Wednesday, July 21, 2025</li>
+        <li class="date">20250720</li>
+    </ul>
+</body>
+</html>

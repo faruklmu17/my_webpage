@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python OOP Quiz 2 - Advanced Object-Oriented Programming | Faruk Hasan</title>
+  <meta name="description" content="Test your advanced Python OOP knowledge with this comprehensive quiz covering classes, inheritance, polymorphism, encapsulation, and more advanced concepts.">
+  <meta name="keywords" content="Python OOP quiz, object-oriented programming, Python classes, inheritance, polymorphism, encapsulation, Python advanced quiz">
+  <meta name="author" content="Faruk Hasan">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Python OOP Quiz 2 - Advanced Object-Oriented Programming">
+  <meta property="og:description" content="Test your advanced Python OOP knowledge with this comprehensive quiz covering classes, inheritance, polymorphism, encapsulation, and more.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://farukhasan.com/quizzes/PYTHON/python_oop_quiz_2.html">
+  <meta property="og:image" content="https://farukhasan.com/me.jpg">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Python OOP Quiz 2 - Advanced Object-Oriented Programming">
+  <meta name="twitter:description" content="Test your advanced Python OOP knowledge with this comprehensive quiz.">
+  <meta name="twitter:image" content="https://farukhasan.com/me.jpg">
+
+  <!-- Shared CSS and JavaScript -->
+  <link rel="stylesheet" href="../../shared/header-footer.css">
+  <script src="../../shared/header-footer.js"></script>
+
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #333;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .quiz-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .question {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .question:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .question p {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 1.5rem;
+      line-height: 1.4;
+    }
+
+    .question input[type="radio"] {
+      margin-right: 0.8rem;
+      transform: scale(1.2);
+      accent-color: #667eea;
+    }
+
+    .question label {
+      font-size: 1rem;
+      color: #34495e;
+      cursor: pointer;
+      display: block;
+      padding: 0.8rem 0;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      margin-bottom: 0.5rem;
+    }
+
+    .question label:hover {
+      background-color: rgba(102, 126, 234, 0.1);
+      padding-left: 1rem;
+    }
+
+    .question input[type="text"], .question textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e0e6ed;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .question input[type="text"]:focus, .question textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .question textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .submit-container {
+      text-align: center;
+      margin: 3rem 0;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 1rem 3rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    .submit-btn:active {
+      transform: translateY(-1px);
+    }
+
+    .result {
+      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 15px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
+      display: none;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .quiz-container {
+        padding: 0 1rem 2rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .question {
+        padding: 1.5rem;
+      }
+
+      .question p {
+        font-size: 1.1rem;
+      }
+
+      .submit-btn {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <div class="header-left">
+        <div class="profile-image">
+          <img src="../../me.jpg" alt="Faruk Hasan">
+        </div>
+        <div class="headline">
+          <h1>Faruk Hasan</h1>
+          <p><span class="highlight">Software QA Engineer | Automation & AI-Driven Testing Specialist</span></p>
+        </div>
+      </div>
+      <div class="nav-social-container">
+        <nav>
+          <ul>
+            <li><a href="../../index.html#about">About Me</a></li>
+            <li><a href="../../index.html#courses">Courses</a></li>
+            <li><a href="../../index.html#projects">Projects</a></li>
+            <li><a href="../../index.html#blog">Blog</a></li>
+            <li><a href="../../index.html#my dividends">Dividends</a></li>
+            <li><a href="../../resources.html">Resources</a></li>
+          </ul>
+        </nav>
+        <div class="social-icons">
+          <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="quiz-container">
+    <h1 style="text-align: center; color: white; font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);">🐍 Python OOP Quiz 2</h1>
+
+    <form id="quizForm">
+    
+      <!-- Multiple Choice Questions -->
+      <div class="question">
+        <p>1. What is the main purpose of OOP?</p>
+        <label><input type="radio" name="q1" value="A"> A) Faster execution</label>
+        <label><input type="radio" name="q1" value="B"> B) Code reuse and modularity</label>
+        <label><input type="radio" name="q1" value="C"> C) Easy GUI creation</label>
+        <label><input type="radio" name="q1" value="D"> D) Complex syntax</label>
+      </div>
+
+      <div class="question">
+        <p>2. Which of the following is used to create a class?</p>
+        <label><input type="radio" name="q2" value="A"> A) make</label>
+        <label><input type="radio" name="q2" value="B"> B) define</label>
+        <label><input type="radio" name="q2" value="C"> C) class</label>
+        <label><input type="radio" name="q2" value="D"> D) object</label>
+      </div>
+
+      <div class="question">
+        <p>3. Which method is the constructor in Python?</p>
+        <label><input type="radio" name="q3" value="A"> A) __new__()</label>
+        <label><input type="radio" name="q3" value="B"> B) constructor()</label>
+        <label><input type="radio" name="q3" value="C"> C) init()</label>
+        <label><input type="radio" name="q3" value="D"> D) __init__()</label>
+      </div>
+
+      <div class="question">
+        <p>4. What does <code>self</code> refer to in a class method?</p>
+        <label><input type="radio" name="q4" value="A"> A) The class itself</label>
+        <label><input type="radio" name="q4" value="B"> B) A static method</label>
+        <label><input type="radio" name="q4" value="C"> C) The current object instance</label>
+        <label><input type="radio" name="q4" value="D"> D) A global variable</label>
+      </div>
+
+      <div class="question">
+        <p>5. What is inheritance used for?</p>
+        <label><input type="radio" name="q5" value="A"> A) Creating new modules</label>
+        <label><input type="radio" name="q5" value="B"> B) Creating private methods</label>
+        <label><input type="radio" name="q5" value="C"> C) Creating a child class from a parent class</label>
+        <label><input type="radio" name="q5" value="D"> D) Deleting a class</label>
+      </div>
+
+      <!-- True/False Questions -->
+      <div class="question">
+        <p>6. You can have more than one constructor in a Python class. (True/False)</p>
+        <input type="text" name="q6" placeholder="Enter True or False">
+      </div>
+
+      <div class="question">
+        <p>7. Private attributes in Python start with a single underscore _ . (True/False)</p>
+        <input type="text" name="q7" placeholder="Enter True or False">
+      </div>
+
+      <div class="question">
+        <p>8. Python supports multiple inheritance. (True/False)</p>
+        <input type="text" name="q8" placeholder="Enter True or False">
+      </div>
+
+      <div class="question">
+        <p>9. A class method can be called without creating an object. (True/False)</p>
+        <input type="text" name="q9" placeholder="Enter True or False">
+    </div>
+
+      <div class="question">
+        <p>10. @staticmethod allows access to the class variables. (True/False)</p>
+        <input type="text" name="q10" placeholder="Enter True or False">
+      </div>
+
+      <!-- Code Questions -->
+      <div class="question">
+        <p>11. What will be the output of this code?</p>
+        <pre style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #667eea; margin: 1rem 0; font-family: 'Courier New', monospace;">class Animal:
+    def __init__(self, name):
+        self.name = name
+    def speak(self):
+        return self.name + " says hello"
+
+dog = Animal("Buddy")
+print(dog.speak())</pre>
+        <input type="text" name="q11" placeholder="Enter the expected output">
+      </div>
+
+      <div class="question">
+        <p>12. What is the error in this code?</p>
+        <pre style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #e74c3c; margin: 1rem 0; font-family: 'Courier New', monospace;">class Car:
+    def start_engine():
+        print("Engine started")
+
+my_car = Car()
+my_car.start_engine()</pre>
+        <input type="text" name="q12" placeholder="Describe the error">
+      </div>
+
+      <div class="question">
+        <p>13. Fill in the blank to complete this method:</p>
+        <pre style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #667eea; margin: 1rem 0; font-family: 'Courier New', monospace;">def ________:
+    return self.first + " " + self.last</pre>
+        <input type="text" name="q13" placeholder="Complete the method definition">
+      </div>
+
+      <!-- Short Answer Questions -->
+      <div class="question">
+        <p>14. What is the difference between a class variable and an instance variable?</p>
+        <textarea name="q14" placeholder="Explain the difference between class variables and instance variables..."></textarea>
+      </div>
+
+      <div class="question">
+        <p>15. You have a base class <code>Shape</code> and a subclass <code>Circle</code>. What would you do to ensure that <code>Circle</code> also has the <code>__init__</code> method from <code>Shape</code>?</p>
+        <textarea name="q15" placeholder="Explain how to inherit the __init__ method from the parent class..."></textarea>
+      </div>
+
+      <div class="submit-container">
+        <button type="submit" class="submit-btn">Submit Quiz</button>
+      </div>
+    </form>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const answers = {
+      q1: "B", q2: "C", q3: "D", q4: "C", q5: "C",
+      q6: "False", q7: "True", q8: "True", q9: "False", q10: "False",
+      q11: "Buddy says hello",
+      q12: "Missing self parameter in start_engine method",
+      q13: "full_name(self)",
+    };
+
+    document.getElementById("quizForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      let score = 0;
+      let totalAnswered = 0;
+
+      for (let i = 1; i <= 13; i++) {
+        const formElement = document.forms["quizForm"]["q" + i];
+        if (formElement) {
+          const val = formElement.value.trim();
+          if (val) {
+            totalAnswered++;
+            if (val.toLowerCase() === answers["q" + i].toLowerCase()) {
+              score++;
+            }
+          }
+        }
+      }
+
+      const total = 13;
+      const percent = Math.round((score / total) * 100);
+      const resultDiv = document.getElementById("result");
+
+      let resultMessage = `🎉 Quiz Complete! 🎉\n\n`;
+      resultMessage += `✅ Correct Answers: ${score}/${total}\n`;
+      resultMessage += `📊 Your Score: ${percent}%\n\n`;
+
+      if (percent >= 90) {
+        resultMessage += `🏆 Excellent! You have mastered Python OOP concepts!`;
+      } else if (percent >= 70) {
+        resultMessage += `👍 Good job! You have a solid understanding of Python OOP.`;
+      } else if (percent >= 50) {
+        resultMessage += `📚 Not bad! Keep practicing to improve your OOP skills.`;
+      } else {
+        resultMessage += `💪 Keep learning! Review the concepts and try again.`;
+      }
+
+      resultMessage += `\n\n📝 Note: Questions 14 & 15 are open-ended and not auto-scored.`;
+
+      resultDiv.innerHTML = resultMessage.replace(/\n/g, '<br>');
+      resultDiv.style.display = 'block';
+
+      // Scroll to result
+      resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  </script>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-info">
+        <h3>Faruk Hasan</h3>
+        <p>Software QA Engineer | Automation & AI-Driven Testing Specialist</p>
+        <p>Empowering developers and testers with knowledge and tools for success.</p>
+      </div>
+
+      <div class="footer-social">
+        <h4>Connect With Me</h4>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-link linkedin" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://www.youtube.com/@kidz_code" class="social-link youtube" aria-label="YouTube">
+            <i class="fab fa-youtube"></i>
+          </a>
+          <a href="https://www.facebook.com/HasanMd2020/" class="social-link facebook" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-share">
+        <h4>Share This Quiz</h4>
+        <div class="share-buttons">
+          <button onclick="shareOnFacebook()" class="share-btn facebook" aria-label="Share on Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </button>
+          <button onclick="shareOnTwitter()" class="share-btn twitter" aria-label="Share on Twitter">
+            <i class="fab fa-twitter"></i>
+          </button>
+          <button onclick="shareOnLinkedIn()" class="share-btn linkedin" aria-label="Share on LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </button>
+          <button onclick="shareByEmail()" class="share-btn email" aria-label="Share by Email">
+            <i class="fas fa-envelope"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2024 Faruk Hasan. All rights reserved. |
+        <a href="../../index.html">Home</a> |
+        <a href="../../resources.html">Resources</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
