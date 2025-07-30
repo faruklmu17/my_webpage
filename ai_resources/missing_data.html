@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Missing Data Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      padding: 20px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    #data-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 10px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    #data-list div {
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+      font-weight: bold;
+    }
+
+    #data-list div[data-value="null"],
+    #data-list div[data-value="NaN"],
+    #data-list div[data-value=""],
+    #data-list div:not([data-value]) {
+      background-color: #ffebee;
+      color: #c0392b;
+      border: 2px dashed #e74c3c;
+    }
+  </style>
+</head>
+<body>
+  <h1>Sample Data List</h1>
+  <div id="data-list">
+    <div data-value="Apple">Apple</div>
+    <div data-value="Banana">Banana</div>
+    <div data-value=""> </div>
+    <div data-value="Orange">Orange</div>
+    <div data-value="null">null</div>
+    <div data-value="Grapes">Grapes</div>
+    <div data-value="Mango">Mango</div>
+    <div data-value="NaN">NaN</div>
+    <div data-value="Peach">Peach</div>
+    <div data-value="null">null</div>
+    <div data-value="Cherry">Cherry</div>
+    <div data-value=""> </div>
+    <div data-value="Kiwi">Kiwi</div>
+    <div data-value="Plum">Plum</div>
+    <div data-value="NaN">NaN</div>
+    <div data-value="Strawberry">Strawberry</div>
+    <div data-value="Blueberry">Blueberry</div>
+    <div data-value="Raspberry">Raspberry</div>
+    <div data-value="null">null</div>
+    <div data-value="Lemon">Lemon</div>
+    <div data-value=""> </div>
+    <div data-value="Watermelon">Watermelon</div>
+    <div data-value="Papaya">Papaya</div>
+    <div data-value="Lychee">Lychee</div>
+    <div data-value="Dragonfruit">Dragonfruit</div>
+  </div>
+</body>
+</html>
