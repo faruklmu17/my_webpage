@@ -23,7 +23,7 @@
       margin: 0 auto;
     }
 
-    #data-list div {
+    .fruit {
       background-color: #ffffff;
       border: 1px solid #ccc;
       border-radius: 8px;
@@ -33,10 +33,8 @@
       font-weight: bold;
     }
 
-    #data-list div[data-value="null"],
-    #data-list div[data-value="NaN"],
-    #data-list div[data-value=""],
-    #data-list div:not([data-value]) {
+    .fruit:empty,
+    .fruit.invalid {
       background-color: #ffebee;
       color: #c0392b;
       border: 2px dashed #e74c3c;
@@ -46,31 +44,31 @@
 <body>
   <h1>Sample Data List</h1>
   <div id="data-list">
-    <div data-value="Apple">Apple</div>
-    <div data-value="Banana">Banana</div>
-    <div data-value=""> </div>
-    <div data-value="Orange">Orange</div>
-    <div data-value="null">null</div>
-    <div data-value="Grapes">Grapes</div>
-    <div data-value="Mango">Mango</div>
-    <div data-value="NaN">NaN</div>
-    <div data-value="Peach">Peach</div>
-    <div data-value="null">null</div>
-    <div data-value="Cherry">Cherry</div>
-    <div data-value=""> </div>
-    <div data-value="Kiwi">Kiwi</div>
-    <div data-value="Plum">Plum</div>
-    <div data-value="NaN">NaN</div>
-    <div data-value="Strawberry">Strawberry</div>
-    <div data-value="Blueberry">Blueberry</div>
-    <div data-value="Raspberry">Raspberry</div>
-    <div data-value="null">null</div>
-    <div data-value="Lemon">Lemon</div>
-    <div data-value=""> </div>
-    <div data-value="Watermelon">Watermelon</div>
-    <div data-value="Papaya">Papaya</div>
-    <div data-value="Lychee">Lychee</div>
-    <div data-value="Dragonfruit">Dragonfruit</div>
+    <div class="fruit">Apple</div>
+    <div class="fruit">Banana</div>
+    <div class="fruit invalid"> </div>
+    <div class="fruit">Orange</div>
+    <div class="fruit invalid">null</div>
+    <div class="fruit">Grapes</div>
+    <div class="fruit">Mango</div>
+    <div class="fruit invalid">NaN</div>
+    <div class="fruit">Peach</div>
+    <div class="fruit invalid">null</div>
+    <div class="fruit">Cherry</div>
+    <div class="fruit invalid"> </div>
+    <div class="fruit">Kiwi</div>
+    <div class="fruit">Plum</div>
+    <div class="fruit invalid">NaN</div>
+    <div class="fruit">Strawberry</div>
+    <div class="fruit">Blueberry</div>
+    <div class="fruit">Raspberry</div>
+    <div class="fruit invalid">null</div>
+    <div class="fruit">Lemon</div>
+    <div class="fruit invalid"> </div>
+    <div class="fruit">Watermelon</div>
+    <div class="fruit">Papaya</div>
+    <div class="fruit">Lychee</div>
+    <div class="fruit">Dragonfruit</div>
   </div>
 </body>
 </html>
