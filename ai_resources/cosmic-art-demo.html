@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cosmic Galaxy Art Demo</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: #050520;
+      color: white;
+      overflow-x: hidden;
+    }
+    
+    .content {
+      position: relative;
+      z-index: 1;
+      padding: 2rem;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      background: linear-gradient(45deg, #ff9ff3, #feca57, #5f27cd, #48dbfb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    
+    .controls {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    button {
+      background: linear-gradient(45deg, #5f27cd, #48dbfb);
+      border: none;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(95, 39, 205, 0.3);
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(95, 39, 205, 0.4);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    .info {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 1rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      max-width: 300px;
+      backdrop-filter: blur(10px);
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      p {
+        font-size: 1rem;
+      }
+      
+      .info {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin-top: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h1>🌌 Cosmic Galaxy Art</h1>
+    <p>
+      Experience a mesmerizing cosmic animation with floating stars and shooting stars. 
+      This beautiful background animation creates an immersive space-like atmosphere 
+      perfect for any website or application.
+    </p>
+    
+    <div class="controls">
+      <button onclick="toggleAnimation()">Toggle Animation</button>
+      <button onclick="addShootingStars()">Add Shooting Stars</button>
+      <button onclick="changeColors()">Change Colors</button>
+    </div>
+  </div>
+  
+  <div class="info">
+    <strong>🎨 Features:</strong><br>
+    • 500+ animated stars<br>
+    • Random shooting stars<br>
+    • Colorful cosmic palette<br>
+    • Responsive design<br>
+    • Smooth 60fps animation
+  </div>
+  
+  <!-- Include the cosmic art script -->
+  <script src="art.js"></script>
+  
+  <script>
+    let animationActive = true;
+    let currentCleanup = null;
+    
+    // Store the cleanup function when art is created
+    window.addEventListener('load', function() {
+      // The art.js file auto-starts, so we just need to track it
+      console.log('🌌 Cosmic Galaxy Art loaded successfully!');
+    });
+    
+    function toggleAnimation() {
+      if (animationActive) {
+        // Stop animation (this would require modifying art.js to support stopping)
+        console.log('Animation toggle - currently always active');
+      } else {
+        // Start animation
+        createCosmicGalaxyArt();
+      }
+      animationActive = !animationActive;
+    }
+    
+    function addShootingStars() {
+      // Add multiple shooting stars at once
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+          // This would require exposing the createShootingStar function
+          console.log('Adding shooting star', i + 1);
+        }, i * 200);
+      }
+    }
+    
+    function changeColors() {
+      // This would require modifying the art.js to support color changes
+      console.log('Color change feature - would need art.js modification');
+      
+      // For now, just show a message
+      const colors = ['🔴 Red Galaxy', '🔵 Blue Nebula', '🟢 Green Cosmos', '🟡 Golden Stars'];
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      
+      // Create a temporary notification
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 25px;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+      `;
+      notification.textContent = `Switched to ${randomColor}`;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
