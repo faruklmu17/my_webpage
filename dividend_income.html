@@ -396,7 +396,7 @@
           <span class="hero-stat-label">Current Monthly Income</span>
         </div>
         <div class="hero-stat">
-          <span class="hero-stat-value">4.2%</span>
+          <span class="hero-stat-value" id="portfolio-yield">5.7%</span>
           <span class="hero-stat-label">Portfolio Yield</span>
         </div>
         <div class="hero-stat">
@@ -673,6 +673,9 @@
       const avgYield = (totalMonthly * 12 / totalMarketValue * 100);
       document.getElementById('avgYield').textContent = avgYield.toFixed(1) + '%';
       document.getElementById('totalMonthly').innerHTML = `<strong>$${totalMonthly.toFixed(0)}</strong>`;
+
+      // Update hero section yield
+      document.getElementById('portfolio-yield').textContent = avgYield.toFixed(1) + '%';
     }
 
     // Create the pie chart
