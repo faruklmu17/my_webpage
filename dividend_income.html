@@ -60,11 +60,25 @@
     }
 
     .hero-section {
-      background: var(--gradient-primary);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
       color: white;
       text-align: center;
       padding: 4rem 2rem;
       margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+      opacity: 0.6;
     }
 
     .hero-title {
@@ -84,23 +98,166 @@
     .hero-stats {
       display: flex;
       justify-content: center;
-      gap: 3rem;
+      gap: 2rem;
       margin-top: 2rem;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
     }
 
     .hero-stat {
       text-align: center;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 1.5rem 2rem;
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      min-width: 140px;
+    }
+
+    .hero-stat:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     }
 
     .hero-stat-value {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
       font-weight: 700;
       display: block;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .hero-stat-label {
       font-size: 0.9rem;
-      opacity: 0.8;
+      opacity: 0.9;
+      font-weight: 500;
+    }
+
+    .progress-section {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin: 2rem 0;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .progress-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .progress-header h3 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-header p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+
+    .progress-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .progress-bar {
+      position: relative;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 2rem 0;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #10b981 0%, #059669 50%, #047857 100%);
+      border-radius: 10px;
+      transition: width 2s ease-in-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .progress-markers {
+      position: relative;
+      height: 40px;
+      margin-top: 1rem;
+    }
+
+    .progress-marker {
+      position: absolute;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+
+    .progress-marker::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 20px;
+      background: var(--border-color);
+    }
+
+    .marker-value {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-color);
+    }
+
+    .progress-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .progress-stat {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 1.5rem;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .progress-stat-value {
+      display: block;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-stat-label {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      font-weight: 500;
     }
 
     .section {
@@ -381,6 +538,32 @@
         padding: 0.5rem;
         font-size: 0.8rem;
       }
+
+      .progress-section {
+        padding: 1.5rem;
+        margin: 1rem 0;
+      }
+
+      .progress-header h3 {
+        font-size: 1.5rem;
+      }
+
+      .progress-stats {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .progress-stat {
+        padding: 1rem;
+      }
+
+      .progress-stat-value {
+        font-size: 1.5rem;
+      }
+
+      .marker-value {
+        font-size: 0.8rem;
+      }
     }
   </style>
 </head>
@@ -402,6 +585,57 @@
         <div class="hero-stat">
           <span class="hero-stat-value">$250</span>
           <span class="hero-stat-label">2025 Target</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value" id="progress-percentage">76%</span>
+          <span class="hero-stat-label">Progress</span>
+        </div>
+      </div>
+
+      <!-- Progress Bar Section -->
+      <div class="progress-section">
+        <div class="progress-header">
+          <h3>🎯 Goal Progress</h3>
+          <p>Journey to $250/month passive income</p>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+            <div class="progress-markers">
+              <div class="progress-marker" style="left: 0%">
+                <span class="marker-value">$0</span>
+              </div>
+              <div class="progress-marker" style="left: 20%">
+                <span class="marker-value">$50</span>
+              </div>
+              <div class="progress-marker" style="left: 40%">
+                <span class="marker-value">$100</span>
+              </div>
+              <div class="progress-marker" style="left: 60%">
+                <span class="marker-value">$150</span>
+              </div>
+              <div class="progress-marker" style="left: 80%">
+                <span class="marker-value">$200</span>
+              </div>
+              <div class="progress-marker" style="left: 100%">
+                <span class="marker-value">$250</span>
+              </div>
+            </div>
+          </div>
+          <div class="progress-stats">
+            <div class="progress-stat">
+              <span class="progress-stat-value" id="remaining-amount">$60</span>
+              <span class="progress-stat-label">Remaining to Goal</span>
+            </div>
+            <div class="progress-stat">
+              <span class="progress-stat-value" id="monthly-needed">~$5</span>
+              <span class="progress-stat-label">Monthly Growth Needed</span>
+            </div>
+            <div class="progress-stat">
+              <span class="progress-stat-value">Dec 2025</span>
+              <span class="progress-stat-label">Target Date</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -676,6 +910,33 @@
 
       // Update hero section yield
       document.getElementById('portfolio-yield').textContent = avgYield.toFixed(1) + '%';
+
+      // Update progress bar
+      updateProgressBar(totalMonthly);
+    }
+
+    // Update progress bar and stats
+    function updateProgressBar(currentMonthly) {
+      const targetGoal = 250;
+      const progressPercentage = (currentMonthly / targetGoal) * 100;
+      const remaining = targetGoal - currentMonthly;
+
+      // Calculate months remaining until Dec 2025
+      const now = new Date();
+      const targetDate = new Date(2025, 11, 31); // December 31, 2025
+      const monthsRemaining = Math.max(1, Math.ceil((targetDate - now) / (1000 * 60 * 60 * 24 * 30)));
+      const monthlyGrowthNeeded = remaining / monthsRemaining;
+
+      // Update progress bar
+      const progressFill = document.getElementById('progress-fill');
+      setTimeout(() => {
+        progressFill.style.width = Math.min(progressPercentage, 100) + '%';
+      }, 500);
+
+      // Update stats
+      document.getElementById('progress-percentage').textContent = progressPercentage.toFixed(0) + '%';
+      document.getElementById('remaining-amount').textContent = '$' + remaining.toFixed(0);
+      document.getElementById('monthly-needed').textContent = '~$' + monthlyGrowthNeeded.toFixed(0);
     }
 
     // Create the pie chart
