@@ -578,8 +578,18 @@
     }
 
     @media (max-width: 768px) {
+      .hero-section {
+        padding: 1rem 1rem 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+
       .hero-title {
         font-size: 1.6rem;
+      }
+
+      .hero-subtitle {
+        font-size: 0.9rem;
+        line-height: 1.4;
       }
 
       .hero-stats {
@@ -606,6 +616,8 @@
       .charts-container {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+        margin-top: 2rem;
+        padding-top: 1rem;
       }
 
       .breakdown-chart {
@@ -625,12 +637,21 @@
       }
 
       .progress-section {
-        padding: 1.5rem;
+        padding: 2rem 1rem;
         margin: 1rem 0;
       }
 
       .progress-header h3 {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
+      }
+
+      .progress-header p {
+        font-size: 1rem;
+      }
+
+      .progress-bar {
+        height: 25px;
+        margin: 1.5rem 0;
       }
 
       .progress-stats {
@@ -639,11 +660,15 @@
       }
 
       .progress-stat {
-        padding: 1rem;
+        padding: 1.2rem;
       }
 
       .progress-stat-value {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
+      }
+
+      .progress-stat-label {
+        font-size: 0.9rem;
       }
 
       .marker-value {
