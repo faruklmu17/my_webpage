@@ -4,15 +4,90 @@
   <meta charset="utf-8">
   <title>Dates for Scraping Exercise</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 2rem; line-height: 1.5; }
-    .container { max-width: 800px; margin: auto; }
-    h1 { color: #2b6cb0; }
-    .note { background:#f7fafc; border-left:4px solid #cbd5e0; padding:0.5rem 1rem; margin-bottom:1rem; }
-    ul { list-style: none; padding: 0; }
-    li { padding: 0.35rem 0; }
-    .hidden { display:none; }
-    .data { margin-top:1rem; padding:1rem; background:#f1f5f9; border-radius:6px; }
-    .raw { font-family: monospace; }
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 18px; /* bigger font */
+      padding: 2rem;
+      line-height: 1.6;
+      background: linear-gradient(135deg, #f0f4ff, #e0f7fa);
+      color: #222;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+    }
+    h1 {
+      color: #1a237e;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    h2 {
+      color: #0d47a1;
+      margin-top: 1.5rem;
+    }
+    .note {
+      background: #fff3cd;
+      border-left: 5px solid #ffca28;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 6px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    li {
+      padding: 0.5rem;
+      background: #ffffffcc;
+      margin: 0.3rem 0;
+      border-radius: 6px;
+      transition: background 0.3s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    li:hover {
+      background: #bbdefb;
+    }
+    .data {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #e3f2fd;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .raw {
+      font-family: monospace;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      background: #ffffffcc;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    table th {
+      background: #0d47a1;
+      color: white;
+      padding: 0.75rem;
+    }
+    table td {
+      padding: 0.75rem;
+      text-align: left;
+    }
+    table tr:nth-child(even) {
+      background: #f1f8ff;
+    }
+    table tr:hover {
+      background: #bbdefb;
+    }
+    .hidden {
+      display: none;
+    }
+    hr {
+      margin-top: 2rem;
+    }
   </style>
 </head>
 <body>
@@ -20,7 +95,7 @@
     <h1>Web Scraping — Date Cleaning Exercise</h1>
     <p class="note">Students: scrape the dates below, parse and normalize them to <code>MM/DD/YYYY</code> format.</p>
 
-    <h2>Visible list (easy)</h2>
+    <h2>Visible list</h2>
     <ul id="date-list-visible">
       <li class="raw">Jan 12, 2025</li>
       <li class="raw">02-15-2025</li>
@@ -34,7 +109,7 @@
       <li class="raw">2025-10-11</li>
     </ul>
 
-    <h2>Mixed places (medium)</h2>
+    <h2>Mixed places</h2>
     <div class="data">
       <p class="raw">Data attribute: <span data-date="March 1st, 2025"></span></p>
       <p class="raw">Hidden span: <span class="hidden raw">Apr 2nd 2025</span></p>
@@ -44,7 +119,7 @@
       <p class="raw">Lowercase month: february 14, 2025</p>
     </div>
 
-   
+    
   </div>
 </body>
 </html>
