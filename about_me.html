@@ -73,19 +73,20 @@
         }
 
         .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 1rem;
+            width: 100%;
+            margin: 0;
+            padding: 0 2rem;
         }
 
         .content-section {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 3rem;
-            margin: 2rem auto;
+            margin: 2rem 0;
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            width: 100%;
         }
 
         .section-title {
@@ -264,32 +265,40 @@
         }
 
         @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
             .hero-title {
                 font-size: 2.5rem;
             }
-            
+
             .hero-subtitle {
                 font-size: 1.1rem;
             }
-            
+
             .content-section {
                 padding: 2rem 1.5rem;
-                margin: 1rem;
+                margin: 1rem 0;
             }
-            
+
             .section-title {
                 font-size: 1.5rem;
             }
-            
+
             .timeline-section {
                 padding-left: 1rem;
             }
-            
+
             .stats-grid {
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
-            
+
+            .travel-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
             .nav-link {
                 display: block;
                 margin: 0.5rem 0;
@@ -307,11 +316,15 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="content-section">
-            <p class="intro-text">Hello and welcome to my personal story!</p>
-            <p class="content-text">I was born in <span class="highlight">Chandpur, Bangladesh</span> in 1988. My childhood was shaped by my father's job at <span class="highlight">Biman Bangladesh Airlines</span>, which meant we moved a few times during my early years — and also brought me the gift of travel.</p>
+    <!-- Intro Section with minimal spacing -->
+    <div class="container" style="margin-top: -2.5rem;">
+        <div class="content-section" style="margin-top: 0; padding-top: 1.5rem;">
+            <p class="intro-text" style="margin-bottom: 1rem;">Hello and welcome to my personal story!</p>
+            <p class="content-text">I was born in <span class="highlight">Chandpur, Bangladesh</span> in 1988. My childhood was shaped by my father's job at <span class="highlight">Biman Bangladesh Airlines</span>, which meant we moved a few times during my early years — and also brought me the gift of travel. My journey has taken me from <span class="highlight">Dhaka</span> to <span class="highlight">London</span>, then to <span class="highlight">Los Angeles</span>, and finally to <span class="highlight">New York City</span>. I feel very lucky to have experienced life in some of the world's largest and most vibrant metropolitan cities.</p>
         </div>
+    </div>
+
+    <div class="container">
 
         <!-- Stats Overview -->
         <div class="content-section">
