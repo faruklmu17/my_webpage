@@ -625,13 +625,48 @@
     </div>
   </footer>
 
-  <iframe
-  class="chatbot-frame"
-  src="https://hasanfaruk25-personal-chatbot.hf.space/?__theme=light"
-  width="350"
-  height="500"
-  style="border:none;border-radius:10px;position:fixed;bottom:20px;right:20px;z-index:9999;">
-</iframe>
+  <!-- Enhanced Chatbot Interface -->
+  <div class="chatbot-container">
+    <!-- Minimized Chatbot Button -->
+    <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open Chat Assistant">
+      <svg class="chat-icon" viewBox="0 0 24 24">
+        <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+      </svg>
+      <div class="notification-badge" id="notification-badge">1</div>
+    </button>
+
+    <!-- Expanded Chatbot Window -->
+    <div class="chatbot-window" id="chatbot-window">
+      <div class="chatbot-header">
+        <div class="chatbot-title">
+          <div class="chatbot-avatar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+          </div>
+          <span>AI Assistant</span>
+        </div>
+        <button class="minimize-btn" id="minimize-btn" aria-label="Minimize Chat">
+          <svg class="minimize-icon" viewBox="0 0 24 24">
+            <path d="M19 13H5v-2h14v2z"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="chatbot-loading" id="chatbot-loading">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading AI Assistant...</div>
+      </div>
+
+      <iframe
+        class="chatbot-frame"
+        id="chatbot-frame"
+        src=""
+        style="display: none;"
+        title="AI Chat Assistant">
+      </iframe>
+    </div>
+  </div>
 
 
 
@@ -997,6 +1032,158 @@
       }, 300);
     });
   });
+</script>
+
+<!-- Enhanced Chatbot JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const chatbotToggle = document.getElementById('chatbot-toggle');
+    const chatbotWindow = document.getElementById('chatbot-window');
+    const minimizeBtn = document.getElementById('minimize-btn');
+    const chatbotFrame = document.getElementById('chatbot-frame');
+    const chatbotLoading = document.getElementById('chatbot-loading');
+    const notificationBadge = document.getElementById('notification-badge');
+
+    let isOpen = false;
+    let isLoaded = false;
+
+    // Chatbot URLs
+    const chatbotUrl = 'https://hasanfaruk25-personal-chatbot.hf.space/?__theme=light';
+
+    // Initialize chatbot state
+    function initializeChatbot() {
+        // Hide notification badge after first interaction
+        if (notificationBadge) {
+            setTimeout(() => {
+                notificationBadge.style.display = 'none';
+            }, 3000);
+        }
+
+        // Add welcome animation to toggle button
+        setTimeout(() => {
+            chatbotToggle.style.animation = 'pulse 2s ease-in-out 3';
+        }, 2000);
+    }
+
+    // Load chatbot iframe
+    function loadChatbot() {
+        if (!isLoaded) {
+            chatbotFrame.src = chatbotUrl;
+            isLoaded = true;
+
+            // Handle iframe load
+            chatbotFrame.onload = function() {
+                setTimeout(() => {
+                    chatbotLoading.style.display = 'none';
+                    chatbotFrame.style.display = 'block';
+                }, 1000);
+            };
+
+            // Fallback in case onload doesn't fire
+            setTimeout(() => {
+                chatbotLoading.style.display = 'none';
+                chatbotFrame.style.display = 'block';
+            }, 3000);
+        } else {
+            chatbotLoading.style.display = 'none';
+            chatbotFrame.style.display = 'block';
+        }
+    }
+
+    // Open chatbot
+    function openChatbot() {
+        if (!isOpen) {
+            isOpen = true;
+            chatbotWindow.classList.add('active');
+            chatbotToggle.style.transform = 'scale(0.9)';
+
+            // Hide notification badge
+            if (notificationBadge) {
+                notificationBadge.style.display = 'none';
+            }
+
+            // Load chatbot content
+            loadChatbot();
+
+            // Add body class to prevent scrolling on mobile
+            document.body.style.overflow = window.innerWidth <= 768 ? 'hidden' : 'auto';
+        }
+    }
+
+    // Close chatbot
+    function closeChatbot() {
+        if (isOpen) {
+            isOpen = false;
+            chatbotWindow.classList.remove('active');
+            chatbotToggle.style.transform = 'scale(1)';
+
+            // Reset loading state for next open
+            if (isLoaded) {
+                chatbotLoading.style.display = 'none';
+                chatbotFrame.style.display = 'block';
+            } else {
+                chatbotLoading.style.display = 'flex';
+                chatbotFrame.style.display = 'none';
+            }
+
+            // Restore body scrolling
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    // Toggle chatbot
+    function toggleChatbot() {
+        if (isOpen) {
+            closeChatbot();
+        } else {
+            openChatbot();
+        }
+    }
+
+    // Event listeners
+    chatbotToggle.addEventListener('click', toggleChatbot);
+    minimizeBtn.addEventListener('click', closeChatbot);
+
+    // Close chatbot when clicking outside (optional)
+    document.addEventListener('click', function(event) {
+        if (isOpen && !chatbotWindow.contains(event.target) && !chatbotToggle.contains(event.target)) {
+            // Uncomment the line below if you want to close on outside click
+            // closeChatbot();
+        }
+    });
+
+    // Handle escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && isOpen) {
+            closeChatbot();
+        }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (isOpen && window.innerWidth <= 768) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    // Initialize
+    initializeChatbot();
+
+    // Add some interactive feedback
+    chatbotToggle.addEventListener('mouseenter', function() {
+        if (!isOpen) {
+            this.style.transform = 'translateY(-2px) scale(1.05)';
+        }
+    });
+
+    chatbotToggle.addEventListener('mouseleave', function() {
+        if (!isOpen) {
+            this.style.transform = 'translateY(0) scale(1)';
+        }
+    });
+});
 </script>
 
 <!-- Blog section removed -->
