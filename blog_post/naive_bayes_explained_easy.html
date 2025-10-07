@@ -13,6 +13,9 @@
   <title>Naive Bayes Step-by-Step - Pizza Chatbot | Faruk Hasan</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- MathJax for beautiful mathematical formulas -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
     :root {
       --primary-color: #2563eb;
@@ -246,6 +249,55 @@
       font-size: 1.2rem;
     }
 
+    .formula-box {
+      background: linear-gradient(135deg, #fef3c7 0%, #fef9e7 100%);
+      border: 2px solid var(--warning-color);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem 0;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+      position: relative;
+    }
+
+    .formula-box::before {
+      content: "📐";
+      position: absolute;
+      top: -15px;
+      left: 20px;
+      background: linear-gradient(135deg, #fef3c7 0%, #fef9e7 100%);
+      padding: 0 8px;
+      font-size: 1.5rem;
+    }
+
+    .formula-title {
+      color: var(--warning-color);
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .formula-content {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.2rem;
+      margin: 1rem 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .formula-explanation {
+      color: var(--text-color);
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 6px;
+      font-style: italic;
+    }
+
     @media (max-width: 768px) {
       .blog-container {
         margin: 1rem;
@@ -312,10 +364,15 @@
       <p><strong>2. Prediction Phase:</strong> When a new message comes in, it calculates the probability that the message belongs to each category</p>
       <p><strong>3. Decision:</strong> It picks the category with the highest probability</p>
 
-      <div class="code-block">Formula: P(category | words) = P(words | category) × P(category) / P(words)
-
-In simple terms: "What's the chance this message belongs to this category,
-given the words it contains?"</div>
+      <div class="formula-box">
+        <div class="formula-title">Bayes' Theorem Formula</div>
+        <div class="formula-content">
+          \[P(\text{category} \mid \text{words}) = \frac{P(\text{words} \mid \text{category}) \times P(\text{category})}{P(\text{words})}\]
+        </div>
+        <div class="formula-explanation">
+          In simple terms: "What's the chance this message belongs to this category, given the words it contains?"
+        </div>
+      </div>
     </div>
 
     <div class="explanation-box">
@@ -391,7 +448,7 @@ given the words it contains?"</div>
     <div class="explanation-box">
       <strong>Problem:</strong> What happens if a word appears in our test sentence but NEVER appears in a training category?
       <br><br>
-      Without smoothing: P(word | category) = 0/total = <strong>0</strong>
+      Without smoothing: \(P(\text{word} \mid \text{category}) = \frac{0}{\text{total}} = 0\)
       <br>
       This makes the entire probability = 0 (since we multiply all probabilities together)
       <br><br>
@@ -418,20 +475,23 @@ Total = 1 + 1 + 2 = 4 words</div>
       Step-by-Step Calculation for "greeting"
     </h2>
 
-    <div class="calculation-section">
-      <h3 style="color: var(--secondary-color);">🧮 Laplace Smoothing Formula:</h3>
-      <div class="code-block">P(word | category) = (word_count_in_category + 1) / (total_words_in_category + vocabulary_size)
-
-For "greeting" category:
-- total_words_in_category = 4
-- vocabulary_size = 11
-- denominator = 4 + 11 = 15</div>
-
-      <div class="explanation-box">
-        <strong>Why add vocabulary_size to denominator?</strong>
-        <br>
-        Since we add +1 to EVERY word in our vocabulary (11 words), we need to add +11 to the denominator to keep the probabilities valid (they must sum to 1).
+    <div class="formula-box">
+      <div class="formula-title">🧮 Laplace Smoothing Formula</div>
+      <div class="formula-content">
+        \[P(\text{word} \mid \text{category}) = \frac{\text{count}(\text{word in category}) + 1}{\text{total words in category} + |\text{vocabulary}|}\]
       </div>
+      <div class="formula-explanation">
+        <strong>For "greeting" category:</strong><br>
+        • total_words_in_category = 4<br>
+        • vocabulary_size = 11<br>
+        • denominator = 4 + 11 = 15
+      </div>
+    </div>
+
+    <div class="explanation-box">
+      <strong>Why add vocabulary_size to denominator?</strong>
+      <br>
+      Since we add +1 to EVERY word in our vocabulary (11 words), we need to add +11 to the denominator to keep the probabilities valid (they must sum to 1).
     </div>
 
     <h3 class="section-header" style="font-size: 1.4rem; margin-top: 1.5rem;">
@@ -447,11 +507,17 @@ For "greeting" category:
 
     <div class="calculation-section">
       <h4 style="color: var(--accent-color); margin-bottom: 0.5rem;">🔍 Let's break down "hi" step by step:</h4>
-      <div class="code-block">Looking at our frequency table:
-- "hi" appears 2 times in "greeting" category
-- With Laplace smoothing: (2 + 1) = 3
-- Denominator: (4 + 11) = 15
-- P(hi | greeting) = 3/15 = 0.200</div>
+      <div class="formula-box" style="margin: 1rem 0;">
+        <div class="formula-content" style="text-align: left; font-size: 1rem;">
+          Looking at our frequency table:<br>
+          • "hi" appears <strong>2 times</strong> in "greeting" category<br>
+          • With Laplace smoothing: (2 + 1) = <strong>3</strong><br>
+          • Denominator: (4 + 11) = <strong>15</strong>
+        </div>
+        <div class="formula-content">
+          \[P(\text{hi} \mid \text{greeting}) = \frac{2 + 1}{4 + 11} = \frac{3}{15} = 0.200\]
+        </div>
+      </div>
 
       <div class="explanation-box">
         <strong>Why "hi" = 2 + 1?</strong>
@@ -465,22 +531,30 @@ For "greeting" category:
     </div>
 
     <ul class="probability-list">
-      <li><strong>hi</strong>: (2 + 1) / 15 = 3 / 15 = <strong>0.200</strong> ← appears 2 times in "greeting"</li>
-      <li><strong>can</strong>: (0 + 1) / 15 = 1 / 15 ≈ <strong>0.067</strong> ← never appears in "greeting"</li>
-      <li><strong>i</strong>: (0 + 1) / 15 = 1 / 15 ≈ <strong>0.067</strong> ← never appears in "greeting"</li>
-      <li><strong>order</strong>: (0 + 1) / 15 = 1 / 15 ≈ <strong>0.067</strong> ← never appears in "greeting"</li>
-      <li><strong>pizza</strong>: (0 + 1) / 15 = 1 / 15 ≈ <strong>0.067</strong> ← never appears in "greeting"</li>
+      <li><strong>hi</strong>: \(\frac{2 + 1}{15} = \frac{3}{15} = \mathbf{0.200}\) ← appears 2 times in "greeting"</li>
+      <li><strong>can</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\) ← never appears in "greeting"</li>
+      <li><strong>i</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\) ← never appears in "greeting"</li>
+      <li><strong>order</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\) ← never appears in "greeting"</li>
+      <li><strong>pizza</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\) ← never appears in "greeting"</li>
     </ul>
 
     <h3 class="section-header" style="font-size: 1.4rem; margin-top: 1.5rem;">
       <i class="section-icon fas fa-times"></i>
       Multiply all probabilities (assuming independence):
     </h3>
-    <div class="final-calculation">
-Total P(words | greeting) =
-0.200 × 0.067 × 0.067 × 0.067 × 0.067
-= 0.200 × 0.00002016 ≈ <strong>0.00000403</strong>
-→ Very small probability
+    <div class="formula-box">
+      <div class="formula-title">Final Probability Calculation</div>
+      <div class="formula-content">
+        \[\begin{align}
+        P(\text{words} \mid \text{greeting}) &= P(\text{hi}) \times P(\text{can}) \times P(\text{i}) \times P(\text{order}) \times P(\text{pizza}) \\
+        &= 0.200 \times 0.067 \times 0.067 \times 0.067 \times 0.067 \\
+        &= 0.200 \times 0.00002016 \\
+        &\approx \mathbf{0.00000403}
+        \end{align}\]
+      </div>
+      <div class="formula-explanation">
+        → Very small probability
+      </div>
     </div>
 
     <div class="explanation-box">
