@@ -1,6 +1,6 @@
 // Track completed missions
 let completedMissions = 0;
-const totalMissions = 7;
+const totalMissions = 9;
 
 // Update progress bar
 function updateProgress() {
@@ -147,6 +147,53 @@ function searchFunction() {
     }
 }
 
+// Hide Mission 7 (Temporary - Mission 8)
+function hideMission7() {
+    // Check if Mission 9 has control
+    const isPersistentHidden = localStorage.getItem('mission7PersistentHide') === 'true';
+
+    if (isPersistentHidden) {
+        document.getElementById('hide-result').innerHTML = '<strong>⚠️ Mission 9 has priority!</strong> Mission 7 is permanently hidden. Use Mission 9 to restore it.';
+        return;
+    }
+
+    const mission7 = document.getElementById('search');
+    if (mission7) {
+        if (mission7.style.display === 'none') {
+            mission7.style.display = 'block';
+            document.getElementById('hide-result').innerHTML = '<strong>Mission 7 is now visible!</strong>';
+        } else {
+            mission7.style.display = 'none';
+            document.getElementById('hide-result').innerHTML = '<strong>Mission 7 is now hidden!</strong> Refresh the page to make it visible again.';
+            markMissionComplete('hide-element');
+        }
+    }
+}
+
+// Persistent Hide Mission 7 (Mission 9)
+function persistentHideMission7() {
+    const mission7 = document.getElementById('search');
+    const isPersistentHidden = localStorage.getItem('mission7PersistentHide') === 'true';
+    const btn = document.getElementById('persistent-hide-btn');
+
+    if (mission7) {
+        if (isPersistentHidden) {
+            // Show Mission 7
+            mission7.style.display = 'block';
+            localStorage.setItem('mission7PersistentHide', 'false');
+            btn.textContent = 'Hide Mission 7 Permanently';
+            document.getElementById('persistent-hide-result').innerHTML = '<strong>Mission 7 is now visible!</strong> The state is saved in localStorage.';
+        } else {
+            // Hide Mission 7
+            mission7.style.display = 'none';
+            localStorage.setItem('mission7PersistentHide', 'true');
+            btn.textContent = 'Show Mission 7';
+            document.getElementById('persistent-hide-result').innerHTML = '<strong>Mission 7 is now permanently hidden!</strong> The state is saved in localStorage and will persist after refresh.';
+            markMissionComplete('persistent-hide');
+        }
+    }
+}
+
 // Mark mission as complete
 function markMissionComplete(missionId) {
     const section = document.getElementById(missionId);
@@ -168,35 +215,47 @@ function markMissionComplete(missionId) {
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', function() {
+    // Check if Mission 7 should be persistently hidden
+    const isPersistentHidden = localStorage.getItem('mission7PersistentHide') === 'true';
+    const mission7 = document.getElementById('search');
+    const btn = document.getElementById('persistent-hide-btn');
+
+    if (isPersistentHidden && mission7) {
+        mission7.style.display = 'none';
+        if (btn) {
+            btn.textContent = 'Show Mission 7';
+        }
+    }
+
     // Set up event listeners for drag and drop
     const dropContainer = document.getElementById('drop-container');
     dropContainer.addEventListener('dragleave', dragLeave);
     dropContainer.classList.add('empty');
-    
+
     const draggable = document.getElementById('draggable');
     draggable.addEventListener('dragend', dragEnd);
-    
+
     // Add smooth scrolling for navigation
     document.querySelectorAll('nav a').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
-            
+
             window.scrollTo({
                 top: targetElement.offsetTop - 80,
                 behavior: 'smooth'
             });
         });
     });
-    
+
     // Handle sticky progress bar
     const header = document.querySelector('header');
     const stickyProgress = document.querySelector('.sticky-progress');
-    
+
     window.addEventListener('scroll', function() {
         const headerBottom = header.getBoundingClientRect().bottom;
-        
+
         if (headerBottom <= 0) {
             stickyProgress.style.display = 'block';
         } else {
