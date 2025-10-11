@@ -80,6 +80,8 @@
             <li><a href="#drag-drop">Drag & Drop</a></li>
             <li><a href="#button">Buttons</a></li>
             <li><a href="#search">Search Function</a></li>
+            <li><a href="#hide-element">Hide Element</a></li>
+            <li><a href="#persistent-hide">Persistent Hide</a></li>
         </ul>
     </nav>
 
@@ -181,6 +183,24 @@
                 <p id="search-result"></p>
             </div>
         </section>
+
+        <section id="hide-element">
+            <h2>Mission 8: Hide Element</h2>
+            <p>Click the button below to temporarily hide Mission 7. Refresh the page to make it visible again.</p>
+            <div class="mission-content">
+                <button onclick="hideMission7()" class="primary-button">Toggle Mission 7</button>
+                <p id="hide-result"></p>
+            </div>
+        </section>
+
+        <section id="persistent-hide">
+            <h2>Mission 9: Persistent Hide Element</h2>
+            <p>Click the button below to hide Mission 7 permanently (saved in localStorage). The state will persist even after page refresh.</p>
+            <div class="mission-content">
+                <button onclick="persistentHideMission7()" class="primary-button" id="persistent-hide-btn">Hide Mission 7 Permanently</button>
+                <p id="persistent-hide-result"></p>
+            </div>
+        </section>
     </main>
 
     <footer>
@@ -225,15 +245,15 @@
         function updateProgressBar(completedMissions) {
             const progress = document.getElementById('progress');
             const stickyProgress = document.getElementById('sticky-progress');
-            
-            // Calculate progress: 66% for login + up to 34% for missions (7 missions total)
-            const missionProgress = Math.min(completedMissions * (34 / 7), 34);
+
+            // Calculate progress: 66% for login + up to 34% for missions (9 missions total)
+            const missionProgress = Math.min(completedMissions * (34 / 9), 34);
             const totalProgress = 66 + missionProgress;
-            
+
             if (progress) {
                 progress.style.width = totalProgress + '%';
             }
-            
+
             if (stickyProgress) {
                 stickyProgress.style.width = totalProgress + '%';
             }
