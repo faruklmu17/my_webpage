@@ -11,155 +11,116 @@
   <link rel="stylesheet" href="styles.css">
   
   <style>
-    :root {
-      --primary-color: #3a6ea5;
-      --secondary-color: #2c3e50;
-      --background-color: #f4f7f6;
-      --text-color: #333;
-      --accent-color: #2980b9;
-      --light-background: #ffffff;
-      --soft-shadow: 0 10px 25px rgba(0,0,0,0.05);
-      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    :root{
+      --bg:#0b1220; --surface:#0f172a; --muted:#0b1220;
+      --text:#e5e7eb; --sub:#9ca3af;
+      --primary:#7c8cff; --primary-600:#6366f1; --primary-700:#4f46e5;
+      --accent:#f59e0b; --ok:#22c55e; --pink:#ec4899; --cyan:#06b6d4;
+      --card: rgba(255,255,255,0.06);
+      --glass: rgba(255,255,255,0.08);
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
+      --radius: 16px;
+      --grad-1: radial-gradient(1200px 600px at 10% -10%, rgba(99,102,241,.25), transparent 60%),
+                radial-gradient(800px 600px at 90% 10%, rgba(236,72,153,.18), transparent 60%),
+                radial-gradient(800px 600px at 50% 110%, rgba(14,165,233,.2), transparent 60%);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{scroll-behavior:smooth}
+    body{
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height:1.7;
     }
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      line-height: 1.6;
-      color: var(--text-color);
-      background-color: var(--background-color);
+    .section{padding:4.5rem 0;background:var(--bg)}
+    .section--tight{padding:2.25rem 0}
+    .container{max-width:1200px;margin:0 auto;padding:0 1.25rem}
+
+    /* ====== HERO ====== */
+    .hero{
+      position:relative;
+      background: var(--grad-1);
+      overflow:hidden;
+      padding:6rem 0 5rem;
+      isolation:isolate;
+    }
+    .hero::after{
+      content:"";position:absolute;inset:0;
+      background:
+        radial-gradient(400px 200px at 80% 20%, rgba(245,158,11,.12), transparent 60%),
+        radial-gradient(600px 260px at 0% 100%, rgba(99,102,241,.20), transparent 60%);
+      z-index:-1;
+    }
+    .hero__grid{
+      display:grid;gap:2.5rem;align-items:center;
+      grid-template-columns: 1.2fr .8fr;
+    }
+    .hero h1{
+      font-size: clamp(2.1rem, 3vw + 1.2rem, 3.2rem);
+      line-height:1.15;font-weight:800;letter-spacing:-.02em;
+    }
+    .hero .lead{
+      margin-top:1rem;font-size:1.15rem;color:var(--sub);max-width:48ch;
     }
 
-    .section {
-      padding: 4rem 0;
+    .cta-row{display:flex;gap:.85rem;flex-wrap:wrap;margin-top:1.5rem}
+    .btn{
+      display:inline-flex;align-items:center;gap:.6rem;
+      padding:.9rem 1.25rem;border-radius:999px;text-decoration:none;font-weight:700;
+      border:1px solid transparent;transition:.25s;will-change:transform,box-shadow;
+    }
+    .btn--primary{background:linear-gradient(90deg,var(--primary-600),var(--primary-700));color:#fff;box-shadow: var(--shadow)}
+    .btn--primary:hover{transform:translateY(-2px)}
+    .btn--ghost{background:transparent;color:#fff;border-color:#ffffff33}
+    .btn--ghost:hover{background:#ffffff12;border-color:#ffffff66}
+
+    .hero__media{
+      display:grid;place-items:center;position:relative;
+    }
+    .avatar-blob{
+      width:min(320px,70vw);aspect-ratio:1/1;border-radius:35% 65% 55% 45%/55% 35% 65% 45%;
+      background: conic-gradient(from 180deg at 50% 50%, #1f2937, #0b1220 35%, #1f2937 60%, #0b1220);
+      border:1px solid #ffffff14;
+      box-shadow: inset 0 0 60px #0008, var(--shadow);
+      position:relative;animation:blob 12s ease-in-out infinite;
+    }
+    .avatar-blob::after{
+      content:"👨‍💻";font-size:4rem;position:absolute;inset:0;display:grid;place-items:center;filter:drop-shadow(0 6px 20px #0008)
+    }
+    @keyframes blob{
+      0%,100%{border-radius:35% 65% 55% 45%/55% 35% 65% 45%}
+      50%{border-radius:55% 45% 35% 65%/45% 65% 35% 55%}
     }
 
-    .section--alt {
-      background: var(--light-background);
+    /* ====== SECTION TITLES ====== */
+    h2{
+      font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.4rem);
+      font-weight:800;letter-spacing:-.02em;text-align:center;margin-bottom:.6rem;
     }
+    .sub{color:var(--sub);text-align:center;max-width:62ch;margin:.25rem auto 1.75rem}
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 2rem;
+    /* ====== ANIMATED STATS ====== */
+    .stats-hero{
+      position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+      width:100%;height:100%;pointer-events:none;
     }
-
-    /* Hero Section */
-    .hero {
-      background: var(--gradient-primary);
-      color: white;
-      padding: 6rem 0;
-      position: relative;
-      overflow: hidden;
+    .stat-bubble{
+      position:absolute;background:#fff;border-radius:999px;
+      padding:.6rem 1rem;font-weight:700;color:var(--primary-700);
+      box-shadow:0 8px 25px rgba(0,0,0,.15);
+      animation:float 6s ease-in-out infinite;
     }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-      opacity: 0.3;
+    .stat-bubble:nth-child(1){
+      top:15%;right:10%;animation-delay:0s;
     }
-
-    .hero__grid {
-      display: grid;
-      grid-template-columns: 1fr 300px;
-      gap: 3rem;
-      align-items: center;
-      position: relative;
-      z-index: 1;
+    .stat-bubble:nth-child(2){
+      bottom:20%;left:5%;animation-delay:3s;
     }
-
-    .hero h1 {
-      font-size: 3.5rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      line-height: 1.2;
-    }
-
-    .lead {
-      font-size: 1.25rem;
-      margin-bottom: 2rem;
-      opacity: 0.9;
-    }
-
-    .cta-row {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      padding: 1rem 2rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      border: 2px solid transparent;
-    }
-
-    .btn--primary {
-      background: white;
-      color: var(--primary-color);
-    }
-
-    .btn--primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    }
-
-    .btn--ghost {
-      background: transparent;
-      color: white;
-      border-color: white;
-    }
-
-    .btn--ghost:hover {
-      background: white;
-      color: var(--primary-color);
-    }
-
-    .avatar {
-      width: 250px;
-      height: 250px;
-      border-radius: 50%;
-      background: var(--gradient-secondary);
-      position: relative;
-      margin: 0 auto;
-    }
-
-    .avatar::before {
-      content: '👨‍💻';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 4rem;
-    }
-
-    /* Typography */
-    h2 {
-      font-size: 2.5rem;
-      margin-bottom: 2rem;
-      text-align: center;
-      color: var(--secondary-color);
-    }
-
-    h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: var(--primary-color);
+    @keyframes float{
+      0%,100%{transform:translateY(0px)}
+      50%{transform:translateY(-10px)}
     }
 
     /* Two Column Layout */
@@ -189,80 +150,60 @@
       border-bottom: none;
     }
 
-    /* Card Grid */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
+    /* ====== SUBJECTS ====== */
+    .grid{
+      display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))
     }
-
-    .card {
-      background: white;
-      padding: 2rem;
-      border-radius: 15px;
-      box-shadow: var(--soft-shadow);
-      transition: transform 0.3s ease;
+    .card{
+      position:relative;border-radius:var(--radius);padding:1.25rem;background:var(--card);
+      border:1px solid #ffffff12;box-shadow:var(--shadow);transition:.25s
     }
-
-    .card:hover {
-      transform: translateY(-5px);
+    .card:hover{transform:translateY(-4px);border-color:#ffffff22}
+    .card .icon{
+      width:44px;height:44px;border-radius:12px;display:grid;place-items:center;margin-bottom:.6rem;
+      background:linear-gradient(120deg, #4755ff33, #06b6d433)
     }
+    .pill-row{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-top:1rem}
+    .pill{padding:.45rem .8rem;border-radius:999px;background:#ffffff10;border:1px solid #ffffff1a;color:#e5e7eb;font-weight:600;font-size:.9rem}
 
-    /* Pills */
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-      margin-top: 2rem;
+    /* ====== PLATFORMS ====== */
+    .platforms .p-card{
+      text-decoration:none;color:inherit;
+      background: linear-gradient(135deg, var(--glass), rgba(255,255,255,0.12));
+      border: 1px solid #ffffff25;
+      transition: all 0.3s ease;
     }
-
-    .pill {
-      background: var(--gradient-primary);
+    .platforms .p-card:hover{
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.08));
+      border-color: #ffffff40;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+    }
+    .p-card .icon{
+      background:linear-gradient(135deg,var(--primary-600),var(--accent));
       color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 50px;
-      font-weight: 500;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .p-card h3{
+      color: #ffffff;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .p-card p{
+      color: #cbd5e1;
+      line-height: 1.5;
     }
 
-    /* Timeline */
-    .timeline {
-      list-style: none;
-      max-width: 600px;
-      margin: 3rem auto 0;
+    /* ====== EXPERIENCE / TIMELINE ====== */
+    .timeline{position:relative;margin:2rem auto 0;max-width:800px}
+    .timeline::before{content:"";position:absolute;left:22px;top:0;bottom:0;width:2px;background:#ffffff1f}
+    .t-item{position:relative;padding-left:70px;margin-bottom:1.25rem}
+    .t-dot{
+      position:absolute;left:10px;top:.2rem;width:24px;height:24px;border-radius:50%;
+      background:linear-gradient(135deg,var(--primary-600),var(--pink));border:2px solid #0b1220;box-shadow:0 0 0 6px #0b1220
     }
-
-    .timeline li {
-      position: relative;
-      padding-left: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .timeline li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0.5rem;
-      width: 12px;
-      height: 12px;
-      background: var(--primary-color);
-      border-radius: 50%;
-    }
-
-    .timeline li::after {
-      content: '';
-      position: absolute;
-      left: 5px;
-      top: 1.5rem;
-      width: 2px;
-      height: calc(100% + 1rem);
-      background: #ddd;
-    }
-
-    .timeline li:last-child::after {
-      display: none;
-    }
+    .t-card{background:var(--card);border:1px solid #ffffff12;border-radius:14px;padding:1rem}
+    .t-card h3{margin:0 0 .35rem;font-size:1.05rem}
 
     /* Link Cards */
     .link-cards {
@@ -275,11 +216,12 @@
     .link-card {
       display: block;
       padding: 1.5rem;
-      background: white;
-      border-radius: 10px;
+      background: var(--card);
+      border: 1px solid #ffffff12;
+      border-radius: var(--radius);
       text-decoration: none;
-      color: var(--text-color);
-      box-shadow: var(--soft-shadow);
+      color: var(--text);
+      box-shadow: var(--shadow);
       transition: all 0.3s ease;
       text-align: center;
       font-weight: 600;
@@ -287,7 +229,7 @@
 
     .link-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      border-color: #ffffff22;
     }
 
     /* Reviews */
@@ -301,10 +243,11 @@
 
     .review {
       min-width: 300px;
-      background: white;
-      padding: 2rem;
-      border-radius: 15px;
-      box-shadow: var(--soft-shadow);
+      background: var(--card);
+      border: 1px solid #ffffff12;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       scroll-snap-align: start;
     }
 
@@ -312,59 +255,173 @@
       font-style: italic;
       margin-bottom: 1rem;
       font-size: 1.1rem;
+      color: var(--text);
     }
 
     .review figcaption {
-      color: #666;
+      color: var(--accent);
       font-weight: 600;
     }
 
-    /* Contact Form */
-    .contact {
-      background: var(--gradient-primary);
-      color: white;
-    }
 
-    .contact h2 {
-      color: white;
-    }
 
-    .form {
-      max-width: 600px;
-      margin: 2rem auto 0;
-    }
-
-    .form__row {
+    /* Courses Section */
+    .courses-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .form__row.full {
-      grid-template-columns: 1fr;
-    }
-
-    .form label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-
-    .form input,
-    .form textarea {
       width: 100%;
-      padding: 1rem;
-      border: none;
-      border-radius: 10px;
-      font-size: 1rem;
-      background: rgba(255,255,255,0.9);
+      margin-top: 1rem;
     }
 
-    .form__actions {
+    .course-card {
+      background: var(--card);
+      border: 1px solid #ffffff12;
+      border-radius: var(--radius);
+      padding: 1rem;
+      position: relative;
+      transition: all 0.3s ease;
+      border-top: 3px solid var(--primary-600);
+      height: 100%;
       display: flex;
-      gap: 1rem;
-      justify-content: center;
+      flex-direction: column;
+      box-shadow: var(--shadow);
+    }
+
+    .course-card:hover {
+      transform: translateY(-3px);
+      border-color: #ffffff22;
+    }
+
+    .course-badge {
+      position: absolute;
+      top: -12px;
+      right: 20px;
+      background: linear-gradient(135deg, var(--accent), var(--pink));
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .course-card h3 {
+      color: var(--text);
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+      font-weight: 700;
+      padding-right: 15px;
+      line-height: 1.2;
+    }
+
+    .course-year {
+      font-size: 0.75rem;
+      color: var(--sub);
+      margin-bottom: 0.2rem;
+      font-weight: 500;
+    }
+
+    .course-description {
+      font-size: 0.8rem;
+      color: var(--sub);
+      margin-bottom: 0.3rem;
+      flex-grow: 1;
+      line-height: 1.3;
+    }
+
+    .course-link {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .course-link:hover h3 {
+      color: var(--primary-color);
+    }
+
+    .course-button {
+      display: inline-block;
+      margin-top: auto;
+      padding: 0.4rem 0.8rem;
+      background: linear-gradient(90deg, var(--primary-600), var(--primary-700));
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      align-self: flex-start;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .course-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    .course-image {
+      width: 100%;
+      height: 80px;
+      margin-bottom: 0.3rem;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .course-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.3s ease;
+    }
+
+    .course-card:hover .course-image img {
+      transform: scale(1.02);
+    }
+
+    /* Course Reviews */
+    .course-reviews {
+      margin: 0.5rem 0;
+    }
+
+    .course-reviews h4 {
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+      color: var(--secondary-color);
+    }
+
+    .review-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .course-reviews .review {
+      background-color: rgba(255,255,255,0.7);
+      padding: 0.6rem;
+      border-radius: 6px;
+      border-left: 2px solid var(--primary-color);
+    }
+
+    .stars {
+      color: #ffd700;
+      margin-bottom: 0.3rem;
+      font-size: 0.75rem;
+    }
+
+    .review-text {
+      font-size: 0.75rem;
+      font-style: italic;
+      margin-bottom: 0.3rem;
+      color: #555;
+      line-height: 1.3;
+    }
+
+    .reviewer {
+      font-size: 0.7rem;
+      color: #777;
+      font-weight: 500;
     }
 
     /* Responsive */
@@ -382,13 +439,30 @@
         grid-template-columns: 1fr;
       }
 
-      .form__row {
-        grid-template-columns: 1fr;
-      }
+
 
       .cta-row {
         justify-content: center;
       }
+
+      .courses-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .course-image {
+        height: 100px;
+      }
+    }
+
+    /* ====== UTIL ====== */
+    .muted{color:var(--sub)}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 980px){
+      .hero__grid{grid-template-columns:1fr}
+      .about{grid-template-columns:1fr}
+      .row{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -427,132 +501,208 @@
 
 <!-- ===== Tutoring Page Sections ===== -->
 
-<section id="hero" class="section hero">
+<section id="hero" class="section hero" aria-labelledby="hero-title">
   <div class="container hero__grid">
-    <div class="hero__copy">
-      <h1>Inspiring the Next Generation of Coders & Thinkers</h1>
+    <div>
+      <h1 id="hero-title">Inspiring the Next Generation of Coders & Thinkers</h1>
       <p class="lead">
         Hi, I'm <strong>Faruk Hasan</strong> — STEM Educator & Senior QA Engineer.
         I teach Python, Web Dev, AI/ML, Arduino, and Computer Fundamentals for ages 9–18.
       </p>
       <div class="cta-row">
-        <a href="#subjects" class="btn btn--primary">View Courses</a>
-        <a href="#contact" class="btn btn--ghost">Book a Free Consult</a>
+        <a class="btn btn--primary" href="#subjects"><i class="fa-solid fa-rocket"></i> View Courses</a>
+        <a class="btn btn--ghost" href="mailto:faruqmul@gmail.com?subject=Free%20Tutoring%20Consultation&body=Hi%20Faruk,%0A%0AI'm%20interested%20in%20learning%20more%20about%20your%20tutoring%20services.%0A%0AStudent%20Details:%0A-%20Age:%20%0A-%20Experience%20Level:%20%0A-%20Subjects%20of%20Interest:%20%0A-%20Goals:%20%0A%0APlease%20let%20me%20know%20your%20availability%20for%20a%20free%20consultation.%0A%0AThank%20you!"><i class="fa-solid fa-calendar-check"></i> Book Free Consult</a>
       </div>
     </div>
     <div class="hero__media">
-      <!-- Replace with your image -->
-      <div class="avatar"></div>
+      <div class="avatar-blob" aria-hidden="true">
+        <div class="stats-hero">
+          <div class="stat-bubble">4.82/5 ⭐ Rating</div>
+          <div class="stat-bubble">1,894 Learners</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <section id="about" class="section">
-  <div class="container two-col">
+  <div class="container about">
     <div>
-      <h2>About Me</h2>
+      <h2>Why Learn With Me?</h2>
+      <p class="sub">Project-based lessons, industry best practices, and kid-friendly pacing that builds confidence.</p>
       <p>
-        I'm a hands-on educator and SDET who blends industry experience with kid-friendly
-        teaching. My classes are project-based, emphasize problem-solving, and build real
-        confidence with code and technology.
+        I blend my day-to-day experience as an SDET (Playwright, Selenium, APIs, CI/CD, AI-assisted testing) with
+        engaging activities and real-world mini-projects. Learners leave with portfolio-ready work and practical skills.
       </p>
+      <div class="stats" role="list" aria-label="Outschool teaching stats">
+        <div class="stat" role="listitem"><b id="rating-count">4.82/5</b><span class="muted">Average Star Rating</span></div>
+        <div class="stat" role="listitem"><b id="followers-count">1,945</b><span class="muted">Followers</span></div>
+        <div class="stat" role="listitem"><b id="learners-count">1,894</b><span class="muted">Learners Taught</span></div>
+      </div>
     </div>
-    <ul class="highlights">
-      <li>👨‍🏫 10+ years teaching coding & STEM online</li>
-      <li>💻 Senior QA (Python, Playwright, Selenium, CI/CD)</li>
-      <li>🤖 AI, Python & Web Dev courses for kids & teens</li>
-      <li>🧮 Cross-curricular: Python + Math/Logic</li>
+    <ul class="highlight-list" aria-label="Highlights">
+      <li class="highlight"><i class="fa-solid fa-person-chalkboard"></i><span>Live, interactive classes with clear outcomes</span></li>
+      <li class="highlight"><i class="fa-solid fa-bug-slash"></i><span>Debugging mindset, clean code, and testing</span></li>
+      <li class="highlight"><i class="fa-solid fa-shield-halved"></i><span>Kid-safe, parent-friendly communication</span></li>
+      <li class="highlight"><i class="fa-solid fa-diagram-project"></i><span>Portfolio projects for school and internships</span></li>
     </ul>
   </div>
 </section>
 
-<section id="subjects" class="section section--alt">
+<section id="subjects" class="section section--tight">
   <div class="container">
     <h2>What I Teach</h2>
-    <div class="card-grid">
-      <article class="card">
+    <p class="sub">Practical, engaging STEM topics tailored for ages 9–18 — from coding fundamentals to AI and hardware.</p>
+
+    <div class="grid" role="list">
+      <article class="card" role="listitem">
+        <div class="icon"><i class="fa-brands fa-python"></i></div>
         <h3>Python Programming</h3>
-        <p>From fundamentals to projects: games, data, and automation.</p>
+        <p>From fundamentals to mini-apps: loops, functions, data, OOP, and beginner ML.</p>
       </article>
-      <article class="card">
-        <h3>Java Programming</h3>
-        <p>Object-oriented programming, data structures, and enterprise applications.</p>
+
+      <article class="card" role="listitem">
+        <div class="icon"><i class="fa-solid fa-globe"></i></div>
+        <h3>Web Development</h3>
+        <p>HTML, CSS, JS. Build responsive sites, interactive apps, and deploy to GitHub Pages.</p>
       </article>
-      <article class="card">
-        <h3>Web Development (HTML/CSS/JS)</h3>
-        <p>Modern, responsive web pages and interactive apps.</p>
+
+      <article class="card" role="listitem">
+        <div class="icon"><i class="fa-solid fa-robot"></i></div>
+        <h3>AI & Machine Learning</h3>
+        <p>Kid-friendly AI: BoW, Naive Bayes, simple chatbots, ethics & safety.</p>
       </article>
-      <article class="card">
-        <h3>QA Course for Beginners</h3>
-        <p>Learn software testing with Playwright and Selenium automation frameworks.</p>
+
+      <article class="card" role="listitem">
+        <div class="icon"><i class="fa-solid fa-microchip"></i></div>
+        <h3>Arduino & Electronics</h3>
+        <p>Hands-on circuits, sensors, LEDs, and simple automation (with Wokwi sims).</p>
       </article>
-      <article class="card">
-        <h3>AI & Machine Learning (Kid-Friendly)</h3>
-        <p>Build simple chatbots, text classifiers, and smart tools.</p>
+
+      <article class="card" role="listitem">
+        <div class="icon"><i class="fa-solid fa-vial"></i></div>
+        <h3>QA Testing (Beginner)</h3>
+        <p>Testing mindset, Playwright/Selenium basics, and intro to automation.</p>
       </article>
-      <article class="card">
-        <h3>Arduino & Robotics</h3>
-        <p>Hands-on electronics: sensors, LEDs, and simple robots.</p>
-      </article>
-      <article class="card">
+
+      <article class="card" role="listitem">
+        <div class="icon"><i class="fa-solid fa-computer"></i></div>
         <h3>Computer Fundamentals</h3>
-        <p>Files, browsers, safety, CLI basics, and digital literacy.</p>
+        <p>OS basics, files, browsers & DevTools, safe internet habits, CLI intro.</p>
       </article>
-      <article class="card">
-        <h3>Python + Algebra</h3>
-        <p>Connect math concepts with code to deepen understanding.</p>
-      </article>
+    </div>
+
+    <div class="pill-row" aria-label="Who I teach">
+      <span class="pill">Grades 4–5</span>
+      <span class="pill">Grades 6–8</span>
+      <span class="pill">Grades 9–12</span>
+      <span class="pill">1:1 & Small Groups</span>
+      <span class="pill">Project-Based</span>
     </div>
   </div>
 </section>
 
-<section id="audience" class="section">
-  <div class="container">
-    <h2>Who It's For</h2>
-    <div class="pill-row">
-      <span class="pill">Ages 9–18</span>
-      <span class="pill">Beginner → Advanced</span>
-      <span class="pill">Project-Based Learning</span>
-      <span class="pill">Live on Zoom / Outschool</span>
-      <span class="pill">1-Year Courses & Bootcamps</span>
-    </div>
-  </div>
-</section>
-
-<section id="experience" class="section section--alt">
+<section id="experience" class="section">
   <div class="container">
     <h2>Professional Experience</h2>
-    <ol class="timeline">
-      <li>
-        <div class="timeline__item">
+    <p class="sub">Real-world expertise that I bring to every lesson.</p>
+
+    <div class="timeline">
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-card">
           <h3>Senior QA Automation Engineer (SDET)</h3>
-          <p>Python, Playwright, Selenium, CI/CD, LLM-assisted testing.</p>
+          <p class="muted">2020 - Present</p>
+          <p>Python, Playwright, Selenium, CI/CD, API testing, and LLM-assisted testing workflows.</p>
         </div>
-      </li>
-      <li>
-        <div class="timeline__item">
+      </div>
+
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-card">
           <h3>STEM Instructor – Outschool</h3>
-          <p>AI with Python, Year-Long Web Dev, Python + Algebra.</p>
+          <p class="muted">2018 - Present</p>
+          <p>Teaching AI with Python, Year-Long Web Development, Python + Algebra, and Computer Fundamentals.</p>
         </div>
-      </li>
-      <li>
-        <div class="timeline__item">
-          <h3>Course Creator & Mentor</h3>
-          <p>Designed project-based curricula for kids and teens.</p>
+      </div>
+
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <div class="t-card">
+          <h3>Course Creator & Educational Consultant</h3>
+          <p class="muted">2016 - Present</p>
+          <p>Designed project-based STEM curricula for kids and teens, focusing on practical skills and portfolio development.</p>
         </div>
-      </li>
-    </ol>
+      </div>
+    </div>
   </div>
 </section>
 
-<section id="platforms" class="section">
+<section id="platforms" class="section section--tight">
   <div class="container">
     <h2>Find Me Online</h2>
-    <div class="link-cards">
-      <a class="link-card" href="https://outschool.com" target="_blank" rel="noopener">🎓 Outschool</a>
-      <a class="link-card" href="https://youtube.com/@kidz_code" target="_blank" rel="noopener">🎥 YouTube</a>
-      <a class="link-card" href="https://www.linkedin.com/in/md-faruk-hasan/" target="_blank" rel="noopener">💼 LinkedIn</a>
-      <a class="link-card" href="https://github.com/faruklmu17" target="_blank" rel="noopener">💻 GitHub</a>
+    <p class="sub">Connect with me across different platforms for classes, content, and updates.</p>
+
+    <div class="grid platforms">
+      <a class="card p-card" href="https://outschool.com/teachers/Faruk-Hasan" target="_blank" rel="noopener">
+        <div class="icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <h3>Outschool</h3>
+        <p>Live classes, 4.82/5 rating, 1,894+ learners taught</p>
+      </a>
+
+      <a class="card p-card" href="https://youtube.com/@kidz_code" target="_blank" rel="noopener">
+        <div class="icon"><i class="fa-brands fa-youtube"></i></div>
+        <h3>YouTube</h3>
+        <p>Coding tutorials, project walkthroughs, and STEM content</p>
+      </a>
+
+      <a class="card p-card" href="https://www.linkedin.com/in/md-faruk-hasan/" target="_blank" rel="noopener">
+        <div class="icon"><i class="fa-brands fa-linkedin"></i></div>
+        <h3>LinkedIn</h3>
+        <p>Professional updates, industry insights, and networking</p>
+      </a>
+
+      <a class="card p-card" href="https://github.com/faruklmu17" target="_blank" rel="noopener">
+        <div class="icon"><i class="fa-brands fa-github"></i></div>
+        <h3>GitHub</h3>
+        <p>Open source projects, code samples, and portfolio work</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="courses" class="section">
+  <div class="container">
+    <h2>My Courses</h2>
+    <div class="courses-grid">
+      <div class="course-card">
+        <div class="course-image">
+          <img src="udemy_course_image.jpg" alt="Python Fundamentals Course" loading="lazy">
+        </div>
+        <div class="course-badge">Udemy</div>
+        <a href="https://www.udemy.com/share/10bHxx/" target="_blank" class="course-link">
+          <h3>Python Fundamentals: Fun and Practical Projects for Beginners</h3>
+        </a>
+        <div class="course-year">2024</div>
+        <p class="course-description">An interactive course focusing on Python basics through real-world projects.</p>
+
+
+
+        <a href="https://www.udemy.com/share/10bHxx/" target="_blank" class="course-button">View Course</a>
+      </div>
+
+      <div class="course-card">
+        <div class="course-image">
+          <img src="pro_python.png" alt="Advanced Python Development Course" loading="lazy">
+        </div>
+        <div class="course-badge">Outschool</div>
+        <a href="https://outschool.com/classes/python-advanced-coding-playwright-flask-git-html-database-and-api-projects-ESjTt3fz" target="_blank" class="course-link">
+          <h3>Advanced Python/Playwright Development</h3>
+        </a>
+        <div class="course-year">2023</div>
+        <p class="course-description">Hands-on learning for advanced Python topics, equipping learners with professional skills.</p>
+        <a href="https://outschool.com/classes/python-advanced-coding-playwright-flask-git-html-database-and-api-projects-ESjTt3fz" target="_blank" class="course-button">View Course</a>
+      </div>
     </div>
   </div>
 </section>
@@ -583,34 +733,7 @@
   </div>
 </section>
 
-<section id="contact" class="section contact">
-  <div class="container">
-    <h2>Let's Get Started</h2>
-    <p class="lead">Tell me about your learner and goals. I'll recommend the best path.</p>
-    <form class="form" id="contactForm">
-      <div class="form__row">
-        <label>
-          Name
-          <input type="text" name="name" id="userName" placeholder="Your name" required />
-        </label>
-        <label>
-          Email
-          <input type="email" name="email" id="userEmail" placeholder="you@example.com" required />
-        </label>
-      </div>
-      <div class="form__row">
-        <label class="full">
-          Message
-          <textarea name="message" id="userMessage" rows="5" placeholder="Age, experience level, goals..."></textarea>
-        </label>
-      </div>
-      <div class="form__actions">
-        <button type="button" class="btn btn--primary" id="sendEmailBtn">Send Message</button>
-        <a href="#platforms" class="btn btn--ghost">See Platforms</a>
-      </div>
-    </form>
-  </div>
-</section>
+
 
   <footer>
     <div class="footer-content">
@@ -618,59 +741,68 @@
     </div>
   </footer>
 
+
+
+  <!-- Animated Counter Script -->
   <script>
-    function sendEmail() {
-      console.log('Send email function called'); // Debug log
+    // Animate counters when they come into view
+    function animateCounter(element, target, duration = 2000) {
+      const start = 0;
+      const increment = target / (duration / 16);
+      let current = start;
 
-      // Get form values
-      const name = document.getElementById('userName').value || 'Anonymous';
-      const email = document.getElementById('userEmail').value || 'No email provided';
-      const message = document.getElementById('userMessage').value || 'No message provided';
-
-      console.log('Form values:', { name, email, message }); // Debug log
-
-      // Create email subject and body
-      const subject = `Tutoring Inquiry from ${name}`;
-      const body = `Hi Faruk,
-
-I'm interested in your tutoring services.
-
-Name: ${name}
-Email: ${email}
-
-Message:
-${message}
-
-Best regards,
-${name}`;
-
-      // Create mailto URL
-      const mailtoUrl = `mailto:farukqmul@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-      console.log('Mailto URL:', mailtoUrl); // Debug log
-
-      // Try to open email client
-      try {
-        window.open(mailtoUrl, '_self');
-      } catch (error) {
-        console.error('Error opening email client:', error);
-        // Fallback: try window.location
-        window.location.href = mailtoUrl;
-      }
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        element.textContent = Math.floor(current) + '+';
+      }, 16);
     }
 
-    // Add event listener when page loads
-    document.addEventListener('DOMContentLoaded', function() {
-      const sendButton = document.getElementById('sendEmailBtn');
-      if (sendButton) {
-        sendButton.addEventListener('click', function(e) {
-          e.preventDefault();
-          console.log('Button clicked!'); // Debug log
-          sendEmail();
-        });
-      } else {
-        console.error('Send button not found!');
-      }
+    // Special animation for rating
+    function animateRating(element, target, duration = 2000) {
+      const start = 0;
+      const increment = target / (duration / 16);
+      let current = start;
+
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        element.textContent = (Math.round(current * 100) / 100).toFixed(2) + '/5';
+      }, 16);
+    }
+
+    // Intersection Observer for triggering animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const element = entry.target;
+          if (element.id === 'rating-count') {
+            animateRating(element, 4.82);
+          } else if (element.id === 'followers-count') {
+            animateCounter(element, 1945);
+          } else if (element.id === 'learners-count') {
+            animateCounter(element, 1894);
+          }
+          observer.unobserve(element);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    // Start observing when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      const ratingElement = document.getElementById('rating-count');
+      const followersElement = document.getElementById('followers-count');
+      const learnersElement = document.getElementById('learners-count');
+
+      if (ratingElement) observer.observe(ratingElement);
+      if (followersElement) observer.observe(followersElement);
+      if (learnersElement) observer.observe(learnersElement);
     });
   </script>
 
