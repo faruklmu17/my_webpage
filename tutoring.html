@@ -8,8 +8,7 @@
   <meta name="keywords" content="coding tutoring, STEM education, Python for kids, web development tutoring, AI education, Arduino tutoring, programming lessons">
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Shared Header/Footer CSS -->
-  <link rel="stylesheet" href="shared/header-footer.css">
+  <link rel="stylesheet" href="styles.css">
   
   <style>
     :root {
@@ -395,7 +394,38 @@
 </head>
 <body>
 
-<!-- ===== Tutoring Page Sections (NO header/footer) ===== -->
+  <header>
+    <div class="header-content">
+      <div class="header-left">
+        <div class="profile-image">
+          <img src="me.jpg" alt="Faruk Hasan">
+        </div>
+        <div class="headline">
+          <h1>Faruk Hasan</h1>
+          <p><span class="highlight">Software QA Engineer | Automation & AI-Driven Testing Specialist</span></p>
+        </div>
+      </div>
+      <div class="nav-social-container">
+        <nav>
+          <ul>
+            <li><a href="index.html#about">About Me</a></li>
+            <li><a href="index.html#courses">Courses</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#blog">Blog</a></li>
+            <li><a href="index.html#my dividends">Dividends</a></li>
+            <li><a href="resources.html">Resources</a></li>
+          </ul>
+        </nav>
+        <div class="social-icons">
+          <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<!-- ===== Tutoring Page Sections ===== -->
 
 <section id="hero" class="section hero">
   <div class="container hero__grid">
@@ -445,8 +475,16 @@
         <p>From fundamentals to projects: games, data, and automation.</p>
       </article>
       <article class="card">
+        <h3>Java Programming</h3>
+        <p>Object-oriented programming, data structures, and enterprise applications.</p>
+      </article>
+      <article class="card">
         <h3>Web Development (HTML/CSS/JS)</h3>
         <p>Modern, responsive web pages and interactive apps.</p>
+      </article>
+      <article class="card">
+        <h3>QA Course for Beginners</h3>
+        <p>Learn software testing with Playwright and Selenium automation frameworks.</p>
       </article>
       <article class="card">
         <h3>AI & Machine Learning (Kid-Friendly)</h3>
@@ -549,32 +587,92 @@
   <div class="container">
     <h2>Let's Get Started</h2>
     <p class="lead">Tell me about your learner and goals. I'll recommend the best path.</p>
-    <form class="form">
+    <form class="form" id="contactForm">
       <div class="form__row">
         <label>
           Name
-          <input type="text" name="name" placeholder="Your name" required />
+          <input type="text" name="name" id="userName" placeholder="Your name" required />
         </label>
         <label>
           Email
-          <input type="email" name="email" placeholder="you@example.com" required />
+          <input type="email" name="email" id="userEmail" placeholder="you@example.com" required />
         </label>
       </div>
       <div class="form__row">
         <label class="full">
           Message
-          <textarea name="message" rows="5" placeholder="Age, experience level, goals..."></textarea>
+          <textarea name="message" id="userMessage" rows="5" placeholder="Age, experience level, goals..."></textarea>
         </label>
       </div>
       <div class="form__actions">
-        <button type="submit" class="btn btn--primary">Send Message</button>
+        <button type="button" class="btn btn--primary" id="sendEmailBtn">Send Message</button>
         <a href="#platforms" class="btn btn--ghost">See Platforms</a>
       </div>
     </form>
   </div>
 </section>
 
-  <!-- Shared Header/Footer JavaScript -->
-  <script src="shared/header-footer.js"></script>
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2024 Faruk Hasan. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    function sendEmail() {
+      console.log('Send email function called'); // Debug log
+
+      // Get form values
+      const name = document.getElementById('userName').value || 'Anonymous';
+      const email = document.getElementById('userEmail').value || 'No email provided';
+      const message = document.getElementById('userMessage').value || 'No message provided';
+
+      console.log('Form values:', { name, email, message }); // Debug log
+
+      // Create email subject and body
+      const subject = `Tutoring Inquiry from ${name}`;
+      const body = `Hi Faruk,
+
+I'm interested in your tutoring services.
+
+Name: ${name}
+Email: ${email}
+
+Message:
+${message}
+
+Best regards,
+${name}`;
+
+      // Create mailto URL
+      const mailtoUrl = `mailto:farukqmul@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      console.log('Mailto URL:', mailtoUrl); // Debug log
+
+      // Try to open email client
+      try {
+        window.open(mailtoUrl, '_self');
+      } catch (error) {
+        console.error('Error opening email client:', error);
+        // Fallback: try window.location
+        window.location.href = mailtoUrl;
+      }
+    }
+
+    // Add event listener when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      const sendButton = document.getElementById('sendEmailBtn');
+      if (sendButton) {
+        sendButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('Button clicked!'); // Debug log
+          sendEmail();
+        });
+      } else {
+        console.error('Send button not found!');
+      }
+    });
+  </script>
+
 </body>
 </html>
