@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutoring - Faruk Hasan | STEM Education & Coding for Kids</title>
+  <meta name="description" content="Professional STEM tutoring and coding education for ages 9-18. Python, Web Development, AI/ML, Arduino, and Computer Fundamentals with experienced educator Faruk Hasan.">
+  <meta name="keywords" content="coding tutoring, STEM education, Python for kids, web development tutoring, AI education, Arduino tutoring, programming lessons">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Shared Header/Footer CSS -->
+  <link rel="stylesheet" href="shared/header-footer.css">
+  
+  <style>
+    :root {
+      --primary-color: #3a6ea5;
+      --secondary-color: #2c3e50;
+      --background-color: #f4f7f6;
+      --text-color: #333;
+      --accent-color: #2980b9;
+      --light-background: #ffffff;
+      --soft-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--background-color);
+    }
+
+    .section {
+      padding: 4rem 0;
+    }
+
+    .section--alt {
+      background: var(--light-background);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: var(--gradient-primary);
+      color: white;
+      padding: 6rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.3;
+    }
+
+    .hero__grid {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 3rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .lead {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .btn--primary {
+      background: white;
+      color: var(--primary-color);
+    }
+
+    .btn--primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .btn--ghost {
+      background: transparent;
+      color: white;
+      border-color: white;
+    }
+
+    .btn--ghost:hover {
+      background: white;
+      color: var(--primary-color);
+    }
+
+    .avatar {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: var(--gradient-secondary);
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .avatar::before {
+      content: '👨‍💻';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4rem;
+    }
+
+    /* Typography */
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: var(--secondary-color);
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+
+    /* Two Column Layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .two-col h2 {
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .highlights {
+      list-style: none;
+    }
+
+    .highlights li {
+      padding: 0.75rem 0;
+      font-size: 1.1rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .highlights li:last-child {
+      border-bottom: none;
+    }
+
+    /* Card Grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: var(--soft-shadow);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Pills */
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .pill {
+      background: var(--gradient-primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 500;
+    }
+
+    /* Timeline */
+    .timeline {
+      list-style: none;
+      max-width: 600px;
+      margin: 3rem auto 0;
+    }
+
+    .timeline li {
+      position: relative;
+      padding-left: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .timeline li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.5rem;
+      width: 12px;
+      height: 12px;
+      background: var(--primary-color);
+      border-radius: 50%;
+    }
+
+    .timeline li::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 1.5rem;
+      width: 2px;
+      height: calc(100% + 1rem);
+      background: #ddd;
+    }
+
+    .timeline li:last-child::after {
+      display: none;
+    }
+
+    /* Link Cards */
+    .link-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .link-card {
+      display: block;
+      padding: 1.5rem;
+      background: white;
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text-color);
+      box-shadow: var(--soft-shadow);
+      transition: all 0.3s ease;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .link-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+
+    /* Reviews */
+    .review-scroller {
+      display: flex;
+      gap: 2rem;
+      overflow-x: auto;
+      padding: 2rem 0;
+      scroll-snap-type: x mandatory;
+    }
+
+    .review {
+      min-width: 300px;
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: var(--soft-shadow);
+      scroll-snap-align: start;
+    }
+
+    .review blockquote {
+      font-style: italic;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .review figcaption {
+      color: #666;
+      font-weight: 600;
+    }
+
+    /* Contact Form */
+    .contact {
+      background: var(--gradient-primary);
+      color: white;
+    }
+
+    .contact h2 {
+      color: white;
+    }
+
+    .form {
+      max-width: 600px;
+      margin: 2rem auto 0;
+    }
+
+    .form__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form__row.full {
+      grid-template-columns: 1fr;
+    }
+
+    .form label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .form input,
+    .form textarea {
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.9);
+    }
+
+    .form__actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero__grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .form__row {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-row {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== Tutoring Page Sections (NO header/footer) ===== -->
+
+<section id="hero" class="section hero">
+  <div class="container hero__grid">
+    <div class="hero__copy">
+      <h1>Inspiring the Next Generation of Coders & Thinkers</h1>
+      <p class="lead">
+        Hi, I'm <strong>Faruk Hasan</strong> — STEM Educator & Senior QA Engineer.
+        I teach Python, Web Dev, AI/ML, Arduino, and Computer Fundamentals for ages 9–18.
+      </p>
+      <div class="cta-row">
+        <a href="#subjects" class="btn btn--primary">View Courses</a>
+        <a href="#contact" class="btn btn--ghost">Book a Free Consult</a>
+      </div>
+    </div>
+    <div class="hero__media">
+      <!-- Replace with your image -->
+      <div class="avatar"></div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="section">
+  <div class="container two-col">
+    <div>
+      <h2>About Me</h2>
+      <p>
+        I'm a hands-on educator and SDET who blends industry experience with kid-friendly
+        teaching. My classes are project-based, emphasize problem-solving, and build real
+        confidence with code and technology.
+      </p>
+    </div>
+    <ul class="highlights">
+      <li>👨‍🏫 10+ years teaching coding & STEM online</li>
+      <li>💻 Senior QA (Python, Playwright, Selenium, CI/CD)</li>
+      <li>🤖 AI, Python & Web Dev courses for kids & teens</li>
+      <li>🧮 Cross-curricular: Python + Math/Logic</li>
+    </ul>
+  </div>
+</section>
+
+<section id="subjects" class="section section--alt">
+  <div class="container">
+    <h2>What I Teach</h2>
+    <div class="card-grid">
+      <article class="card">
+        <h3>Python Programming</h3>
+        <p>From fundamentals to projects: games, data, and automation.</p>
+      </article>
+      <article class="card">
+        <h3>Web Development (HTML/CSS/JS)</h3>
+        <p>Modern, responsive web pages and interactive apps.</p>
+      </article>
+      <article class="card">
+        <h3>AI & Machine Learning (Kid-Friendly)</h3>
+        <p>Build simple chatbots, text classifiers, and smart tools.</p>
+      </article>
+      <article class="card">
+        <h3>Arduino & Robotics</h3>
+        <p>Hands-on electronics: sensors, LEDs, and simple robots.</p>
+      </article>
+      <article class="card">
+        <h3>Computer Fundamentals</h3>
+        <p>Files, browsers, safety, CLI basics, and digital literacy.</p>
+      </article>
+      <article class="card">
+        <h3>Python + Algebra</h3>
+        <p>Connect math concepts with code to deepen understanding.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="audience" class="section">
+  <div class="container">
+    <h2>Who It's For</h2>
+    <div class="pill-row">
+      <span class="pill">Ages 9–18</span>
+      <span class="pill">Beginner → Advanced</span>
+      <span class="pill">Project-Based Learning</span>
+      <span class="pill">Live on Zoom / Outschool</span>
+      <span class="pill">1-Year Courses & Bootcamps</span>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="section section--alt">
+  <div class="container">
+    <h2>Professional Experience</h2>
+    <ol class="timeline">
+      <li>
+        <div class="timeline__item">
+          <h3>Senior QA Automation Engineer (SDET)</h3>
+          <p>Python, Playwright, Selenium, CI/CD, LLM-assisted testing.</p>
+        </div>
+      </li>
+      <li>
+        <div class="timeline__item">
+          <h3>STEM Instructor – Outschool</h3>
+          <p>AI with Python, Year-Long Web Dev, Python + Algebra.</p>
+        </div>
+      </li>
+      <li>
+        <div class="timeline__item">
+          <h3>Course Creator & Mentor</h3>
+          <p>Designed project-based curricula for kids and teens.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="platforms" class="section">
+  <div class="container">
+    <h2>Find Me Online</h2>
+    <div class="link-cards">
+      <a class="link-card" href="https://outschool.com" target="_blank" rel="noopener">🎓 Outschool</a>
+      <a class="link-card" href="https://youtube.com/@kidz_code" target="_blank" rel="noopener">🎥 YouTube</a>
+      <a class="link-card" href="https://www.linkedin.com/in/md-faruk-hasan/" target="_blank" rel="noopener">💼 LinkedIn</a>
+      <a class="link-card" href="https://github.com/faruklmu17" target="_blank" rel="noopener">💻 GitHub</a>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" class="section section--alt">
+  <div class="container">
+    <h2>What Parents & Students Say</h2>
+    <div class="review-scroller" tabindex="0">
+      <figure class="review">
+        <blockquote>
+          "My son's confidence in Python grew tremendously. Faruk makes coding fun!"
+        </blockquote>
+        <figcaption>★★★★★ — Parent of 12-year-old</figcaption>
+      </figure>
+      <figure class="review">
+        <blockquote>
+          "Clear, patient, and practical. The projects were perfect for beginners."
+        </blockquote>
+        <figcaption>★★★★★ — High-school student</figcaption>
+      </figure>
+      <figure class="review">
+        <blockquote>
+          "Excellent communication with parents and real-world skills for kids."
+        </blockquote>
+        <figcaption>★★★★★ — Parent</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section contact">
+  <div class="container">
+    <h2>Let's Get Started</h2>
+    <p class="lead">Tell me about your learner and goals. I'll recommend the best path.</p>
+    <form class="form">
+      <div class="form__row">
+        <label>
+          Name
+          <input type="text" name="name" placeholder="Your name" required />
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" placeholder="you@example.com" required />
+        </label>
+      </div>
+      <div class="form__row">
+        <label class="full">
+          Message
+          <textarea name="message" rows="5" placeholder="Age, experience level, goals..."></textarea>
+        </label>
+      </div>
+      <div class="form__actions">
+        <button type="submit" class="btn btn--primary">Send Message</button>
+        <a href="#platforms" class="btn btn--ghost">See Platforms</a>
+      </div>
+    </form>
+  </div>
+</section>
+
+  <!-- Shared Header/Footer JavaScript -->
+  <script src="shared/header-footer.js"></script>
+</body>
+</html>
