@@ -1,6 +1,7 @@
 /* Shared Header and Footer Styles for All Quizzes */
+/* Exact match with resources.html and styles.css */
 
-/* CSS Variables */
+/* CSS Variables - Matching styles.css */
 :root {
   --primary-color: #3a6ea5;
   --secondary-color: #2c3e50;
@@ -11,162 +12,191 @@
   --soft-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
+/* CSS Reset - Matching styles.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 /* Google Fonts Import */
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* Header Styles */
+/* Body styles - Matching styles.css */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================
+   HEADER STYLES - Matching resources.html
+   ============================================ */
+
 header {
-  background-color: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px 0;
   position: sticky;
   top: 0;
-  z-index: 100;
-  padding: 0.5rem 0;
-  transition: all 0.3s ease;
+  z-index: 1000;
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .header-content {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  height: 100%;
+  justify-content: center;
+  padding: 0 20px;
+  flex-direction: column;
+  gap: 10px;
+  box-sizing: border-box;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.header-left {
+/* First row: Home button + Name */
+.header-row-1 {
+  width: 100%;
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  padding-right: 2rem;
+  justify-content: space-between;
 }
 
-.profile-image {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid var(--primary-color);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  flex-shrink: 0;
-  margin: 0.5rem;
-}
-
-.profile-image img {
+/* Second row: Subtitle */
+.header-row-2 {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
+  text-align: center;
 }
 
-.profile-image:hover img {
-  transform: scale(1.05);
+/* Third row: Navigation + Social icons */
+.header-row-3 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.logo-container {
+  /* Home button container */
+}
+
+.home-button {
+  display: flex;
+  align-items: center;
+  background-color: #0077b5;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+}
+
+.home-button:hover {
+  background-color: #005d8f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.home-button i {
+  margin-right: 5px;
+  font-size: 16px;
 }
 
 .headline {
-  text-align: left;
-  padding: 0.5rem 0;
+  text-align: center;
 }
 
 .headline h1 {
-  font-family: 'Dancing Script', cursive;
-  font-size: 3.2rem;
-  color: #0077b5;
-  margin-bottom: 0.5rem;
-}
-
-.headline p {
-  color: var(--secondary-color);
-  font-size: 0.9rem;
-  font-weight: 400;
-}
-
-.headline .highlight {
-  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  margin: 0;
+  font-size: 28px;
+  color: #333;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: 600;
 }
 
-.nav-social-container {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
+.header-row-2 p {
+  margin: 0;
+  color: #555;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-header nav {
+nav {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
-header nav ul {
+nav ul {
   display: flex;
   list-style: none;
-  gap: 1.5rem;
   margin: 0;
   padding: 0;
+  gap: 15px;
 }
 
-header nav ul li a {
+nav a {
+  color: #333;
   text-decoration: none;
-  color: var(--secondary-color);
   font-weight: 500;
-  transition: all 0.3s ease;
-  padding: 0.5rem 0.8rem;
-  border-radius: 6px;
-  font-size: 0.95rem;
+  padding: 5px 0;
   position: relative;
+  transition: color 0.3s;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 14px;
 }
 
-header nav ul li a::after {
+nav a:hover, nav a.active {
+  color: #0077b5;
+}
+
+nav a.active:after, nav a:hover:after {
   content: '';
   position: absolute;
   bottom: 0;
-  left: 50%;
-  width: 0;
+  left: 0;
+  width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-  transition: width 0.3s ease, left 0.3s ease;
-}
-
-header nav ul li a:hover {
-  color: var(--primary-color);
-}
-
-header nav ul li a:hover::after {
-  width: 80%;
-  left: 10%;
+  background-color: #0077b5;
 }
 
 .social-icons {
   display: flex;
-  gap: 1rem;
-  margin-left: 1rem;
+  gap: 15px;
 }
 
 .social-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  color: var(--secondary-color);
-  font-size: 1.2rem;
-  transition: all 0.3s ease;
+  background-color: white;
+  color: #333;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid #eaeaea;
   text-decoration: none;
 }
 
 .social-icon:hover {
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .social-icon.linkedin {
-  background-color: rgba(0, 119, 181, 0.1);
+  color: #0077b5;
 }
 
 .social-icon.linkedin:hover {
@@ -175,7 +205,7 @@ header nav ul li a:hover::after {
 }
 
 .social-icon.youtube {
-  background-color: rgba(255, 0, 0, 0.1);
+  color: #ff0000;
 }
 
 .social-icon.youtube:hover {
@@ -184,7 +214,7 @@ header nav ul li a:hover::after {
 }
 
 .social-icon.facebook {
-  background-color: rgba(24, 119, 242, 0.1);
+  color: #1877f2;
 }
 
 .social-icon.facebook:hover {
@@ -192,7 +222,10 @@ header nav ul li a:hover::after {
   color: white;
 }
 
-/* Footer Styles */
+/* ============================================
+   FOOTER STYLES - Matching styles.css
+   ============================================ */
+
 footer {
   background-color: #2c3e50;
   color: white;
@@ -322,70 +355,39 @@ footer {
   font-size: 0.9rem;
 }
 
-/* Responsive Design */
-@media (max-width: 900px) {
-  header {
-    padding: 0.8rem 1rem;
-  }
-
-  .header-content {
-    flex-direction: column;
-    padding: 0.5rem;
-  }
-
-  .header-left {
-    width: 100%;
-    margin-bottom: 1rem;
-    padding-right: 0;
-    justify-content: center;
-  }
-
-  .profile-image {
-    width: 100px;
-    height: 100px;
-    margin: 0.5rem 1rem 0.5rem 0;
-  }
-
-  .headline {
-    text-align: left;
-  }
-
-  .headline h1 {
-    font-size: 2.8rem;
-  }
-
-  .nav-social-container {
-    width: 100%;
-    justify-content: center;
-    padding: 0.8rem;
-  }
+.footer-bottom a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
 }
 
-@media (max-width: 600px) {
-  .header-left {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .profile-image {
-    margin: 0 0 1rem 0;
-  }
-
-  .headline {
-    text-align: center;
-  }
-
-  .nav-social-container {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .social-icons {
-    margin-left: 0;
-  }
+.footer-bottom a:hover {
+  color: white;
 }
 
+/* ============================================
+   RESPONSIVE STYLES - Matching resources.html
+   ============================================ */
+
+/* Responsive Styles */
 @media (max-width: 768px) {
+  /* Stack everything vertically on mobile */
+  .header-row-1 {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .header-row-3 {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  /* Footer responsive */
   .footer-content {
     grid-template-columns: 1fr;
     gap: 2rem;
