@@ -40,8 +40,8 @@
   </script>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Add AdSense script -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8655026160093979" crossorigin="anonymous"></script>
+  <!-- Shared Header/Footer CSS -->
+  <link rel="stylesheet" href="../../shared/header-footer.css">
   
   <style>
     :root {
@@ -57,10 +57,11 @@
     }
     
     body {
+      /* Body padding/margin removed to match resources.html header layout */
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       line-height: 1.6;
-      margin: 0;
-      padding: 20px;
+      
+      
       background-color: var(--secondary-color);
       color: var(--text-color);
     }
@@ -260,77 +261,7 @@
     .correct-answer {
       font-weight: bold;
     }
-    
-    /* Social sharing styles */
-    .social-share-container {
-      max-width: 800px;
-      margin: 0 auto 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: white;
-      border-radius: 10px;
-      box-shadow: var(--box-shadow);
-      padding: 15px;
-    }
-    
-    .share-count {
-      margin-bottom: 10px;
-      font-size: 0.9em;
-      color: #666;
-    }
-    
-    #share-counter {
-      font-weight: bold;
-      font-size: 1.2em;
-      color: var(--primary-color);
-    }
-    
-    .share-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-    
-    .share-btn {
-      display: inline-flex;
-      align-items: center;
-      padding: 8px 16px;
-      border-radius: 4px;
-      color: white;
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: opacity 0.2s;
-    }
-    
-    .share-btn:hover {
-      opacity: 0.9;
-    }
-    
-    .facebook {
-      background-color: #3b5998;
-    }
-    
-    .twitter {
-      background-color: #1da1f2;
-    }
-    
-    .linkedin {
-      background-color: #0077b5;
-    }
-    
-    .reddit {
-      background-color: #ff4500;
-    }
-    
-    .email {
-      background-color: #777;
-    }
-    
-    .share-btn i {
-      margin-right: 5px;
-    }
+
     
     /* Intro section styles */
     .intro-section {
@@ -354,35 +285,7 @@
     .intro-section a i {
       margin-right: 5px;
     }
-    
-    /* Ad container styles */
-    .ad-container {
-      max-width: 800px;
-      margin: 20px auto;
-      text-align: center;
-      padding: 10px;
-      background: #f9f9f9;
-      border-radius: 5px;
-      overflow: hidden;
-    }
-    
-    .ad-container.in-quiz {
-      margin: 30px 0;
-      background: #f5f7fa;
-      border-top: 1px solid var(--border-color);
-      border-bottom: 1px solid var(--border-color);
-      padding: 15px 0;
-    }
-    
-    /* Ad label for transparency */
-    .ad-container::before {
-      content: "Advertisement";
-      display: block;
-      text-align: center;
-      font-size: 0.7em;
-      color: #999;
-      margin-bottom: 5px;
-    }
+
     
     /* FAQ styles */
     .faq-list {
@@ -411,41 +314,8 @@
 <body>
 
   <h1>AI Quiz 1: Python Web Scraping</h1>
-  
-  <!-- Add social sharing buttons -->
-  <div class="social-share-container">
-    <div class="share-count"><span id="share-counter">0</span> shares</div>
-    <div class="share-buttons">
-      <a href="https://www.facebook.com/sharer/sharer.php?u=https://faruk-hasan.com/quizzes/AI/ai_quiz_1_web_scraping.html" target="_blank" class="share-btn facebook" onclick="incrementShareCount()">
-        <i class="fab fa-facebook-f"></i> Share
-      </a>
-      <a href="https://twitter.com/intent/tweet?url=https://faruk-hasan.com/quizzes/AI/ai_quiz_1_web_scraping.html&text=Test your Python web scraping knowledge with AI Quiz 1!" target="_blank" class="share-btn twitter" onclick="incrementShareCount()">
-        <i class="fab fa-twitter"></i> Tweet
-      </a>
-      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://faruk-hasan.com/quizzes/AI/ai_quiz_1_web_scraping.html&title=AI Quiz 1: Python Web Scraping&summary=Test your knowledge of BeautifulSoup and web scraping" target="_blank" class="share-btn linkedin" onclick="incrementShareCount()">
-        <i class="fab fa-linkedin-in"></i> Share
-      </a>
-      <a href="https://www.reddit.com/submit?url=https://faruk-hasan.com/quizzes/AI/ai_quiz_1_web_scraping.html&title=AI Quiz 1: Python Web Scraping" target="_blank" class="share-btn reddit" onclick="incrementShareCount()">
-        <i class="fab fa-reddit-alien"></i> Share
-      </a>
-      <a href="mailto:?subject=AI Quiz 1: Python Web Scraping&body=I thought you might find this useful: https://faruk-hasan.com/quizzes/AI/ai_quiz_1_web_scraping.html" class="share-btn email" onclick="incrementShareCount()">
-        <i class="fas fa-envelope"></i> Email
-      </a>
-    </div>
-  </div>
-  
-  <!-- Top AdSense Ad -->
-  <div class="ad-container">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-8655026160093979"
-         data-ad-slot="YOUR_AD_SLOT_1"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-  </div>
+
+
   
   <div class="quiz-container">
     <!-- Add an introduction paragraph for SEO -->
@@ -730,5 +600,7 @@
       document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
     }
   </script>
+  <!-- Shared Header and Footer JavaScript -->
+  <script src="../../shared/header-footer.js"></script>
 </body>
 </html>
