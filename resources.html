@@ -24,7 +24,7 @@
     h2.section-title {
       text-align: center;
       margin-bottom: 10px;
-      color: #333;
+      color: #ffffff;
     }
     
     .resource-intro {
@@ -35,7 +35,7 @@
     .resource-intro p {
       max-width: 800px;
       margin: 0 auto;
-      color: #555;
+      color: #ffffff;
       line-height: 1.4;
     }
 
@@ -107,6 +107,11 @@
     .category-button.ai {
       background-color: #9b59b6; /* Purple for AI */
       box-shadow: 0 4px 8px rgba(155, 89, 182, 0.3);
+    }
+
+    .category-button.arduino {
+      background-color: #00979D; /* Teal/cyan for Arduino */
+      box-shadow: 0 4px 8px rgba(0, 151, 157, 0.3);
     }
 
     /* Modern sleek button style updates */
@@ -259,7 +264,7 @@
     .resource-intro p {
       max-width: 800px;
       margin: 0 auto;
-      color: #555;
+      color: #ffffff;
       line-height: 1.6;
     }
     
@@ -570,6 +575,16 @@
         </div>
 
         <div class="quiz-category">
+          <button class="category-button arduino">Arduino & Electronics Quizzes</button>
+          <div class="quiz-dropdown">
+            <h3>Arduino & Basic Electronics Quizzes</h3>
+            <ul>
+              <li><a href="quizzes/Arduino/arduino_board_basic_electronics_quiz.html">Arduino Basics & Electronics Quiz</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="quiz-category">
           <button class="category-button java">Java Quizzes</button>
           <div class="quiz-dropdown">
             <h3>Java Quizzes</h3>
@@ -599,9 +614,9 @@
           <button class="category-button web">HTML, CSS, JavaScript Quizzes</button>
           <div class="quiz-dropdown">
             <ul>
-              <li><a href="#" class="quiz-link" data-quiz="Quiz-1 HTML" data-url="wd_quiz1.html">Quiz-1 HTML</a></li>
-              <li><a href="#" class="quiz-link" data-quiz="HTML Fundamentals" data-url="wd_project_4_quiz1.html">Project-4 Quiz:1</a></li>
-              <li><a href="#" class="quiz-link" data-quiz="Project-4" data-url="wd_project_4_quiz2.html">Project-4 Quiz:2</a></li>
+              <li><a href="#" class="quiz-link" data-quiz="Quiz-1 HTML" data-url="quizzes/HTML-CSS-JS/wd_quiz1.html">Quiz-1 HTML</a></li>
+              <li><a href="#" class="quiz-link" data-quiz="HTML Fundamentals" data-url="quizzes/HTML-CSS-JS/wd_project_4_quiz1.html">Project-4 Quiz:1</a></li>
+              <li><a href="#" class="quiz-link" data-quiz="Project-4" data-url="quizzes/HTML-CSS-JS/wd_project_4_quiz2.html">Project-4 Quiz:2</a></li>
               <li><a href="quizzes/HTML-CSS-JS/project5_quiz2.html">Project-5 Quiz:2</a></li>
               <li><a href="quizzes/css-basics.html">CSS Styling Basics</a></li>
               <li><a href="quizzes/css-layout.html">CSS Layout & Flexbox</a></li>

@@ -45,9 +45,10 @@
   </script>
   
   <style>
-    body { 
+    body {
+      /* Body padding/margin removed to match resources.html header layout */ 
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      padding: 20px;
+      
       background-color: #f0f8ff;
       color: #333;
       line-height: 1.6;
@@ -231,6 +232,11 @@
       bottom: -25px;
     }
   </style>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Shared Header/Footer CSS -->
+  <link rel="stylesheet" href="../../shared/header-footer.css">
+
 </head>
 <body>
 
@@ -749,5 +755,7 @@
     window.location.href = `mailto:?subject=${subject}&body=${body}`;
   }
 </script>
+  <!-- Shared Header and Footer JavaScript -->
+  <script src="../../shared/header-footer.js"></script>
 </body>
 </html>
