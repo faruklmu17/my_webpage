@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTML, CSS, and JavaScript Concepts Quiz</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Shared Header/Footer CSS -->
+  <link rel="stylesheet" href="../../shared/header-footer.css">
     <style>
         :root {
             --primary-color: #0077b5;
@@ -19,10 +21,11 @@
         }
         
         body {
+            /* Body padding removed to match resources.html header layout */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             margin: 0;
-            padding: 20px;
+            
             background-color: var(--secondary-color);
             color: var(--text-color);
         }
@@ -652,5 +655,8 @@
             document.getElementById('results').scrollIntoView({behavior: 'smooth'});
         });
     </script>
+
+  <!-- Shared Header/Footer JavaScript -->
+  <script src="../../shared/header-footer.js"></script>
 </body>
 </html>
