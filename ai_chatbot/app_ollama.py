@@ -13,6 +13,9 @@ def chat_with_ollama(history, user_message):
     Gradio callback that sends the conversation to Ollama
     and returns the updated history.
     """
+    # history can be None on first run
+    if history is None:
+        history = []
 
     # Strong system prompt to control style + avoid fake contact info
     messages = [
@@ -110,10 +113,10 @@ with gr.Blocks() as demo:
         outputs=[chatbot, msg],
     )
 
-# Expose on all interfaces, port 7860 (so your iframe can load it)
+# Expose on all interfaces, port 7860 (so your iframe / Gradio share can load it)
 if __name__ == "__main__":
     demo.launch(
         server_name="0.0.0.0",
         server_port=7860,
-        share=True  # 👈 this is the only change needed for a public link
+        share=True  # ✅ enables the https://xxxx.gradio.live link
     )
