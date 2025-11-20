@@ -94,7 +94,7 @@ def chat_with_ollama(history, user_message):
 with gr.Blocks() as demo:
     gr.Markdown(
         """
-        ## 🤖 Faruk’s Personal AI Assistant
+        ## 🤖 Faruk’s Personal AI Assistant (Version: 1.0)
 
         Ask me about Faruk's QA career, his teaching, tutoring options, or general questions
         about Python, web development, testing, or AI. I’ll keep answers short and focused.
