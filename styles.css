@@ -97,6 +97,18 @@ header {
   padding: 0.8rem 2rem;
 }
 
+/* Medium screen adjustments to prevent navigation wrapping */
+@media (max-width: 1200px) and (min-width: 901px) {
+  header nav ul {
+    gap: 0.8rem;
+  }
+
+  header nav ul li a {
+    padding: 0.5rem 0.5rem;
+    font-size: 0.85rem;
+  }
+}
+
 /* Responsive adjustments */
 @media (max-width: 900px) {
   .header-content {
@@ -178,7 +190,8 @@ header nav {
 header nav ul {
   display: flex;
   list-style: none;
-  gap: 1.5rem;
+  gap: 1rem;
+  flex-wrap: nowrap;
 }
 
 header nav ul li a {
@@ -186,10 +199,11 @@ header nav ul li a {
   color: var(--secondary-color);
   font-weight: 500;
   transition: all 0.3s ease;
-  padding: 0.5rem 0.8rem;
+  padding: 0.5rem 0.6rem;
   border-radius: 6px;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   position: relative;
+  white-space: nowrap;
 }
 
 header nav ul li a::after {

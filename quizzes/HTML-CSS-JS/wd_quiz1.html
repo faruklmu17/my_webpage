@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Web Development Concepts Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Shared Header/Footer CSS -->
+  <link rel="stylesheet" href="../../shared/header-footer.css">
+    <!-- Add EmailJS library -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("aYZA4PQUx4LZ56C7V");
+        })();
+    </script>
+    <style>
+        :root {
+            --primary-color: #0077b5;
+            --primary-dark: #005885;
+            --secondary-color: #f5f7fa;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --border-color: #e0e0e0;
+            --success-color: #27ae60;
+            --error-color: #e74c3c;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            /* Body padding removed to match resources.html header layout */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+        }
+        
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .quiz-description {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .progress-container {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            padding: 15px 0;
+            margin-bottom: 25px;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: var(--light-gray);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        
+        /* Category styling for questions */
+        .question {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #eef2f5;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 5px;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        /* Different category colors */
+        .question.html {
+            border-left-color: #e44d26; /* HTML orange-red */
+        }
+
+        .question.css {
+            border-left-color: #2965f1; /* CSS blue */
+        }
+
+        .question.structure {
+            border-left-color: #9b59b6; /* Structure purple */
+        }
+
+        .question.semantics {
+            border-left-color: #3498db; /* Semantics light blue */
+        }
+
+        .question.elements {
+            border-left-color: #f39c12; /* Elements orange */
+        }
+
+        /* Category badges */
+        .category-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: white;
+        }
+
+        .category-badge.html {
+            background-color: #e44d26;
+        }
+
+        .category-badge.css {
+            background-color: #2965f1;
+        }
+
+        .category-badge.structure {
+            background-color: #9b59b6;
+        }
+
+        .category-badge.semantics {
+            background-color: #3498db;
+        }
+
+        .category-badge.elements {
+            background-color: #f39c12;
+        }
+        
+        .question:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .question p {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 17px;
+        }
+        
+        .options {
+            margin-left: 10px;
+        }
+        
+        .option {
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        
+        .option:hover {
+            background-color: rgba(0, 119, 181, 0.05);
+        }
+        
+        .option input[type="radio"] {
+            display: none;
+        }
+        
+        .option label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding-left: 10px;
+            position: relative;
+            width: 100%;
+        }
+        
+        .option label:before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+        
+        .option input[type="radio"]:checked + label:before {
+            border-color: var(--primary-color);
+            background-color: var(--primary-color);
+            box-shadow: inset 0 0 0 4px white;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        
+        button {
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        #results {
+            display: none;
+            margin-top: 40px;
+            padding: 25px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--box-shadow);
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        #score {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 15px;
+            position: relative;
+            box-shadow: inset 0 0 0 6px rgba(0, 119, 181, 0.2);
+        }
+        
+        .answer-key {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--border-color);
+        }
+        
+        .answer-key h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-size: 20px;
+        }
+        
+        .answer-key-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .correct {
+            color: var(--success-color);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .incorrect {
+            color: var(--error-color);
+            text-decoration: line-through;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: var(--light-gray);
+            border-radius: 4px;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .result-feedback {
+            text-align: center;
+            margin: 15px 0 25px;
+            font-size: 18px;
+            color: #666;
+        }
+        
+        .back-to-resources {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .back-to-resources:hover {
+            text-decoration: underline;
+        }
+        
+        .email-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .email-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .email-input {
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 16px;
+            width: 100%;
+        }
+        
+        .email-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .skip-btn {
+            background-color: #95a5a6;
+        }
+        
+        .skip-btn:hover {
+            background-color: #7f8c8d;
+        }
+        
+        .email-status {
+            font-size: 14px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        .email-status.success {
+            color: var(--success-color);
+        }
+        
+        .email-status.error {
+            color: var(--error-color);
+        }
+
+        /* Quiz statistics styling */
+        .quiz-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .stat-item i {
+            color: var(--primary-color);
+            font-size: 16px;
+        }
+
+        .stat-item span {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="header">
+            <h1>Web Development Concepts Quiz</h1>
+            <p class="quiz-description">Test your knowledge of web development fundamentals with this 10-question quiz</p>
+            <div class="quiz-stats">
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <span id="times-taken">0</span> attempts
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-chart-line"></i>
+                    Average score: <span id="mean-score">0</span>%
+                </div>
+            </div>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-text">
+                <span>Your progress</span>
+                <span id="progress-count">0/10 answered</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+        
+        <form id="quiz-form">
+            <div class="question" id="q1">
+                <p>1. What does HTML stand for?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q1a" name="q1" value="a">
+                        <label for="q1a">a) HyperText Markup Language</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1b" name="q1" value="b">
+                        <label for="q1b">b) HyperText Markdown Language</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1c" name="q1" value="c">
+                        <label for="q1c">c) HyperTransfer Markup Language</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1d" name="q1" value="d">
+                        <label for="q1d">d) HyperTransfer Markdown Language</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" id="q2">
+                <p>2. Which tag is used to indicate that the document is an HTML5 document?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q2a" name="q2" value="a">
+                        <label for="q2a">a) &lt;html&gt;</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2b" name="q2" value="b">
+                        <label for="q2b">b) &lt;head&gt;</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2c" name="q2" value="c">
+                        <label for="q2c">c) &lt;!DOCTYPE html&gt;</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2d" name="q2" value="d">
+                        <label for="q2d">d) &lt;meta&gt;</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" id="q3">
+                <p>3. What is the purpose of the &lt;head&gt; tag in an HTML document?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q3a" name="q3" value="a">
+                        <label for="q3a">a) To contain the visible content of the webpage</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3b" name="q3" value="b">
+                        <label for="q3b">b) To set the title of the webpage</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3c" name="q3" value="c">
+                        <label for="q3c">c) To define the main heading of the page</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3d" name="q3" value="d">
+                        <label for="q3d">d) To contain meta-information about the HTML document</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" id="q4">
+                <p>4. Which tag is used to define the most important heading on a webpage?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q4a" name="q4" value="a">
+                        <label for="q4a">a) &lt;title&gt;</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4b" name="q4" value="b">
+                        <label for="q4b">b) &lt;p&gt;</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4c" name="q4" value="c">
+                        <label for="q4c">c) &lt;h1&gt;</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4d" name="q4" value="d">
+                        <label for="q4d">d) &lt;head&gt;</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" id="q5">
+                <p>5. What is the correct structure of an HTML element?</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q5a" name="q5" value="a">
+                        <label for="q5a">a) Opening tag, content, closing tag</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5b" name="q5" value="b">
+                        <label for="q5b">b) Content, opening tag, closing tag</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5c" name="q5" value="c">
+                        <label for="q5c">c) Closing tag, opening tag, content</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5d" name="q5" value="d">
+                        <label for="q5d">d) Content, closing tag, opening tag</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" id="q6">
+                <p>6. HTML tags are always enclosed in curly brackets {}</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q6a" name="q6" value="a">
+                        <label for="q6a">a) True</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6b" name="q6" value="b">
+                        <label for="q6b">b) False</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" id="q7">
+                <p>7. The &lt;body&gt; tag contains the content of the webpage that is visible to users.</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q7a" name="q7" value="a">
+                        <label for="q7a">a) True</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7b" name="q7" value="b">
+                        <label for="q7b">b) False</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" id="q8">
+                <p>8. An HTML element can have only an opening tag and no closing tag.</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q8a" name="q8" value="a">
+                        <label for="q8a">a) True</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8b" name="q8" value="b">
+                        <label for="q8b">b) False</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" id="q9">
+                <p>9. The &lt;title&gt; tag sets the __________ of the webpage, shown on the browser tab.</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q9a" name="q9" value="a">
+                        <label for="q9a">a) title</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q9b" name="q9" value="b">
+                        <label for="q9b">b) metadata</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q9c" name="q9" value="c">
+                        <label for="q9c">c) information</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question" id="q10">
+                <p>10. The combination of an opening tag, __________, and a closing tag defines an HTML element.</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q10a" name="q10" value="a">
+                        <label for="q10a">a) content</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q10b" name="q10" value="b">
+                        <label for="q10b">b) title</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q10c" name="q10" value="c">
+                        <label for="q10c">c) data</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button type="button" id="submit-quiz">
+                    <i class="fas fa-check-circle"></i> Submit Quiz
+                </button>
+            </div>
+        </form>
+
+        <div id="results">
+            <div id="score">
+                <div class="score-circle">0</div>
+            </div>
+            <div class="result-feedback" id="result-feedback"></div>
+            <div class="answer-key">
+                <h3>Answer Key</h3>
+                <div id="answers"></div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="resources.html" class="back-to-resources">
+                    <i class="fas fa-arrow-left"></i> Back to Learning Resources
+                </a>
+            </div>
+        </div>
+
+        <div id="email-results" class="email-section">
+            <h3>Get Your Results by Email</h3>
+            <p>Enter your email address to receive your quiz results (optional):</p>
+            <div class="email-form">
+                <input type="email" id="user-email" placeholder="your@email.com" class="email-input">
+                <div class="email-buttons">
+                    <button id="send-results" type="button">
+                        <i class="fas fa-envelope"></i> Send Results
+                    </button>
+                    <button id="skip-email" type="button" class="skip-btn">
+                        <i class="fas fa-times"></i> Skip
+                    </button>
+                </div>
+                <p id="email-status" class="email-status"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Correct answers
+        const correctAnswers = {
+            q1: "a",
+            q2: "c",
+            q3: "d",
+            q4: "c",
+            q5: "a",
+            q6: "b",
+            q7: "a",
+            q8: "a",
+            q9: "a",
+            q10: "a"
+        };
+
+        // Explanations for each answer
+        const explanations = {
+            q1: "HTML stands for <strong>HyperText Markup Language</strong>, which is the standard markup language for creating web pages. It provides the structure for web content using a system of elements and tags.",
+            
+            q2: "The <code>&lt;!DOCTYPE html&gt;</code> declaration is used to specify that the document is an HTML5 document. It must appear at the very beginning of the HTML document, before the <code>&lt;html&gt;</code> tag, to ensure proper rendering.",
+            
+            q3: "The <code>&lt;head&gt;</code> element contains meta-information about the HTML document, including the <code>&lt;title&gt;</code>, CSS <code>&lt;style&gt;</code> tags, JavaScript <code>&lt;script&gt;</code> tags, and other meta information that isn't displayed on the page but is crucial for SEO and browser rendering.",
+            
+            q4: "The <code>&lt;h1&gt;</code> tag is used to define the most important heading on a webpage. It has the largest default font size among all heading tags (h1-h6) and carries the most semantic weight for page structure and SEO.",
+            
+            q5: "The correct structure of an HTML element consists of an opening tag, followed by content, and then a closing tag. For example: <code>&lt;p&gt;This is a paragraph&lt;/p&gt;</code>. This three-part structure forms the foundation of HTML markup.",
+            
+            q6: "False. HTML tags are enclosed in angle brackets <code>&lt; &gt;</code>, not curly brackets <code>{}</code>. Curly brackets are commonly used in CSS and JavaScript, but never for HTML tag syntax.",
+            
+            q7: "True. The <code>&lt;body&gt;</code> tag contains all the content that is visible to users when they visit the webpage, including text, images, links, forms, and other interactive elements. Everything that appears in the browser window is enclosed within the body tags.",
+            
+            q8: "True. Some HTML elements are self-closing and only have an opening tag, such as <code>&lt;img&gt;</code>, <code>&lt;br&gt;</code>, <code>&lt;input&gt;</code>, and <code>&lt;meta&gt;</code>. In HTML5, the trailing slash is optional (e.g., <code>&lt;img src=\"image.jpg\"&gt;</code> is valid).",
+            
+            q9: "The <code>&lt;title&gt;</code> tag sets the title of the webpage, which is displayed on the browser tab and in search engine results. It's a required element in all HTML documents and is crucial for SEO and user experience.",
+            
+            q10: "The combination of an opening tag, content, and a closing tag defines an HTML element. The content is what appears between the opening and closing tags. This structure allows browsers to properly render the content according to the semantic meaning of the tags."
+        };
+        
+        // Feedback messages based on score
+        const feedbackMessages = [
+            {min: 0, max: 3, message: "Keep studying! You're just getting started with HTML concepts."},
+            {min: 4, max: 6, message: "Good progress! You're developing a solid understanding of HTML."},
+            {min: 7, max: 9, message: "Excellent work! You have a strong grasp of HTML fundamentals."},
+            {min: 10, max: 10, message: "Perfect score! You're an HTML expert!"}
+        ];
+
+        // Track answered questions
+        let answeredQuestions = 0;
+        const totalQuestions = 10;
+        
+        // Update progress when an option is selected
+        const radioButtons = document.querySelectorAll('input[type="radio"]');
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', updateProgress);
+        });
+        
+        function updateProgress() {
+            // Count answered questions
+            answeredQuestions = 0;
+            for (let i = 1; i <= totalQuestions; i++) {
+                if (document.querySelector(`input[name="q${i}"]:checked`)) {
+                    answeredQuestions++;
+                }
+            }
+            
+            // Update progress text and bar
+            document.getElementById('progress-count').textContent = `${answeredQuestions}/${totalQuestions} answered`;
+            const progressPercentage = (answeredQuestions / totalQuestions) * 100;
+            document.getElementById('progress-fill').style.width = `${progressPercentage}%`;
+        }
+
+        // Handle quiz submission
+        document.getElementById('submit-quiz').addEventListener('click', function() {
+            const form = document.getElementById('quiz-form');
+            let score = 0;
+            let answersHTML = '';
+
+            // Check each question
+            for (let i = 1; i <= totalQuestions; i++) {
+                const questionName = 'q' + i;
+                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                
+                // Build the answer explanation for each question
+                answersHTML += `<div class="answer-key-item"><p><strong>Question ${i}:</strong> `;
+                
+                if (selectedOption) {
+                    const userAnswer = selectedOption.value;
+                    const correctAnswer = correctAnswers[questionName];
+                    
+                    if (userAnswer === correctAnswer) {
+                        score++;
+                        answersHTML += `<span class="correct"><i class="fas fa-check-circle"></i> Your answer: ${userAnswer}) is correct!</span>`;
+                    } else {
+                        answersHTML += `<span class="incorrect"><i class="fas fa-times-circle"></i> Your answer: ${userAnswer})</span> - 
+                                        <span class="correct"><i class="fas fa-check-circle"></i> Correct answer: ${correctAnswer})</span>`;
+                    }
+                } else {
+                    answersHTML += `<span class="incorrect"><i class="fas fa-times-circle"></i> Not answered</span> - 
+                                    <span class="correct"><i class="fas fa-check-circle"></i> Correct answer: ${correctAnswers[questionName]})</span>`;
+                }
+                
+                // Add explanation
+                answersHTML += `<div class="explanation">${explanations[questionName]}</div></p></div>`;
+            }
+            
+            // Display results
+            document.getElementById('answers').innerHTML = answersHTML;
+            document.querySelector('.score-circle').textContent = score + '/' + totalQuestions;
+            
+            // Store score for email functionality
+            document.querySelector('.score-circle').setAttribute('data-score', score);
+            
+            // Show appropriate feedback based on score
+            let feedback = '';
+            for (const feedbackRange of feedbackMessages) {
+                if (score >= feedbackRange.min && score <= feedbackRange.max) {
+                    feedback = feedbackRange.message;
+                    break;
+                }
+            }
+            document.getElementById('result-feedback').textContent = feedback;
+            
+            // Hide quiz form and show results
+            document.getElementById('quiz-form').style.display = 'none';
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('email-results').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        document.getElementById('send-results').addEventListener('click', function() {
+            const email = document.getElementById('user-email').value;
+            const statusElement = document.getElementById('email-status');
+            
+            if (!email || !email.includes('@')) {
+                statusElement.textContent = 'Please enter a valid email address.';
+                statusElement.className = 'email-status error';
+                return;
+            }
+            
+            // Get the score and prepare answers for email
+            const score = document.querySelector('.score-circle').textContent;
+            const feedback = document.getElementById('result-feedback').textContent;
+            
+            // Create template parameters object for EmailJS
+            const templateParams = {
+                // Always send to your verified email
+                to_email: 'farukqmul@gmail.com',  
+                // Include user's email in the content
+                user_email: email,  
+                quiz_name: 'Web Development Concepts Quiz',
+                score: score,
+                feedback: feedback,
+                answers_html: document.getElementById('answers').innerHTML,
+                // Add a note about who requested the results
+                note: `Quiz results requested by: ${email}`
+            };
+            
+            // Show loading state
+            statusElement.textContent = 'Sending...';
+            statusElement.className = 'email-status';
+            
+            // Send email using EmailJS
+            emailjs.send('service_nqjmg9a', 'template_zjaulgk', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response);
+                    statusElement.textContent = 'Results sent to ' + email + '!';
+                    statusElement.className = 'email-status success';
+                })
+                .catch(function(error) {
+                    console.error('FAILED...', error);
+                    statusElement.textContent = 'Failed to send email: ' + error.text;
+                    statusElement.className = 'email-status error';
+                });
+        });
+        
+        document.getElementById('skip-email').addEventListener('click', function() {
+            document.getElementById('email-results').style.display = 'none';
+        });
+
+        // Define categories for each question
+        const questionCategories = {
+            q1: "html",
+            q2: "structure",
+            q3: "elements",
+            q4: "semantics",
+            q5: "structure",
+            q6: "html",
+            q7: "elements",
+            q8: "semantics",
+            q9: "html",
+            q10: "structure"
+        };
+
+        // Apply categories to questions when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add category classes and badges to each question
+            for (let i = 1; i <= 10; i++) {
+                const questionId = `q${i}`;
+                const category = questionCategories[questionId];
+                const questionElement = document.querySelector(`.question:nth-child(${i})`);
+                
+                if (questionElement && category) {
+                    // Add category class
+                    questionElement.classList.add(category);
+                    
+                    // Add category badge before the question text
+                    const questionText = questionElement.querySelector('p');
+                    if (questionText) {
+                        const categoryBadge = document.createElement('span');
+                        categoryBadge.className = `category-badge ${category}`;
+                        categoryBadge.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                        questionElement.insertBefore(categoryBadge, questionText);
+                    }
+                }
+            }
+        });
+    </script>
+
+  <!-- Shared Header/Footer JavaScript -->
+  <script src="../../shared/header-footer.js"></script>
+</body>
+</html>
