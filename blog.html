@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+
+/* --- Compact Blog Header Line --- */
+.blog-header-line {
+  width: 100%;
+  text-align: center;
+  padding: 0.6rem 0 0.7rem;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.blog-header-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.blog-header-divider {
+  font-size: 1rem;
+  color: #9ca3af;
+}
+
+.blog-header-subtitle {
+  font-size: 0.9rem;
+  color: #6b7280;
+  font-weight: 400;
+}
+
+/* Mobile adjustment */
+@media (max-width: 640px) {
+  .blog-header-line {
+    flex-wrap: wrap;
+    padding: 0.5rem 0 0.7rem;
+  }
+
+  .blog-header-title {
+    font-size: 1rem;
+  }
+
+  .blog-header-subtitle {
+    font-size: 0.85rem;
+  }
+}
+
+
+/* RESET blog image styling */
+.blog-image {
+  display: block;
+  /* IMPORTANT: remove any fixed height / aspect-ratio / overflow here */
+  height: auto !important;
+  aspect-ratio: auto !important;
+  overflow: visible !important;
+}
+
+.blog-image img {
+  width: 100%;
+  height: auto;          /* let it decide its own height */
+  display: block;
+  object-fit: contain;   /* or remove this line if you like */
+  transform: none !important;  /* cancel any previous hover zoom */
+}
+
+
+/* Card content */
+.blog-content {
+  padding: 1.1rem 1.15rem 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Meta row */
+.blog-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+  margin-bottom: 0.55rem;
+  color: #6b7280;
+}
+
+.blog-meta-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.blog-meta i {
+  margin-right: 0.25rem;
+}
+
+/* Tag pill */
+.blog-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(59, 130, 246, 0.09);
+  color: #1d4ed8;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Titles */
+.blog-title {
+  font-size: 1rem;
+  margin: 0 0 0.45rem;
+  line-height: 1.4;
+}
+
+.blog-title a {
+  color: #0f172a;
+  text-decoration: none;
+}
+
+.blog-title a:hover {
+  color: #1d4ed8;
+}
+
+/* Excerpt */
+.blog-excerpt {
+  font-size: 0.87rem;
+  line-height: 1.6;
+  color: #4b5563;
+  margin: 0 0 0.75rem;
+}
+
+/* Actions row */
+.blog-actions {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.read-more-link {
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: #1d4ed8;
+  text-decoration: none;
+}
+
+.read-more-link i {
+  font-size: 0.7rem;
+}
+
+.read-more-link:hover {
+  text-decoration: underline;
+}
+
+.secondary-link {
+  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #6b7280;
+  text-decoration: none;
+}
+
+.secondary-link i {
+  font-size: 0.9rem;
+}
+
+.secondary-link:hover {
+  color: #1d4ed8;
+}
+
+/* Simple Blog Header Styles */
+.blog-header-simple {
+  text-align: center;
+  padding: 0.5rem 0 1rem 0;
+  margin-top: 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.blog-header-line {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.blog-header-title {
+  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.blog-header-divider {
+  color: #e74c3c;
+  margin: 0 0.5rem;
+}
+
+.blog-header-subtitle {
+  color: #666;
+}
+
+.blog-description {
+  font-size: 1rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .blog-header-line {
+    font-size: 1.5rem;
+  }
+
+  .blog-description {
+    font-size: 0.9rem;
+    padding: 0 1rem;
+  }
+}
+
+  </style>
+
+  <title>QA & Playwright Automation Blog | Faruk Hasan</title>
+
+  <!-- Core SEO -->
+  <meta name="description" content="Hands-on blog posts on QA automation, Playwright testing, and software quality engineering by Faruk Hasan. Tutorials, patterns, and real-world examples.">
+  <meta name="author" content="Faruk Hasan">
+  <link rel="canonical" href="https://faruk-hasan.com/blog.html">
+
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="QA & Playwright Automation Blog | Faruk Hasan">
+  <meta property="og:description" content="Hands-on blog posts on QA automation, Playwright testing, and software quality engineering.">
+  <meta property="og:image" content="https://faruk-hasan.com/og-image.jpg">
+  <meta property="og:url" content="https://faruk-hasan.com/blog.html">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="QA & Playwright Automation Blog | Faruk Hasan">
+  <meta name="twitter:description" content="Latest blog posts on QA automation, Playwright testing, and software development.">
+  <meta name="twitter:image" content="https://faruk-hasan.com/og-image.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Main Styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- JSON-LD Structured Data for Blog -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "QA & Playwright Automation Blog",
+    "url": "https://faruk-hasan.com/blog.html",
+    "description": "Hands-on blog posts on QA automation, Playwright testing, and software quality engineering by Faruk Hasan.",
+    "publisher": {
+      "@type": "Person",
+      "name": "Faruk Hasan",
+      "url": "https://faruk-hasan.com"
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <div class="header-left">
+        <div class="profile-image">
+          <img src="me.jpg" alt="Faruk Hasan">
+        </div>
+        <div class="headline">
+          <h1 class="site-title">Faruk Hasan</h1>
+          <p><span class="highlight">Software QA Engineer | Automation & AI-Driven Testing Specialist</span></p>
+        </div>
+      </div>
+      <div class="nav-social-container">
+        <nav aria-label="Main navigation">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About Me</a></li>
+            <li><a href="index.html#courses">Courses</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="blog.html" class="active">Blog</a></li>
+            <li><a href="tutoring.html">Tutoring</a></li>
+            <li><a href="index.html#my-dividends">Dividends</a></li>
+            <li><a href="resources.html">Resources</a></li>
+          </ul>
+        </nav>
+
+        <div class="social-icons">
+          <a href="https://www.linkedin.com/in/faruklmu17/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/@faruklmu17" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.facebook.com/faruklmu17" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Simple Blog Header -->
+    <div class="blog-header-simple">
+      <div class="blog-header-line">
+        <span class="blog-header-title">Blog</span>
+        <span class="blog-header-divider">•</span>
+        <span class="blog-header-subtitle">QA & Automation Insights</span>
+      </div>
+      <p class="blog-description">Practical tutorials, testing strategies, and automation insights for modern QA engineers</p>
+    </div>
+  </header>
+
+ 
+
+  <!-- Blog Posts Section -->
+  <main class="blog-main" aria-label="Blog posts">
+    <section class="blog-posts-section">
+      <div class="container">
+        <div class="blog-grid">
+          <!-- Blog Post 1 - localStorage Testing (Latest) -->
+          <article class="blog-card" data-category="playwright testing">
+            <a href="blog_post/local_storage_testing_with_playwright.html" class="blog-image">
+              <img src="blog_images/local.jpg" alt="Playwright localStorage testing tutorial cover image" loading="lazy">
+            </a>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span class="blog-tag">Playwright</span>
+                <div class="blog-meta-right">
+                  <time datetime="2025-11-28">
+                    <i class="far fa-calendar-alt" aria-hidden="true"></i>
+                    November 28, 2025
+                  </time>
+                  <span class="blog-read-time">
+                    <i class="far fa-clock" aria-hidden="true"></i> 8 min read
+                  </span>
+                </div>
+              </div>
+              <h2 class="blog-title">
+                <a href="blog_post/local_storage_testing_with_playwright.html">
+                  Testing localStorage &amp; Persistent UI State with Playwright
+                </a>
+              </h2>
+              <p class="blog-excerpt">
+                Learn how to test localStorage, persistent UI state, and hidden DOM elements using Playwright and TypeScript. Ensure your web app remembers exactly what users expect.
+              </p>
+
+              <div class="blog-actions">
+                <a href="blog_post/local_storage_testing_with_playwright.html" class="read-more-link">
+                  Read article <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </a>
+                <a href="https://youtu.be/scBKNnRScEQ" target="_blank" class="secondary-link">
+                  <i class="fab fa-youtube" aria-hidden="true"></i>
+                  Watch on YouTube
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Blog Post 2 - Playwright Fixtures -->
+          <article class="blog-card" data-category="playwright automation">
+            <a href="blog_post/playwright_fixtures.html" class="blog-image">
+              <img src="blog_images/playwright_fixtures.png" alt="Playwright fixtures tutorial cover image" loading="lazy">
+            </a>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span class="blog-tag">Playwright</span>
+                <div class="blog-meta-right">
+                  <time datetime="2025-09-07">
+                    <i class="far fa-calendar-alt" aria-hidden="true"></i>
+                    September 7, 2025
+                  </time>
+                  <span class="blog-read-time">
+                    <i class="far fa-clock" aria-hidden="true"></i> 6 min read
+                  </span>
+                </div>
+              </div>
+              <h2 class="blog-title">
+                <a href="blog_post/playwright_fixtures.html">
+                  Mastering Playwright Fixtures: Built-in vs Custom
+                </a>
+              </h2>
+              <p class="blog-excerpt">
+                Use Playwright fixtures to simplify test setup, remove boilerplate, and make your test suite easier to extend. Includes custom fixture patterns and TypeScript examples.
+              </p>
+
+              <div class="blog-actions">
+                <a href="blog_post/playwright_fixtures.html" class="read-more-link">
+                  Read article <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </a>
+                <a href="https://youtu.be/tkjPe86JpGk" target="_blank" class="secondary-link">
+                  <i class="fab fa-youtube" aria-hidden="true"></i>
+                  Watch on YouTube
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Blog Post 3 - Monocart Reporter -->
+          <article class="blog-card" data-category="playwright testing">
+            <a href="blog_post/monocart_report_playwright.html" class="blog-image">
+              <img src="blog_images/monocart-reporter.jpg" alt="Monocart Playwright report cover image" loading="lazy">
+            </a>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span class="blog-tag">Reporting</span>
+                <div class="blog-meta-right">
+                  <time datetime="2024-06-10">
+                    <i class="far fa-calendar-alt" aria-hidden="true"></i>
+                    June 10, 2024
+                  </time>
+                  <span class="blog-read-time">
+                    <i class="far fa-clock" aria-hidden="true"></i> 8 min read
+                  </span>
+                </div>
+              </div>
+              <h2 class="blog-title">
+                <a href="blog_post/monocart_report_playwright.html">
+                  Integrating Monocart Reporter with Playwright Tests
+                </a>
+              </h2>
+              <p class="blog-excerpt">
+                Enhance your Playwright test reports with Monocart, a visual reporting layer that makes failures easier to diagnose and share with your team.
+              </p>
+
+              <div class="blog-actions">
+                <a href="blog_post/monocart_report_playwright.html" class="read-more-link">
+                  Read article <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </a>
+                <a href="https://youtu.be/8Ae-lkFAG5Q" target="_blank" class="secondary-link">
+                  <i class="fab fa-youtube" aria-hidden="true"></i>
+                  Watch on YouTube
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Blog Post 4 - GitHub Actions Playwright -->
+          <article class="blog-card" data-category="playwright automation">
+            <a href="blog_post/github_actions_playwright_test.html" class="blog-image">
+              <img src="blog_images/github-actions-playwright.jpg" alt="GitHub Actions Playwright CI/CD" loading="lazy">
+            </a>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <div class="blog-date">
+                  <i class="far fa-calendar-alt"></i>
+                  <span>May 15, 2024</span>
+                </div>
+                <div class="blog-read-time">
+                  <i class="far fa-clock"></i>
+                  <span>10 min read</span>
+                </div>
+              </div>
+              <h2 class="blog-title">
+                <a href="blog_post/github_actions_playwright_test.html">
+                  Setting Up Playwright Tests in Your CI Pipeline with GitHub Actions
+                </a>
+              </h2>
+              <p class="blog-excerpt">
+                Learn how to integrate Playwright tests into your GitHub Actions workflow for automated testing on every push and pull request.
+              </p>
+
+              <div class="blog-actions">
+                <a href="blog_post/github_actions_playwright_test.html" class="read-more-link">
+                  Read article <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </a>
+                <a href="https://youtu.be/J3XbKWAFvC0" target="_blank" class="secondary-link">
+                  <i class="fab fa-youtube" aria-hidden="true"></i>
+                  Watch on YouTube
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Blog Post 5 - CI/CD GitHub Pages -->
+          <article class="blog-card" data-category="automation">
+            <a href="blog_post/ci-cd-github-pages.html" class="blog-image">
+              <img src="blog_images/github-pages-cicd.jpg" alt="GitHub Pages CI/CD deployment" loading="lazy">
+            </a>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <div class="blog-date">
+                  <i class="far fa-calendar-alt"></i>
+                  <span>April 22, 2024</span>
+                </div>
+                <div class="blog-read-time">
+                  <i class="far fa-clock"></i>
+                  <span>9 min read</span>
+                </div>
+              </div>
+              <h2 class="blog-title">
+                <a href="blog_post/ci-cd-github-pages.html">
+                  Implementing CI/CD with GitHub Pages: Deploying Your Static Website Automatically
+                </a>
+              </h2>
+              <p class="blog-excerpt">
+                Set up automated deployment for your static website using GitHub Pages and GitHub Actions for seamless continuous integration and delivery.
+              </p>
+
+              <div class="blog-actions">
+                <a href="blog_post/ci-cd-github-pages.html" class="read-more-link">
+                  Read article <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Blog Post 6 - Naive Bayes Explained -->
+          <article class="blog-card" data-category="testing">
+            <a href="blog_post/naive_bayes_explained_easy.html" class="blog-image">
+              <img src="blog_images/naive_bayes_model.png" alt="Naive Bayes machine learning model" loading="lazy">
+            </a>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <div class="blog-date">
+                  <i class="far fa-calendar-alt"></i>
+                  <span>March 10, 2024</span>
+                </div>
+                <div class="blog-read-time">
+                  <i class="far fa-clock"></i>
+                  <span>12 min read</span>
+                </div>
+              </div>
+              <h2 class="blog-title">
+                <a href="blog_post/naive_bayes_explained_easy.html">
+                  🧐 Naive Bayes Chatbot: Step-by-Step Example
+                </a>
+              </h2>
+              <p class="blog-excerpt">
+                Learn how a Naive Bayes model predicts intent from user input using Bag of Words and Laplace smoothing. Perfect for students learning AI fundamentals.
+              </p>
+
+              <div class="blog-actions">
+                <a href="blog_post/naive_bayes_explained_easy.html" class="read-more-link">
+                  Read article <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Blog Post 7 - Python Decorators -->
+          <article class="blog-card" data-category="automation">
+            <a href="blog_post/python_decorator_tutorial.html" class="blog-image">
+              <img src="blog_images/ai.jpg" alt="Python decorators tutorial" loading="lazy">
+            </a>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <div class="blog-date">
+                  <i class="far fa-calendar-alt"></i>
+                  <span>June 18, 2025</span>
+                </div>
+                <div class="blog-read-time">
+                  <i class="far fa-clock"></i>
+                  <span>7 min read</span>
+                </div>
+              </div>
+              <h2 class="blog-title">
+                <a href="blog_post/python_decorator_tutorial.html">
+                  Python Decorators in 5 Easy Steps (With Simple Code Examples)
+                </a>
+              </h2>
+              <p class="blog-excerpt">
+                Master Python decorators with simple, practical examples. Learn how to wrap functions and add functionality without changing the original code.
+              </p>
+
+              <div class="blog-actions">
+                <a href="blog_post/python_decorator_tutorial.html" class="read-more-link">
+                  Read article <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-info">
+        <div class="footer-logo">Faruk Hasan</div>
+        <p>QA Engineer | Automation &amp; AI-Driven Testing Specialist</p>
+      </div>
+
+      <div class="footer-social">
+        <h4>Connect With Me</h4>
+        <div class="social-icons-footer">
+          <a href="https://www.linkedin.com/in/faruklmu17/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/@faruklmu17" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.facebook.com/faruklmu17" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        </div>
+
+        <div class="share-buttons">
+          <a href="javascript:void(0)" onclick="shareOnFacebook()" class="share-btn facebook" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="javascript:void(0)" onclick="shareOnTwitter()" class="share-btn twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="javascript:void(0)" onclick="shareOnLinkedIn()" class="share-btn linkedin" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="javascript:void(0)" onclick="shareByEmail()" class="share-btn email" aria-label="Share by Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Faruk Hasan. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Blog filter functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const blogCards = document.querySelectorAll('.blog-card');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const filter = this.getAttribute('data-filter');
+
+          // Update active button
+          filterBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+
+          // Filter blog cards
+          blogCards.forEach(card => {
+            if (filter === 'all') {
+              card.style.display = 'block';
+            } else {
+              const categories = card.getAttribute('data-category');
+              if (categories && categories.includes(filter)) {
+                card.style.display = 'block';
+              } else {
+                card.style.display = 'none';
+              }
+            }
+          });
+        });
+      });
+    });
+
+    // Social sharing functions
+    function shareOnFacebook() {
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent("Check out Faruk Hasan's blog - QA Engineer & Automation Testing Specialist");
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
+    }
+
+    function shareOnTwitter() {
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent("Check out Faruk Hasan's blog - QA Engineer & Automation Testing Specialist #QA #Testing #Automation");
+      window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+    }
+
+    function shareOnLinkedIn() {
+      const url = encodeURIComponent(window.location.href);
+      const title = encodeURIComponent("Faruk Hasan - QA Engineer & Automation Specialist Blog");
+      const summary = encodeURIComponent("Blog posts on QA automation, Playwright testing, and software development by Faruk Hasan.");
+      window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}&summary=${summary}`, '_blank');
+    }
+
+    function shareByEmail() {
+      const subject = encodeURIComponent("Check out Faruk Hasan's Blog");
+      const body = encodeURIComponent(`I thought you might be interested in Faruk Hasan's blog: ${window.location.href}`);
+      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    }
+  </script>
+</body>
+</html>
