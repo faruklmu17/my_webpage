@@ -298,178 +298,288 @@
       }
     }
 
-    /* Header styling to match index.html */
+    /* Header styling to match index.html exactly */
     header {
-      background-color: #ffffff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      padding: 15px 0;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
       position: sticky;
       top: 0;
-      z-index: 1000;
-    }
-
-    .header-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      flex-wrap: wrap;
-    }
-
-    .logo-container {
-      margin-right: 20px;
-    }
-
-    .home-button {
-      display: flex;
-      align-items: center;
-      background-color: #0077b5;
-      color: white;
-      padding: 8px 15px;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: 500;
+      z-index: 100;
+      padding: 0.5rem 0;
       transition: all 0.3s ease;
     }
 
-    .home-button:hover {
-      background-color: #005d8f;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
+      padding: 0 1rem;
     }
 
-    .home-button i {
-      margin-right: 5px;
-      font-size: 16px;
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding-right: 0.5rem;
+      flex: 1;
+      min-width: 0;
+      max-width: 75%;
+    }
+
+    .profile-image {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid #3498db;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0;
+      margin: 0.5rem;
+    }
+
+    .profile-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .profile-image:hover img {
+      transform: scale(1.05);
     }
 
     .headline {
-      text-align: center;
-      flex-grow: 1;
+      text-align: left;
+      padding: 0.5rem 0;
+      flex: 1;
+      min-width: 0;
     }
 
     .headline h1 {
-      margin: 0;
-      font-size: 28px;
-      color: #333;
+      font-family: 'Dancing Script', cursive;
+      font-size: 3.2rem;
+      color: #0077b5;
+      margin-bottom: 0.5rem;
     }
 
     .headline p {
-      margin: 5px 0 0;
-      color: #555;
-      font-size: 14px;
+      color: #666;
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.3;
+      margin-top: 0.3rem;
+      letter-spacing: 0.1px;
+      white-space: nowrap;
+    }
+
+    .headline .highlight {
+      background: linear-gradient(135deg, #2c3e50 0%, #3498db 50%, #e74c3c 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 600;
+      font-size: 1.02rem;
+      position: relative;
+      display: inline-block;
+      animation: gradientShift 4s ease-in-out infinite;
+      transition: all 0.3s ease;
+    }
+
+    .headline .highlight:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.1);
+    }
+
+    @keyframes gradientShift {
+      0%, 100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    .nav-social-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding: 0.8rem 2rem;
     }
 
     nav {
-      margin-left: auto;
+      display: flex;
+      justify-content: flex-end;
     }
 
     nav ul {
       display: flex;
       list-style: none;
-      margin: 0;
-      padding: 0;
-      gap: 15px;
+      gap: 1rem;
+      flex-wrap: nowrap;
     }
 
-    nav a {
-      color: #333;
+    nav ul li a {
       text-decoration: none;
+      color: #666;
       font-weight: 500;
-      padding: 5px 0;
+      transition: all 0.3s ease;
+      padding: 0.5rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
       position: relative;
-      transition: color 0.3s;
+      white-space: nowrap;
     }
 
-    nav a:hover, nav a.active {
-      color: #0077b5;
-    }
-
-    nav a.active:after, nav a:hover:after {
+    nav ul li a::after {
       content: '';
       position: absolute;
       bottom: 0;
-      left: 0;
-      width: 100%;
+      left: 50%;
+      width: 0;
       height: 2px;
-      background-color: #0077b5;
+      background: linear-gradient(90deg, #3498db, #e74c3c);
+      transition: width 0.3s ease, left 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #3498db;
+    }
+
+    nav ul li a:hover::after {
+      width: 80%;
+      left: 10%;
+    }
+
+    nav ul li a.active {
+      color: #3498db;
+      font-weight: 600;
     }
 
     .social-icons {
       display: flex;
-      gap: 15px;
-      margin-left: 20px;
+      gap: 1rem;
+      margin-top: 0.75rem;
     }
 
     .social-icon {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 32px;
-      height: 32px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
-      background-color: white;
-      color: #333;
-      transition: transform 0.3s, box-shadow 0.3s;
-      border: 1px solid #eaeaea;
+      transition: all 0.3s ease;
+      font-size: 1.2rem;
+      background-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.1);
     }
 
-    .social-icon:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
+    /* Brand-specific styling */
     .social-icon.linkedin {
-      color: #0077b5;
+      color: #0077B5;
+      border-color: rgba(0, 119, 181, 0.3);
     }
 
     .social-icon.youtube {
-      color: #ff0000;
+      color: #FF0000;
+      border-color: rgba(255, 0, 0, 0.3);
     }
 
     .social-icon.facebook {
-      color: #1877f2;
+      color: #1877F2;
+      border-color: rgba(24, 119, 242, 0.3);
+    }
+
+    /* Hover effects */
+    .social-icon:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
 
     .social-icon.linkedin:hover {
-      background-color: #0077b5;
+      background-color: #0077B5;
       color: white;
+      border-color: #0077B5;
     }
 
     .social-icon.youtube:hover {
-      background-color: #ff0000;
+      background-color: #FF0000;
       color: white;
+      border-color: #FF0000;
     }
 
     .social-icon.facebook:hover {
-      background-color: #1877f2;
+      background-color: #1877F2;
       color: white;
+      border-color: #1877F2;
     }
 
-    /* Responsive adjustments for header */
-    @media (max-width: 768px) {
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
       .header-content {
         flex-direction: column;
-        text-align: center;
+        padding: 0.5rem;
       }
-      
-      .logo-container {
-        margin: 0 0 15px 0;
-      }
-      
-      nav {
-        margin: 15px 0;
-      }
-      
-      nav ul {
-        flex-wrap: wrap;
+
+      .header-left {
+        width: 100%;
+        margin-bottom: 1rem;
+        padding-right: 0;
         justify-content: center;
       }
-      
+
+      .profile-image {
+        width: 100px;
+        height: 100px;
+        margin: 0.5rem 1rem 0.5rem 0;
+      }
+
+      .headline {
+        text-align: left;
+      }
+
+      .headline h1 {
+        font-size: 2.8rem;
+      }
+
+      .nav-social-container {
+        width: 100%;
+        align-items: center;
+        padding: 0.8rem;
+      }
+
       .social-icons {
-        margin: 15px 0 0 0;
+        margin-top: 1rem;
+      }
+
+      .social-icon {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header-left {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .profile-image {
+        width: 120px;
+        height: 120px;
+        margin: 0.5rem auto;
+      }
+
+      .headline {
+        text-align: center;
+        padding: 0.5rem;
       }
     }
 
@@ -506,30 +616,38 @@
 <body>
   <header>
     <div class="header-content">
-      <div class="logo-container">
-        <a href="index.html" class="home-button" aria-label="Home">
-          <i class="fas fa-home"></i> Home
-        </a>
+      <div class="header-left">
+        <div class="profile-image">
+          <img src="me.jpg" alt="Faruk Hasan">
+        </div>
+        <div class="headline">
+          <h1>Faruk Hasan</h1>
+          <p><span class="highlight">Software QA Engineer | Automation & AI-Driven Testing Specialist</span></p>
+        </div>
       </div>
-      <div class="headline">
-        <h1>Faruk Hasan</h1>
-        <p><b>Software QA Engineer | Automation & AI-Driven Testing Specialist</b></p>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="index.html#about">About Me</a></li>
-          <li><a href="index.html#career">Career</a></li>
-          <li><a href="index.html#courses">Courses</a></li>
-          <li><a href="index.html#projects">Projects</a></li>
-          <li><a href="resources.html" class="active">Resources</a></li>
-          <li><a href="index.html#investment">Investment</a></li>
-          <li><a href="index.html#contact">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="social-icons">
-        <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-        <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <div class="nav-social-container">
+        <nav>
+          <ul>
+            <li><a href="index.html#about">About Me</a></li>
+            <li><a href="index.html#courses">Courses</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="tutoring.html">Tutoring</a></li>
+            <li><a href="index.html#my dividends">Dividends</a></li>
+            <li><a href="resources.html" class="active">Resources</a></li>
+          </ul>
+        </nav>
+        <div class="social-icons">
+          <a href="https://www.linkedin.com/in/farukhasan17/" class="social-icon linkedin" target="_blank" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://www.youtube.com/@farukhasan17" class="social-icon youtube" target="_blank" aria-label="YouTube">
+            <i class="fab fa-youtube"></i>
+          </a>
+          <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" target="_blank" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+        </div>
       </div>
     </div>
   </header>
