@@ -229,6 +229,8 @@
       transition: all 0.3s ease;
       overflow: hidden;
       border: 1px solid rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
     }
 
     .chatbot-window.active {
@@ -244,13 +246,71 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chatbot-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      animation: shimmer 3s infinite;
     }
 
     .chatbot-title {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 1rem;
       font-weight: 600;
+    }
+
+    .chatbot-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      background-color: #10b981;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+      }
+    }
+
+    .chatbot-name {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .chatbot-icon {
+      font-size: 1.1rem;
+      animation: rotate 4s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
     .chatbot-avatar {
@@ -284,6 +344,56 @@
       width: 20px;
       height: 20px;
       fill: currentColor;
+    }
+
+    .chatbot-content {
+      flex: 1;
+      position: relative;
+      background: #f8f9fa;
+      min-height: 0; /* Important for flex child */
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chatbot-frame {
+      width: 100%;
+      height: 100%;
+      min-height: 500px; /* Ensure minimum height */
+      border: none;
+      background: white;
+      flex: 1;
+    }
+
+    .chatbot-loading {
+      position: absolute;
+      top: 60px; /* Below header */
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
+      color: #6c757d;
+      font-weight: 500;
+      z-index: 10;
+      transition: opacity 0.3s ease;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #e9ecef;
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     /* Mobile Responsive */
@@ -983,12 +1093,14 @@
     <div class="chatbot-window" id="chatbot-window">
       <div class="chatbot-header">
         <div class="chatbot-title">
-          <div class="chatbot-avatar">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-            </svg>
+          <div class="chatbot-status">
+            <div class="status-indicator"></div>
+            <span class="status-text">Online</span>
           </div>
-          <span>AI Assistant</span>
+          <div class="chatbot-name">
+            <i class="fas fa-robot chatbot-icon"></i>
+            <span>AI Bot v1.0</span>
+          </div>
         </div>
         <button class="minimize-btn" id="minimize-btn" aria-label="Minimize Chat">
           <svg class="minimize-icon" viewBox="0 0 24 24">
@@ -1002,26 +1114,14 @@
         <div class="loading-text">Loading AI Assistant...</div>
       </div>
 
-      <div class="elegant-chatbot-frame-wrapper">
-        <div class="elegant-chatbot-header">
-          <div class="chatbot-status">
-            <div class="status-indicator"></div>
-            <span>AI Assistant Online</span>
-          </div>
-          <div class="chatbot-title">
-            <i class="fas fa-robot"></i>
-            <span>Faruk's AI Assistant</span>
-          </div>
-        </div>
-        <div class="chatbot-frame-container">
-          <iframe
-            class="chatbot-frame"
-            id="chatbot-frame"
-            src="https://hasanfaruk25-faruk-assistant.hf.space"
-            title="AI Chat Assistant"
-            loading="lazy">
-          </iframe>
-        </div>
+      <div class="chatbot-content">
+        <iframe
+          class="chatbot-frame"
+          id="chatbot-frame"
+          src="https://hasanfaruk25-faruk-assistant.hf.space"
+          title="AI Chat Assistant"
+          loading="lazy">
+        </iframe>
       </div>
 
     </div>
