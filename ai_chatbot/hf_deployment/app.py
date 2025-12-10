@@ -321,6 +321,32 @@ footer { display: none !important; }
 #send-btn:hover {
     transform: scale(1.05);
 }
+
+/* Chips / Suggestions */
+.chips-row {
+    margin-bottom: 5px !important;
+    gap: 8px !important;
+    overflow-x: auto !important;
+    padding: 2px 10px !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+}
+.chip-btn {
+    font-size: 12px !important;
+    padding: 6px 14px !important;
+    border-radius: 20px !important;
+    background: rgba(255, 255, 255, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
+    color: #333 !important;
+    transition: all 0.2s ease !important;
+    white-space: nowrap !important;
+}
+.chip-btn:hover {
+    background: white !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+}
 """
 
 header_html = """
@@ -350,6 +376,16 @@ with gr.Blocks(css=custom_css, title="Faruk's AI Assistant", theme=gr.themes.Bas
         render=False
     )
     
+    # Render chatbot BEFORE input
+    chatbot.render()
+
+    # Chips / Suggestions
+    with gr.Row(elem_classes="chips-row"):
+        btn_who = gr.Button("👋 Who is Faruk?", elem_classes="chip-btn", size="sm")
+        btn_tutor = gr.Button("🎓 Tutoring", elem_classes="chip-btn", size="sm")
+        btn_python = gr.Button("🐍 Python", elem_classes="chip-btn", size="sm")
+        btn_contact = gr.Button("📧 Contact", elem_classes="chip-btn", size="sm")
+
     # Custom Input Row
     with gr.Row(elem_classes="input-container"):
         msg = gr.Textbox(
@@ -363,9 +399,6 @@ with gr.Blocks(css=custom_css, title="Faruk's AI Assistant", theme=gr.themes.Bas
         )
         submit_btn = gr.Button(value="↑", elem_id="send-btn", scale=1, size="sm")
     
-    # Render chatbot after input (visual flow)
-    chatbot.render()
-    
     # Interactions
     msg.submit(
         fn=chat_with_ollama_cached,
@@ -377,6 +410,12 @@ with gr.Blocks(css=custom_css, title="Faruk's AI Assistant", theme=gr.themes.Bas
         inputs=[chatbot, msg],
         outputs=[chatbot, msg],
     )
+
+    # Chip Handlers (Populate input)
+    btn_who.click(lambda: "Who is Faruk?", outputs=msg)
+    btn_tutor.click(lambda: "What tutoring services do you offer?", outputs=msg)
+    btn_python.click(lambda: "Tell me about your Python course", outputs=msg)
+    btn_contact.click(lambda: "How can I contact Faruk?", outputs=msg)
 
 # Launch the app
 if __name__ == "__main__":
