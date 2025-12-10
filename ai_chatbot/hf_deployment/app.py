@@ -217,54 +217,57 @@ custom_css = """
 /* Header & Typography */
 .header-container {
     text-align: center;
-    padding: 10px 0 5px 0; /* Tighter padding */
-    margin-bottom: 0 !important;
+    padding: 5px 0 2px 0; /* Minimal padding */
+    margin: 0 !important;
 }
 /* Ensure the HTML block itself has no margin */
 .prose {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
 }
+.gradio-container .prose {
+    margin: 0 !important;
+}
 
 .avatar-group {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 5px; /* Minimal margin */
+    margin-bottom: 2px; /* Minimal margin */
 }
 .avatar {
-    width: 32px; 
-    height: 32px;
+    width: 28px; /* Compact */
+    height: 28px;
     border-radius: 50%;
     border: 2px solid white;
-    margin: 0 -5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 0 -4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     background: #FFD1A9;
     object-fit: cover;
 }
 .avatar.main {
-    width: 42px; 
-    height: 42px;
+    width: 36px; /* Compact */
+    height: 36px;
     z-index: 10;
-    margin: 0 -5px;
-    border: 3px solid white;
+    margin: 0 -4px;
+    border: 2px solid white;
 }
 .main-title {
-    font-size: 20px; 
+    font-size: 16px; 
     font-weight: 800;
     color: #1a1a1a;
     margin: 0;
-    line-height: 1.1; /* Tighter line height */
-    letter-spacing: -0.5px;
+    line-height: 1.1; 
+    letter-spacing: -0.3px;
 }
 .subtitle {
-    font-size: 20px; 
-    font-weight: 800;
+    font-size: 13px; 
+    font-weight: 600;
     color: #1a1a1a;
     margin: 0;
-    line-height: 1.1; /* Tighter line height */
-    letter-spacing: -0.5px;
-    opacity: 0.8;
+    line-height: 1.1;
+    letter-spacing: -0.2px;
+    opacity: 0.7;
 }
 
 /* Chatbot Area */
@@ -272,9 +275,9 @@ custom_css = """
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
-    height: 320px !important; /* Slightly larger to fill space */
-    margin-top: 5px !important; /* Minimal top margin */
-    margin-bottom: 0px !important;
+    height: 280px !important; /* Adjusted for compact view */
+    margin-top: 0px !important; 
+    margin-bottom: 5px !important;
     padding-top: 0 !important;
     overflow-y: auto;
 }
