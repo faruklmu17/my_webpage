@@ -29,21 +29,21 @@ jobs:
           # Clone the target space
           git clone https://hasanfaruk25:$HF_TOKEN@huggingface.co/spaces/$HF_SPACE space_repo
           
-          # Clean destination directory (remove existing files except .git)
+          # Clean destination directory (preserve git, README, gitattributes)
           cd space_repo
-          find . -maxdepth 1 -not -name '.git' -not -name '.' -not -name '..' -exec rm -rf {} +
+          find . -maxdepth 1 -not -name '.git' -not -name '.' -not -name '..' -not -name 'README.md' -not -name '.gitattributes' -exec rm -rf {} +
           
           # Copy new files from deployment folder
-          # Note: We are using ../ to reference the checked out GitHub repo
           cp -r ../ai_chatbot/hf_deployment/* .
           
           # Commit and push
           git add .
           
           # Check if there are changes to commit
-          if git diff --ptrh-exit-code --quiet HEAD; then
+          if git diff --staged --quiet; then
             echo "No changes to commit"
           else
             git commit -m "Sync from GitHub: ${{ github.sha }}"
-            git push origin main
+            # Force auth in push URL
+            git push https://hasanfaruk25:$HF_TOKEN@huggingface.co/spaces/$HF_SPACE main
           fi
