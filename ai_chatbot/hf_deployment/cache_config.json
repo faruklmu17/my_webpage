@@ -13,7 +13,11 @@
         "what are your technical skills?": "I specialize in **QA Automation (SDET)** and **Web Development**.\n\n🛠️ **Core Tech Stack**:\n- **Languages**: Python, JavaScript, SQL\n- **Testing**: Playwright, Selenium, API Testing, Pytest\n- **DevOps**: CI/CD (GitHub Actions), Docker\n- **AI**: LLM-integrated testing, Chatbots",
         "tell me about your background": "I was born in **Bangladesh** 🇧🇩 and grew up traveling the world due to my father's airline job. I've lived in **London** 🇬🇧 (QMUL alum), **Los Angeles** 🇺🇸 (LMU alum), and **New York City**. \n\nCurrently, I live in the **Hudson Valley**, working remotely as a Senior QA Engineer and teaching STEM to kids worldwide.",
         "what is your career journey?": "My path was unique! After my Masters in LA, I worked various jobs including teaching charter school math and driving for Uber. \n\nIn 2020, I broke into tech as a **QA Engineer** and quickly grew to a **Senior SDET**. I now combine my tech expertise with my passion for teaching.",
-        "where are you located?": "I am currently based in the **Hudson Valley, New York** (USA), working remotely."
+        "where are you located?": "I am currently based in the **Hudson Valley, New York** (USA), working remotely.",
+        "what is your education?": "I hold a **B.Eng in Electrical Engineering** from **Queen Mary University of London** (2012) and a **Masters** from **Loyola Marymount University**, Los Angeles (2016).",
+        "how many students have you taught?": "I have taught over **1,894 students** on Outschool alone, with a **4.82/5 star rating** across 500+ reviews!",
+        "do you have a udemy course?": "Yes! I just launched **'Python Fundamentals: Fun and Practical Projects for Beginners'** on Udemy (2024). It's designed for absolute beginners to build real games and apps.",
+        "what courses do you teach?": "I teach a variety of STEM topics:\n- **Python** (Beginner to Advanced)\n- **Web Development** (HTML/CSS/JS)\n- **AI & Data Science** for Kids\n- **Intro to QA Testing**\n\nYou can find my full course list on [Outschool](https://outschool.com)."
     },
     "settings": {
         "similarity_threshold": 0.6,

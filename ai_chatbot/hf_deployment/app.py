@@ -373,6 +373,7 @@ with gr.Blocks(css=custom_css, title="Faruk's AI Assistant", theme=gr.themes.Bas
     gr.HTML(header_html)
     
     chatbot = gr.Chatbot(
+        value=[(None, "Hi there! 👋 I'm Faruk's AI Assistant.\n\nI can answer questions about his **resume**, **classes**, **projects**, or **consulting**. Pick a topic below or just ask!")],
         elem_id="chatbot",
         show_label=False,
         show_share_button=False,
@@ -402,11 +403,13 @@ with gr.Blocks(css=custom_css, title="Faruk's AI Assistant", theme=gr.themes.Bas
     with gr.Row(elem_classes="chips-row"):
         # Original
         btn_who = gr.Button("👋 Who is Faruk?", elem_classes="chip-btn", size="sm")
-        btn_tutor = gr.Button("🎓 Tutoring", elem_classes="chip-btn", size="sm")
+        btn_courses = gr.Button("📚 Courses Taught", elem_classes="chip-btn", size="sm")
         
         # New
         btn_skills = gr.Button("🛠️ Technical Skills", elem_classes="chip-btn", size="sm")
-        btn_backstory = gr.Button("🌎 My Backstory", elem_classes="chip-btn", size="sm")
+        btn_education = gr.Button("🎓 Education", elem_classes="chip-btn", size="sm")
+        btn_students = gr.Button("👥 Student Stats", elem_classes="chip-btn", size="sm")
+        btn_udemy = gr.Button("📹 Udemy Course", elem_classes="chip-btn", size="sm")
         btn_career = gr.Button("💼 Career Journey", elem_classes="chip-btn", size="sm")
         
         # Original
@@ -432,11 +435,13 @@ with gr.Blocks(css=custom_css, title="Faruk's AI Assistant", theme=gr.themes.Bas
     }
 
     btn_who.click(lambda: "Who is Faruk?", outputs=msg).then(**common_args)
-    btn_tutor.click(lambda: "What tutoring services do you offer?", outputs=msg).then(**common_args)
+    btn_courses.click(lambda: "What courses do you teach?", outputs=msg).then(**common_args)
     
     # New Handlers
     btn_skills.click(lambda: "What are your technical skills?", outputs=msg).then(**common_args)
-    btn_backstory.click(lambda: "Tell me about your background", outputs=msg).then(**common_args)
+    btn_education.click(lambda: "What is your education?", outputs=msg).then(**common_args)
+    btn_students.click(lambda: "How many students have you taught?", outputs=msg).then(**common_args)
+    btn_udemy.click(lambda: "Do you have a Udemy course?", outputs=msg).then(**common_args)
     btn_career.click(lambda: "What is your career journey?", outputs=msg).then(**common_args)
     
     btn_contact.click(lambda: "How can I contact Faruk?", outputs=msg).then(**common_args)
