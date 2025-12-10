@@ -384,9 +384,16 @@ with gr.Blocks(css=custom_css, title="Faruk's AI Assistant", theme=gr.themes.Bas
 
     # Chips / Suggestions
     with gr.Row(elem_classes="chips-row"):
+        # Original
         btn_who = gr.Button("👋 Who is Faruk?", elem_classes="chip-btn", size="sm")
         btn_tutor = gr.Button("🎓 Tutoring", elem_classes="chip-btn", size="sm")
-        btn_python = gr.Button("🐍 Python", elem_classes="chip-btn", size="sm")
+        
+        # New
+        btn_skills = gr.Button("🛠️ Technical Skills", elem_classes="chip-btn", size="sm")
+        btn_backstory = gr.Button("🌎 My Backstory", elem_classes="chip-btn", size="sm")
+        btn_career = gr.Button("💼 Career Journey", elem_classes="chip-btn", size="sm")
+        
+        # Original
         btn_contact = gr.Button("📧 Contact", elem_classes="chip-btn", size="sm")
 
     # Custom Input Row
@@ -417,7 +424,12 @@ with gr.Blocks(css=custom_css, title="Faruk's AI Assistant", theme=gr.themes.Bas
     # Chip Handlers (Populate input)
     btn_who.click(lambda: "Who is Faruk?", outputs=msg)
     btn_tutor.click(lambda: "What tutoring services do you offer?", outputs=msg)
-    btn_python.click(lambda: "Tell me about your Python course", outputs=msg)
+    
+    # New Handlers
+    btn_skills.click(lambda: "What are your technical skills?", outputs=msg)
+    btn_backstory.click(lambda: "Tell me about your background", outputs=msg)
+    btn_career.click(lambda: "What is your career journey?", outputs=msg)
+    
     btn_contact.click(lambda: "How can I contact Faruk?", outputs=msg)
 
 # Launch the app

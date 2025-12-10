@@ -1,3 +1,4 @@
+```json
 {
     "cache_responses": {
         "who is faruk?": "Faruk Hasan is a Senior QA Engineer and educator with over 5 years of experience in automation testing, CI/CD, and cloud infrastructure. He specializes in Playwright, Python, and AI-driven testing.",
@@ -6,7 +7,14 @@
         "tell me about his tutoring": "Faruk offers coding and AI tutoring for middle and high school students, focusing on Python, game development, and AI concepts. He teaches on platforms like Outschool.",
         "what is playwright?": "Playwright is a modern automation framework by Microsoft for end-to-end testing. Faruk specializes in using it with Python for reliable and fast web testing.",
         "does he have a youtube channel?": "Yes, Faruk has a YouTube channel called 'Kidz Code' where he shares coding tutorials and educational content.",
-        "what is his github?": "You can find Faruk's open-source projects on GitHub at https://github.com/faruklmu17."
+        "what is his github?": "You can find Faruk's open-source projects on GitHub at https://github.com/faruklmu17.",
+        "what tutoring services do you offer?": "I teach STEM & coding on **Outschool** and via private classes. My subjects include:\n- 🐍 **Python** (Beginner to Advanced)\n- 🌐 **Web Development** (HTML/CSS/JS)\n- 🤖 **AI & Machine Learning** for kids\n- 🐞 **QA Testing** (Playwright/Selenium)\n\nI have taught over **1,894 students** with a **4.82/5 rating**. Check out my [Outschool Profile](https://outschool.com) for details!",
+        "tell me about your python course": "My Python courses range from **absolute beginner** to **advanced**. We build real projects like chatbots, games, and data tools. \n\nI also have a course on **Udemy**: 'Python Fundamentals: Fun and Practical Projects for Beginners' launched in 2024.",
+        "how can i contact faruk?": "You can reach me via email at **faruqmul@gmail.com** for inquiries about tutoring, QA consulting, or collaboration. I do not use other private email addresses for business.",
+        "what are your technical skills?": "I specialize in **QA Automation (SDET)** and **Web Development**.\n\n🛠️ **Core Tech Stack**:\n- **Languages**: Python, JavaScript, SQL\n- **Testing**: Playwright, Selenium, API Testing, Pytest\n- **DevOps**: CI/CD (GitHub Actions), Docker\n- **AI**: LLM-integrated testing, Chatbots",
+        "tell me about your background": "I was born in **Bangladesh** 🇧🇩 and grew up traveling the world due to my father's airline job. I've lived in **London** 🇬🇧 (QMUL alum), **Los Angeles** 🇺🇸 (LMU alum), and **New York City**. \n\nCurrently, I live in the **Hudson Valley**, working remotely as a Senior QA Engineer and teaching STEM to kids worldwide.",
+        "what is your career journey?": "My path was unique! After my Masters in LA, I worked various jobs including teaching charter school math and driving for Uber. \n\nIn 2020, I broke into tech as a **QA Engineer** and quickly grew to a **Senior SDET**. I now combine my tech expertise with my passion for teaching.",
+        "where are you located?": "I am currently based in the **Hudson Valley, New York** (USA), working remotely."
     },
     "settings": {
         "similarity_threshold": 0.6,
