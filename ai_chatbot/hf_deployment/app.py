@@ -198,40 +198,167 @@ def get_cache_info():
     stats = cache.get_cache_stats()
     return f"📊 Cache: {stats['total_cached_responses']} responses | Threshold: {stats['similarity_threshold']}"
 
+# --- UI REDESIGN ---
 
-# Build Gradio UI with cache info
-with gr.Blocks(title="Faruk's AI Assistant") as demo:
-    gr.Markdown(
-        """
-        ## 🤖 Faruk's Personal AI Assistant
-        
-        Ask me about Faruk's QA career, his teaching, tutoring options, or general questions about Python, web development, testing, or AI.
-        """
+custom_css = """
+/* Main Background - Warm Sunrise Gradient */
+.gradio-container {
+    background: linear-gradient(135deg, #FFF5E1 0%, #FFD1A9 50%, #FF9E68 100%) !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+/* Header & Typography */
+.header-container {
+    text-align: center;
+    padding: 30px 0 20px 0;
+}
+.avatar-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 3px solid white;
+    margin: 0 -8px; /* Overlap */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    background: #FFD1A9;
+    object-fit: cover;
+}
+.avatar.main {
+    width: 64px;
+    height: 64px;
+    z-index: 10;
+    margin: 0 -8px;
+    border: 4px solid white;
+}
+.main-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+.subtitle {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+/* Chatbot Area */
+#chatbot {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    height: 400px !important; 
+    margin-bottom: 20px !important;
+}
+/* User/Bot Bubbles */
+.message-row {
+    margin-bottom: 10px !important;
+}
+/* Hide default gradio footer */
+footer { display: none !important; }
+
+/* Input Area - Pill Shape */
+.input-container {
+    background: white;
+    border-radius: 35px;
+    padding: 8px 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    margin: 0 10px 20px 10px;
+}
+/* Important to target the specific interact elements of text box */
+#msg-input textarea {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    font-size: 16px !important;
+    padding: 10px !important;
+}
+#msg-input label { display: none !important; }
+.container { padding: 0 !important; }
+
+/* Send Button */
+#send-btn {
+    background: #FF6B00 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 50% !important;
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    font-size: 20px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(255, 107, 0, 0.3) !important;
+    transition: transform 0.2s ease;
+}
+#send-btn:hover {
+    transform: scale(1.05);
+}
+"""
+
+header_html = """
+<div class="header-container">
+    <div class="avatar-group">
+        <img src="https://ui-avatars.com/api/?name=Assistant&background=FF9E68&color=fff&rounded=true" class="avatar" />
+        <img src="https://ui-avatars.com/api/?name=Faruk&background=1a1a1a&color=fff&rounded=true&font-size=0.5" class="avatar main" />
+        <img src="https://ui-avatars.com/api/?name=AI&background=FFD1A9&color=fff&rounded=true" class="avatar" />
+    </div>
+    <div class="main-title">Hello, Guest.</div>
+    <div class="subtitle">We're here to help.</div>
+</div>
+"""
+
+# Build Gradio UI with redesigned layout
+with gr.Blocks(css=custom_css, title="Faruk's AI Assistant", theme=gr.themes.Base()) as demo:
+    
+    gr.HTML(header_html)
+    
+    chatbot = gr.Chatbot(
+        elem_id="chatbot",
+        show_label=False,
+        show_share_button=False,
+        show_copy_button=True,
+        bubble_full_width=False,
+        avatar_images=(None, "https://ui-avatars.com/api/?name=F&background=000&color=fff"), # User: None, Bot: "F"
+        render=False
     )
-
-    chatbot = gr.Chatbot(height=300, show_copy_button=True)
-    msg = gr.Textbox(
-        label="Your message",
-        placeholder="Ask me anything about Faruk, his work, or tech topics...",
-        lines=1
-    )
-
-    # Add example buttons for common questions
-    with gr.Row():
-        example_btn1 = gr.Button("👋 Who is Faruk?", size="sm")
-        example_btn2 = gr.Button("🎓 Tutoring Services", size="sm")
-        example_btn3 = gr.Button("🐍 Python Course", size="sm")
-        example_btn4 = gr.Button("📧 Contact Info", size="sm")
-        example_btn5 = gr.Button("🎭 Playwright Experience", size="sm")
-
-    # Button click handlers
-    example_btn1.click(lambda: "Who is Faruk?", outputs=msg)
-    example_btn2.click(lambda: "What tutoring services does Faruk offer?", outputs=msg)
-    example_btn3.click(lambda: "Tell me about Faruk's Python course", outputs=msg)
-    example_btn4.click(lambda: "How can I contact Faruk?", outputs=msg)
-    example_btn5.click(lambda: "What is Faruk's experience with Playwright?", outputs=msg)
-
+    
+    # Custom Input Row
+    with gr.Row(elem_classes="input-container"):
+        msg = gr.Textbox(
+            elem_id="msg-input",
+            show_label=False,
+            placeholder="Hi, how can I help?",
+            scale=10,
+            container=False, # Remove default container/label
+            lines=1,
+            autofocus=True
+        )
+        submit_btn = gr.Button(value="↑", elem_id="send-btn", scale=1, size="sm")
+    
+    # Render chatbot after input (visual flow)
+    chatbot.render()
+    
+    # Interactions
     msg.submit(
+        fn=chat_with_ollama_cached,
+        inputs=[chatbot, msg],
+        outputs=[chatbot, msg],
+    )
+    submit_btn.click(
         fn=chat_with_ollama_cached,
         inputs=[chatbot, msg],
         outputs=[chatbot, msg],
@@ -242,5 +369,5 @@ if __name__ == "__main__":
     demo.launch(
         server_name="0.0.0.0",
         server_port=7860,
-        share=True
+        share=False
     )
