@@ -271,22 +271,33 @@ footer { display: none !important; }
 .input-container {
     background: white;
     border-radius: 35px;
-    padding: 8px 12px;
+    padding: 5px 10px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.08);
     display: flex;
     align-items: center;
     margin: 0 10px 20px 10px;
+    border: 1px solid rgba(0,0,0,0.05);
 }
-/* Important to target the specific interact elements of text box */
+
+/* Fix Input Interactivity */
+#msg-input {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    flex-grow: 1;
+}
 #msg-input textarea {
     border: none !important;
     box-shadow: none !important;
     background: transparent !important;
     font-size: 16px !important;
-    padding: 10px !important;
+    padding: 8px !important;
+    min-height: 40px !important;
 }
-#msg-input label { display: none !important; }
-.container { padding: 0 !important; }
+/* Hide the label container but keep the input interactive */
+#msg-input .label-wrap { display: none !important; }
+#msg-input .form { border: none !important; background: transparent !important; }
+
 
 /* Send Button */
 #send-btn {
@@ -343,7 +354,7 @@ with gr.Blocks(css=custom_css, title="Faruk's AI Assistant", theme=gr.themes.Bas
             show_label=False,
             placeholder="Hi, how can I help?",
             scale=10,
-            container=False, # Remove default container/label
+            container=True, # Restored container for stability
             lines=1,
             autofocus=True
         )
