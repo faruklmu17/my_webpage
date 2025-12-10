@@ -200,189 +200,170 @@ def get_cache_info():
 
 # --- UI REDESIGN ---
 
-/* Main Container - Glassmorphism */
+/* Main Container - Clean White */
 .gradio-container {
-    background: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(10px) !important;
+    background: white !important;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
     padding: 0 !important;
     gap: 0 !important;
-    border-radius: 0 !important; /* Let iframe handle corners */
+    border-radius: 12px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* Remove default Gradio spacing on blocks */
-.gradio-container > .main, .gradio-container > .main > .wrap {
-    gap: 0 !important;
-}
-
-/* Header & Typography */
+/* Header */
 .header-container {
-    text-align: center;
-    padding: 12px 0 8px 0;
-    margin: 0 !important;
-    background: rgba(255, 255, 255, 0.5);
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-}
-.prose {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-}
-.gradio-container .prose {
-    margin: 0 !important;
-}
-
-.avatar-group {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    margin-bottom: 4px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+    background: white;
 }
-.avatar {
-    width: 28px;
-    height: 28px;
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.bot-icon {
+    width: 24px;
+    height: 24px;
+    background: #6200EA; /* Deep Purple */
     border-radius: 50%;
-    border: 2px solid white;
-    margin: 0 -4px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    background: #FFD1A9;
-    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.avatar.main {
-    width: 40px;
-    height: 40px;
-    z-index: 10;
-    margin: 0 -4px;
-    border: 3px solid white;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-}
-.main-title {
-    font-size: 17px; 
+.bot-name {
     font-weight: 700;
-    color: #1c1c1e;
-    margin: 0;
-    line-height: 1.2; 
-    letter-spacing: -0.3px;
+    font-size: 15px;
+    color: #333;
 }
-.subtitle {
-    font-size: 13px; 
-    font-weight: 500;
-    color: #8e8e93;
-    margin: 0;
-    line-height: 1.2;
-    letter-spacing: -0.1px;
+.header-right {
+    display: flex;
+    gap: 10px;
+    color: #999;
+    font-size: 14px;
+}
+.online-status {
+    font-size: 12px;
+    color: #4CAF50;
+    margin-left: 34px;
+    margin-top: -4px;
+    display: block;
 }
 
-/* Chatbot Area */
+/* Chatbot Messages */
 #chatbot {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    height: 270px !important;
-    margin-top: 0px !important; 
-    margin-bottom: 0px !important;
-    padding: 10px !important;
+    height: 300px !important;
     overflow-y: auto;
+    padding: 10px !important;
+    background: #f9f9f9;
 }
-.row {
-    margin: 0 !important;
-    padding: 0 !important;
-    gap: 0 !important;
+.message-row {
+    margin-bottom: 12px;
+}
+/* User Bubble */
+.user-row .message {
+    background: #6200EA !important; /* Deep Purple */
+    color: white !important;
+    border-radius: 18px 18px 0 18px !important;
+}
+/* Bot Bubble */
+.bot-row .message {
+    background: #ffffff !important;
+    color: #333 !important;
+    border-radius: 18px 18px 18px 0 !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
-/* Input Area - Floating Pill */
+/* Input Area - Sendbird Style */
 .input-container {
-    background: #f2f2f7 !important; /* Light Gray Background */
-    border-radius: 24px !important;
-    margin: 8px 12px 12px 12px !important;
-    padding: 4px !important;
-    border: 1px solid rgba(0,0,0,0.05) !important;
+    background: white !important;
+    border-top: 1px solid #eee;
+    padding: 12px 16px !important;
     display: flex !important;
     align-items: center !important;
+    gap: 10px;
 }
-
 #msg-input {
     border: none !important;
     box-shadow: none !important;
-    background: transparent !important;
+    background: #f5f5f5 !important;
+    border-radius: 20px !important;
     flex-grow: 1;
 }
 #msg-input textarea {
-    border: none !important;
-    box-shadow: none !important;
     background: transparent !important;
-    font-size: 15px !important;
-    padding: 8px 12px !important;
-    min-height: 36px !important;
-    color: #1c1c1e !important;
+    font-size: 14px !important;
+    padding: 10px 12px !important;
+    min-height: 40px !important;
 }
+/* Hide Labels */
 #msg-input .label-wrap { display: none !important; }
 #msg-input .form { border: none !important; background: transparent !important; }
 
+/* Icons (Dummy) */
+.icon-btn {
+    font-size: 18px;
+    color: #ccc;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
 /* Send Button */
 #send-btn {
-    background: #007AFF !important; /* iOS Blue */
-    color: white !important;
+    background: transparent !important;
+    color: #6200EA !important; /* Purple Icon */
     border: none !important;
-    border-radius: 50% !important;
-    width: 32px !important;
-    height: 32px !important;
-    min-width: 32px !important;
-    font-size: 16px !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 5px rgba(0, 122, 255, 0.3) !important;
-    margin-right: 4px !important;
-    transition: transform 0.2s ease;
-}
-#send-btn:hover {
-    transform: scale(1.05);
-    background: #006add !important;
+    box-shadow: none !important;
+    width: auto !important;
+    padding: 0 8px !important;
+    font-size: 20px !important;
 }
 
-/* Chips / Suggestions */
+/* Chips - Purple Outline */
 .chips-row {
-    margin-bottom: 8px !important;
-    gap: 6px !important;
-    padding: 4px 12px !important;
-    justify-content: flex-start !important; /* Left align for scrolling */
-    flex-wrap: nowrap !important; /* Enable horizontal scroll */
-    overflow-x: auto !important;
-    mask-image: linear-gradient(to right, black 90%, transparent 100%);
-    -webkit-overflow-scrolling: touch;
+    padding: 8px 16px !important;
+    background: white;
+    gap: 8px !important;
+    overflow-x: auto;
+    justify-content: flex-start !important;
+    flex-wrap: nowrap !important;
 }
-/* Hide scrollbar */
-.chips-row::-webkit-scrollbar {
-    display: none; 
-}
+.chips-row::-webkit-scrollbar { display: none; }
 
 .chip-btn {
-    font-size: 12px !important;
-    padding: 6px 14px !important;
-    border-radius: 16px !important;
-    background: #f2f2f7 !important;
-    border: 1px solid transparent !important;
-    color: #1c1c1e !important;
-    transition: all 0.2s ease !important;
+    font-size: 13px !important;
+    padding: 6px 16px !important;
+    border-radius: 18px !important;
+    background: white !important;
+    border: 1px solid #6200EA !important;
+    color: #6200EA !important;
     white-space: nowrap !important;
     font-weight: 500 !important;
 }
 .chip-btn:hover {
-    background: #e5e5ea !important;
-    transform: translateY(-1px);
+    background: #6200EA !important;
+    color: white !important;
 }
 """
 
 header_html = """
 <div class="header-container">
-    <div class="avatar-group">
-        <img src="https://ui-avatars.com/api/?name=Assistant&background=FF9E68&color=fff&rounded=true" class="avatar" />
-        <img src="https://ui-avatars.com/api/?name=Faruk&background=1a1a1a&color=fff&rounded=true&font-size=0.5" class="avatar main" />
-        <img src="https://ui-avatars.com/api/?name=AI&background=FFD1A9&color=fff&rounded=true" class="avatar" />
+    <div class="header-left">
+        <div class="bot-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8 8-8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+        </div>
+        <div class="bot-name">Faruk's Bot</div>
     </div>
-    <div class="main-title">Hello, Guest.</div>
-    <div class="subtitle">We're here to help.</div>
+    <div class="header-right">
+        <span>🔄</span>
+        <span>✕</span>
+    </div>
 </div>
+<span class="online-status">● We're online</span>
 """
 
 # Build Gradio UI with redesigned layout
