@@ -2,7 +2,7 @@ name: Sync to Hugging Face Hub
 
 on:
   push:
-    branches: [main, master]
+    branches: [main, master, v1]
     paths:
       - 'ai_chatbot/hf_deployment/**'
 
