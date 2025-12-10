@@ -205,21 +205,35 @@ custom_css = """
 .gradio-container {
     background: linear-gradient(135deg, #FFF5E1 0%, #FFD1A9 50%, #FF9E68 100%) !important;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+    padding: 0 !important; /* Remove main container padding */
+    gap: 0 !important;
+}
+
+/* Remove default Gradio spacing on blocks */
+.gradio-container > .main, .gradio-container > .main > .wrap {
+    gap: 0 !important;
 }
 
 /* Header & Typography */
 .header-container {
     text-align: center;
-    padding: 15px 0 10px 0; /* Reduced padding */
+    padding: 10px 0 5px 0; /* Tighter padding */
+    margin-bottom: 0 !important;
 }
+/* Ensure the HTML block itself has no margin */
+.prose {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
 .avatar-group {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 10px; /* Reduced margin */
+    margin-bottom: 5px; /* Minimal margin */
 }
 .avatar {
-    width: 32px; /* Reduced from 48px */
+    width: 32px; 
     height: 32px;
     border-radius: 50%;
     border: 2px solid white;
@@ -229,26 +243,26 @@ custom_css = """
     object-fit: cover;
 }
 .avatar.main {
-    width: 42px; /* Reduced from 64px */
+    width: 42px; 
     height: 42px;
     z-index: 10;
     margin: 0 -5px;
     border: 3px solid white;
 }
 .main-title {
-    font-size: 20px; /* Reduced from 28px */
+    font-size: 20px; 
     font-weight: 800;
     color: #1a1a1a;
     margin: 0;
-    line-height: 1.2;
+    line-height: 1.1; /* Tighter line height */
     letter-spacing: -0.5px;
 }
 .subtitle {
-    font-size: 20px; /* Reduced from 28px */
+    font-size: 20px; 
     font-weight: 800;
     color: #1a1a1a;
     margin: 0;
-    line-height: 1.2;
+    line-height: 1.1; /* Tighter line height */
     letter-spacing: -0.5px;
     opacity: 0.8;
 }
@@ -258,28 +272,17 @@ custom_css = """
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
-    height: 300px !important; /* Adjusted height */
-    margin-bottom: 10px !important;
+    height: 320px !important; /* Slightly larger to fill space */
+    margin-top: 5px !important; /* Minimal top margin */
+    margin-bottom: 0px !important;
+    padding-top: 0 !important;
     overflow-y: auto;
 }
-
-/* User/Bot Bubbles */
-.message-row {
-    margin-bottom: 10px !important;
-}
-/* Hide default gradio footer */
-footer { display: none !important; }
-
-/* Input Area - Pill Shape */
-.input-container {
-    background: white;
-    border-radius: 35px;
-    padding: 5px 10px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    display: flex;
-    align-items: center;
-    margin: 0 10px 20px 10px;
-    border: 1px solid rgba(0,0,0,0.05);
+/* Remove gaps between gradio rows */
+.row {
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
 }
 
 /* Fix Input Interactivity */
