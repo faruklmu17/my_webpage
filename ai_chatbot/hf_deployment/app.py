@@ -424,16 +424,22 @@ with gr.Blocks(css=custom_css, title="Faruk's AI Assistant", theme=gr.themes.Bas
         outputs=[chatbot, msg],
     )
 
-    # Chip Handlers (Populate input)
-    btn_who.click(lambda: "Who is Faruk?", outputs=msg)
-    btn_tutor.click(lambda: "What tutoring services do you offer?", outputs=msg)
+    # Chip Handlers (Populate input AND Submit)
+    common_args = {
+        "fn": chat_with_ollama_cached,
+        "inputs": [chatbot, msg],
+        "outputs": [chatbot, msg]
+    }
+
+    btn_who.click(lambda: "Who is Faruk?", outputs=msg).then(**common_args)
+    btn_tutor.click(lambda: "What tutoring services do you offer?", outputs=msg).then(**common_args)
     
     # New Handlers
-    btn_skills.click(lambda: "What are your technical skills?", outputs=msg)
-    btn_backstory.click(lambda: "Tell me about your background", outputs=msg)
-    btn_career.click(lambda: "What is your career journey?", outputs=msg)
+    btn_skills.click(lambda: "What are your technical skills?", outputs=msg).then(**common_args)
+    btn_backstory.click(lambda: "Tell me about your background", outputs=msg).then(**common_args)
+    btn_career.click(lambda: "What is your career journey?", outputs=msg).then(**common_args)
     
-    btn_contact.click(lambda: "How can I contact Faruk?", outputs=msg)
+    btn_contact.click(lambda: "How can I contact Faruk?", outputs=msg).then(**common_args)
 
 # Launch the app
 if __name__ == "__main__":
