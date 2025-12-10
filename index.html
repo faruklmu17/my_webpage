@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,18 +8,20 @@
 
   <link rel="stylesheet" href="chatbot.css">
 
-  
+
   <!-- Open Graph / Social Media Meta Tags -->
   <meta property="og:title" content="Faruk Hasan - QA Engineer & Automation Specialist">
-  <meta property="og:description" content="Portfolio of Faruk Hasan, a QA Engineer specializing in automation testing, CI/CD, and AI-driven testing strategies.">
+  <meta property="og:description"
+    content="Portfolio of Faruk Hasan, a QA Engineer specializing in automation testing, CI/CD, and AI-driven testing strategies.">
   <meta property="og:image" content="https://faruk-hasan.com/og-image.jpg">
   <meta property="og:url" content="https://faruk-hasan.com">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Faruk Hasan - QA Engineer & Automation Specialist">
-  <meta name="twitter:description" content="Portfolio of Faruk Hasan, a QA Engineer specializing in automation testing, CI/CD, and AI-driven testing strategies.">
+  <meta name="twitter:description"
+    content="Portfolio of Faruk Hasan, a QA Engineer specializing in automation testing, CI/CD, and AI-driven testing strategies.">
   <meta name="twitter:image" content="https://faruk-hasan.com/og-image.jpg">
-  
+
   <link rel="stylesheet" href="styles.css">
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png">
@@ -68,8 +70,13 @@
     }
 
     @keyframes shimmer {
-      0% { left: -100%; }
-      100% { left: 100%; }
+      0% {
+        left: -100%;
+      }
+
+      100% {
+        left: 100%;
+      }
     }
 
     .chatbot-status {
@@ -94,9 +101,11 @@
       0% {
         box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
       }
+
       70% {
         box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
       }
+
       100% {
         box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
       }
@@ -117,8 +126,13 @@
     }
 
     @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .chatbot-frame-container {
@@ -219,7 +233,7 @@
       bottom: 100px;
       right: 20px;
       width: 400px;
-      height: 600px;
+      height: 500px;
       background: white;
       border-radius: 16px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
@@ -289,9 +303,11 @@
       0% {
         box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
       }
+
       70% {
         box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
       }
+
       100% {
         box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
       }
@@ -309,8 +325,13 @@
     }
 
     @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .chatbot-avatar {
@@ -350,7 +371,8 @@
       flex: 1;
       position: relative;
       background: #f8f9fa;
-      min-height: 0; /* Important for flex child */
+      min-height: 0;
+      /* Important for flex child */
       display: flex;
       flex-direction: column;
     }
@@ -358,7 +380,8 @@
     .chatbot-frame {
       width: 100%;
       height: 100%;
-      min-height: 500px; /* Ensure minimum height */
+      min-height: 400px;
+      /* Ensure minimum height */
       border: none;
       background: white;
       flex: 1;
@@ -366,7 +389,8 @@
 
     .chatbot-loading {
       position: absolute;
-      top: 60px; /* Below header */
+      top: 60px;
+      /* Below header */
       left: 0;
       right: 0;
       bottom: 0;
@@ -392,8 +416,13 @@
     }
 
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
 
     /* Mobile Responsive */
@@ -421,6 +450,7 @@
     }
   </style>
 </head>
+
 <body>
   <header>
     <div class="header-content">
@@ -446,9 +476,12 @@
           </ul>
         </nav>
         <div class="social-icons">
-          <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-          <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-          <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn"><i
+              class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube"><i
+              class="fab fa-youtube"></i></a>
+          <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook"><i
+              class="fab fa-facebook-f"></i></a>
         </div>
       </div>
     </div>
@@ -480,7 +513,8 @@
             </div>
             <p class="category-description">
               Playwright Python framework with advanced features and CI/CD integration
-              <a href="https://github.com/faruklmu17/playwright_python_framework" target="_blank" class="category-link-inline">
+              <a href="https://github.com/faruklmu17/playwright_python_framework" target="_blank"
+                class="category-link-inline">
                 <i class="fab fa-github"></i>
               </a>
             </p>
@@ -498,7 +532,8 @@
             </div>
             <p class="category-description">
               Browser extension for Playwright test results with enhanced visualization
-              <a href="https://github.com/faruklmu17/playwright_test_result" target="_blank" class="category-link-inline">
+              <a href="https://github.com/faruklmu17/playwright_test_result" target="_blank"
+                class="category-link-inline">
                 <i class="fab fa-github"></i>
               </a>
             </p>
@@ -514,7 +549,8 @@
             </div>
             <p class="category-description">
               Deployed my own personalized chatbot using Ollama and Hugging Face Spaces.
-              <a href="https://huggingface.co/spaces/hasanfaruk25/faruk-assistant" target="_blank" class="category-link-inline">
+              <a href="https://huggingface.co/spaces/hasanfaruk25/faruk-assistant" target="_blank"
+                class="category-link-inline">
                 <i class="fab fa-hugging-face"></i>
               </a>
             </p>
@@ -576,7 +612,8 @@
                   <div class="course-platform-small">Udemy</div>
                 </div>
                 <div class="course-rating-small">
-                  <a href="https://www.udemy.com/share/10epAN3@05VLbZS6cyYWeanWr7aYYXJ9vYtzQ3pKj91dOS0vuGMtSk-q1ALWSAWO_Lam1fvX/" target="_blank" class="course-btn-small">
+                  <a href="https://www.udemy.com/share/10epAN3@05VLbZS6cyYWeanWr7aYYXJ9vYtzQ3pKj91dOS0vuGMtSk-q1ALWSAWO_Lam1fvX/"
+                    target="_blank" class="course-btn-small">
                     View
                   </a>
                 </div>
@@ -630,7 +667,9 @@
               </div>
             </div>
             <h3 class="blog-title">Testing localStorage & Persistent UI State with Playwright</h3>
-            <p class="blog-excerpt">Learn how to test localStorage, persistent UI state, and hidden DOM elements using Playwright and TypeScript. A practical guide to ensuring your web app's state persists exactly as users expect.</p>
+            <p class="blog-excerpt">Learn how to test localStorage, persistent UI state, and hidden DOM elements using
+              Playwright and TypeScript. A practical guide to ensuring your web app's state persists exactly as users
+              expect.</p>
 
             <!-- YouTube thumbnail -->
             <div class="youtube-thumbnail">
@@ -645,7 +684,8 @@
               </a>
             </div>
 
-            <a href="blog_post/local_storage_testing_with_playwright.html" class="read-more-link">Read More <i class="fas fa-arrow-right"></i></a>
+            <a href="blog_post/local_storage_testing_with_playwright.html" class="read-more-link">Read More <i
+                class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
@@ -668,7 +708,9 @@
               </div>
             </div>
             <h3 class="blog-title">Mastering Playwright Fixtures: Built-in vs Custom</h3>
-            <p class="blog-excerpt">Learn how to use Playwright fixtures to simplify test setup and avoid boilerplate code. Complete guide with TypeScript examples, custom fixtures, and best practices for test automation.</p>
+            <p class="blog-excerpt">Learn how to use Playwright fixtures to simplify test setup and avoid boilerplate
+              code. Complete guide with TypeScript examples, custom fixtures, and best practices for test automation.
+            </p>
 
             <!-- YouTube thumbnail -->
             <div class="youtube-thumbnail">
@@ -683,7 +725,8 @@
               </a>
             </div>
 
-            <a href="blog_post/playwright_fixtures.html" class="read-more-link">Read More <i class="fas fa-arrow-right"></i></a>
+            <a href="blog_post/playwright_fixtures.html" class="read-more-link">Read More <i
+                class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
@@ -706,13 +749,15 @@
               </div>
             </div>
             <h3 class="blog-title">Integrating Monocart Reporter with Playwright Tests</h3>
-            <p class="blog-excerpt">Learn how to enhance your Playwright test reports with Monocart, a powerful visual reporting tool that makes test results more accessible to stakeholders.</p>
+            <p class="blog-excerpt">Learn how to enhance your Playwright test reports with Monocart, a powerful visual
+              reporting tool that makes test results more accessible to stakeholders.</p>
 
             <!-- YouTube thumbnail -->
             <div class="youtube-thumbnail">
               <a href="https://youtu.be/8Ae-lkFAG5Q" target="_blank" class="youtube-link">
                 <div class="thumbnail-container">
-                  <img src="https://img.youtube.com/vi/8Ae-lkFAG5Q/maxresdefault.jpg" alt="Watch video tutorial" loading="lazy">
+                  <img src="https://img.youtube.com/vi/8Ae-lkFAG5Q/maxresdefault.jpg" alt="Watch video tutorial"
+                    loading="lazy">
                   <div class="play-button">
                     <i class="fab fa-youtube"></i>
                   </div>
@@ -721,7 +766,8 @@
               </a>
             </div>
 
-            <a href="blog_post/monocart_report_playwright.html" class="read-more-link">Read More <i class="fas fa-arrow-right"></i></a>
+            <a href="blog_post/monocart_report_playwright.html" class="read-more-link">Read More <i
+                class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
@@ -736,19 +782,24 @@
         <h2 class="section-title">About Me</h2>
         <div class="about-content">
           <div class="about-text">
-            <p class="about-intro">Hi, I'm <span class="name-highlight">Faruk Hasan</span> — a QA Engineer, educator, and AI enthusiast with over 5 years of experience in automation testing, CI/CD, and cloud infrastructure.</p>
-            
-            <p>I specialize in building advanced testing frameworks using Playwright with TypeScript and Python, ensuring efficient and reliable software delivery. I also design and teach coding and AI courses for middle and high school students, blending real-world tech skills with hands-on learning.</p>
-            
-            <p>Currently, I'm exploring AI-driven QA tools to enhance test reliability, identify flaky tests, and optimize automation strategies.</p>
+            <p class="about-intro">Hi, I'm <span class="name-highlight">Faruk Hasan</span> — a QA Engineer, educator,
+              and AI enthusiast with over 5 years of experience in automation testing, CI/CD, and cloud infrastructure.
+            </p>
+
+            <p>I specialize in building advanced testing frameworks using Playwright with TypeScript and Python,
+              ensuring efficient and reliable software delivery. I also design and teach coding and AI courses for
+              middle and high school students, blending real-world tech skills with hands-on learning.</p>
+
+            <p>Currently, I'm exploring AI-driven QA tools to enhance test reliability, identify flaky tests, and
+              optimize automation strategies.</p>
           </div>
         </div>
       </div>
-      
+
       <!-- Career Highlights Column -->
       <div class="career-highlights">
         <h2 class="section-title">Career Highlights</h2>
-        
+
         <div class="career-card compact">
           <div class="career-header">
             <h3>Senior Software QA Engineer</h3>
@@ -780,8 +831,9 @@
             <li>Collaborated with developers to implement CI/CD pipelines for continuous testing.</li>
           </ul>
         </div>
-        
-        <a href="javascript:void(0)" onclick="openResume()" class="view-more-link">View Full Career <i class="fas fa-arrow-right"></i></a>
+
+        <a href="javascript:void(0)" onclick="openResume()" class="view-more-link">View Full Career <i
+            class="fas fa-arrow-right"></i></a>
       </div>
     </div>
   </section>
@@ -839,42 +891,48 @@
           </a>
           <div class="course-year">2024</div>
           <p class="course-description">An interactive course focusing on Python basics through real-world projects.</p>
-          
+
           <!-- Reviews Section for first course -->
           <div class="course-reviews">
             <h4>Student Reviews</h4>
             <div class="review-container">
               <div class="review">
                 <div class="stars">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                    class="fas fa-star"></i><i class="fas fa-star"></i>
                 </div>
-                <p class="review-text">"Great course. This is actually fun. Never learned Python but it looks so easy now. Thank You Instructor Mr. Faruk Hasan."</p>
+                <p class="review-text">"Great course. This is actually fun. Never learned Python but it looks so easy
+                  now. Thank You Instructor Mr. Faruk Hasan."</p>
                 <p class="reviewer">- Habibus Sobhan S.</p>
               </div>
               <div class="review">
                 <div class="stars">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                    class="fas fa-star"></i><i class="fas fa-star"></i>
                 </div>
                 <p class="review-text">"Really easy to follow and learn!"</p>
                 <p class="reviewer">- Syed M.</p>
               </div>
             </div>
           </div>
-          
+
           <a href="https://www.udemy.com/share/10bHxx/" target="_blank" class="course-button">View Course</a>
         </div>
-        
+
         <div class="course-card">
           <div class="course-image">
             <img src="blog_images/ai.jpg" alt="AI & Machine Learning for Beginners Course" loading="lazy">
           </div>
           <div class="course-badge">Udemy</div>
-          <a href="https://www.udemy.com/share/10epAN3@05VLbZS6cyYWeanWr7aYYXJ9vYtzQ3pKj91dOS0vuGMtSk-q1ALWSAWO_Lam1fvX/" target="_blank" class="course-link">
+          <a href="https://www.udemy.com/share/10epAN3@05VLbZS6cyYWeanWr7aYYXJ9vYtzQ3pKj91dOS0vuGMtSk-q1ALWSAWO_Lam1fvX/"
+            target="_blank" class="course-link">
             <h3>AI & Machine Learning for Beginners</h3>
           </a>
           <div class="course-year">2024</div>
-          <p class="course-description">An accessible introduction to AI and machine learning concepts with hands-on projects for beginners.</p>
-          <a href="https://www.udemy.com/share/10epAN3@05VLbZS6cyYWeanWr7aYYXJ9vYtzQ3pKj91dOS0vuGMtSk-q1ALWSAWO_Lam1fvX/" target="_blank" class="course-button">View Course</a>
+          <p class="course-description">An accessible introduction to AI and machine learning concepts with hands-on
+            projects for beginners.</p>
+          <a href="https://www.udemy.com/share/10epAN3@05VLbZS6cyYWeanWr7aYYXJ9vYtzQ3pKj91dOS0vuGMtSk-q1ALWSAWO_Lam1fvX/"
+            target="_blank" class="course-button">View Course</a>
         </div>
       </div>
     </div>
@@ -885,7 +943,7 @@
   <section id="projects">
     <div class="projects-wrapper">
       <h2 class="section-title">Projects & GitHub Activity</h2>
-      
+
       <div class="projects-grid">
         <div class="project-card">
           <div class="project-header">
@@ -896,13 +954,16 @@
               <span class="project-tag">Testing</span>
             </div>
           </div>
-          <p class="project-description">A Chrome extension that displays Playwright test results in real-time, providing instant feedback on test execution status.</p>
+          <p class="project-description">A Chrome extension that displays Playwright test results in real-time,
+            providing instant feedback on test execution status.</p>
           <div class="project-links">
-            <a href="https://github.com/faruklmu17/playwright_test_result" class="project-link" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
-            <a href="#" class="project-link demo-link" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+            <a href="https://github.com/faruklmu17/playwright_test_result" class="project-link" target="_blank"><i
+                class="fab fa-github"></i> View on GitHub</a>
+            <a href="#" class="project-link demo-link" target="_blank"><i class="fas fa-external-link-alt"></i> Live
+              Demo</a>
           </div>
         </div>
-        
+
         <div class="project-card">
           <div class="project-header">
             <h3>AI-Powered Test Generator</h3>
@@ -912,25 +973,31 @@
               <span class="project-tag">Automation</span>
             </div>
           </div>
-          <p class="project-description">An intelligent test generator that uses machine learning to analyze application behavior and create optimized test cases automatically.</p>
+          <p class="project-description">An intelligent test generator that uses machine learning to analyze application
+            behavior and create optimized test cases automatically.</p>
           <div class="project-links">
-            <a href="https://github.com/faruklmu17/ai-test-generator" class="project-link" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
+            <a href="https://github.com/faruklmu17/ai-test-generator" class="project-link" target="_blank"><i
+                class="fab fa-github"></i> View on GitHub</a>
           </div>
         </div>
       </div>
-      
+
       <!-- GitHub Activity Widget -->
       <div class="github-activity">
         <h3>My GitHub Contributions</h3>
         <div class="github-calendar">
           <!-- GitHub contribution calendar widget -->
-          <img src="https://ghchart.rshah.org/faruklmu17" alt="Faruk Hasan's GitHub Contribution Chart" class="github-chart">
+          <img src="https://ghchart.rshah.org/faruklmu17" alt="Faruk Hasan's GitHub Contribution Chart"
+            class="github-chart">
         </div>
         <div class="github-stats">
-          <script src="https://gist-it.appspot.com/github/faruklmu17/github-stats/blob/main/generated/overview.svg"></script>
-          <script src="https://gist-it.appspot.com/github/faruklmu17/github-stats/blob/main/generated/languages.svg"></script>
+          <script
+            src="https://gist-it.appspot.com/github/faruklmu17/github-stats/blob/main/generated/overview.svg"></script>
+          <script
+            src="https://gist-it.appspot.com/github/faruklmu17/github-stats/blob/main/generated/languages.svg"></script>
         </div>
-        <a href="https://github.com/faruklmu17" class="view-more-link" target="_blank">View My GitHub Profile <i class="fas fa-arrow-right"></i></a>
+        <a href="https://github.com/faruklmu17" class="view-more-link" target="_blank">View My GitHub Profile <i
+            class="fas fa-arrow-right"></i></a>
       </div>
     </div>
   </section>
@@ -942,7 +1009,8 @@
       <h2 class="section-title">Dividend Income Portfolio</h2>
       <div class="dividend-container">
         <div class="dividend-info">
-          <p class="dividend-intro">My investment strategy focuses on building a sustainable dividend income stream for early retirement. Below is the current allocation of my dividend portfolio.</p>
+          <p class="dividend-intro">My investment strategy focuses on building a sustainable dividend income stream for
+            early retirement. Below is the current allocation of my dividend portfolio.</p>
           <div class="dividend-stats">
             <div class="stat-item">
               <span class="stat-value">5.7%</span>
@@ -970,20 +1038,27 @@
             </div>
           </div>
           <div class="strategy-container">
-            <a href="javascript:void(0)" class="view-more-link" id="strategy-trigger">View Investment Strategy <i class="fas fa-arrow-right"></i></a>
-            
+            <a href="javascript:void(0)" class="view-more-link" id="strategy-trigger">View Investment Strategy <i
+                class="fas fa-arrow-right"></i></a>
+
             <div id="strategy-card" class="hover-card">
               <div class="card-content">
                 <h3>My Dividend Investment Strategy</h3>
-                <p>My investment approach focuses on building a sustainable dividend income stream for early retirement through:</p>
+                <p>My investment approach focuses on building a sustainable dividend income stream for early retirement
+                  through:</p>
                 <ul>
-                  <li><strong>Quality over yield:</strong> Prioritizing companies with sustainable payout ratios and growth potential</li>
-                  <li><strong>Sector diversification:</strong> Spreading investments across multiple industries to reduce risk</li>
-                  <li><strong>Dividend growth:</strong> Focusing on companies with a history of increasing dividends</li>
-                  <li><strong>ETF core:</strong> Using dividend ETFs like SCHD and JEPI as the foundation of the portfolio</li>
+                  <li><strong>Quality over yield:</strong> Prioritizing companies with sustainable payout ratios and
+                    growth potential</li>
+                  <li><strong>Sector diversification:</strong> Spreading investments across multiple industries to
+                    reduce risk</li>
+                  <li><strong>Dividend growth:</strong> Focusing on companies with a history of increasing dividends
+                  </li>
+                  <li><strong>ETF core:</strong> Using dividend ETFs like SCHD and JEPI as the foundation of the
+                    portfolio</li>
                   <li><strong>Reinvestment:</strong> Automatically reinvesting dividends to compound returns</li>
                 </ul>
-                <p>My goal is to achieve financial independence through a growing passive income stream that eventually covers all living expenses.</p>
+                <p>My goal is to achieve financial independence through a growing passive income stream that eventually
+                  covers all living expenses.</p>
               </div>
             </div>
           </div>
@@ -996,23 +1071,23 @@
   </section>
 
   <script>
-  function toggleStrategySection() {
-    const details = document.getElementById('strategy-details');
-    const toggle = document.getElementById('strategy-toggle');
-    
-    if (details.style.display === 'none') {
-      details.style.display = 'block';
-      toggle.innerHTML = 'Hide Investment Strategy <i class="fas fa-arrow-up"></i>';
-      // Smooth scroll to the details section
-      details.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      details.style.display = 'none';
-      toggle.innerHTML = 'View Investment Strategy <i class="fas fa-arrow-right"></i>';
+    function toggleStrategySection() {
+      const details = document.getElementById('strategy-details');
+      const toggle = document.getElementById('strategy-toggle');
+
+      if (details.style.display === 'none') {
+        details.style.display = 'block';
+        toggle.innerHTML = 'Hide Investment Strategy <i class="fas fa-arrow-up"></i>';
+        // Smooth scroll to the details section
+        details.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        details.style.display = 'none';
+        toggle.innerHTML = 'View Investment Strategy <i class="fas fa-arrow-right"></i>';
+      }
     }
-  }
   </script>
 
-<!--   
+  <!--   
   <section id="projects" class="container">
     <h2>Projects</h2>
     <ul>
@@ -1054,24 +1129,32 @@
         <div class="footer-logo">Faruk Hasan</div>
         <p>QA Engineer | Automation & AI-Driven Testing Specialist</p>
       </div>
-      
+
       <div class="footer-social">
         <h4>Connect With Me</h4>
         <div class="social-icons-footer">
-          <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
-          <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube" target="_blank"><i class="fab fa-youtube"></i></a>
-          <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-          <a href="https://github.com/faruklmu17" class="social-icon github" aria-label="GitHub" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn"
+            target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube"
+            target="_blank"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook"
+            target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://github.com/faruklmu17" class="social-icon github" aria-label="GitHub" target="_blank"><i
+              class="fab fa-github"></i></a>
         </div>
       </div>
-      
+
       <div class="footer-share">
         <h4>Share This Page</h4>
         <div class="share-buttons">
-          <a href="javascript:void(0)" onclick="shareOnFacebook()" class="share-btn facebook" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="javascript:void(0)" onclick="shareOnTwitter()" class="share-btn twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
-          <a href="javascript:void(0)" onclick="shareOnLinkedIn()" class="share-btn linkedin" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-          <a href="javascript:void(0)" onclick="shareByEmail()" class="share-btn email" aria-label="Share by Email"><i class="fas fa-envelope"></i></a>
+          <a href="javascript:void(0)" onclick="shareOnFacebook()" class="share-btn facebook"
+            aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="javascript:void(0)" onclick="shareOnTwitter()" class="share-btn twitter"
+            aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="javascript:void(0)" onclick="shareOnLinkedIn()" class="share-btn linkedin"
+            aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="javascript:void(0)" onclick="shareByEmail()" class="share-btn email" aria-label="Share by Email"><i
+              class="fas fa-envelope"></i></a>
         </div>
       </div>
     </div>
@@ -1085,7 +1168,8 @@
     <!-- Minimized Chatbot Button -->
     <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open Chat Assistant">
       <svg class="chat-icon" viewBox="0 0 24 24">
-        <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+        <path
+          d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
       </svg>
       <div class="notification-badge" id="notification-badge">1</div>
     </button>
@@ -1105,7 +1189,7 @@
         </div>
         <button class="minimize-btn" id="minimize-btn" aria-label="Minimize Chat">
           <svg class="minimize-icon" viewBox="0 0 24 24">
-            <path d="M19 13H5v-2h14v2z"/>
+            <path d="M19 13H5v-2h14v2z" />
           </svg>
         </button>
       </div>
@@ -1116,12 +1200,7 @@
       </div>
 
       <div class="chatbot-content">
-        <iframe
-          class="chatbot-frame"
-          id="chatbot-frame"
-          src=""
-          title="AI Chat Assistant"
-          loading="lazy">
+        <iframe class="chatbot-frame" id="chatbot-frame" src="" title="AI Chat Assistant" loading="lazy">
         </iframe>
       </div>
 
@@ -1132,7 +1211,7 @@
 
 
 
-  
+
   <script>
     // Social sharing functions
     function shareOnFacebook() {
@@ -1140,20 +1219,20 @@
       const text = encodeURIComponent("Check out Faruk Hasan's portfolio - QA Engineer & Automation Testing Specialist");
       window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
     }
-    
+
     function shareOnTwitter() {
       const url = encodeURIComponent(window.location.href);
       const text = encodeURIComponent("Check out Faruk Hasan's portfolio - QA Engineer & Automation Testing Specialist #QA #Testing #Automation");
       window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
     }
-    
+
     function shareOnLinkedIn() {
       const url = encodeURIComponent(window.location.href);
       const title = encodeURIComponent("Faruk Hasan - QA Engineer & Automation Specialist");
       const summary = encodeURIComponent("Portfolio of Faruk Hasan, a QA Engineer specializing in automation testing, CI/CD, and AI-driven testing strategies.");
       window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}&summary=${summary}`, '_blank');
     }
-    
+
     function shareByEmail() {
       const subject = encodeURIComponent("Check out Faruk Hasan's Portfolio");
       const body = encodeURIComponent(`I thought you might be interested in Faruk Hasan's portfolio: ${window.location.href}`);
@@ -1161,6 +1240,7 @@
     }
   </script>
 </body>
+
 </html>
 
 <script>
@@ -1175,16 +1255,16 @@
       'docs/resume.pdf',
       'files/resume.pdf'
     ];
-    
+
     // Try to fetch each path to see if the file exists
-    Promise.all(possiblePaths.map(path => 
+    Promise.all(possiblePaths.map(path =>
       fetch(path, { method: 'HEAD' })
         .then(response => ({ path, exists: response.ok }))
         .catch(() => ({ path, exists: false }))
     )).then(results => {
       // Find the first path that exists
       const foundPath = results.find(result => result.exists);
-      
+
       if (foundPath) {
         // Open the PDF in a new tab
         window.open(foundPath.path, '_blank');
@@ -1194,17 +1274,17 @@
       }
     });
   }
-  
+
   // Add Chart.js and XLSX libraries
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // Load Chart.js
     const chartScript = document.createElement('script');
     chartScript.src = 'https://cdn.jsdelivr.net/npm/chart.js';
-    
+
     // Load XLSX library for Excel parsing
     const xlsxScript = document.createElement('script');
     xlsxScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
-    
+
     // When all scripts are loaded, initialize the chart
     Promise.all([
       new Promise(resolve => { chartScript.onload = resolve; }),
@@ -1212,11 +1292,11 @@
     ]).then(() => {
       loadPortfolioData();
     });
-    
+
     document.body.appendChild(chartScript);
     document.body.appendChild(xlsxScript);
   });
-  
+
   function loadPortfolioData() {
     // Fetch the Excel file
     fetch('portfolio_data.xlsx')
@@ -1232,7 +1312,7 @@
         const firstSheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[firstSheetName];
         const jsonData = XLSX.utils.sheet_to_json(worksheet);
-        
+
         // Process the data for the chart
         processPortfolioData(jsonData);
       })
@@ -1242,37 +1322,37 @@
         initDividendChartWithDefaultData();
       });
   }
-  
+
   function processPortfolioData(data) {
     // Calculate total market value for each position
     let totalPortfolioValue = 0;
     let totalDividendIncome = 0;
     let totalYield = 0;
-    
+
     // Add market value to each stock
     data.forEach(stock => {
       // Calculate market value (shares * current price)
       stock.marketValue = stock.Shares * stock['Current Price'];
-      
+
       // Calculate annual dividend income
       stock.dividendIncome = stock.marketValue * (stock['Dividend Yield (%)'] / 100);
-      
+
       // Add to totals
       totalPortfolioValue += stock.marketValue;
       totalDividendIncome += stock.dividendIncome;
     });
-    
+
     // Calculate overall portfolio yield
     const portfolioYield = (totalDividendIncome / totalPortfolioValue) * 100;
-    
+
     // Sort stocks by market value (descending)
     data.sort((a, b) => b.marketValue - a.marketValue);
-    
+
     // Group smaller positions as "Other" if they're less than 3% of portfolio
     const threshold = totalPortfolioValue * 0.03;
     const mainPositions = [];
     let otherValue = 0;
-    
+
     data.forEach(stock => {
       if (stock.marketValue >= threshold) {
         mainPositions.push({
@@ -1284,7 +1364,7 @@
         otherValue += stock.marketValue;
       }
     });
-    
+
     // Add "Other" category if needed
     if (otherValue > 0) {
       mainPositions.push({
@@ -1293,48 +1373,48 @@
         percentage: (otherValue / totalPortfolioValue) * 100
       });
     }
-    
+
     // Prepare data for chart
     const labels = mainPositions.map(pos => pos.ticker);
     const values = mainPositions.map(pos => pos.percentage.toFixed(1));
-    
+
     // Initialize chart with the processed data
     initDividendChart(labels, values);
-    
+
     // Update portfolio stats
     updatePortfolioStats(portfolioYield, totalDividendIncome, data);
   }
-  
+
   function updatePortfolioStats(yield, annualIncome, data) {
     // Calculate growth rate (using the difference between current and purchase prices)
     let totalGrowth = 0;
     let totalInvestment = 0;
-    
+
     data.forEach(stock => {
       const investment = stock.Shares * stock['Purchase Price'];
       const currentValue = stock.Shares * stock['Current Price'];
       totalInvestment += investment;
       totalGrowth += (currentValue - investment);
     });
-    
+
     const growthRate = (totalGrowth / totalInvestment) * 100;
     const monthlyIncome = (annualIncome / 12);
     const targetMonthlyIncome = 250; // Target monthly income by end of 2025
     const progressPercentage = (monthlyIncome / targetMonthlyIncome) * 100;
-    
+
     // Update the stats display
     document.querySelector('.dividend-stats .stat-item:nth-child(1) .stat-value').textContent = yield.toFixed(1) + '%';
     document.querySelector('.dividend-stats .stat-item:nth-child(2) .stat-value').textContent = growthRate.toFixed(1) + '%';
     document.getElementById('current-income').textContent = '$' + monthlyIncome.toFixed(0);
     document.getElementById('income-percentage').textContent = progressPercentage.toFixed(0) + '%';
-    
+
     // Create the progress chart
     createIncomeProgressChart(progressPercentage);
   }
-  
+
   function initDividendChart(labels, data) {
     const ctx = document.getElementById('dividendChart').getContext('2d');
-    
+
     // Color palette for the chart
     const colors = [
       '#4285F4', // Blue
@@ -1351,7 +1431,7 @@
       '#137333', // Forest Green
       '#E37400'  // Dark Orange
     ];
-    
+
     // Chart configuration
     const config = {
       type: 'pie',
@@ -1378,7 +1458,7 @@
           },
           tooltip: {
             callbacks: {
-              label: function(context) {
+              label: function (context) {
                 const label = context.label || '';
                 const value = context.raw || 0;
                 return `${label}: ${value}%`;
@@ -1388,19 +1468,19 @@
         }
       }
     };
-    
+
     // Create the chart
     new Chart(ctx, config);
   }
-  
+
   function createIncomeProgressChart(percentage) {
     const ctx = document.getElementById('incomeProgressChart').getContext('2d');
-    
+
     // Destroy previous chart if it exists
     if (window.incomeChart) {
       window.incomeChart.destroy();
     }
-    
+
     // Create new chart
     window.incomeChart = new Chart(ctx, {
       type: 'doughnut',
@@ -1438,9 +1518,9 @@
     // Default data if file loading fails
     const labels = ['SCHD', 'JEPI', 'T', 'SPYD', 'O', 'PFE', 'XYLD', 'Other'];
     const data = [25, 20, 15, 10, 10, 8, 7, 5];
-    
+
     initDividendChart(labels, data);
-    
+
     // Set default stats
     document.querySelector('.dividend-stats .stat-item:nth-child(1) .stat-value').textContent = '5.7%';
     document.querySelector('.dividend-stats .stat-item:nth-child(2) .stat-value').textContent = '12%';
@@ -1453,26 +1533,26 @@
 </script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const strategyTrigger = document.getElementById('strategy-trigger');
     const strategyCard = document.getElementById('strategy-card');
-    
+
     // Add a small delay before closing to prevent accidental closures
     let timeout;
-    
-    strategyTrigger.addEventListener('mouseenter', function() {
+
+    strategyTrigger.addEventListener('mouseenter', function () {
       clearTimeout(timeout);
       strategyCard.classList.add('active');
     });
-    
-    strategyTrigger.addEventListener('mouseleave', function(e) {
+
+    strategyTrigger.addEventListener('mouseleave', function (e) {
       // Check if the mouse is moving toward the card
       const rect = strategyCard.getBoundingClientRect();
-      const isMovingToward = 
-        e.clientX >= rect.left - 20 && 
-        e.clientX <= rect.right + 20 && 
+      const isMovingToward =
+        e.clientX >= rect.left - 20 &&
+        e.clientX <= rect.right + 20 &&
         e.clientY >= rect.top - 20;
-      
+
       if (!isMovingToward) {
         timeout = setTimeout(() => {
           if (!strategyCard.matches(':hover')) {
@@ -1481,12 +1561,12 @@
         }, 300);
       }
     });
-    
-    strategyCard.addEventListener('mouseenter', function() {
+
+    strategyCard.addEventListener('mouseenter', function () {
       clearTimeout(timeout);
     });
-    
-    strategyCard.addEventListener('mouseleave', function() {
+
+    strategyCard.addEventListener('mouseleave', function () {
       timeout = setTimeout(() => {
         strategyCard.classList.remove('active');
       }, 300);
@@ -1496,7 +1576,7 @@
 
 <!-- Enhanced Chatbot JavaScript -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const chatbotToggle = document.getElementById('chatbot-toggle');
     const chatbotWindow = document.getElementById('chatbot-window');
     const minimizeBtn = document.getElementById('minimize-btn');
@@ -1510,107 +1590,107 @@ document.addEventListener('DOMContentLoaded', function() {
     // Chatbot URLs
     //const chatbotUrl = 'https://hasanfaruk25-personal-chatbot.hf.space/?__theme=light';
     // Chatbot URL – NEW CACHED VERSION (local testing)
-  const chatbotUrl = 'https://5be1c699379004f539.gradio.live';
+    const chatbotUrl = 'http://127.0.0.1:7860';
 
     // Auto-open chatbot when page loads
     setTimeout(() => {
-        openChatbot();
+      openChatbot();
     }, 2000); // Wait 2 seconds after page load for smooth experience
 
     // Initialize chatbot state
     function initializeChatbot() {
-        // Hide notification badge after first interaction
-        if (notificationBadge) {
-            setTimeout(() => {
-                notificationBadge.style.display = 'none';
-            }, 3000);
-        }
-
-        // Add welcome animation to toggle button
+      // Hide notification badge after first interaction
+      if (notificationBadge) {
         setTimeout(() => {
-            chatbotToggle.style.animation = 'pulse 2s ease-in-out 3';
-        }, 2000);
+          notificationBadge.style.display = 'none';
+        }, 3000);
+      }
+
+      // Add welcome animation to toggle button
+      setTimeout(() => {
+        chatbotToggle.style.animation = 'pulse 2s ease-in-out 3';
+      }, 2000);
     }
 
     // Load chatbot iframe
     function loadChatbot() {
-        if (!isLoaded) {
-            chatbotFrame.src = chatbotUrl;
-            isLoaded = true;
+      if (!isLoaded) {
+        chatbotFrame.src = chatbotUrl;
+        isLoaded = true;
 
-            // Handle iframe load with elegant transition
-            chatbotFrame.onload = function() {
-                setTimeout(() => {
-                    chatbotLoading.style.opacity = '0';
-                    setTimeout(() => {
-                        chatbotLoading.style.display = 'none';
-                        chatbotFrame.style.opacity = '1';
-                    }, 300);
-                }, 1500);
-            };
-
-            // Fallback in case onload doesn't fire
+        // Handle iframe load with elegant transition
+        chatbotFrame.onload = function () {
+          setTimeout(() => {
+            chatbotLoading.style.opacity = '0';
             setTimeout(() => {
-                chatbotLoading.style.opacity = '0';
-                setTimeout(() => {
-                    chatbotLoading.style.display = 'none';
-                    chatbotFrame.style.opacity = '1';
-                }, 300);
-            }, 4000);
-        } else {
+              chatbotLoading.style.display = 'none';
+              chatbotFrame.style.opacity = '1';
+            }, 300);
+          }, 1500);
+        };
+
+        // Fallback in case onload doesn't fire
+        setTimeout(() => {
+          chatbotLoading.style.opacity = '0';
+          setTimeout(() => {
             chatbotLoading.style.display = 'none';
-            chatbotFrame.style.display = 'block';
-        }
+            chatbotFrame.style.opacity = '1';
+          }, 300);
+        }, 4000);
+      } else {
+        chatbotLoading.style.display = 'none';
+        chatbotFrame.style.display = 'block';
+      }
     }
 
     // Open chatbot
     function openChatbot() {
-        if (!isOpen) {
-            isOpen = true;
-            chatbotWindow.classList.add('active');
-            chatbotToggle.style.transform = 'scale(0.9)';
+      if (!isOpen) {
+        isOpen = true;
+        chatbotWindow.classList.add('active');
+        chatbotToggle.style.transform = 'scale(0.9)';
 
-            // Hide notification badge
-            if (notificationBadge) {
-                notificationBadge.style.display = 'none';
-            }
-
-            // Load chatbot content
-            loadChatbot();
-
-            // Add body class to prevent scrolling on mobile
-            document.body.style.overflow = window.innerWidth <= 768 ? 'hidden' : 'auto';
+        // Hide notification badge
+        if (notificationBadge) {
+          notificationBadge.style.display = 'none';
         }
+
+        // Load chatbot content
+        loadChatbot();
+
+        // Add body class to prevent scrolling on mobile
+        document.body.style.overflow = window.innerWidth <= 768 ? 'hidden' : 'auto';
+      }
     }
 
     // Close chatbot
     function closeChatbot() {
-        if (isOpen) {
-            isOpen = false;
-            chatbotWindow.classList.remove('active');
-            chatbotToggle.style.transform = 'scale(1)';
+      if (isOpen) {
+        isOpen = false;
+        chatbotWindow.classList.remove('active');
+        chatbotToggle.style.transform = 'scale(1)';
 
-            // Reset loading state for next open
-            if (isLoaded) {
-                chatbotLoading.style.display = 'none';
-                chatbotFrame.style.display = 'block';
-            } else {
-                chatbotLoading.style.display = 'flex';
-                chatbotFrame.style.display = 'none';
-            }
-
-            // Restore body scrolling
-            document.body.style.overflow = 'auto';
+        // Reset loading state for next open
+        if (isLoaded) {
+          chatbotLoading.style.display = 'none';
+          chatbotFrame.style.display = 'block';
+        } else {
+          chatbotLoading.style.display = 'flex';
+          chatbotFrame.style.display = 'none';
         }
+
+        // Restore body scrolling
+        document.body.style.overflow = 'auto';
+      }
     }
 
     // Toggle chatbot
     function toggleChatbot() {
-        if (isOpen) {
-            closeChatbot();
-        } else {
-            openChatbot();
-        }
+      if (isOpen) {
+        closeChatbot();
+      } else {
+        openChatbot();
+      }
     }
 
     // Event listeners
@@ -1618,45 +1698,45 @@ document.addEventListener('DOMContentLoaded', function() {
     minimizeBtn.addEventListener('click', closeChatbot);
 
     // Close chatbot when clicking outside (optional)
-    document.addEventListener('click', function(event) {
-        if (isOpen && !chatbotWindow.contains(event.target) && !chatbotToggle.contains(event.target)) {
-            // Uncomment the line below if you want to close on outside click
-            // closeChatbot();
-        }
+    document.addEventListener('click', function (event) {
+      if (isOpen && !chatbotWindow.contains(event.target) && !chatbotToggle.contains(event.target)) {
+        // Uncomment the line below if you want to close on outside click
+        // closeChatbot();
+      }
     });
 
     // Handle escape key
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape' && isOpen) {
-            closeChatbot();
-        }
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && isOpen) {
+        closeChatbot();
+      }
     });
 
     // Handle window resize
-    window.addEventListener('resize', function() {
-        if (isOpen && window.innerWidth <= 768) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
-        }
+    window.addEventListener('resize', function () {
+      if (isOpen && window.innerWidth <= 768) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'auto';
+      }
     });
 
     // Initialize
     initializeChatbot();
 
     // Add some interactive feedback
-    chatbotToggle.addEventListener('mouseenter', function() {
-        if (!isOpen) {
-            this.style.transform = 'translateY(-2px) scale(1.05)';
-        }
+    chatbotToggle.addEventListener('mouseenter', function () {
+      if (!isOpen) {
+        this.style.transform = 'translateY(-2px) scale(1.05)';
+      }
     });
 
-    chatbotToggle.addEventListener('mouseleave', function() {
-        if (!isOpen) {
-            this.style.transform = 'translateY(0) scale(1)';
-        }
+    chatbotToggle.addEventListener('mouseleave', function () {
+      if (!isOpen) {
+        this.style.transform = 'translateY(0) scale(1)';
+      }
     });
-});
+  });
 </script>
 
 <!-- Blog section removed -->

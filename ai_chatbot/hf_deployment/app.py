@@ -8,7 +8,7 @@ from typing import Dict, Optional
 
 # Ollama HTTP API endpoint
 API_URL = "http://localhost:11434/api/chat"
-MODEL_NAME = "faruk-bot"
+MODEL_NAME = "farukqmul/faruk-bot"
 
 class ChatbotCache:
     def __init__(self, config_file="cache_config.json"):
@@ -204,7 +204,7 @@ with gr.Blocks(title="Faruk's AI Assistant") as demo:
     gr.Markdown(
         """
         ## 🤖 Faruk's Personal AI Assistant
-
+        
         Ask me about Faruk's QA career, his teaching, tutoring options, or general questions about Python, web development, testing, or AI.
         """
     )

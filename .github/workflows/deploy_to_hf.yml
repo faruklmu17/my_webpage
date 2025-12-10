@@ -1,0 +1,49 @@
+name: Sync to Hugging Face Hub
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'ai_chatbot/hf_deployment/**'
+
+jobs:
+  sync-to-hub:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Push to HF Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          # Target Hub space (username/space_name)
+          HF_SPACE: hasanfaruk25/faruk-assistant
+        run: |
+          echo "Syncing to Hugging Face Space: $HF_SPACE"
+          
+          # Configure git
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          
+          # Clone the target space
+          git clone https://hasanfaruk25:$HF_TOKEN@huggingface.co/spaces/$HF_SPACE space_repo
+          
+          # Clean destination directory (remove existing files except .git)
+          cd space_repo
+          find . -maxdepth 1 -not -name '.git' -not -name '.' -not -name '..' -exec rm -rf {} +
+          
+          # Copy new files from deployment folder
+          # Note: We are using ../ to reference the checked out GitHub repo
+          cp -r ../ai_chatbot/hf_deployment/* .
+          
+          # Commit and push
+          git add .
+          
+          # Check if there are changes to commit
+          if git diff --ptrh-exit-code --quiet HEAD; then
+            echo "No changes to commit"
+          else
+            git commit -m "Sync from GitHub: ${{ github.sha }}"
+            git push origin main
+          fi
