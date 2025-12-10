@@ -200,13 +200,14 @@ def get_cache_info():
 
 # --- UI REDESIGN ---
 
-custom_css = """
-/* Main Background - Warm Sunrise Gradient */
+/* Main Container - Glassmorphism */
 .gradio-container {
-    background: linear-gradient(135deg, #FFF5E1 0%, #FFD1A9 50%, #FF9E68 100%) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
-    padding: 0 !important; /* Remove main container padding */
+    padding: 0 !important;
     gap: 0 !important;
+    border-radius: 0 !important; /* Let iframe handle corners */
 }
 
 /* Remove default Gradio spacing on blocks */
@@ -217,10 +218,11 @@ custom_css = """
 /* Header & Typography */
 .header-container {
     text-align: center;
-    padding: 5px 0 2px 0; /* Minimal padding */
+    padding: 12px 0 8px 0;
     margin: 0 !important;
+    background: rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
 }
-/* Ensure the HTML block itself has no margin */
 .prose {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
@@ -233,41 +235,41 @@ custom_css = """
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 2px; /* Minimal margin */
+    margin-bottom: 4px;
 }
 .avatar {
-    width: 28px; /* Compact */
+    width: 28px;
     height: 28px;
     border-radius: 50%;
     border: 2px solid white;
     margin: 0 -4px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     background: #FFD1A9;
     object-fit: cover;
 }
 .avatar.main {
-    width: 36px; /* Compact */
-    height: 36px;
+    width: 40px;
+    height: 40px;
     z-index: 10;
     margin: 0 -4px;
-    border: 2px solid white;
+    border: 3px solid white;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
 }
 .main-title {
-    font-size: 16px; 
-    font-weight: 800;
-    color: #1a1a1a;
+    font-size: 17px; 
+    font-weight: 700;
+    color: #1c1c1e;
     margin: 0;
-    line-height: 1.1; 
+    line-height: 1.2; 
     letter-spacing: -0.3px;
 }
 .subtitle {
     font-size: 13px; 
-    font-weight: 600;
-    color: #1a1a1a;
+    font-weight: 500;
+    color: #8e8e93;
     margin: 0;
-    line-height: 1.1;
-    letter-spacing: -0.2px;
-    opacity: 0.7;
+    line-height: 1.2;
+    letter-spacing: -0.1px;
 }
 
 /* Chatbot Area */
@@ -275,20 +277,29 @@ custom_css = """
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
-    height: 280px !important; /* Adjusted for compact view */
+    height: 270px !important;
     margin-top: 0px !important; 
-    margin-bottom: 5px !important;
-    padding-top: 0 !important;
+    margin-bottom: 0px !important;
+    padding: 10px !important;
     overflow-y: auto;
 }
-/* Remove gaps between gradio rows */
 .row {
     margin: 0 !important;
     padding: 0 !important;
     gap: 0 !important;
 }
 
-/* Fix Input Interactivity */
+/* Input Area - Floating Pill */
+.input-container {
+    background: #f2f2f7 !important; /* Light Gray Background */
+    border-radius: 24px !important;
+    margin: 8px 12px 12px 12px !important;
+    padding: 4px !important;
+    border: 1px solid rgba(0,0,0,0.05) !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
 #msg-input {
     border: none !important;
     box-shadow: none !important;
@@ -299,59 +310,66 @@ custom_css = """
     border: none !important;
     box-shadow: none !important;
     background: transparent !important;
-    font-size: 16px !important;
-    padding: 8px !important;
-    min-height: 40px !important;
+    font-size: 15px !important;
+    padding: 8px 12px !important;
+    min-height: 36px !important;
+    color: #1c1c1e !important;
 }
-/* Hide the label container but keep the input interactive */
 #msg-input .label-wrap { display: none !important; }
 #msg-input .form { border: none !important; background: transparent !important; }
 
-
 /* Send Button */
 #send-btn {
-    background: #FF6B00 !important;
+    background: #007AFF !important; /* iOS Blue */
     color: white !important;
     border: none !important;
     border-radius: 50% !important;
-    width: 40px !important;
-    height: 40px !important;
-    min-width: 40px !important;
-    font-size: 20px !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    font-size: 16px !important;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 10px rgba(255, 107, 0, 0.3) !important;
+    box-shadow: 0 2px 5px rgba(0, 122, 255, 0.3) !important;
+    margin-right: 4px !important;
     transition: transform 0.2s ease;
 }
 #send-btn:hover {
     transform: scale(1.05);
+    background: #006add !important;
 }
 
 /* Chips / Suggestions */
 .chips-row {
-    margin-bottom: 5px !important;
-    gap: 8px !important;
+    margin-bottom: 8px !important;
+    gap: 6px !important;
+    padding: 4px 12px !important;
+    justify-content: flex-start !important; /* Left align for scrolling */
+    flex-wrap: nowrap !important; /* Enable horizontal scroll */
     overflow-x: auto !important;
-    padding: 2px 10px !important;
-    justify-content: center !important;
-    flex-wrap: wrap !important;
+    mask-image: linear-gradient(to right, black 90%, transparent 100%);
+    -webkit-overflow-scrolling: touch;
 }
+/* Hide scrollbar */
+.chips-row::-webkit-scrollbar {
+    display: none; 
+}
+
 .chip-btn {
     font-size: 12px !important;
     padding: 6px 14px !important;
-    border-radius: 20px !important;
-    background: rgba(255, 255, 255, 0.4) !important;
-    border: 1px solid rgba(255, 255, 255, 0.6) !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
-    color: #333 !important;
+    border-radius: 16px !important;
+    background: #f2f2f7 !important;
+    border: 1px solid transparent !important;
+    color: #1c1c1e !important;
     transition: all 0.2s ease !important;
     white-space: nowrap !important;
+    font-weight: 500 !important;
 }
 .chip-btn:hover {
-    background: white !important;
+    background: #e5e5ea !important;
     transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
 }
 """
 
