@@ -385,20 +385,6 @@ with gr.Blocks(css=custom_css, title="Faruk's AI Assistant", theme=gr.themes.Bas
     # Render chatbot BEFORE input
     chatbot.render()
 
-    # Chips / Suggestions
-    with gr.Row(elem_classes="chips-row"):
-        # Original
-        btn_who = gr.Button("👋 Who is Faruk?", elem_classes="chip-btn", size="sm")
-        btn_tutor = gr.Button("🎓 Tutoring", elem_classes="chip-btn", size="sm")
-        
-        # New
-        btn_skills = gr.Button("🛠️ Technical Skills", elem_classes="chip-btn", size="sm")
-        btn_backstory = gr.Button("🌎 My Backstory", elem_classes="chip-btn", size="sm")
-        btn_career = gr.Button("💼 Career Journey", elem_classes="chip-btn", size="sm")
-        
-        # Original
-        btn_contact = gr.Button("📧 Contact", elem_classes="chip-btn", size="sm")
-
     # Custom Input Row
     with gr.Row(elem_classes="input-container"):
         msg = gr.Textbox(
@@ -412,6 +398,20 @@ with gr.Blocks(css=custom_css, title="Faruk's AI Assistant", theme=gr.themes.Bas
         )
         submit_btn = gr.Button(value="↑", elem_id="send-btn", scale=1, size="sm")
     
+    # Chips / Suggestions (Moved to bottom)
+    with gr.Row(elem_classes="chips-row"):
+        # Original
+        btn_who = gr.Button("👋 Who is Faruk?", elem_classes="chip-btn", size="sm")
+        btn_tutor = gr.Button("🎓 Tutoring", elem_classes="chip-btn", size="sm")
+        
+        # New
+        btn_skills = gr.Button("🛠️ Technical Skills", elem_classes="chip-btn", size="sm")
+        btn_backstory = gr.Button("🌎 My Backstory", elem_classes="chip-btn", size="sm")
+        btn_career = gr.Button("💼 Career Journey", elem_classes="chip-btn", size="sm")
+        
+        # Original
+        btn_contact = gr.Button("📧 Contact", elem_classes="chip-btn", size="sm")
+
     # Interactions
     msg.submit(
         fn=chat_with_ollama_cached,
