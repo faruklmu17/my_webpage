@@ -210,33 +210,33 @@ custom_css = """
 /* Header & Typography */
 .header-container {
     text-align: center;
-    padding: 30px 0 20px 0;
+    padding: 15px 0 10px 0; /* Reduced padding */
 }
 .avatar-group {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px; /* Reduced margin */
 }
 .avatar {
-    width: 48px;
-    height: 48px;
+    width: 32px; /* Reduced from 48px */
+    height: 32px;
     border-radius: 50%;
-    border: 3px solid white;
-    margin: 0 -8px; /* Overlap */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border: 2px solid white;
+    margin: 0 -5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     background: #FFD1A9;
     object-fit: cover;
 }
 .avatar.main {
-    width: 64px;
-    height: 64px;
+    width: 42px; /* Reduced from 64px */
+    height: 42px;
     z-index: 10;
-    margin: 0 -8px;
-    border: 4px solid white;
+    margin: 0 -5px;
+    border: 3px solid white;
 }
 .main-title {
-    font-size: 28px;
+    font-size: 20px; /* Reduced from 28px */
     font-weight: 800;
     color: #1a1a1a;
     margin: 0;
@@ -244,12 +244,13 @@ custom_css = """
     letter-spacing: -0.5px;
 }
 .subtitle {
-    font-size: 28px;
+    font-size: 20px; /* Reduced from 28px */
     font-weight: 800;
     color: #1a1a1a;
     margin: 0;
     line-height: 1.2;
     letter-spacing: -0.5px;
+    opacity: 0.8;
 }
 
 /* Chatbot Area */
@@ -257,9 +258,11 @@ custom_css = """
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
-    height: 400px !important; 
-    margin-bottom: 20px !important;
+    height: 300px !important; /* Adjusted height */
+    margin-bottom: 10px !important;
+    overflow-y: auto;
 }
+
 /* User/Bot Bubbles */
 .message-row {
     margin-bottom: 10px !important;
