@@ -200,6 +200,7 @@ def get_cache_info():
 
 # --- UI REDESIGN ---
 
+custom_css = """
 /* Main Container - Clean White */
 .gradio-container {
     background: white !important;
