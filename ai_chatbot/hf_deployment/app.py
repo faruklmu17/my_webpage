@@ -201,14 +201,20 @@ def get_cache_info():
 # --- UI REDESIGN ---
 
 custom_css = """
-/* Main Container - Clean White */
-.gradio-container {
-    background: white !important;
+/* FORCE BASIC VISIBILITY - Fix "White on White" issues */
+.gradio-container, .gradio-container * {
+    color: #1f2937 !important; /* Force dark text everywhere */
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+/* Main Container - Card Style */
+.gradio-container {
+    background: #ffffff !important;
     padding: 0 !important;
     gap: 0 !important;
-    border-radius: 12px !important;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 16px !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border: 1px solid #e5e7eb;
 }
 
 /* Header */
@@ -216,138 +222,167 @@ custom_css = """
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 16px;
-    border-bottom: 1px solid #eee;
-    background: white;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f3f4f6;
+    background: #ffffff;
+    border-radius: 16px 16px 0 0;
 }
 .header-left {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 .bot-icon {
-    width: 24px;
-    height: 24px;
-    background: #6200EA; /* Deep Purple */
-    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    background: #7928CA; /* Vibrant Purple */
+    border-radius: 10px; /* Rounded square like Reference */
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 2px 5px rgba(121, 40, 202, 0.2);
 }
 .bot-name {
     font-weight: 700;
-    font-size: 15px;
-    color: #333;
+    font-size: 16px;
+    color: #111827;
 }
 .header-right {
     display: flex;
-    gap: 10px;
-    color: #999;
-    font-size: 14px;
+    gap: 12px;
+    color: #9ca3af;
+    cursor: pointer;
 }
 .online-status {
-    font-size: 12px;
-    color: #4CAF50;
-    margin-left: 34px;
-    margin-top: -4px;
+    font-size: 11px;
+    color: #10B981; /* Green */
+    font-weight: 600;
+    margin-left: 44px; /* Align under name */
+    margin-top: -6px;
     display: block;
+    letter-spacing: 0.3px;
 }
 
-/* Chatbot Messages */
+/* Chatbot Area */
 #chatbot {
-    height: 300px !important;
+    height: 320px !important;
     overflow-y: auto;
-    padding: 10px !important;
-    background: #f9f9f9;
+    padding: 20px !important;
+    background: #ffffff !important;
 }
 .message-row {
-    margin-bottom: 12px;
-}
-/* User Bubble */
-.user-row .message {
-    background: #6200EA !important; /* Deep Purple */
-    color: white !important;
-    border-radius: 18px 18px 0 18px !important;
-}
-/* Bot Bubble */
-.bot-row .message {
-    background: #ffffff !important;
-    color: #333 !important;
-    border-radius: 18px 18px 18px 0 !important;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    margin-bottom: 16px;
 }
 
-/* Input Area - Sendbird Style */
+/* Messages */
+.message {
+    padding: 10px 16px !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+}
+
+/* User Bubble - Purple Gradient */
+.user-row .message {
+    background: linear-gradient(135deg, #7928CA 0%, #FF0080 100%) !important; /* Modern Purple-Pink */
+    color: white !important; /* Force white text on purple */
+    border-radius: 18px 18px 2px 18px !important;
+    border: none !important;
+}
+/* Ensure text inside user bubble is white */
+.user-row .message * {
+    color: white !important;
+}
+
+/* Bot Bubble - Light Gray */
+.bot-row .message {
+    background: #f3f4f6 !important;
+    color: #1f2937 !important;
+    border-radius: 18px 18px 18px 2px !important;
+}
+
+/* Input Area - Clean */
 .input-container {
-    background: white !important;
-    border-top: 1px solid #eee;
-    padding: 12px 16px !important;
+    background: #ffffff !important;
+    border-top: 1px solid #f3f4f6;
+    padding: 16px 20px !important;
     display: flex !important;
     align-items: center !important;
-    gap: 10px;
+    gap: 12px;
+    border-radius: 0 0 16px 16px;
 }
+
 #msg-input {
-    border: none !important;
-    box-shadow: none !important;
-    background: #f5f5f5 !important;
-    border-radius: 20px !important;
+    border: 1px solid #e5e7eb !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
+    background: #ffffff !important;
+    border-radius: 24px !important;
     flex-grow: 1;
+    transition: border-color 0.2s;
 }
+#msg-input:focus-within {
+    border-color: #7928CA !important;
+}
+
 #msg-input textarea {
     background: transparent !important;
     font-size: 14px !important;
-    padding: 10px 12px !important;
-    min-height: 40px !important;
+    padding: 10px 14px !important;
+    min-height: 42px !important;
+    color: #1f2937 !important;
 }
 /* Hide Labels */
 #msg-input .label-wrap { display: none !important; }
 #msg-input .form { border: none !important; background: transparent !important; }
 
-/* Icons (Dummy) */
-.icon-btn {
-    font-size: 18px;
-    color: #ccc;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 0;
-}
-
 /* Send Button */
 #send-btn {
-    background: transparent !important;
-    color: #6200EA !important; /* Purple Icon */
+    background: #7928CA !important;
+    color: white !important;
     border: none !important;
-    box-shadow: none !important;
-    width: auto !important;
-    padding: 0 8px !important;
-    font-size: 20px !important;
+    border-radius: 50% !important;
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(121, 40, 202, 0.3);
+    transition: transform 0.2s;
+}
+#send-btn:hover {
+    transform: scale(1.05);
+}
+#send-btn * {
+    color: white !important;
 }
 
-/* Chips - Purple Outline */
+/* Chips - Wrapped & Center */
 .chips-row {
-    padding: 8px 16px !important;
-    background: white;
+    padding: 8px 16px 12px 16px !important;
+    background: #ffffff;
     gap: 8px !important;
-    overflow-x: auto;
-    justify-content: flex-start !important;
-    flex-wrap: nowrap !important;
+    justify-content: center !important; 
+    flex-wrap: wrap !important; /* Restore Wrapping */
 }
-.chips-row::-webkit-scrollbar { display: none; }
 
+/* Chip Buttons */
 .chip-btn {
-    font-size: 13px !important;
-    padding: 6px 16px !important;
-    border-radius: 18px !important;
-    background: white !important;
-    border: 1px solid #6200EA !important;
-    color: #6200EA !important;
+    font-size: 12px !important;
+    padding: 6px 14px !important;
+    border-radius: 20px !important;
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+    color: #4b5563 !important;
     white-space: nowrap !important;
     font-weight: 500 !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    transition: all 0.2s;
 }
 .chip-btn:hover {
-    background: #6200EA !important;
-    color: white !important;
+    background: #fdf2f8 !important; /* Light Pink/Purple tint */
+    border-color: #7928CA !important;
+    color: #7928CA !important;
+    transform: translateY(-1px);
 }
 """
 
