@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Learn what Playwright fixtures are, why they matter, and how to use a custom fixture to streamline test setup. Includes TypeScript code, GitHub repo, and a video walkthrough." />
+  <meta name="keywords" content="Playwright, Fixtures, Test Automation, TypeScript, QA, End-to-End Testing, Test Setup, Playwright Tutorial"/>
+  <meta name="author" content="Faruk Hasan" />
+  <meta property="og:title" content="Mastering Playwright Fixtures: Simplify Your Test Setup" />
+  <meta property="og:description" content="A practical guide to Playwright fixtures with TypeScript code, GitHub repo, and a video walkthrough." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="../blog_images/playwright_fixtures.png" />
+  <meta property="og:url" content="https://faruk-hasan.com/blog/playwright-fixtures.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Mastering Playwright Fixtures: Simplify Your Test Setup | Faruk Hasan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --secondary-color: #1e40af;
+      --accent-color: #3b82f6;
+      --success-color: #10b981;
+      --warning-color: #f59e0b;
+      --error-color: #ef4444;
+      --text-color: #374151;
+      --text-light: #6b7280;
+      --bg-color: #ffffff;
+      --bg-light: #f8fafc;
+      --border-color: #e5e7eb;
+      --code-bg: #1e1e1e;
+      --code-text: #f8f8f8;
+      --table-header: #f1f5f9;
+      --highlight-bg: #dbeafe;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      color: var(--text-color);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    .blog-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: var(--bg-color);
+      box-shadow: var(--shadow);
+      border-radius: 12px;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .blog-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 2px solid var(--border-color);
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin: -2rem -2rem 3rem -2rem;
+    }
+
+    .blog-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .blog-meta {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    .blog-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    .section-header i {
+      color: var(--accent-color);
+    }
+
+    .content-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      color: var(--text-color);
+    }
+
+    .highlight-box {
+      background: var(--highlight-bg);
+      border-left: 4px solid var(--primary-color);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .highlight-box ul {
+      margin: 0;
+      padding-left: 1.5rem;
+    }
+
+    .highlight-box li {
+      margin-bottom: 0.5rem;
+      color: var(--text-color);
+    }
+
+    .code-block {
+      background: var(--code-bg);
+      color: var(--code-text);
+      border-radius: 12px;
+      padding: 1.5rem;
+      overflow-x: auto;
+      margin: 2rem 0;
+      border: 1px solid #333;
+      font-family: 'Fira Code', 'Consolas', monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    .code-block code {
+      white-space: pre;
+      display: block;
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      margin: 2rem 0;
+      box-shadow: var(--shadow);
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .github-link {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--success-color), #059669);
+      color: white;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      margin: 1rem 0;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .github-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+    }
+
+    .back-link {
+      display: inline-block;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      margin-bottom: 2rem;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: var(--secondary-color);
+    }
+
+    .back-link i {
+      margin-right: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .blog-container {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+
+      .blog-title {
+        font-size: 2rem;
+      }
+
+      .blog-meta {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .section-header {
+        font-size: 1.5rem;
+      }
+    }
+    /* Header and Footer Styles */
+    .header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: white;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: white;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-menu a:hover {
+      opacity: 0.8;
+    }
+
+    .footer {
+      background: var(--text-color);
+      color: white;
+      text-align: center;
+      padding: 3rem 2rem 2rem;
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-color);
+    }
+
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-social a {
+      color: white;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-social a:hover {
+      color: var(--accent-color);
+    }
+
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 0 1rem;
+      }
+
+      .nav-menu {
+        gap: 1rem;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <a href="../index.html" class="logo">Faruk Hasan</a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about_me.html">About</a></li>
+          <li><a href="../dividend_income.html">Investments</a></li>
+          <li><a href="../index.html#blog">Blog</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="blog-container">
+    <a href="../index.html" class="back-link">
+      <i class="fas fa-arrow-left"></i>
+      Back to Home
+    </a>
+
+    <div class="blog-header">
+      <h1 class="blog-title">Mastering Playwright Fixtures: Built-in vs Custom</h1>
+      <div class="blog-meta">
+        <div class="blog-meta-item">
+          <i class="fas fa-user"></i>
+          <span>Faruk Hasan</span>
+        </div>
+        <div class="blog-meta-item">
+          <i class="fas fa-calendar"></i>
+          <span>September 7, 2025</span>
+        </div>
+        <div class="blog-meta-item">
+          <i class="fas fa-clock"></i>
+          <span>6 min read</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-container">
+      <iframe
+        src="https://www.youtube.com/embed/tkjPe86JpGk"
+        title="Playwright Fixtures: Video Walkthrough"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+    </div>
+
+    <p class="content-text">
+      In this tutorial, we’ll dive into one of Playwright’s most powerful concepts: <strong>fixtures</strong>.  
+      We’ll explore both the <strong>built-in fixtures</strong> (like browser, context, page) and see how to create a <strong>custom fixture</strong> for signup.  
+      Fixtures allow you to avoid boilerplate, keep tests clean, and ensure a consistent test setup and teardown.
+    </p>
+
+    <h2 class="section-header">
+      <i class="fas fa-cog"></i>
+      What is a Fixture?
+    </h2>
+    <p class="content-text">
+      A fixture is a <em>ready-made object</em> that Playwright sets up before your test runs and cleans up after the test finishes.
+      Think of it as “hidden setup code” that saves you from launching browsers or creating contexts manually.
+    </p>
+
+    <div class="highlight-box">
+      <p>Playwright automatically provides:</p>
+      <ul>
+        <li><code>browser</code> → launches Chrome, Firefox, WebKit, etc.</li>
+        <li><code>context</code> → gives you an isolated browser profile (storage, cookies).</li>
+        <li><code>page</code> → a single browser tab to interact with.</li>
+      </ul>
+    </div>
+
+    <h2 class="section-header">
+      <i class="fas fa-code"></i>
+      Example: Built-in Fixture
+    </h2>
+    <div class="code-block"><code>import { test, expect } from "@playwright/test";
+
+test("visit Google", async ({ page }) => {
+  await page.goto("https://www.google.com");
+  await expect(page).toHaveTitle(/Google/);
+});
+</code></div>
+
+    <p class="content-text">
+      Notice how we didn’t explicitly create <code>browser</code> or <code>context</code>.
+      Playwright’s built-in fixtures handle that automatically:
+    </p>
+    <ul>
+      <li>Before test → launch browser, create context, open page.</li>
+      <li>During test → run your interactions.</li>
+      <li>After test → clean everything up.</li>
+    </ul>
+
+    <h2 class="section-header">
+      <i class="fas fa-wrench"></i>
+      When to Use Custom Fixtures
+    </h2>
+    <p class="content-text">
+      Built-ins are great, but sometimes you need <strong>extra setup</strong> for every test:
+      signing up, logging in, preloading data, or navigating to a specific page.
+      Instead of repeating that in every test, you can define a <strong>custom fixture</strong>.
+    </p>
+
+    <h2 class="section-header">
+      <i class="fas fa-file-code"></i>
+      Step 1: Create a Fixture File
+    </h2>
+    <div class="code-block"><code>import { test as base, expect, Page } from "@playwright/test";
+
+type MyFixtures = {
+  signedUpPage: Page;
+};
+
+const test = base.extend<MyFixtures>({
+  signedUpPage: async ({ page }, use) => {
+    await page.goto("https://faruk-hasan.com/automation/signup.html");
+
+    await page.locator("#username").fill("myUser");
+    await page.locator("#email").fill("test@example.com");
+    await page.locator("#password").fill("Password123!");
+    await page.locator("#confirmPassword").fill("Password123!");
+    await page.getByRole("button", { name: "Sign Up" }).click();
+
+    await use(page); // hands signed-up page to tests
+  },
+});
+
+export { test, expect };
+</code></div>
+
+    <div class="highlight-box">
+      <h3>Key points:</h3>
+      <ul>
+        <li><code>base.extend</code> → extends Playwright’s built-in test with our custom logic.</li>
+        <li><code>use</code> → passes the prepared page (signed up) to your tests.</li>
+        <li><code>export</code> → share <code>test</code> and <code>expect</code> so other test files can import them.</li>
+      </ul>
+    </div>
+
+    <h2 class="section-header">
+      <i class="fas fa-play"></i>
+      Step 2: Write a Test Using the Custom Fixture
+    </h2>
+    <div class="code-block"><code>import { test, expect } from "./fixtures";
+
+test("login page loads correctly", async ({ signedUpPage }) => {
+  await signedUpPage.waitForTimeout(5000); // just to observe
+  await expect(signedUpPage).toHaveTitle("Login - Automation Practice");
+});
+</code></div>
+
+    <p class="content-text">
+      Here, <code>signedUpPage</code> is already prepared by the fixture — no need to repeat signup steps.
+      The test simply checks that the login page loads correctly after signup.
+    </p>
+
+    <h2 class="section-header">
+      <i class="fas fa-star"></i>
+      Why This Matters
+    </h2>
+    <div class="highlight-box">
+      <ul>
+        <li>✅ <strong>Cleaner tests</strong>: focus on assertions, not setup.</li>
+        <li>✅ <strong>Reusable</strong>: use the same fixture in multiple test files.</li>
+        <li>✅ <strong>Scalable</strong>: add more fixtures (e.g., <code>loggedInAdmin</code>) as needed.</li>
+      </ul>
+    </div>
+
+    <h2 class="section-header">
+      <i class="fab fa-github"></i>
+      GitHub Repository
+    </h2>
+    <p class="content-text">
+      You can explore the full project and run it yourself:
+    </p>
+    <a class="github-link" href="https://github.com/faruklmu17/custom_fixture_playwright" target="_blank" rel="noopener">
+      <i class="fab fa-github"></i>
+      View on GitHub: custom_fixture_playwright
+    </a>
+    <div class="code-block"><code>git clone https://github.com/faruklmu17/custom_fixture_playwright.git</code></div>
+
+    <h2 class="section-header">
+      <i class="fas fa-video"></i>
+      Watch the Full Walkthrough
+    </h2>
+    <p class="content-text">
+      Everything above is explained step-by-step in my video tutorial:
+      <a href="https://youtu.be/tkjPe86JpGk" target="_blank" rel="noopener" style="color: var(--primary-color); font-weight: 600;">Watch on YouTube</a>
+    </p>
+
+    <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--border-color); color: var(--text-light); font-style: italic;">
+      Have questions or want a follow-up on advanced fixtures? Reach out—I love helping QAs and devs level up with Playwright.
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="../index.html">Home</a>
+        <a href="../about_me.html">About Me</a>
+        <a href="../dividend_income.html">My Investments</a>
+        <a href="../index.html#blog">Blog</a>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+
+      <div class="footer-social">
+        <a href="https://linkedin.com/in/faruk-hasan" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/faruklmu17" target="_blank" rel="noopener" aria-label="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://youtube.com/@faruk-hasan" target="_blank" rel="noopener" aria-label="YouTube">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="mailto:contact@faruk-hasan.com" aria-label="Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+
+      <p>&copy; 2025 Faruk Hasan. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

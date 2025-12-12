@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data & Web Scraping Quiz (20 MCQs)</title>
+  <style>
+    :root {
+      --ok: #0a7f34;
+      --bad: #b00020;
+      --info: #0b5ed7;
+      --muted: #666;
+      --bg: #f7f7fb;
+      --card: #ffffff;
+      --border: #e5e7eb;
+    }
+    body {
+      /* Body padding/margin removed to match resources.html header layout */ font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background: var(--bg);  color: #111827; }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 24px; }
+    header { text-align: center; margin-bottom: 18px; }
+    h1 { font-size: 1.6rem; margin: 0 0 4px; }
+    .sub { color: var(--muted); font-size: 0.95rem; }
+
+    form { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; box-shadow: 0 8px 20px rgba(0,0,0,0.04); }
+
+    .q { border-top: 1px dashed var(--border); padding: 16px 4px; }
+    .q:first-of-type { border-top: 0; }
+    .q h3 { margin: 0 0 10px; font-size: 1rem; }
+    .opts { display: grid; gap: 6px; }
+    label { display: flex; align-items: start; gap: 10px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 10px; cursor: pointer; transition: background 0.15s ease; }
+    label:hover { background: #fafafa; }
+    input[type="radio"] { margin-top: 3px; }
+
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+    button { appearance: none; border: 1px solid var(--border); background: #111827; color: #fff; padding: 10px 14px; border-radius: 10px; cursor: pointer; font-weight: 600; }
+    button.secondary { background: #fff; color: #111827; }
+
+    .result { margin-top: 16px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border); background: #f1f5ff; color: #0a2a7f; display: none; }
+    .detail { margin-top: 12px; display: none; }
+    .exp { border-left: 3px solid var(--info); padding: 10px 12px; margin: 10px 0 0 0; background: #f8fbff; border-radius: 6px; }
+
+    .correct { outline: 2px solid var(--ok); background: #f0fff6; }
+    .incorrect { outline: 2px solid var(--bad); background: #fff5f6; }
+    .correct .exp { border-left-color: var(--ok); }
+    .incorrect .exp { border-left-color: var(--bad); }
+
+    .muted { color: var(--muted); font-size: 0.92rem; }
+  </style>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Shared Header/Footer CSS -->
+  <link rel="stylesheet" href="../../shared/header-footer.css">
+
+</head>
+<body>
+  <div class="wrap">
+    <!-- Header will be automatically injected by shared/header-footer.js -->
+
+  <form id="quiz">
+
+      <!-- Q1 -->
+      <div class="q" data-id="q1">
+        <h3>1) What is data?</h3>
+        <div class="opts">
+          <label><input type="radio" name="q1" value="A"> A) Only numbers and text</label>
+          <label><input type="radio" name="q1" value="B"> B) Anything a computer can store, process, or analyze</label>
+          <label><input type="radio" name="q1" value="C"> C) Only images and sounds</label>
+          <label><input type="radio" name="q1" value="D"> D) Only things written in code</label>
+        </div>
+        <div class="exp"></div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="q" data-id="q2">
+        <h3>2) Why is data compared to fuel for a car?</h3>
+        <div class="opts">
+          <label><input type="radio" name="q2" value="A"> A) Because both are expensive</label>
+          <label><input type="radio" name="q2" value="B"> B) Without it, AI won’t function</label>
+          <label><input type="radio" name="q2" value="C"> C) Because it is liquid</label>
+          <label><input type="radio" name="q2" value="D"> D) Because it is renewable</label>
+        </div>
+        <div class="exp"></div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="q" data-id="q3">
+        <h3>3) Why does AI need data?</h3>
+        <div class="opts">
+          <label><input type="radio" name="q3" value="A"> A) To take screenshots</label>
+          <label><input type="radio" name="q3" value="B"> B) To learn and make decisions</label>
+          <label><input type="radio" name="q3" value="C"> C) To replace programmers</label>
+          <label><input type="radio" name="q3" value="D"> D) To make websites load faster</label>
+        </div>
+        <div class="exp"></div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="q" data-id="q4">
+        <h3>4) If AI is trained on bad or messy data, what can happen?</h3>
+        <div class="opts">
+          <label><input type="radio" name="q4" value="A"> A) It becomes more accurate</label>
+          <label><input type="radio" name="q4" value="B"> B) It will ignore the data</label>
+          <label><input type="radio" name="q4" value="C"> C) It may make mistakes</label>
+          <label><input type="radio" name="q4" value="D"> D) It will stop working completely</label>
+        </div>
+        <div class="exp"></div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="q" data-id="q5">
+        <h3>5) Which is an example of AI using data for personalization?</h3>
+        <div class="opts">
+          <label><input type="radio" name="q5" value="A"> A) Netflix suggesting movies</label>
+          <label><input type="radio" name="q5" value="B"> B) A calculator adding numbers</label>
+          <label><input type="radio" name="q5" value="C"> C) A light bulb turning on</label>
+          <label><input type="radio" name="q5" value="D"> D) A dictionary giving meanings</label>
+        </div>
+        <div class="exp"></div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="q" data-id="q6">
+        <h3>6) What is data scraping?</h3>
+        <div class="opts">
+          <label><input type="radio" name="q6" value="A"> A) Cleaning messy data</label>
+          <label><input type="radio" name="q6" value="B"> B) Collecting information from websites automatically</label>
+          <label><input type="radio" name="q6" value="C"> C) Storing data in Google Drive</label>
+          <label><input type="radio" name="q6" value="D"> D) Building a website</label>
+        </div>
+        <div class="exp"></div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="q" data-id="q7">
+        <h3>7) Why do we scrape data?</h3>
+        <div class="opts">
+          <label><input type="radio" name="q7" value="A"> A) To avoid using the internet</label>
+          <label><input type="radio" name="q7" value="B"> B) To extract useful information and save time</label>
+          <label><input type="radio" name="q7" value="C"> C) To create new programming languages</label>
+          <label><input type="radio" name="q7" value="D"> D) To stop websites from changing</label>
+        </div>
+        <div class="exp"></div>
+      </div>
+
+      <!-- Q8 -->
+      <div class="q" data-id="q8">
+        <h3>8) Which is a real-life example of data scraping?</h3>
+        <div class="opts">
+          <label><input type="radio" name="q8" value="A"> A) Copying homework from a friend</label>
+          <label><input type="radio" name="q8" value="B"> B) A bot collecting daily sports scores</label>
+          <label><input type="radio" name="q8" value="C"> C) Manually writing a grocery list</label>
+          <label><input type="radio" name="q8" value="D"> D) Turning on subtitles in Netflix</label>
+        </div>
+        <div class="exp"></div>
+      </div>
+
+      <!-- Q9 -->
+      <div class="q" data-id="q9">
+        <h3>9) Before scraping a website, what should you always check?</h3>
+        <div class="opts">
+          <label><input type="radio" name="q9" value="A"> A) The website owner’s email</label>
+          <label><input type="radio" name="q9" value="B"> B) The robots.txt file</label>
+          <label><input type="radio" name="q9" value="C"> C) The number of visitors</label>
+          <label><input type="radio" name="q9" value="D"> D) The font size of the page</label>
+        </div>
+        <div class="exp"></div>
+      </div>
+
+      <!-- Q10 -->
+      <div class="q" data-id="q10">
+        <h3>10) What is Google Colab mainly used for?</h3>
+        <div class="opts">
+          <label><input type="radio" name="q10" value="A"> A) Playing online games</label>
+          <label><input type="radio" name="q10" value="B"> B) Free cloud-based coding in Python</label>
+          <label><input type="radio" name="q10" value="C"> C) Building websites without code</label>
+          <label><input type="radio" name="q10" value="D"> D) Managing social media</label>
+        </div>
+        <div class="exp"></div>
+      </div>
+
+      <!-- Q11 -->
+      <div class="q" data-id="q11">
+        <h3>11) What does the Requests library in Python do?</h3>
+        <div class="opts">
+          <label><input type="radio" name="q11" value="A"> A) Creates Python games</label>
+          <label><input type="radio" name="q11" value="B"> B) Connects to websites and retrieves data</label>
+          <label><input type="radio" name="q11" value="C"> C) Builds machine learning models</label>
+          <label><input type="radio" name="q11" value="D"> D) Runs Python in the cloud</label>
+        </div>
+        <div class="exp"></div>
+      </div>
+
+      <!-- Q12 -->
+      <div class="q" data-id="q12">
+        <h3>12) What does the Beautiful Soup library do?</h3>
+        <div class="opts">
+          <label><input type="radio" name="q12" value="A"> A) Creates delicious recipes</label>
+          <label><input type="radio" name="q12" value="B"> B) Parses HTML and extracts data</label>
+          <label><input type="radio" name="q12" value="C"> C) Stores files in Google Drive</label>
+          <label><input type="radio" name="q12" value="D"> D) Secures websites</label>
+        </div>
+        <div class="exp"></div>
+      </div>
+
+      <!-- Q13 -->
+      <div class="q" data-id="q13">
+        <h3>13) What does parsing mean in web scraping?</h3>
+        <div class="opts">
+          <label><input type="radio" name="q13" value="A"> A) Saving files in folders</label>
+          <label><input type="radio" name="q13" value="B"> B) Breaking down HTML into smaller, understandable parts</label>
+          <label><input type="radio" name="q13" value="C"> C) Encrypting website data</label>
+          <label><input type="radio" name="q13" value="D"> D) Blocking a webpage</label>
+        </div>
+        <div class="exp"></div>
+      </div>
+
+      <!-- Q14 -->
+      <div class="q" data-id="q14">
+        <h3>14) Which two packages are used together for scraping in Python?</h3>
+        <div class="opts">
+          <label><input type="radio" name="q14" value="A"> A) pandas and numpy</label>
+          <label><input type="radio" name="q14" value="B"> B) requests and BeautifulSoup</label>
+          <label><input type="radio" name="q14" value="C"> C) tensorflow and pytorch</label>
+          <label><input type="radio" name="q14" value="D"> D) flask and django</label>
+        </div>
+        <div class="exp"></div>
+      </div>
+
+      <!-- Q15 -->
+      <div class="q" data-id="q15">
+        <h3>15) What does &lt;span&gt; represent in HTML?</h3>
+        <div class="opts">
+          <label><input type="radio" name="q15" value="A"> A) A large block of text</label>
+          <label><input type="radio" name="q15" value="B"> B) An inline element often used for grouping text</label>
+          <label><input type="radio" name="q15" value="C"> C) A link to another page</label>
+          <label><input type="radio" name="q15" value="D"> D) A button</label>
+        </div>
+        <div class="exp"></div>
+      </div>
+
+      <!-- Q16 -->
+      <div class="q" data-id="q16">
+        <h3>16) In <code>soup.find_all('span', class_='text')</code>, what does <code>class_='text'</code> do?</h3>
+        <div class="opts">
+          <label><input type="radio" name="q16" value="A"> A) Deletes text from the page</label>
+          <label><input type="radio" name="q16" value="B"> B) Filters &lt;span&gt; tags that have the class “text”</label>
+          <label><input type="radio" name="q16" value="C"> C) Finds all buttons on the page</label>
+          <label><input type="radio" name="q16" value="D"> D) Adds styles to the span</label>
+        </div>
+        <div class="exp"></div>
+      </div>
+
+      <!-- Q17 -->
+      <div class="q" data-id="q17">
+        <h3>17) What does the method <code>find_all()</code> return?</h3>
+        <div class="opts">
+          <label><input type="radio" name="q17" value="A"> A) Just the first element that matches</label>
+          <label><input type="radio" name="q17" value="B"> B) All elements that match the given condition</label>
+          <label><input type="radio" name="q17" value="C"> C) The last element only</label>
+          <label><input type="radio" name="q17" value="D"> D) A number count of tags</label>
+        </div>
+        <div class="exp"></div>
+      </div>
+
+      <!-- Q18 -->
+      <div class="q" data-id="q18">
+        <h3>18) Which Python module is used to select a random quote from scraped data?</h3>
+        <div class="opts">
+          <label><input type="radio" name="q18" value="A"> A) os</label>
+          <label><input type="radio" name="q18" value="B"> B) sys</label>
+          <label><input type="radio" name="q18" value="C"> C) random</label>
+          <label><input type="radio" name="q18" value="D"> D) math</label>
+        </div>
+        <div class="exp"></div>
+      </div>
+
+      <!-- Q19 -->
+      <div class="q" data-id="q19">
+        <h3>19) If you scrape quotes into a list, what does <code>random.choice(quotes)</code> do?</h3>
+        <div class="opts">
+          <label><input type="radio" name="q19" value="A"> A) Deletes all quotes</label>
+          <label><input type="radio" name="q19" value="B"> B) Selects one random quote</label>
+          <label><input type="radio" name="q19" value="C"> C) Sorts the quotes</label>
+          <label><input type="radio" name="q19" value="D"> D) Prints all quotes in order</label>
+        </div>
+        <div class="exp"></div>
+      </div>
+
+      <!-- Q20 -->
+      <div class="q" data-id="q20">
+        <h3>20) Which is NOT an example of encountering data in daily life?</h3>
+        <div class="opts">
+          <label><input type="radio" name="q20" value="A"> A) Online shopping recommendations</label>
+          <label><input type="radio" name="q20" value="B"> B) Bank transaction records</label>
+          <label><input type="radio" name="q20" value="C"> C) Checking the weather app</label>
+          <label><input type="radio" name="q20" value="D"> D) Sleeping at night</label>
+        </div>
+        <div class="exp"></div>
+      </div>
+
+      <div class="actions">
+        <button type="submit">Submit Quiz</button>
+        <button type="button" class="secondary" id="resetBtn">Reset</button>
+      </div>
+
+      <div class="result" id="result"></div>
+      <div class="detail" id="detailToggle">
+        <p class="muted">Explanations are shown under each question after submission.</p>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const answers = {
+      q1: 'B', q2: 'B', q3: 'B', q4: 'C', q5: 'A', q6: 'B', q7: 'B', q8: 'B', q9: 'B', q10: 'B',
+      q11: 'B', q12: 'B', q13: 'B', q14: 'B', q15: 'B', q16: 'B', q17: 'B', q18: 'C', q19: 'B', q20: 'D'
+    };
+
+    const explanations = {
+      q1: 'Data is any information a computer can store, process, or analyze (numbers, text, images, audio, etc.).',
+      q2: 'AI needs data like a car needs fuel—without data, it cannot run or make decisions.',
+      q3: 'AI learns patterns from data and uses them to make predictions and decisions.',
+      q4: 'Low-quality or messy data can mislead models, causing incorrect outputs.',
+      q5: 'Services like Netflix analyze your viewing data to recommend content.',
+      q6: 'Data scraping is the automated collection of information from websites.',
+      q7: 'Scraping extracts useful info quickly, saving time vs. manual copying.',
+      q8: 'A bot gathering daily sports scores from a site is web scraping.',
+      q9: 'robots.txt states what automated agents are allowed to access on a site.',
+      q10: 'Google Colab is a free, cloud-based Python environment tied to Google Drive.',
+      q11: 'Requests sends HTTP requests to retrieve web pages and API data.',
+      q12: 'Beautiful Soup parses HTML so you can find elements and extract text/links.',
+      q13: 'Parsing breaks a page’s HTML into structured parts your code can navigate.',
+      q14: 'requests + BeautifulSoup are a common combo for fetching + parsing pages.',
+      q15: '<span> is an inline HTML element used for grouping/styling text.',
+      q16: 'class_="text" filters to only <span> elements with class="text" (the quotes).',
+      q17: 'find_all returns a list of all matching elements.',
+      q18: 'The random module provides random.choice to pick a random item from a list.',
+      q19: 'random.choice(quotes) returns one random quote from the list.',
+      q20: 'Sleeping is not “data usage” in the sense used here; the others are data-driven.'
+    };
+
+    const form = document.getElementById('quiz');
+    const result = document.getElementById('result');
+    const resetBtn = document.getElementById('resetBtn');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Clear previous markings
+      document.querySelectorAll('.q').forEach(q => {
+        q.classList.remove('correct', 'incorrect');
+        q.querySelector('.exp').innerHTML = '';
+      });
+
+      let score = 0;
+      let unanswered = 0;
+
+      Object.keys(answers).forEach((qid) => {
+        const qEl = document.querySelector(`.q[data-id="${qid}"]`);
+        const picked = form.querySelector(`input[name="${qid}"]:checked`);
+        const correct = answers[qid];
+        const expBox = qEl.querySelector('.exp');
+
+        if (!picked) {
+          unanswered++;
+          qEl.classList.add('incorrect');
+          expBox.innerHTML = `<strong>Answer:</strong> ${correct} &mdash; ${explanations[qid]}`;
+          return;
+        }
+
+        const isRight = picked.value === correct;
+        if (isRight) {
+          score++;
+          qEl.classList.add('correct');
+        } else {
+          qEl.classList.add('incorrect');
+        }
+        const choiceText = picked.parentElement.textContent.trim();
+        expBox.innerHTML = `
+          <div><strong>Your choice:</strong> ${choiceText}</div>
+          <div><strong>Answer:</strong> ${correct} &mdash; ${explanations[qid]}</div>
+        `;
+      });
+
+      const total = Object.keys(answers).length;
+      const percent = Math.round((score / total) * 100);
+      result.style.display = 'block';
+      result.innerHTML = `<strong>Score:</strong> ${score}/${total} (${percent}%). ${unanswered ? `${unanswered} unanswered.` : ''}`;
+      document.getElementById('detailToggle').style.display = 'block';
+    });
+
+    resetBtn.addEventListener('click', () => {
+      form.reset();
+      result.style.display = 'none';
+      document.getElementById('detailToggle').style.display = 'none';
+      document.querySelectorAll('.q').forEach(q => {
+        q.classList.remove('correct', 'incorrect');
+        q.querySelector('.exp').innerHTML = '';
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+  <!-- Shared Header and Footer JavaScript -->
+  <script src="../../shared/header-footer.js"></script>
+</body>
+</html>

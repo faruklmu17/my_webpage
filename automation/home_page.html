@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QA Practice Dashboard | Best Automation Testing Playground for Selenium, Playwright & Cypress</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Free interactive playground for QA engineers to practice automation testing with Selenium, Playwright, and Cypress. Features drag-and-drop, forms, alerts, and dynamic elements." />
+  <meta name="keywords" content="QA practice, automation testing, Selenium practice, Playwright examples, Cypress testing, web elements, test automation, QA playground, automation framework, test scripts, locators practice" />
+  <meta name="author" content="Faruk Hasan" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="English" />
+  <link rel="canonical" href="https://faruk-hasan.com/automation/home_page.html" />
+  
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="QA Practice Dashboard | Best Automation Testing Playground" />
+  <meta property="og:description" content="Free interactive playground for QA engineers to practice automation testing with Selenium, Playwright, and Cypress. Features drag-and-drop, forms, alerts, and dynamic elements." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://faruk-hasan.com/automation/home_page.html" />
+  <meta property="og:image" content="https://faruk-hasan.com/automation/images/qa-dashboard-preview.jpg" />
+  <meta property="og:site_name" content="QA Practice Hub" />
+  
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="QA Practice Dashboard | Automation Testing Playground" />
+  <meta name="twitter:description" content="Free interactive playground for QA engineers to practice automation testing with various web elements, forms, and dynamic content." />
+  <meta name="twitter:image" content="https://faruk-hasan.com/automation/images/qa-dashboard-preview.jpg" />
+  
+  <!-- Structured Data / JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "QA Practice Hub",
+    "url": "https://faruk-hasan.com/automation/home_page.html",
+    "description": "Interactive dashboard for QA engineers to practice automation testing with various web elements, forms, and dynamic content.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Faruk Hasan"
+    },
+    "keywords": "automation testing, Selenium, Playwright, Cypress, QA practice"
+  }
+  </script>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --primary-hover: #3a56d4;
+      --secondary-color: #f8f9fa;
+      --text-color: #333;
+      --border-color: #e0e0e0;
+      --success-color: #2a9d8f;
+      --warning-color: #e9c46a;
+      --danger-color: #e63946;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5f7fa;
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+    
+    header {
+      background: #ffffff;
+      color: var(--text-color);
+      padding: 1rem 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo h1 {
+      font-size: 1.5rem;
+      margin: 0;
+      color: var(--primary-color);
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+      margin: 0;
+      padding: 0;
+    }
+    
+    nav ul li a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      padding: 0.5rem 0.8rem;
+      border-radius: 4px;
+    }
+    
+    nav ul li a:hover, nav ul li a.active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .welcome-section {
+      text-align: center;
+      padding: 3rem 0;
+      background: white;
+      margin: 2rem 0;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    
+    .welcome-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+    
+    .welcome-section p {
+      max-width: 700px;
+      margin: 0 auto;
+      color: #555;
+    }
+    
+    .user-info {
+      background: var(--secondary-color);
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+      display: inline-block;
+    }
+    
+    .user-info span {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+    
+    .practice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .practice-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .practice-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    }
+    
+    .card-header {
+      background: var(--primary-color);
+      color: white;
+      padding: 1rem;
+    }
+    
+    .card-header h3 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+    
+    .card-body {
+      padding: 1.5rem;
+    }
+    
+    .card-body p {
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      color: #555;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+    
+    .btn:hover {
+      background: var(--primary-hover);
+    }
+    
+    .btn-secondary {
+      background: #6c757d;
+    }
+    
+    .btn-secondary:hover {
+      background: #5a6268;
+    }
+    
+    .form-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      margin: 2rem 0;
+    }
+    
+    .form-section h3 {
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+    
+    .form-control:focus {
+      border-color: var(--primary-color);
+      outline: none;
+    }
+    
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .checkbox-group input {
+      margin-right: 0.5rem;
+    }
+    
+    .alert {
+      padding: 1rem;
+      border-radius: 5px;
+      margin-bottom: 1.5rem;
+      display: none;
+    }
+    
+    .alert-success {
+      background: rgba(42, 157, 143, 0.1);
+      color: var(--success-color);
+      border: 1px solid var(--success-color);
+    }
+    
+    .alert-warning {
+      background: rgba(233, 196, 106, 0.1);
+      color: var(--warning-color);
+      border: 1px solid var(--warning-color);
+    }
+    
+    .alert-danger {
+      background: rgba(230, 57, 70, 0.1);
+      color: var(--danger-color);
+      border: 1px solid var(--danger-color);
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background: white;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      overflow: hidden;
+      animation: modalFadeIn 0.3s;
+    }
+    
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .modal-header {
+      background: var(--primary-color);
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .modal-header h4 {
+      margin: 0;
+    }
+    
+    .modal-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    .modal-body {
+      padding: 1.5rem;
+    }
+    
+    .modal-footer {
+      padding: 1rem;
+      background: #f8f9fa;
+      display: flex;
+      justify-content: flex-end;
+    }
+    
+    .modal-footer button {
+      margin-left: 0.5rem;
+    }
+    
+    .loading-spinner {
+      display: none;
+      width: 40px;
+      height: 40px;
+      margin: 1rem auto;
+      border: 4px solid rgba(0,0,0,0.1);
+      border-radius: 50%;
+      border-top: 4px solid var(--primary-color);
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropdown-toggle {
+      background: var(--primary-color);
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border-radius: 5px;
+      padding: 0.5rem 0;
+      z-index: 100;
+      display: none;
+    }
+    
+    .dropdown-menu a {
+      display: block;
+      padding: 0.5rem 1rem;
+      color: var(--text-color);
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    
+    .dropdown-menu a:hover {
+      background: #f8f9fa;
+    }
+    
+    .show {
+      display: block;
+    }
+    
+    footer {
+      background: #333;
+      color: white;
+      padding: 2rem 0;
+      margin-top: 3rem;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+      margin-bottom: 1.5rem;
+    }
+    
+    .footer-section h4 {
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+    
+    .footer-section ul {
+      list-style: none;
+    }
+    
+    .footer-section ul li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .footer-section ul li a {
+      color: #ddd;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-section ul li a:hover {
+      color: white;
+    }
+    
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .social-icons a {
+      color: white;
+      font-size: 1.2rem;
+      transition: opacity 0.3s;
+    }
+    
+    .social-icons a:hover {
+      opacity: 0.8;
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      margin-top: 2rem;
+      border-top: 1px solid #444;
+      font-size: 0.9rem;
+    }
+    
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        padding: 1rem 0;
+      }
+      
+      .logo {
+        margin-bottom: 1rem;
+      }
+      
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.8rem;
+      }
+      
+      .practice-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <h1>QA Practice Hub</h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="#" id="dashboard-link" class="active">Dashboard</a></li>
+            <li><a href="#practice-elements" id="elements-link">Practice Elements</a></li>
+            <li><a href="#form-practice" id="form-link">Form Practice</a></li>
+            <li><a href="#dynamic-content" id="dynamic-link">Dynamic Content</a></li>
+            <li><a href="automation_practice.html" id="login-link">Login Page</a></li>
+            <li><a href="automation_practice.html" id="signup-link" onclick="redirectToSignup(event)">Sign Up</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="welcome-section">
+      <h2>Welcome to Your QA Practice Dashboard</h2>
+      <p>This page contains various web elements and interactions to help you practice automation testing with tools like Selenium, Playwright, and Cypress.</p>
+      
+      <div class="user-info" id="user-greeting">
+        <p>Welcome, <span id="username-display">Guest</span>!</p>
+      </div>
+      
+      <button id="logout-btn" class="btn btn-secondary" style="display: none;">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </section>
+
+    <section class="ethnicity-section">
+      <h2>Ethnicity Selection</h2>
+      <p>Please select your ethnicity from the dropdown menu below:</p>
+      
+      <div class="form-group">
+        <label for="ethnicity-select">Ethnicity:</label>
+        <select id="ethnicity-select" class="form-control" onchange="displayEthnicity()">
+          <option value="">Select your ethnicity</option>
+          <option value="asian">Asian</option>
+          <option value="black">Black/African American</option>
+          <option value="hispanic">Hispanic/Latino</option>
+          <option value="native">Native American/Alaska Native</option>
+          <option value="pacific">Pacific Islander</option>
+          <option value="white">White/Caucasian</option>
+          <option value="mixed">Mixed/Multiple Ethnicities</option>
+          <option value="other">Other</option>
+          <option value="prefer_not">Prefer not to say</option>
+        </select>
+      </div>
+      
+      <div class="ethnicity-result">
+        <p>Your selected ethnicity: <span id="ethnicity-display">None selected</span></p>
+      </div>
+    </section>
+
+    <section id="practice-elements">
+      <h2>Practice Elements</h2>
+      <div class="practice-grid">
+        <div class="practice-card">
+          <div class="card-header">
+            <h3>Buttons & Clicks</h3>
+          </div>
+          <div class="card-body">
+            <p>Practice different types of button interactions and click events.</p>
+            <button class="btn" id="simple-button">Simple Button</button>
+            <button class="btn btn-secondary" id="double-click-button">Double Click Me</button>
+            <button class="btn" id="right-click-button">Right Click Me</button>
+            <div id="button-result" style="margin-top: 1rem; font-size: 0.9rem;"></div>
+          </div>
+        </div>
+        
+        <div class="practice-card">
+          <div class="card-header">
+            <h3>Dropdowns & Selects</h3>
+          </div>
+          <div class="card-body">
+            <p>Practice interacting with dropdown menus and select elements.</p>
+            <div class="form-group">
+              <label for="simple-select">Simple Select</label>
+              <select id="simple-select" class="form-control">
+                <option value="">Choose an option</option>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+              </select>
+            </div>
+            
+            <div class="dropdown">
+              <button class="dropdown-toggle" id="dropdown-btn">
+                Custom Dropdown <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="dropdown-menu" id="dropdown-menu">
+                <a href="#" data-value="item1">Item 1</a>
+                <a href="#" data-value="item2">Item 2</a>
+                <a href="#" data-value="item3">Item 3</a>
+              </div>
+            </div>
+            
+            <div id="dropdown-result" style="margin-top: 1rem; font-size: 0.9rem;"></div>
+          </div>
+        </div>
+        
+        <div class="practice-card">
+          <div class="card-header">
+            <h3>Alerts & Modals</h3>
+          </div>
+          <div class="card-body">
+            <p>Practice handling JavaScript alerts, confirms, and custom modals.</p>
+            <button class="btn" id="alert-button">Show Alert</button>
+            <button class="btn" id="confirm-button">Show Confirm</button>
+            <button class="btn" id="modal-button">Show Modal</button>
+            <div id="alert-result" style="margin-top: 1rem; font-size: 0.9rem;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="form-practice" class="form-section">
+      <h3>Form Practice</h3>
+      <div id="success-alert" class="alert alert-success">Form submitted successfully!</div>
+      <div id="error-alert" class="alert alert-danger">Please fix the errors in the form.</div>
+      
+      <form id="practice-form" class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" class="form-control" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" class="form-control" required>
+        
+        <label for="message">Message:</label>
+        <textarea id="message" class="form-control" rows="4" required></textarea>
+        
+        <div class="checkbox-group">
+          <input type="checkbox" id="subscribe" class="form-control">
+          <label for="subscribe">Subscribe to newsletter</label>
+        </div>
+        
+        <button type="submit" class="btn">Submit</button>
+      </form>
+    </section>
+
+    <section id="dynamic-content">
+      <h2>Dynamic Content</h2>
+      <div class="practice-grid">
+        <div class="practice-card">
+          <div class="card-header">
+            <h3>Dynamic Text</h3>
+          </div>
+          <div class="card-body">
+            <p>Practice interacting with dynamic text content.</p>
+            <div id="dynamic-text" class="alert alert-success">This text will change! <span id="dynamic-time"></span></div>
+          </div>
+        </div>
+        
+        <div class="practice-card">
+          <div class="card-header">
+            <h3>Dynamic List</h3>
+          </div>
+          <div class="card-body">
+            <p>Practice interacting with dynamic list items.</p>
+            <ul id="dynamic-list">
+              <li>Item 1</li>
+              <li>Item 2</li>
+              <li>Item 3</li>
+            </ul>
+            <button class="btn" id="add-item-btn">Add Item</button>
+          </div>
+        </div>
+        
+        <div class="practice-card">
+          <div class="card-header">
+            <h3>Dynamic Table</h3>
+          </div>
+          <div class="card-body">
+            <p>Practice interacting with dynamic table data.</p>
+            <table id="dynamic-table" class="table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Age</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>John Doe</td>
+                  <td>30</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Jane Smith</td>
+                  <td>25</td>
+                </tr>
+              </tbody>
+            </table>
+            <button class="btn" id="add-row-btn">Add Row</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>About QA Practice Hub</h4>
+          <p>QA Practice Hub is a platform for QA engineers to practice automation testing with various web elements, forms, and dynamic content.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#practice-elements">Practice Elements</a></li>
+            <li><a href="#form-practice">Form Practice</a></li>
+            <li><a href="#dynamic-content">Dynamic Content</a></li>
+            <li><a href="automation_practice.html">Login Page</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact Us</h4>
+          <p>Email: contact@qapracticehub.com</p>
+          <p>Phone: +123 456 7890</p>
+        </div>
+        <div class="footer-section">
+          <h4>Follow Us</h4>
+          <div class="social-icons">
+            <a href="#" class="fab fa-facebook-f"></a>
+            <a href="#" class="fab fa-twitter"></a>
+            <a href="#" class="fab fa-linkedin-in"></a>
+            <a href="#" class="fab fa-instagram"></a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2023 QA Practice Hub. All rights reserved.
+      </div>
+    </div>
+  </footer>
+  <script>
+    function displayEthnicity() {
+      const select = document.getElementById('ethnicity-select');
+      const display = document.getElementById('ethnicity-display');
+      
+      if (select.value) {
+        // Convert value to more readable format (capitalize first letter, replace underscores with spaces)
+        const readableValue = select.value
+          .split('_')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+        
+        display.textContent = readableValue;
+      } else {
+        display.textContent = "None selected";
+      }
+    }
+    
+    function redirectToSignup(event) {
+      event.preventDefault();
+      window.location.href = 'automation_practice.html';
+      // Add a small delay to ensure the page loads before toggling
+      setTimeout(function() {
+        // This will trigger the signup form toggle on the login page
+        if (typeof toggleSignup === 'function') {
+          toggleSignup();
+        }
+      }, 100);
+    }
+  </script>
+</body>
+</html>

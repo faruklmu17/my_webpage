@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🔍 Python Dictionary Quiz | Beginner to Advanced</title>
+    <meta name="description" content="A 15-question Python dictionary quiz with questions on syntax, nested dictionaries, .items(), and loops. Great for students and Python learners!" />
+    <meta name="keywords" content="python dictionary quiz, nested dictionary, python .items(), python quiz, beginner to advanced python" />
+    <meta name="author" content="Faruk Hasan" />
+
+    <style>
+      body {
+      /* Body padding/margin removed to match resources.html header layout */
+        font-family: Arial, sans-serif;
+        background: #f2f2f2;
+        
+        max-width: 800px;
+        
+      }
+      h1 {
+        text-align: center;
+      }
+      .question {
+        background: #fff;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+      .question h3 {
+        margin-top: 0;
+      }
+      .feedback {
+        font-weight: bold;
+      }
+      button {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+    </style>
+    <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Shared Header/Footer CSS -->
+  <link rel="stylesheet" href="../../shared/header-footer.css">
+
+</head>
+
+  <body>
+    <h1>🔍 Python Dictionary Quiz</h1>
+
+    <div id="quiz"></div>
+    <button onclick="checkAnswers()">Submit Answers</button>
+
+    <script>
+      const questions = [
+        {
+          q: "1. What is the correct syntax to create a dictionary with keys 'name' and 'age'?",
+          options: [
+            "A) dict = ['name': 'Alice', 'age': 25]",
+            "B) dict = ('name': 'Alice', 'age': 25)",
+            "C) dict = {'name': 'Alice', 'age': 25}",
+            "D) dict = name='Alice', age=25"
+          ],
+          correct: "C"
+        },
+        {
+          q: "2. What is returned by my_dict.get('key') if the key doesn't exist?",
+          options: ["A) 0", "B) Error", "C) None", "D) False"],
+          correct: "C"
+        },
+        {
+          q: "3. What does len({'a': 1, 'b': 2, 'c': 3}) return?",
+          options: ["A) 1", "B) 2", "C) 3", "D) 4"],
+          correct: "C"
+        },
+        {
+          q: "4. How do you update the value of an existing key in a dictionary?",
+          options: [
+            "A) my_dict.updateValue('key', newValue)",
+            "B) my_dict.key = newValue",
+            "C) my_dict['key'] = newValue",
+            "D) update(my_dict, 'key', newValue)"
+          ],
+          correct: "C"
+        },
+        {
+          q: "5. How do you loop through both keys and values of a dictionary?",
+          options: [
+            "A) for item in dict:",
+            "B) for key, value in dict.items():",
+            "C) for key in dict.values():",
+            "D) for key, value in dict:"],
+          correct: "B"
+        },
+        {
+          q: "6. What does this print? for k in {'x': 1, 'y': 2}: print(k)",
+          options: ["A) x y", "B) 1 2", "C) x:1 y:2", "D) dict keys"],
+          correct: "A"
+        },
+        {
+          q: "7. What does dict.items() return?",
+          options: ["A) Only keys", "B) Only values", "C) Key-value pairs as tuples", "D) Dictionary length"],
+          correct: "C"
+        },
+        {
+          q: "8. How do you add a new key 'city' with value 'NYC' to a dictionary named user?",
+          options: [
+            "A) user.add('city', 'NYC')",
+            "B) user['city'] = 'NYC'",
+            "C) user.insert('city', 'NYC')",
+            "D) user.city = 'NYC'"
+          ],
+          correct: "B"
+        },
+        {
+          q: "9. Access the value 30 in {'scores': {'math': 30}}",
+          options: [
+            "A) scores['math']",
+            "B) dict['math']",
+            "C) dict['scores']['math']",
+            "D) dict.scores.math"
+          ],
+          correct: "C"
+        },
+        {
+          q: "10. What does this output? d = {'a': 1}; ref = d; ref['b'] = 2; print(d)",
+          options: ["A) {'a': 1}", "B) {'b': 2}", "C) {'a': 1, 'b': 2}", "D) Error"],
+          correct: "C"
+        },
+        {
+          q: "11. How to print all items from {'fruits': ['apple', 'banana'], 'veggies': ['carrot']}?",
+          options: [
+            "A) for x in dict:",
+            "B) for k, v in dict.items(): for item in v: print(item)",
+            "C) print(dict)",
+            "D) dict.each()"
+          ],
+          correct: "B"
+        },
+        {
+          q: "12. What does this print? info = {'students': [{'name': 'Alice', 'grade': 90}]} print(info['students'][0]['grade'])",
+          options: ["A) 90", "B) Alice", "C) students", "D) Error"],
+          correct: "A"
+        },
+        {
+          q: "13. Which type CANNOT be used as a dictionary key?",
+          options: ["A) int", "B) string", "C) tuple", "D) list"],
+          correct: "D"
+        },
+        {
+          q: "14. What happens if you call dict.pop('key') on a missing key?",
+          options: ["A) Returns None", "B) Raises KeyError", "C) Deletes dict", "D) Returns 'key'"],
+          correct: "B"
+        },
+        {
+          q: "15. How to print all inner key-values from nested = {'a': {'x': 1}, 'b': {'y': 2}}?",
+          options: [
+            "A) for k in nested:",
+            "B) nested.items()",
+            "C) for outer, inner in nested.items(): for key, val in inner.items(): print(key, val)",
+            "D) print(nested)"
+          ],
+          correct: "C"
+        }
+      ];
+
+      const quizDiv = document.getElementById("quiz");
+      questions.forEach((q, i) => {
+        const id = `q${i + 1}`;
+        const div = document.createElement("div");
+        div.className = "question";
+        div.innerHTML = `<h3>${q.q}</h3><form id="${id}">` +
+          q.options.map(opt => `<label><input type="radio" name="${id}" value="${opt.charAt(0)}"> ${opt}</label><br>`).join("") +
+          `</form><p class="feedback" id="feedback-${id}"></p>`;
+        quizDiv.appendChild(div);
+      });
+
+      function checkAnswers() {
+        questions.forEach((q, i) => {
+          const id = `q${i + 1}`;
+          const selected = document.querySelector(`input[name="${id}"]:checked`);
+          const feedback = document.getElementById(`feedback-${id}`);
+          if (!selected) {
+            feedback.textContent = "⚠️ No answer selected.";
+            feedback.style.color = "orange";
+          } else if (selected.value === q.correct) {
+            feedback.textContent = "✅ Correct!";
+            feedback.style.color = "green";
+          } else {
+            feedback.textContent = `❌ Incorrect. Correct answer: ${q.correct}`;
+            feedback.style.color = "red";
+          }
+        });
+      }
+    </script>
+    <!-- Shared Header and Footer JavaScript -->
+  <script src="../../shared/header-footer.js"></script>
+</body>
+</html>

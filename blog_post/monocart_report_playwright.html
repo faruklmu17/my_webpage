@@ -1,0 +1,667 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrating Monocart Reporter in Playwright - Faruk Hasan</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Blog-specific styles */
+        .blog-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.7;
+        }
+        
+        .blog-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .blog-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            color: var(--primary-color);
+        }
+        
+        .blog-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .blog-meta-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .blog-meta-item i {
+            margin-right: 0.5rem;
+            color: var(--accent-color);
+        }
+        
+        .blog-content {
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+        
+        .blog-content h2 {
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 0.5rem;
+        }
+        
+        .blog-content h3 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+        }
+        
+        .blog-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .blog-content ul, .blog-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+        
+        .blog-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .blog-content a {
+            color: var(--accent-color);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-color);
+            transition: all 0.2s ease;
+        }
+        
+        .blog-content a:hover {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        
+        .blog-content code {
+            background-color: #1e1e1e; /* Dark background for inline code */
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #f8f8f8; /* Light text color for inline code */
+        }
+        
+        .blog-content pre {
+            background-color: #1e1e1e; /* Dark background for code blocks */
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+            border: 1px solid #333;
+        }
+        
+        .blog-content pre code {
+            background-color: transparent;
+            padding: 0;
+            color: #f8f8f8; /* Light text color for code */
+            font-size: 0.9rem;
+            line-height: 1.5;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .blog-content blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+            margin-left: 0;
+            margin-right: 0;
+            font-style: italic;
+            color: #555;
+        }
+        
+        .blog-content hr {
+            border: none;
+            height: 1px;
+            background-color: #eee;
+            margin: 2rem 0;
+        }
+        
+        .blog-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin: 1.5rem 0;
+            box-shadow: var(--soft-shadow);
+        }
+        
+        .blog-content details {
+            margin-bottom: 1.5rem;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            padding: 0.5rem;
+        }
+        
+        .blog-content summary {
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .blog-content details[open] summary {
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .blog-footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .blog-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .blog-tag {
+            background-color: rgba(58, 110, 165, 0.1);
+            color: var(--primary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+        }
+        
+        .blog-share {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .blog-share a {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            transition: color 0.2s ease;
+        }
+        
+        .blog-share a:hover {
+            color: var(--primary-color);
+        }
+        
+        .back-to-blog {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+        }
+        
+        .back-to-blog i {
+            margin-right: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .blog-container {
+                padding: 1.5rem;
+            }
+            
+            .blog-title {
+                font-size: 2rem;
+            }
+            
+            .blog-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .blog-content {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="headline">
+                <h1>Faruk Hasan</h1>
+                <p><b>Software QA Engineer | Automation & AI-Driven Testing Specialist</b></p>
+            </div>
+            <div class="nav-social-container">
+                <nav>
+                    <ul>
+                        <li><a href="../index.html#about">About Me</a></li>
+                        <li><a href="../index.html#courses">Courses</a></li>
+                        <li><a href="../index.html#projects">Projects</a></li>
+                        <li><a href="../index.html#blog">Blog</a></li>
+                    </ul>
+                </nav>
+                <div class="social-icons">
+                    <!-- Social icons here -->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="blog-container">
+        <article class="blog-post">
+            <div class="blog-header">
+                <h1 class="blog-title">Integrating Monocart Reporter in Playwright for Enhanced Test Reporting</h1>
+                <div class="blog-meta">
+                    <div class="blog-meta-item">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>June 10, 2024</span>
+                    </div>
+                    <div class="blog-meta-item">
+                        <i class="far fa-clock"></i>
+                        <span>8 min read</span>
+                    </div>
+                    <div class="blog-meta-item">
+                        <i class="fas fa-tag"></i>
+                        <span>Playwright, Testing, Automation</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="blog-content">
+                <p>Are you looking to elevate your Playwright test reports from basic pass/fail lists to visually appealing, information-rich dashboards? In this post, we'll walk through how to set up Playwright's default reporters alongside the Monocart reporter—a community-built plugin that delivers sleek HTML reports. By the end, you'll know how to install Playwright, run your first tests, configure multiple reporters (HTML, list, and Monocart), and tag tests for streamlined filtering.</p>
+                
+                <hr>
+                
+                <h2>Why Better Reporting Matters</h2>
+                
+                <p>Playwright's built-in reporters (like the default HTML reporter and the <em>list</em> reporter) give you a quick look at test outcomes. However, as your test suite grows and you start sharing reports with teammates, stakeholders, or CI pipelines, you may need:</p>
+                
+                <ul>
+                    <li><strong>Cleaner Layouts:</strong> Monocart's reports are styled to clearly distinguish passed, failed, and skipped tests.</li>
+                    <li><strong>Customizable Output:</strong> You can configure Monocart to include screenshots, video links, environment details, and additional metadata.</li>
+                    <li><strong>Multiple Output Formats:</strong> Run tests once and publish HTML, Monocart, and terminal-friendly lists side by side.</li>
+                </ul>
+                
+                <p>By combining Monocart with Playwright's defaults, you get the best of all worlds: an easy terminal summary during development, an HTML dashboard for exploratory debugging, and a Monocart report for presentation or archival purposes.</p>
+                
+                <hr>
+                
+                <h2>What You'll Learn</h2>
+                
+                <ol>
+                    <li><strong>Installing Playwright:</strong> How to scaffold a new Playwright project.</li>
+                    <li><strong>Running Default Tests:</strong> Generating HTML reports out of the box.</li>
+                    <li><strong>Using the <code>list</code> Reporter:</strong> A concise summary in the terminal.</li>
+                    <li><strong>Installing Monocart Reporter:</strong> Adding a third-party plugin for polished HTML reports.</li>
+                    <li><strong>Customizing <code>playwright.config.ts</code> or <code>playwright.config.js</code>:</strong> Configuring multiple reporters in one place.</li>
+                    <li><strong>Tagging Tests:</strong> Leveraging custom labels (e.g., <code>@fast</code>, <code>@slow</code>, <code>@Alice</code>) to filter or group tests.</li>
+                </ol>
+                
+                <hr>
+                
+                <h2>1. Install Playwright</h2>
+                
+                <p>If you haven't already installed Playwright in your project, run the following in an empty directory (or an existing Node project):</p>
+                
+                <pre><code>npm init playwright@latest</code></pre>
+                
+                <ul>
+                    <li>This prompts you to choose a language (TypeScript or JavaScript) and installs Playwright dependencies.</li>
+                    <li>It also creates a basic folder structure with an example test and a <code>playwright.config.ts</code> (or <code>playwright.config.js</code>) file.</li>
+                </ul>
+                
+                <hr>
+                
+                <h2>2. Create or Use Existing Test Cases</h2>
+                
+                <p>By default, Playwright scaffolds a sample test under <code>tests/example.spec.ts</code> (or <code>.js</code>). You can either:</p>
+                
+                <ul>
+                    <li><strong>Run that sample</strong> to confirm the setup; or</li>
+                    <li><strong>Create your own tests</strong> under the <code>tests/</code> directory. For example:</li>
+                </ul>
+                
+                <pre><code>// tests/login.spec.ts
+import { test, expect } from '@playwright/test';
+
+test('homepage has correct title', async ({ page }) => {
+  await page.goto('https://example.com');
+  await expect(page).toHaveTitle('Example Domain');
+});</code></pre>
+                
+                <hr>
+                
+                <h2>3. Run Tests & Generate Default HTML Report</h2>
+                
+                <p>Execute all your tests via the CLI:</p>
+                
+                <pre><code>npx playwright test</code></pre>
+                
+                <p>Once the run completes, a default HTML report is generated in <code>playwright-report/</code>. To view it:</p>
+                
+                <pre><code>npx playwright show-report</code></pre>
+                
+                <ul>
+                    <li>The HTML report opens in your browser, showing dashboards for passed/failed/skipped tests, traces, screenshots (if captured), and detailed failure logs.</li>
+                </ul>
+                
+                <hr>
+                
+                <h2>4. Add the <code>list</code> Reporter for Terminal Summaries</h2>
+                
+                <p>The <code>list</code> reporter prints test results in a straightforward, colorized list format—ideal when you just want a quick glance in your terminal. To enable it, update your configuration:</p>
+                
+                <details>
+                    <summary><code>playwright.config.ts</code> (TypeScript)</summary>
+                    <pre><code>import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  // ...other config options...
+  reporter: [
+    ['list'],             // concise terminal output
+    ['html'],             // default HTML dashboard
+  ],
+});</code></pre>
+                </details>
+                
+                <details>
+                    <summary><code>playwright.config.js</code> (JavaScript)</summary>
+                    <pre><code>/** @type {import('@playwright/test').PlaywrightTestConfig} */
+module.exports = {
+  // ...other config options...
+  reporter: [
+    ['list'],             // concise terminal output
+    ['html'],             // default HTML dashboard
+  ],
+};</code></pre>
+                </details>
+                
+                <p>Now, when you run <code>npx playwright test</code>, you'll see:</p>
+                
+                <ul>
+                    <li>A <strong>list</strong> of tests with ✓/✕ in the terminal.</li>
+                    <li>A standard HTML report in <code>playwright-report/</code>.</li>
+                </ul>
+                
+                <hr>
+                
+                <h2>5. Install Monocart Reporter</h2>
+                
+                <p>Monocart delivers a beautifully formatted HTML report with built-in support for grouping tests, filtering by tags, and customizing colors. To add it:</p>
+                
+                <pre><code>npm install --save-dev monocart-reporter</code></pre>
+                
+                <p>This installs Monocart and adds it to your <code>devDependencies</code>.</p>
+                
+                <hr>
+                
+                <h2>6. Configure Monocart Reporter</h2>
+                
+                <p>Modify your Playwright configuration to include Monocart. You can output the Monocart report under a custom folder such as <code>monocart-report/</code>. Example:</p>
+                
+                <details>
+                    <summary><code>playwright.config.ts</code> (TypeScript)</summary>
+                    <pre><code>import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  // ...other config options...
+  reporter: [
+    ['list'],                                    // terminal output
+    ['html'],                                    // default HTML report
+    ['monocart-reporter', { 
+      outputFile: 'monocart-report/index.html'  // Monocart report location
+    }],
+  ],
+});</code></pre>
+                </details>
+                
+                <details>
+                    <summary><code>playwright.config.js</code> (JavaScript)</summary>
+                    <pre><code>/** @type {import('@playwright/test').PlaywrightTestConfig} */
+module.exports = {
+  // ...other config options...
+  reporter: [
+    ['list'],                                    // terminal output
+    ['html'],                                    // default HTML report
+    ['monocart-reporter', { 
+      outputFile: 'monocart-report/index.html'  // Monocart report location
+    }],
+  ],
+};</code></pre>
+                </details>
+                
+                <p>With this setup, each time you run:</p>
+                
+                <pre><code>npx playwright test</code></pre>
+                
+                <p>You'll see:</p>
+                
+                <ol>
+                    <li><strong>Terminal list</strong> output (<code>list</code>).</li>
+                    <li><strong><code>playwright-report/</code></strong> (default HTML).</li>
+                    <li><strong><code>monocart-report/index.html</code></strong> (Monocart's polished dashboard).</li>
+                </ol>
+                
+                <hr>
+                
+                <h2>7. Using Multiple Reporters vs. Only Monocart</h2>
+                
+                <ul>
+                    <li><strong>All-In-One</strong>: As shown above, you can keep <code>['list']</code>, <code>['html']</code>, and Monocart together—great when you want a quick CLI summary, a basic HTML, plus the Monocart design.</li>
+                    <li><strong>Only Monocart</strong>: If you prefer just the Monocart report, remove <code>['list']</code> and <code>['html']</code>, leaving:
+                    <pre><code>reporter: [
+  ['monocart-reporter', { outputFile: 'monocart-report/index.html' }],
+],</code></pre></li>
+                    <li><strong>Custom Combination</strong>: Feel free to mix and match. For example, if you only want <code>list</code> + Monocart and skip the default HTML, delete <code>['html']</code>.</li>
+                </ul>
+                
+                <hr>
+                
+                <h2>8. Tagging Tests for Organization</h2>
+                
+                <p>Tags (sometimes called "annotations") help you group or filter tests. For instance, you can mark fast-running tests with <code>@fast</code>, slower tests with <code>@slow</code>, or assign a test to a feature or owner like <code>@Alice</code>. Later, you can run only tagged tests:</p>
+                
+                <pre><code>npx playwright test --grep @fast</code></pre>
+                
+                <h3>How to Tag Tests</h3>
+                
+                <p>Inside your test files, add a <code>test.describe</code> or <code>test</code> annotation. For example:</p>
+                
+                <pre><code>import { test, expect } from '@playwright/test';
+
+// Tag a single test
+test('@fast homepage quick check', async ({ page }) => {
+  await page.goto('/');
+  await expect(page).toHaveTitle(/My App/);
+});
+
+// Tag an entire describe block
+test.describe('@login feature', () => {
+  test('valid credentials redirect', async ({ page }) => { /* ... */ });
+  test('invalid credentials show error', async ({ page }) => { /* ... */ });
+});</code></pre>
+                
+                <p>In your <code>playwright.config.ts</code> (or <code>.js</code>), you can optionally define default groups or naming conventions, but simply tagging as shown above is sufficient. Monocart's dashboard will display these tags prominently, allowing you to filter and sort visually.</p>
+                
+                <hr>
+                
+                <h2>Useful Commands at a Glance</h2>
+                
+                <ul>
+                    <li><strong>Run Playwright Tests & View Reports</strong>
+                    <pre><code>npx playwright test
+npx playwright show-report         # Opens default HTML report
+open monocart-report/index.html    # (Mac) view Monocart output</code></pre></li>
+                    <li><strong>Install Monocart Reporter</strong>
+                    <pre><code>npm install --save-dev monocart-reporter</code></pre></li>
+                    <li><strong>Run Tagged Tests Only</strong>
+                    <pre><code>npx playwright test --grep @fast</code></pre></li>
+                    <li><strong>Generate a Standalone Monocart Report</strong>
+                    If you configured Monocart as the sole reporter, simply run:
+                    <pre><code>npx playwright test
+open monocart-report/index.html</code></pre></li>
+                </ul>
+                
+                <hr>
+                
+                <h2>Tips for a Smooth Experience</h2>
+                
+                <ol>
+                    <li><strong>Folder Structure</strong>
+                    <pre><code>├── package.json
+├── playwright.config.ts (or .js)
+├── tests/
+│   └── *.spec.ts
+├── playwright-report/         # default HTML reports
+└── monocart-report/           # Monocart HTML output</code></pre></li>
+                    <li><strong>CI Integration</strong>
+                    <ul>
+                        <li>In your CI pipeline, publish both the <code>playwright-report/</code> and <code>monocart-report/</code> folders as artifacts.</li>
+                        <li>Add a step to <code>npx playwright show-report --reporter=html</code> or serve Monocart's index.html from a static-hosting solution (e.g., GitHub Pages).</li>
+                    </ul></li>
+                    <li><strong>Customize Monocart</strong>
+                    <ul>
+                        <li>Monocart accepts configuration options such as <code>theme</code>, <code>showProgressBar</code>, or <code>showTimeStamps</code>. See Monocart's GitHub page for deeper customization.</li>
+                    </ul></li>
+                </ol>
+                
+                <hr>
+                
+                <h2>Conclusion & Next Steps</h2>
+                
+                <p>Integrating Monocart into your Playwright workflow instantly boosts the readability and shareability of your test reports. By combining the <em>list</em> reporter with HTML and Monocart outputs, you maintain:</p>
+                
+                <ul>
+                    <li><strong>Developer Speed:</strong> Quick CLI feedback during local runs (<code>list</code> reporter).</li>
+                    <li><strong>Standard Dashboards:</strong> Out-of-the-box HTML for quick debugging.</li>
+                    <li><strong>Polished Reports:</strong> Monocart's advanced visualizations for stakeholders, archival, or QA reviews.</li>
+                </ul>
+                
+                <p>Ready to level up? 🎥 Watch the full walkthrough in my video, where I guide you step by step—from installing Playwright, configuring multiple reporters, to tagging tests for powerful filtering. Don't forget to like, comment, and subscribe for more Playwright tips and testing best practices!</p>
+                
+                <p>Happy testing!</p>
+            </div>
+            
+            <div class="blog-footer">
+                <div class="blog-tags">
+                    <span class="blog-tag">Playwright</span>
+                    <span class="blog-tag">Test Automation</span>
+                    <span class="blog-tag">Reporting</span>
+                    <span class="blog-tag">Monocart</span>
+                </div>
+                
+                <div class="blog-share">
+                    <a href="https://twitter.com/intent/tweet?url=https://faruk-hasan.com/monocart_test_reporter.html&text=Integrating Monocart Reporter in Playwright" target="_blank" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://faruk-hasan.com/monocart_test_reporter.html&title=Integrating Monocart Reporter in Playwright" target="_blank" aria-label="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://faruk-hasan.com/monocart_test_reporter.html" target="_blank" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+        </article>
+        
+        <a href="../index.html#blog" class="back-to-blog"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <div class="footer-logo">Faruk Hasan</div>
+                <p>QA Engineer | Automation & AI-Driven Testing Specialist</p>
+            </div>
+            
+            <div class="footer-social">
+                <h4>Connect With Me</h4>
+                <div class="social-icons-footer">
+                    <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://github.com/faruklmu17" class="social-icon github" aria-label="GitHub" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Faruk Hasan. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
+
+<style>
+    /* Additional footer styles to match index page */
+    footer {
+        background-color: var(--secondary-color);
+        color: white;
+        padding: 2rem 0 1rem;
+        margin-top: 3rem;
+    }
+    
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 2rem;
+    }
+    
+    .footer-info {
+        text-align: left;
+    }
+    
+    .footer-logo {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: white;
+    }
+    
+    .footer-info p {
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+    
+    .footer-social h4 {
+        margin-bottom: 0.75rem;
+        font-size: 1rem;
+        color: white;
+    }
+    
+    .social-icons-footer {
+        display: flex;
+        gap: 1rem;
+    }
+    
+    .footer-bottom {
+        text-align: center;
+        padding-top: 1.5rem;
+        margin-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.9rem;
+    }
+    
+    @media (max-width: 768px) {
+        .footer-content {
+            flex-direction: column;
+            text-align: center;
+            gap: 1.5rem;
+        }
+        
+        .footer-info {
+            text-align: center;
+        }
+    }
+</style>
+

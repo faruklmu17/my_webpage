@@ -1,0 +1,69 @@
+{
+  "cache_responses": {
+    "who is faruk": "Faruk Hasan is a Senior Software QA Engineer at Digital.ai with 5+ years of experience in automation testing, CI/CD, and cloud infrastructure. He's also an educator who teaches coding and AI courses.",
+    
+    "what does faruk do": "Faruk works as a Senior Software QA Engineer specializing in Playwright automation testing. He also teaches Python, AI, and web development courses on Udemy and provides tutoring services.",
+    
+    "faruk experience": "Faruk has 5+ years of QA engineering experience, currently working at Digital.ai since 2022. He previously worked at M.M.Hayes Co and specializes in Playwright, Python, and test automation frameworks.",
+    
+    "contact faruk": "You can contact Faruk at faruqmul@gmail.com. He's also available on LinkedIn at linkedin.com/in/md-faruk-hasan/",
+
+    "how can i contact faruk": "You can contact Faruk at faruqmul@gmail.com. He's also available on LinkedIn at linkedin.com/in/md-faruk-hasan/",
+
+    "how to contact faruk": "You can contact Faruk at faruqmul@gmail.com. He's also available on LinkedIn at linkedin.com/in/md-faruk-hasan/",
+    
+    "faruk email": "Faruk's email address is faruqmul@gmail.com",
+    
+    "tutoring": "Faruk offers personalized tutoring in Python, web development, AI/ML, and test automation. He has taught 2000+ students with a 4.82/5 rating. Contact him at faruqmul@gmail.com for tutoring inquiries.",
+    
+    "courses": "Faruk has created courses on Udemy including 'Python Fundamentals: Fun and Practical Projects for Beginners' and 'AI & Machine Learning for Beginners'. Both are highly rated by students.",
+    
+    "python course": "Faruk's Python Fundamentals course on Udemy focuses on practical projects for beginners. Students love its hands-on approach and clear explanations.",
+    
+    "ai course": "Faruk's AI & Machine Learning for Beginners course on Udemy provides an accessible introduction to AI concepts with hands-on projects for beginners.",
+    
+    "playwright": "Faruk is an expert in Playwright automation testing with Python and TypeScript. He's built advanced frameworks with CI/CD integration and has created browser extensions for test result visualization.",
+    
+    "automation testing": "Faruk specializes in automation testing using Playwright, Selenium, and custom frameworks. He's reduced regression cycle times by 50% and improved test coverage significantly.",
+    
+    "python": "Faruk is proficient in Python for test automation, web development, and AI/ML projects. He teaches Python fundamentals and has built several automation frameworks.",
+    
+    "ai ml": "Faruk has experience with AI and machine learning, including creating personalized chatbots using Ollama and Hugging Face. He teaches AI/ML concepts to beginners.",
+    
+    "github": "You can find Faruk's projects on GitHub at github.com/faruklmu17, including his Playwright frameworks and automation tools.",
+    
+    "selenium": "Faruk has extensive experience with Selenium automation testing. He's developed Selenium-based frameworks that boosted test efficiency by 30% and trained junior QA engineers.",
+    
+    "digital.ai": "Faruk currently works as a Senior Software QA Engineer at Digital.ai since 2022, where he designs Playwright test scripts and leads cross-functional testing initiatives.",
+    
+    "teaching": "Faruk has taught 2000+ students over 12+ years with a 4.82/5 rating. He creates courses on Python, AI/ML, and provides personalized tutoring services.",
+    
+    "udemy": "Faruk has published multiple courses on Udemy including Python Fundamentals and AI & Machine Learning for Beginners, both receiving excellent student reviews.",
+    
+    "typescript": "Faruk works with TypeScript for Playwright automation testing and has created browser extensions using TypeScript for test result visualization.",
+    
+    "ci cd": "Faruk has extensive experience with CI/CD pipelines, integrating GitHub Actions for automated test execution and improving defect identification speed.",
+    
+    "hello": "Hello! I'm Faruk's AI assistant. I can help you learn about his QA career, tutoring services, courses, or answer questions about Python, testing, and AI.",
+    
+    "help": "I can help you with information about Faruk's background, his tutoring services, technical courses, or answer questions about Python, automation testing, AI, and web development.",
+    
+    "linkedin": "You can connect with Faruk on LinkedIn at linkedin.com/in/md-faruk-hasan/ to learn more about his professional background and network.",
+    
+    "youtube": "Faruk has a YouTube channel @kidz_code where he shares educational content about programming and technology.",
+    
+    "schedule": "For tutoring schedules and availability, please contact Faruk directly at faruqmul@gmail.com to discuss your specific needs and time preferences.",
+    
+    "pricing": "For tutoring rates and course pricing information, please contact Faruk at faruqmul@gmail.com for personalized quotes based on your learning goals.",
+    
+    "beginner": "Faruk specializes in teaching beginners! His courses and tutoring are designed to make complex topics like Python, AI, and testing accessible to newcomers.",
+    
+    "portfolio": "You can view Faruk's complete portfolio and projects on his website, including his automation frameworks, courses, and professional experience."
+  },
+  
+  "settings": {
+    "similarity_threshold": 0.6,
+    "cache_enabled": true,
+    "cache_indicator": "⚡"
+  }
+}

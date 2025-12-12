@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Health Status Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0e13;
+      --bg-secondary: #0f1419;
+      --surface: #1c2128;
+      --border: #30363d;
+      --text-primary: #f0f6fc;
+      --text-secondary: #8b949e;
+      --text-muted: #656d76;
+      --accent: #58a6ff;
+      --success: #3fb950;
+      --warning: #d29922;
+      --danger: #f85149;
+      --critical: #da3633;
+      --excellent: #22c55e;
+      --gradient-excellent: linear-gradient(135deg, #10b981 0%, #22c55e 100%);
+      --gradient-good: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+      --gradient-fair: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+      --gradient-poor: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+      --gradient-critical: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: radial-gradient(ellipse at top, #1a2332 0%, #0a0e13 50%);
+      color: var(--text-primary);
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    
+    .container { 
+      max-width: 1400px; 
+      margin: 0 auto; 
+      padding: 32px 24px; 
+    }
+    
+    /* Header */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      padding: 16px 20px;
+      background: linear-gradient(135deg, rgba(88, 166, 255, 0.05) 0%, rgba(88, 166, 255, 0.02) 100%);
+      border-radius: 12px;
+      border: 1px solid rgba(88, 166, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(88, 166, 255, 0.03) 0%, transparent 70%);
+      animation: pulse 8s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.1); opacity: 0.3; }
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .patient-name {
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 2px;
+      background: linear-gradient(135deg, #58a6ff 0%, #79c0ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+    }
+
+    .patient-meta {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 0;
+    }
+    
+    /* Health Score */
+    .health-score-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 20px;
+      background: linear-gradient(145deg, #1c2128 0%, #161b22 100%);
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      position: relative;
+    }
+
+    .score-main {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .score-value {
+      font-size: 36px;
+      font-weight: 900;
+      line-height: 1;
+      background: var(--gradient-fair);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .score-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .score-rating {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .score-subtitle {
+      font-size: 10px;
+      color: var(--text-secondary);
+      line-height: 1.2;
+    }
+    
+    /* Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    
+    .span-12 { grid-column: span 12; }
+    .span-8 { grid-column: span 8; }
+    .span-6 { grid-column: span 6; }
+    .span-4 { grid-column: span 4; }
+    .span-3 { grid-column: span 3; }
+    
+    @media (max-width: 1024px) {
+      .span-8, .span-6, .span-4, .span-3 { grid-column: span 12; }
+    }
+    
+    .card {
+      background: linear-gradient(145deg, #1c2128 0%, #161b22 100%);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+    
+    .card-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-primary);
+    }
+    
+    .card-title-icon {
+      font-size: 24px;
+    }
+    
+    /* Status Cards */
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    
+    .status-card {
+      background: var(--surface);
+      padding: 24px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    
+    .status-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+    
+    .status-card.excellent::before { background: var(--excellent); }
+    .status-card.critical::before { background: var(--critical); }
+    .status-card.warning::before { background: var(--warning); }
+    
+    .status-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+    
+    .status-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    
+    .status-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      font-weight: 700;
+    }
+    
+    .status-icon {
+      font-size: 20px;
+    }
+    
+    .status-value {
+      font-size: 42px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+    
+    .status-reference {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .badge-critical { background: rgba(220, 38, 38, 0.15); color: var(--critical); }
+    .badge-warning { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+    .badge-success { background: rgba(34, 197, 94, 0.15); color: var(--excellent); }
+    
+    /* Risk Items */
+    .risk-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .risk-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+      background: var(--surface);
+      border-radius: 14px;
+      border-left: 4px solid var(--text-muted);
+      transition: all 0.3s;
+    }
+    
+    .risk-item:hover {
+      transform: translateX(4px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    .risk-item.critical { border-left-color: var(--critical); }
+    .risk-item.warning { border-left-color: var(--warning); }
+    .risk-item.info { border-left-color: var(--accent); }
+    
+    .risk-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    
+    .risk-item.critical .risk-icon { background: rgba(220, 38, 38, 0.15); }
+    .risk-item.warning .risk-icon { background: rgba(245, 158, 11, 0.15); }
+    .risk-item.info .risk-icon { background: rgba(88, 166, 255, 0.15); }
+    
+    .risk-content { flex: 1; }
+    
+    .risk-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--text-primary);
+    }
+    
+    .risk-description {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    
+    /* Action Items */
+    .action-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .action-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px;
+      background: var(--surface);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+    
+    .action-item:hover {
+      border-color: var(--accent);
+      transform: translateX(4px);
+    }
+    
+    .action-icon {
+      font-size: 20px;
+      margin-top: 2px;
+    }
+    
+    .action-text {
+      flex: 1;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    
+    .action-text strong {
+      color: var(--text-primary);
+      display: block;
+      margin-bottom: 2px;
+    }
+    
+
+    
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px 16px;
+      }
+
+      .patient-name {
+        font-size: 20px;
+      }
+
+      .patient-meta {
+        font-size: 12px;
+      }
+
+      .score-value {
+        font-size: 28px;
+      }
+
+      .health-score-card {
+        padding: 10px 16px;
+        gap: 12px;
+      }
+
+      .score-rating {
+        font-size: 11px;
+      }
+
+      .score-subtitle {
+        font-size: 9px;
+      }
+    }
+    
+    /* Progress Indicator */
+    .progress-section {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    
+    .progress-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    
+    .trend-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(48, 54, 61, 0.3);
+    }
+    
+    .trend-item:last-child {
+      border-bottom: none;
+    }
+    
+    .trend-metric {
+      font-size: 14px;
+      color: var(--text-primary);
+    }
+    
+    .trend-change {
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .trend-change.positive { color: var(--excellent); }
+    .trend-change.negative { color: var(--critical); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Hero Section -->
+    <div class="hero">
+      <div class="hero-content">
+        <h1 class="patient-name">Faruk Hasan</h1>
+        <div class="patient-meta">SDET • 36 years old • Born 1988</div>
+      </div>
+
+      <div class="health-score-card">
+        <div class="score-main">
+          <div class="score-value">62</div>
+          <div class="score-info">
+            <div class="score-rating" style="color: var(--warning);">⚠️ NEEDS ATTENTION</div>
+            <div class="score-subtitle">Metabolic health requires focus</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Critical Metrics Grid -->
+    <div class="grid">
+      <div class="card span-12">
+        <h2 class="card-title">
+          <span class="card-title-icon">🎯</span>
+          Critical Health Markers
+        </h2>
+        <div class="status-grid">
+          <div class="status-card critical">
+            <div class="status-header">
+              <div class="status-label">A1c (Prediabetes)</div>
+              <div class="status-icon">⚠️</div>
+            </div>
+            <div class="status-value">6.0%</div>
+            <div class="status-reference">Goal: ≤ 5.6%</div>
+            <span class="status-badge badge-critical">HIGH RISK</span>
+          </div>
+          
+          <div class="status-card critical">
+            <div class="status-header">
+              <div class="status-label">LDL Cholesterol</div>
+              <div class="status-icon">⚠️</div>
+            </div>
+            <div class="status-value">177</div>
+            <div class="status-reference">Goal: &lt; 130 mg/dL</div>
+            <span class="status-badge badge-critical">HIGH</span>
+          </div>
+          
+          <div class="status-card critical">
+            <div class="status-header">
+              <div class="status-label">HDL Cholesterol</div>
+              <div class="status-icon">⚠️</div>
+            </div>
+            <div class="status-value">37</div>
+            <div class="status-reference">Goal: ≥ 40 mg/dL</div>
+            <span class="status-badge badge-critical">LOW</span>
+          </div>
+          
+          <div class="status-card warning">
+            <div class="status-header">
+              <div class="status-label">Fasting Glucose</div>
+              <div class="status-icon">⚡</div>
+            </div>
+            <div class="status-value">123</div>
+            <div class="status-reference">Normal: 70-105 mg/dL</div>
+            <span class="status-badge badge-warning">ELEVATED</span>
+          </div>
+          
+          <div class="status-card warning">
+            <div class="status-header">
+              <div class="status-label">Total Cholesterol</div>
+              <div class="status-icon">⚡</div>
+            </div>
+            <div class="status-value">235</div>
+            <div class="status-reference">Goal: &lt; 200 mg/dL</div>
+            <span class="status-badge badge-warning">HIGH</span>
+          </div>
+          
+          <div class="status-card warning">
+            <div class="status-header">
+              <div class="status-label">Chol/HDL Ratio</div>
+              <div class="status-icon">⚡</div>
+            </div>
+            <div class="status-value">6.4</div>
+            <div class="status-reference">Goal: &lt; 4.5</div>
+            <span class="status-badge badge-warning">HIGH</span>
+          </div>
+          
+          <div class="status-card excellent">
+            <div class="status-header">
+              <div class="status-label">Kidney Function</div>
+              <div class="status-icon">✅</div>
+            </div>
+            <div class="status-value">>60</div>
+            <div class="status-reference">eGFR mL/min/1.73m²</div>
+            <span class="status-badge badge-success">NORMAL</span>
+          </div>
+          
+          <div class="status-card excellent">
+            <div class="status-header">
+              <div class="status-label">Triglycerides</div>
+              <div class="status-icon">✅</div>
+            </div>
+            <div class="status-value">107</div>
+            <div class="status-reference">Goal: &lt; 150 mg/dL</div>
+            <span class="status-badge badge-success">GOOD</span>
+          </div>
+        </div>
+        
+        <div class="progress-section">
+          <div class="progress-label">Recent Improvements</div>
+          <div class="trend-item">
+            <span class="trend-metric">A1c Progress</span>
+            <span class="trend-change positive">↓ 0.3% (from 6.3% to 6.0%)</span>
+          </div>
+          <div class="trend-item">
+            <span class="trend-metric">Fasting Glucose</span>
+            <span class="trend-change positive">↓ 11 mg/dL (from 134 to 123)</span>
+          </div>
+          <div class="trend-item">
+            <span class="trend-metric">Time Period</span>
+            <span class="trend-change">Mar 2024 → Jul 2025</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Risk Assessment -->
+      <div class="card span-6">
+        <h2 class="card-title">
+          <span class="card-title-icon">🚨</span>
+          Risk Assessment
+        </h2>
+        <div class="risk-container">
+          <div class="risk-item critical">
+            <div class="risk-icon">🔴</div>
+            <div class="risk-content">
+              <div class="risk-title">Type 2 Diabetes Risk</div>
+              <div class="risk-description">A1c 6.0% indicates prediabetes. Fasting glucose also elevated at 123 mg/dL. Immediate lifestyle intervention critical.</div>
+            </div>
+          </div>
+          
+          <div class="risk-item critical">
+            <div class="risk-icon">❤️</div>
+            <div class="risk-content">
+              <div class="risk-title">Cardiovascular Disease</div>
+              <div class="risk-description">High LDL (177), low HDL (37), elevated total cholesterol (235). Poor lipid profile significantly increases CVD risk.</div>
+            </div>
+          </div>
+          
+          <div class="risk-item warning">
+            <div class="risk-icon">🩸</div>
+            <div class="risk-content">
+              <div class="risk-title">Microcytosis</div>
+              <div class="risk-description">Low MCV (68.3), MCH (21.3), MCHC (31.1). Possible thalassemia trait or iron deficiency. Requires hemoglobin electrophoresis.</div>
+            </div>
+          </div>
+          
+          <div class="risk-item info">
+            <div class="risk-icon">💎</div>
+            <div class="risk-content">
+              <div class="risk-title">Nephrolithiasis History</div>
+              <div class="risk-description">Past kidney stones. Current renal function normal. Continue hydration and dietary modifications.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Priority Actions -->
+      <div class="card span-6">
+        <h2 class="card-title">
+          <span class="card-title-icon">🎯</span>
+          Priority Action Plan
+        </h2>
+        <div class="action-list">
+          <div class="action-item" style="border-left: 3px solid var(--critical);">
+            <div class="action-icon">🔴</div>
+            <div class="action-text">
+              <strong>Schedule Endocrinologist</strong>
+              Discuss metformin for prediabetes management and comprehensive metabolic intervention
+            </div>
+          </div>
+          
+          <div class="action-item" style="border-left: 3px solid var(--critical);">
+            <div class="action-icon">💊</div>
+            <div class="action-text">
+              <strong>Consider Statin Therapy</strong>
+              LDL 177 with low HDL requires aggressive lipid management discussion with physician
+            </div>
+          </div>
+          
+          <div class="action-item" style="border-left: 3px solid var(--warning);">
+            <div class="action-icon">🔬</div>
+            <div class="action-text">
+              <strong>Order Follow-up Labs</strong>
+              A1c, lipid panel, iron studies, hemoglobin electrophoresis for thalassemia screening
+            </div>
+          </div>
+          
+          <div class="action-item" style="border-left: 3px solid var(--accent);">
+            <div class="action-icon">💪</div>
+            <div class="action-text">
+              <strong>Resistance Training</strong>
+              Start 2-3 sessions/week to improve insulin sensitivity and increase HDL cholesterol
+            </div>
+          </div>
+          
+          <div class="action-item" style="border-left: 3px solid var(--accent);">
+            <div class="action-icon">🚶</div>
+            <div class="action-text">
+              <strong>Post-Meal Walking</strong>
+              10-20 minute walks after meals to reduce glucose spikes and improve metabolic control
+            </div>
+          </div>
+          
+          <div class="action-item" style="border-left: 3px solid var(--accent);">
+            <div class="action-icon">🥗</div>
+            <div class="action-text">
+              <strong>Dietary Consultation</strong>
+              Low glycemic index diet, increased soluble fiber, reduced saturated fat intake
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- What's Working -->
+      <div class="card span-12">
+        <h2 class="card-title">
+          <span class="card-title-icon">✨</span>
+          Positive Health Indicators
+        </h2>
+        <div class="status-grid">
+          <div class="action-item" style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
+            <div class="action-icon">✅</div>
+            <div class="action-text">
+              <strong>Excellent Kidney Function</strong>
+              eGFR >60, creatinine 1.00 within normal range. No signs of kidney disease.
+            </div>
+          </div>
+          
+          <div class="action-item" style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
+            <div class="action-icon">✅</div>
+            <div class="action-text">
+              <strong>Perfect Liver Function</strong>
+              ALT 19, AST 17, alkaline phosphatase 49. All liver markers within healthy range.
+            </div>
+          </div>
+          
+          <div class="action-item" style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
+            <div class="action-icon">✅</div>
+            <div class="action-text">
+              <strong>Good Triglycerides</strong>
+              107 mg/dL, well below the 150 threshold. Reduced cardiovascular risk factor.
+            </div>
+          </div>
+          
+          <div class="action-item" style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
+            <div class="action-icon">✅</div>
+            <div class="action-text">
+              <strong>Consistent Activity</strong>
+              Walking 45 minutes most days. Strong foundation for metabolic health improvement.
+            </div>
+          </div>
+          
+          <div class="action-item" style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
+            <div class="action-icon">✅</div>
+            <div class="action-text">
+              <strong>A1c Improvement Trend</strong>
+              0.3% reduction achieved (6.3% → 6.0%). Lifestyle changes showing measurable results.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Calculate health score based on metrics
+    function calculateHealthScore() {
+      let score = 100;
+      
+      // A1c (6.0% - should be ≤5.6%)
+      if (6.0 > 5.6) score -= 15;
+      
+      // LDL (177 - should be <130)
+      if (177 > 130) score -= 12;
+      
+      // HDL (37 - should be ≥40)
+      if (37 < 40) score -= 8;
+      
+      // Glucose (123 - should be <105)
+      if (123 > 105) score -= 8;
+      
+      // Total Cholesterol (235 - should be <200)
+      if (235 > 200) score -= 7;
+      
+      // Chol/HDL ratio (6.4 - should be <4.5)
+      if (6.4 > 4.5) score -= 5;
+      
+      // WBC slightly elevated
+      score -= 3;
+      
+      // Microcytosis
+      score -= 5;
+      
+      // Add points for good metrics
+      // Good triglycerides
+      score += 5;
+      // Normal kidney function
+      score += 5;
+      // Normal liver function
+      score += 5;
+      // Improvement trend
+      score += 8;
+      
+      return Math.max(0, Math.min(100, score));
+    }
+    
+    function getScoreRating(score) {
+      if (score >= 90) return { text: '🌟 EXCELLENT', color: 'var(--excellent)', gradient: 'var(--gradient-excellent)' };
+      if (score >= 80) return { text: '✅ GOOD', color: 'var(--success)', gradient: 'var(--gradient-good)' };
+      if (score >= 70) return { text: '⚡ FAIR', color: 'var(--warning)', gradient: 'var(--gradient-fair)' };
+      if (score >= 60) return { text: '⚠️ NEEDS ATTENTION', color: 'var(--warning)', gradient: 'var(--gradient-fair)' };
+      return { text: '🚨 CRITICAL', color: 'var(--critical)', gradient: 'var(--gradient-critical)' };
+    }
+
+    // Initialize the dashboard
+    document.addEventListener('DOMContentLoaded', function() {
+      const score = calculateHealthScore();
+      console.log('Calculated Health Score:', score);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Bag-of-Words Quiz</title>
+  <style>
+    body {
+      /* Body padding/margin removed to match resources.html header layout */
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      
+      background-color: #f7f9fc;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+    .question {
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    .question:nth-child(even) {
+      background-color: #fafbfc;
+    }
+    .question p {
+      margin: 0 0 10px;
+      font-weight: bold;
+      color: #34495e;
+    }
+    .options label {
+      display: block;
+      margin: 6px 0;
+      cursor: pointer;
+    }
+    .options input[type="radio"] {
+      margin-right: 8px;
+    }
+    #submitBtn {
+      display: block;
+      margin: 30px auto;
+      padding: 12px 24px;
+      font-size: 1rem;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    #submitBtn:hover {
+      background-color: #2980b9;
+    }
+    #result {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 1.1rem;
+      padding: 15px;
+      background-color: #ecf0f1;
+      border-radius: 5px;
+      color: #2c3e50;
+      border: 1px solid #ddd;
+    }
+    code {
+      background-color: #eef2f5;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-size: 0.95rem;
+      color: #c0392b;
+    }
+  </style>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Shared Header/Footer CSS -->
+  <link rel="stylesheet" href="../../shared/header-footer.css">
+
+</head>
+<body>
+  <h1>Bag-of-Words & Sparse Matrix Quiz</h1>
+  <form id="quizForm">
+    <!-- Question 1 -->
+    <div class="question">
+      <p>1. What does a “bag-of-words” model do with a collection of text documents?</p>
+      <div class="options">
+        <label><input type="radio" name="q1" value="A" /> (A) It treats each document as a mathematical “bag” and counts how often each word appears.</label>
+        <label><input type="radio" name="q1" value="B" /> (B) It translates every word into emojis.</label>
+        <label><input type="radio" name="q1" value="C" /> (C) It stores full sentences without breaking them into words.</label>
+        <label><input type="radio" name="q1" value="D" /> (D) It removes all punctuation and ignores the words.</label>
+      </div>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question">
+      <p>2. When you call <code>CountVectorizer().fit_transform(documents)</code>, what is the type of the returned object?</p>
+      <div class="options">
+        <label><input type="radio" name="q2" value="A" /> (A) A dense Python list of lists.</label>
+        <label><input type="radio" name="q2" value="B" /> (B) A Compressed Sparse Row (CSR) sparse matrix.</label>
+        <label><input type="radio" name="q2" value="C" /> (C) A pandas DataFrame.</label>
+        <label><input type="radio" name="q2" value="D" /> (D) A simple integer.</label>
+      </div>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="question">
+      <p>3. In the sparse coordinate output<br>
+         <code>(0, 3)  1<br>
+                (1, 2)  1<br>
+                (2, 3)  1</code><br>
+         what do the numbers <code>(0, 3)</code> represent?</p>
+      <div class="options">
+        <label><input type="radio" name="q3" value="A" /> (A) Row 0, Column 3 in the matrix, with value 1.</label>
+        <label><input type="radio" name="q3" value="B" /> (B) Page 0, Paragraph 3 of the document.</label>
+        <label><input type="radio" name="q3" value="C" /> (C) Index 0 of the word list and index 3 of the document list.</label>
+        <label><input type="radio" name="q3" value="D" /> (D) The length of the first document and the length of the second.</label>
+      </div>
+    </div>
+
+    <!-- Question 4 -->
+    <div class="question">
+      <p>4. If a sparse matrix has <code>shape (5, 10)</code> and “with 8 stored elements,” how many zeros are implied in the full (dense) array?</p>
+      <div class="options">
+        <label><input type="radio" name="q4" value="A" /> (A) 8 zeros.</label>
+        <label><input type="radio" name="q4" value="B" /> (B) 42 zeros.</label>
+        <label><input type="radio" name="q4" value="C" /> (C) 50 zeros.</label>
+        <label><input type="radio" name="q4" value="D" /> (D) 42 nonzero values.</label>
+      </div>
+    </div>
+
+    <!-- Question 5 -->
+    <div class="question">
+      <p>5. What does the method <code>toarray()</code> do when called on a NumPy sparse matrix <code>X</code>?</p>
+      <div class="options">
+        <label><input type="radio" name="q5" value="A" /> (A) Converts it into a list of Python strings.</label>
+        <label><input type="radio" name="q5" value="B" /> (B) Builds and returns a full 2D NumPy array with zeros and nonzeros.</label>
+        <label><input type="radio" name="q5" value="C" /> (C) Leaves it unchanged because it is already dense.</label>
+        <label><input type="radio" name="q5" value="D" /> (D) Deletes all zero entries permanently.</label>
+      </div>
+    </div>
+
+    <!-- Question 6 -->
+    <div class="question">
+      <p>6. Why might you want to convert a sparse matrix to a pandas DataFrame after calling <code>toarray()</code>?</p>
+      <div class="options">
+        <label><input type="radio" name="q6" value="A" /> (A) To hide all the zeros in the table.</label>
+        <label><input type="radio" name="q6" value="B" /> (B) To use labeled columns (words) and labeled rows (document names).</label>
+        <label><input type="radio" name="q6" value="C" /> (C) To translate words into another language.</label>
+        <label><input type="radio" name="q6" value="D" /> (D) To make the matrix smaller in memory.</label>
+      </div>
+    </div>
+
+    <!-- Question 7 -->
+    <div class="question">
+      <p>7. After fitting a <code>CountVectorizer</code> on three documents, you see that <code>get_feature_names_out()</code> returns:<br>
+         <code>['and', 'cat', 'dog', 'hello', 'how', 'sat']</code><br>
+         What is special about this list?</p>
+      <div class="options">
+        <label><input type="radio" name="q7" value="A" /> (A) The words are sorted by frequency in descending order.</label>
+        <label><input type="radio" name="q7" value="B" /> (B) The words appear in alphabetical (lexicographical) order.</label>
+        <label><input type="radio" name="q7" value="C" /> (C) The list shows only the two most common words.</label>
+        <label><input type="radio" name="q7" value="D" /> (D) The words are translated into Morse code.</label>
+      </div>
+    </div>
+
+    <!-- Question 8 -->
+    <div class="question">
+      <p>8. Suppose <code>X</code> is a CSR sparse matrix with <code>shape (4, 7)</code>. Which of these statements is true?</p>
+      <div class="options">
+        <label><input type="radio" name="q8" value="A" /> (A) Every entry in <code>X</code> is visible when you print <code>X</code>.</label>
+        <label><input type="radio" name="q8" value="B" /> (B) When you print <code>X</code>, you only see the nonzero coordinates and values.</label>
+        <label><input type="radio" name="q8" value="C" /> (C) <code>X.toarray()</code> will show only the nonzero cells.</label>
+        <label><input type="radio" name="q8" value="D" /> (D) The shape indicates four columns and seven rows.</label>
+      </div>
+    </div>
+
+    <!-- Question 9 -->
+    <div class="question">
+      <p>9. In a DataFrame created as<br>
+         <code>df = pd.DataFrame(X.toarray(), columns=vectorizer.get_feature_names_out())</code><br>
+         what do the <code>columns=</code> represent?</p>
+      <div class="options">
+        <label><input type="radio" name="q9" value="A" /> (A) Column numbers automatically assigned from 0 to (n_features – 1).</label>
+        <label><input type="radio" name="q9" value="B" /> (B) The actual token strings (words) matched to each column index.</label>
+        <label><input type="radio" name="q9" value="C" /> (C) A random ordering of feature names.</label>
+        <label><input type="radio" name="q9" value="D" /> (D) The sizes of each document.</label>
+      </div>
+    </div>
+
+    <!-- Question 10 -->
+    <div class="question">
+      <p>10. If a particular word never appears in any document, what will the entire column for that word look like after calling <code>toarray()</code> and converting to a DataFrame?</p>
+      <div class="options">
+        <label><input type="radio" name="q10" value="A" /> (A) All values will be 1.</label>
+        <label><input type="radio" name="q10" value="B" /> (B) All values will be 0.</label>
+        <label><input type="radio" name="q10" value="C" /> (C) Some values will be 1 and some will be 0.</label>
+        <label><input type="radio" name="q10" value="D" /> (D) The column will not exist at all.</label>
+      </div>
+    </div>
+
+    <!-- Question 11 -->
+    <div class="question">
+      <p>11. You have a list <code>sentences = ["Hello world", "Hello"]</code>. After vectorizing, the vocabulary becomes <code>['hello', 'world']</code>. What will <code>X.toarray()</code> produce?</p>
+      <div class="options">
+        <label><input type="radio" name="q11" value="A" /> (A) <code>[[1, 1], [1, 0]]</code></label>
+        <label><input type="radio" name="q11" value="B" /> (B) <code>[[0, 0], [0, 0]]</code></label>
+        <label><input type="radio" name="q11" value="C" /> (C) <code>[[2, 1], [1, 0]]</code></label>
+        <label><input type="radio" name="q11" value="D" /> (D) <code>[[1], [1]]</code></label>
+      </div>
+    </div>
+
+    <!-- Question 12 -->
+    <div class="question">
+      <p>12. Why does the sparse format store only “stored elements” instead of all entries?</p>
+      <div class="options">
+        <label><input type="radio" name="q12" value="A" /> (A) Because it randomly discards zeros to speed up processing.</label>
+        <label><input type="radio" name="q12" value="B" /> (B) Because most entries are zero, so storing only nonzero values saves memory.</label>
+        <label><input type="radio" name="q12" value="C" /> (C) Because zeros are not allowed in a matrix.</label>
+        <label><input type="radio" name="q12" value="D" /> (D) Because sparse format only works for square matrices.</label>
+      </div>
+    </div>
+
+    <!-- Question 13 -->
+    <div class="question">
+      <p>13. Which Python library is needed to create a DataFrame from a dense NumPy array?</p>
+      <div class="options">
+        <label><input type="radio" name="q13" value="A" /> (A) <code>numpy as np</code></label>
+        <label><input type="radio" name="q13" value="B" /> (B) <code>pandas as pd</code></label>
+        <label><input type="radio" name="q13" value="C" /> (C) <code>sklearn</code></label>
+        <label><input type="radio" name="q13" value="D" /> (D) <code>math</code></label>
+      </div>
+    </div>
+
+    <!-- Question 14 -->
+    <div class="question">
+      <p>14. How can you find out which column index corresponds to a specific word “apple” after fitting the vectorizer?</p>
+      <div class="options">
+        <label><input type="radio" name="q14" value="A" /> (A) By calling <code>vectorizer.get_feature_names_out().index("apple")</code>.</label>
+        <label><input type="radio" name="q14" value="B" /> (B) By printing the entire matrix manually.</label>
+        <label><input type="radio" name="q14" value="C" /> (C) By using <code>df.loc["apple"]</code>.</label>
+        <label><input type="radio" name="q14" value="D" /> (D) By guessing a random number.</label>
+      </div>
+    </div>
+
+    <!-- Question 15 -->
+    <div class="question">
+      <p>15. If you wanted to display the number of times each word appears in each document in a human-friendly table, which sequence of steps would you use?</p>
+      <div class="options">
+        <label><input type="radio" name="q15" value="A" /> (A) <code>CountVectorizer.fit_transform()</code>, then <code>toarray()</code>, then <code>pd.DataFrame(...)</code> with labeled columns and rows.</label>
+        <label><input type="radio" name="q15" value="B" /> (B) Print the sparse matrix directly without conversion.</label>
+        <label><input type="radio" name="q15" value="C" /> (C) Use <code>toarray()</code> and stop, because printing a NumPy array is already a table with labels.</label>
+        <label><input type="radio" name="q15" value="D" /> (D) Manually loop over each word and each document, printing counts line by line.</label>
+      </div>
+    </div>
+
+    <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Answers</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    function submitQuiz() {
+      // Define correct answers
+      const correctAnswers = {
+        q1: 'A',
+        q2: 'B',
+        q3: 'A',
+        q4: 'B',
+        q5: 'B',
+        q6: 'B',
+        q7: 'B',
+        q8: 'B',
+        q9: 'B',
+        q10: 'B',
+        q11: 'A',
+        q12: 'B',
+        q13: 'B',
+        q14: 'A',
+        q15: 'A'
+      };
+
+      let totalQuestions = 15;
+      let correctCount = 0;
+      let wrongCount = 0;
+
+      for (let i = 1; i <= totalQuestions; i++) {
+        const qName = 'q' + i;
+        const selected = document.querySelector(`input[name="${qName}"]:checked`);
+        if (selected) {
+          if (selected.value === correctAnswers[qName]) {
+            correctCount++;
+          } else {
+            wrongCount++;
+          }
+        } else {
+          // If no answer selected, count as wrong
+          wrongCount++;
+        }
+      }
+
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = `You got ${correctCount} out of ${totalQuestions} correct. (${wrongCount} wrong)`;
+      resultDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+  <!-- Shared Header and Footer JavaScript -->
+  <script src="../../shared/header-footer.js"></script>
+</body>
+</html>

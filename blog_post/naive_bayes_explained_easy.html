@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Step-by-step explanation of how Naive Bayes predicts user intent using Bag of Words and probability, ideal for middle school AI and ML students."/>
+  <meta name="keywords" content="Naive Bayes, Chatbot, Machine Learning, Bag of Words, Text Classification, AI for Kids, ML Tutorial, Middle School AI, Educational AI Example, Natural Language Processing"/>
+  <meta name="author" content="Faruk Hasan"/>
+  <meta property="og:title" content="Naive Bayes Chatbot: Step-by-Step AI Example for Students"/>
+  <meta property="og:description" content="Learn how a Naive Bayes model predicts intent from user input using Bag of Words and Laplace smoothing. Designed for student learning."/>
+  <meta property="og:image" content="naive-bayes-chatbot-diagram.png"/>
+  <meta property="og:type" content="website"/>
+  <title>Naive Bayes Step-by-Step - Pizza Chatbot | Faruk Hasan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- MathJax for beautiful mathematical formulas -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --secondary-color: #1e40af;
+      --accent-color: #3b82f6;
+      --success-color: #10b981;
+      --warning-color: #f59e0b;
+      --error-color: #ef4444;
+      --text-color: #374151;
+      --text-light: #6b7280;
+      --bg-color: #ffffff;
+      --bg-light: #f8fafc;
+      --border-color: #e5e7eb;
+      --code-bg: #1e1e1e;
+      --code-text: #f8f8f8;
+      --table-header: #f1f5f9;
+      --highlight-bg: #dbeafe;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      color: var(--text-color);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    .blog-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: var(--bg-color);
+      box-shadow: var(--shadow);
+      border-radius: 12px;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .blog-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 2px solid var(--border-color);
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin: -2rem -2rem 3rem -2rem;
+    }
+
+    .blog-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .blog-meta {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    .blog-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    .section-header:first-of-type {
+      margin-top: 0;
+    }
+
+    .section-icon {
+      font-size: 1.5rem;
+      color: var(--accent-color);
+    }
+
+    .input-highlight {
+      background: linear-gradient(135deg, var(--highlight-bg) 0%, #bfdbfe 100%);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-color);
+      margin: 1rem 0;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 500;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .code-block {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 1.5rem;
+      border-radius: 8px;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin: 1rem 0;
+      box-shadow: var(--shadow);
+      border: 1px solid #333;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      background: var(--bg-color);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .data-table th {
+      background: var(--table-header);
+      color: var(--text-color);
+      font-weight: 600;
+      padding: 1rem;
+      text-align: center;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .data-table td {
+      padding: 0.875rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+      font-weight: 500;
+    }
+
+    .data-table tr:hover {
+      background: var(--bg-light);
+    }
+
+    .calculation-section {
+      background: var(--bg-light);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+      border-left: 4px solid var(--accent-color);
+    }
+
+    .calculation-section h3 {
+      color: var(--secondary-color);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .probability-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .probability-list li {
+      background: white;
+      margin: 0.5rem 0;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      border-left: 3px solid var(--success-color);
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .probability-list strong {
+      color: var(--primary-color);
+    }
+
+    .final-calculation {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      padding: 1.5rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--warning-color);
+      margin: 1.5rem 0;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      line-height: 1.8;
+    }
+
+    .result-highlight {
+      background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 2rem 0;
+      box-shadow: var(--shadow);
+    }
+
+    .explanation-box {
+      background: #f0f9ff;
+      border: 1px solid #0ea5e9;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+      position: relative;
+    }
+
+    .explanation-box::before {
+      content: "💡";
+      position: absolute;
+      top: -10px;
+      left: 15px;
+      background: #f0f9ff;
+      padding: 0 5px;
+      font-size: 1.2rem;
+    }
+
+    .formula-box {
+      background: linear-gradient(135deg, #fef3c7 0%, #fef9e7 100%);
+      border: 2px solid var(--warning-color);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem 0;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+      position: relative;
+    }
+
+    .formula-box::before {
+      content: "📐";
+      position: absolute;
+      top: -15px;
+      left: 20px;
+      background: linear-gradient(135deg, #fef3c7 0%, #fef9e7 100%);
+      padding: 0 8px;
+      font-size: 1.5rem;
+    }
+
+    .formula-title {
+      color: var(--warning-color);
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .formula-content {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.2rem;
+      margin: 1rem 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .formula-explanation {
+      color: var(--text-color);
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 6px;
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      .blog-container {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+
+      .blog-title {
+        font-size: 2rem;
+      }
+
+      .blog-meta {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .section-header {
+        font-size: 1.5rem;
+      }
+
+      .data-table {
+        font-size: 0.9rem;
+      }
+
+      .data-table th,
+      .data-table td {
+        padding: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="blog-container">
+    <div class="blog-header">
+      <h1 class="blog-title">🧐 Naive Bayes Chatbot: Step-by-Step Example</h1>
+      <div class="blog-meta">
+        <div class="blog-meta-item">
+          <i class="far fa-calendar-alt"></i>
+          <span>Machine Learning Tutorial</span>
+        </div>
+        <div class="blog-meta-item">
+          <i class="far fa-clock"></i>
+          <span>8 min read</span>
+        </div>
+        <div class="blog-meta-item">
+          <i class="fas fa-tag"></i>
+          <span>AI, Chatbot, Probability</span>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-header">
+      <i class="section-icon fas fa-brain"></i>
+      What is Naive Bayes?
+    </h2>
+
+    <div class="explanation-box">
+      <strong>Naive Bayes</strong> is a simple but powerful machine learning algorithm used for classification tasks. It's called "naive" because it assumes that all features (words in our case) are independent of each other, which isn't always true in real language but works surprisingly well!
+    </div>
+
+    <div class="calculation-section">
+      <h3 style="color: var(--primary-color); margin-bottom: 1rem;">🎯 How it Works for Chatbots:</h3>
+
+      <p><strong>1. Training Phase:</strong> The model learns from examples of user messages and their correct categories (intents)</p>
+      <p><strong>2. Prediction Phase:</strong> When a new message comes in, it calculates the probability that the message belongs to each category</p>
+      <p><strong>3. Decision:</strong> It picks the category with the highest probability</p>
+
+      <div class="formula-box">
+        <div class="formula-title">Bayes' Theorem Formula</div>
+        <div class="formula-content">
+          \[P(\text{category} \mid \text{words}) = \frac{P(\text{words} \mid \text{category}) \times P(\text{category})}{P(\text{words})}\]
+        </div>
+        <div class="formula-explanation">
+          In simple terms: "What's the chance this message belongs to this category, given the words it contains?"
+        </div>
+      </div>
+    </div>
+
+    <div class="explanation-box">
+      <strong>Why it's perfect for chatbots:</strong>
+      <br>• Fast and efficient for text classification
+      <br>• Works well with small datasets
+      <br>• Easy to understand and implement
+      <br>• Handles new/unseen words gracefully with smoothing
+    </div>
+
+    <h2 class="section-header">
+      <i class="section-icon fas fa-play-circle"></i>
+      Let's See It in Action!
+    </h2>
+
+    <div class="explanation-box">
+      Now let's walk through a complete example to see how Naive Bayes predicts the intent of a user message step by step.
+    </div>
+
+    <h2 class="section-header">
+      <i class="section-icon fas fa-comment-dots"></i>
+      Input Sentence
+    </h2>
+    <div class="input-highlight">
+      "hi can I order pizza"
+    </div>
+
+    <h2 class="section-header">
+      <i class="section-icon fas fa-database"></i>
+      Training Data
+    </h2>
+    <div class="code-block">data = [
+  ("hi", "greeting"),
+  ("hello", "greeting"),
+  ("hi there", "greeting"),
+  ("can I order a pizza", "order_pizza"),
+  ("I'd like a burger", "order_burger")
+]</div>
+
+    <h2 class="section-header">
+      <i class="section-icon fas fa-table"></i>
+      Word Frequency Table (Before Smoothing)
+    </h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Word</th>
+          <th>Greeting</th>
+          <th>Order_Pizza</th>
+          <th>Order_Burger</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>hi</td><td>2</td><td>0</td><td>0</td></tr>
+        <tr><td>hello</td><td>1</td><td>0</td><td>0</td></tr>
+        <tr><td>there</td><td>1</td><td>0</td><td>0</td></tr>
+        <tr><td>can</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><td>i</td><td>0</td><td>1</td><td>1</td></tr>
+        <tr><td>order</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><td>a</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><td>pizza</td><td>0</td><td>1</td><td>0</td></tr>
+        <tr><td>i'd</td><td>0</td><td>0</td><td>1</td></tr>
+        <tr><td>like</td><td>0</td><td>0</td><td>1</td></tr>
+        <tr><td>burger</td><td>0</td><td>0</td><td>1</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-header">
+      <i class="section-icon fas fa-question-circle"></i>
+      What is Laplace Smoothing? 🤔
+    </h2>
+
+    <div class="explanation-box">
+      <strong>Problem:</strong> What happens if a word appears in our test sentence but NEVER appears in a training category?
+      <br><br>
+      Without smoothing: \(P(\text{word} \mid \text{category}) = \frac{0}{\text{total}} = 0\)
+      <br>
+      This makes the entire probability = 0 (since we multiply all probabilities together)
+      <br><br>
+      <strong>Solution:</strong> Add +1 to every word count (even if it's 0) to avoid zero probabilities!
+    </div>
+
+    <div class="calculation-section">
+      <h3 style="color: var(--primary-color); margin-bottom: 1rem;">📊 Let's Count Everything:</h3>
+
+      <p><strong>🔤 All unique words in our vocabulary:</strong></p>
+      <div class="code-block">["hi", "hello", "there", "can", "i", "order", "a", "pizza", "i'd", "like", "burger"]
+→ That's 11 unique words total</div>
+
+      <p><strong>📝 Words that appear in "greeting" category:</strong></p>
+      <div class="code-block">Training sentences for "greeting":
+- "hi" → 1 word
+- "hello" → 1 word
+- "hi there" → 2 words (hi + there)
+Total = 1 + 1 + 2 = 4 words</div>
+    </div>
+
+    <h2 class="section-header">
+      <i class="section-icon fas fa-calculator"></i>
+      Step-by-Step Calculation for "greeting"
+    </h2>
+
+    <div class="formula-box">
+      <div class="formula-title">🧮 Laplace Smoothing Formula</div>
+      <div class="formula-content">
+        \[P(\text{word} \mid \text{category}) = \frac{\text{count}(\text{word in category}) + 1}{\text{total words in category} + |\text{vocabulary}|}\]
+      </div>
+      <div class="formula-explanation">
+        <strong>For "greeting" category:</strong><br>
+        • total_words_in_category = 4<br>
+        • vocabulary_size = 11<br>
+        • denominator = 4 + 11 = 15
+      </div>
+    </div>
+
+    <div class="explanation-box">
+      <strong>Why add vocabulary_size to denominator?</strong>
+      <br>
+      Since we add +1 to EVERY word in our vocabulary (11 words), we need to add +11 to the denominator to keep the probabilities valid (they must sum to 1).
+    </div>
+
+    <h3 class="section-header" style="font-size: 1.4rem; margin-top: 1.5rem;">
+      <i class="section-icon fas fa-list"></i>
+      Input words:
+    </h3>
+    <div class="code-block">["hi", "can", "i", "order", "pizza"]</div>
+
+    <h3 class="section-header" style="font-size: 1.4rem; margin-top: 1.5rem;">
+      <i class="section-icon fas fa-percentage"></i>
+      Word-by-word Probabilities with Smoothing:
+    </h3>
+
+    <div class="calculation-section">
+      <h4 style="color: var(--accent-color); margin-bottom: 0.5rem;">🔍 Let's break down "hi" step by step:</h4>
+      <div class="formula-box" style="margin: 1rem 0;">
+        <div class="formula-content" style="text-align: left; font-size: 1rem;">
+          Looking at our frequency table:<br>
+          • "hi" appears <strong>2 times</strong> in "greeting" category<br>
+          • With Laplace smoothing: (2 + 1) = <strong>3</strong><br>
+          • Denominator: (4 + 11) = <strong>15</strong>
+        </div>
+        <div class="formula-content">
+          \[P(\text{hi} \mid \text{greeting}) = \frac{2 + 1}{4 + 11} = \frac{3}{15} = 0.200\]
+        </div>
+      </div>
+
+      <div class="explanation-box">
+        <strong>Why "hi" = 2 + 1?</strong>
+        <br>
+        • Original count: "hi" appears 2 times in greeting sentences
+        <br>
+        • Laplace smoothing: Add +1 to avoid zero probabilities
+        <br>
+        • Final count: 2 + 1 = 3
+      </div>
+    </div>
+
+    <ul class="probability-list">
+      <li><strong>hi</strong>: \(\frac{2 + 1}{15} = \frac{3}{15} = \mathbf{0.200}\) ← appears 2 times in "greeting"</li>
+      <li><strong>can</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\) ← never appears in "greeting"</li>
+      <li><strong>i</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\) ← never appears in "greeting"</li>
+      <li><strong>order</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\) ← never appears in "greeting"</li>
+      <li><strong>pizza</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\) ← never appears in "greeting"</li>
+    </ul>
+
+    <h3 class="section-header" style="font-size: 1.4rem; margin-top: 1.5rem;">
+      <i class="section-icon fas fa-times"></i>
+      Multiply all probabilities (assuming independence):
+    </h3>
+    <div class="formula-box">
+      <div class="formula-title">Final Probability Calculation</div>
+      <div class="formula-content">
+        \[\begin{align}
+        P(\text{words} \mid \text{greeting}) &= P(\text{hi}) \times P(\text{can}) \times P(\text{i}) \times P(\text{order}) \times P(\text{pizza}) \\
+        &= 0.200 \times 0.067 \times 0.067 \times 0.067 \times 0.067 \\
+        &= 0.200 \times 0.00002016 \\
+        &\approx \mathbf{0.00000403}
+        \end{align}\]
+      </div>
+      <div class="formula-explanation">
+        → Very small probability
+      </div>
+    </div>
+
+    <div class="explanation-box">
+      So even though "hi" is a strong match for <code>greeting</code>, the other words don't appear in any training sentences for <code>greeting</code>, so the overall probability becomes very low.
+    </div>
+
+    <h2 class="section-header">
+      <i class="section-icon fas fa-lightbulb"></i>
+      Quick Summary: Why Laplace Smoothing?
+    </h2>
+
+    <div class="calculation-section">
+      <h3 style="color: var(--success-color);">✅ With Laplace Smoothing:</h3>
+      <ul style="list-style-type: none; padding-left: 0;">
+        <li>✓ No word gets 0 probability</li>
+        <li>✓ Model can handle new/unseen words</li>
+        <li>✓ More robust predictions</li>
+      </ul>
+
+      <h3 style="color: var(--error-color); margin-top: 1.5rem;">❌ Without Laplace Smoothing:</h3>
+      <ul style="list-style-type: none; padding-left: 0;">
+        <li>✗ Any unseen word = 0 probability</li>
+        <li>✗ Entire sentence probability becomes 0</li>
+        <li>✗ Model fails on new data</li>
+      </ul>
+    </div>
+
+    <div class="explanation-box">
+      <strong>Real-world analogy:</strong> It's like giving everyone a "participation trophy" of +1, so nobody gets completely ignored, even if they never showed up to practice! 🏆
+    </div>
+
+    <h2 class="section-header">
+      <i class="section-icon fas fa-trophy"></i>
+      Final Prediction
+    </h2>
+    <div class="result-highlight">
+      → The model predicts: <strong>order_pizza</strong> 🍕
+    </div>
+    <div class="explanation-box">
+      Because words like "order", "pizza", and "can" are strongly associated with that category.
+    </div>
+  </div>
+
+</body>
+</html>

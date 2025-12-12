@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Dividend Income Strategy - Path to Financial Independence | Faruk Hasan</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Detailed breakdown of my dividend income investment strategy, portfolio allocation, and journey toward financial independence through passive income.">
+  <meta name="keywords" content="dividend investing, financial independence, passive income, FIRE, dividend growth, portfolio strategy, early retirement">
+  <meta name="author" content="Faruk Hasan">
+
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="My Dividend Income Strategy - Path to Financial Independence">
+  <meta property="og:description" content="Detailed breakdown of my dividend income investment strategy and journey toward financial independence.">
+  <meta property="og:image" content="https://faruk-hasan.com/blog_images/dividend-strategy.jpg">
+  <meta property="og:url" content="https://faruk-hasan.com/dividend_income.html">
+  <meta property="og:type" content="article">
+
+  <!-- Fonts and Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-color: #60a5fa;
+      --secondary-color: #3b82f6;
+      --accent-color: #fbbf24;
+      --success-color: #34d399;
+      --warning-color: #fbbf24;
+      --error-color: #f87171;
+      --text-color: #f8fafc;
+      --text-light: #cbd5e1;
+      --bg-color: rgba(255, 255, 255, 0.1);
+      --bg-light: rgba(255, 255, 255, 0.05);
+      --border-color: rgba(255, 255, 255, 0.2);
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #050520;
+      color: var(--text-color);
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .hero-section {
+      /* No background - let cosmic art show through */
+      color: white;
+      text-align: center;
+      padding: 1.5rem 2rem 0.5rem;
+      margin-bottom: 0.5rem;
+      position: relative;
+      overflow: hidden;
+      /* Optional subtle border for definition */
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+      opacity: 0.6;
+    }
+
+    .hero-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto 1rem;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-stat {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      min-width: 100px;
+    }
+
+    .hero-stat:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-stat-value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 0.2rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-stat-label {
+      font-size: 0.75rem;
+      opacity: 0.9;
+      font-weight: 500;
+    }
+
+    .progress-section {
+      /* No background - let cosmic art show through */
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin: 1.5rem 0 1rem 0;
+      /* No border - pure cosmic background */
+    }
+
+    .progress-header {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .progress-header h3 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-header p {
+      color: var(--text-light);
+      font-size: 1.2rem;
+    }
+
+    .progress-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .progress-bar {
+      position: relative;
+      height: 30px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 15px;
+      overflow: hidden;
+      margin: 2rem 0;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #10b981 0%, #059669 50%, #047857 100%);
+      border-radius: 10px;
+      transition: width 2s ease-in-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .progress-markers {
+      position: relative;
+      height: 40px;
+      margin-top: 1rem;
+    }
+
+    .progress-marker {
+      position: absolute;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+
+    .progress-marker::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 20px;
+      background: var(--border-color);
+    }
+
+    .marker-value {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-light);
+    }
+
+    .progress-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .progress-stat {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 1.5rem;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .progress-stat-value {
+      display: block;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-stat-label {
+      font-size: 1rem;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .section:first-of-type {
+      margin-top: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-icon {
+      font-size: 1.5rem;
+      color: var(--accent-color);
+    }
+
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .philosophy-card {
+      background: var(--bg-light);
+      padding: 2rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--success-color);
+    }
+
+    .philosophy-card h3 {
+      color: var(--secondary-color);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .stat-card {
+      background: var(--gradient-success);
+      color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--primary-color);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2rem;
+      padding-left: 2rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.5rem;
+      top: 0.5rem;
+      width: 12px;
+      height: 12px;
+      background: var(--success-color);
+      border-radius: 50%;
+      border: 3px solid white;
+      box-shadow: 0 0 0 3px var(--success-color);
+    }
+
+    .timeline-date {
+      font-weight: 600;
+      color: var(--primary-color);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-color);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      margin-bottom: 2rem;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: var(--secondary-color);
+    }
+
+    .portfolio-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      background: var(--bg-color);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .portfolio-table th {
+      background: var(--bg-light);
+      color: var(--text-color);
+      font-weight: 600;
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .portfolio-table td {
+      padding: 0.875rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      font-weight: 500;
+    }
+
+    .portfolio-table tr:hover {
+      background: var(--bg-light);
+    }
+
+    .portfolio-breakdown {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .charts-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+      padding-top: 1rem;
+    }
+
+    .breakdown-chart {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      padding: 2rem;
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      min-height: 450px;
+    }
+
+    .chart-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .breakdown-table {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .holdings-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .holdings-table th {
+      background: rgba(255, 255, 255, 0.15);
+      color: var(--text-color);
+      font-weight: 600;
+      padding: 0.875rem;
+      text-align: left;
+      border-bottom: 2px solid var(--border-color);
+      font-size: 0.9rem;
+    }
+
+    .holdings-table td {
+      padding: 0.75rem 0.875rem;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.9rem;
+      color: var(--text-color) !important;
+    }
+
+    /* Ensure all table body cells are visible */
+    #holdingsTableBody td {
+      color: var(--text-color) !important;
+    }
+
+    .holdings-table tbody tr:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .total-row {
+      background: rgba(255, 255, 255, 0.2) !important;
+      font-weight: 600;
+      color: var(--text-color) !important;
+    }
+
+    .holdings-table strong {
+      color: var(--primary-color);
+      font-weight: 700;
+    }
+
+    .holdings-table td strong {
+      color: var(--accent-color) !important;
+      font-weight: 700;
+      text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+    }
+
+    /* Specific styling for ticker symbols in the main table */
+    #holdingsTableBody td:first-child strong {
+      color: #60a5fa !important;
+      font-weight: 700;
+      text-shadow: 0 0 20px rgba(96, 165, 250, 0.8);
+      font-size: 1.1em;
+      background: rgba(96, 165, 250, 0.1);
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      border: 1px solid rgba(96, 165, 250, 0.3);
+    }
+
+    /* General strong tag styling for cosmic theme */
+    strong {
+      color: var(--accent-color);
+      font-weight: 700;
+    }
+
+    /* Paragraph text styling */
+    p {
+      color: var(--text-color);
+    }
+
+    /* Highlight box text */
+    .highlight-box p {
+      color: var(--text-color);
+    }
+
+    .highlight-box strong {
+      color: var(--primary-color);
+    }
+
+    .total-row td {
+      border-top: 2px solid var(--border-color);
+      padding: 1rem 0.875rem;
+    }
+
+    .highlight-box {
+      background: rgba(96, 165, 250, 0.15);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid rgba(96, 165, 250, 0.3);
+      backdrop-filter: blur(10px);
+      margin: 1.5rem 0;
+      box-shadow: 0 4px 16px rgba(96, 165, 250, 0.2);
+    }
+
+    .highlight-box h3 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 1rem 1rem 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .hero-title {
+        font-size: 1.6rem;
+      }
+
+      .hero-subtitle {
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+
+      .hero-stats {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .container {
+        padding: 1rem;
+      }
+
+      .section {
+        padding: 1.5rem;
+      }
+
+      .philosophy-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .charts-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-top: 2rem;
+        padding-top: 1rem;
+      }
+
+      .breakdown-chart {
+        min-height: 350px;
+        padding: 1.5rem;
+      }
+
+      .chart-title {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+      }
+
+      .holdings-table th,
+      .holdings-table td {
+        padding: 0.5rem;
+        font-size: 0.8rem;
+      }
+
+      .progress-section {
+        padding: 2rem 1rem;
+        margin: 1rem 0;
+      }
+
+      .progress-header h3 {
+        font-size: 1.8rem;
+      }
+
+      .progress-header p {
+        font-size: 1rem;
+      }
+
+      .progress-bar {
+        height: 25px;
+        margin: 1.5rem 0;
+      }
+
+      .progress-stats {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .progress-stat {
+        padding: 1.2rem;
+      }
+
+      .progress-stat-value {
+        font-size: 1.6rem;
+      }
+
+      .progress-stat-label {
+        font-size: 0.9rem;
+      }
+
+      .marker-value {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-section">
+    <div class="container">
+      <h1 class="hero-title">💰 My Dividend Income Strategy</h1>
+      <p class="hero-subtitle">Building a sustainable passive income stream for financial independence through strategic dividend investing</p>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-value" id="current-monthly">$190</span>
+          <span class="hero-stat-label">Current Monthly Income</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value" id="portfolio-yield">5.7%</span>
+          <span class="hero-stat-label">Portfolio Yield</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value">$250</span>
+          <span class="hero-stat-label">2025 Target</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value" id="progress-percentage">76%</span>
+          <span class="hero-stat-label">Progress</span>
+        </div>
+      </div>
+
+      <!-- Progress Bar Section -->
+      <div class="progress-section">
+        <div class="progress-header">
+          <h3>🎯 Goal Progress</h3>
+          <p>Journey to $250/month passive income</p>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+            <div class="progress-markers">
+              <div class="progress-marker" style="left: 0%">
+                <span class="marker-value">$0</span>
+              </div>
+              <div class="progress-marker" style="left: 20%">
+                <span class="marker-value">$50</span>
+              </div>
+              <div class="progress-marker" style="left: 40%">
+                <span class="marker-value">$100</span>
+              </div>
+              <div class="progress-marker" style="left: 60%">
+                <span class="marker-value">$150</span>
+              </div>
+              <div class="progress-marker" style="left: 80%">
+                <span class="marker-value">$200</span>
+              </div>
+              <div class="progress-marker" style="left: 100%">
+                <span class="marker-value">$250</span>
+              </div>
+            </div>
+          </div>
+          <div class="progress-stats">
+            <div class="progress-stat">
+              <span class="progress-stat-value" id="remaining-amount">$60</span>
+              <span class="progress-stat-label">Remaining to Goal</span>
+            </div>
+            <div class="progress-stat">
+              <span class="progress-stat-value" id="monthly-needed">~$5</span>
+              <span class="progress-stat-label">Monthly Growth Needed</span>
+            </div>
+            <div class="progress-stat">
+              <span class="progress-stat-value">Dec 2025</span>
+              <span class="progress-stat-label">Target Date</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts within Goal Progress Section -->
+        <div class="charts-container">
+          <div class="breakdown-chart">
+            <h3 class="chart-title">💰 Income Distribution</h3>
+            <canvas id="incomeChart" width="400" height="400"></canvas>
+          </div>
+
+          <div class="breakdown-chart">
+            <h3 class="chart-title">� Portfolio Allocation</h3>
+            <canvas id="allocationChart" width="400" height="400"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <a href="index.html" class="back-link">
+      <i class="fas fa-arrow-left"></i>
+      Back to Portfolio
+    </a>
+
+    <div class="section">
+      <h2 class="section-title">
+        <i class="section-icon fas fa-chart-pie"></i>
+        Portfolio Breakdown
+      </h2>
+      <p style="margin-bottom: 2rem; color: var(--text-light); text-align: center; font-size: 1.1rem;">
+        Here's the detailed breakdown of my current dividend-generating holdings and their monthly income contributions:
+      </p>
+
+      <div class="portfolio-breakdown">
+
+        <div class="breakdown-table">
+          <table class="holdings-table">
+            <thead>
+              <tr>
+                <th>Stock</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>Yield</th>
+                <th>Portfolio %</th>
+                <th>Monthly Income</th>
+              </tr>
+            </thead>
+            <tbody id="holdingsTableBody">
+              <!-- Data will be populated by JavaScript -->
+            </tbody>
+            <tfoot>
+              <tr class="total-row">
+                <td><strong>TOTAL</strong></td>
+                <td>-</td>
+                <td>-</td>
+                <td id="avgYield">-</td>
+                <td><strong>100%</strong></td>
+                <td id="totalMonthly"><strong>$190</strong></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">
+        <i class="section-icon fas fa-lightbulb"></i>
+        Investment Philosophy
+      </h2>
+      <p>My dividend investing strategy is built on the foundation of creating a reliable, growing stream of passive income that will eventually replace my active income and provide financial independence. This approach focuses on long-term wealth building through companies that consistently reward shareholders.</p>
+
+      <div class="philosophy-grid">
+        <div class="philosophy-card">
+          <h3>🎯 Quality Over Yield</h3>
+          <p>I prioritize companies with sustainable business models, strong cash flows, and reasonable payout ratios over those offering unsustainably high yields. A 4% yield that grows annually is better than an 8% yield that gets cut.</p>
+        </div>
+
+        <div class="philosophy-card">
+          <h3>📈 Dividend Growth Focus</h3>
+          <p>I seek companies with a track record of consistently increasing their dividends. Dividend growth not only provides inflation protection but also indicates management's confidence in the business's future prospects.</p>
+        </div>
+
+        <div class="philosophy-card">
+          <h3>🛡️ Diversification Strategy</h3>
+          <p>My portfolio spans multiple sectors and includes both individual stocks and ETFs. This diversification helps reduce risk while maintaining steady income generation across different market conditions.</p>
+        </div>
+
+        <div class="philosophy-card">
+          <h3>🔄 Reinvestment Power</h3>
+          <p>All dividends are automatically reinvested to purchase additional shares, harnessing the power of compound growth. This strategy accelerates portfolio growth and increases future dividend payments.</p>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="section">
+      <h2 class="section-title">
+        <i class="section-icon fas fa-chart-pie"></i>
+        Current Portfolio Allocation
+      </h2>
+      <p>My dividend portfolio is strategically allocated across different asset classes and sectors to maximize income while managing risk. Here's the current breakdown:</p>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-value">65%</span>
+          <span class="stat-label">Dividend ETFs</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value">25%</span>
+          <span class="stat-label">Individual Stocks</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value">10%</span>
+          <span class="stat-label">REITs</span>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <h3>🏗️ Core Holdings (ETF Foundation)</h3>
+        <p><strong>SCHD (Schwab US Dividend Equity ETF)</strong> - My largest holding, providing broad exposure to high-quality dividend-paying US companies with a focus on dividend growth.</p>
+        <p><strong>JEPI (JPMorgan Equity Premium Income ETF)</strong> - Generates monthly income through covered calls while maintaining equity exposure.</p>
+        <p><strong>SPYD (SPDR Portfolio S&P 500 High Dividend ETF)</strong> - Focuses on the highest dividend-yielding stocks in the S&P 500.</p>
+      </div>
+
+      <table class="portfolio-table">
+        <thead>
+          <tr>
+            <th>Asset Type</th>
+            <th>Allocation</th>
+            <th>Average Yield</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Dividend Growth ETFs</td>
+            <td>45%</td>
+            <td>3.8%</td>
+            <td>Core stability & growth</td>
+          </tr>
+          <tr>
+            <td>High Yield ETFs</td>
+            <td>20%</td>
+            <td>6.2%</td>
+            <td>Current income</td>
+          </tr>
+          <tr>
+            <td>Individual Dividend Stocks</td>
+            <td>25%</td>
+            <td>4.1%</td>
+            <td>Targeted exposure</td>
+          </tr>
+          <tr>
+            <td>REITs</td>
+            <td>10%</td>
+            <td>5.5%</td>
+            <td>Real estate exposure</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">
+        <i class="section-icon fas fa-road"></i>
+        My Investment Journey
+      </h2>
+      <p>Here's how my dividend investing journey has evolved over time, from the initial research phase to building a substantial income-generating portfolio:</p>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">January 2022</div>
+          <div class="timeline-title">🎯 The Beginning</div>
+          <p>Started researching dividend investing after realizing the importance of passive income. Opened my first brokerage account and made my initial $500 investment in SCHD.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">March 2022</div>
+          <div class="timeline-title">📚 Education Phase</div>
+          <p>Spent months learning about dividend growth investing, reading books like "The Intelligent Investor" and following dividend-focused YouTube channels and blogs.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">June 2022</div>
+          <div class="timeline-title">🏗️ Building the Foundation</div>
+          <p>Established my core ETF holdings with SCHD and JEPI. Set up automatic monthly contributions of $300 to maintain consistent investing discipline.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">October 2022</div>
+          <div class="timeline-title">📈 First Milestone</div>
+          <p>Reached $25/month in dividend income. This small amount was incredibly motivating and proved the strategy was working.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">March 2023</div>
+          <div class="timeline-title">🎯 Strategy Refinement</div>
+          <p>Added individual dividend stocks like T (AT&T) and O (Realty Income) for higher yields. Learned the importance of balancing yield with quality.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">August 2023</div>
+          <div class="timeline-title">💪 Acceleration Phase</div>
+          <p>Increased monthly contributions to $500 as my income grew. Started tracking portfolio performance more systematically using spreadsheets.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">January 2024</div>
+          <div class="timeline-title">🎉 Major Milestone</div>
+          <p>Reached $100/month in dividend income! This felt like a significant psychological barrier. Portfolio value crossed $25,000.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">Present Day</div>
+          <div class="timeline-title">🚀 Current Status</div>
+          <p>Currently generating $190/month in dividend income with a goal to reach $250/month by end of 2025. Portfolio continues to grow through reinvestment and regular contributions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    // Portfolio data based on actual holdings
+    const portfolioData = [
+      { stock: "T", shares: 183.42, price: 27.84, yield: 4.00 },
+      { stock: "SPYD", shares: 71.09, price: 42.35, yield: 4.67 },
+      { stock: "SCHD", shares: 224.95, price: 26.54, yield: 3.92 },
+      { stock: "O", shares: 68.90, price: 55.90, yield: 5.67 },
+      { stock: "PFE", shares: 79.55, price: 23.38, yield: 7.35 },
+      { stock: "JEPI", shares: 80.58, price: 56.05, yield: 11.38 },
+      { stock: "JEPQ", shares: 46.35, price: 52.70, yield: 14.47 },
+      { stock: "BP", shares: 41.62, price: 29.29, yield: 6.54 },
+      { stock: "VOO", shares: 4.88, price: 550.78, yield: 1.24 },
+      { stock: "ABBV", shares: 8.51, price: 189.89, yield: 3.40 },
+      { stock: "XLU", shares: 30.66, price: 81.19, yield: 2.80 },
+      { stock: "JNJ", shares: 7.82, price: 155.51, yield: 3.27 },
+      { stock: "VYMI", shares: 33.39, price: 80.00, yield: 5.49 },
+      { stock: "VICI", shares: 32.76, price: 31.50, yield: 5.45 }
+    ];
+
+    // Calculate dividend data
+    const dividendData = portfolioData.map(stock => {
+      const marketValue = stock.shares * stock.price;
+      const annualDividend = marketValue * (stock.yield / 100);
+      const monthlyDividend = annualDividend / 12;
+
+      return {
+        ...stock,
+        marketValue,
+        annualDividend,
+        monthlyDividend
+      };
+    });
+
+    // Sort by monthly dividend (highest first)
+    dividendData.sort((a, b) => b.monthlyDividend - a.monthlyDividend);
+
+    // Populate the table
+    function populateTable() {
+      const tbody = document.getElementById('holdingsTableBody');
+      let totalMonthly = 0;
+      let totalMarketValue = 0;
+
+      // First calculate total market value
+      dividendData.forEach(stock => {
+        totalMarketValue += stock.marketValue;
+        totalMonthly += stock.monthlyDividend;
+      });
+
+      // Then populate table with percentages
+      dividendData.forEach(stock => {
+        const portfolioPercentage = (stock.marketValue / totalMarketValue * 100);
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><strong>${stock.stock}</strong></td>
+          <td>${stock.shares.toFixed(0)}</td>
+          <td>$${stock.price.toFixed(2)}</td>
+          <td>${stock.yield.toFixed(1)}%</td>
+          <td>${portfolioPercentage.toFixed(1)}%</td>
+          <td>$${stock.monthlyDividend.toFixed(2)}</td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      // Update totals
+      const avgYield = (totalMonthly * 12 / totalMarketValue * 100);
+      document.getElementById('avgYield').textContent = avgYield.toFixed(1) + '%';
+      document.getElementById('totalMonthly').innerHTML = `<strong>$${totalMonthly.toFixed(0)}</strong>`;
+
+      // Update hero section yield
+      document.getElementById('portfolio-yield').textContent = avgYield.toFixed(1) + '%';
+
+      // Update progress bar
+      updateProgressBar(totalMonthly);
+    }
+
+    // Update progress bar and stats
+    function updateProgressBar(currentMonthly) {
+      const targetGoal = 250;
+      const progressPercentage = (currentMonthly / targetGoal) * 100;
+      const remaining = targetGoal - currentMonthly;
+
+      // Calculate months remaining until Dec 2025
+      const now = new Date();
+      const targetDate = new Date(2025, 11, 31); // December 31, 2025
+      const monthsRemaining = Math.max(1, Math.ceil((targetDate - now) / (1000 * 60 * 60 * 24 * 30)));
+      const monthlyGrowthNeeded = remaining / monthsRemaining;
+
+      // Update progress bar
+      const progressFill = document.getElementById('progress-fill');
+      setTimeout(() => {
+        progressFill.style.width = Math.min(progressPercentage, 100) + '%';
+      }, 500);
+
+      // Update stats
+      document.getElementById('progress-percentage').textContent = progressPercentage.toFixed(0) + '%';
+      document.getElementById('remaining-amount').textContent = '$' + remaining.toFixed(0);
+      document.getElementById('monthly-needed').textContent = '~$' + monthlyGrowthNeeded.toFixed(0);
+    }
+
+    // Create the income distribution chart
+    function createIncomeChart() {
+      const ctx = document.getElementById('incomeChart').getContext('2d');
+
+      // Get top 8 holdings and group the rest as "Others"
+      const topHoldings = dividendData.slice(0, 8);
+      const otherHoldings = dividendData.slice(8);
+      const othersTotal = otherHoldings.reduce((sum, stock) => sum + stock.monthlyDividend, 0);
+
+      const chartData = topHoldings.map(stock => stock.monthlyDividend);
+      const chartLabels = topHoldings.map(stock => stock.stock);
+
+      if (othersTotal > 0) {
+        chartData.push(othersTotal);
+        chartLabels.push('Others');
+      }
+
+      const colors = [
+        '#10b981', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6',
+        '#06b6d4', '#84cc16', '#f97316', '#6b7280'
+      ];
+
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: chartLabels,
+          datasets: [{
+            data: chartData,
+            backgroundColor: colors,
+            borderWidth: 3,
+            borderColor: '#ffffff',
+            hoverBorderWidth: 4,
+            cutout: '60%'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                padding: 15,
+                usePointStyle: true,
+                font: {
+                  size: 12,
+                  weight: '500'
+                }
+              }
+            },
+            tooltip: {
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              titleColor: '#ffffff',
+              bodyColor: '#ffffff',
+              borderColor: '#ffffff',
+              borderWidth: 1,
+              callbacks: {
+                label: function(context) {
+                  const value = context.parsed;
+                  const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                  const percentage = ((value / total) * 100).toFixed(1);
+                  return `${context.label}: $${value.toFixed(2)}/month (${percentage}%)`;
+                }
+              }
+            }
+          },
+          animation: {
+            animateRotate: true,
+            duration: 1500
+          }
+        }
+      });
+    }
+
+    // Create the portfolio allocation chart
+    function createAllocationChart() {
+      const ctx = document.getElementById('allocationChart').getContext('2d');
+
+      // Sort by market value for allocation chart
+      const sortedByValue = [...dividendData].sort((a, b) => b.marketValue - a.marketValue);
+
+      // Get top 8 holdings and group the rest as "Others"
+      const topHoldings = sortedByValue.slice(0, 8);
+      const otherHoldings = sortedByValue.slice(8);
+      const othersTotal = otherHoldings.reduce((sum, stock) => sum + stock.marketValue, 0);
+
+      const chartData = topHoldings.map(stock => stock.marketValue);
+      const chartLabels = topHoldings.map(stock => stock.stock);
+
+      if (othersTotal > 0) {
+        chartData.push(othersTotal);
+        chartLabels.push('Others');
+      }
+
+      const colors = [
+        '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6',
+        '#06b6d4', '#84cc16', '#f97316', '#6b7280'
+      ];
+
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: chartLabels,
+          datasets: [{
+            data: chartData,
+            backgroundColor: colors,
+            borderWidth: 3,
+            borderColor: '#ffffff',
+            hoverBorderWidth: 4,
+            cutout: '60%'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                padding: 15,
+                usePointStyle: true,
+                font: {
+                  size: 12,
+                  weight: '500'
+                }
+              }
+            },
+            tooltip: {
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              titleColor: '#ffffff',
+              bodyColor: '#ffffff',
+              borderColor: '#ffffff',
+              borderWidth: 1,
+              callbacks: {
+                label: function(context) {
+                  const value = context.parsed;
+                  const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                  const percentage = ((value / total) * 100).toFixed(1);
+                  return `${context.label}: $${value.toLocaleString()} (${percentage}%)`;
+                }
+              }
+            }
+          },
+          animation: {
+            animateRotate: true,
+            duration: 1500
+          }
+        }
+      });
+    }
+
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      populateTable();
+      createIncomeChart();
+      createAllocationChart();
+    });
+  </script>
+
+  <!-- Include the cosmic art script -->
+  <script src="ai_resources/art.js"></script>
+
+  <script>
+    // Initialize cosmic background when page loads
+    window.addEventListener('load', function() {
+      console.log('🌌 Starting to load Cosmic Galaxy Art...');
+      if (typeof createCosmicGalaxyArt === 'function') {
+        createCosmicGalaxyArt();
+        console.log('🌌 Cosmic Galaxy Art loaded for dividend income page!');
+      } else {
+        console.error('❌ createCosmicGalaxyArt function not found!');
+      }
+    });
+  </script>
+</body>
+</html>

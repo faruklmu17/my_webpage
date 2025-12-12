@@ -1,0 +1,728 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setting Up Playwright Tests in GitHub Actions - Faruk Hasan</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Blog-specific styles */
+        .blog-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.7;
+        }
+        
+        .blog-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .blog-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            color: var(--primary-color);
+        }
+        
+        .blog-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .blog-meta-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .blog-meta-item i {
+            margin-right: 0.5rem;
+            color: var(--accent-color);
+        }
+        
+        .blog-content {
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+        
+        .blog-content h2 {
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 0.5rem;
+        }
+        
+        .blog-content h3 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+        }
+        
+        .blog-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .blog-content ul, .blog-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+        
+        .blog-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .blog-content a {
+            color: var(--accent-color);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-color);
+            transition: all 0.2s ease;
+        }
+        
+        .blog-content a:hover {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        
+        .blog-content code {
+            background-color: #1e1e1e; /* Dark background for inline code */
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #f8f8f8; /* Light text color for inline code */
+        }
+        
+        .blog-content pre {
+            background-color: #1e1e1e; /* Dark background for code blocks */
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+            border: 1px solid #333;
+        }
+        
+        .blog-content pre code {
+            background-color: transparent;
+            padding: 0;
+            color: #f8f8f8; /* Light text color for code */
+            font-size: 0.9rem;
+            line-height: 1.5;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .blog-content blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+            margin-left: 0;
+            margin-right: 0;
+            font-style: italic;
+            color: #555;
+        }
+        
+        .blog-content hr {
+            border: none;
+            height: 1px;
+            background-color: #eee;
+            margin: 2rem 0;
+        }
+        
+        .blog-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin: 1.5rem 0;
+            box-shadow: var(--soft-shadow);
+        }
+        
+        /* Footer styles to match index page */
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 2rem 0 1rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .footer-info {
+            text-align: left;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+        
+        .footer-info p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .footer-social h4 {
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+            color: white;
+        }
+        
+        .social-icons-footer {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            
+            .footer-info {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="headline">
+                <h1>Faruk Hasan</h1>
+                <p><b>Software QA Engineer | Automation & AI-Driven Testing Specialist</b></p>
+            </div>
+            <div class="nav-social-container">
+                <nav>
+                    <ul>
+                        <li><a href="../index.html#about">About Me</a></li>
+                        <li><a href="../index.html#courses">Courses</a></li>
+                        <li><a href="../index.html#projects">Projects</a></li>
+                        <li><a href="../index.html#blog">Blog</a></li>
+                    </ul>
+                </nav>
+                <div class="social-icons">
+                    <!-- Social icons here -->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="blog-container">
+        <article class="blog-post">
+            <div class="blog-header">
+                <h1 class="blog-title">Setting Up Playwright Tests in Your CI Pipeline with GitHub Actions</h1>
+                <div class="blog-meta">
+                    <div class="blog-meta-item">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>June 20, 2024</span>
+                    </div>
+                    <div class="blog-meta-item">
+                        <i class="far fa-clock"></i>
+                        <span>12 min read</span>
+                    </div>
+                    <div class="blog-meta-item">
+                        <i class="fas fa-tag"></i>
+                        <span>Playwright, GitHub Actions, CI/CD, Testing</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="blog-content">
+                <p>Continuous Integration (CI) is essential for any modern QA workflow—especially when you want to catch issues early and ensure your automated tests run seamlessly every time code changes. In this post, we'll walk through how to integrate Playwright tests into a CI pipeline using GitHub Actions. You'll learn:</p>
+
+                <ol>
+                    <li><strong>What Continuous Integration (CI) Means</strong> and why QA Engineers must be part of it</li>
+                    <li><strong>Prerequisites</strong>: Git, GitHub, VS Code, Node.js, and basic GitHub Actions knowledge</li>
+                    <li><strong>Step-by-Step Instructions</strong> to create a repository, clone it locally, install Playwright, and configure a GitHub Actions workflow</li>
+                    <li><strong>Understanding the <code>test-workflow.yml</code></strong>: triggers, jobs, and steps required to run Playwright tests automatically on every push or pull request</li>
+                    <li><strong>How to Confirm</strong> that your CI pipeline is running Playwright tests correctly</li>
+                </ol>
+
+                <p>By the end, you'll have a working CI pipeline so that any new or existing Playwright tests in your repository run automatically—no manual intervention needed.</p>
+                
+                <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin: 2rem 0;">
+                    <iframe 
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                        src="https://www.youtube.com/embed/J3XbKWAFvC0" 
+                        title="Setting Up Playwright Tests in GitHub Actions" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                
+                <p class="video-description" style="text-align: center; margin-bottom: 2rem;">
+                    <strong>Watch the full video tutorial:</strong> See a step-by-step demonstration of setting up Playwright tests with GitHub Actions.
+                    <br>
+                    <a href="https://www.youtube.com/watch?v=J3XbKWAFvC0" target="_blank" style="display: inline-block; margin-top: 0.5rem; color: #0066cc; text-decoration: none; font-weight: 500;">
+                        <i class="fab fa-youtube" style="color: #ff0000;"></i> Watch on YouTube
+                    </a>
+                </p>
+
+                <hr>
+
+                <h2>Why QA Engineers Need CI</h2>
+
+                <h3>What Is Continuous Integration (CI)?</h3>
+
+                <p>Continuous Integration is a software development practice where teams frequently integrate code changes into a shared repository. Each time a developer (or QA engineer) pushes code, an automated build-and-test workflow runs to catch errors early. This process ensures:</p>
+
+                <ul>
+                    <li><strong>Stability</strong>: New code merges don't break existing functionality.</li>
+                    <li><strong>Early Feedback</strong>: If a test fails, developers are alerted immediately.</li>
+                    <li><strong>High Code Quality</strong>: Automated tests run against every commit, reducing regressions.</li>
+                </ul>
+
+                <h3>The Role of QA in CI</h3>
+
+                <p>As a QA Engineer, your responsibilities in a CI environment typically include:</p>
+
+                <ol>
+                    <li><strong>Adding New Tests</strong>
+                    <br>Whenever you create a new Playwright test locally, it must be integrated into the shared repository so everyone—developers, other QA Engineers, and DevOps—can run that test as part of the automated suite.</li>
+
+                    <li><strong>Running the Full Test Suite</strong>
+                    <br>If the repository already has five tests and you add a sixth, the CI pipeline will automatically run "Test #6 + Tests #1–5." This confirms that your new test coexists without breaking existing checks.</li>
+
+                    <li><strong>Detecting Failures Early</strong>
+                    <br>If any of the six tests fail, the CI pipeline alerts the team. Early notification makes it easy to fix issues before they cascade into larger problems.</li>
+                </ol>
+
+                <p>By integrating Playwright tests into your CI workflow, you ensure that new tests "ship" with the code and automatically validate every push or pull request.</p>
+
+                <hr>
+
+                <h2>Prerequisites</h2>
+
+                <p>Before diving in, make sure you have:</p>
+
+                <ul>
+                    <li><strong>A GitHub Account</strong>: You need a shared repository for CI.</li>
+                    <li><strong>Git Installed Locally</strong>: So you can run <code>git clone</code>, <code>git add</code>, <code>git commit</code>, and <code>git push</code>.</li>
+                    <li><strong>VS Code (or another editor)</strong>: We'll use Visual Studio Code here.</li>
+                    <li><strong>Node.js Installed</strong>: Playwright requires Node.js to install packages and run tests.</li>
+                    <li><strong>Basic Playwright Knowledge</strong>: You should know how to write and run Playwright tests locally (e.g., <code>npx playwright test</code>).</li>
+                    <li><strong>Familiarity with GitHub Actions</strong> (basic understanding of <code>.yml</code> workflows).</li>
+                </ul>
+
+                <p>Once these are set up, you'll be ready to follow along.</p>
+
+                <hr>
+
+                <h2>Step 1: Create & Clone the GitHub Repository</h2>
+
+                <ol>
+                    <li><strong>Log in to GitHub</strong>, click <strong>New repository</strong>, and name it—for example:
+
+                    <pre><code>ci-playwright-testing</code></pre>
+                    </li>
+                    <li>Choose <strong>Public</strong> (or <strong>Private</strong> if you have a paid GitHub plan), <strong>omit</strong> initializing with a README, and click <strong>Create repository</strong>.</li>
+                    <li>On the repo's main page, click the green <strong>Code</strong> button, copy the HTTPS (or SSH) URL.</li>
+                    <li>On your local machine, open a terminal and navigate to the folder where you want to store the project. For example:
+
+                    <pre><code>cd ~/Desktop
+mkdir ci-playwright-demo
+cd ci-playwright-demo</code></pre>
+                    </li>
+                    <li>Clone your empty repo:
+
+                    <pre><code>git clone https://github.com/&lt;your-username&gt;/ci-playwright-testing.git
+cd ci-playwright-testing</code></pre>
+                    </li>
+                </ol>
+
+                <p>You'll see "Cloning into 'ci-playwright-testing'… done. You appear to have cloned an empty repository." Perfect—that's exactly what we want.</p>
+
+                <hr>
+
+                <h2>Step 2: Install Playwright & Verify Demo Tests</h2>
+
+                <p>Playwright comes with a handful of sample tests so you don't have to write your own right away. We'll use those to prove the CI pipeline works end-to-end.</p>
+
+                <ol>
+                    <li><strong>Open the project in VS Code</strong>:
+
+                    <ul>
+                        <li>In VS Code, choose <strong>File → Open Folder…</strong> and select <code>ci-playwright-testing</code>.</li>
+                    </ul>
+                    </li>
+
+                    <li><strong>Initialize Playwright</strong> by running:
+
+                    <pre><code>npm init playwright@latest</code></pre>
+
+                    <ul>
+                        <li>Choose <strong>TypeScript</strong> (or <strong>JavaScript</strong> if you prefer).</li>
+                        <li>Skip GitHub Actions integration for now (we'll add that manually later).</li>
+                        <li>When prompted to install dependencies, select <strong>Yes</strong>.</li>
+                    </ul>
+
+                    <p>This command creates a <code>package.json</code>, a <code>playwright.config.ts</code> (or <code>.js</code>), and a <code>tests/</code> folder containing example specs like <code>example.spec.ts</code>.</p>
+                    </li>
+
+                    <li><strong>Open a terminal in VS Code</strong> (View → Terminal), ensure you're in <code>ci-playwright-testing</code>, and execute:
+
+                    <pre><code>npx playwright test</code></pre>
+
+                    <ul>
+                        <li>You should see something like "Running 2 tests on 3 browsers" (Chromium, Firefox, WebKit) by default.</li>
+                        <li>Once complete, you'll notice "All tests passed." This confirms Playwright is installed and running successfully.</li>
+                    </ul>
+                    </li>
+
+                    <li>(Optional) <strong>Speed Up Local Runs</strong> by limiting to Chromium only:
+
+                    <ul>
+                        <li>In <code>playwright.config.ts</code>, comment out Firefox and WebKit under <code>projects</code> so that tests run faster locally.</li>
+                    </ul>
+                    </li>
+                </ol>
+
+                <p>Now you have a working set of demo tests in your local repo. Next: configure CI so GitHub runs these same tests every time we push.</p>
+
+                <hr>
+
+                <h2>Step 3: Create the GitHub Actions Workflow</h2>
+
+                <p>GitHub Actions uses YAML files to define "workflows." Each workflow specifies:</p>
+
+                <ol>
+                    <li><strong>When to Run</strong> (trigger: push, pull_request, etc.)</li>
+                    <li><strong>Which Jobs to Run</strong> (e.g., "run Playwright tests on Ubuntu")</li>
+                    <li><strong>Steps Inside Each Job</strong> (e.g., "checkout code," "install dependencies," "run <code>npx playwright test</code>")</li>
+                </ol>
+
+                <h3>3.1 Create the Workflow Directory & File</h3>
+
+                <ol>
+                    <li>In VS Code's Explorer (left sidebar), ensure you're focused on the <strong><code>ci-playwright-testing</code></strong> root folder.</li>
+
+                    <li><strong>Add a new folder</strong>: Name it
+                    <pre><code>.github</code></pre>
+                    </li>
+
+                    <li>Inside <code>.github/</code>, <strong>add another folder</strong>:
+                    <pre><code>workflows</code></pre>
+                    <p>Now the path is <code>.github/workflows/</code>.</p>
+                    </li>
+
+                    <li>Inside <code>.github/workflows/</code>, <strong>create a file</strong> named:
+                    <pre><code>test-workflow.yml</code></pre>
+                    </li>
+                </ol>
+
+                <p>At this point, your file structure should look like:</p>
+
+                <pre><code>ci-playwright-testing/
+├── .github/
+│   └── workflows/
+│       └── test-workflow.yml
+├── package.json
+├── playwright.config.ts
+└── tests/
+    └── example.spec.ts
+</code></pre>
+
+                <h3>3.2 Define the Workflow Contents</h3>
+
+                <p>Open <code>test-workflow.yml</code> and populate it with the following:</p>
+
+                <pre><code># test-workflow.yml
+name: Run Playwright Tests
+
+# 1. Trigger: Run this workflow on every push or pull request to main
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# 2. Jobs section: We only have one job—run Playwright tests on Ubuntu
+jobs:
+  test:
+    # The virtual environment (runner) to use
+    runs-on: ubuntu-latest
+
+    # 3. Steps within the 'test' job
+    steps:
+      # 3.1. Checkout the repository code so it's available in the runner
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      # 3.2. Install Node.js (LTS). This makes `node` and `npm` available.
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # use your preferred Node.js version
+
+      # 3.3. Install project dependencies (i.e., Playwright, etc.)
+      - name: Install npm dependencies
+        run: npm install
+
+      # 3.4. Install Playwright browsers (Chromium, Firefox, WebKit)
+      - name: Install Playwright Browsers
+        run: npx playwright install
+
+      # 3.5. Run Playwright tests (headless by default)
+      - name: Run Playwright Tests
+        run: npx playwright test
+</code></pre>
+
+                <h4>How the Workflow Works</h4>
+
+                <ol>
+                    <li><strong><code>name: Run Playwright Tests</code></strong>
+                    <br>Gives your workflow a human-readable title.</li>
+
+                    <li><strong><code>on:</code></strong>
+                    <br>Specifies <strong>events</strong> that trigger this workflow. Here, we'll run on any <code>push</code> or <code>pull_request</code> to the <code>main</code> branch.</li>
+
+                    <li><strong><code>jobs:</code></strong>
+                    <br>Under <code>jobs</code>, we define a single job named <code>test</code>. You could add more jobs—linting, building, deployment—later, but for now, QA’s focus is running tests.</li>
+
+                    <li><strong><code>runs-on: ubuntu-latest</code></strong>
+                    <br>Tells GitHub to spin up a fresh Ubuntu virtual machine.</li>
+
+                    <li><strong><code>steps:</code></strong>
+                    <br>A sequence of steps to run inside that VM.
+
+                    <ul>
+                        <li><strong>actions/checkout\@v3</strong>: This action fetches your repository’s files so the runner can see them.</li>
+                        <li><strong>actions/setup-node\@v3</strong>: Installs Node.js so you can run <code>npm</code> commands.</li>
+                        <li><code>npm install</code>: Installs dependencies listed in <code>package.json</code>, including Playwright itself.</li>
+                        <li><code>npx playwright install</code>: Downloads browser binaries (Chromium, Firefox, WebKit) so tests can run.</li>
+                        <li><code>npx playwright test</code>: Executes all tests under <code>tests/</code>. By default, Playwright runs tests in headless mode across the configured browsers.</li>
+                    </ul>
+                    </li>
+                </ol>
+
+                <p>Save this file. Once you commit it, GitHub Actions will detect the new workflow definition.</p>
+
+                <hr>
+
+                <h2>Step 4: Commit & Push Your Changes</h2>
+
+                <p>With the workflow defined, we need to push everything back to GitHub so the CI pipeline can take over:</p>
+
+                <ol>
+                    <li><strong>Stage all changes</strong> (including <code>test-workflow.yml</code>):</li>
+                </ol>
+
+                <pre><code>git add .
+</code></pre>
+
+                <ol start="2">
+                    <li><strong>Commit</strong> with a clear message:</li>
+                </ol>
+
+                <pre><code>git commit -m "Add GitHub Actions workflow to run Playwright tests"
+</code></pre>
+
+                <ol start="3">
+                    <li><strong>Push</strong> to the <code>main</code> branch:</li>
+                </ol>
+
+                <pre><code>git push origin main
+</code></pre>
+
+                <p>Once the push completes, navigate to your GitHub repository.</p>
+
+                <hr>
+
+                <h2>Step 5: Verify the CI Pipeline in GitHub Actions</h2>
+
+                <ol>
+                    <li>In your GitHub repo, click the <strong>Actions</strong> tab.</li>
+                    <li>You should see a workflow run titled “Run Playwright Tests” triggered by your recent push.</li>
+                    <li>Click on that workflow run, and you’ll see real-time logs:</li>
+                </ol>
+
+                <ul>
+                    <li><strong>Checkout repository</strong></li>
+                    <li><strong>Setup Node.js</strong></li>
+                    <li><strong>Install npm dependencies</strong></li>
+                    <li><strong>Install Playwright Browsers</strong></li>
+                    <li><strong>Run Playwright Tests</strong></li>
+                </ul>
+
+                <p>If everything is configured correctly, you’ll see green checkmarks next to each step, and the final step “Run Playwright Tests” will say something like “2 tests passed” (or however many example specs you have). If a test fails, that step will turn red, and GitHub will indicate an error—letting the team know right away that something broke.</p>
+
+                <hr>
+
+                <h2>What Happens on Future Pushes or Pull Requests?</h2>
+
+                <p>With the workflow file in place, <strong>every push</strong> or <strong>pull request</strong> to the <code>main</code> branch triggers this job. In practice:</p>
+
+                <ol>
+                    <li><strong>Developer or QA Engineer</strong> writes a new Playwright test (e.g., <code>tests/login.spec.ts</code>) locally.</li>
+                    <li>They <strong>stage & commit</strong> the new test file, then <strong>push</strong> to <code>main</code>.</li>
+                    <li>GitHub Actions picks up the change, spins up a fresh Ubuntu VM, checks out the code, installs Node.js, installs dependencies, adds browsers, and finally runs <code>npx playwright test</code>.</li>
+                    <li>If the new test passes alongside existing tests, you’ll see green checks in GitHub Actions. If anything fails, the workflow stops at the failing step, and the team is notified immediately.</li>
+                </ol>
+
+                <p>This workflow enforces that <strong>no one can merge code into <code>main</code> without passing the entire Playwright test suite</strong>. As your test count grows—5 tests, 10 tests, or 50 tests—Playwright simply runs them all in sequence. QA Engineers can focus on writing reliable tests, secure in the knowledge that CI will catch regressions.</p>
+
+                <hr>
+
+                <h2>Key Benefits of Integrating Playwright Into CI</h2>
+
+                <ul>
+                    <li><strong>Automated Test Runs on Every Change</strong>
+                    <br>Ensures each commit or pull request is validated, catching issues before they linger.</li>
+
+                    <li><strong>Immediate Feedback</strong>
+                    <br>Developers and QA instantly see pass/fail results in the Actions tab—no waiting for manual verification.</li>
+
+                    <li><strong>Improved Code Quality & Reduced Regression</strong>
+                    <br>As your application evolves, your test suite evolves in lockstep, preventing old bugs from resurfacing.</li>
+
+                    <li><strong>Scalable Test Suite</strong>
+                    <br>New tests “just drop in.” Whether you have 2 tests or 200, the same CI pipeline runs them all.</li>
+
+                    <li><strong>Centralized Visibility</strong>
+                    <br>Anyone on the team—DevOps, QA, or Development—can inspect the workflow logs and debug failures quickly.</li>
+                </ul>
+
+                <hr>
+
+                <h2>Tips for a Smooth CI Experience</h2>
+
+                <ol>
+                    <li><strong>Keep Workflow YAML Lean</strong>
+                    <br>If you add more jobs later (linting, building, deploying), break them into separate workflow files. Small, focused <code>.yml</code> files are easier to maintain.</li>
+
+                    <li><strong>Lock Node.js & Playwright Versions</strong>
+                    <br>In <code>actions/setup-node@v3</code>, specify an exact <code>node-version</code> (e.g., <code>18.16.0</code>) if you want to avoid unexpected changes whenever a new LTS is released. Similarly, pin your Playwright version in <code>package.json</code> (e.g., <code>"@playwright/test": "1.40.0"</code>).</li>
+
+                    <li><strong>Cache Dependencies (Advanced)</strong>
+                    <br>Once you have many npm packages, consider caching <code>node_modules</code> to speed up <code>npm install</code>. You can use <a href="https://github.com/actions/cache">actions/cache</a> to cache <code>~/.npm</code> or <code>node_modules</code>.</li>
+
+                    <li><strong>Artifacts & Test Reports</strong>
+                    <br>By default, Playwright generates HTML test reports. To make debugging easier, you can save those HTML reports as workflow artifacts so you can download them from GitHub Actions.
+
+                    <p>For example, add a step after <code>npx playwright test</code>:</p>
+
+                    <pre><code>- name: Upload Playwright Report
+  uses: actions/upload-artifact@v3
+  with:
+    name: playwright-report
+    path: playwright-report/
+</code></pre>
+
+                    <p>This way, you can click “Artifacts” in the Actions run and download the full HTML report.</p>
+                    </li>
+
+                    <li><strong>Branch Protections</strong>
+                    <br>Enable branch protection on <code>main</code> so that every pull request must have a passing CI run before merging. This enforces the rule that “all Playwright tests must pass” before code hits production.</li>
+                </ol>
+
+                <hr>
+                
+                <h2>Video Tutorial</h2>
+                
+                <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; margin-bottom: 2rem;">
+                    <iframe 
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                        src="https://www.youtube.com/embed/J3XbKWAFvC0" 
+                        title="Setting Up Playwright Tests in GitHub Actions" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                
+                <p class="video-description" style="text-align: center; margin-bottom: 2rem;">
+                    <strong>Watch the full video tutorial:</strong> See a step-by-step demonstration of setting up Playwright tests with GitHub Actions.
+                    <br>
+                    <a href="https://www.youtube.com/watch?v=J3XbKWAFvC0" target="_blank" style="display: inline-block; margin-top: 0.5rem; color: #0066cc; text-decoration: none; font-weight: 500;">
+                        <i class="fab fa-youtube" style="color: #ff0000;"></i> Watch on YouTube
+                    </a>
+                </p>
+                
+                <hr>
+
+                <h2>Conclusion</h2>
+
+                <p>By following these steps, you’ve built a basic—but powerful—CI pipeline that automatically runs Playwright tests whenever code is pushed or a pull request is opened. The flow looks like this:</p>
+
+                <pre><code>Developer or QA Engineer: Write or update Playwright test locally 
+      ↓
+git add + git commit + git push
+      ↓
+GitHub Actions: 
+  • Checkout code 
+  • Setup Node.js 
+  • npm install (Playwright + dependencies)
+  • npx playwright install (browser binaries) 
+  • npx playwright test
+      ↓
+GitHub Actions UI: Green check if all tests pass, or red X if any fail
+</code></pre>
+
+                <p>This approach enforces high-quality test coverage, reduces regression risk, and ensures that new tests become part of the shared suite instantly. As your project grows, you can expand this CI pipeline to include:</p>
+
+                <ul>
+                    <li><strong>Linting & Formatting</strong> (ESLint, Prettier)</li>
+                    <li><strong>API Contract Checks</strong> (e.g., using Postman/Newman or Pact)</li>
+                    <li><strong>Accessibility Audits</strong> (e.g., <code>axe-playwright</code>)</li>
+                    <li><strong>Visual Regression Tests</strong> (e.g., using Playwright’s built-in snapshot functionality)</li>
+                    <li><strong>Deployment to Staging</strong> (CD)</li>
+                </ul>
+
+                <p>But the core principle remains: <strong>push code → automated build/test → immediate feedback</strong>. By integrating Playwright into GitHub Actions, QA Engineers and developers can confidently collaborate on a stable, tested codebase. Happy testing!</p>
+            </div>
+        </article>
+        <a href="../index.html#blog" class="back-to-blog"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h4 class="footer-logo">Faruk Hasan</h4>
+                <p>Software QA Engineer | Automation & AI-Driven Testing Specialist</p>
+                <p>Copyright © 2023 Faruk Hasan. All rights reserved.</p>
+            </div>
+            <div class="footer-social">
+                <h4>Follow Me</h4>
+                <div class="social-icons-footer">
+                    <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://github.com/faruklmu17" class="social-icon github" aria-label="GitHub" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Designed and developed by Faruk Hasan</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Grocery List (Messy Data)</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fafc;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+    }
+    table {
+      border-collapse: collapse;
+      width: 600px;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    caption {
+      margin-bottom: .75rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+    }
+    th {
+      background: #4CAF50;
+      color: white;
+      font-weight: 600;
+      letter-spacing: .5px;
+    }
+    tr:nth-child(even) {
+      background: #f2f2f2;
+    }
+    tr:hover {
+      background: #e8f5e9;
+    }
+    p {
+      margin-top: 1rem;
+      color: #555;
+      font-size: .95rem;
+    }
+    code {
+      background: #f4f4f4;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <table id="groceries">
+    <caption>Grocery Items (with intentional missing / messy values)</caption>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Apples</td>          <td>$3.49</td></tr>
+      <tr><td></td>                <td>$2.19</td></tr>        <!-- empty item -->
+      <tr><td>Bananas</td>         <td></td></tr>             <!-- empty price -->
+      <tr><td>Carrots</td>         <td>None</td></tr>         <!-- "None" string -->
+      <tr><td>  </td>              <td>$1.25</td></tr>        <!-- whitespace item -->
+      <tr><td>Milk</td>            <td>null</td></tr>         <!-- "null" string -->
+      <tr><td>Eggs</td>            <td>$4.05</td></tr>
+      <tr><td>Tomatoes</td>        <td>  </td></tr>           <!-- whitespace price -->
+      <tr><td>None</td>            <td>$2.99</td></tr>        <!-- "None" as item -->
+      <tr><td>Spinach</td>         <td>$3.10</td></tr>
+    </tbody>
+  </table>
+  
+</body>
+</html>

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔧 Git & GitHub Beginner Quiz | Version Control Mastery</title>
+  <meta name="description" content="Master Git and GitHub fundamentals with this comprehensive 16-question quiz covering repositories, commits, branches, and collaboration workflows." />
+  <meta name="keywords" content="git quiz, github quiz, version control, git commands, git basics, programming quiz" />
+  <meta name="author" content="Faruk Hasan" />
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Git & GitHub Beginner Quiz | Version Control Mastery">
+  <meta property="og:description" content="Test your Git and GitHub knowledge with 16 comprehensive questions covering repositories, commits, branches, and collaboration.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://faruk-hasan.com/quizzes/GIT/git_quiz_basics.html">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Git & GitHub Beginner Quiz">
+  <meta name="twitter:description" content="Master version control with this comprehensive Git and GitHub quiz!">
+
+  <!-- Schema.org JSON-LD for Quiz -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Quiz",
+    "name": "Git & GitHub Beginner Quiz",
+    "description": "A comprehensive 16-question quiz covering Git and GitHub fundamentals including repositories, commits, branches, and collaboration workflows.",
+    "educationalAlignment": {
+      "@type": "AlignmentObject",
+      "alignmentType": "educationalSubject",
+      "targetName": "Version Control Systems"
+    },
+    "educationalUse": "Practice Quiz",
+    "audience": {
+      "@type": "EducationalAudience",
+      "educationalRole": "student"
+    },
+    "provider": {
+      "@type": "Person",
+      "name": "Faruk Hasan",
+      "url": "https://faruk-hasan.com"
+    },
+    "about": ["Git", "GitHub", "Version Control", "Programming", "Software Development"]
+  }
+  </script>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Shared Header and Footer Styles -->
+  <link rel="stylesheet" href="../../shared/header-footer.css">
+
+  <style>
+    :root {
+      --primary-color: #f39c12;
+      --primary-dark: #e67e22;
+      --secondary-color: #2c3e50;
+      --bg-light: #f8f9fa;
+      --card-bg: #ffffff;
+      --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+      --success: #27ae60;
+      --warning: #f39c12;
+      --error: #e74c3c;
+      --code-bg: #f8f9fa;
+      --code-border: #e9ecef;
+      --text-primary: #2c3e50;
+      --text-secondary: #7f8c8d;
+      --border-radius: 12px;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    /* Header margin adjustment for quiz */
+    header {
+      margin-bottom: 2rem;
+    }
+
+
+
+
+
+
+
+    /* Main Content */
+    .quiz-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem 2rem;
+    }
+
+    .quiz-title {
+      text-align: center;
+      color: white;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .quiz-subtitle {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    .intro {
+      background: var(--card-bg);
+      border-left: 5px solid var(--primary-color);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .intro h3 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .intro p {
+      margin-bottom: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .intro p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Question Styles */
+    .question {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .question:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .question p {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .question label {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      margin: 0.5rem 0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      background: var(--bg-light);
+      border: 2px solid transparent;
+      font-weight: 500;
+    }
+
+    .question label:hover {
+      background: rgba(243, 156, 18, 0.1);
+      border-color: var(--primary-color);
+    }
+
+    .question input[type="radio"] {
+      margin-right: 1rem;
+      transform: scale(1.2);
+      accent-color: var(--primary-color);
+    }
+
+    .short-answer, textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e1e8ed;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: var(--transition);
+      background: var(--bg-light);
+      resize: vertical;
+    }
+
+    .short-answer:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.1);
+    }
+
+    code {
+      background: var(--code-bg);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      color: var(--primary-dark);
+      border: 1px solid var(--code-border);
+    }
+
+    /* Submit Button */
+    .submit-container {
+      text-align: center;
+      margin: 3rem 0;
+    }
+
+    #submitBtn {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+      color: white;
+      border: none;
+      padding: 1rem 3rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    #submitBtn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    #submitBtn:active {
+      transform: translateY(0);
+    }
+
+    /* Answer Key Styles */
+    .answer-key {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      margin-top: 2rem;
+      box-shadow: var(--shadow);
+      border-left: 5px solid var(--success);
+    }
+
+    .answer-key h2 {
+      color: var(--success);
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .answer-key ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .answer-key li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-weight: 500;
+    }
+
+    .answer-key li:last-child {
+      border-bottom: none;
+    }
+
+
+
+
+
+
+
+    @media (max-width: 768px) {
+      .quiz-container {
+        padding: 0 1rem 2rem;
+      }
+
+      .quiz-title {
+        font-size: 2rem;
+      }
+
+      .question {
+        padding: 1.5rem;
+      }
+
+
+    }
+  </style>
+</head>
+<body>
+  <!-- Header will be automatically injected by shared/header-footer.js -->
+
+  <!-- Main Content -->
+  <div class="quiz-container">
+    <h1 class="quiz-title">
+      <i class="fab fa-git-alt"></i> Git & GitHub Mastery Quiz
+    </h1>
+    <p class="quiz-subtitle">Test your version control knowledge with 16 comprehensive questions</p>
+
+    <div class="intro">
+      <h3><i class="fas fa-info-circle"></i> About This Quiz</h3>
+      <p><strong>🎯 Purpose:</strong> Master the fundamentals of Git and GitHub version control systems</p>
+      <p><strong>📊 Format:</strong> 16 questions including multiple choice, true/false, short answer, and scenario-based problems</p>
+      <p><strong>⏱️ Time:</strong> Approximately 15-20 minutes</p>
+      <p><strong>🎓 Level:</strong> Beginner to Intermediate</p>
+      <p><strong>💡 Topics Covered:</strong> Git commands, repositories, commits, branches, GitHub workflows, and collaboration</p>
+    </div>
+
+    <form id="quizForm">
+
+  <!-- Multiple Choice -->
+  <div class="question">
+    <p>1. What is Git?</p>
+    <label><input type="radio" name="q1"> a) A programming language</label>
+    <label><input type="radio" name="q1"> b) A cloud storage service</label>
+    <label><input type="radio" name="q1"> c) A version control system</label>
+    <label><input type="radio" name="q1"> d) A code editor</label>
+  </div>
+
+  <div class="question">
+    <p>2. Which command initializes a new Git repository?</p>
+    <label><input type="radio" name="q2"> a) git init</label>
+    <label><input type="radio" name="q2"> b) git start</label>
+    <label><input type="radio" name="q2"> c) git create</label>
+    <label><input type="radio" name="q2"> d) git new</label>
+  </div>
+
+  <div class="question">
+    <p>3. Which command shows the current status of your Git repository?</p>
+    <label><input type="radio" name="q3"> a) git log</label>
+    <label><input type="radio" name="q3"> b) git push</label>
+    <label><input type="radio" name="q3"> c) git status</label>
+    <label><input type="radio" name="q3"> d) git info</label>
+  </div>
+
+  <div class="question">
+    <p>4. What does <code>git add</code> do?</p>
+    <label><input type="radio" name="q4"> a) Sends code to GitHub</label>
+    <label><input type="radio" name="q4"> b) Tracks files and stages them for commit</label>
+    <label><input type="radio" name="q4"> c) Deletes a file</label>
+    <label><input type="radio" name="q4"> d) Creates a new repo</label>
+  </div>
+
+  <div class="question">
+    <p>5. What is the purpose of <code>git commit -m "message"</code>?</p>
+    <label><input type="radio" name="q5"> a) To upload code to GitHub</label>
+    <label><input type="radio" name="q5"> b) To stage files</label>
+    <label><input type="radio" name="q5"> c) To save a snapshot of changes with a message</label>
+    <label><input type="radio" name="q5"> d) To merge branches</label>
+  </div>
+
+  <!-- True/False -->
+  <div class="question">
+    <p>6. <code>git clone</code> creates a copy of a remote repository on your local machine.</p>
+    <label><input type="radio" name="q6"> True</label>
+    <label><input type="radio" name="q6"> False</label>
+  </div>
+
+  <div class="question">
+    <p>7. You can make commits without staging files using <code>git add</code>.</p>
+    <label><input type="radio" name="q7"> True</label>
+    <label><input type="radio" name="q7"> False</label>
+  </div>
+
+  <div class="question">
+    <p>8. GitHub is a web-based interface for managing Git repositories.</p>
+    <label><input type="radio" name="q8"> True</label>
+    <label><input type="radio" name="q8"> False</label>
+  </div>
+
+  <div class="question">
+    <p>9. A Git branch lets you work on different versions of your project at the same time.</p>
+    <label><input type="radio" name="q9"> True</label>
+    <label><input type="radio" name="q9"> False</label>
+  </div>
+
+  <div class="question">
+    <p>10. <code>git pull</code> uploads changes from your local computer to GitHub.</p>
+    <label><input type="radio" name="q10"> True</label>
+    <label><input type="radio" name="q10"> False</label>
+  </div>
+
+  <!-- Short Answer -->
+  <div class="question">
+    <p>11. What command do you use to upload your local commits to GitHub?</p>
+    <input type="text" name="q11" class="short-answer">
+  </div>
+
+  <div class="question">
+    <p>12. What is the default name of the main branch in Git?</p>
+    <input type="text" name="q12" class="short-answer">
+  </div>
+
+  <div class="question">
+    <p>13. What is a "commit message"? Why is it important?</p>
+    <textarea name="q13" class="short-answer" rows="2"></textarea>
+  </div>
+
+  <div class="question">
+    <p>14. Name the file that Git uses to ignore certain files from tracking.</p>
+    <input type="text" name="q14" class="short-answer">
+  </div>
+
+  <div class="question">
+    <p>15. What is a pull request used for on GitHub?</p>
+    <textarea name="q15" class="short-answer" rows="2"></textarea>
+  </div>
+
+  <!-- Scenario -->
+  <div class="question">
+    <p>16. Scenario: You fork a repo, clone it, create a feature branch, make changes, push it, and create a pull request. Answer the following:</p>
+    <p>a. What command do you use to fork a repository?</p>
+    <input type="text" name="q16a" class="short-answer">
+    <p>b. What command clones the forked repo?</p>
+    <input type="text" name="q16b" class="short-answer">
+    <p>c. How do you create and switch to a new branch?</p>
+    <input type="text" name="q16c" class="short-answer">
+    <p>d. What two commands do you run before pushing the changes?</p>
+    <input type="text" name="q16d" class="short-answer">
+    <p>e. What command pushes your branch to GitHub?</p>
+    <input type="text" name="q16e" class="short-answer">
+    <p>f. Where is the pull request being merged?</p>
+    <input type="text" name="q16f" class="short-answer">
+    <p>g. Why is this workflow useful when contributing to public repositories?</p>
+    <textarea name="q16g" class="short-answer" rows="2"></textarea>
+  </div>
+
+      <div class="submit-container">
+        <button type="button" id="submitBtn" onclick="showAnswers()">
+          <i class="fas fa-check-circle"></i> Submit Quiz
+        </button>
+      </div>
+    </form>
+
+    <div id="answers" class="answer-key" style="display:none;">
+      <h2><i class="fas fa-check-circle"></i> Answer Key</h2>
+      <ul>
+        <li><strong>1.</strong> c) A version control system</li>
+        <li><strong>2.</strong> a) git init</li>
+        <li><strong>3.</strong> c) git status</li>
+        <li><strong>4.</strong> b) Tracks files and stages them for commit</li>
+        <li><strong>5.</strong> c) To save a snapshot of changes with a message</li>
+        <li><strong>6.</strong> True</li>
+        <li><strong>7.</strong> False</li>
+        <li><strong>8.</strong> True</li>
+        <li><strong>9.</strong> True</li>
+        <li><strong>10.</strong> False</li>
+        <li><strong>11.</strong> git push</li>
+        <li><strong>12.</strong> main (or master in older repositories)</li>
+        <li><strong>13.</strong> A short description of changes; helps track project history and understand what was changed</li>
+        <li><strong>14.</strong> .gitignore</li>
+        <li><strong>15.</strong> To propose and merge changes via code review and collaboration</li>
+        <li><strong>16. Scenario Answers:</strong>
+          <ul>
+            <li><strong>a.</strong> Use GitHub web interface (Fork button)</li>
+            <li><strong>b.</strong> git clone &lt;forked-repo-URL&gt;</li>
+            <li><strong>c.</strong> git checkout -b feature-branch-name</li>
+            <li><strong>d.</strong> git add . and git commit -m "commit message"</li>
+            <li><strong>e.</strong> git push origin feature-branch-name</li>
+            <li><strong>f.</strong> Original repository (upstream)</li>
+            <li><strong>g.</strong> Allows safe collaboration, code review, and prevents direct changes to main codebase</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Footer will be automatically injected by shared/header-footer.js -->
+
+  <!-- Shared Header and Footer JavaScript -->
+  <script src="../../shared/header-footer.js"></script>
+
+  <script>
+    function showAnswers() {
+      const answersDiv = document.getElementById("answers");
+      const submitBtn = document.getElementById("submitBtn");
+
+      // Show answers
+      answersDiv.style.display = "block";
+
+      // Update button
+      submitBtn.innerHTML = '<i class="fas fa-eye"></i> Answers Revealed!';
+      submitBtn.style.background = 'linear-gradient(135deg, #27ae60 0%, #2ecc71 100%)';
+      submitBtn.disabled = true;
+
+      // Smooth scroll to answers
+      setTimeout(() => {
+        answersDiv.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }, 100);
+    }
+
+
+
+    // Add some interactive feedback
+    document.addEventListener('DOMContentLoaded', function() {
+      const questions = document.querySelectorAll('.question');
+
+      questions.forEach((question, index) => {
+        question.style.animationDelay = `${index * 0.1}s`;
+      });
+    });
+  </script>
+
+</body>
+</html>

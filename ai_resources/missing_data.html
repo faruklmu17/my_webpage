@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Missing Data Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      padding: 20px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    #data-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 10px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .fruit {
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+      font-weight: bold;
+    }
+
+    .fruit:empty,
+    .fruit.invalid {
+      background-color: #ffebee;
+      color: #c0392b;
+      border: 2px dashed #e74c3c;
+    }
+  </style>
+</head>
+<body>
+  <h1>Sample Data List</h1>
+  <div id="data-list">
+    <div class="fruit">Apple</div>
+    <div class="fruit">Banana</div>
+    <div class="fruit invalid"> </div>
+    <div class="fruit">Orange</div>
+    <div class="fruit invalid">null</div>
+    <div class="fruit">Grapes</div>
+    <div class="fruit">Mango</div>
+    <div class="fruit invalid">NaN</div>
+    <div class="fruit">Peach</div>
+    <div class="fruit invalid">null</div>
+    <div class="fruit">Cherry</div>
+    <div class="fruit invalid"> </div>
+    <div class="fruit">Kiwi</div>
+    <div class="fruit">Plum</div>
+    <div class="fruit invalid">NaN</div>
+    <div class="fruit">Strawberry</div>
+    <div class="fruit">Blueberry</div>
+    <div class="fruit">Raspberry</div>
+    <div class="fruit invalid">null</div>
+    <div class="fruit">Lemon</div>
+    <div class="fruit invalid"> </div>
+    <div class="fruit">Watermelon</div>
+    <div class="fruit">Papaya</div>
+    <div class="fruit">Lychee</div>
+    <div class="fruit">Dragonfruit</div>
+  </div>
+</body>
+</html>
