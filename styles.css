@@ -2357,7 +2357,7 @@ footer {
   line-height: 1.15;
   margin: 0 0 0.1rem 0;
   font-weight: 400;
-  overflow: hidden;
+  overflow: visible;
   padding-right: 35px;
 }
 
