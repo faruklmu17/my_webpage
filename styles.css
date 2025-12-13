@@ -5,7 +5,7 @@
   --text-color: #333;
   --accent-color: #2980b9;
   --light-background: #ffffff;
-  --soft-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  --soft-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
 * {
@@ -37,7 +37,8 @@ header {
   position: sticky;
   top: 0;
   z-index: 100;
-  padding: 0.5rem 0;  /* Small padding to give some space */
+  padding: 0.5rem 0;
+  /* Small padding to give some space */
   transition: all 0.3s ease;
 }
 
@@ -62,11 +63,15 @@ header {
 }
 
 .profile-image {
-  width: 90px;  /* Large but not too large */
-  height: 90px;  /* Keep it square before border-radius */
-  border-radius: 50%;  /* Make it round */
+  width: 90px;
+  /* Large but not too large */
+  height: 90px;
+  /* Keep it square before border-radius */
+  border-radius: 50%;
+  /* Make it round */
   overflow: hidden;
-  border: 3px solid var(--primary-color);  /* Add border all around */
+  border: 3px solid var(--primary-color);
+  /* Add border all around */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   flex-shrink: 0;
   margin: 0.5rem;
@@ -121,28 +126,28 @@ header {
     flex-direction: column;
     padding: 0.5rem;
   }
-  
+
   .header-left {
     width: 100%;
     margin-bottom: 1rem;
     padding-right: 0;
     justify-content: center;
   }
-  
+
   .profile-image {
     width: 100px;
     height: 100px;
     margin: 0.5rem 1rem 0.5rem 0;
   }
-  
+
   .headline {
     text-align: left;
   }
-  
+
   .headline h1 {
     font-size: 2.8rem;
   }
-  
+
   .nav-social-container {
     width: 100%;
     justify-content: center;
@@ -155,13 +160,13 @@ header {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .profile-image {
     width: 120px;
     height: 120px;
     margin: 0.5rem auto;
   }
-  
+
   .headline {
     text-align: center;
     padding: 0.5rem;
@@ -199,9 +204,12 @@ header {
 }
 
 @keyframes gradientShift {
-  0%, 100% {
+
+  0%,
+  100% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
@@ -267,11 +275,14 @@ header nav ul li a:hover::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 42px;  /* Increased from 36px */
-  height: 42px; /* Increased from 36px */
+  width: 42px;
+  /* Increased from 36px */
+  height: 42px;
+  /* Increased from 36px */
   border-radius: 50%;
   transition: all 0.3s ease;
-  font-size: 1.2rem; /* Increased from 1rem */
+  font-size: 1.2rem;
+  /* Increased from 1rem */
   background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border: 2px solid transparent;
@@ -323,7 +334,7 @@ header nav ul li a:hover::after {
     margin-top: 0.5rem;
     margin-left: 0;
   }
-  
+
   .social-icon {
     width: 40px;
     height: 40px;
@@ -335,28 +346,28 @@ header nav ul li a:hover::after {
   header {
     padding: 0.8rem 1rem;
   }
-  
+
   .header-content {
     flex-direction: column;
     padding: 0.8rem 0;
   }
-  
+
   .headline {
     margin-bottom: 1rem;
     text-align: center;
   }
-  
+
   .nav-social-container {
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   header nav ul {
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.8rem;
   }
-  
+
   .social-icons {
     margin-top: 0.5rem;
   }
@@ -374,6 +385,7 @@ section {
 section:hover {
   transform: translateY(-3px);
 }
+
 /* 
 #about {
   background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
@@ -448,18 +460,20 @@ section:hover {
 }
 
 /* Style each column */
-.about-bio, .career-highlights {
+.about-bio,
+.career-highlights {
   background-color: white;
   border-radius: 10px;
   padding: 1.75rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   height: 100%;
 }
 
-.about-bio:hover, .career-highlights:hover {
+.about-bio:hover,
+.career-highlights:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 #about .section-title {
@@ -525,7 +539,7 @@ section:hover {
 
 .career-card.compact:hover {
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
 
 .career-card.compact .career-header {
@@ -599,15 +613,18 @@ section:hover {
     grid-template-columns: 1fr;
     width: 95%;
   }
-  
-  .about-bio, .career-highlights {
+
+  .about-bio,
+  .career-highlights {
     margin-bottom: 1.5rem;
   }
-  
-  .about-bio:last-child, .career-highlights:last-child {
+
+  .about-bio:last-child,
+  .career-highlights:last-child {
     margin-bottom: 0;
   }
 }
+
 /* Career Section Styling */
 #career {
   padding: 3rem 0;
@@ -656,18 +673,18 @@ section:hover {
   height: 100%;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .career-card:hover {
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   transform: translateY(-3px);
 }
 
 .career-header {
   margin-bottom: 1rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .career-header h3 {
@@ -729,7 +746,7 @@ section:hover {
   .career-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .career-card {
     margin-bottom: 1.5rem;
   }
@@ -782,7 +799,7 @@ section:hover {
   background-color: white;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
 }
 
@@ -795,10 +812,12 @@ section:hover {
 /* Video wrapper - set fixed aspect ratio */
 .video-wrapper {
   position: relative;
-  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  padding-bottom: 56.25%;
+  /* 16:9 Aspect Ratio */
   height: 0;
   overflow: hidden;
-  border-radius: 8px; /* Match course image border-radius */
+  border-radius: 8px;
+  /* Match course image border-radius */
 }
 
 .video-wrapper iframe {
@@ -814,7 +833,8 @@ section:hover {
 .course-image {
   width: 100%;
   position: relative;
-  padding-bottom: 56.25%; /* Same 16:9 aspect ratio as videos */
+  padding-bottom: 56.25%;
+  /* Same 16:9 aspect ratio as videos */
   height: 0;
   overflow: hidden;
   border-radius: 8px;
@@ -828,41 +848,47 @@ section:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Changed from contain to cover for better appearance */
+  object-fit: cover;
+  /* Changed from contain to cover for better appearance */
   object-position: center;
 }
 
 /* Make cards the same height */
-.video-card, .course-card {
+.video-card,
+.course-card {
   display: flex;
   flex-direction: column;
   height: 100%;
   background-color: white;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   transition: all 0.3s ease;
 }
 
-.video-card:hover, .course-card:hover {
+.video-card:hover,
+.course-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
 /* Standardize info sections */
-.video-info, .course-card > *:not(.course-image) {
+.video-info,
+.course-card>*:not(.course-image) {
   padding: 15px;
 }
 
 /* Make titles the same size */
-.video-title, .course-card h3 {
+.video-title,
+.course-card h3 {
   font-size: 1.2rem;
   margin-bottom: 10px;
   color: #333;
 }
 
 /* Make descriptions the same size */
-.video-description, .course-description {
+.video-description,
+.course-description {
   font-size: 0.9rem;
   color: #666;
   margin-bottom: 15px;
@@ -887,9 +913,11 @@ section:hover {
 /* Media queries for responsive design */
 @media (max-width: 768px) {
   .video-grid {
-      grid-template-columns: 1fr; /* One column on mobile */
+    grid-template-columns: 1fr;
+    /* One column on mobile */
   }
 }
+
 /* Full-width Courses Section */
 #courses {
   width: 100%;
@@ -940,11 +968,11 @@ section:hover {
   height: 100%;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .course-card:hover {
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   transform: translateY(-3px);
 }
 
@@ -1021,15 +1049,15 @@ section:hover {
   .courses-wrapper {
     width: 95%;
   }
-  
+
   .courses-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .course-card {
     margin-bottom: 1.5rem;
   }
-  
+
   .course-card:last-child {
     margin-bottom: 0;
   }
@@ -1037,33 +1065,43 @@ section:hover {
 
 /* Course Image Styles */
 .course-image {
-  width: 100%; /* Ensure full width of the card */
-  height: 250px; /* Maintains the existing height */
+  width: 100%;
+  /* Ensure full width of the card */
+  height: 250px;
+  /* Maintains the existing height */
   margin-bottom: 1rem;
   border-radius: 8px;
   overflow: hidden;
-  display: flex; /* Use flexbox to center the image */
+  display: flex;
+  /* Use flexbox to center the image */
   justify-content: center;
   align-items: center;
-  background-color: #f0f0f0; /* Optional: add a light background if image has transparency */
+  background-color: #f0f0f0;
+  /* Optional: add a light background if image has transparency */
 }
 
 .course-image img {
-  width: 100%; /* Full width of the container */
-  height: 100%; /* Full height of the container */
-  object-fit: contain; /* Shows entire image without cropping */
-  object-position: center; /* Center the image */
+  width: 100%;
+  /* Full width of the container */
+  height: 100%;
+  /* Full height of the container */
+  object-fit: contain;
+  /* Shows entire image without cropping */
+  object-position: center;
+  /* Center the image */
 }
 
 .course-card:hover .course-image img {
-  transform: scale(1.02); /* Subtle zoom, reduced from 1.05 */
+  transform: scale(1.02);
+  /* Subtle zoom, reduced from 1.05 */
   transition: transform 0.3s ease;
 }
 
 /* Responsive adjustments for mobile */
 @media (max-width: 768px) {
   .course-image {
-    height: 220px; /* Maintained mobile height */
+    height: 220px;
+    /* Maintained mobile height */
   }
 }
 
@@ -1111,7 +1149,7 @@ section:hover {
   top: 0.5rem;
   left: 0.5rem;
   font-size: 2rem;
-  color: rgba(0,0,0,0.1);
+  color: rgba(0, 0, 0, 0.1);
   font-family: Georgia, serif;
 }
 
@@ -1151,11 +1189,11 @@ section:hover {
   .review-container {
     gap: 0.75rem;
   }
-  
+
   .review {
     padding: 0.75rem;
   }
-  
+
   .review-text {
     font-size: 0.85rem;
   }
@@ -1222,14 +1260,14 @@ section:hover {
 }
 
 .career-card:hover {
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   transform: translateY(-5px);
 }
 
 .career-header {
   margin-bottom: 1rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .career-header h3 {
@@ -1291,15 +1329,15 @@ section:hover {
   .career-wrapper {
     width: 95%;
   }
-  
+
   .career-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .career-card {
     margin-bottom: 1.5rem;
   }
-  
+
   .career-card:last-child {
     margin-bottom: 0;
   }
@@ -1333,15 +1371,18 @@ section:hover {
 
 /* Deeper colors for social icons by default */
 .social-icon.linkedin {
-  color: #0a66c2; /* Deeper LinkedIn blue */
+  color: #0a66c2;
+  /* Deeper LinkedIn blue */
 }
 
 .social-icon.youtube {
-  color: #c4302b; /* Deeper YouTube red */
+  color: #c4302b;
+  /* Deeper YouTube red */
 }
 
 .social-icon.facebook {
-  color: #1877f2; /* Facebook blue */
+  color: #1877f2;
+  /* Facebook blue */
 }
 
 /* Even more intense on hover */
@@ -1350,15 +1391,18 @@ section:hover {
 }
 
 .social-icon.linkedin:hover {
-  color: #004182; /* Darker LinkedIn blue */
+  color: #004182;
+  /* Darker LinkedIn blue */
 }
 
 .social-icon.youtube:hover {
-  color: #990000; /* Darker YouTube red */
+  color: #990000;
+  /* Darker YouTube red */
 }
 
 .social-icon.facebook:hover {
-  color: #0d5ab9; /* Darker Facebook blue */
+  color: #0d5ab9;
+  /* Darker Facebook blue */
 }
 
 /* Update responsive design for social icons */
@@ -1366,7 +1410,7 @@ section:hover {
   .nav-social-container {
     align-items: center;
   }
-  
+
   .social-icons {
     margin-top: 1rem;
   }
@@ -1374,20 +1418,21 @@ section:hover {
 
 @media (max-width: 768px) {
   .headline h1 {
-    font-size: 3.5rem; /* Slightly smaller on mobile devices */
+    font-size: 3.5rem;
+    /* Slightly smaller on mobile devices */
   }
 }
 
 /* Blog section enhancements */
 .section-subtitle {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 .section-subtitle p {
   color: #666;
   font-size: 1.1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.3rem;
 }
 
 .view-all-link {
@@ -1542,23 +1587,28 @@ section:hover {
   line-height: 1.6;
   margin-bottom: 1.2rem;
   font-weight: 500;
-  color: white; /* Change from var(--secondary-color) to white */
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Add subtle text shadow for better readability */
+  color: white;
+  /* Change from var(--secondary-color) to white */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  /* Add subtle text shadow for better readability */
 }
 
 .name-highlight {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
-  color: #ffffff; /* Brighter white for the name */
+  color: #ffffff;
+  /* Brighter white for the name */
   position: relative;
   display: inline-block;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow for the name */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  /* Slightly stronger shadow for the name */
 }
 
 .about-text p {
   margin-bottom: 1rem;
   line-height: 1.7;
-  color: white; /* Ensure all text is white for better contrast against blue background */
+  color: white;
+  /* Ensure all text is white for better contrast against blue background */
 }
 
 /* Projects & GitHub Activity Section - Fixed to match YouTube section */
@@ -1613,7 +1663,7 @@ section:hover {
   background-color: white;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -1623,7 +1673,7 @@ section:hover {
 
 .project-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
 .project-header {
@@ -1701,7 +1751,7 @@ section:hover {
   .projects-grid {
     grid-template-columns: 1fr !important;
   }
-  
+
   .projects-wrapper {
     width: 95%;
   }
@@ -1712,12 +1762,13 @@ section:hover {
   background-color: white;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 2rem;
   margin-top: 2rem;
   transition: transform 0.3s ease;
   width: 100%;
-  grid-column: 1 / -1; /* Make it span all columns */
+  grid-column: 1 / -1;
+  /* Make it span all columns */
 }
 
 .github-calendar {
@@ -1762,7 +1813,7 @@ section:hover {
   .github-activity {
     padding: 1.5rem;
   }
-  
+
   .github-stats {
     flex-direction: column;
     align-items: center;
@@ -1774,16 +1825,16 @@ section:hover {
   .about-container.three-column {
     grid-template-columns: 1fr 1fr;
   }
-  
+
   .career-highlights {
     grid-column: span 2;
     margin-top: 2rem;
   }
-  
+
   .about-container.three-column .about-bio::after {
     content: '';
   }
-  
+
   .about-container.three-column .tech-stack::after {
     content: none;
   }
@@ -1793,11 +1844,11 @@ section:hover {
   .about-container.three-column {
     grid-template-columns: 1fr;
   }
-  
+
   .career-highlights {
     grid-column: span 1;
   }
-  
+
   .about-container.three-column .about-bio::after {
     content: none;
   }
@@ -1830,7 +1881,9 @@ section:hover {
 }
 
 /* Style each column as a card */
-.about-bio, .tech-stack, .career-highlights {
+.about-bio,
+.tech-stack,
+.career-highlights {
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border-radius: 10px;
@@ -1840,7 +1893,9 @@ section:hover {
   height: 100%;
 }
 
-.about-bio:hover, .tech-stack:hover, .career-highlights:hover {
+.about-bio:hover,
+.tech-stack:hover,
+.career-highlights:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
@@ -1952,12 +2007,13 @@ section:hover {
 
 .career-card.compact .company-name {
   font-weight: 600;
-  color: #ffffff; /* Brighter white for better visibility */
-  background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+  color: #ffffff;
+  /* Brighter white for better visibility */
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
   letter-spacing: 0.5px;
   position: relative;
   padding-left: 0.5rem;
@@ -2033,7 +2089,8 @@ footer {
   line-height: 1.6;
 }
 
-.footer-social h4, .footer-share h4 {
+.footer-social h4,
+.footer-share h4 {
   color: white;
   margin-bottom: 1rem;
   font-size: 1.2rem;
@@ -2136,8 +2193,9 @@ footer {
     gap: 2rem;
     text-align: center;
   }
-  
-  .social-icons-footer, .share-buttons {
+
+  .social-icons-footer,
+  .share-buttons {
     justify-content: center;
   }
 }
@@ -2215,7 +2273,8 @@ footer {
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   border: 1px solid rgba(0, 0, 0, 0.05);
-  margin-bottom: 0.5rem; /* Add bottom margin for better spacing between rows */
+  margin-bottom: 0.5rem;
+  /* Add bottom margin for better spacing between rows */
 }
 
 .skill-badge:hover {
@@ -2305,7 +2364,7 @@ footer {
   padding: 0.5rem;
   border: 2px solid transparent;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   margin-bottom: 0.2rem;
 }
 
@@ -2379,7 +2438,7 @@ footer {
 .category-link:hover {
   background: linear-gradient(135deg, #e74c3c, #c0392b);
   transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
 .category-link i:first-child {
@@ -2405,7 +2464,7 @@ footer {
   font-size: 0.75rem;
   transition: all 0.3s ease;
   vertical-align: middle;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   animation: pulse-glow 2s infinite;
   position: relative;
   float: right;
@@ -2416,7 +2475,7 @@ footer {
 .category-link-inline:hover {
   background: linear-gradient(135deg, #e74c3c, #c0392b);
   transform: translateY(-2px) scale(1.1);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   animation: none;
 }
 
@@ -2481,13 +2540,15 @@ a[href*="huggingface"].category-link-inline:hover {
 /* Pulse glow animation */
 @keyframes pulse-glow {
   0% {
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 0 0 0 rgba(52, 152, 219, 0.4);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(52, 152, 219, 0.4);
   }
+
   50% {
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 0 0 4px rgba(52, 152, 219, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 4px rgba(52, 152, 219, 0.2);
   }
+
   100% {
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 0 0 0 rgba(52, 152, 219, 0.4);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(52, 152, 219, 0.4);
   }
 }
 
@@ -2790,6 +2851,7 @@ a[href*="huggingface"].category-link-inline:hover {
 }
 
 @media (max-width: 480px) {
+
   .skills-header h2,
   .education-header h2 {
     font-size: 1.6rem;
@@ -2881,7 +2943,7 @@ a[href*="huggingface"].category-link-inline:hover {
   padding: 1rem;
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   flex: 1;
   margin: 0 0.5rem;
 }
@@ -2905,7 +2967,7 @@ a[href*="huggingface"].category-link-inline:hover {
   height: 350px;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
 }
 
@@ -2922,7 +2984,8 @@ a[href*="huggingface"].category-link-inline:hover {
   margin-bottom: 0.5rem;
 }
 
-.current-income, .target-income {
+.current-income,
+.target-income {
   text-align: center;
   flex: 1;
 }
@@ -2957,16 +3020,16 @@ a[href*="huggingface"].category-link-inline:hover {
   .income-stat {
     flex-direction: column;
   }
-  
+
   .income-values {
     margin-bottom: 1rem;
   }
-  
+
   .income-progress {
     width: 60px;
     height: 60px;
   }
-  
+
   .progress-percentage {
     font-size: 0.8rem;
   }
@@ -2976,12 +3039,12 @@ a[href*="huggingface"].category-link-inline:hover {
   .dividend-container {
     flex-direction: column;
   }
-  
+
   .dividend-stats {
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .stat-item {
     margin: 0;
   }
@@ -3082,12 +3145,12 @@ a[href*="huggingface"].category-link-inline:hover {
     left: 50%;
     transform: translateX(-50%) translateY(10px);
   }
-  
+
   .strategy-container:hover .hover-card,
   .hover-card:hover {
     transform: translateX(-50%) translateY(0);
   }
-  
+
   .hover-card::before {
     left: 50%;
     margin-left: -8px;
@@ -3096,7 +3159,8 @@ a[href*="huggingface"].category-link-inline:hover {
 
 /* Blog Section Styles */
 .blog-section {
-  padding: 1rem 0 2rem; /* Reduced top padding from 2rem to 1rem */
+  padding: 1rem 0 2rem;
+  /* Reduced top padding from 2rem to 1rem */
   background-color: #fcfcfd;
 }
 
@@ -3104,13 +3168,16 @@ a[href*="huggingface"].category-link-inline:hover {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
-  padding-top: 0.5rem; /* Added small top padding to container */
+  padding-top: 0.5rem;
+  /* Added small top padding to container */
 }
 
 .blog-section .section-title {
   text-align: center;
-  margin-top: 0.5rem; /* Added small top margin */
-  margin-bottom: 1.5rem; /* Reduced from 2rem to 1.5rem */
+  margin-top: 0.5rem;
+  /* Added small top margin */
+  margin-bottom: 0.3rem;
+  /* Reduced to minimize gap */
   color: var(--secondary-color);
   position: relative;
   font-weight: 600;
@@ -3180,7 +3247,8 @@ a[href*="huggingface"].category-link-inline:hover {
   color: #777;
 }
 
-.blog-date, .blog-read-time {
+.blog-date,
+.blog-read-time {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -3347,11 +3415,11 @@ a[href*="huggingface"].category-link-inline:hover {
     width: 50px;
     height: 50px;
   }
-  
+
   .play-button i {
     font-size: 25px;
   }
-  
+
   .youtube-link:hover .play-button {
     width: 55px;
     height: 55px;
