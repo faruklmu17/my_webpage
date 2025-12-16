@@ -21,6 +21,7 @@ WORKDIR /app
 COPY requirements.txt /app/requirements.txt
 COPY app.py /app/app.py
 COPY cache_config.json /app/cache_config.json
+COPY faruk_context.md /app/faruk_context.md
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
@@ -29,10 +30,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 11434
 EXPOSE 7860
 
-# Start Ollama server, pull your model, then launch Gradio
+# Start Ollama server, pull model, then launch Gradio
+# Using generic 'llama3.2' as the base model and injecting context dynamically in app.py
 CMD bash -lc "\
     ollama serve & \
     sleep 10 && \
-    ollama pull farukqmul/faruk-bot && \
+    ollama pull llama3.2 && \
     python app.py \
 "

@@ -8,7 +8,7 @@ from typing import Dict, Optional
 
 # Ollama HTTP API endpoint
 API_URL = "http://localhost:11434/api/chat"
-MODEL_NAME = "farukqmul/faruk-bot"
+MODEL_NAME = "llama3.2"  # Changed to generic base model for dynamic context
 
 class ChatbotCache:
     def __init__(self, config_file="cache_config.json"):
@@ -91,10 +91,6 @@ class ChatbotCache:
 
         return best_match
     
-    def add_to_cache(self, question: str, answer: str):
-        """Add a new Q&A pair to cache (for future enhancement)"""
-        self.cache[question.lower()] = answer
-    
     def get_cache_stats(self) -> Dict:
         """Get cache statistics"""
         return {
@@ -103,15 +99,42 @@ class ChatbotCache:
             "similarity_threshold": self.similarity_threshold
         }
 
+# --- NEW LOGIC START ---
+
+def load_faruk_profile():
+    """Load Faruk's profile from external MD file."""
+    try:
+        path = os.path.join(os.path.dirname(__file__), "faruk_context.md")
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read()
+    except Exception as e:
+        print(f"Error loading profile: {e}")
+        return ""
+
+def is_faruk_intent(text):
+    """Check if the user is asking about Faruk or his work."""
+    keywords = [
+        "faruk", "hasan", "he", "his", "him", # direct references
+        "tutor", "teach", "course", "class", "student", "outschool", "udemy", # teaching
+        "qa", "sdet", "automation", "test", "playwright", "selenium", "python", # tech stack
+        "job", "work", "career", "experience", "resume", "cv", # professional
+        "contact", "email", "reach", # contact
+        "github", "youtube", "linkedin" # social
+    ]
+    norm_text = text.lower()
+    return any(k in norm_text for k in keywords)
+
 def chat_with_ollama_cached(history, user_message):
-    """Enhanced chat function with caching support"""
+    """
+    Enhanced chat function with caching AND conditional context injection.
+    Replaces the old logic to fix over-conditioning.
+    """
     if history is None:
         history = []
     
-    # Initialize cache
     cache = ChatbotCache()
     
-    # Try to find cached response first
+    # 1. Try to find cached response first (Instant)
     cached_response = cache.find_cached_response(user_message)
     
     if cached_response:
@@ -120,53 +143,45 @@ def chat_with_ollama_cached(history, user_message):
         history.append((user_message, response_with_indicator))
         return history, ""
     
-    # If no cached response, use LLM (original logic)
-    messages = [
-        {
-            "role": "system",
-            "content": (
-                "You are Faruk Hasan's personal website assistant, embedded on his portfolio "
-                "and tutoring pages. You know about his life, education, QA career, and "
-                "tutoring experience from the documents used to configure this model.\n\n"
-
-                "STYLE RULES:\n"
-                "- Answer concisely in 2–4 sentences by default.\n"
-                "- Do NOT write long essays unless the user clearly asks for a detailed explanation.\n"
-                "- Only mention Faruk's biography or life story when the user asks about it directly "
-                "or when it is clearly relevant to their question.\n"
-                "- If the user asks about coding, QA, Playwright, automation, teaching, AI, or "
-                "investing, focus on giving a clear, practical answer.\n\n"
-
-                "CRITICAL SAFETY & ACCURACY RULES (DO NOT BREAK THESE):\n"
-                "1) Never invent or guess email addresses, phone numbers, or URLs.\n"
-                "2) The ONLY email address you are allowed to give as Faruk's contact is: "
-                "'faruqmul@gmail.com'.\n"
-                "3) If the user asks for an Outschool email or any other platform-specific email, "
-                "explain that Faruk communicates via the Outschool messaging system and via "
-                "'faruqmul@gmail.com', and that you do not have any other official email.\n"
-                "4) If you are not sure about a specific detail (like an ID, URL, schedule, or "
-                "contact info), say you are not certain instead of guessing.\n"
-                "5) Do NOT fabricate organizations, awards, or credentials that were not in his profile.\n\n"
-
-                "GENERAL BEHAVIOR:\n"
-                "- Be friendly, professional, and helpful.\n"
-                "- If a student or parent seems confused, respond supportively and clarify.\n"
-                "- If the user asks something unrelated to Faruk, you may still answer, but keep it "
-                "short and helpful.\n"
-            ),
-        }
-    ]
+    # 2. Determine Intent & Load Context
+    faruk_intent = is_faruk_intent(user_message)
     
-    # Rebuild conversation history for Ollama
+    system_content = ""
+    slow_response_warning = ""
+
+    if faruk_intent:
+        profile_text = load_faruk_profile()
+        system_content = (
+            "You are Faruk Hasan's personal AI assistant. "
+            "Use the following profile to answer questions about him:\n\n"
+            f"{profile_text}\n\n"
+            "STYLE RULES:\n"
+            "- Answer concisely in 2-4 sentences.\n"
+            "- Be friendly and professional.\n"
+            "- Only use the profile info provided."
+        )
+    else:
+        # Generic Mode - Free from Faruk's bio
+        system_content = (
+            "You are a helpful and friendly AI assistant. "
+            "The user is asking a general question unrelated to Faruk Hasan's specific profile. "
+            "Answer politely and concisely. Do not mention Faruk unless asked."
+        )
+        # Add a small warning that non-cached responses might be slower on the free/cloud instance
+        slow_response_warning = "\n\n(🐢 *Note: Response generated by the AI model. Please wait a moment...*)"
+
+    # 3. Build Messages for Ollama
+    messages = [{"role": "system", "content": system_content}]
+    
     for user_msg, bot_msg in history:
-        # Remove the cache indicator from cached responses when sending to LLM
-        clean_bot_msg = re.sub(r'^⚡\s*', '', bot_msg) if bot_msg.startswith('⚡') else bot_msg
+        # Clean cached icons for the context window
+        clean_bot_msg = re.sub(r'^[⚡🐢]\s*', '', bot_msg).replace("(Note: Response generated by the AI model. Please wait a moment...*)", "").strip()
         messages.append({"role": "user", "content": user_msg})
         messages.append({"role": "assistant", "content": clean_bot_msg})
     
     messages.append({"role": "user", "content": user_message})
     
-    # Call Ollama chat API
+    # 4. Call Ollama chat API
     try:
         response = requests.post(
             API_URL,
@@ -184,6 +199,10 @@ def chat_with_ollama_cached(history, user_message):
         bot_reply = data.get("message", {}).get("content", "").strip()
         if not bot_reply:
             bot_reply = "I'm having trouble generating a response right now. Please try again."
+        
+        # Append warning if it was a generic generation
+        if slow_response_warning:
+            bot_reply += slow_response_warning
             
     except Exception as e:
         bot_reply = f"Sorry, I ran into an error talking to the model: {e}"
@@ -191,14 +210,7 @@ def chat_with_ollama_cached(history, user_message):
     history.append((user_message, bot_reply))
     return history, ""
 
-
-def get_cache_info():
-    """Get cache information for display"""
-    cache = ChatbotCache()
-    stats = cache.get_cache_stats()
-    return f"📊 Cache: {stats['total_cached_responses']} responses | Threshold: {stats['similarity_threshold']}"
-
-# --- UI REDESIGN ---
+# --- UI REDESIGN (KEPT ORIGINAL) ---
 
 custom_css = """
 /* Main Background - Warm Sunrise Gradient */
