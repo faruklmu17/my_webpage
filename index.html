@@ -1003,6 +1003,9 @@
   <section id="dividend-income">
     <div class="dividend-wrapper">
       <h2 class="section-title">Dividend Income Portfolio</h2>
+      <p class="last-updated"
+        style="text-align: center; color: #6c757d; font-size: 0.9rem; margin-top: -1rem; margin-bottom: 2rem; font-style: italic;">
+        Last Updated: 12/17/2025</p>
       <div class="dividend-container">
         <div class="dividend-info">
           <p class="dividend-intro">My investment strategy focuses on building a sustainable dividend income stream for
@@ -1013,13 +1016,13 @@
               <span class="stat-label">Average Yield</span>
             </div>
             <div class="stat-item">
-              <span class="stat-value">12%</span>
+              <span class="stat-value">2.2%</span>
               <span class="stat-label">Annual Growth</span>
             </div>
             <div class="stat-item income-stat">
               <div class="income-values">
                 <div class="current-income">
-                  <span class="stat-value" id="current-income">$190</span>
+                  <span class="stat-value" id="current-income">$213</span>
                   <span class="stat-label">Current Monthly</span>
                 </div>
                 <div class="target-income">
@@ -1029,7 +1032,7 @@
               </div>
               <div class="income-progress">
                 <canvas id="incomeProgressChart"></canvas>
-                <div class="progress-percentage" id="income-percentage">50%</div>
+                <div class="progress-percentage" id="income-percentage">85%</div>
               </div>
             </div>
           </div>
@@ -1519,12 +1522,12 @@
 
     // Set default stats
     document.querySelector('.dividend-stats .stat-item:nth-child(1) .stat-value').textContent = '5.7%';
-    document.querySelector('.dividend-stats .stat-item:nth-child(2) .stat-value').textContent = '12%';
-    document.getElementById('current-income').textContent = '$190';
-    document.getElementById('income-percentage').textContent = '76%';
+    document.querySelector('.dividend-stats .stat-item:nth-child(2) .stat-value').textContent = '2.2%';
+    document.getElementById('current-income').textContent = '$213';
+    document.getElementById('income-percentage').textContent = '85%';
 
     // Create default progress chart
-    createIncomeProgressChart(76);
+    createIncomeProgressChart(85);
   }
 </script>
 
