@@ -2881,9 +2881,9 @@ a[href*="huggingface"].category-link-inline:hover {
 /* Dividend Income Section */
 #dividend-income {
   width: 100%;
-  padding: 3rem 0;
+  padding: 4rem 0;
   box-sizing: border-box;
-  background-color: #fcfcfd;
+  background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
 }
 
 .dividend-wrapper {
@@ -2940,20 +2940,31 @@ a[href*="huggingface"].category-link-inline:hover {
 
 .stat-item {
   text-align: center;
-  padding: 1rem;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 5px 10px -5px rgba(0, 0, 0, 0.01);
   flex: 1;
   margin: 0 0.5rem;
+  border: 1px solid rgba(230, 230, 230, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.1);
 }
 
 .stat-value {
   display: block;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #0056b3;
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin-bottom: 0.5rem;
+  letter-spacing: -1px;
 }
 
 .stat-label {
@@ -2964,11 +2975,17 @@ a[href*="huggingface"].category-link-inline:hover {
 .dividend-chart {
   flex: 1;
   min-width: 300px;
-  height: 350px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
+  height: 400px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  border: 1px solid rgba(230, 230, 230, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.dividend-chart:hover {
+  transform: translateY(-3px);
 }
 
 /* Enhanced dividend stats with target income */
@@ -2991,11 +3008,11 @@ a[href*="huggingface"].category-link-inline:hover {
 }
 
 .current-income .stat-value {
-  color: #0056b3;
+  color: #2980b9;
 }
 
 .target-income .stat-value {
-  color: #28a745;
+  color: #27ae60;
 }
 
 .income-progress {
@@ -3058,18 +3075,20 @@ a[href*="huggingface"].category-link-inline:hover {
 
 .hover-card {
   position: absolute;
-  top: calc(100% + 10px);
+  top: calc(100% + 15px);
   left: 0;
   width: 400px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(10px);
-  transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+  transform: translateY(15px);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   z-index: 100;
   pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .strategy-container:hover .hover-card,
