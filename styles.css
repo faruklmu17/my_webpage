@@ -2989,66 +2989,93 @@ a[href*="huggingface"].category-link-inline:hover {
 }
 
 /* Enhanced dividend stats with target income */
+/* Enhanced dividend stats (New Layout) */
 .income-stat {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: 1.25rem 1.5rem;
+  text-align: left;
 }
 
-.income-values {
+.income-header {
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding-bottom: 5px;
+}
+
+.income-flex-container {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
-}
-
-.current-income,
-.target-income {
-  text-align: center;
+  align-items: center;
   flex: 1;
 }
 
-.current-income .stat-value {
+.income-text-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-income {
+  font-size: 2.2rem;
+  font-weight: 800;
   color: #2980b9;
+  line-height: 1;
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  -webkit-text-fill-color: initial;
 }
 
-.target-income .stat-value {
+.target-wrapper {
+  margin-top: 5px;
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.target-val {
   color: #27ae60;
+  font-weight: 700;
 }
 
-.income-progress {
+.income-progress-mini {
   position: relative;
-  width: 80px;
-  height: 80px;
-  margin: 0 auto;
+  width: 65px;
+  height: 65px;
+  margin-left: 10px;
 }
 
-.progress-percentage {
+.progress-percentage-mini {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: 700;
   color: #333;
+}
+
+.stat-item .stat-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.7;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .income-stat {
-    flex-direction: column;
+  .income-flex-container {
+    flex-direction: row;
+    /* Keep row on mobile but maybe adjust gap */
+    justify-content: space-between;
   }
 
-  .income-values {
-    margin-bottom: 1rem;
-  }
-
-  .income-progress {
-    width: 60px;
-    height: 60px;
-  }
-
-  .progress-percentage {
+  .target-wrapper {
     font-size: 0.8rem;
+  }
+
+  .main-income {
+    font-size: 1.8rem;
   }
 }
 
