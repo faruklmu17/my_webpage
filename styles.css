@@ -2321,7 +2321,7 @@ footer {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2.5rem;
-  align-items: start;
+  align-items: stretch;
 }
 
 /* Left Column - Skills */
@@ -2334,7 +2334,6 @@ footer {
   display: grid;
   grid-template-rows: auto 1fr;
   gap: 0.3rem;
-  height: fit-content;
 }
 
 .skills-header h2 {
@@ -2562,7 +2561,6 @@ a[href*="huggingface"].category-link-inline:hover {
   display: grid;
   grid-template-rows: auto 1fr auto;
   gap: 0.05rem;
-  height: fit-content;
 }
 
 .education-header h2 {
