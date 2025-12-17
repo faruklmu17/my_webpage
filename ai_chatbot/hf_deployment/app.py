@@ -74,10 +74,7 @@ class ChatbotCache:
         if best_exact_match:
             return best_exact_match
 
-        # Step 3: Keyword intersection matching
-        for key, response in self.cache.items():
-            if self._contains_keywords(normalized_message, self._normalize_text(key)):
-                return response
+
 
         # Step 4: Fuzzy matching for similar questions (lowest priority)
         best_match = None
