@@ -2934,8 +2934,10 @@ a[href*="huggingface"].category-link-inline:hover {
 
 .dividend-stats {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
   margin-bottom: 2rem;
+  justify-content: space-between;
 }
 
 .stat-item {
@@ -2944,8 +2946,10 @@ a[href*="huggingface"].category-link-inline:hover {
   background-color: #ffffff;
   border-radius: 16px;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 5px 10px -5px rgba(0, 0, 0, 0.01);
-  flex: 1;
-  margin: 0 0.5rem;
+  flex: 1 1 200px;
+  /* Grow, shrink, base width */
+  min-width: 0;
+  /* Allow shrinking below content size if needed, but flex-basis limits it */
   border: 1px solid rgba(230, 230, 230, 0.5);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -2993,8 +2997,11 @@ a[href*="huggingface"].category-link-inline:hover {
 .income-stat {
   display: flex;
   flex-direction: column;
-  padding: 1.25rem 1.5rem;
+  padding: 1.5rem;
   text-align: left;
+  /* Specific override for flex sizing if needed, but inheriting is usually fine */
+  flex-basis: 260px;
+  /* Give it a bit more room naturally */
 }
 
 .income-header {
