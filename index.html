@@ -1011,28 +1011,42 @@
           <p class="dividend-intro">My investment strategy focuses on building a sustainable dividend income stream for
             early retirement. Below is the current allocation of my dividend portfolio.</p>
           <div class="dividend-stats">
-            <div class="stat-item">
-              <span class="stat-value">5.7%</span>
-              <span class="stat-label">Average Yield</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-value">2.2%</span>
-              <span class="stat-label">Annual Growth</span>
-            </div>
-            <div class="stat-item income-stat">
-              <div class="income-values">
-                <div class="current-income">
-                  <span class="stat-value" id="current-income">$213</span>
-                  <span class="stat-label">Current Monthly</span>
-                </div>
-                <div class="target-income">
-                  <span class="stat-value">$250</span>
-                  <span class="stat-label">2025 Target</span>
-                </div>
+            <div class="dividend-stats">
+              <!-- Yield Card -->
+              <div class="stat-item">
+                <span class="stat-value">5.7%</span>
+                <span class="stat-label">Average Yield</span>
               </div>
-              <div class="income-progress">
-                <canvas id="incomeProgressChart"></canvas>
-                <div class="progress-percentage" id="income-percentage">85%</div>
+
+              <!-- Growth Card -->
+              <div class="stat-item">
+                <span class="stat-value">2.2%</span>
+                <span class="stat-label">Annual Growth</span>
+              </div>
+
+              <!-- New: Annual Income Card -->
+              <div class="stat-item">
+                <span class="stat-value" id="annual-income">$2,940</span>
+                <span class="stat-label">Proj. Annual Income</span>
+              </div>
+
+              <!-- Monthly Goal Card (Redesigned) -->
+              <div class="stat-item income-stat">
+                <div class="income-header">
+                  <span class="stat-label">Monthly Goal</span>
+                </div>
+                <div class="income-flex-container">
+                  <div class="income-text-content">
+                    <span class="stat-value main-income" id="current-income">$245</span>
+                    <div class="target-wrapper">
+                      <span class="target-label">Target: <span class="target-val">$250</span></span>
+                    </div>
+                  </div>
+                  <div class="income-progress-mini">
+                    <canvas id="incomeProgressChart"></canvas>
+                    <div class="progress-percentage-mini" id="income-percentage">98%</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1404,6 +1418,7 @@
     // Update the stats display
     document.querySelector('.dividend-stats .stat-item:nth-child(1) .stat-value').textContent = yield.toFixed(1) + '%';
     document.querySelector('.dividend-stats .stat-item:nth-child(2) .stat-value').textContent = growthRate.toFixed(1) + '%';
+    document.getElementById('annual-income').textContent = '$' + annualIncome.toLocaleString(undefined, { maximumFractionDigits: 0 });
     document.getElementById('current-income').textContent = '$' + monthlyIncome.toFixed(0);
     document.getElementById('income-percentage').textContent = progressPercentage.toFixed(0) + '%';
 
@@ -1523,11 +1538,12 @@
     // Set default stats
     document.querySelector('.dividend-stats .stat-item:nth-child(1) .stat-value').textContent = '5.7%';
     document.querySelector('.dividend-stats .stat-item:nth-child(2) .stat-value').textContent = '2.2%';
-    document.getElementById('current-income').textContent = '$213';
-    document.getElementById('income-percentage').textContent = '85%';
+    document.getElementById('annual-income').textContent = '$2,940';
+    document.getElementById('current-income').textContent = '$245';
+    document.getElementById('income-percentage').textContent = '98%';
 
     // Create default progress chart
-    createIncomeProgressChart(85);
+    createIncomeProgressChart(98);
   }
 </script>
 
