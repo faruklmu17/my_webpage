@@ -1388,7 +1388,7 @@
     }
 
     // Prepare data for chart
-    const labels = mainPositions.map(pos => pos.ticker);
+    const labels = mainPositions.map(pos => `${pos.ticker} (${pos.percentage.toFixed(1)}%)`);
     const values = mainPositions.map(pos => pos.percentage.toFixed(1));
 
     // Initialize chart with the processed data
@@ -1474,8 +1474,7 @@
             callbacks: {
               label: function (context) {
                 const label = context.label || '';
-                const value = context.raw || 0;
-                return `${label}: ${value}%`;
+                return label;
               }
             }
           }
@@ -1530,7 +1529,16 @@
 
   function initDividendChartWithDefaultData() {
     // Default data if file loading fails
-    const labels = ['SCHD', 'JEPI', 'T', 'SPYD', 'O', 'PFE', 'XYLD', 'Other'];
+    const labels = [
+      'SCHD (25.0%)',
+      'JEPI (20.0%)',
+      'T (15.0%)',
+      'SPYD (10.0%)',
+      'O (10.0%)',
+      'PFE (8.0%)',
+      'XYLD (7.0%)',
+      'Other (5.0%)'
+    ];
     const data = [25, 20, 15, 10, 10, 8, 7, 5];
 
     initDividendChart(labels, data);
