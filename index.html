@@ -212,6 +212,36 @@
       fill: currentColor;
     }
 
+    /* Dancing Icon Animation */
+    .chatbot-toggle .chat-icon {
+      animation: dance 3s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    @keyframes dance {
+
+      0%,
+      100% {
+        transform: scale(1) rotate(0deg) translateY(0);
+      }
+
+      20% {
+        transform: scale(1.1) rotate(-10deg) translateY(-5px);
+      }
+
+      40% {
+        transform: scale(1.1) rotate(10deg) translateY(-5px);
+      }
+
+      60% {
+        transform: scale(1.1) rotate(-10deg) translateY(-5px);
+      }
+
+      80% {
+        transform: scale(1.1) rotate(10deg) translateY(-5px);
+      }
+    }
+
     .notification-badge {
       position: absolute;
       top: -5px;
@@ -1180,10 +1210,7 @@
   <div class="chatbot-container">
     <!-- Minimized Chatbot Button -->
     <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open Chat Assistant">
-      <svg class="chat-icon" viewBox="0 0 24 24">
-        <path
-          d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z" />
-      </svg>
+      <i class="fas fa-robot chat-icon" style="font-size: 24px;"></i>
       <div class="notification-badge" id="notification-badge">1</div>
     </button>
 
@@ -1615,19 +1642,23 @@
     // Chatbot URL – NEW Live Version (Direct Embed)
     const chatbotUrl = 'https://hasanfaruk25-faruk-assistant.hf.space';
 
-    // Auto-open chatbot when page loads
+    // Auto-open chatbot disabled - will now only open when clicked
+    /*
     setTimeout(() => {
       openChatbot();
     }, 2000); // Wait 2 seconds after page load for smooth experience
+    */
 
     // Initialize chatbot state
     function initializeChatbot() {
-      // Hide notification badge after first interaction
+      // Keep notification badge visible until interaction
+      /*
       if (notificationBadge) {
         setTimeout(() => {
           notificationBadge.style.display = 'none';
         }, 3000);
       }
+      */
 
       // Add welcome animation to toggle button
       setTimeout(() => {
@@ -1750,13 +1781,13 @@
     // Add some interactive feedback
     chatbotToggle.addEventListener('mouseenter', function () {
       if (!isOpen) {
-        this.style.transform = 'translateY(-2px) scale(1.05)';
+        this.style.transform = 'translateY(-4px)';
       }
     });
 
     chatbotToggle.addEventListener('mouseleave', function () {
       if (!isOpen) {
-        this.style.transform = 'translateY(0) scale(1)';
+        this.style.transform = 'translateY(0)';
       }
     });
   });
