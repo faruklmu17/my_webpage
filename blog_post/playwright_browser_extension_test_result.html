@@ -391,35 +391,80 @@
 
             <p>
                 I wanted to solve this context-switching friction once and for all. The result? <strong>Playwright Test
-                    Results Badge</strong>—a lightweight Chrome extension that pulls your latest test data directly into
+                    Results Viewer</strong>—a lightweight Chrome extension that pulls your latest test data directly
+                into
                 your browser's toolbar.
             </p>
 
             <div class="callout expert">
-                <div class="callout-title"><i class="fas fa-microchip"></i> Why this matters</div>
-                High-performing teams value fast feedback loops. By surfacing test health at a glance, you transform a
-                passive waiting period into an active, proactive monitoring workflow.
+                <div class="callout-title"><i class="fas fa-microchip"></i> New in Version 1.2</div>
+                We've moved from parsing massive 10MB+ JSON reports to a high-speed <strong>Summary-First</strong>
+                architecture, reducing data transfer and increasing extension responsiveness.
             </div>
 
             <h2><i class="fas fa-layer-group"></i> How the Integration Works</h2>
             <p>
                 The system relies on a three-tier architecture:
-                <strong>Execution</strong> (Playwright), <strong>Publication</strong> (GitHub Actions), and
-                <strong>Visualization</strong> (Chrome Extension).
+                <strong>Execution</strong> (Playwright + Custom Reporter), <strong>Publication</strong> (GitHub
+                Actions), and
+                <strong>Visualization</strong> (Chrome Extension v1.2).
             </p>
 
             <ul>
-                <li><strong>Native JSON Reporting:</strong> Leveraging Playwright's built-in reporter.</li>
-                <li><strong>GitHub as a Data Lake:</strong> Running tests in CI and pushing the state back to the repo.
-                </li>
-                <li><strong>On-Demand Fetching:</strong> The extension polls the raw JSON URL and updates its badge UI.
-                </li>
+                <li><strong>Passed/Failed Badge:</strong> The icon itself now displays live counts (e.g., "42/1").</li>
+                <li><strong>1-Minute Polling:</strong> Stay in sync with your CI/CD at near real-time speeds.</li>
+                <li><strong>Smart Error Detection:</strong> Automatically flags syntax errors or test crashes via a gray
+                    badge status.</li>
             </ul>
 
-            <h2><i class="fas fa-terminal"></i> Step 1: Configuring the JSON Reporter</h2>
+            <h2><i class="fas fa-code"></i> Step 1: Creating the Summary Reporter</h2>
             <p>
-                First, we need Playwright to output a machine-readable format. Most teams use the HTML reporter for
-                humans, but for our extension, we need the <span class="inline-code">json</span> format.
+                Instead of using the standard, heavy JSON reporter, we'll create a tiny, dedicated script that
+                summarizes our results into a few bytes.
+            </p>
+
+            <div class="code-container">
+                <div class="code-label">summary-reporter.js</div>
+                <pre><code>const fs = require('fs');
+
+class SummaryReporter {
+  onBegin(config, suite) {
+    this.rootSuite = suite;
+  }
+
+  onEnd(result) {
+    const summary = {
+      schemaVersion: 1,
+      passed: 0,
+      failed: 0,
+      flaky: 0,
+      total: 0,
+      startTime: new Date().toISOString(),
+      isSummary: true
+    };
+
+    if (this.rootSuite) {
+      for (const test of this.rootSuite.allTests()) {
+        const status = test.outcome();
+        if (status === 'expected') summary.passed++;
+        if (status === 'unexpected') summary.failed++;
+        if (status === 'flaky') summary.flaky++;
+      }
+    }
+
+    summary.total = summary.passed + summary.failed + summary.flaky;
+    fs.writeFileSync('test-summary.json', JSON.stringify(summary, null, 2));
+    console.log('✅ Automatic summary created: test-summary.json');
+  }
+}
+
+module.exports = SummaryReporter;</code></pre>
+            </div>
+
+            <h2><i class="fas fa-terminal"></i> Step 2: Adding to Playwright Config</h2>
+            <p>
+                Now, register your custom reporter in <span class="inline-code">playwright.config.ts</span>. This allows
+                Playwright to update the summary file automatically at the end of every run.
             </p>
 
             <div class="code-container">
@@ -429,73 +474,52 @@
 export default defineConfig({
   // ... other configs
   reporter: [
-    ['html'], // For your local review
-    ['json', { outputFile: 'tests/test-results.json' }] // For the extension
+    ['html'], 
+    ['./summary-reporter.js'] // Add your new custom reporter here
   ],
 });</code></pre>
             </div>
 
-            <h2><i class="fas fa-cloud-upload-alt"></i> Step 2: Automating with GitHub Actions</h2>
+            <h2><i class="fas fa-cloud-upload-alt"></i> Step 3: Automating with GitHub Actions</h2>
             <p>
-                To keep the extension "live," the <span class="inline-code">test-results.json</span> file must be
-                updated in your repository after every test run. We accomplish this by allowing the GitHub Actions
-                runner to commit and push the results back to the branch.
+                To keep the extension "live," the <span class="inline-code">test-summary.json</span> file must be
+                updated in your repository after every test run.
             </p>
 
             <div class="callout warning">
                 <div class="callout-title"><i class="fas fa-shield-alt"></i> Security Note</div>
-                Ensure your workflow has <span class="inline-code">contents: write</span> permissions, or the push step
-                will fail with a 403 error.
+                The extension only reads the summary counts. Ensure you are pushing to a public repo (or raw link)
+                without sensitive data in the summary object.
             </div>
 
             <div class="code-container">
                 <div class="code-label">.github/workflows/playwright.yml</div>
-                <pre><code>name: Playwright CI
-on: [push]
-
-permissions:
-  contents: write
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-      - name: Install & Run
-        run: |
-          npm ci
-          npx playwright install --with-deps
-          npx playwright test
-        continue-on-error: true # Crucial: we want results even on failure
-
-      - name: Update Results Badge
-        run: |
-          git config user.name "Actions Bot"
-          git config user.email "actions@github.com"
-          git add tests/test-results.json
-          git commit -m "chore: update test results [skip ci]"
-          git push</code></pre>
+                <pre><code>- name: Update Results Badge
+  run: |
+    git config user.name "Actions Bot"
+    git config user.email "actions@github.com"
+    git add test-summary.json
+    git commit -m "chore: update test results [skip ci]"
+    git push</code></pre>
             </div>
 
-            <h2><i class="fas fa-puzzle-piece"></i> Step 3: Deployment & Usage</h2>
+            <h2><i class="fas fa-puzzle-piece"></i> Usage & Deployment</h2>
             <p>
-                Once your CI is pushing data, setup is trivial:
+                The v1.2 update makes usage even simpler:
             </p>
 
             <ol style="margin: 0 0 1.5rem 1.5rem; color: #374151;">
-                <li style="margin-bottom: 0.75rem;">Install the <a
-                        href="https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh"
-                        target="_blank">Chrome Extension</a>.</li>
-                <li style="margin-bottom: 0.75rem;">Navigate to your JSON file on GitHub and click "Raw" to get the
-                    direct URL.</li>
-                <li style="margin-bottom: 0.75rem;">Paste that URL into the extension's settings.</li>
+                <li style="margin-bottom: 0.75rem;">Install the extension and paste your GitHub **Blob** or **Raw** URL.
+                </li>
+                <li style="margin-bottom: 0.75rem;">The extension will automatically convert UI links to raw links for
+                    you.</li>
+                <li style="margin-bottom: 0.75rem;">Your badge will update within **60 seconds** of any change.</li>
             </ol>
 
             <div class="callout info">
-                <div class="callout-title"><i class="fas fa-sync"></i> Auto-Refresh</div>
-                The extension automatically polls for changes every 5 minutes, but you can trigger a manual sync anytime
-                by clicking the refresh icon in the popup.
+                <div class="callout-title"><i class="fas fa-sync"></i> Real-Time Status</div>
+                The badge color now reflects three states: 🟩 Success, 🟥 Failure, and ⬜ Gray (Syncing or No tests
+                detected).
             </div>
         </div>
 
