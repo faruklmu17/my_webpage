@@ -1,247 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    /* --- Compact Blog Header Line --- */
+    .blog-header-line {
+      width: 100%;
+      text-align: center;
+      padding: 0.6rem 0 0.7rem;
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: center;
+      gap: 0.4rem;
+      align-items: center;
+    }
 
-/* --- Compact Blog Header Line --- */
-.blog-header-line {
-  width: 100%;
-  text-align: center;
-  padding: 0.6rem 0 0.7rem;
-  background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
-  font-family: 'Inter', sans-serif;
-  display: flex;
-  justify-content: center;
-  gap: 0.4rem;
-  align-items: center;
-}
+    .blog-header-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #111827;
+    }
 
-.blog-header-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #111827;
-}
+    .blog-header-divider {
+      font-size: 1rem;
+      color: #9ca3af;
+    }
 
-.blog-header-divider {
-  font-size: 1rem;
-  color: #9ca3af;
-}
+    .blog-header-subtitle {
+      font-size: 0.9rem;
+      color: #6b7280;
+      font-weight: 400;
+    }
 
-.blog-header-subtitle {
-  font-size: 0.9rem;
-  color: #6b7280;
-  font-weight: 400;
-}
+    /* Mobile adjustment */
+    @media (max-width: 640px) {
+      .blog-header-line {
+        flex-wrap: wrap;
+        padding: 0.5rem 0 0.7rem;
+      }
 
-/* Mobile adjustment */
-@media (max-width: 640px) {
-  .blog-header-line {
-    flex-wrap: wrap;
-    padding: 0.5rem 0 0.7rem;
-  }
+      .blog-header-title {
+        font-size: 1rem;
+      }
 
-  .blog-header-title {
-    font-size: 1rem;
-  }
-
-  .blog-header-subtitle {
-    font-size: 0.85rem;
-  }
-}
-
-
-/* RESET blog image styling */
-.blog-image {
-  display: block;
-  /* IMPORTANT: remove any fixed height / aspect-ratio / overflow here */
-  height: auto !important;
-  aspect-ratio: auto !important;
-  overflow: visible !important;
-}
-
-.blog-image img {
-  width: 100%;
-  height: auto;          /* let it decide its own height */
-  display: block;
-  object-fit: contain;   /* or remove this line if you like */
-  transform: none !important;  /* cancel any previous hover zoom */
-}
+      .blog-header-subtitle {
+        font-size: 0.85rem;
+      }
+    }
 
 
-/* Card content */
-.blog-content {
-  padding: 1.1rem 1.15rem 1rem;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
+    /* RESET blog image styling */
+    .blog-image {
+      display: block;
+      /* IMPORTANT: remove any fixed height / aspect-ratio / overflow here */
+      height: auto !important;
+      aspect-ratio: auto !important;
+      overflow: visible !important;
+    }
 
-/* Meta row */
-.blog-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  font-size: 0.8rem;
-  margin-bottom: 0.55rem;
-  color: #6b7280;
-}
+    .blog-image img {
+      width: 100%;
+      height: auto;
+      /* let it decide its own height */
+      display: block;
+      object-fit: contain;
+      /* or remove this line if you like */
+      transform: none !important;
+      /* cancel any previous hover zoom */
+    }
 
-.blog-meta-right {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
 
-.blog-meta i {
-  margin-right: 0.25rem;
-}
+    /* Card content */
+    .blog-content {
+      padding: 1.1rem 1.15rem 1rem;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
 
-/* Tag pill */
-.blog-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.15rem 0.5rem;
-  border-radius: 999px;
-  background: rgba(59, 130, 246, 0.09);
-  color: #1d4ed8;
-  font-size: 0.75rem;
-  font-weight: 500;
-}
+    /* Meta row */
+    .blog-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+      margin-bottom: 0.55rem;
+      color: #6b7280;
+    }
 
-/* Titles */
-.blog-title {
-  font-size: 1rem;
-  margin: 0 0 0.45rem;
-  line-height: 1.4;
-}
+    .blog-meta-right {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
 
-.blog-title a {
-  color: #0f172a;
-  text-decoration: none;
-}
+    .blog-meta i {
+      margin-right: 0.25rem;
+    }
 
-.blog-title a:hover {
-  color: #1d4ed8;
-}
+    /* Tag pill */
+    .blog-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(59, 130, 246, 0.09);
+      color: #1d4ed8;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
 
-/* Excerpt */
-.blog-excerpt {
-  font-size: 0.87rem;
-  line-height: 1.6;
-  color: #4b5563;
-  margin: 0 0 0.75rem;
-}
+    /* Titles */
+    .blog-title {
+      font-size: 1rem;
+      margin: 0 0 0.45rem;
+      line-height: 1.4;
+    }
 
-/* Actions row */
-.blog-actions {
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-}
+    .blog-title a {
+      color: #0f172a;
+      text-decoration: none;
+    }
 
-.read-more-link {
-  font-size: 0.85rem;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  color: #1d4ed8;
-  text-decoration: none;
-}
+    .blog-title a:hover {
+      color: #1d4ed8;
+    }
 
-.read-more-link i {
-  font-size: 0.7rem;
-}
+    /* Excerpt */
+    .blog-excerpt {
+      font-size: 0.87rem;
+      line-height: 1.6;
+      color: #4b5563;
+      margin: 0 0 0.75rem;
+    }
 
-.read-more-link:hover {
-  text-decoration: underline;
-}
+    /* Actions row */
+    .blog-actions {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
 
-.secondary-link {
-  font-size: 0.8rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  color: #6b7280;
-  text-decoration: none;
-}
+    .read-more-link {
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: #1d4ed8;
+      text-decoration: none;
+    }
 
-.secondary-link i {
-  font-size: 0.9rem;
-}
+    .read-more-link i {
+      font-size: 0.7rem;
+    }
 
-.secondary-link:hover {
-  color: #1d4ed8;
-}
+    .read-more-link:hover {
+      text-decoration: underline;
+    }
 
-/* Simple Blog Header Styles */
-.blog-header-simple {
-  text-align: center;
-  padding: 0.5rem 0 1rem 0;
-  margin-top: 0;
-  border-bottom: 1px solid #e9ecef;
-}
+    .secondary-link {
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      color: #6b7280;
+      text-decoration: none;
+    }
 
-.blog-header-line {
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #333;
-}
+    .secondary-link i {
+      font-size: 0.9rem;
+    }
 
-.blog-header-title {
-  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
+    .secondary-link:hover {
+      color: #1d4ed8;
+    }
 
-.blog-header-divider {
-  color: #e74c3c;
-  margin: 0 0.5rem;
-}
+    /* Simple Blog Header Styles */
+    .blog-header-simple {
+      text-align: center;
+      padding: 0.5rem 0 1rem 0;
+      margin-top: 0;
+      border-bottom: 1px solid #e9ecef;
+    }
 
-.blog-header-subtitle {
-  color: #666;
-}
+    .blog-header-line {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
 
-.blog-description {
-  font-size: 1rem;
-  color: #666;
-  margin: 0;
-  line-height: 1.5;
-}
+    .blog-header-title {
+      background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .blog-header-line {
-    font-size: 1.5rem;
-  }
+    .blog-header-divider {
+      color: #e74c3c;
+      margin: 0 0.5rem;
+    }
 
-  .blog-description {
-    font-size: 0.9rem;
-    padding: 0 1rem;
-  }
-}
+    .blog-header-subtitle {
+      color: #666;
+    }
 
+    .blog-description {
+      font-size: 1rem;
+      color: #666;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .blog-header-line {
+        font-size: 1.5rem;
+      }
+
+      .blog-description {
+        font-size: 0.9rem;
+        padding: 0 1rem;
+      }
+    }
   </style>
 
   <title>QA & Playwright Automation Blog | Faruk Hasan</title>
 
   <!-- Core SEO -->
-  <meta name="description" content="Hands-on blog posts on QA automation, Playwright testing, and software quality engineering by Faruk Hasan. Tutorials, patterns, and real-world examples.">
+  <meta name="description"
+    content="Hands-on blog posts on QA automation, Playwright testing, and software quality engineering by Faruk Hasan. Tutorials, patterns, and real-world examples.">
   <meta name="author" content="Faruk Hasan">
   <link rel="canonical" href="https://faruk-hasan.com/blog.html">
 
   <!-- Open Graph / Social Media Meta Tags -->
   <meta property="og:title" content="QA & Playwright Automation Blog | Faruk Hasan">
-  <meta property="og:description" content="Hands-on blog posts on QA automation, Playwright testing, and software quality engineering.">
+  <meta property="og:description"
+    content="Hands-on blog posts on QA automation, Playwright testing, and software quality engineering.">
   <meta property="og:image" content="https://faruk-hasan.com/og-image.jpg">
   <meta property="og:url" content="https://faruk-hasan.com/blog.html">
   <meta property="og:type" content="website">
@@ -249,7 +253,8 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="QA & Playwright Automation Blog | Faruk Hasan">
-  <meta name="twitter:description" content="Latest blog posts on QA automation, Playwright testing, and software development.">
+  <meta name="twitter:description"
+    content="Latest blog posts on QA automation, Playwright testing, and software development.">
   <meta name="twitter:image" content="https://faruk-hasan.com/og-image.jpg">
 
   <!-- Favicon -->
@@ -259,7 +264,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
 
   <!-- Main Styles -->
   <link rel="stylesheet" href="styles.css">
@@ -308,9 +315,12 @@
         </nav>
 
         <div class="social-icons">
-          <a href="https://www.linkedin.com/in/faruklmu17/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-          <a href="https://www.youtube.com/@faruklmu17" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-          <a href="https://www.facebook.com/faruklmu17" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.linkedin.com/in/faruklmu17/" target="_blank" aria-label="LinkedIn"><i
+              class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/@faruklmu17" target="_blank" aria-label="YouTube"><i
+              class="fab fa-youtube"></i></a>
+          <a href="https://www.facebook.com/faruklmu17" target="_blank" aria-label="Facebook"><i
+              class="fab fa-facebook"></i></a>
         </div>
       </div>
     </div>
@@ -323,21 +333,65 @@
         <span class="blog-header-divider">•</span>
         <span class="blog-header-subtitle">QA & Automation Insights</span>
       </div>
-      <p class="blog-description">Practical tutorials, testing strategies, and automation insights for modern QA engineers</p>
+      <p class="blog-description">Practical tutorials, testing strategies, and automation insights for modern QA
+        engineers</p>
     </div>
   </header>
 
- 
+
 
   <!-- Blog Posts Section -->
   <main class="blog-main" aria-label="Blog posts">
     <section class="blog-posts-section">
       <div class="container">
         <div class="blog-grid">
+          <!-- Blog Post: Playwright Extension (Dec 20, 2025) -->
+          <article class="blog-card" data-category="playwright automation">
+            <a href="blog_post/playwright_browser_extension_test_result.html" class="blog-image">
+              <img src="blog_images/playwright_extension_thumb.png"
+                alt="Playwright Test Results Extension tutorial cover image" loading="lazy">
+            </a>
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span class="blog-tag">Automation</span>
+                <div class="blog-meta-right">
+                  <time datetime="2025-12-20">
+                    <i class="far fa-calendar-alt" aria-hidden="true"></i>
+                    December 20, 2025
+                  </time>
+                  <span class="blog-read-time">
+                    <i class="far fa-clock" aria-hidden="true"></i> 7 min read
+                  </span>
+                </div>
+              </div>
+              <h2 class="blog-title">
+                <a href="blog_post/playwright_browser_extension_test_result.html">
+                  Context-Switching is Dead: Monitoring Playwright Results via Chrome Extension
+                </a>
+              </h2>
+              <p class="blog-excerpt">
+                Stop digging through CI logs. Learn how to monitor your Playwright test results directly from your
+                Chrome toolbar using a live status badge and GitHub Actions.
+              </p>
+
+              <div class="blog-actions">
+                <a href="blog_post/playwright_browser_extension_test_result.html" class="read-more-link">
+                  Read article <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </a>
+                <a href="https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh" target="_blank"
+                  class="secondary-link">
+                  <i class="fab fa-chrome" aria-hidden="true"></i>
+                  Add to Chrome
+                </a>
+              </div>
+            </div>
+          </article>
+
           <!-- Blog Post 1 - localStorage Testing (Latest) -->
           <article class="blog-card" data-category="playwright testing">
             <a href="blog_post/local_storage_testing_with_playwright.html" class="blog-image">
-              <img src="blog_images/local.jpg" alt="Playwright localStorage testing tutorial cover image" loading="lazy">
+              <img src="blog_images/local.jpg" alt="Playwright localStorage testing tutorial cover image"
+                loading="lazy">
             </a>
             <div class="blog-content">
               <div class="blog-meta">
@@ -358,7 +412,8 @@
                 </a>
               </h2>
               <p class="blog-excerpt">
-                Learn how to test localStorage, persistent UI state, and hidden DOM elements using Playwright and TypeScript. Ensure your web app remembers exactly what users expect.
+                Learn how to test localStorage, persistent UI state, and hidden DOM elements using Playwright and
+                TypeScript. Ensure your web app remembers exactly what users expect.
               </p>
 
               <div class="blog-actions">
@@ -376,7 +431,8 @@
           <!-- Blog Post 2 - Playwright Fixtures -->
           <article class="blog-card" data-category="playwright automation">
             <a href="blog_post/playwright_fixtures.html" class="blog-image">
-              <img src="blog_images/playwright_fixtures.png" alt="Playwright fixtures tutorial cover image" loading="lazy">
+              <img src="blog_images/playwright_fixtures.png" alt="Playwright fixtures tutorial cover image"
+                loading="lazy">
             </a>
             <div class="blog-content">
               <div class="blog-meta">
@@ -397,7 +453,8 @@
                 </a>
               </h2>
               <p class="blog-excerpt">
-                Use Playwright fixtures to simplify test setup, remove boilerplate, and make your test suite easier to extend. Includes custom fixture patterns and TypeScript examples.
+                Use Playwright fixtures to simplify test setup, remove boilerplate, and make your test suite easier to
+                extend. Includes custom fixture patterns and TypeScript examples.
               </p>
 
               <div class="blog-actions">
@@ -436,7 +493,8 @@
                 </a>
               </h2>
               <p class="blog-excerpt">
-                Enhance your Playwright test reports with Monocart, a visual reporting layer that makes failures easier to diagnose and share with your team.
+                Enhance your Playwright test reports with Monocart, a visual reporting layer that makes failures easier
+                to diagnose and share with your team.
               </p>
 
               <div class="blog-actions">
@@ -473,7 +531,8 @@
                 </a>
               </h2>
               <p class="blog-excerpt">
-                Learn how to integrate Playwright tests into your GitHub Actions workflow for automated testing on every push and pull request.
+                Learn how to integrate Playwright tests into your GitHub Actions workflow for automated testing on every
+                push and pull request.
               </p>
 
               <div class="blog-actions">
@@ -510,7 +569,8 @@
                 </a>
               </h2>
               <p class="blog-excerpt">
-                Set up automated deployment for your static website using GitHub Pages and GitHub Actions for seamless continuous integration and delivery.
+                Set up automated deployment for your static website using GitHub Pages and GitHub Actions for seamless
+                continuous integration and delivery.
               </p>
 
               <div class="blog-actions">
@@ -543,7 +603,8 @@
                 </a>
               </h2>
               <p class="blog-excerpt">
-                Learn how a Naive Bayes model predicts intent from user input using Bag of Words and Laplace smoothing. Perfect for students learning AI fundamentals.
+                Learn how a Naive Bayes model predicts intent from user input using Bag of Words and Laplace smoothing.
+                Perfect for students learning AI fundamentals.
               </p>
 
               <div class="blog-actions">
@@ -576,7 +637,8 @@
                 </a>
               </h2>
               <p class="blog-excerpt">
-                Master Python decorators with simple, practical examples. Learn how to wrap functions and add functionality without changing the original code.
+                Master Python decorators with simple, practical examples. Learn how to wrap functions and add
+                functionality without changing the original code.
               </p>
 
               <div class="blog-actions">
@@ -601,16 +663,23 @@
       <div class="footer-social">
         <h4>Connect With Me</h4>
         <div class="social-icons-footer">
-          <a href="https://www.linkedin.com/in/faruklmu17/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-          <a href="https://www.youtube.com/@faruklmu17" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-          <a href="https://www.facebook.com/faruklmu17" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.linkedin.com/in/faruklmu17/" target="_blank" aria-label="LinkedIn"><i
+              class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/@faruklmu17" target="_blank" aria-label="YouTube"><i
+              class="fab fa-youtube"></i></a>
+          <a href="https://www.facebook.com/faruklmu17" target="_blank" aria-label="Facebook"><i
+              class="fab fa-facebook"></i></a>
         </div>
 
         <div class="share-buttons">
-          <a href="javascript:void(0)" onclick="shareOnFacebook()" class="share-btn facebook" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="javascript:void(0)" onclick="shareOnTwitter()" class="share-btn twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
-          <a href="javascript:void(0)" onclick="shareOnLinkedIn()" class="share-btn linkedin" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-          <a href="javascript:void(0)" onclick="shareByEmail()" class="share-btn email" aria-label="Share by Email"><i class="fas fa-envelope"></i></a>
+          <a href="javascript:void(0)" onclick="shareOnFacebook()" class="share-btn facebook"
+            aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="javascript:void(0)" onclick="shareOnTwitter()" class="share-btn twitter"
+            aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="javascript:void(0)" onclick="shareOnLinkedIn()" class="share-btn linkedin"
+            aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="javascript:void(0)" onclick="shareByEmail()" class="share-btn email" aria-label="Share by Email"><i
+              class="fas fa-envelope"></i></a>
         </div>
       </div>
     </div>
@@ -621,12 +690,12 @@
 
   <script>
     // Blog filter functionality
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const filterBtns = document.querySelectorAll('.filter-btn');
       const blogCards = document.querySelectorAll('.blog-card');
 
       filterBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
           const filter = this.getAttribute('data-filter');
 
           // Update active button
@@ -677,4 +746,5 @@
     }
   </script>
 </body>
+
 </html>

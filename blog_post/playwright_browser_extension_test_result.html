@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO: Optimized Meta Tags -->
+    <title>Context-Switching is Dead: Monitoring Playwright Results via Chrome Extension</title>
+    <meta name="description"
+        content="Stop digging through CI logs. Learn how to monitor your Playwright test results directly from your Chrome toolbar using a live status badge and GitHub Actions." />
+    <meta name="keywords"
+        content="Playwright, QA Automation, Chrome Extension, GitHub Actions, Test Reporting, CI/CD, Software Testing, DevOps" />
+    <meta name="author" content="Faruk Hasan" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Monitor Playwright Results Like a Pro: The Live Chrome Status Badge" />
+    <meta property="og:description"
+        content="A technical guide on integrating Playwright JSON reports with a custom Chrome Extension for real-time test monitoring." />
+    <meta property="og:url" content="https://faruk-hasan.com/blog_post/playwright_browser_extension_test_result.html" />
+    <meta property="og:site_name" content="Faruk Hasan Portfolio" />
+
+    <!-- SEO: Canonical & Structured Data -->
+    <link rel="canonical" href="https://faruk-hasan.com/blog_post/playwright_browser_extension_test_result.html" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Monitoring Playwright Results via Chrome Extension",
+      "description": "Stop digging through CI logs. Learn how to monitor your Playwright test results directly from your Chrome toolbar using a live status badge and GitHub Actions.",
+      "author": {
+        "@type": "Person",
+        "name": "Faruk Hasan",
+        "url": "https://linkedin.com/in/md-faruk-hasan/"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Faruk Hasan"
+      },
+      "datePublished": "2025-12-20",
+      "image": "https://faruk-hasan.com/blog_images/playwright_extension_thumb.png"
+    }
+    </script>
+
+    <!-- Typography & Icons -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --accent: #10b981;
+            --accent-soft: rgba(16, 185, 129, 0.1);
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            z-index: 1000;
+        }
+
+        /* Layout */
+        .main-wrapper {
+            max-width: 840px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 5rem;
+        }
+
+        /* Header Section */
+        .article-header {
+            margin-bottom: 3.5rem;
+            text-align: center;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 0.35rem 1rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: clamp(2.25rem, 5vw, 3.25rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: #111827;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .author-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--border);
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        /* Typography inside content */
+        h2 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            color: #111827;
+            margin: 2.5rem 0 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h2:first-child {
+            margin-top: 0;
+        }
+
+        h2 i {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: #374151;
+        }
+
+        strong {
+            color: #111827;
+            font-weight: 600;
+        }
+
+        /* Callouts */
+        .callout {
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin: 2rem 0;
+            position: relative;
+            border-left: 4px solid var(--primary);
+        }
+
+        .callout.info {
+            background: #eff6ff;
+            border-color: var(--primary);
+        }
+
+        .callout.expert {
+            background: #f0fdf4;
+            border-color: var(--accent);
+        }
+
+        .callout.warning {
+            background: #fffbeb;
+            border-color: var(--warning);
+        }
+
+        .callout-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Code Blocks */
+        .code-container {
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .code-label {
+            background: #334155;
+            color: #f1f5f9;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            border-radius: 6px 6px 0 0;
+            display: inline-block;
+        }
+
+        pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 8px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            border: 1px solid #1e293b;
+        }
+
+        code {
+            font-family: inherit;
+        }
+
+        .inline-code {
+            background: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            color: var(--primary-dark);
+        }
+
+        /* Interactive Elements */
+        .cta-box {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: var(--radius);
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        .cta-box h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-box p {
+            color: #94a3b8;
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 99px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.4);
+            text-decoration: none;
+        }
+
+        /* List styling */
+        ul {
+            margin: 0 0 1.5rem 1.5rem;
+            list-style: none;
+        }
+
+        li {
+            position: relative;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            padding-left: 1.5rem;
+        }
+
+        li::before {
+            content: "\f00c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .main-wrapper {
+                padding: 1rem;
+            }
+
+            .content-card {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2.25rem;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scroll-progress" id="progressBar"></div>
+
+    <main class="main-wrapper">
+        <header class="article-header">
+            <span class="category-badge">Engineering Productivity</span>
+            <h1>Context-Switching is Dead: Monitoring Playwright Results via Chrome Extension</h1>
+
+            <div class="article-meta">
+                <div class="meta-item">
+                    <img src="../me.jpg" alt="Faruk Hasan" class="author-img">
+                    <span>By <strong>Faruk Hasan</strong></span>
+                </div>
+                <div class="meta-item">
+                    <i class="far fa-calendar"></i>
+                    <time datetime="2025-12-20">Dec 20, 2025</time>
+                </div>
+                <div class="meta-item">
+                    <i class="far fa-clock"></i>
+                    <span>7 min read</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-card">
+            <p>
+                As automation engineers, we spend a significant portion of our day in a "waiting state." Whether it's
+                waiting for a CI/CD pipeline to finish or local tests to execute, the natural inclination is to switch
+                tabs. But then comes the overhead: navigating back to GitHub Actions, refreshing the page, and digging
+                through logs to find that one elusive failure.
+            </p>
+
+            <p>
+                I wanted to solve this context-switching friction once and for all. The result? <strong>Playwright Test
+                    Results Badge</strong>—a lightweight Chrome extension that pulls your latest test data directly into
+                your browser's toolbar.
+            </p>
+
+            <div class="callout expert">
+                <div class="callout-title"><i class="fas fa-microchip"></i> Why this matters</div>
+                High-performing teams value fast feedback loops. By surfacing test health at a glance, you transform a
+                passive waiting period into an active, proactive monitoring workflow.
+            </div>
+
+            <h2><i class="fas fa-layer-group"></i> How the Integration Works</h2>
+            <p>
+                The system relies on a three-tier architecture:
+                <strong>Execution</strong> (Playwright), <strong>Publication</strong> (GitHub Actions), and
+                <strong>Visualization</strong> (Chrome Extension).
+            </p>
+
+            <ul>
+                <li><strong>Native JSON Reporting:</strong> Leveraging Playwright's built-in reporter.</li>
+                <li><strong>GitHub as a Data Lake:</strong> Running tests in CI and pushing the state back to the repo.
+                </li>
+                <li><strong>On-Demand Fetching:</strong> The extension polls the raw JSON URL and updates its badge UI.
+                </li>
+            </ul>
+
+            <h2><i class="fas fa-terminal"></i> Step 1: Configuring the JSON Reporter</h2>
+            <p>
+                First, we need Playwright to output a machine-readable format. Most teams use the HTML reporter for
+                humans, but for our extension, we need the <span class="inline-code">json</span> format.
+            </p>
+
+            <div class="code-container">
+                <div class="code-label">playwright.config.ts</div>
+                <pre><code>import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  // ... other configs
+  reporter: [
+    ['html'], // For your local review
+    ['json', { outputFile: 'tests/test-results.json' }] // For the extension
+  ],
+});</code></pre>
+            </div>
+
+            <h2><i class="fas fa-cloud-upload-alt"></i> Step 2: Automating with GitHub Actions</h2>
+            <p>
+                To keep the extension "live," the <span class="inline-code">test-results.json</span> file must be
+                updated in your repository after every test run. We accomplish this by allowing the GitHub Actions
+                runner to commit and push the results back to the branch.
+            </p>
+
+            <div class="callout warning">
+                <div class="callout-title"><i class="fas fa-shield-alt"></i> Security Note</div>
+                Ensure your workflow has <span class="inline-code">contents: write</span> permissions, or the push step
+                will fail with a 403 error.
+            </div>
+
+            <div class="code-container">
+                <div class="code-label">.github/workflows/playwright.yml</div>
+                <pre><code>name: Playwright CI
+on: [push]
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - name: Install & Run
+        run: |
+          npm ci
+          npx playwright install --with-deps
+          npx playwright test
+        continue-on-error: true # Crucial: we want results even on failure
+
+      - name: Update Results Badge
+        run: |
+          git config user.name "Actions Bot"
+          git config user.email "actions@github.com"
+          git add tests/test-results.json
+          git commit -m "chore: update test results [skip ci]"
+          git push</code></pre>
+            </div>
+
+            <h2><i class="fas fa-puzzle-piece"></i> Step 3: Deployment & Usage</h2>
+            <p>
+                Once your CI is pushing data, setup is trivial:
+            </p>
+
+            <ol style="margin: 0 0 1.5rem 1.5rem; color: #374151;">
+                <li style="margin-bottom: 0.75rem;">Install the <a
+                        href="https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh"
+                        target="_blank">Chrome Extension</a>.</li>
+                <li style="margin-bottom: 0.75rem;">Navigate to your JSON file on GitHub and click "Raw" to get the
+                    direct URL.</li>
+                <li style="margin-bottom: 0.75rem;">Paste that URL into the extension's settings.</li>
+            </ol>
+
+            <div class="callout info">
+                <div class="callout-title"><i class="fas fa-sync"></i> Auto-Refresh</div>
+                The extension automatically polls for changes every 5 minutes, but you can trigger a manual sync anytime
+                by clicking the refresh icon in the popup.
+            </div>
+        </div>
+
+        <div class="cta-box">
+            <h3>Ready to streamline your workflow?</h3>
+            <p>Download the extension and try it out with my open-source demo environment.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh" class="btn-primary"
+                    target="_blank">
+                    <i class="fab fa-chrome"></i> Add to Chrome
+                </a>
+                <a href="https://github.com/faruklmu17/browser_extension_test" class="btn-primary"
+                    style="background: #334155;" target="_blank">
+                    <i class="fab fa-github"></i> Demo Repo
+                </a>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Faruk Hasan. Built for the QA community.</p>
+            <div style="margin-top: 1rem; font-size: 1.2rem; display: flex; justify-content: center; gap: 1.5rem;">
+                <a href="https://linkedin.com/in/md-faruk-hasan/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/faruklmu17" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://faruk-hasan.com" target="_blank"><i class="fas fa-globe"></i></a>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // Scroll progress bar
+        window.onscroll = function () {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+    </script>
+</body>
+
+</html>
