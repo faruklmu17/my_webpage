@@ -6,18 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- SEO: Optimized Meta Tags -->
-    <title>Context-Switching is Dead: Monitoring Playwright Results via Chrome Extension</title>
+    <title>Streamline Your QA Workflow: Playwright Test Results Chrome Extension</title>
     <meta name="description"
-        content="Stop digging through CI logs. Learn how to monitor your Playwright test results directly from your Chrome toolbar using a live status badge and GitHub Actions." />
+        content="Monitor your Playwright test results directly from your Chrome toolbar. A complete guide to setting up the Playwright Test Results Badge with GitHub Actions." />
     <meta name="keywords"
-        content="Playwright, QA Automation, Chrome Extension, GitHub Actions, Test Reporting, CI/CD, Software Testing, DevOps" />
+        content="Playwright, QA Automation, Chrome Extension, GitHub Actions, Test Reporting, CI/CD, Software Testing, DevOps, Test Status Badge" />
     <meta name="author" content="Faruk Hasan" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Monitor Playwright Results Like a Pro: The Live Chrome Status Badge" />
     <meta property="og:description"
-        content="A technical guide on integrating Playwright JSON reports with a custom Chrome Extension for real-time test monitoring." />
+        content="Stop digging through CI logs. Get an instant visual summary of your Playwright tests directly in your browser toolbar." />
     <meta property="og:url" content="https://faruk-hasan.com/blog_post/playwright_browser_extension_test_result.html" />
     <meta property="og:site_name" content="Faruk Hasan Portfolio" />
 
@@ -27,8 +27,8 @@
     {
       "@context": "https://schema.org",
       "@type": "TechArticle",
-      "headline": "Monitoring Playwright Results via Chrome Extension",
-      "description": "Stop digging through CI logs. Learn how to monitor your Playwright test results directly from your Chrome toolbar using a live status badge and GitHub Actions.",
+      "headline": "Playwright Test Results Badge: The Ultimate Monitoring Extension",
+      "description": "A lightweight Chrome extension to monitor Playwright test results from local files or GitHub repositories.",
       "author": {
         "@type": "Person",
         "name": "Faruk Hasan",
@@ -95,7 +95,7 @@
 
         /* Layout */
         .main-wrapper {
-            max-width: 840px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 2rem 1.5rem 5rem;
         }
@@ -151,77 +151,108 @@
             border: 2px solid var(--border);
         }
 
-        /* Content Cards */
-        .content-card {
+        /* Content Sections */
+        .section-card {
             background: var(--bg-card);
             border-radius: var(--radius);
             padding: 2.5rem;
             box-shadow: var(--shadow-sm);
             border: 1px solid var(--border);
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
-        /* Typography inside content */
         h2 {
             font-size: 1.85rem;
             font-weight: 700;
             color: #111827;
-            margin: 2.5rem 0 1.25rem;
+            margin: 0 0 1.5rem;
             display: flex;
             align-items: center;
             gap: 0.75rem;
         }
 
-        h2:first-child {
-            margin-top: 0;
-        }
-
-        h2 i {
-            color: var(--primary);
-            font-size: 1.5rem;
+        h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #111827;
+            margin: 2rem 0 1rem;
         }
 
         p {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
             font-size: 1.1rem;
             color: #374151;
         }
 
-        strong {
-            color: #111827;
-            font-weight: 600;
-        }
-
-        /* Callouts */
-        .callout {
-            padding: 1.5rem;
-            border-radius: var(--radius);
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
             margin: 2rem 0;
-            position: relative;
-            border-left: 4px solid var(--primary);
         }
 
-        .callout.info {
-            background: #eff6ff;
+        .feature-item {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: transform 0.2s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-4px);
             border-color: var(--primary);
         }
 
-        .callout.expert {
-            background: #f0fdf4;
-            border-color: var(--accent);
+        .feature-icon {
+            font-size: 1.75rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
         }
 
-        .callout.warning {
-            background: #fffbeb;
-            border-color: var(--warning);
-        }
-
-        .callout-title {
+        .feature-title {
             font-weight: 700;
             margin-bottom: 0.5rem;
+            color: #111827;
+        }
+
+        .feature-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* Status Pills */
+        .status-badge-preview {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .status-pill {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .pill-green {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .pill-red {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .pill-gray {
+            background: #f1f5f9;
+            color: #475569;
         }
 
         /* Code Blocks */
@@ -251,10 +282,6 @@
             border: 1px solid #1e293b;
         }
 
-        code {
-            font-family: inherit;
-        }
-
         .inline-code {
             background: #f1f5f9;
             padding: 0.2rem 0.4rem;
@@ -264,7 +291,37 @@
             color: var(--primary-dark);
         }
 
-        /* Interactive Elements */
+        /* Callouts */
+        .callout {
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin: 2rem 0;
+            border-left: 4px solid var(--primary);
+        }
+
+        .callout.info {
+            background: #eff6ff;
+            border-color: var(--primary);
+        }
+
+        .callout.success {
+            background: #f0fdf4;
+            border-color: var(--accent);
+        }
+
+        .callout.warning {
+            background: #fffbeb;
+            border-color: var(--warning);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 0;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
         .cta-box {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             color: white;
@@ -272,16 +329,6 @@
             border-radius: var(--radius);
             text-align: center;
             margin: 4rem 0;
-        }
-
-        .cta-box h3 {
-            font-size: 1.75rem;
-            margin-bottom: 1rem;
-        }
-
-        .cta-box p {
-            color: #94a3b8;
-            margin-bottom: 2rem;
         }
 
         .btn-primary {
@@ -295,63 +342,57 @@
             border-radius: 99px;
             font-weight: 600;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.4);
         }
 
         .btn-primary:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.4);
             text-decoration: none;
         }
 
-        /* List styling */
-        ul {
-            margin: 0 0 1.5rem 1.5rem;
+        /* Step List */
+        .setup-steps {
+            counter-reset: step-counter;
             list-style: none;
+            padding: 0;
         }
 
-        li {
+        .setup-step {
             position: relative;
-            margin-bottom: 0.75rem;
-            font-size: 1.1rem;
-            padding-left: 1.5rem;
+            padding-left: 4rem;
+            margin-bottom: 2.5rem;
         }
 
-        li::before {
-            content: "\f00c";
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
+        .setup-step::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
             position: absolute;
             left: 0;
-            color: var(--accent);
-            font-size: 0.9rem;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 3rem 0;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
+            top: 0;
+            width: 3rem;
+            height: 3rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.25rem;
         }
 
         @media (max-width: 768px) {
-            .main-wrapper {
-                padding: 1rem;
-            }
-
-            .content-card {
+            .section-card {
                 padding: 1.5rem;
             }
 
-            h1 {
-                font-size: 2.25rem;
+            .setup-step {
+                padding-left: 0;
+                padding-top: 3.5rem;
             }
 
-            .article-meta {
-                flex-direction: column;
-                gap: 0.75rem;
+            .setup-step::before {
+                top: 0;
             }
         }
     </style>
@@ -362,8 +403,8 @@
 
     <main class="main-wrapper">
         <header class="article-header">
-            <span class="category-badge">Engineering Productivity</span>
-            <h1>Context-Switching is Dead: Monitoring Playwright Results via Chrome Extension</h1>
+            <span class="category-badge">QA Engineering • DevOps</span>
+            <h1>The Playwright Test Results Badge: Monitor Your CI/CD Directly from Chrome</h1>
 
             <div class="article-meta">
                 <div class="meta-item">
@@ -372,60 +413,90 @@
                 </div>
                 <div class="meta-item">
                     <i class="far fa-calendar"></i>
-                    <time datetime="2025-12-20">Dec 20, 2025</time>
+                    <time datetime="2025-12-21">Dec 21, 2025</time>
                 </div>
                 <div class="meta-item">
                     <i class="far fa-clock"></i>
-                    <span>7 min read</span>
+                    <span>10 min read</span>
                 </div>
             </div>
         </header>
 
-        <div class="content-card">
+        <section class="section-card">
+            <h2><i class="fas fa-eye"></i> Overview</h2>
             <p>
-                As automation engineers, we spend a significant portion of our day in a "waiting state." Whether it's
-                waiting for a CI/CD pipeline to finish or local tests to execute, the natural inclination is to switch
-                tabs. But then comes the overhead: navigating back to GitHub Actions, refreshing the page, and digging
-                through logs to find that one elusive failure.
+                As a developer or QA engineer, how much time do you lose switching between your IDE and your CI/CD
+                dashboard?
+                The <strong>Playwright Test Results Badge</strong> is a lightweight Chrome extension designed to
+                eliminate that friction.
+                Instead of digging through 100MB logs, you get an instant visual summary of your test status directly in
+                your browser toolbar.
             </p>
 
-            <p>
-                I wanted to solve this context-switching friction once and for all. The result? <strong>Playwright Test
-                    Results Viewer</strong>—a lightweight Chrome extension that pulls your latest test data directly
-                into
-                your browser's toolbar.
-            </p>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-user-ninja"></i></div>
+                    <div class="feature-title">Who is this for?</div>
+                    <div class="feature-desc">Perfect for DEVs, QA engineers, and students learning automated testing or
+                        CI/CD pipelines.</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="feature-title">Privacy First</div>
+                    <div class="feature-desc">No accounts, no tracking, and no external servers. Your data stays between
+                        your browser and your source.</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="feature-title">Auto Refresh</div>
+                    <div class="feature-desc">The extension polls your summary file every 1 minute in the background,
+                        keeping you always up to date.</div>
+                </div>
+            </div>
+        </section>
 
-            <div class="callout expert">
-                <div class="callout-title"><i class="fas fa-microchip"></i> New in Version 1.2</div>
-                We've moved from parsing massive 10MB+ JSON reports to a high-speed <strong>Summary-First</strong>
-                architecture, reducing data transfer and increasing extension responsiveness.
+        <section class="section-card">
+            <h2><i class="fas fa-tachometer-alt"></i> What the Extension Does</h2>
+
+            <h3>Live Toolbar Badge</h3>
+            <p>The badge stays visible at all times, providing a quick health check of your project:</p>
+            <div class="status-badge-preview">
+                <div class="status-pill pill-green"><i class="fas fa-check-circle"></i> Green 42 / 0 (All Passed)</div>
+                <div class="status-pill pill-red"><i class="fas fa-times-circle"></i> Red 41 / 1 (Failure Detected)
+                </div>
+                <div class="status-pill pill-gray"><i class="fas fa-question-circle"></i> Gray ? (No Data / Syncing)
+                </div>
             </div>
 
-            <h2><i class="fas fa-layer-group"></i> How the Integration Works</h2>
-            <p>
-                The system relies on a three-tier architecture:
-                <strong>Execution</strong> (Playwright + Custom Reporter), <strong>Publication</strong> (GitHub
-                Actions), and
-                <strong>Visualization</strong> (Chrome Extension v1.2).
-            </p>
-
-            <ul>
-                <li><strong>Passed/Failed Badge:</strong> The icon itself now displays live counts (e.g., "42/1").</li>
-                <li><strong>1-Minute Polling:</strong> Stay in sync with your CI/CD at near real-time speeds.</li>
-                <li><strong>Smart Error Detection:</strong> Automatically flags syntax errors or test crashes via a gray
-                    badge status.</li>
+            <h3>Detailed Popup View</h3>
+            <p>Click the extension to see a comprehensive breakdown:</p>
+            <ul style="list-style: none; margin-left: 0;">
+                <li style="padding-left: 2rem; position: relative; margin-bottom: 0.5rem;"><i class="fas fa-chart-pie"
+                        style="position: absolute; left: 0; color: var(--primary);"></i> Total number of tests executed
+                </li>
+                <li style="padding-left: 2rem; position: relative; margin-bottom: 0.5rem;"><i class="fas fa-check"
+                        style="position: absolute; left: 0; color: var(--accent);"></i> Verified Passed tests</li>
+                <li style="padding-left: 2rem; position: relative; margin-bottom: 0.5rem;"><i class="fas fa-times"
+                        style="position: absolute; left: 0; color: var(--danger);"></i> Failed and Flaky test counts
+                </li>
+                <li style="padding-left: 2rem; position: relative; margin-bottom: 0.5rem;"><i class="fas fa-clock"
+                        style="position: absolute; left: 0; color: var(--warning);"></i> Last updated timestamp and
+                    Manual Refresh button</li>
             </ul>
+        </section>
 
-            <h2><i class="fas fa-code"></i> Step 1: Creating the Summary Reporter</h2>
-            <p>
-                Instead of using the standard, heavy JSON reporter, we'll create a tiny, dedicated script that
-                summarizes our results into a few bytes.
-            </p>
+        <section class="section-card">
+            <h2><i class="fas fa-rocket"></i> Quick Setup Guide (4 Steps)</h2>
+            <p>Follow these steps to integrate the badge with your Playwright project today.</p>
 
-            <div class="code-container">
-                <div class="code-label">summary-reporter.js</div>
-                <pre><code>const fs = require('fs');
+            <div class="setup-steps">
+                <div class="setup-step">
+                    <h3>Step 1: Create the Summary Reporter</h3>
+                    <p>Create <code>summary-reporter.js</code> in your project root. This converts heavy reports into a
+                        lightweight 1KB JSON.</p>
+                    <div class="code-container">
+                        <div class="code-label">summary-reporter.js</div>
+                        <pre><code>const fs = require('fs');
 
 class SummaryReporter {
   onBegin(config, suite) {
@@ -454,78 +525,111 @@ class SummaryReporter {
 
     summary.total = summary.passed + summary.failed + summary.flaky;
     fs.writeFileSync('test-summary.json', JSON.stringify(summary, null, 2));
-    console.log('✅ Automatic summary created: test-summary.json');
+    console.log('✅ Test summary created: test-summary.json');
   }
 }
 
 module.exports = SummaryReporter;</code></pre>
+                    </div>
+                </div>
+
+                <div class="setup-step">
+                    <h3>Step 2: Configure Playwright</h3>
+                    <p>Update your <code>playwright.config.ts</code> to include your new custom reporter.</p>
+                    <div class="code-container">
+                        <div class="code-label">playwright.config.ts</div>
+                        <pre><code>// ... other imports
+reporters: [
+  ['./summary-reporter.js'],  // Add this line
+  ['html'],                   // Keep your existing reporters
+  ['list']
+],</code></pre>
+                    </div>
+                </div>
+
+                <div class="setup-step">
+                    <h3>Step 3: Create GitHub Actions Workflow</h3>
+                    <p>Automate the test run and summary update. Ensure <code>contents: write</code> permission is
+                        enabled.</p>
+                    <div class="code-container">
+                        <div class="code-label">.github/workflows/playwright.yml</div>
+                        <pre><code>name: Playwright Tests
+on: [push, pull_request]
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+    - name: Run tests
+      run: npx playwright test
+    - name: Update test results
+      if: always()
+      run: |
+        git config user.name "Actions Bot"
+        git config user.email "actions@github.com"
+        git add test-summary.json
+        git diff --staged --quiet || git commit -m "chore: update results [skip ci]"
+        git push</code></pre>
+                    </div>
+                </div>
+
+                <div class="setup-step">
+                    <h3>Step 4: Connect & Test</h3>
+                    <p>Push your changes, find the <code>test-summary.json</code> file in your repo, click
+                        <strong>"Raw"</strong>, and paste that URL into the extension settings.</p>
+                    <div class="callout success">
+                        <strong>Pro Tip:</strong> GitHub UI links are supported too! The extension automatically
+                        converts them to raw links for you.
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <h2><i class="fas fa-terminal"></i> Step 2: Adding to Playwright Config</h2>
-            <p>
-                Now, register your custom reporter in <span class="inline-code">playwright.config.ts</span>. This allows
-                Playwright to update the summary file automatically at the end of every run.
-            </p>
-
-            <div class="code-container">
-                <div class="code-label">playwright.config.ts</div>
-                <pre><code>import { defineConfig } from '@playwright/test';
-
-export default defineConfig({
-  // ... other configs
-  reporter: [
-    ['html'], 
-    ['./summary-reporter.js'] // Add your new custom reporter here
-  ],
-});</code></pre>
-            </div>
-
-            <h2><i class="fas fa-cloud-upload-alt"></i> Step 3: Automating with GitHub Actions</h2>
-            <p>
-                To keep the extension "live," the <span class="inline-code">test-summary.json</span> file must be
-                updated in your repository after every test run.
-            </p>
-
-            <div class="callout warning">
-                <div class="callout-title"><i class="fas fa-shield-alt"></i> Security Note</div>
-                The extension only reads the summary counts. Ensure you are pushing to a public repo (or raw link)
-                without sensitive data in the summary object.
-            </div>
-
-            <div class="code-container">
-                <div class="code-label">.github/workflows/playwright.yml</div>
-                <pre><code>- name: Update Results Badge
-  run: |
-    git config user.name "Actions Bot"
-    git config user.email "actions@github.com"
-    git add test-summary.json
-    git commit -m "chore: update test results [skip ci]"
-    git push</code></pre>
-            </div>
-
-            <h2><i class="fas fa-puzzle-piece"></i> Usage & Deployment</h2>
-            <p>
-                The v1.2 update makes usage even simpler:
-            </p>
-
-            <ol style="margin: 0 0 1.5rem 1.5rem; color: #374151;">
-                <li style="margin-bottom: 0.75rem;">Install the extension and paste your GitHub **Blob** or **Raw** URL.
-                </li>
-                <li style="margin-bottom: 0.75rem;">The extension will automatically convert UI links to raw links for
-                    you.</li>
-                <li style="margin-bottom: 0.75rem;">Your badge will update within **60 seconds** of any change.</li>
-            </ol>
+        <section class="section-card">
+            <h2><i class="fas fa-project-diagram"></i> Workflow & Best Practices</h2>
+            <p>The extension is designed to work with any CI tool including <strong>GitHub Actions</strong>,
+                <strong>GitLab CI</strong>, <strong>Jenkins</strong>, and <strong>CircleCI</strong>.</p>
 
             <div class="callout info">
-                <div class="callout-title"><i class="fas fa-sync"></i> Real-Time Status</div>
-                The badge color now reflects three states: 🟩 Success, 🟥 Failure, and ⬜ Gray (Syncing or No tests
-                detected).
+                <i class="fas fa-info-circle"></i> <strong>Important:</strong> Set the workflow to run
+                <code>if: always()</code>. This ensures the summary file is updated even when tests fail, which is
+                exactly when you need the badge most!
             </div>
-        </div>
+
+            <h3>Permissions Explained</h3>
+            <ul style="list-style: disc; margin-left: 1.5rem; margin-bottom: 1.5rem;">
+                <li><strong>storage:</strong> To save your configured JSON URL locally.</li>
+                <li><strong>alarms:</strong> To handle the 1-minute background refresh polling.</li>
+                <li><strong>file access (optional):</strong> Required only if you're monitoring a
+                    <code>test-summary.json</code> on your local machine.</li>
+            </ul>
+        </section>
+
+        <section class="section-card">
+            <h2><i class="fas fa-tools"></i> Troubleshooting common issues</h2>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div>
+                    <strong>Badge shows gray ?</strong>
+                    <p style="font-size: 0.95rem; color: var(--text-muted);">Check if <code>test-summary.json</code>
+                        exists and contains <code>"isSummary": true</code>. Verify the URL is public or reachable.</p>
+                </div>
+                <div>
+                    <strong>Tests not updating?</strong>
+                    <p style="font-size: 0.95rem; color: var(--text-muted);">Confirm your GitHub Workflow has
+                        <code>contents: write</code> permissions and that <code>[skip ci]</code> is used to avoid
+                        infinite loops.</p>
+                </div>
+            </div>
+        </section>
 
         <div class="cta-box">
-            <h3>Ready to streamline your workflow?</h3>
-            <p>Download the extension and try it out with my open-source demo environment.</p>
+            <h3>Boost Your Testing Productivity</h3>
+            <p>Get the extension for free and keep your test health visible at all times.</p>
             <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                 <a href="https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh" class="btn-primary"
                     target="_blank">
@@ -533,7 +637,7 @@ export default defineConfig({
                 </a>
                 <a href="https://github.com/faruklmu17/browser_extension_test" class="btn-primary"
                     style="background: #334155;" target="_blank">
-                    <i class="fab fa-github"></i> Demo Repo
+                    <i class="fab fa-github"></i> View Demo Repo
                 </a>
             </div>
         </div>
@@ -549,7 +653,6 @@ export default defineConfig({
     </main>
 
     <script>
-        // Scroll progress bar
         window.onscroll = function () {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
