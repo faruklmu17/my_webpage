@@ -1,1 +1,8 @@
-temp_hf_space/
+node_modules/
+*.log
+update_log.txt
+debug_*.js
+inspect_*.py
+inspect_*.ps1
+run_tqqq_update.bat
+.DS_Store
