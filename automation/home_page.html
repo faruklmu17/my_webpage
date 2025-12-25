@@ -533,8 +533,8 @@
             <li><a href="#practice-elements" id="elements-link">Practice Elements</a></li>
             <li><a href="#form-practice" id="form-link">Form Practice</a></li>
             <li><a href="#dynamic-content" id="dynamic-link">Dynamic Content</a></li>
-            <li><a href="automation_practice.html" id="login-link">Login Page</a></li>
-            <li><a href="automation_practice.html" id="signup-link" onclick="redirectToSignup(event)">Sign Up</a></li>
+            <li><a href="../automation/automation_practice.html" id="login-link">Login Page</a></li>
+            <li><a href="../automation/automation_practice.html" id="signup-link" onclick="redirectToSignup(event)">Sign Up</a></li>
           </ul>
         </nav>
       </div>
@@ -741,7 +741,7 @@
             <li><a href="#practice-elements">Practice Elements</a></li>
             <li><a href="#form-practice">Form Practice</a></li>
             <li><a href="#dynamic-content">Dynamic Content</a></li>
-            <li><a href="automation_practice.html">Login Page</a></li>
+            <li><a href="../automation/automation_practice.html">Login Page</a></li>
           </ul>
         </div>
         <div class="footer-section">
@@ -784,7 +784,7 @@
     
     function redirectToSignup(event) {
       event.preventDefault();
-      window.location.href = 'automation_practice.html';
+      window.location.href = '../automation/automation_practice.html';
       // Add a small delay to ensure the page loads before toggling
       setTimeout(function() {
         // This will trigger the signup form toggle on the login page
@@ -794,5 +794,6 @@
       }, 100);
     }
   </script>
+    <script src="../shared/header-footer.js"></script>
 </body>
 </html>

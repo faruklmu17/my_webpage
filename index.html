@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Faruk Hasan - Portfolio</title>
 
-  <link rel="stylesheet" href="chatbot.css">
+  <link rel="stylesheet" href="assets/css/chatbot.css">
 
 
   <!-- Open Graph / Social Media Meta Tags -->
@@ -486,7 +486,7 @@
     <div class="header-content">
       <div class="header-left">
         <div class="profile-image">
-          <img src="me.jpg" alt="Faruk Hasan">
+          <img src="assets/images/me.jpg" alt="Faruk Hasan">
         </div>
         <div class="headline">
           <h1>Faruk Hasan</h1>
@@ -500,9 +500,9 @@
             <li><a href="#courses">Courses</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="blog.html">Blog</a></li>
-            <li><a href="tutoring.html">Tutoring</a></li>
-            <li><a href="#my dividends">Dividends</a></li>
-            <li><a href="resources.html">Resources</a></li>
+            <li><a href="tutoring/tutoring.html">Tutoring</a></li>
+            <li><a href="#dividend-income">Dividends</a></li>
+            <li><a href="resources/resources.html">Resources</a></li>
           </ul>
         </nav>
         <div class="social-icons">
@@ -517,8 +517,8 @@
     </div>
     <!-- //test -->
     <!-- <div class="ai-image-link">
-      <a href="ai.png" target="_blank">
-        <img src="ai.png" alt="AI Technology Illustration" class="thumbnail">
+      <a href="assets/images/ai.png" target="_blank">
+        <img src="assets/images/ai.png" alt="AI Technology Illustration" class="thumbnail">
         <span>View AI Illustration <i class="fas fa-external-link-alt"></i></span>
       </a>
     </div> -->
@@ -654,7 +654,7 @@
 
         <!-- Quick Links -->
         <div class="education-links">
-          <a href="tutoring.html" class="education-link">
+          <a href="tutoring/tutoring.html" class="education-link">
             <i class="fas fa-user-graduate"></i>
             <span>Interested in Tutoring?</span>
             <i class="fas fa-arrow-right"></i>
@@ -897,7 +897,7 @@
       <div class="courses-grid">
         <div class="course-card">
           <div class="course-image">
-            <img src="udemy_course_image.jpg" alt="Python Fundamentals Course" loading="lazy">
+            <img src="assets/images/udemy_course_image.jpg" alt="Python Fundamentals Course" loading="lazy">
           </div>
           <div class="course-badge">Udemy</div>
           <a href="https://www.udemy.com/share/10bHxx/" target="_blank" class="course-link">
@@ -1386,13 +1386,13 @@
   function openResume() {
     // Try multiple possible locations
     const possiblePaths = [
-      'resume.pdf',
+      'assets/resume.pdf',
       'Resume.pdf',
-      '/resume.pdf',
+      'assets/resume.pdf',
       '/Resume.pdf',
       'assets/resume.pdf',
-      'docs/resume.pdf',
-      'files/resume.pdf'
+      'assets/resume.pdf',
+      'assets/resume.pdf'
     ];
 
     // Try to fetch each path to see if the file exists
