@@ -2096,6 +2096,155 @@ footer {
   font-size: 1.2rem;
 }
 
+/* Dividend Projection Sleek Design */
+.projection-container {
+  margin-top: 5rem;
+  padding: 4rem 2rem;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.projection-title {
+  font-size: 2.2rem;
+  color: #1a202c;
+  margin-bottom: 3rem;
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  position: relative;
+}
+
+.projection-title i {
+  background: linear-gradient(135deg, #3a6ea5 0%, #2980b9 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-right: 12px;
+}
+
+.projection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 30px;
+}
+
+.projection-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(230, 230, 230, 0.4);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.projection-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+  border-color: rgba(58, 110, 165, 0.2);
+}
+
+.projection-card h4 {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  color: #2d3748;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #f1f5f9;
+  font-weight: 700;
+}
+
+.projection-card h4 i {
+  font-size: 1.1rem;
+  padding: 10px;
+  background: #f0f7ff;
+  border-radius: 12px;
+  color: #3a6ea5;
+}
+
+.projection-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.projection-table th:last-child,
+.projection-table td:last-child {
+  text-align: right;
+}
+
+.projection-table th {
+  padding: 0 12px 12px 12px;
+  color: #a0aec0;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+}
+
+.projection-table td {
+  padding: 16px 12px;
+  color: #4a5568;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #f8fafc;
+  transition: all 0.2s ease;
+}
+
+.projection-table tr:hover td {
+  color: #2d3748;
+  background-color: #fbfcfe;
+}
+
+.projection-table tr:last-child td {
+  border-bottom: none;
+}
+
+.projection-table tr.total-row {
+  background-color: #f8fafc;
+}
+
+.projection-table tr.total-row td {
+  color: #3a6ea5;
+  font-weight: 800;
+  border-top: 2px solid #edf2f7;
+  font-size: 1rem;
+}
+
+.projection-table .ticker-cell {
+  font-weight: 700;
+  color: #2d3748;
+}
+
+.projection-table .value-cell {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+
+.projection-table .percent-cell {
+  font-weight: 700;
+  color: #48bb78;
+}
+
+@media (max-width: 768px) {
+  .projection-container {
+    padding: 2.5rem 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .projection-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
 .social-icons-footer {
   display: flex;
   gap: 1rem;
