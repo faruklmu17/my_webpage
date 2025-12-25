@@ -1,37 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GED Math: Order of Operations (PEMDAS) Practice Quiz | Free GED Prep</title>
-    <meta name="description" content="Free GED Math practice quiz on order of operations (PEMDAS). Test your skills with 20 questions covering basic arithmetic operations for the GED test. Get instant feedback and explanations.">
-    <meta name="keywords" content="GED math practice, PEMDAS quiz, order of operations, GED test prep, free GED practice, GED math questions, basic arithmetic, GED study guide">
-    
+    <meta name="description"
+        content="Free GED Math practice quiz on order of operations (PEMDAS). Test your skills with 20 questions covering basic arithmetic operations for the GED test. Get instant feedback and explanations.">
+    <meta name="keywords"
+        content="GED math practice, PEMDAS quiz, order of operations, GED test prep, free GED practice, GED math questions, basic arithmetic, GED study guide">
+
     <!-- Open Graph tags for social sharing -->
     <meta property="og:title" content="GED Math: Order of Operations (PEMDAS) Practice Quiz">
-    <meta property="og:description" content="Test your GED math skills with this free practice quiz on order of operations (PEMDAS). Get instant feedback and detailed explanations.">
+    <meta property="og:description"
+        content="Test your GED math skills with this free practice quiz on order of operations (PEMDAS). Get instant feedback and detailed explanations.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://faruk-hasan.com/quizzes/GED/basic_arithmetic_operations.html">
-    
+
     <!-- Canonical URL to prevent duplicate content issues -->
     <link rel="canonical" href="https://faruk-hasan.com/quizzes/GED/basic_arithmetic_operations.html">
-    
+
     <!-- Preload critical resources -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <!-- Shared Header/Footer CSS -->
-  <link rel="stylesheet" href="../../shared/header-footer.css">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Shared Header/Footer CSS -->
-  <link rel="stylesheet" href="../../shared/header-footer.css"></noscript>
-    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <!-- Shared Header/Footer CSS -->
+    <link rel="stylesheet" href="../../shared/header-footer.css">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <!-- Shared Header/Footer CSS -->
+        <link rel="stylesheet" href="../../shared/header-footer.css">
+    </noscript>
+
     <!-- Defer non-critical CSS -->
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"></noscript>
-    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+    </noscript>
+
     <!-- Defer non-critical JavaScript -->
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script>
-    
+
     <!-- Add structured data for rich results -->
     <script type="application/ld+json">
     {
@@ -63,7 +73,7 @@
       ]
     }
     </script>
-    
+
     <!-- Inline critical CSS -->
     <style>
         :root {
@@ -78,18 +88,13 @@
             --white: #fff;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
         body {
-      /* Body padding/margin removed to match resources.html header layout */
+            font-family: 'Inter', sans-serif;
             background-color: #f0f2f5;
             color: var(--text-color);
             line-height: 1.6;
+            margin: 0;
+            padding: 0;
         }
 
         .quiz-container {
@@ -102,15 +107,25 @@
         }
 
         .quiz-header {
-            background-color: var(--primary-color);
-            color: var(--white);
-            padding: 1.5rem 2rem;
+            padding: 2.5rem 2rem 1rem;
             text-align: center;
+            background: none;
+            color: var(--text-color);
         }
 
         .quiz-header h1 {
-            font-size: 1.8rem;
+            font-size: 2.5rem;
             margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+        }
+
+        .quiz-header p {
+            font-size: 1.1rem;
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
         }
 
         .quiz-intro {
@@ -119,6 +134,9 @@
             margin-bottom: 1.5rem;
             color: var(--text-color);
             width: 100%;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            text-align: left;
         }
 
         .quiz-progress {
@@ -136,9 +154,6 @@
             transition: width 0.3s ease;
         }
 
-        .quiz-body {
-            
-        }
 
         .question-container {
             display: none;
@@ -237,6 +252,7 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -257,7 +273,8 @@
                 font-size: 1.5rem;
             }
 
-            .quiz-body, .quiz-footer {
+            .quiz-body,
+            .quiz-footer {
                 padding: 1.2rem;
             }
 
@@ -270,7 +287,7 @@
             }
         }
     </style>
-    
+
     <!-- Non-critical CSS -->
     <style>
         .quiz-footer {
@@ -306,7 +323,8 @@
             margin-right: 8px;
         }
 
-        #next-btn i, #submit-btn i {
+        #next-btn i,
+        #submit-btn i {
             margin-left: 8px;
             margin-right: 0;
         }
@@ -418,7 +436,8 @@
             padding: 1rem 2rem;
         }
 
-        .faq-section, .related-resources {
+        .faq-section,
+        .related-resources {
             width: 100%;
             max-width: 800px;
             margin: 2rem auto;
@@ -427,61 +446,62 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        
-        .faq-section h2, .related-resources h2 {
+
+        .faq-section h2,
+        .related-resources h2 {
             color: var(--primary-color);
             margin-bottom: 1.5rem;
             font-size: 1.5rem;
         }
-        
+
         .faq-item {
             margin-bottom: 1.5rem;
         }
-        
+
         .faq-item h3 {
             font-size: 1.1rem;
             margin-bottom: 0.5rem;
             color: var(--secondary-color);
         }
-        
+
         .related-resources ul {
             list-style: none;
             padding: 0;
         }
-        
+
         .related-resources li {
             margin-bottom: 0.8rem;
         }
-        
+
         .related-resources a {
             color: var(--primary-color);
             text-decoration: none;
             display: inline-block;
             padding: 0.3rem 0;
         }
-        
+
         .related-resources a:hover {
             text-decoration: underline;
         }
     </style>
 </head>
+
 <body>
     <div class="quiz-container">
         <div class="quiz-header">
-            <h1>GED Math: Order of Operations (PEMDAS) Quiz</h1>
-            <p>Test your understanding of order of operations in mathematics - a critical skill for the GED Math test</p>
-            
+            <h1>Order of Operations (PEMDAS) Quiz</h1>
+            <p>Master the essential PEMDAS rules for the GED Math test</p>
+
             <!-- Add SEO-friendly introduction -->
             <div class="quiz-intro">
-                <p>Welcome to our free GED Math practice quiz on order of operations (PEMDAS). This 20-question quiz helps you prepare for the GED Math test by focusing on this essential concept.</p>
-                
-                <p><strong>PEMDAS</strong> reminds us to calculate in this order: <strong>P</strong>arentheses first, <strong>E</strong>xponents, <strong>M</strong>ultiplication & <strong>D</strong>ivision (left to right), <strong>A</strong>ddition & <strong>S</strong>ubtraction (left to right).</p>
-                
-                <p><strong>GED Math Test Info:</strong> Order of operations is frequently tested on the GED Math section (115 minutes, ~45 questions).</p>
-                
-                <a href="../ged-math-quizzes.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to All GED Math Quizzes</a>
+                <p>Prepare for the GED Math test by focusing on the <strong>PEMDAS</strong> rules:
+                    <strong>P</strong>arentheses, <strong>E</strong>xponents, <strong>M</strong>ultiplication &
+                    <strong>D</strong>ivision, <strong>A</strong>ddition & <strong>S</strong>ubtraction.
+                </p>
+                <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to
+                    Resources</a>
             </div>
-            
+
             <div class="quiz-progress">
                 <div class="progress-bar" id="progress-bar"></div>
             </div>
@@ -837,7 +857,8 @@
                 <div class="short-answer-container">
                     <input type="text" class="short-answer-input" id="answer-11" placeholder="Enter your answer">
                     <div class="feedback correct" style="display: none;">Correct! 12 × 5 - 2 = 60 - 2 = 58</div>
-                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 58. First, calculate 3 + 2 = 5, then 12 × 5 = 60, and 8 ÷ 4 = 2. Finally, 60 - 2 = 58.</div>
+                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 58. First,
+                        calculate 3 + 2 = 5, then 12 × 5 = 60, and 8 ÷ 4 = 2. Finally, 60 - 2 = 58.</div>
                 </div>
             </div>
 
@@ -850,7 +871,8 @@
                 <div class="short-answer-container">
                     <input type="text" class="short-answer-input" id="answer-12" placeholder="Enter your answer">
                     <div class="feedback correct" style="display: none;">Correct! 7 + 5 × 4 = 7 + 20 = 27</div>
-                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 27. First, calculate 6 - 2 = 4, then 5 × 4 = 20. Finally, 7 + 20 = 27.</div>
+                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 27. First,
+                        calculate 6 - 2 = 4, then 5 × 4 = 20. Finally, 7 + 20 = 27.</div>
                 </div>
             </div>
 
@@ -862,8 +884,10 @@
                 </div>
                 <div class="short-answer-container">
                     <input type="text" class="short-answer-input" id="answer-13" placeholder="Enter your answer">
-                    <div class="feedback correct" style="display: none;">Correct! (10 + 5) × 3 ÷ 5 = 15 × 3 ÷ 5 = 45 ÷ 5 = 9</div>
-                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 9. First, calculate 10 + 5 = 15, then 15 × 3 = 45. Finally, 45 ÷ 5 = 9.</div>
+                    <div class="feedback correct" style="display: none;">Correct! (10 + 5) × 3 ÷ 5 = 15 × 3 ÷ 5 = 45 ÷ 5
+                        = 9</div>
+                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 9. First,
+                        calculate 10 + 5 = 15, then 15 × 3 = 45. Finally, 45 ÷ 5 = 9.</div>
                 </div>
             </div>
 
@@ -875,8 +899,10 @@
                 </div>
                 <div class="short-answer-container">
                     <input type="text" class="short-answer-input" id="answer-14" placeholder="Enter your answer">
-                    <div class="feedback correct" style="display: none;">Correct! 36 ÷ (3 × 4) + 2 = 36 ÷ 12 + 2 = 3 + 2 = 5</div>
-                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 5. First, calculate 3 × 4 = 12, then 36 ÷ 12 = 3. Finally, 3 + 2 = 5.</div>
+                    <div class="feedback correct" style="display: none;">Correct! 36 ÷ (3 × 4) + 2 = 36 ÷ 12 + 2 = 3 + 2
+                        = 5</div>
+                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 5. First,
+                        calculate 3 × 4 = 12, then 36 ÷ 12 = 3. Finally, 3 + 2 = 5.</div>
                 </div>
             </div>
 
@@ -889,7 +915,8 @@
                 <div class="short-answer-container">
                     <input type="text" class="short-answer-input" id="answer-15" placeholder="Enter your answer">
                     <div class="feedback correct" style="display: none;">Correct! 4 × 3 + 2 × 5 = 12 + 10 = 22</div>
-                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 22. First, calculate 4 × 3 = 12 and 2 × 5 = 10. Then, 12 + 10 = 22.</div>
+                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 22. First,
+                        calculate 4 × 3 = 12 and 2 × 5 = 10. Then, 12 + 10 = 22.</div>
                 </div>
             </div>
 
@@ -901,8 +928,10 @@
                 </div>
                 <div class="short-answer-container">
                     <input type="text" class="short-answer-input" id="answer-16" placeholder="Enter your answer">
-                    <div class="feedback correct" style="display: none;">Correct! 48 ÷ (4 + 8) × 2 = 48 ÷ 12 × 2 = 4 × 2 = 8</div>
-                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 8. First, calculate 4 + 8 = 12, then 48 ÷ 12 = 4. Finally, 4 × 2 = 8.</div>
+                    <div class="feedback correct" style="display: none;">Correct! 48 ÷ (4 + 8) × 2 = 48 ÷ 12 × 2 = 4 × 2
+                        = 8</div>
+                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 8. First,
+                        calculate 4 + 8 = 12, then 48 ÷ 12 = 4. Finally, 4 × 2 = 8.</div>
                 </div>
             </div>
 
@@ -914,8 +943,10 @@
                 </div>
                 <div class="short-answer-container">
                     <input type="text" class="short-answer-input" id="answer-17" placeholder="Enter your answer">
-                    <div class="feedback correct" style="display: none;">Correct! 5 × (6 - 2) + 3 × 4 = 5 × 4 + 3 × 4 = 20 + 12 = 32</div>
-                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 32. First, calculate 6 - 2 = 4, then 5 × 4 = 20 and 3 × 4 = 12. Finally, 20 + 12 = 32.</div>
+                    <div class="feedback correct" style="display: none;">Correct! 5 × (6 - 2) + 3 × 4 = 5 × 4 + 3 × 4 =
+                        20 + 12 = 32</div>
+                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 32. First,
+                        calculate 6 - 2 = 4, then 5 × 4 = 20 and 3 × 4 = 12. Finally, 20 + 12 = 32.</div>
                 </div>
             </div>
 
@@ -927,8 +958,10 @@
                 </div>
                 <div class="short-answer-container">
                     <input type="text" class="short-answer-input" id="answer-18" placeholder="Enter your answer">
-                    <div class="feedback correct" style="display: none;">Correct! 72 ÷ (3 + 6) - 4 = 72 ÷ 9 - 4 = 8 - 4 = 4</div>
-                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 4. First, calculate 3 + 6 = 9, then 72 ÷ 9 = 8. Finally, 8 - 4 = 4.</div>
+                    <div class="feedback correct" style="display: none;">Correct! 72 ÷ (3 + 6) - 4 = 72 ÷ 9 - 4 = 8 - 4
+                        = 4</div>
+                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 4. First,
+                        calculate 3 + 6 = 9, then 72 ÷ 9 = 8. Finally, 8 - 4 = 4.</div>
                 </div>
             </div>
 
@@ -940,8 +973,10 @@
                 </div>
                 <div class="short-answer-container">
                     <input type="text" class="short-answer-input" id="answer-19" placeholder="Enter your answer">
-                    <div class="feedback correct" style="display: none;">Correct! 3 × (8 - 2) ÷ 2 + 5 = 3 × 6 ÷ 2 + 5 = 18 ÷ 2 + 5 = 9 + 5 = 14</div>
-                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 14. First, calculate 8 - 2 = 6, then 3 × 6 = 18, and 18 ÷ 2 = 9. Finally, 9 + 5 = 14.</div>
+                    <div class="feedback correct" style="display: none;">Correct! 3 × (8 - 2) ÷ 2 + 5 = 3 × 6 ÷ 2 + 5 =
+                        18 ÷ 2 + 5 = 9 + 5 = 14</div>
+                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 14. First,
+                        calculate 8 - 2 = 6, then 3 × 6 = 18, and 18 ÷ 2 = 9. Finally, 9 + 5 = 14.</div>
                 </div>
             </div>
 
@@ -953,8 +988,10 @@
                 </div>
                 <div class="short-answer-container">
                     <input type="text" class="short-answer-input" id="answer-20" placeholder="Enter your answer">
-                    <div class="feedback correct" style="display: none;">Correct! 6 × (4 + 3) - 9 ÷ 3 = 6 × 7 - 9 ÷ 3 = 42 - 3 = 39</div>
-                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 39. First, calculate 4 + 3 = 7, then 6 × 7 = 42, and 9 ÷ 3 = 3. Finally, 42 - 3 = 39.</div>
+                    <div class="feedback correct" style="display: none;">Correct! 6 × (4 + 3) - 9 ÷ 3 = 6 × 7 - 9 ÷ 3 =
+                        42 - 3 = 39</div>
+                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 39. First,
+                        calculate 4 + 3 = 7, then 6 × 7 = 42, and 9 ÷ 3 = 3. Finally, 42 - 3 = 39.</div>
                 </div>
             </div>
         </div>
@@ -986,7 +1023,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const questions = document.querySelectorAll('.question-container');
             const progressBar = document.getElementById('progress-bar');
             const prevBtn = document.getElementById('prev-btn');
@@ -1013,21 +1050,21 @@
 
             // Add click event to options
             document.querySelectorAll('.option').forEach(option => {
-                option.addEventListener('click', function() {
+                option.addEventListener('click', function () {
                     const questionIndex = parseInt(this.closest('.question-container').id.split('-')[1]) - 1;
                     const selectedOption = this.getAttribute('data-option');
-                    
+
                     // Remove selected class from all options in this question
                     this.closest('.options-container').querySelectorAll('.option').forEach(opt => {
                         opt.classList.remove('selected');
                     });
-                    
+
                     // Add selected class to clicked option
                     this.classList.add('selected');
-                    
+
                     // Store user's answer
                     userAnswers[questionIndex] = selectedOption;
-                    
+
                     // Update progress bar
                     updateProgressBar();
                 });
@@ -1035,17 +1072,17 @@
 
             // Add input event to short answer inputs
             document.querySelectorAll('.short-answer-input').forEach(input => {
-                input.addEventListener('input', function() {
+                input.addEventListener('input', function () {
                     const questionIndex = parseInt(this.id.split('-')[1]) - 1;
                     userAnswers[questionIndex] = this.value.trim();
-                    
+
                     // Update progress bar
                     updateProgressBar();
                 });
             });
 
             // Previous button click
-            prevBtn.addEventListener('click', function() {
+            prevBtn.addEventListener('click', function () {
                 if (currentQuestion > 0) {
                     questions[currentQuestion].classList.remove('active');
                     currentQuestion--;
@@ -1055,7 +1092,7 @@
             });
 
             // Next button click
-            nextBtn.addEventListener('click', function() {
+            nextBtn.addEventListener('click', function () {
                 if (currentQuestion < totalQuestions - 1) {
                     questions[currentQuestion].classList.remove('active');
                     currentQuestion++;
@@ -1065,19 +1102,19 @@
             });
 
             // Submit button click
-            submitBtn.addEventListener('click', function() {
+            submitBtn.addEventListener('click', function () {
                 showResults();
             });
 
             // Restart button click
-            restartBtn.addEventListener('click', function() {
+            restartBtn.addEventListener('click', function () {
                 resetQuiz();
             });
 
             // Update buttons based on current question
             function updateButtons() {
                 prevBtn.disabled = currentQuestion === 0;
-                
+
                 if (currentQuestion === totalQuestions - 1) {
                     nextBtn.style.display = 'none';
                     submitBtn.style.display = 'flex';
@@ -1105,14 +1142,14 @@
                     const userAnswer = userAnswers[i];
                     const correctAnswer = correctAnswers[questionNum];
                     const isCorrect = userAnswer === correctAnswer;
-                    
+
                     if (isCorrect) {
                         score++;
                     }
 
                     // Get question text
                     const questionText = questions[i].querySelector('.question-text').textContent.trim();
-                    
+
                     // Add to details HTML
                     detailsHTML += `
                         <div class="result-item">
@@ -1121,12 +1158,12 @@
                                 ${isCorrect ? '✓' : '✗'}
                             </div>
                         </div>`;
-                        
+
                     // Add user's answer and correct answer if incorrect
                     if (!isCorrect) {
                         let userAnswerDisplay = userAnswer || 'No answer';
                         let correctAnswerDisplay = correctAnswer;
-                        
+
                         // For multiple choice questions (1-10), convert option letter to text
                         if (i < 10) {
                             if (userAnswer) {
@@ -1135,13 +1172,13 @@
                                     userAnswerDisplay = `${userAnswer}) ${userOption.textContent}`;
                                 }
                             }
-                            
+
                             const correctOption = questions[i].querySelector(`.option[data-option="${correctAnswer}"] .option-text`);
                             if (correctOption) {
                                 correctAnswerDisplay = `${correctAnswer}) ${correctOption.textContent}`;
                             }
                         }
-                        
+
                         detailsHTML += `
                             <div class="result-detail">
                                 <div class="user-answer">Your answer: ${userAnswerDisplay}</div>
@@ -1152,7 +1189,7 @@
 
                 // Update results
                 resultsScore.textContent = `${score}/${totalQuestions}`;
-                
+
                 // Set message based on score
                 const percentage = (score / totalQuestions) * 100;
                 if (percentage >= 90) {
@@ -1164,9 +1201,9 @@
                 } else {
                     resultsMessage.textContent = 'You should review the order of operations (PEMDAS) rules and practice more.';
                 }
-                
+
                 resultsDetailsContent.innerHTML = detailsHTML;
-                
+
                 // Hide quiz content and show results
                 document.querySelector('.quiz-body').style.display = 'none';
                 document.querySelector('.quiz-footer').style.display = 'none';
@@ -1177,7 +1214,7 @@
             function resetQuiz() {
                 // Reset user answers
                 userAnswers.fill(null);
-                
+
                 // Reset question display
                 questions.forEach((question, index) => {
                     if (index === 0) {
@@ -1185,34 +1222,34 @@
                     } else {
                         question.classList.remove('active');
                     }
-                    
+
                     // Reset options
                     question.querySelectorAll('.option').forEach(option => {
                         option.classList.remove('selected', 'correct', 'incorrect');
                     });
-                    
+
                     // Reset short answer inputs
                     const input = question.querySelector('.short-answer-input');
                     if (input) {
                         input.value = '';
                         input.classList.remove('correct', 'incorrect');
-                        
+
                         // Hide feedback
                         question.querySelectorAll('.feedback').forEach(feedback => {
                             feedback.style.display = 'none';
                         });
                     }
                 });
-                
+
                 // Reset current question
                 currentQuestion = 0;
-                
+
                 // Reset progress bar
                 updateProgressBar();
-                
+
                 // Reset buttons
                 updateButtons();
-                
+
                 // Show quiz content and hide results
                 document.querySelector('.quiz-body').style.display = 'block';
                 document.querySelector('.quiz-footer').style.display = 'flex';
@@ -1220,36 +1257,41 @@
             }
         });
     </script>
-  <!-- Shared Header and Footer JavaScript -->
-  <script src="../../shared/header-footer.js"></script>
-</body>
-</html>
 
     <!-- Add FAQ section with structured data at the bottom -->
     <div class="faq-section">
         <h2>Frequently Asked Questions about Order of Operations</h2>
         <div class="faq-item">
             <h3>Why is the order of operations important?</h3>
-            <p>The order of operations ensures that everyone gets the same answer when evaluating mathematical expressions. Without these rules, different people might interpret the same expression differently and get different results.</p>
+            <p>The order of operations ensures that everyone gets the same answer when evaluating mathematical
+                expressions.
+                Without these rules, different people might interpret the same expression differently and get different
+                results.</p>
         </div>
         <div class="faq-item">
             <h3>What does PEMDAS stand for?</h3>
-            <p>PEMDAS stands for Parentheses, Exponents, Multiplication/Division, and Addition/Subtraction. It helps you remember the correct order to perform operations in a mathematical expression.</p>
+            <p>PEMDAS stands for Parentheses, Exponents, Multiplication/Division, and Addition/Subtraction. It helps you
+                remember the correct order to perform operations in a mathematical expression.</p>
         </div>
         <div class="faq-item">
             <h3>Do I need to know PEMDAS for the GED Math test?</h3>
-            <p>Yes, understanding order of operations is essential for the GED Math test. You'll need to apply these rules to solve many problems, including those involving basic arithmetic, algebra, and word problems.</p>
+            <p>Yes, understanding order of operations is essential for the GED Math test. You'll need to apply these
+                rules
+                to solve many problems, including those involving basic arithmetic, algebra, and word problems.</p>
         </div>
         <div class="faq-item">
             <h3>Is multiplication always done before division?</h3>
-            <p>No, multiplication and division have the same precedence and are performed from left to right. The same applies to addition and subtraction.</p>
+            <p>No, multiplication and division have the same precedence and are performed from left to right. The same
+                applies to addition and subtraction.</p>
         </div>
         <div class="faq-item">
             <h3>How can I improve my order of operations skills?</h3>
-            <p>Regular practice is key. Work through problems step by step, following the PEMDAS rules. Use parentheses when in doubt to clarify the intended order of operations.</p>
+            <p>Regular practice is key. Work through problems step by step, following the PEMDAS rules. Use parentheses
+                when
+                in doubt to clarify the intended order of operations.</p>
         </div>
     </div>
-    
+
     <!-- Add FAQ structured data -->
     <script type="application/ld+json">
     {
@@ -1299,101 +1341,21 @@
       ]
     }
     </script>
-    
+
     <!-- Add related resources section -->
     <div class="related-resources">
         <h2>More GED Math Practice Resources</h2>
         <ul>
-            <li><a href="../number_puzzle_1.html">Number Puzzles Practice</a></li>
+            <li><a href="../../quizzes/GED/number_puzzle_1.html">Number Puzzles Practice</a></li>
             <li><a href="../ged-fractions-decimals.html">Fractions & Decimals Quiz</a></li>
             <li><a href="../ged-algebra.html">Algebra Fundamentals Quiz</a></li>
             <li><a href="../ged-geometry.html">Geometry & Measurement Practice</a></li>
-            <li><a href="../ged_prep_test_1.html">Complete GED Math Practice Test</a></li>
-            <li><a href="../ged-math-quizzes.html">All GED Math Quizzes</a></li>
+            <li><a href="../../quizzes/GED/ged_prep_test_1.html">Complete GED Math Practice Test</a></li>
+            <li><a href="../../quizzes/GED/ged-math-quizzes.html">All GED Math Quizzes</a></li>
         </ul>
     </div>
-    
-    <!-- Add cache control headers via .htaccess file -->
-    
-    <!-- Add CSS for new sections -->
-    <style>
-        .quiz-intro {
-            background-color: var(--neutral-color);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            color: var(--text-color);
-            width: 100%; /* Ensure full width */
-        }
-        
-        .quiz-intro ul {
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .quiz-intro li {
-            margin-bottom: 0.5rem;
-        }
-        
-        .back-link {
-            display: inline-block;
-            margin-top: 1rem;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .back-link:hover {
-            text-decoration: underline;
-        }
-        
-        .faq-section, .related-resources {
-            width: 100%; /* Full width */
-            max-width: 800px; /* Match the quiz container width */
-            margin: 2rem auto;
-            padding: 1.5rem;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .faq-section h2, .related-resources h2 {
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-        }
-        
-        .faq-item {
-            margin-bottom: 1.5rem;
-        }
-        
-        .faq-item h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            color: var(--secondary-color);
-        }
-        
-        .related-resources ul {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .related-resources li {
-            margin-bottom: 0.8rem;
-        }
-        
-        .related-resources a {
-            color: var(--primary-color);
-            text-decoration: none;
-            display: inline-block;
-            padding: 0.3rem 0;
-        }
-        
-        .related-resources a:hover {
-            text-decoration: underline;
-        }
-    </style>
-  <!-- Shared Header and Footer JavaScript -->
-  <script src="../../shared/header-footer.js"></script>
+
+    <!-- Shared Header and Footer JavaScript -->
+    <script src="../../shared/header-footer.js"></script>
 </body>
 </html>

@@ -423,7 +423,7 @@ export default defineConfig({
     ['list'],                                    // terminal output
     ['html'],                                    // default HTML report
     ['monocart-reporter', { 
-      outputFile: 'monocart-report/index.html'  // Monocart report location
+      outputFile: '../index.html'  // Monocart report location
     }],
   ],
 });</code></pre>
@@ -438,7 +438,7 @@ module.exports = {
     ['list'],                                    // terminal output
     ['html'],                                    // default HTML report
     ['monocart-reporter', { 
-      outputFile: 'monocart-report/index.html'  // Monocart report location
+      outputFile: '../index.html'  // Monocart report location
     }],
   ],
 };</code></pre>
@@ -464,7 +464,7 @@ module.exports = {
                     <li><strong>All-In-One</strong>: As shown above, you can keep <code>['list']</code>, <code>['html']</code>, and Monocart together—great when you want a quick CLI summary, a basic HTML, plus the Monocart design.</li>
                     <li><strong>Only Monocart</strong>: If you prefer just the Monocart report, remove <code>['list']</code> and <code>['html']</code>, leaving:
                     <pre><code>reporter: [
-  ['monocart-reporter', { outputFile: 'monocart-report/index.html' }],
+  ['monocart-reporter', { outputFile: '../index.html' }],
 ],</code></pre></li>
                     <li><strong>Custom Combination</strong>: Feel free to mix and match. For example, if you only want <code>list</code> + Monocart and skip the default HTML, delete <code>['html']</code>.</li>
                 </ul>
@@ -495,17 +495,7 @@ test.describe('@login feature', () => {
   test('invalid credentials show error', async ({ page }) => { /* ... */ });
 });</code></pre>
                 
-                <p>In your <code>playwright.config.ts</code> (or <code>.js</code>), you can optionally define default groups or naming conventions, but simply tagging as shown above is sufficient. Monocart's dashboard will display these tags prominently, allowing you to filter and sort visually.</p>
-                
-                <hr>
-                
-                <h2>Useful Commands at a Glance</h2>
-                
-                <ul>
-                    <li><strong>Run Playwright Tests & View Reports</strong>
-                    <pre><code>npx playwright test
-npx playwright show-report         # Opens default HTML report
-open monocart-report/index.html    # (Mac) view Monocart output</code></pre></li>
+                <p>In your <code>playwright.config.ts</code> (or <code>.js</code>), you can optionally define default groups or naming conventions, but simply tagging as shown above is sufficient. Monocart'../index.html    # (Mac) view Monocart output</code></pre></li>
                     <li><strong>Install Monocart Reporter</strong>
                     <pre><code>npm install --save-dev monocart-reporter</code></pre></li>
                     <li><strong>Run Tagged Tests Only</strong>
@@ -531,7 +521,7 @@ open monocart-report/index.html</code></pre></li>
                     <li><strong>CI Integration</strong>
                     <ul>
                         <li>In your CI pipeline, publish both the <code>playwright-report/</code> and <code>monocart-report/</code> folders as artifacts.</li>
-                        <li>Add a step to <code>npx playwright show-report --reporter=html</code> or serve Monocart's index.html from a static-hosting solution (e.g., GitHub Pages).</li>
+                        <li>Add a step to <code>npx playwright show-report --reporter=html</code> or serve Monocart'../index.html from a static-hosting solution (e.g., GitHub Pages).</li>
                     </ul></li>
                     <li><strong>Customize Monocart</strong>
                     <ul>

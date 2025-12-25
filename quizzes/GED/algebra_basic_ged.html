@@ -63,11 +63,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-      /* Body padding/margin removed to match resources.html header layout */
+            font-family: 'Segoe UI'
             background-color: #f0f2f5;
             color: var(--text-color);
             line-height: 1.6;
@@ -82,24 +78,30 @@
             overflow: hidden;
         }
 
-        .quiz-header {
-            background-color: var(--primary-color);
-            color: var(--white);
-            padding: 1.5rem 2rem;
+                .quiz-header {
+            padding: 2.5rem 2rem 1rem;
             text-align: center;
+            background: none;
+            color: var(--text-color);
         }
 
-        .quiz-header h1 {
-            font-size: 1.8rem;
+                .quiz-header h1 {
+            font-size: 2.5rem;
             margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
         }
 
-        .quiz-intro {
+                .quiz-intro {
             background-color: var(--neutral-color);
             padding: 1.5rem;
             margin-bottom: 1.5rem;
             color: var(--text-color);
             width: 100%;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            text-align: left;
         }
 
         .quiz-progress {
@@ -951,12 +953,12 @@
     <div class="related-resources">
         <h2>More GED Math Practice Resources</h2>
         <ul>
-            <li><a href="basic_arithmetic_operations.html">Order of Operations (PEMDAS) Quiz</a></li>
-            <li><a href="system_of_equations.html">Systems of Equations Practice</a></li>
+            <li><a href="../../quizzes/GED/basic_arithmetic_operations.html">Order of Operations (PEMDAS) Quiz</a></li>
+            <li><a href="../../quizzes/GED/system_of_equations.html">Systems of Equations Practice</a></li>
             <li><a href="../ged-fractions-decimals.html">Fractions & Decimals Quiz</a></li>
             <li><a href="../ged-geometry.html">Geometry & Measurement Practice</a></li>
-            <li><a href="../ged_prep_test_1.html">Complete GED Math Practice Test</a></li>
-            <li><a href="../ged-math-quizzes.html">All GED Math Quizzes</a></li>
+            <li><a href="../../quizzes/GED/ged_prep_test_1.html">Complete GED Math Practice Test</a></li>
+            <li><a href="../../quizzes/GED/ged-math-quizzes.html">All GED Math Quizzes</a></li>
         </ul>
     </div>
 
@@ -1116,6 +1118,6 @@
         });
     </script>
   <!-- Shared Header and Footer JavaScript -->
-  <script src="../../shared/header-footer.js"></script>
+    <script src="../../shared/header-footer.js"></script>
 </body>
 </html>

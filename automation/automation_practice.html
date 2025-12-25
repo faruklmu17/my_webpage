@@ -275,7 +275,7 @@
         registeredUsers[username] = password;
         localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
         alert('Signup successful! Redirecting to home page...');
-        window.location.href = 'home_page.html';
+        window.location.href = '../automation/home_page.html';
       } else {
         // Handle login
         if (!registeredUsers[username] || registeredUsers[username] !== password) {
@@ -284,9 +284,10 @@
         }
         
         alert('Login successful! Redirecting to home page...');
-        window.location.href = 'home_page.html';
+        window.location.href = '../automation/home_page.html';
       }
     });
   </script>
+    <script src="../shared/header-footer.js"></script>
 </body>
 </html>
