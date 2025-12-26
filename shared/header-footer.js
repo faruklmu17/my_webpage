@@ -105,7 +105,8 @@ function injectFooter() {
       <div class="footer-bottom">
         <p>&copy; 2025 Faruk Hasan. All rights reserved. |
           <a href="${root}index.html">Home</a> |
-          <a href="${root}resources/resources.html">Resources</a>
+          <a href="${root}resources/resources.html">Resources</a> |
+          <a href="${root}legal/privacy.html">Privacy Policy</a>
         </p>
       </div>
     </footer>
