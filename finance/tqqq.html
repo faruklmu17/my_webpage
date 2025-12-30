@@ -211,7 +211,7 @@
     <script>
         async function loadStrategyData() {
             try {
-                const response = await fetch('finance/TQQQ_signals_updated_with_new_data_formatted.xlsx');
+                const response = await fetch('TQQQ_signals_updated_with_new_data_formatted.xlsx');
                 if (!response.ok) throw new Error('Failed to fetch Excel file');
 
                 const arrayBuffer = await response.arrayBuffer();
