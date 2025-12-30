@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Automation Practice - Login Form for QA Testing</title>
+  <link rel="canonical" href="https://faruk-hasan.com/automation/automation_practice.html" />
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Practice login form for automation testing. Perfect for QA engineers to practice Selenium, Playwright, Cypress and other automation tools." />
-  <meta name="keywords" content="automation testing, QA practice, Selenium practice, Playwright testing, Cypress automation, login form testing, QA engineer tools" />
+  <meta name="description"
+    content="Practice login form for automation testing. Perfect for QA engineers to practice Selenium, Playwright, Cypress and other automation tools." />
+  <meta name="keywords"
+    content="automation testing, QA practice, Selenium practice, Playwright testing, Cypress automation, login form testing, QA engineer tools" />
   <meta name="author" content="Faruk Hasan" />
   <!-- Open Graph / Social Media Meta Tags -->
   <meta property="og:title" content="Automation Practice - Login Form for QA Testing" />
-  <meta property="og:description" content="Practice login form for automation testing. Perfect for QA engineers to practice Selenium, Playwright, Cypress and other automation tools." />
+  <meta property="og:description"
+    content="Practice login form for automation testing. Perfect for QA engineers to practice Selenium, Playwright, Cypress and other automation tools." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://faruk-hasan.com/automation/automation_practice.html" />
   <!-- Google Fonts -->
@@ -25,13 +30,13 @@
       --error-color: #e63946;
       --success-color: #2a9d8f;
     }
-    
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-    
+
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -47,13 +52,13 @@
       background: #fff;
       padding: 40px;
       border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
       max-width: 450px;
       width: 100%;
       position: relative;
       overflow: hidden;
     }
-    
+
     .container::before {
       content: "";
       position: absolute;
@@ -85,7 +90,8 @@
       color: #555;
     }
 
-    input[type="text"], input[type="password"] {
+    input[type="text"],
+    input[type="password"] {
       width: 100%;
       padding: 14px;
       border: 1px solid var(--border-color);
@@ -95,7 +101,8 @@
       background-color: #f9f9f9;
     }
 
-    input[type="text"]:focus, input[type="password"]:focus {
+    input[type="text"]:focus,
+    input[type="password"]:focus {
       border-color: var(--primary-color);
       box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
       outline: none;
@@ -139,7 +146,7 @@
       background-color: var(--primary-hover);
       transform: translateY(-2px);
     }
-    
+
     button:active {
       transform: translateY(0);
     }
@@ -163,7 +170,7 @@
       color: var(--primary-hover);
       text-decoration: underline;
     }
-    
+
     .form-info {
       text-align: center;
       margin-top: 30px;
@@ -172,18 +179,26 @@
       padding-top: 20px;
       border-top: 1px solid #eee;
     }
-    
+
     /* Animation for form switching */
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    
+
     #confirmPasswordGroup {
       animation: fadeIn 0.4s ease-out;
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <h2>Automation Practice Login</h2>
@@ -212,7 +227,7 @@
       <div class="toggle">
         Don't have an account? <a onclick="toggleSignup()">Sign up</a>
       </div>
-      
+
       <div class="form-info">
         This is a practice page for automation testing.<br>
         Use it to test your Selenium, Playwright, or Cypress skills.
@@ -222,10 +237,10 @@
 
   <script>
     let isSignup = false;
-  
+
     // Load registered users from localStorage
     let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || {};
-  
+
     function toggleSignup() {
       const confirmPasswordGroup = document.getElementById('confirmPasswordGroup');
       const button = document.getElementById('submitBtn');
@@ -238,15 +253,15 @@
         ? 'Already have an account? <a onclick="toggleSignup()">Login</a>'
         : 'Don\'t have an account? <a onclick="toggleSignup()">Sign up</a>';
     }
-    
+
     // Handle forgot password
-    document.getElementById('forgotPassword').addEventListener('click', function(e) {
+    document.getElementById('forgotPassword').addEventListener('click', function (e) {
       e.preventDefault();
       alert('Password reset functionality would be implemented here in a real application.');
     });
-  
+
     // Handle form submit
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
       e.preventDefault();
 
       const username = document.getElementById('username').value.trim();
@@ -265,12 +280,12 @@
           alert('Passwords do not match.');
           return;
         }
-        
+
         if (registeredUsers[username]) {
           alert('Username already exists. Please choose another one.');
           return;
         }
-        
+
         // Register new user
         registeredUsers[username] = password;
         localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
@@ -282,12 +297,13 @@
           alert('Invalid username or password.');
           return;
         }
-        
+
         alert('Login successful! Redirecting to home page...');
         window.location.href = '../automation/home_page.html';
       }
     });
   </script>
-    <script src="../shared/header-footer.js"></script>
+  <script src="../shared/header-footer.js"></script>
 </body>
+
 </html>

@@ -1,515 +1,531 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<title>My Wealth Structure & Net Worth Trend</title>
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  }
+  <meta charset="UTF-8" />
+  <title>My Wealth Structure & Net Worth Trend</title>
+  <link rel="canonical" href="https://faruk-hasan.com/finance/financial_plan.html" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
 
-  body {
-    background: radial-gradient(circle at top left, #e0ecff, #edf2f7 40%, #dde4f0 100%);
-    padding: 40px 10px;
-    display: flex;
-    justify-content: center;
-    color: #0f172a;
-  }
+    body {
+      background: radial-gradient(circle at top left, #e0ecff, #edf2f7 40%, #dde4f0 100%);
+      padding: 40px 10px;
+      display: flex;
+      justify-content: center;
+      color: #0f172a;
+    }
 
-  .container {
-    width: 100%;
-    max-width: 1100px;
-    padding: 40px 34px 34px;
-    border-radius: 28px;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
-  }
-
-  h1 {
-    text-align: center;
-    font-size: 1.9rem;
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    margin-bottom: 0.4rem;
-  }
-
-  .sub {
-    text-align: center;
-    color: #6b7280;
-    font-size: 0.95rem;
-    margin-bottom: 2.4rem;
-  }
-
-  .section-title {
-    font-size: 0.95rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #6b7280;
-    margin-bottom: 0.8rem;
-  }
-
-  /* FLOW CHART --------------------------------------------------- */
-  .flow {
-    margin-bottom: 3rem;
-  }
-
-  .level {
-    display: flex;
-    justify-content: center;
-    gap: 18px;
-    flex-wrap: wrap;
-    margin-bottom: 18px;
-  }
-
-  .card {
-    padding: 16px 20px 15px;
-    min-width: 210px;
-    background: linear-gradient(145deg, #ffffff, #f6f7fb);
-    border-radius: 18px;
-    border: 1px solid rgba(226, 232, 240, 0.9);
-    box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
-    position: relative;
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
-  }
-
-  .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 32px rgba(15, 23, 42, 0.12);
-  }
-
-  .tag {
-    position: absolute;
-    top: -10px;
-    right: 14px;
-    padding: 4px 10px;
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    border-radius: 999px;
-    color: white;
-    text-transform: uppercase;
-    box-shadow: 0 6px 14px rgba(15, 23, 42, 0.27);
-  }
-
-  .income { background:#2563eb; }
-  .pretax { background:#0d9488; }
-  .posttax { background:#4f46e5; }
-  .cash { background:#f59e0b; }
-
-  .title {
-    font-size: 0.98rem;
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-
-  .desc {
-    font-size: 0.82rem;
-    color: #52525b;
-    line-height: 1.25rem;
-  }
-
-  .divider {
-    width: 2px;
-    height: 22px;
-    background: linear-gradient(to bottom, #bfc8d4, #d8dce3);
-    margin: 10px auto 16px;
-    border-radius: 999px;
-  }
-
-  /* NET WORTH CARD + CHART --------------------------------------- */
-  .nw-section {
-    padding-top: 0.5rem;
-    border-top: 1px solid #e5e7eb;
-  }
-
-  .nw-header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 1rem;
-  }
-
-  .nw-main {
-    font-size: 1.2rem;
-    font-weight: 600;
-  }
-
-  .nw-sub {
-    font-size: 0.8rem;
-    color: #6b7280;
-  }
-
-  .pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 10px;
-    border-radius: 999px;
-    background: #ecfdf3;
-    color: #166534;
-    font-size: 0.75rem;
-    font-weight: 500;
-  }
-
-  .pill span {
-    font-size: 0.85rem;
-  }
-
-  .chart-shell {
-    border-radius: 20px;
-    padding: 16px 18px 12px;
-    background: radial-gradient(circle at top left, #eef2ff, #f8fafc 45%, #eef2f7);
-    border: 1px solid #e5e7eb;
-  }
-
-  .chart-row {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .month-labels {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.7rem;
-    color: #6b7280;
-    margin-top: 6px;
-    padding: 0 4px;
-  }
-
-  .month-labels span {
-    flex: 1;
-    text-align: center;
-  }
-
-  .legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 18px;
-    font-size: 0.78rem;
-    color: #4b5563;
-    margin-top: 1.4rem;
-  }
-
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .legend-color {
-    width: 14px;
-    height: 14px;
-    border-radius: 4px;
-  }
-
-  @media (max-width: 720px) {
     .container {
-      padding: 26px 18px 24px;
+      width: 100%;
+      max-width: 1100px;
+      padding: 40px 34px 34px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
     }
+
+    h1 {
+      text-align: center;
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.4rem;
+    }
+
+    .sub {
+      text-align: center;
+      color: #6b7280;
+      font-size: 0.95rem;
+      margin-bottom: 2.4rem;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 0.8rem;
+    }
+
+    /* FLOW CHART --------------------------------------------------- */
+    .flow {
+      margin-bottom: 3rem;
+    }
+
+    .level {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
     .card {
-      min-width: 190px;
+      padding: 16px 20px 15px;
+      min-width: 210px;
+      background: linear-gradient(145deg, #ffffff, #f6f7fb);
+      border-radius: 18px;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
+      position: relative;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
     }
-  }
-</style>
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(15, 23, 42, 0.12);
+    }
+
+    .tag {
+      position: absolute;
+      top: -10px;
+      right: 14px;
+      padding: 4px 10px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      border-radius: 999px;
+      color: white;
+      text-transform: uppercase;
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.27);
+    }
+
+    .income {
+      background: #2563eb;
+    }
+
+    .pretax {
+      background: #0d9488;
+    }
+
+    .posttax {
+      background: #4f46e5;
+    }
+
+    .cash {
+      background: #f59e0b;
+    }
+
+    .title {
+      font-size: 0.98rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .desc {
+      font-size: 0.82rem;
+      color: #52525b;
+      line-height: 1.25rem;
+    }
+
+    .divider {
+      width: 2px;
+      height: 22px;
+      background: linear-gradient(to bottom, #bfc8d4, #d8dce3);
+      margin: 10px auto 16px;
+      border-radius: 999px;
+    }
+
+    /* NET WORTH CARD + CHART --------------------------------------- */
+    .nw-section {
+      padding-top: 0.5rem;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .nw-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .nw-main {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .nw-sub {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #ecfdf3;
+      color: #166534;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .pill span {
+      font-size: 0.85rem;
+    }
+
+    .chart-shell {
+      border-radius: 20px;
+      padding: 16px 18px 12px;
+      background: radial-gradient(circle at top left, #eef2ff, #f8fafc 45%, #eef2f7);
+      border: 1px solid #e5e7eb;
+    }
+
+    .chart-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .month-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: #6b7280;
+      margin-top: 6px;
+      padding: 0 4px;
+    }
+
+    .month-labels span {
+      flex: 1;
+      text-align: center;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      font-size: 0.78rem;
+      color: #4b5563;
+      margin-top: 1.4rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-color {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+    }
+
+    @media (max-width: 720px) {
+      .container {
+        padding: 26px 18px 24px;
+      }
+
+      .card {
+        min-width: 190px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="container">
+  <div class="container">
 
-  <h1>My Wealth Structure & Progress</h1>
-  <p class="sub">How my income flows through accounts — and how my net worth has grown this year.</p>
+    <h1>My Wealth Structure & Progress</h1>
+    <p class="sub">How my income flows through accounts — and how my net worth has grown this year.</p>
 
-  <!-- 1. WEALTH STRUCTURE (FLOW CHART) -->
-  <div class="flow">
-    <div class="section-title">Account Flow</div>
+    <!-- 1. WEALTH STRUCTURE (FLOW CHART) -->
+    <div class="flow">
+      <div class="section-title">Account Flow</div>
 
-    <!-- Paycheck -->
-    <div class="level">
-      <div class="card">
-        <span class="tag income">Income</span>
-        <div class="title">Full-Time Job</div>
-        <div class="desc">Main paycheck from QA / SDET role</div>
+      <!-- Paycheck -->
+      <div class="level">
+        <div class="card">
+          <span class="tag income">Income</span>
+          <div class="title">Full-Time Job</div>
+          <div class="desc">Main paycheck from QA / SDET role</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- 401k + Checking -->
+      <div class="level">
+        <div class="card">
+          <span class="tag pretax">Pre-Tax</span>
+          <div class="title">Employer 401(k)</div>
+          <div class="desc">Automatic contributions + employer match</div>
+        </div>
+
+        <div class="card">
+          <span class="tag income">Income</span>
+          <div class="title">Primary Checking</div>
+          <div class="desc">Bills, spending, mortgage payments</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Personal investing buckets -->
+      <div class="level">
+        <div class="card">
+          <span class="tag cash">Savings</span>
+          <div class="title">Emergency Fund</div>
+          <div class="desc">High-yield savings (6–12 months of expenses)</div>
+        </div>
+
+        <div class="card">
+          <span class="tag posttax">Post-Tax</span>
+          <div class="title">Roth IRA</div>
+          <div class="desc">Maxed yearly for tax-free retirement growth</div>
+        </div>
+
+        <div class="card">
+          <span class="tag posttax">Post-Tax</span>
+          <div class="title">Taxable Brokerage</div>
+          <div class="desc">Dividends + growth for early retirement</div>
+        </div>
+
+        <div class="card">
+          <span class="tag posttax">Post-Tax</span>
+          <div class="title">Kids’ UTMA / Investments</div>
+          <div class="desc">Monthly contributions for kids’ future</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Side income -->
+      <div class="level">
+        <div class="card">
+          <span class="tag income">Income</span>
+          <div class="title">Side Income</div>
+          <div class="desc">Outschool, tutoring, Airbnb, YouTube & projects</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="level">
+        <div class="card">
+          <span class="tag income">Income</span>
+          <div class="title">Business Checking</div>
+          <div class="desc">Tracks all side-hustle income and expenses</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="level">
+        <div class="card">
+          <span class="tag cash">Savings</span>
+          <div class="title">Tax Savings Bucket</div>
+          <div class="desc">~25–30% of side income reserved for taxes</div>
+        </div>
+
+        <div class="card">
+          <span class="tag posttax">Post-Tax</span>
+          <div class="title">Extra Investing / Solo 401(k)</div>
+          <div class="desc">Additional investments + future business retirement</div>
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-color" style="background:#2563eb;"></div> Income source
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background:#0d9488;"></div> Pre-tax retirement
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background:#4f46e5;"></div> Post-tax investing
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background:#f59e0b;"></div> Cash / savings
+        </div>
       </div>
     </div>
 
-    <div class="divider"></div>
+    <!-- 2. NET WORTH TREND (USING YOUR TABLE DATA) -->
+    <div class="nw-section">
+      <div class="section-title">Net Worth Trend (2025)</div>
 
-    <!-- 401k + Checking -->
-    <div class="level">
-      <div class="card">
-        <span class="tag pretax">Pre-Tax</span>
-        <div class="title">Employer 401(k)</div>
-        <div class="desc">Automatic contributions + employer match</div>
+      <div class="nw-header">
+        <div>
+          <div class="nw-main">Latest Net Worth: <span id="nwLatest">$613,403</span></div>
+          <div class="nw-sub">Based on your monthly snapshot data (Jan–Nov)</div>
+        </div>
+        <div class="pill" id="nwChangePill">
+          <span>▲</span><span id="nwChangeText">+81,175 since January</span>
+        </div>
       </div>
 
-      <div class="card">
-        <span class="tag income">Income</span>
-        <div class="title">Primary Checking</div>
-        <div class="desc">Bills, spending, mortgage payments</div>
-      </div>
-    </div>
+      <div class="chart-shell">
+        <div class="chart-row">
+          <!-- SVG chart -->
+          <svg id="nwChart" viewBox="0 0 640 220" width="100%" height="220" aria-label="Net worth line chart">
+            <defs>
+              <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#4f46e5" stop-opacity="0.9" />
+                <stop offset="100%" stop-color="#4f46e5" stop-opacity="0.05" />
+              </linearGradient>
+            </defs>
 
-    <div class="divider"></div>
+            <!-- grid lines -->
+            <g id="grid"></g>
 
-    <!-- Personal investing buckets -->
-    <div class="level">
-      <div class="card">
-        <span class="tag cash">Savings</span>
-        <div class="title">Emergency Fund</div>
-        <div class="desc">High-yield savings (6–12 months of expenses)</div>
-      </div>
+            <!-- shaded area -->
+            <path id="areaPath" fill="url(#lineGrad)" stroke="none"></path>
 
-      <div class="card">
-        <span class="tag posttax">Post-Tax</span>
-        <div class="title">Roth IRA</div>
-        <div class="desc">Maxed yearly for tax-free retirement growth</div>
-      </div>
+            <!-- main line -->
+            <path id="linePath" fill="none" stroke="#4338ca" stroke-width="2.4" stroke-linecap="round"
+              stroke-linejoin="round"></path>
 
-      <div class="card">
-        <span class="tag posttax">Post-Tax</span>
-        <div class="title">Taxable Brokerage</div>
-        <div class="desc">Dividends + growth for early retirement</div>
-      </div>
+            <!-- points -->
+            <g id="points"></g>
+          </svg>
 
-      <div class="card">
-        <span class="tag posttax">Post-Tax</span>
-        <div class="title">Kids’ UTMA / Investments</div>
-        <div class="desc">Monthly contributions for kids’ future</div>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- Side income -->
-    <div class="level">
-      <div class="card">
-        <span class="tag income">Income</span>
-        <div class="title">Side Income</div>
-        <div class="desc">Outschool, tutoring, Airbnb, YouTube & projects</div>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="level">
-      <div class="card">
-        <span class="tag income">Income</span>
-        <div class="title">Business Checking</div>
-        <div class="desc">Tracks all side-hustle income and expenses</div>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="level">
-      <div class="card">
-        <span class="tag cash">Savings</span>
-        <div class="title">Tax Savings Bucket</div>
-        <div class="desc">~25–30% of side income reserved for taxes</div>
-      </div>
-
-      <div class="card">
-        <span class="tag posttax">Post-Tax</span>
-        <div class="title">Extra Investing / Solo 401(k)</div>
-        <div class="desc">Additional investments + future business retirement</div>
-      </div>
-    </div>
-
-    <!-- Legend -->
-    <div class="legend">
-      <div class="legend-item">
-        <div class="legend-color" style="background:#2563eb;"></div> Income source
-      </div>
-      <div class="legend-item">
-        <div class="legend-color" style="background:#0d9488;"></div> Pre-tax retirement
-      </div>
-      <div class="legend-item">
-        <div class="legend-color" style="background:#4f46e5;"></div> Post-tax investing
-      </div>
-      <div class="legend-item">
-        <div class="legend-color" style="background:#f59e0b;"></div> Cash / savings
-      </div>
-    </div>
-  </div>
-
-  <!-- 2. NET WORTH TREND (USING YOUR TABLE DATA) -->
-  <div class="nw-section">
-    <div class="section-title">Net Worth Trend (2025)</div>
-
-    <div class="nw-header">
-      <div>
-        <div class="nw-main">Latest Net Worth: <span id="nwLatest">$613,403</span></div>
-        <div class="nw-sub">Based on your monthly snapshot data (Jan–Nov)</div>
-      </div>
-      <div class="pill" id="nwChangePill">
-        <span>▲</span><span id="nwChangeText">+81,175 since January</span>
-      </div>
-    </div>
-
-    <div class="chart-shell">
-      <div class="chart-row">
-        <!-- SVG chart -->
-        <svg id="nwChart" viewBox="0 0 640 220" width="100%" height="220" aria-label="Net worth line chart">
-          <defs>
-            <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#4f46e5" stop-opacity="0.9"/>
-              <stop offset="100%" stop-color="#4f46e5" stop-opacity="0.05"/>
-            </linearGradient>
-          </defs>
-
-          <!-- grid lines -->
-          <g id="grid"></g>
-
-          <!-- shaded area -->
-          <path id="areaPath" fill="url(#lineGrad)" stroke="none"></path>
-
-          <!-- main line -->
-          <path id="linePath" fill="none" stroke="#4338ca" stroke-width="2.4"
-                stroke-linecap="round" stroke-linejoin="round"></path>
-
-          <!-- points -->
-          <g id="points"></g>
-        </svg>
-
-        <!-- month labels -->
-        <div class="month-labels">
-          <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span>
-          <span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span>
+          <!-- month labels -->
+          <div class="month-labels">
+            <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span>
+            <span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<script>
-  // Net worth values (last column of your data)
-  const netWorth = [
-    532228, // Jan 30
-    543189, // Feb 28
-    542085, // Mar 31
-    535050, // Apr 30
-    529677, // May 31
-    585021, // Jun 30
-    585335, // Jul 30
-    609893, // Aug 30
-    568839, // Sep 30
-    579683, // Oct 30
-    613403  // Nov 28
-  ];
+  <script>
+    // Net worth values (last column of your data)
+    const netWorth = [
+      532228, // Jan 30
+      543189, // Feb 28
+      542085, // Mar 31
+      535050, // Apr 30
+      529677, // May 31
+      585021, // Jun 30
+      585335, // Jul 30
+      609893, // Aug 30
+      568839, // Sep 30
+      579683, // Oct 30
+      613403  // Nov 28
+    ];
 
-  const svg = document.getElementById("nwChart");
-  const linePath = document.getElementById("linePath");
-  const areaPath = document.getElementById("areaPath");
-  const pointsGroup = document.getElementById("points");
-  const gridGroup = document.getElementById("grid");
+    const svg = document.getElementById("nwChart");
+    const linePath = document.getElementById("linePath");
+    const areaPath = document.getElementById("areaPath");
+    const pointsGroup = document.getElementById("points");
+    const gridGroup = document.getElementById("grid");
 
-  const width = 640;
-  const height = 220;
-  const paddingX = 36;
-  const paddingTop = 16;
-  const paddingBottom = 34;
+    const width = 640;
+    const height = 220;
+    const paddingX = 36;
+    const paddingTop = 16;
+    const paddingBottom = 34;
 
-  const minNW = Math.min(...netWorth);
-  const maxNW = Math.max(...netWorth);
+    const minNW = Math.min(...netWorth);
+    const maxNW = Math.max(...netWorth);
 
-  const usableWidth = width - paddingX * 2;
-  const usableHeight = height - paddingTop - paddingBottom;
+    const usableWidth = width - paddingX * 2;
+    const usableHeight = height - paddingTop - paddingBottom;
 
-  function yFor(value) {
-    const t = (value - minNW) / (maxNW - minNW || 1); // 0..1
-    return paddingTop + (1 - t) * usableHeight;
-  }
+    function yFor(value) {
+      const t = (value - minNW) / (maxNW - minNW || 1); // 0..1
+      return paddingTop + (1 - t) * usableHeight;
+    }
 
-  function xFor(index) {
-    if (netWorth.length === 1) return width / 2;
-    const step = usableWidth / (netWorth.length - 1);
-    return paddingX + index * step;
-  }
+    function xFor(index) {
+      if (netWorth.length === 1) return width / 2;
+      const step = usableWidth / (netWorth.length - 1);
+      return paddingX + index * step;
+    }
 
-  // Draw horizontal grid lines (3)
-  const gridLines = 3;
-  for (let i = 0; i <= gridLines; i++) {
-    const y = paddingTop + (usableHeight / gridLines) * i;
-    const val = maxNW - ((maxNW - minNW) / gridLines) * i;
-    const line = document.createElementNS("http://www.w3.org/2000/svg","line");
-    line.setAttribute("x1", paddingX);
-    line.setAttribute("x2", width - paddingX);
-    line.setAttribute("y1", y);
-    line.setAttribute("y2", y);
-    line.setAttribute("stroke", "#e5e7eb");
-    line.setAttribute("stroke-width", "1");
-    line.setAttribute("stroke-dasharray", "3,4");
-    gridGroup.appendChild(line);
+    // Draw horizontal grid lines (3)
+    const gridLines = 3;
+    for (let i = 0; i <= gridLines; i++) {
+      const y = paddingTop + (usableHeight / gridLines) * i;
+      const val = maxNW - ((maxNW - minNW) / gridLines) * i;
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      line.setAttribute("x1", paddingX);
+      line.setAttribute("x2", width - paddingX);
+      line.setAttribute("y1", y);
+      line.setAttribute("y2", y);
+      line.setAttribute("stroke", "#e5e7eb");
+      line.setAttribute("stroke-width", "1");
+      line.setAttribute("stroke-dasharray", "3,4");
+      gridGroup.appendChild(line);
 
-    const label = document.createElementNS("http://www.w3.org/2000/svg","text");
-    label.setAttribute("x", paddingX - 8);
-    label.setAttribute("y", y + 4);
-    label.setAttribute("text-anchor", "end");
-    label.setAttribute("font-size", "10");
-    label.setAttribute("fill", "#9ca3af");
-    label.textContent = "$" + Math.round(val / 1000).toLocaleString() + "k";
-    gridGroup.appendChild(label);
-  }
+      const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      label.setAttribute("x", paddingX - 8);
+      label.setAttribute("y", y + 4);
+      label.setAttribute("text-anchor", "end");
+      label.setAttribute("font-size", "10");
+      label.setAttribute("fill", "#9ca3af");
+      label.textContent = "$" + Math.round(val / 1000).toLocaleString() + "k";
+      gridGroup.appendChild(label);
+    }
 
-  // Build line + area paths and points
-  let dLine = "";
-  let dArea = "";
+    // Build line + area paths and points
+    let dLine = "";
+    let dArea = "";
 
-  netWorth.forEach((v, i) => {
-    const x = xFor(i);
-    const y = yFor(v);
+    netWorth.forEach((v, i) => {
+      const x = xFor(i);
+      const y = yFor(v);
 
-    dLine += (i === 0 ? "M" : " L") + x + " " + y;
+      dLine += (i === 0 ? "M" : " L") + x + " " + y;
 
-    const point = document.createElementNS("http://www.w3.org/2000/svg","circle");
-    point.setAttribute("cx", x);
-    point.setAttribute("cy", y);
-    point.setAttribute("r", 3.3);
-    point.setAttribute("fill", "#4f46e5");
-    point.setAttribute("stroke", "#eef2ff");
-    point.setAttribute("stroke-width", "1.4");
-    pointsGroup.appendChild(point);
-  });
+      const point = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      point.setAttribute("cx", x);
+      point.setAttribute("cy", y);
+      point.setAttribute("r", 3.3);
+      point.setAttribute("fill", "#4f46e5");
+      point.setAttribute("stroke", "#eef2ff");
+      point.setAttribute("stroke-width", "1.4");
+      pointsGroup.appendChild(point);
+    });
 
-  // Area path (under the line)
-  const firstX = xFor(0);
-  const lastX = xFor(netWorth.length - 1);
-  const baseY = paddingTop + usableHeight;
+    // Area path (under the line)
+    const firstX = xFor(0);
+    const lastX = xFor(netWorth.length - 1);
+    const baseY = paddingTop + usableHeight;
 
-  dArea = "M" + firstX + " " + baseY + " " + dLine.replace("M","L") + " L" + lastX + " " + baseY + " Z";
+    dArea = "M" + firstX + " " + baseY + " " + dLine.replace("M", "L") + " L" + lastX + " " + baseY + " Z";
 
-  linePath.setAttribute("d", dLine);
-  areaPath.setAttribute("d", dArea);
+    linePath.setAttribute("d", dLine);
+    areaPath.setAttribute("d", dArea);
 
-  // Update header numbers
-  const formatter = new Intl.NumberFormat("en-US");
-  const nwLatestEl = document.getElementById("nwLatest");
-  const nwChangeTextEl = document.getElementById("nwChangeText");
-  const nwChangePill = document.getElementById("nwChangePill");
+    // Update header numbers
+    const formatter = new Intl.NumberFormat("en-US");
+    const nwLatestEl = document.getElementById("nwLatest");
+    const nwChangeTextEl = document.getElementById("nwChangeText");
+    const nwChangePill = document.getElementById("nwChangePill");
 
-  const start = netWorth[0];
-  const end = netWorth[netWorth.length - 1];
-  const diff = end - start;
-  const pct = diff / start * 100;
+    const start = netWorth[0];
+    const end = netWorth[netWorth.length - 1];
+    const diff = end - start;
+    const pct = diff / start * 100;
 
-  nwLatestEl.textContent = "$" + formatter.format(end);
-  const sign = diff >= 0 ? "+" : "–";
-  nwChangeTextEl.textContent =
-    `${sign}${formatter.format(Math.abs(diff))} (${sign}${Math.abs(pct).toFixed(1)}%) since January`;
+    nwLatestEl.textContent = "$" + formatter.format(end);
+    const sign = diff >= 0 ? "+" : "–";
+    nwChangeTextEl.textContent =
+      `${sign}${formatter.format(Math.abs(diff))} (${sign}${Math.abs(pct).toFixed(1)}%) since January`;
 
-  if (diff < 0) {
-    nwChangePill.style.background = "#fef2f2";
-    nwChangePill.style.color = "#b91c1c";
-    nwChangePill.querySelector("span").textContent = "▼";
-  }
-</script>
-    <script src="../shared/header-footer.js"></script>
+    if (diff < 0) {
+      nwChangePill.style.background = "#fef2f2";
+      nwChangePill.style.color = "#b91c1c";
+      nwChangePill.querySelector("span").textContent = "▼";
+    }
+  </script>
+  <script src="../shared/header-footer.js"></script>
 </body>
+
 </html>

@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Dividend Income Strategy - Path to Financial Independence | Faruk Hasan</title>
+  <link rel="canonical" href="https://faruk-hasan.com/finance/dividend_income.html" />
 
   <!-- SEO Meta Tags -->
   <meta name="description"
@@ -994,127 +995,127 @@
 
         <div class="timeline-item">
           <div class="timeline-date">Present Day</div>
-          <div class="timeline-title"../ai_resources/art.js Library -->
-  <!-- Chart.js Library -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- SheetJS Library for Excel parsing -->
-  <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+          <div class="timeline-title" ../ai_resources/art.js Library -->
+            <!-- Chart.js Library -->
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <!-- SheetJS Library for Excel parsing -->
+            <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 
-  <script>
-    // State to hold portfolio data
-    let dividendData = [];
+            <script>
+              // State to hold portfolio data
+              let dividendData = [];
 
-    async function loadPortfolioData() {
-      try {
-        const response = await fetch('../portfolio_data.xlsx');
-        if (!response.ok) {
-          throw new Error('Failed to fetch Excel file');
-        }
-        const arrayBuffer = await response.arrayBuffer();
-        const workbook = XLSX.read(arrayBuffer);
+              async function loadPortfolioData() {
+                try {
+                  const response = await fetch('../portfolio_data.xlsx');
+                  if (!response.ok) {
+                    throw new Error('Failed to fetch Excel file');
+                  }
+                  const arrayBuffer = await response.arrayBuffer();
+                  const workbook = XLSX.read(arrayBuffer);
 
-        // Assume data is in the first sheet
-        const firstSheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[firstSheetName];
+                  // Assume data is in the first sheet
+                  const firstSheetName = workbook.SheetNames[0];
+                  const worksheet = workbook.Sheets[firstSheetName];
 
-        // Convert to JSON
-        const rawData = XLSX.utils.sheet_to_json(worksheet);
+                  // Convert to JSON
+                  const rawData = XLSX.utils.sheet_to_json(worksheet);
 
-        // Process and map data
+                  // Process and map data
 
-        // Helper to clean and parse numbers
-        const parseVal = (val) => {
-          if (typeof val === 'number') return val;
-          if (!val) return 0;
-          // Remove currency symbols, commas, percent signs
-          const cleaned = String(val).replace(/[$,%]/g, '').trim();
-          const floatVal = parseFloat(cleaned);
-          return isNaN(floatVal) ? 0 : floatVal;
-        };
+                  // Helper to clean and parse numbers
+                  const parseVal = (val) => {
+                    if (typeof val === 'number') return val;
+                    if (!val) return 0;
+                    // Remove currency symbols, commas, percent signs
+                    const cleaned = String(val).replace(/[$,%]/g, '').trim();
+                    const floatVal = parseFloat(cleaned);
+                    return isNaN(floatVal) ? 0 : floatVal;
+                  };
 
-        // Helper to find key case-insensitively
-        const getKey = (obj, ...candidates) => {
-          const keys = Object.keys(obj);
-          for (const candidate of candidates) {
-            const found = keys.find(k => k.toLowerCase().trim() === candidate.toLowerCase());
-            if (found) return obj[found];
-          }
-          return undefined;
-        };
+                  // Helper to find key case-insensitively
+                  const getKey = (obj, ...candidates) => {
+                    const keys = Object.keys(obj);
+                    for (const candidate of candidates) {
+                      const found = keys.find(k => k.toLowerCase().trim() === candidate.toLowerCase());
+                      if (found) return obj[found];
+                    }
+                    return undefined;
+                  };
 
-        dividendData = rawData.map(row => {
-          // Flexible column mapping in case of small variations
-          const stock = getKey(row, 'Stock', 'Ticker', 'Symbol', 'Company', 'Asset');
-          const shares = parseVal(getKey(row, 'Shares', 'Quantity', 'Qty', 'Units', 'Share Count'));
-          // Updated based on debug: 'Purchase Price' is the column name
-          const price = parseVal(getKey(row, 'Purchase Price', 'Price', 'Current Price', 'Market Price', 'Cost Basis', 'Avg Price'));
-          // Updated based on debug: 'Dividend Yield (%)' is the column name
-          let yieldVal = parseVal(getKey(row, 'Dividend Yield (%)', 'Yield', 'Dividend Yield', 'Div Yield', 'Yield %', 'Current Yield'));
+                  dividendData = rawData.map(row => {
+                    // Flexible column mapping in case of small variations
+                    const stock = getKey(row, 'Stock', 'Ticker', 'Symbol', 'Company', 'Asset');
+                    const shares = parseVal(getKey(row, 'Shares', 'Quantity', 'Qty', 'Units', 'Share Count'));
+                    // Updated based on debug: 'Purchase Price' is the column name
+                    const price = parseVal(getKey(row, 'Purchase Price', 'Price', 'Current Price', 'Market Price', 'Cost Basis', 'Avg Price'));
+                    // Updated based on debug: 'Dividend Yield (%)' is the column name
+                    let yieldVal = parseVal(getKey(row, 'Dividend Yield (%)', 'Yield', 'Dividend Yield', 'Div Yield', 'Yield %', 'Current Yield'));
 
-          // REMOVED Heuristic: The column 'Dividend Yield (%)' already contains the percentage value (e.g., 4.5 for 4.5%).
-          // Multiplying small values (like 0.6 for QQQ) by 100 was incorrectly creating 60% yields.
-          // if (yieldVal > 0 && yieldVal < 1) yieldVal *= 100;
+                    // REMOVED Heuristic: The column 'Dividend Yield (%)' already contains the percentage value (e.g., 4.5 for 4.5%).
+                    // Multiplying small values (like 0.6 for QQQ) by 100 was incorrectly creating 60% yields.
+                    // if (yieldVal > 0 && yieldVal < 1) yieldVal *= 100;
 
-          const marketValue = shares * price;
-          const annualDividend = marketValue * (yieldVal / 100);
-          const monthlyDividend = annualDividend / 12;
+                    const marketValue = shares * price;
+                    const annualDividend = marketValue * (yieldVal / 100);
+                    const monthlyDividend = annualDividend / 12;
 
-          return {
-            stock: stock || 'Unknown',
-            shares,
-            price,
-            yield: yieldVal,
-            marketValue,
-            annualDividend,
-            monthlyDividend
-          };
-        }).filter(item => item && item.stock !== 'Unknown' && item.shares > 0); // Filter out empty or invalid rows
+                    return {
+                      stock: stock || 'Unknown',
+                      shares,
+                      price,
+                      yield: yieldVal,
+                      marketValue,
+                      annualDividend,
+                      monthlyDividend
+                    };
+                  }).filter(item => item && item.stock !== 'Unknown' && item.shares > 0); // Filter out empty or invalid rows
 
-        if (dividendData.length === 0) {
-          // Debugging aid: Show what keys were found
-          const firstRowKeys = rawData.length > 0 ? Object.keys(rawData[0]).join(', ') : 'None';
-          document.getElementById('holdingsTableBody').innerHTML = `
+                  if (dividendData.length === 0) {
+                    // Debugging aid: Show what keys were found
+                    const firstRowKeys = rawData.length > 0 ? Object.keys(rawData[0]).join(', ') : 'None';
+                    document.getElementById('holdingsTableBody').innerHTML = `
                  <tr><td colspan="6" style="text-align:center; color: #f87171;">
                      <strong>No valid data found.</strong><br>
                      Detected columns in Excel: [${firstRowKeys}]<br>
                      Expected: Stock, Shares, Price, Yield
                  </td></tr>`;
-          return;
-        }
+                    return;
+                  }
 
-        // Sort by monthly dividend (highest first)
-        dividendData.sort((a, b) => b.monthlyDividend - a.monthlyDividend);
+                  // Sort by monthly dividend (highest first)
+                  dividendData.sort((a, b) => b.monthlyDividend - a.monthlyDividend);
 
-        // Update UI
-        populateTable();
-        createIncomeChart();
-        createAllocationChart();
+                  // Update UI
+                  populateTable();
+                  createIncomeChart();
+                  createAllocationChart();
 
-      } catch (error) {
-        console.error('Error loading portfolio data:', error);
-        // Fallback or error message could go here
-        document.getElementById('holdingsTableBody').innerHTML = '<tr><td colspan="6">Error loading portfolio data. Please check console.</td></tr>';
-      }
-    }
+                } catch (error) {
+                  console.error('Error loading portfolio data:', error);
+                  // Fallback or error message could go here
+                  document.getElementById('holdingsTableBody').innerHTML = '<tr><td colspan="6">Error loading portfolio data. Please check console.</td></tr>';
+                }
+              }
 
-    // Populate the table
-    function populateTable() {
-      const tbody = document.getElementById('holdingsTableBody');
-      tbody.innerHTML = ''; // Clear existing
-      let totalMonthly = 0;
-      let totalMarketValue = 0;
+              // Populate the table
+              function populateTable() {
+                const tbody = document.getElementById('holdingsTableBody');
+                tbody.innerHTML = ''; // Clear existing
+                let totalMonthly = 0;
+                let totalMarketValue = 0;
 
-      // First calculate total market value
-      dividendData.forEach(stock => {
-        totalMarketValue += stock.marketValue;
-        totalMonthly += stock.monthlyDividend;
-      });
+                // First calculate total market value
+                dividendData.forEach(stock => {
+                  totalMarketValue += stock.marketValue;
+                  totalMonthly += stock.monthlyDividend;
+                });
 
-      // Then populate table with percentages
-      dividendData.forEach(stock => {
-        const portfolioPercentage = (stock.marketValue / totalMarketValue * 100);
-        const row = document.createElement('tr');
-        row.innerHTML = `
+                // Then populate table with percentages
+                dividendData.forEach(stock => {
+                  const portfolioPercentage = (stock.marketValue / totalMarketValue * 100);
+                  const row = document.createElement('tr');
+                  row.innerHTML = `
           <td><strong>${stock.stock}</strong></td>
           <td>${stock.shares.toFixed(2)}</td>
           <td>$${stock.price.toFixed(2)}</td>
@@ -1122,241 +1123,242 @@
           <td>${portfolioPercentage.toFixed(1)}%</td>
           <td>$${stock.monthlyDividend.toFixed(2)}</td>
         `;
-        tbody.appendChild(row);
-      });
+                  tbody.appendChild(row);
+                });
 
-      // Update totals
-      const avgYield = totalMarketValue > 0 ? (totalMonthly * 12 / totalMarketValue * 100) : 0;
-      document.getElementById('avgYield').textContent = avgYield.toFixed(2) + '%';
-      document.getElementById('totalMonthly').innerHTML = `<strong>$${totalMonthly.toFixed(0)}</strong>`;
+                // Update totals
+                const avgYield = totalMarketValue > 0 ? (totalMonthly * 12 / totalMarketValue * 100) : 0;
+                document.getElementById('avgYield').textContent = avgYield.toFixed(2) + '%';
+                document.getElementById('totalMonthly').innerHTML = `<strong>$${totalMonthly.toFixed(0)}</strong>`;
 
-      // Update hero section yield and income
-      const yieldEl = document.getElementById('portfolio-yield');
-      if (yieldEl) yieldEl.textContent = avgYield.toFixed(1) + '%';
+                // Update hero section yield and income
+                const yieldEl = document.getElementById('portfolio-yield');
+                if (yieldEl) yieldEl.textContent = avgYield.toFixed(1) + '%';
 
-      const incomeEl = document.getElementById('current-monthly');
-      if (incomeEl) incomeEl.textContent = '$' + totalMonthly.toFixed(0);
+                const incomeEl = document.getElementById('current-monthly');
+                if (incomeEl) incomeEl.textContent = '$' + totalMonthly.toFixed(0);
 
-      // Update progress bar
-      updateProgressBar(totalMonthly);
-    }
-
-    // Update progress bar and stats
-    function updateProgressBar(currentMonthly) {
-      const targetGoal = 250;
-      const progressPercentage = (currentMonthly / targetGoal) * 100;
-      const remaining = Math.max(0, targetGoal - currentMonthly);
-
-      // Calculate months remaining until Dec 2025
-      const now = new Date();
-      const targetDate = new Date(2025, 11, 31); // December 31, 2025
-      const monthsRemaining = Math.max(1, Math.ceil((targetDate - now) / (1000 * 60 * 60 * 24 * 30)));
-      const monthlyGrowthNeeded = remaining / monthsRemaining;
-
-      // Update progress bar
-      const progressFill = document.getElementById('progress-fill');
-      if (progressFill) {
-        setTimeout(() => {
-          progressFill.style.width = Math.min(progressPercentage, 100) + '%';
-        }, 500);
-      }
-
-      // Update stats
-      const progPctEl = document.getElementById('progress-percentage');
-      if (progPctEl) progPctEl.textContent = progressPercentage.toFixed(0) + '%';
-
-      const remainingEl = document.getElementById('remaining-amount');
-      if (remainingEl) remainingEl.textContent = '$' + remaining.toFixed(0);
-
-      const neededEl = document.getElementById('monthly-needed');
-      if (neededEl) neededEl.textContent = '~$' + monthlyGrowthNeeded.toFixed(0);
-    }
-
-    // Existing Chart functions need slight modification to use the global 'dividendData' 
-    // populated by loadPortfolioData, instead of local const.
-
-    // Create the income distribution chart
-    function createIncomeChart() {
-      const ctx = document.getElementById('incomeChart').getContext('2d');
-
-      // Get top 8 holdings and group the rest as "Others"
-      const topHoldings = dividendData.slice(0, 8);
-      const otherHoldings = dividendData.slice(8);
-      const othersTotal = otherHoldings.reduce((sum, stock) => sum + stock.monthlyDividend, 0);
-
-      const chartData = topHoldings.map(stock => stock.monthlyDividend);
-      const chartLabels = topHoldings.map(stock => stock.stock);
-
-      if (othersTotal > 0) {
-        chartData.push(othersTotal);
-        chartLabels.push('Others');
-      }
-
-      const colors = [
-        '#10b981', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6',
-        '#06b6d4', '#84cc16', '#f97316', '#6b7280'
-      ];
-
-      // Destroy existing chart if it exists to allow updates
-      if (window.incomeChartInstance) {
-        window.incomeChartInstance.destroy();
-      }
-
-      window.incomeChartInstance = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: chartLabels,
-          datasets: [{
-            data: chartData,
-            backgroundColor: colors,
-            borderWidth: 3,
-            borderColor: '#ffffff',
-            hoverBorderWidth: 4,
-            cutout: '60%'
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: true,
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: {
-                padding: 15,
-                usePointStyle: true,
-                font: {
-                  size: 12,
-                  weight: '500'
-                }
+                // Update progress bar
+                updateProgressBar(totalMonthly);
               }
-            },
-            tooltip: {
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              titleColor: '#ffffff',
-              bodyColor: '#ffffff',
-              borderColor: '#ffffff',
-              borderWidth: 1,
-              callbacks: {
-                label: function (context) {
-                  const value = context.parsed;
-                  const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                  const percentage = ((value / total) * 100).toFixed(1);
-                  return `${context.label}: $${value.toFixed(2)}/month (${percentage}%)`;
+
+              // Update progress bar and stats
+              function updateProgressBar(currentMonthly) {
+                const targetGoal = 250;
+                const progressPercentage = (currentMonthly / targetGoal) * 100;
+                const remaining = Math.max(0, targetGoal - currentMonthly);
+
+                // Calculate months remaining until Dec 2025
+                const now = new Date();
+                const targetDate = new Date(2025, 11, 31); // December 31, 2025
+                const monthsRemaining = Math.max(1, Math.ceil((targetDate - now) / (1000 * 60 * 60 * 24 * 30)));
+                const monthlyGrowthNeeded = remaining / monthsRemaining;
+
+                // Update progress bar
+                const progressFill = document.getElementById('progress-fill');
+                if (progressFill) {
+                  setTimeout(() => {
+                    progressFill.style.width = Math.min(progressPercentage, 100) + '%';
+                  }, 500);
                 }
+
+                // Update stats
+                const progPctEl = document.getElementById('progress-percentage');
+                if (progPctEl) progPctEl.textContent = progressPercentage.toFixed(0) + '%';
+
+                const remainingEl = document.getElementById('remaining-amount');
+                if (remainingEl) remainingEl.textContent = '$' + remaining.toFixed(0);
+
+                const neededEl = document.getElementById('monthly-needed');
+                if (neededEl) neededEl.textContent = '~$' + monthlyGrowthNeeded.toFixed(0);
               }
-            }
-          },
-          animation: {
-            animateRotate: true,
-            duration: 1500
-          }
-        }
-      });
-    }
 
-    // Create the portfolio allocation chart
-    function createAllocationChart() {
-      const ctx = document.getElementById('allocationChart').getContext('2d');
+              // Existing Chart functions need slight modification to use the global 'dividendData' 
+              // populated by loadPortfolioData, instead of local const.
 
-      // Sort by market value for allocation chart
-      const sortedByValue = [...dividendData].sort((a, b) => b.marketValue - a.marketValue);
+              // Create the income distribution chart
+              function createIncomeChart() {
+                const ctx = document.getElementById('incomeChart').getContext('2d');
 
-      // Get top 8 holdings and group the rest as "Others"
-      const topHoldings = sortedByValue.slice(0, 8);
-      const otherHoldings = sortedByValue.slice(8);
-      const othersTotal = otherHoldings.reduce((sum, stock) => sum + stock.marketValue, 0);
+                // Get top 8 holdings and group the rest as "Others"
+                const topHoldings = dividendData.slice(0, 8);
+                const otherHoldings = dividendData.slice(8);
+                const othersTotal = otherHoldings.reduce((sum, stock) => sum + stock.monthlyDividend, 0);
 
-      const chartData = topHoldings.map(stock => stock.marketValue);
-      const chartLabels = topHoldings.map(stock => stock.stock);
+                const chartData = topHoldings.map(stock => stock.monthlyDividend);
+                const chartLabels = topHoldings.map(stock => stock.stock);
 
-      if (othersTotal > 0) {
-        chartData.push(othersTotal);
-        chartLabels.push('Others');
-      }
-
-      const colors = [
-        '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6',
-        '#06b6d4', '#84cc16', '#f97316', '#6b7280'
-      ];
-
-      // Destroy existing chart if it exists
-      if (window.allocationChartInstance) {
-        window.allocationChartInstance.destroy();
-      }
-
-      window.allocationChartInstance = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: chartLabels,
-          datasets: [{
-            data: chartData,
-            backgroundColor: colors,
-            borderWidth: 3,
-            borderColor: '#ffffff',
-            hoverBorderWidth: 4,
-            cutout: '60%'
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: true,
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: {
-                padding: 15,
-                usePointStyle: true,
-                font: {
-                  size: 12,
-                  weight: '500'
+                if (othersTotal > 0) {
+                  chartData.push(othersTotal);
+                  chartLabels.push('Others');
                 }
-              }
-            },
-            tooltip: {
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              titleColor: '#ffffff',
-              bodyColor: '#ffffff',
-              borderColor: '#ffffff',
-              borderWidth: 1,
-              callbacks: {
-                label: function (context) {
-                  const value = context.parsed;
-                  const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                  const percentage = ((value / total) * 100).toFixed(1);
-                  return `${context.label}: $${value.toLocaleString()} (${percentage}%)`;
+
+                const colors = [
+                  '#10b981', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6',
+                  '#06b6d4', '#84cc16', '#f97316', '#6b7280'
+                ];
+
+                // Destroy existing chart if it exists to allow updates
+                if (window.incomeChartInstance) {
+                  window.incomeChartInstance.destroy();
                 }
+
+                window.incomeChartInstance = new Chart(ctx, {
+                  type: 'doughnut',
+                  data: {
+                    labels: chartLabels,
+                    datasets: [{
+                      data: chartData,
+                      backgroundColor: colors,
+                      borderWidth: 3,
+                      borderColor: '#ffffff',
+                      hoverBorderWidth: 4,
+                      cutout: '60%'
+                    }]
+                  },
+                  options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                      legend: {
+                        position: 'bottom',
+                        labels: {
+                          padding: 15,
+                          usePointStyle: true,
+                          font: {
+                            size: 12,
+                            weight: '500'
+                          }
+                        }
+                      },
+                      tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleColor: '#ffffff',
+                        bodyColor: '#ffffff',
+                        borderColor: '#ffffff',
+                        borderWidth: 1,
+                        callbacks: {
+                          label: function (context) {
+                            const value = context.parsed;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((value / total) * 100).toFixed(1);
+                            return `${context.label}: $${value.toFixed(2)}/month (${percentage}%)`;
+                          }
+                        }
+                      }
+                    },
+                    animation: {
+                      animateRotate: true,
+                      duration: 1500
+                    }
+                  }
+                });
               }
-            }
-          },
-          animation: {
-            animateRotate: true,
-            duration: 1500
-          }
-        }
-      });
-    }
 
-    // Initialize when page loads
-    document.addEventListener('DOMContentLoaded', function () {
-      loadPortfolioData();
-    });
-  </script>
+              // Create the portfolio allocation chart
+              function createAllocationChart() {
+                const ctx = document.getElementById('allocationChart').getContext('2d');
 
-  <!-- Include the cosmic art script -->
-  <script src="../ai_resources/art.js"></script>
+                // Sort by market value for allocation chart
+                const sortedByValue = [...dividendData].sort((a, b) => b.marketValue - a.marketValue);
 
-  <script>
-    // Initialize cosmic background when page loads
-    window.addEventListener('load', function () {
-      console.log('🌌 Starting to load Cosmic Galaxy Art...');
-      if (typeof createCosmicGalaxyArt === 'function') {
-        createCosmicGalaxyArt();
-        console.log('🌌 Cosmic Galaxy Art loaded for dividend income page!');
-      } else {
-        console.error('❌ createCosmicGalaxyArt function not found!');
-      }
-    });
-  </script>
-    <script src="../shared/header-footer.js"></script>
+                // Get top 8 holdings and group the rest as "Others"
+                const topHoldings = sortedByValue.slice(0, 8);
+                const otherHoldings = sortedByValue.slice(8);
+                const othersTotal = otherHoldings.reduce((sum, stock) => sum + stock.marketValue, 0);
+
+                const chartData = topHoldings.map(stock => stock.marketValue);
+                const chartLabels = topHoldings.map(stock => stock.stock);
+
+                if (othersTotal > 0) {
+                  chartData.push(othersTotal);
+                  chartLabels.push('Others');
+                }
+
+                const colors = [
+                  '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6',
+                  '#06b6d4', '#84cc16', '#f97316', '#6b7280'
+                ];
+
+                // Destroy existing chart if it exists
+                if (window.allocationChartInstance) {
+                  window.allocationChartInstance.destroy();
+                }
+
+                window.allocationChartInstance = new Chart(ctx, {
+                  type: 'doughnut',
+                  data: {
+                    labels: chartLabels,
+                    datasets: [{
+                      data: chartData,
+                      backgroundColor: colors,
+                      borderWidth: 3,
+                      borderColor: '#ffffff',
+                      hoverBorderWidth: 4,
+                      cutout: '60%'
+                    }]
+                  },
+                  options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                      legend: {
+                        position: 'bottom',
+                        labels: {
+                          padding: 15,
+                          usePointStyle: true,
+                          font: {
+                            size: 12,
+                            weight: '500'
+                          }
+                        }
+                      },
+                      tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleColor: '#ffffff',
+                        bodyColor: '#ffffff',
+                        borderColor: '#ffffff',
+                        borderWidth: 1,
+                        callbacks: {
+                          label: function (context) {
+                            const value = context.parsed;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((value / total) * 100).toFixed(1);
+                            return `${context.label}: $${value.toLocaleString()} (${percentage}%)`;
+                          }
+                        }
+                      }
+                    },
+                    animation: {
+                      animateRotate: true,
+                      duration: 1500
+                    }
+                  }
+                });
+              }
+
+              // Initialize when page loads
+              document.addEventListener('DOMContentLoaded', function () {
+                loadPortfolioData();
+              });
+            </script>
+
+            <!-- Include the cosmic art script -->
+            <script src="../ai_resources/art.js"></script>
+
+            <script>
+              // Initialize cosmic background when page loads
+              window.addEventListener('load', function () {
+                console.log('🌌 Starting to load Cosmic Galaxy Art...');
+                if (typeof createCosmicGalaxyArt === 'function') {
+                  createCosmicGalaxyArt();
+                  console.log('🌌 Cosmic Galaxy Art loaded for dividend income page!');
+                } else {
+                  console.error('❌ createCosmicGalaxyArt function not found!');
+                }
+              });
+            </script>
+            <script src="../shared/header-footer.js"></script>
 </body>
+
 </html>

@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Learn how to test localStorage, persistent UI state, and hidden DOM elements using Playwright and TypeScript. Step-by-step guide perfect for QA Engineers, SDETs, JavaScript testers, and automation beginners." />
-  <meta name="keywords" content="Playwright localStorage, Playwright testing tutorial, Playwright persistent state, Playwright expect.poll, E2E testing localStorage, test UI persistence, Playwright TypeScript tutorial, QA automation tutorial, SDET portfolio project"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Learn how to test localStorage, persistent UI state, and hidden DOM elements using Playwright and TypeScript. Step-by-step guide perfect for QA Engineers, SDETs, JavaScript testers, and automation beginners." />
+  <meta name="keywords"
+    content="Playwright localStorage, Playwright testing tutorial, Playwright persistent state, Playwright expect.poll, E2E testing localStorage, test UI persistence, Playwright TypeScript tutorial, QA automation tutorial, SDET portfolio project" />
   <meta name="author" content="Faruk Hasan" />
   <meta property="og:title" content="How to Test localStorage & Persistent UI State in Playwright" />
-  <meta property="og:description" content="Step-by-step guide to testing persistent UI state, localStorage, and hidden DOM elements using Playwright and TypeScript. Perfect for SDETs and QA testers." />
+  <meta property="og:description"
+    content="Step-by-step guide to testing persistent UI state, localStorage, and hidden DOM elements using Playwright and TypeScript. Perfect for SDETs and QA testers." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://faruk-hasan.com/assets/playwright-localstorage-thumb.jpg" />
-  <meta property="og:url" content="https://faruk-hasan.com/blog/local_storage_testing_with_playwright.html" />
+  <meta property="og:url" content="https://faruk-hasan.com/blog_post/local_storage_testing_with_playwright.html" />
+  <link rel="canonical" href="https://faruk-hasan.com/blog_post/local_storage_testing_with_playwright.html" />
   <meta name="twitter:card" content="summary_large_image" />
   <title>How to Test localStorage & Persistent UI State in Playwright | Faruk Hasan</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -205,7 +210,8 @@
       margin-bottom: 1rem;
     }
 
-    .highlight-box ul, .highlight-box ol {
+    .highlight-box ul,
+    .highlight-box ol {
       margin: 0;
       padding-left: 1.5rem;
     }
@@ -346,6 +352,7 @@
         font-size: 1.1rem;
       }
     }
+
     /* Header and Footer Styles */
     .header {
       background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
@@ -460,6 +467,7 @@
     }
   </style>
 </head>
+
 <body>
   <!-- Header -->
   <header class="header">
@@ -484,110 +492,130 @@
       </a>
 
       <div class="blog-header">
-      <h1 class="blog-title">Testing localStorage & Persistent UI State with Playwright</h1>
-      <p class="blog-subtitle">A practical guide to ensuring your web app's state persists exactly as users expect — even after they refresh the page.</p>
-      <div class="blog-meta">
-        <div class="blog-meta-item">
-          <i class="fas fa-user"></i>
-          <span>Faruk Hasan</span>
-        </div>
-        <div class="blog-meta-item">
-          <i class="fas fa-calendar"></i>
-          <span>November 28, 2025</span>
-        </div>
-        <div class="blog-meta-item">
-          <i class="fas fa-clock"></i>
-          <span>8 min read</span>
-        </div>
-        <div class="blog-meta-item">
-          <i class="fas fa-tag"></i>
-          <span>Playwright Tutorial</span>
+        <h1 class="blog-title">Testing localStorage & Persistent UI State with Playwright</h1>
+        <p class="blog-subtitle">A practical guide to ensuring your web app's state persists exactly as users expect —
+          even after they refresh the page.</p>
+        <div class="blog-meta">
+          <div class="blog-meta-item">
+            <i class="fas fa-user"></i>
+            <span>Faruk Hasan</span>
+          </div>
+          <div class="blog-meta-item">
+            <i class="fas fa-calendar"></i>
+            <span>November 28, 2025</span>
+          </div>
+          <div class="blog-meta-item">
+            <i class="fas fa-clock"></i>
+            <span>8 min read</span>
+          </div>
+          <div class="blog-meta-item">
+            <i class="fas fa-tag"></i>
+            <span>Playwright Tutorial</span>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="video-container">
-      <iframe
-        src="https://www.youtube.com/embed/scBKNnRScEQ"
-        title="How to Test localStorage & Persistent UI State in Playwright"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen></iframe>
-    </div>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/scBKNnRScEQ"
+          title="How to Test localStorage & Persistent UI State in Playwright"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
 
-    <p class="intro-text">
-      Ever clicked a "Hide this section" button on a website, only to have it magically reappear after refreshing? That's exactly the kind of bug that drives users crazy — and it's surprisingly common in modern web apps.
-    </p>
+      <p class="intro-text">
+        Ever clicked a "Hide this section" button on a website, only to have it magically reappear after refreshing?
+        That's exactly the kind of bug that drives users crazy — and it's surprisingly common in modern web apps.
+      </p>
 
-    <p class="content-text">
-      Here's the thing: most developers test the happy path (click button → element hides), but they forget to test what happens when users refresh the page. That's where localStorage testing comes in, and honestly, it's one of the most overlooked aspects of end-to-end testing.
-    </p>
+      <p class="content-text">
+        Here's the thing: most developers test the happy path (click button → element hides), but they forget to test
+        what happens when users refresh the page. That's where localStorage testing comes in, and honestly, it's one of
+        the most overlooked aspects of end-to-end testing.
+      </p>
 
-    <p class="content-text">
-      In this guide, I'll walk you through exactly how I test persistent UI state using Playwright and TypeScript. We'll cover everything from reading localStorage values with <code style="background: var(--bg-light); padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em;">page.evaluate()</code> to ensuring hidden elements stay hidden after a page reload.
-    </p>
+      <p class="content-text">
+        In this guide, I'll walk you through exactly how I test persistent UI state using Playwright and TypeScript.
+        We'll cover everything from reading localStorage values with <code
+          style="background: var(--bg-light); padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em;">page.evaluate()</code>
+        to ensuring hidden elements stay hidden after a page reload.
+      </p>
 
-    <p class="content-text">
-      This isn't just theory — I'll show you a real-world scenario where we test a mission panel that needs to stay hidden permanently once a user dismisses it. It's the exact type of test you'd write in a professional QA role.
-    </p>
+      <p class="content-text">
+        This isn't just theory — I'll show you a real-world scenario where we test a mission panel that needs to stay
+        hidden permanently once a user dismisses it. It's the exact type of test you'd write in a professional QA role.
+      </p>
 
-    <h2 class="section-header">Why This Matters More Than You Think</h2>
+      <h2 class="section-header">Why This Matters More Than You Think</h2>
 
-    <p class="content-text">
-      Picture this: You're building an e-commerce site with a "Don't show this promotion again" button. A user clicks it, continues shopping, then refreshes the page. If that promotion pops back up, you've just lost a potential customer to frustration.
-    </p>
+      <p class="content-text">
+        Picture this: You're building an e-commerce site with a "Don't show this promotion again" button. A user clicks
+        it, continues shopping, then refreshes the page. If that promotion pops back up, you've just lost a potential
+        customer to frustration.
+      </p>
 
-    <p class="content-text">
-      Modern web applications rely heavily on localStorage to remember user preferences, dismissed notifications, collapsed sections, and personalized settings. When this persistence breaks, the user experience falls apart.
-    </p>
+      <p class="content-text">
+        Modern web applications rely heavily on localStorage to remember user preferences, dismissed notifications,
+        collapsed sections, and personalized settings. When this persistence breaks, the user experience falls apart.
+      </p>
 
-    <div class="highlight-box">
-      <h3>What happens when localStorage testing is skipped:</h3>
-      <ul>
-        <li><strong>User frustration:</strong> Dismissed elements keep coming back</li>
-        <li><strong>Lost personalization:</strong> Settings reset on every page load</li>
-        <li><strong>Broken workflows:</strong> Multi-step processes lose their state</li>
-        <li><strong>Support tickets:</strong> Users report "bugs" that seem random</li>
-        <li><strong>Revenue impact:</strong> Poor UX leads to higher bounce rates</li>
-      </ul>
-    </div>
+      <div class="highlight-box">
+        <h3>What happens when localStorage testing is skipped:</h3>
+        <ul>
+          <li><strong>User frustration:</strong> Dismissed elements keep coming back</li>
+          <li><strong>Lost personalization:</strong> Settings reset on every page load</li>
+          <li><strong>Broken workflows:</strong> Multi-step processes lose their state</li>
+          <li><strong>Support tickets:</strong> Users report "bugs" that seem random</li>
+          <li><strong>Revenue impact:</strong> Poor UX leads to higher bounce rates</li>
+        </ul>
+      </div>
 
-    <p class="content-text">
-      The good news? Testing localStorage with Playwright is straightforward once you know the right techniques. Let me show you how I approach it.
-    </p>
+      <p class="content-text">
+        The good news? Testing localStorage with Playwright is straightforward once you know the right techniques. Let
+        me show you how I approach it.
+      </p>
 
-    <h2 class="section-header">What We'll Build Together</h2>
+      <h2 class="section-header">What We'll Build Together</h2>
 
-    <p class="content-text">
-      I'll walk you through testing a real scenario: a mission panel that users can permanently dismiss. Once they click "Hide this mission," it should stay hidden forever — even if they refresh, close their browser, or come back next week.
-    </p>
+      <p class="content-text">
+        I'll walk you through testing a real scenario: a mission panel that users can permanently dismiss. Once they
+        click "Hide this mission," it should stay hidden forever — even if they refresh, close their browser, or come
+        back next week.
+      </p>
 
-    <div class="highlight-box">
-      <h3>Here's our testing roadmap:</h3>
-      <ul>
-        <li><strong>Start with the basics:</strong> Automate clicking the dismiss button</li>
-        <li><strong>Verify the immediate change:</strong> Confirm the element disappears from the DOM</li>
-        <li><strong>Check the storage:</strong> Use <code>page.evaluate()</code> to read localStorage values</li>
-        <li><strong>Test the persistence:</strong> Refresh the page and verify the element stays hidden</li>
-        <li><strong>Handle edge cases:</strong> Use <code>expect.poll()</code> for reliable async testing</li>
-        <li><strong>Real-world validation:</strong> Test the complete user journey</li>
-      </ul>
-    </div>
+      <div class="highlight-box">
+        <h3>Here's our testing roadmap:</h3>
+        <ul>
+          <li><strong>Start with the basics:</strong> Automate clicking the dismiss button</li>
+          <li><strong>Verify the immediate change:</strong> Confirm the element disappears from the DOM</li>
+          <li><strong>Check the storage:</strong> Use <code>page.evaluate()</code> to read localStorage values</li>
+          <li><strong>Test the persistence:</strong> Refresh the page and verify the element stays hidden</li>
+          <li><strong>Handle edge cases:</strong> Use <code>expect.poll()</code> for reliable async testing</li>
+          <li><strong>Real-world validation:</strong> Test the complete user journey</li>
+        </ul>
+      </div>
 
-    <p class="content-text">
-      By the end of this tutorial, you'll have a solid understanding of localStorage testing that you can apply to any web application. Plus, you'll have a great example for your portfolio that shows you understand both UI testing and client-side state management.
-    </p>
+      <p class="content-text">
+        By the end of this tutorial, you'll have a solid understanding of localStorage testing that you can apply to any
+        web application. Plus, you'll have a great example for your portfolio that shows you understand both UI testing
+        and client-side state management.
+      </p>
 
-    <h2 class="section-header">The Secret Sauce: Reading localStorage</h2>
+      <h2 class="section-header">The Secret Sauce: Reading localStorage</h2>
 
-    <p class="content-text">
-      Here's where things get interesting. Most testers only check if an element is visible or hidden, but they never verify that the underlying data was actually saved. That's like checking if a door is closed without confirming it's locked.
-    </p>
+      <p class="content-text">
+        Here's where things get interesting. Most testers only check if an element is visible or hidden, but they never
+        verify that the underlying data was actually saved. That's like checking if a door is closed without confirming
+        it's locked.
+      </p>
 
-    <p class="content-text">
-      Playwright's <code style="background: var(--bg-light); padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em;">page.evaluate()</code> method lets us execute JavaScript directly in the browser context, which means we can access localStorage just like the application does:
-    </p>
+      <p class="content-text">
+        Playwright's <code
+          style="background: var(--bg-light); padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em;">page.evaluate()</code>
+        method lets us execute JavaScript directly in the browser context, which means we can access localStorage just
+        like the application does:
+      </p>
 
-    <div class="code-block"><code>// Read the localStorage value to confirm it was saved
+      <div class="code-block"><code>// Read the localStorage value to confirm it was saved
 const storedValue = await page.evaluate(() => {
   return localStorage.getItem("mission7PersistentHide");
 });
@@ -595,96 +623,110 @@ const storedValue = await page.evaluate(() => {
 // Verify it contains the expected value
 expect(storedValue).toBe("true");</code></div>
 
-    <p class="content-text">
-      This is crucial because sometimes the UI might look correct, but the data isn't actually persisted. By checking both the visual state and the stored data, we catch bugs that would otherwise slip through.
-    </p>
-
-    <h2 class="section-header">The Complete Test Journey</h2>
-
-    <p class="content-text">
-      Let me break down the exact steps we'll automate. This mirrors how a real user would interact with the feature, plus the behind-the-scenes validation that ensures everything works correctly:
-    </p>
-
-    <div class="highlight-box">
-      <h3>Our testing workflow:</h3>
-      <ol>
-        <li><strong>Initial state check:</strong> Confirm the mission panel is visible by default</li>
-        <li><strong>User action:</strong> Click the "Hide this mission" button</li>
-        <li><strong>Immediate validation:</strong> Verify the element disappears from the UI</li>
-        <li><strong>Data verification:</strong> Check that localStorage was updated correctly</li>
-        <li><strong>Persistence test:</strong> Refresh the page to simulate a real user scenario</li>
-        <li><strong>Final validation:</strong> Confirm the element stays hidden and data persists</li>
-      </ol>
-    </div>
-
-    <p class="content-text">
-      This approach catches three types of bugs: UI bugs (element doesn't hide), storage bugs (data isn't saved), and persistence bugs (state doesn't survive page reloads). Most test suites only catch the first one.
-    </p>
-
-    <h2 class="section-header">
-      <i class="fas fa-users"></i>
-      Who Is This Tutorial For?
-    </h2>
-    <p class="content-text">
-      This Playwright testing tutorial is perfect for:
-    </p>
-
-    <div class="highlight-box">
-      <ul>
-        <li>QA Engineers</li>
-        <li>SDETs</li>
-        <li>Test Automation Beginners</li>
-        <li>JavaScript/TypeScript testers</li>
-        <li>Anyone building a Playwright portfolio</li>
-        <li>Students preparing for QA or automation interviews</li>
-      </ul>
-    </div>
-
-    <p class="content-text">
-      If you're learning Playwright, this is the exact type of test hiring managers expect you to know.
-    </p>
-
-    <h2 class="section-header">
-      <i class="fas fa-video"></i>
-      Watch the Full Video
-    </h2>
-    <p class="content-text">
-      👉 <a href="https://youtu.be/scBKNnRScEQ" target="_blank" rel="noopener" style="color: var(--primary-color); font-weight: 600;">https://youtu.be/scBKNnRScEQ</a>
-    </p>
-    <p class="content-text">
-      In the video, I show every step in real time so you can follow along.
-    </p>
-
-    <h2 class="section-header">Wrapping Up</h2>
-
-    <p class="content-text">
-      localStorage testing might seem like a small detail, but it's these details that separate good testers from great ones. When you can confidently say "I've verified that user preferences persist across sessions," you're demonstrating a level of thoroughness that employers value.
-    </p>
-
-    <p class="content-text">
-      The techniques we've covered here — using <code style="background: var(--bg-light); padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em;">page.evaluate()</code>, <code style="background: var(--bg-light); padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em;">expect.poll()</code>, and testing persistence across page reloads — are applicable to any web application that uses client-side storage.
-    </p>
-
-    <div class="highlight-box">
-      <h3>💼 Portfolio tip:</h3>
-      <p>This type of test makes an excellent addition to your GitHub portfolio. It shows you understand:</p>
-      <ul>
-        <li>End-to-end user workflows</li>
-        <li>Client-side state management</li>
-        <li>Async testing patterns</li>
-        <li>Real-world edge cases</li>
-      </ul>
-    </div>
-
-    <p class="content-text">
-      Remember, great testing isn't just about finding bugs — it's about building confidence that your application works exactly as users expect, even in scenarios they might not think to test.
-    </p>
-
-    <div style="margin-top: 3rem; padding: 2rem; background: var(--bg-light); border-radius: 12px; border-left: 4px solid var(--accent-color);">
-      <p style="margin: 0; color: var(--text-light); font-style: italic;">
-        <strong>Questions about localStorage testing or Playwright in general?</strong> I'm always happy to help fellow testers level up their automation skills. Feel free to reach out!
+      <p class="content-text">
+        This is crucial because sometimes the UI might look correct, but the data isn't actually persisted. By checking
+        both the visual state and the stored data, we catch bugs that would otherwise slip through.
       </p>
-    </div>
+
+      <h2 class="section-header">The Complete Test Journey</h2>
+
+      <p class="content-text">
+        Let me break down the exact steps we'll automate. This mirrors how a real user would interact with the feature,
+        plus the behind-the-scenes validation that ensures everything works correctly:
+      </p>
+
+      <div class="highlight-box">
+        <h3>Our testing workflow:</h3>
+        <ol>
+          <li><strong>Initial state check:</strong> Confirm the mission panel is visible by default</li>
+          <li><strong>User action:</strong> Click the "Hide this mission" button</li>
+          <li><strong>Immediate validation:</strong> Verify the element disappears from the UI</li>
+          <li><strong>Data verification:</strong> Check that localStorage was updated correctly</li>
+          <li><strong>Persistence test:</strong> Refresh the page to simulate a real user scenario</li>
+          <li><strong>Final validation:</strong> Confirm the element stays hidden and data persists</li>
+        </ol>
+      </div>
+
+      <p class="content-text">
+        This approach catches three types of bugs: UI bugs (element doesn't hide), storage bugs (data isn't saved), and
+        persistence bugs (state doesn't survive page reloads). Most test suites only catch the first one.
+      </p>
+
+      <h2 class="section-header">
+        <i class="fas fa-users"></i>
+        Who Is This Tutorial For?
+      </h2>
+      <p class="content-text">
+        This Playwright testing tutorial is perfect for:
+      </p>
+
+      <div class="highlight-box">
+        <ul>
+          <li>QA Engineers</li>
+          <li>SDETs</li>
+          <li>Test Automation Beginners</li>
+          <li>JavaScript/TypeScript testers</li>
+          <li>Anyone building a Playwright portfolio</li>
+          <li>Students preparing for QA or automation interviews</li>
+        </ul>
+      </div>
+
+      <p class="content-text">
+        If you're learning Playwright, this is the exact type of test hiring managers expect you to know.
+      </p>
+
+      <h2 class="section-header">
+        <i class="fas fa-video"></i>
+        Watch the Full Video
+      </h2>
+      <p class="content-text">
+        👉 <a href="https://youtu.be/scBKNnRScEQ" target="_blank" rel="noopener"
+          style="color: var(--primary-color); font-weight: 600;">https://youtu.be/scBKNnRScEQ</a>
+      </p>
+      <p class="content-text">
+        In the video, I show every step in real time so you can follow along.
+      </p>
+
+      <h2 class="section-header">Wrapping Up</h2>
+
+      <p class="content-text">
+        localStorage testing might seem like a small detail, but it's these details that separate good testers from
+        great ones. When you can confidently say "I've verified that user preferences persist across sessions," you're
+        demonstrating a level of thoroughness that employers value.
+      </p>
+
+      <p class="content-text">
+        The techniques we've covered here — using <code
+          style="background: var(--bg-light); padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em;">page.evaluate()</code>,
+        <code
+          style="background: var(--bg-light); padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em;">expect.poll()</code>,
+        and testing persistence across page reloads — are applicable to any web application that uses client-side
+        storage.
+      </p>
+
+      <div class="highlight-box">
+        <h3>💼 Portfolio tip:</h3>
+        <p>This type of test makes an excellent addition to your GitHub portfolio. It shows you understand:</p>
+        <ul>
+          <li>End-to-end user workflows</li>
+          <li>Client-side state management</li>
+          <li>Async testing patterns</li>
+          <li>Real-world edge cases</li>
+        </ul>
+      </div>
+
+      <p class="content-text">
+        Remember, great testing isn't just about finding bugs — it's about building confidence that your application
+        works exactly as users expect, even in scenarios they might not think to test.
+      </p>
+
+      <div
+        style="margin-top: 3rem; padding: 2rem; background: var(--bg-light); border-radius: 12px; border-left: 4px solid var(--accent-color);">
+        <p style="margin: 0; color: var(--text-light); font-style: italic;">
+          <strong>Questions about localStorage testing or Playwright in general?</strong> I'm always happy to help
+          fellow testers level up their automation skills. Feel free to reach out!
+        </p>
+      </div>
     </div>
   </div>
 
@@ -718,4 +760,5 @@ expect(storedValue).toBe("true");</code></div>
     </div>
   </footer>
 </body>
+
 </html>
