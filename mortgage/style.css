@@ -232,23 +232,50 @@ select:focus {
     display: none;
 }
 
+.seo-content {
+    margin-top: 60px;
+    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+    opacity: 0;
+}
+
+.seo-content h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.2rem;
+    background: linear-gradient(to right, #fff, var(--primary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 24px;
+}
+
+.seo-content h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.4rem;
+    color: #fff;
+    margin-bottom: 12px;
+}
+
+.seo-content ul {
+    list-style: none !important;
+    padding: 0 !important;
+}
+
+.seo-content ul li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 15px;
+}
+
+.seo-content ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: 800;
+}
+
 @media (max-width: 900px) {
     .calculator-wrapper {
         grid-template-columns: 1fr;
     }
-}
-
-.back-link {
-    margin-top: 40px;
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.back-link:hover {
-    color: #fff;
 }
