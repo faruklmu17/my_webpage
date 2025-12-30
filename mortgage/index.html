@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Mortgage Calculator | Faruk Hasan</title>
+    <meta name="description"
+        content="Calculate your monthly mortgage payments with our advanced calculator. Includes property taxes, insurance, and HOA fees.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="calculator-wrapper">
+        <!-- Input Section -->
+        <div class="calc-card">
+            <h1>Mortgage <span style="color: var(--primary);">Pro</span></h1>
+            <p class="subtitle">Estimate your total monthly property expenses.</p>
+
+            <div class="input-group">
+                <label for="price">Home Price ($)</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-home"></i>
+                    <input type="text" id="price" placeholder="500,000" value="500,000">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-group">
+                    <label for="downPayment">Down Payment ($)</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-hand-holding-usd"></i>
+                        <input type="text" id="downPayment" placeholder="100,000" value="100,000">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="rate">Interest Rate (%)</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-percentage"></i>
+                        <input type="text" id="rate" placeholder="6.5" value="6.5">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-group">
+                    <label for="term">Loan Term (Years)</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-calendar-alt"></i>
+                        <select id="term">
+                            <option value="15">15 Years</option>
+                            <option value="30" selected>30 Years</option>
+                            <option value="20">20 Years</option>
+                            <option value="10">10 Years</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="tax">Property Tax (Annual $)</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-landmark"></i>
+                        <input type="text" id="tax" placeholder="6,000" value="6,000">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-group">
+                    <label for="insurance">Insurance (Annual $)</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-shield-alt"></i>
+                        <input type="text" id="insurance" placeholder="1,200" value="1,200">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="hoa">HOA Fee (Monthly $)</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-building"></i>
+                        <input type="text" id="hoa" placeholder="0" value="0">
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-calc" id="calcBtn">
+                <i class="fas fa-calculator"></i>
+                Calculate Payment
+            </button>
+
+            <div id="errorMsg" class="error-msg"></div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-card">
+            <div class="calc-card payment-result">
+                <div class="payment-label">Estimated Monthly Payment</div>
+                <div class="payment-amount" id="paymentAmount">$0</div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="label">Principal Loan</div>
+                    <div class="value" id="totalPrincipal">$0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Total Interest</div>
+                    <div class="value" id="totalInterest">$0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Taxes & Fees</div>
+                    <div class="value" id="totalTax">$0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Total Cost</div>
+                    <div class="value" id="totalPayment">$0</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="paymentChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <a href="../index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i>
+        Back to Portfolio
+    </a>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
