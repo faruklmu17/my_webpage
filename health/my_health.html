@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Health Status Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="canonical" href="https://faruk-hasan.com/health/my_health.html" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --bg-primary: #0a0e13;
@@ -26,9 +29,13 @@
       --gradient-poor: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
       --gradient-critical: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
     }
-    
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: radial-gradient(ellipse at top, #1a2332 0%, #0a0e13 50%);
@@ -37,13 +44,13 @@
       line-height: 1.6;
       min-height: 100vh;
     }
-    
-    .container { 
-      max-width: 1400px; 
-      margin: 0 auto; 
-      padding: 32px 24px; 
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 32px 24px;
     }
-    
+
     /* Header */
     .hero {
       display: flex;
@@ -57,7 +64,7 @@
       position: relative;
       overflow: hidden;
     }
-    
+
     .hero::before {
       content: '';
       position: absolute;
@@ -68,12 +75,21 @@
       background: radial-gradient(circle, rgba(88, 166, 255, 0.03) 0%, transparent 70%);
       animation: pulse 8s ease-in-out infinite;
     }
-    
+
     @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 0.5; }
-      50% { transform: scale(1.1); opacity: 0.3; }
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.5;
+      }
+
+      50% {
+        transform: scale(1.1);
+        opacity: 0.3;
+      }
     }
-    
+
     .hero-content {
       position: relative;
       z-index: 1;
@@ -98,7 +114,7 @@
       color: var(--text-secondary);
       margin-bottom: 0;
     }
-    
+
     /* Health Score */
     .health-score-card {
       display: flex;
@@ -146,7 +162,7 @@
       color: var(--text-secondary);
       line-height: 1.2;
     }
-    
+
     /* Grid */
     .grid {
       display: grid;
@@ -154,17 +170,37 @@
       gap: 24px;
       margin-bottom: 32px;
     }
-    
-    .span-12 { grid-column: span 12; }
-    .span-8 { grid-column: span 8; }
-    .span-6 { grid-column: span 6; }
-    .span-4 { grid-column: span 4; }
-    .span-3 { grid-column: span 3; }
-    
-    @media (max-width: 1024px) {
-      .span-8, .span-6, .span-4, .span-3 { grid-column: span 12; }
+
+    .span-12 {
+      grid-column: span 12;
     }
-    
+
+    .span-8 {
+      grid-column: span 8;
+    }
+
+    .span-6 {
+      grid-column: span 6;
+    }
+
+    .span-4 {
+      grid-column: span 4;
+    }
+
+    .span-3 {
+      grid-column: span 3;
+    }
+
+    @media (max-width: 1024px) {
+
+      .span-8,
+      .span-6,
+      .span-4,
+      .span-3 {
+        grid-column: span 12;
+      }
+    }
+
     .card {
       background: linear-gradient(145deg, #1c2128 0%, #161b22 100%);
       border: 1px solid var(--border);
@@ -173,12 +209,12 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
       transition: transform 0.3s, box-shadow 0.3s;
     }
-    
+
     .card:hover {
       transform: translateY(-4px);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
-    
+
     .card-title {
       font-size: 18px;
       font-weight: 800;
@@ -188,18 +224,18 @@
       gap: 12px;
       color: var(--text-primary);
     }
-    
+
     .card-title-icon {
       font-size: 24px;
     }
-    
+
     /* Status Cards */
     .status-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 20px;
     }
-    
+
     .status-card {
       background: var(--surface);
       padding: 24px;
@@ -209,7 +245,7 @@
       overflow: hidden;
       transition: all 0.3s;
     }
-    
+
     .status-card::before {
       content: '';
       position: absolute;
@@ -218,23 +254,31 @@
       right: 0;
       height: 4px;
     }
-    
-    .status-card.excellent::before { background: var(--excellent); }
-    .status-card.critical::before { background: var(--critical); }
-    .status-card.warning::before { background: var(--warning); }
-    
+
+    .status-card.excellent::before {
+      background: var(--excellent);
+    }
+
+    .status-card.critical::before {
+      background: var(--critical);
+    }
+
+    .status-card.warning::before {
+      background: var(--warning);
+    }
+
     .status-card:hover {
       transform: translateY(-2px);
       border-color: var(--accent);
     }
-    
+
     .status-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       margin-bottom: 16px;
     }
-    
+
     .status-label {
       font-size: 12px;
       text-transform: uppercase;
@@ -242,11 +286,11 @@
       color: var(--text-secondary);
       font-weight: 700;
     }
-    
+
     .status-icon {
       font-size: 20px;
     }
-    
+
     .status-value {
       font-size: 42px;
       font-weight: 900;
@@ -254,13 +298,13 @@
       margin-bottom: 8px;
       color: var(--text-primary);
     }
-    
+
     .status-reference {
       font-size: 13px;
       color: var(--text-muted);
       margin-bottom: 12px;
     }
-    
+
     .status-badge {
       display: inline-flex;
       align-items: center;
@@ -272,18 +316,29 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    
-    .badge-critical { background: rgba(220, 38, 38, 0.15); color: var(--critical); }
-    .badge-warning { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
-    .badge-success { background: rgba(34, 197, 94, 0.15); color: var(--excellent); }
-    
+
+    .badge-critical {
+      background: rgba(220, 38, 38, 0.15);
+      color: var(--critical);
+    }
+
+    .badge-warning {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--warning);
+    }
+
+    .badge-success {
+      background: rgba(34, 197, 94, 0.15);
+      color: var(--excellent);
+    }
+
     /* Risk Items */
     .risk-container {
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
-    
+
     .risk-item {
       display: flex;
       align-items: flex-start;
@@ -294,16 +349,24 @@
       border-left: 4px solid var(--text-muted);
       transition: all 0.3s;
     }
-    
+
     .risk-item:hover {
       transform: translateX(4px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
-    
-    .risk-item.critical { border-left-color: var(--critical); }
-    .risk-item.warning { border-left-color: var(--warning); }
-    .risk-item.info { border-left-color: var(--accent); }
-    
+
+    .risk-item.critical {
+      border-left-color: var(--critical);
+    }
+
+    .risk-item.warning {
+      border-left-color: var(--warning);
+    }
+
+    .risk-item.info {
+      border-left-color: var(--accent);
+    }
+
     .risk-icon {
       width: 40px;
       height: 40px;
@@ -314,33 +377,43 @@
       font-size: 20px;
       flex-shrink: 0;
     }
-    
-    .risk-item.critical .risk-icon { background: rgba(220, 38, 38, 0.15); }
-    .risk-item.warning .risk-icon { background: rgba(245, 158, 11, 0.15); }
-    .risk-item.info .risk-icon { background: rgba(88, 166, 255, 0.15); }
-    
-    .risk-content { flex: 1; }
-    
+
+    .risk-item.critical .risk-icon {
+      background: rgba(220, 38, 38, 0.15);
+    }
+
+    .risk-item.warning .risk-icon {
+      background: rgba(245, 158, 11, 0.15);
+    }
+
+    .risk-item.info .risk-icon {
+      background: rgba(88, 166, 255, 0.15);
+    }
+
+    .risk-content {
+      flex: 1;
+    }
+
     .risk-title {
       font-size: 15px;
       font-weight: 700;
       margin-bottom: 4px;
       color: var(--text-primary);
     }
-    
+
     .risk-description {
       font-size: 13px;
       color: var(--text-secondary);
       line-height: 1.5;
     }
-    
+
     /* Action Items */
     .action-list {
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
-    
+
     .action-item {
       display: flex;
       align-items: flex-start;
@@ -351,31 +424,31 @@
       border: 1px solid var(--border);
       transition: all 0.3s;
     }
-    
+
     .action-item:hover {
       border-color: var(--accent);
       transform: translateX(4px);
     }
-    
+
     .action-icon {
       font-size: 20px;
       margin-top: 2px;
     }
-    
+
     .action-text {
       flex: 1;
       font-size: 14px;
       line-height: 1.6;
     }
-    
+
     .action-text strong {
       color: var(--text-primary);
       display: block;
       margin-bottom: 2px;
     }
-    
 
-    
+
+
     @media (max-width: 768px) {
       .hero {
         flex-direction: column;
@@ -409,14 +482,14 @@
         font-size: 9px;
       }
     }
-    
+
     /* Progress Indicator */
     .progress-section {
       margin-top: 20px;
       padding-top: 20px;
       border-top: 1px solid var(--border);
     }
-    
+
     .progress-label {
       font-size: 12px;
       text-transform: uppercase;
@@ -425,7 +498,7 @@
       margin-bottom: 12px;
       font-weight: 600;
     }
-    
+
     .trend-item {
       display: flex;
       justify-content: space-between;
@@ -433,16 +506,16 @@
       padding: 12px 0;
       border-bottom: 1px solid rgba(48, 54, 61, 0.3);
     }
-    
+
     .trend-item:last-child {
       border-bottom: none;
     }
-    
+
     .trend-metric {
       font-size: 14px;
       color: var(--text-primary);
     }
-    
+
     .trend-change {
       font-size: 13px;
       font-weight: 700;
@@ -450,11 +523,17 @@
       align-items: center;
       gap: 4px;
     }
-    
-    .trend-change.positive { color: var(--excellent); }
-    .trend-change.negative { color: var(--critical); }
+
+    .trend-change.positive {
+      color: var(--excellent);
+    }
+
+    .trend-change.negative {
+      color: var(--critical);
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
     <!-- Hero Section -->
@@ -492,7 +571,7 @@
             <div class="status-reference">Goal: ≤ 5.6%</div>
             <span class="status-badge badge-critical">HIGH RISK</span>
           </div>
-          
+
           <div class="status-card critical">
             <div class="status-header">
               <div class="status-label">LDL Cholesterol</div>
@@ -502,7 +581,7 @@
             <div class="status-reference">Goal: &lt; 130 mg/dL</div>
             <span class="status-badge badge-critical">HIGH</span>
           </div>
-          
+
           <div class="status-card critical">
             <div class="status-header">
               <div class="status-label">HDL Cholesterol</div>
@@ -512,7 +591,7 @@
             <div class="status-reference">Goal: ≥ 40 mg/dL</div>
             <span class="status-badge badge-critical">LOW</span>
           </div>
-          
+
           <div class="status-card warning">
             <div class="status-header">
               <div class="status-label">Fasting Glucose</div>
@@ -522,7 +601,7 @@
             <div class="status-reference">Normal: 70-105 mg/dL</div>
             <span class="status-badge badge-warning">ELEVATED</span>
           </div>
-          
+
           <div class="status-card warning">
             <div class="status-header">
               <div class="status-label">Total Cholesterol</div>
@@ -532,7 +611,7 @@
             <div class="status-reference">Goal: &lt; 200 mg/dL</div>
             <span class="status-badge badge-warning">HIGH</span>
           </div>
-          
+
           <div class="status-card warning">
             <div class="status-header">
               <div class="status-label">Chol/HDL Ratio</div>
@@ -542,7 +621,7 @@
             <div class="status-reference">Goal: &lt; 4.5</div>
             <span class="status-badge badge-warning">HIGH</span>
           </div>
-          
+
           <div class="status-card excellent">
             <div class="status-header">
               <div class="status-label">Kidney Function</div>
@@ -552,7 +631,7 @@
             <div class="status-reference">eGFR mL/min/1.73m²</div>
             <span class="status-badge badge-success">NORMAL</span>
           </div>
-          
+
           <div class="status-card excellent">
             <div class="status-header">
               <div class="status-label">Triglycerides</div>
@@ -563,7 +642,7 @@
             <span class="status-badge badge-success">GOOD</span>
           </div>
         </div>
-        
+
         <div class="progress-section">
           <div class="progress-label">Recent Improvements</div>
           <div class="trend-item">
@@ -592,31 +671,35 @@
             <div class="risk-icon">🔴</div>
             <div class="risk-content">
               <div class="risk-title">Type 2 Diabetes Risk</div>
-              <div class="risk-description">A1c 6.0% indicates prediabetes. Fasting glucose also elevated at 123 mg/dL. Immediate lifestyle intervention critical.</div>
+              <div class="risk-description">A1c 6.0% indicates prediabetes. Fasting glucose also elevated at 123 mg/dL.
+                Immediate lifestyle intervention critical.</div>
             </div>
           </div>
-          
+
           <div class="risk-item critical">
             <div class="risk-icon">❤️</div>
             <div class="risk-content">
               <div class="risk-title">Cardiovascular Disease</div>
-              <div class="risk-description">High LDL (177), low HDL (37), elevated total cholesterol (235). Poor lipid profile significantly increases CVD risk.</div>
+              <div class="risk-description">High LDL (177), low HDL (37), elevated total cholesterol (235). Poor lipid
+                profile significantly increases CVD risk.</div>
             </div>
           </div>
-          
+
           <div class="risk-item warning">
             <div class="risk-icon">🩸</div>
             <div class="risk-content">
               <div class="risk-title">Microcytosis</div>
-              <div class="risk-description">Low MCV (68.3), MCH (21.3), MCHC (31.1). Possible thalassemia trait or iron deficiency. Requires hemoglobin electrophoresis.</div>
+              <div class="risk-description">Low MCV (68.3), MCH (21.3), MCHC (31.1). Possible thalassemia trait or iron
+                deficiency. Requires hemoglobin electrophoresis.</div>
             </div>
           </div>
-          
+
           <div class="risk-item info">
             <div class="risk-icon">💎</div>
             <div class="risk-content">
               <div class="risk-title">Nephrolithiasis History</div>
-              <div class="risk-description">Past kidney stones. Current renal function normal. Continue hydration and dietary modifications.</div>
+              <div class="risk-description">Past kidney stones. Current renal function normal. Continue hydration and
+                dietary modifications.</div>
             </div>
           </div>
         </div>
@@ -636,7 +719,7 @@
               Discuss metformin for prediabetes management and comprehensive metabolic intervention
             </div>
           </div>
-          
+
           <div class="action-item" style="border-left: 3px solid var(--critical);">
             <div class="action-icon">💊</div>
             <div class="action-text">
@@ -644,7 +727,7 @@
               LDL 177 with low HDL requires aggressive lipid management discussion with physician
             </div>
           </div>
-          
+
           <div class="action-item" style="border-left: 3px solid var(--warning);">
             <div class="action-icon">🔬</div>
             <div class="action-text">
@@ -652,7 +735,7 @@
               A1c, lipid panel, iron studies, hemoglobin electrophoresis for thalassemia screening
             </div>
           </div>
-          
+
           <div class="action-item" style="border-left: 3px solid var(--accent);">
             <div class="action-icon">💪</div>
             <div class="action-text">
@@ -660,7 +743,7 @@
               Start 2-3 sessions/week to improve insulin sensitivity and increase HDL cholesterol
             </div>
           </div>
-          
+
           <div class="action-item" style="border-left: 3px solid var(--accent);">
             <div class="action-icon">🚶</div>
             <div class="action-text">
@@ -668,7 +751,7 @@
               10-20 minute walks after meals to reduce glucose spikes and improve metabolic control
             </div>
           </div>
-          
+
           <div class="action-item" style="border-left: 3px solid var(--accent);">
             <div class="action-icon">🥗</div>
             <div class="action-text">
@@ -686,39 +769,44 @@
           Positive Health Indicators
         </h2>
         <div class="status-grid">
-          <div class="action-item" style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
+          <div class="action-item"
+            style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
             <div class="action-icon">✅</div>
             <div class="action-text">
               <strong>Excellent Kidney Function</strong>
               eGFR >60, creatinine 1.00 within normal range. No signs of kidney disease.
             </div>
           </div>
-          
-          <div class="action-item" style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
+
+          <div class="action-item"
+            style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
             <div class="action-icon">✅</div>
             <div class="action-text">
               <strong>Perfect Liver Function</strong>
               ALT 19, AST 17, alkaline phosphatase 49. All liver markers within healthy range.
             </div>
           </div>
-          
-          <div class="action-item" style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
+
+          <div class="action-item"
+            style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
             <div class="action-icon">✅</div>
             <div class="action-text">
               <strong>Good Triglycerides</strong>
               107 mg/dL, well below the 150 threshold. Reduced cardiovascular risk factor.
             </div>
           </div>
-          
-          <div class="action-item" style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
+
+          <div class="action-item"
+            style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
             <div class="action-icon">✅</div>
             <div class="action-text">
               <strong>Consistent Activity</strong>
               Walking 45 minutes most days. Strong foundation for metabolic health improvement.
             </div>
           </div>
-          
-          <div class="action-item" style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
+
+          <div class="action-item"
+            style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
             <div class="action-icon">✅</div>
             <div class="action-text">
               <strong>A1c Improvement Trend</strong>
@@ -734,31 +822,31 @@
     // Calculate health score based on metrics
     function calculateHealthScore() {
       let score = 100;
-      
+
       // A1c (6.0% - should be ≤5.6%)
       if (6.0 > 5.6) score -= 15;
-      
+
       // LDL (177 - should be <130)
       if (177 > 130) score -= 12;
-      
+
       // HDL (37 - should be ≥40)
       if (37 < 40) score -= 8;
-      
+
       // Glucose (123 - should be <105)
       if (123 > 105) score -= 8;
-      
+
       // Total Cholesterol (235 - should be <200)
       if (235 > 200) score -= 7;
-      
+
       // Chol/HDL ratio (6.4 - should be <4.5)
       if (6.4 > 4.5) score -= 5;
-      
+
       // WBC slightly elevated
       score -= 3;
-      
+
       // Microcytosis
       score -= 5;
-      
+
       // Add points for good metrics
       // Good triglycerides
       score += 5;
@@ -768,10 +856,10 @@
       score += 5;
       // Improvement trend
       score += 8;
-      
+
       return Math.max(0, Math.min(100, score));
     }
-    
+
     function getScoreRating(score) {
       if (score >= 90) return { text: '🌟 EXCELLENT', color: 'var(--excellent)', gradient: 'var(--gradient-excellent)' };
       if (score >= 80) return { text: '✅ GOOD', color: 'var(--success)', gradient: 'var(--gradient-good)' };
@@ -781,11 +869,12 @@
     }
 
     // Initialize the dashboard
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const score = calculateHealthScore();
       console.log('Calculated Health Score:', score);
     });
   </script>
-    <script src="../shared/header-footer.js"></script>
+  <script src="../shared/header-footer.js"></script>
 </body>
+
 </html>

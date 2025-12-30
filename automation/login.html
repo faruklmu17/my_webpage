@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login - Automation Practice</title>
-  <meta name="description" content="Login page for Automation Practice. Perfect for QA engineers to practice Selenium, Playwright, and Cypress automation." />
+  <link rel="canonical" href="https://faruk-hasan.com/automation/login.html" />
+  <meta name="description"
+    content="Login page for Automation Practice. Perfect for QA engineers to practice Selenium, Playwright, and Cypress automation." />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -16,13 +19,13 @@
       --error-color: #e63946;
       --success-color: #2a9d8f;
     }
-    
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-    
+
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -42,7 +45,7 @@
       background-color: #fff;
       padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     .progress-bar {
@@ -72,13 +75,13 @@
       background: #fff;
       padding: 40px;
       border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
       max-width: 450px;
       width: 100%;
       position: relative;
       overflow: hidden;
     }
-    
+
     .container::before {
       content: "";
       position: absolute;
@@ -110,7 +113,8 @@
       color: #555;
     }
 
-    input[type="text"], input[type="password"] {
+    input[type="text"],
+    input[type="password"] {
       width: 100%;
       padding: 14px;
       border: 1px solid var(--border-color);
@@ -181,6 +185,7 @@
     }
   </style>
 </head>
+
 <body>
   <!-- Progress bar container -->
   <div class="progress-container">
@@ -219,37 +224,37 @@
   <script>
     // Load registered users from localStorage
     let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || {};
-    
+
     // Initialize progress bar
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const progressBarFill = document.getElementById('progressBarFill');
       const currentUser = localStorage.getItem('currentUser');
-      
+
       // Set progress bar to 33% by default (completed signup)
       progressBarFill.style.width = '33%';
       document.querySelector('.progress-text').textContent = 'Step 2 of 3: Login (33%)';
-      
+
       if (currentUser && registeredUsers[currentUser]) {
         // Pre-fill username if available
         document.getElementById('username').value = currentUser;
-        
+
         // If user has completed all steps, show their actual progress
         if (registeredUsers[currentUser].progress > 33) {
           progressBarFill.style.width = registeredUsers[currentUser].progress + '%';
-          document.querySelector('.progress-text').textContent = 
+          document.querySelector('.progress-text').textContent =
             `Progress: ${registeredUsers[currentUser].progress}% complete`;
         }
       }
     });
-    
+
     // Handle forgot password
-    document.getElementById('forgotPassword').addEventListener('click', function(e) {
+    document.getElementById('forgotPassword').addEventListener('click', function (e) {
       e.preventDefault();
       alert('Password reset functionality would be implemented here in a real application.');
     });
-  
+
     // Handle form submit
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
       e.preventDefault();
 
       const username = document.getElementById('username').value.trim();
@@ -266,24 +271,25 @@
         alert('Invalid username or password.');
         return;
       }
-      
+
       // Update progress bar to 66% before redirecting
       const progressBarFill = document.getElementById('progressBarFill');
       progressBarFill.style.width = '66%';
       document.querySelector('.progress-text').textContent = 'Step 2 of 3: Login (66%)';
-      
+
       // Update user progress to 66% (completed step 2 of 3)
       registeredUsers[username].progress = 66;
       localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
       localStorage.setItem('currentUser', username);
-      
+
       // Add a small delay to show the progress update before redirecting
-      setTimeout(function() {
+      setTimeout(function () {
         alert('Login successful! Redirecting to practice page...');
         window.location.href = '../automation/playwright-selenium-cypress-practice.html';
       }, 500);
     });
   </script>
-    <script src="../shared/header-footer.js"></script>
+  <script src="../shared/header-footer.js"></script>
 </body>
+
 </html>

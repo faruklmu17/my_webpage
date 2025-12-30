@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Implementing CI/CD with GitHub Pages - Faruk Hasan</title>
+    <link rel="canonical" href="https://faruk-hasan.com/blog_post/ci-cd-github-pages.html" />
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,21 +17,21 @@
             padding: 2rem;
             line-height: 1.7;
         }
-        
+
         .blog-header {
             text-align: center;
             margin-bottom: 3rem;
             padding-bottom: 2rem;
             border-bottom: 1px solid #eee;
         }
-        
+
         .blog-title {
             font-size: 2.5rem;
             margin-bottom: 1rem;
             line-height: 1.3;
             color: var(--primary-color);
         }
-        
+
         .blog-meta {
             display: flex;
             justify-content: center;
@@ -38,22 +40,22 @@
             color: #666;
             font-size: 0.95rem;
         }
-        
+
         .blog-meta-item {
             display: flex;
             align-items: center;
         }
-        
+
         .blog-meta-item i {
             margin-right: 0.5rem;
             color: var(--accent-color);
         }
-        
+
         .blog-content {
             font-size: 1.1rem;
             color: var(--text-color);
         }
-        
+
         .blog-content h2 {
             margin-top: 2.5rem;
             margin-bottom: 1.5rem;
@@ -62,66 +64,71 @@
             border-bottom: 2px solid #f0f0f0;
             padding-bottom: 0.5rem;
         }
-        
+
         .blog-content h3 {
             margin-top: 2rem;
             margin-bottom: 1rem;
             font-size: 1.4rem;
             color: var(--secondary-color);
         }
-        
+
         .blog-content p {
             margin-bottom: 1.5rem;
         }
-        
-        .blog-content ul, .blog-content ol {
+
+        .blog-content ul,
+        .blog-content ol {
             margin-bottom: 1.5rem;
             padding-left: 2rem;
         }
-        
+
         .blog-content li {
             margin-bottom: 0.5rem;
         }
-        
+
         .blog-content a {
             color: var(--accent-color);
             text-decoration: none;
             border-bottom: 1px solid var(--accent-color);
             transition: all 0.2s ease;
         }
-        
+
         .blog-content a:hover {
             color: var(--primary-color);
             border-bottom-color: var(--primary-color);
         }
-        
+
         .blog-content code {
-            background-color: #1e1e1e; /* Dark background for inline code */
+            background-color: #1e1e1e;
+            /* Dark background for inline code */
             padding: 0.2rem 0.4rem;
             border-radius: 3px;
             font-family: 'Courier New', monospace;
             font-size: 0.9em;
-            color: #f8f8f8; /* Light text color for inline code */
+            color: #f8f8f8;
+            /* Light text color for inline code */
         }
-        
+
         .blog-content pre {
-            background-color: #1e1e1e; /* Dark background for code blocks */
+            background-color: #1e1e1e;
+            /* Dark background for code blocks */
             padding: 1rem;
             border-radius: 5px;
             overflow-x: auto;
             margin-bottom: 1.5rem;
             border: 1px solid #333;
         }
-        
+
         .blog-content pre code {
             background-color: transparent;
             padding: 0;
-            color: #f8f8f8; /* Light text color for code */
+            color: #f8f8f8;
+            /* Light text color for code */
             font-size: 0.9rem;
             line-height: 1.5;
             font-family: 'Courier New', monospace;
         }
-        
+
         .blog-content blockquote {
             border-left: 4px solid var(--primary-color);
             padding-left: 1rem;
@@ -130,14 +137,14 @@
             font-style: italic;
             color: #555;
         }
-        
+
         .blog-content hr {
             border: none;
             height: 1px;
             background-color: #eee;
             margin: 2rem 0;
         }
-        
+
         .blog-content img {
             max-width: 100%;
             height: auto;
@@ -145,26 +152,26 @@
             margin: 1.5rem 0;
             box-shadow: var(--soft-shadow);
         }
-        
+
         .blog-content details {
             margin-bottom: 1.5rem;
             border: 1px solid #eee;
             border-radius: 5px;
             padding: 0.5rem;
         }
-        
+
         .blog-content summary {
             font-weight: 600;
             cursor: pointer;
             padding: 0.5rem;
             color: var(--primary-color);
         }
-        
+
         .blog-content details[open] summary {
             margin-bottom: 0.5rem;
             border-bottom: 1px solid #eee;
         }
-        
+
         .blog-footer {
             margin-top: 4rem;
             padding-top: 2rem;
@@ -173,13 +180,13 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .blog-tags {
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
         }
-        
+
         .blog-tag {
             background-color: rgba(58, 110, 165, 0.1);
             color: var(--primary-color);
@@ -187,22 +194,22 @@
             border-radius: 50px;
             font-size: 0.85rem;
         }
-        
+
         .blog-share {
             display: flex;
             gap: 1rem;
         }
-        
+
         .blog-share a {
             color: var(--secondary-color);
             font-size: 1.2rem;
             transition: color 0.2s ease;
         }
-        
+
         .blog-share a:hover {
             color: var(--primary-color);
         }
-        
+
         .back-to-blog {
             display: inline-flex;
             align-items: center;
@@ -212,30 +219,30 @@
             font-weight: 600;
             border: none;
         }
-        
+
         .back-to-blog i {
             margin-right: 0.5rem;
         }
-        
+
         @media (max-width: 768px) {
             .blog-container {
                 padding: 1.5rem;
             }
-            
+
             .blog-title {
                 font-size: 2rem;
             }
-            
+
             .blog-meta {
                 flex-direction: column;
                 gap: 0.5rem;
             }
-            
+
             .blog-content {
                 font-size: 1rem;
             }
         }
-        
+
         /* Footer styles to match index page */
         footer {
             background-color: var(--secondary-color);
@@ -243,7 +250,7 @@
             padding: 2rem 0 1rem;
             margin-top: 3rem;
         }
-        
+
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -252,34 +259,34 @@
             align-items: center;
             padding: 0 2rem;
         }
-        
+
         .footer-info {
             text-align: left;
         }
-        
+
         .footer-logo {
             font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
             color: white;
         }
-        
+
         .footer-info p {
             font-size: 0.9rem;
             opacity: 0.8;
         }
-        
+
         .footer-social h4 {
             margin-bottom: 0.75rem;
             font-size: 1rem;
             color: white;
         }
-        
+
         .social-icons-footer {
             display: flex;
             gap: 1rem;
         }
-        
+
         .footer-bottom {
             text-align: center;
             padding-top: 1.5rem;
@@ -287,20 +294,21 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 0.9rem;
         }
-        
+
         @media (max-width: 768px) {
             .footer-content {
                 flex-direction: column;
                 text-align: center;
                 gap: 1.5rem;
             }
-            
+
             .footer-info {
                 text-align: center;
             }
         }
     </style>
 </head>
+
 <body>
     <header>
         <div class="header-content">
@@ -318,10 +326,14 @@
                     </ul>
                 </nav>
                 <div class="social-icons">
-                    <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube" target="_blank"><i class="fab fa-youtube"></i></a>
-                    <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://github.com/faruklmu17" class="social-icon github" aria-label="GitHub" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin"
+                        aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube"
+                        target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook"
+                        target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://github.com/faruklmu17" class="social-icon github" aria-label="GitHub"
+                        target="_blank"><i class="fab fa-github"></i></a>
                 </div>
             </div>
         </div>
@@ -330,7 +342,8 @@
     <main class="blog-container">
         <article class="blog-post">
             <div class="blog-header">
-                <h1 class="blog-title">Implementing CI/CD with GitHub Pages: Deploying Your Static Website Automatically</h1>
+                <h1 class="blog-title">Implementing CI/CD with GitHub Pages: Deploying Your Static Website Automatically
+                </h1>
                 <div class="blog-meta">
                     <div class="blog-meta-item">
                         <i class="far fa-calendar-alt"></i>
@@ -346,15 +359,20 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="blog-content">
-                <p>Continuous Integration (CI) and Continuous Deployment (CD) enable you to ship updates to your web application seamlessly, without manual intervention. In this post, we'll walk through how to build a basic static site, push it to a GitHub repository, configure GitHub Pages for hosting, and set up automated deployments so that every time you push code, GitHub Pages rebuilds and publishes your changes. By the end, you'll understand:</p>
+                <p>Continuous Integration (CI) and Continuous Deployment (CD) enable you to ship updates to your web
+                    application seamlessly, without manual intervention. In this post, we'll walk through how to build a
+                    basic static site, push it to a GitHub repository, configure GitHub Pages for hosting, and set up
+                    automated deployments so that every time you push code, GitHub Pages rebuilds and publishes your
+                    changes. By the end, you'll understand:</p>
 
                 <ol>
                     <li>What GitHub Pages is and why it's a great starting point for CI/CD.</li>
                     <li>How CI/CD works in the context of a static website.</li>
                     <li>Prerequisites for following along.</li>
-                    <li>Step-by-step instructions to create a new repository, clone it locally, build a simple HTML page, and configure GitHub Pages.</li>
+                    <li>Step-by-step instructions to create a new repository, clone it locally, build a simple HTML
+                        page, and configure GitHub Pages.</li>
                     <li>How to verify that changes you make locally are automatically deployed.</li>
                 </ol>
 
@@ -362,27 +380,41 @@
 
                 <h2>Why Use GitHub Pages for CI/CD?</h2>
 
-                <p>GitHub Pages is a free service from GitHub that lets you host a static website directly from a GitHub repository. Key benefits:</p>
+                <p>GitHub Pages is a free service from GitHub that lets you host a static website directly from a GitHub
+                    repository. Key benefits:</p>
 
                 <ul>
-                    <li><strong>Free and Simple:</strong> You don't need any cloud hosting provider—just push your code to GitHub and configure Pages.</li>
-                    <li><strong>Automatic Builds:</strong> Whenever you push new commits to the chosen branch, GitHub Pages rebuilds and redeploys your site.</li>
-                    <li><strong>Custom Domains:</strong> By default, GitHub provides a <code>&lt;username&gt;.github.io/&lt;repo&gt;</code> URL, but you can attach your own domain.</li>
-                    <li><strong>Ideal for Static Sites:</strong> If you only need HTML/CSS/JavaScript without server-side code, Pages handles everything. Dynamic server logic (e.g., Node.js or Python backends) requires a separate solution (e.g., AWS, Netlify, or Heroku), but static hosting is fast to set up.</li>
+                    <li><strong>Free and Simple:</strong> You don't need any cloud hosting provider—just push your code
+                        to GitHub and configure Pages.</li>
+                    <li><strong>Automatic Builds:</strong> Whenever you push new commits to the chosen branch, GitHub
+                        Pages rebuilds and redeploys your site.</li>
+                    <li><strong>Custom Domains:</strong> By default, GitHub provides a
+                        <code>&lt;username&gt;.github.io/&lt;repo&gt;</code> URL, but you can attach your own domain.
+                    </li>
+                    <li><strong>Ideal for Static Sites:</strong> If you only need HTML/CSS/JavaScript without
+                        server-side code, Pages handles everything. Dynamic server logic (e.g., Node.js or Python
+                        backends) requires a separate solution (e.g., AWS, Netlify, or Heroku), but static hosting is
+                        fast to set up.</li>
                 </ul>
 
-                <p>In this guide, we'll show how CI/CD works step by step, deploying a basic "sign-up form" page so you can see how changes propagate from your local machine to the live URL automatically.</p>
+                <p>In this guide, we'll show how CI/CD works step by step, deploying a basic "sign-up form" page so you
+                    can see how changes propagate from your local machine to the live URL automatically.</p>
 
                 <hr>
 
                 <h2>CI vs. CD in a Nutshell</h2>
 
                 <ul>
-                    <li><strong>Continuous Integration (CI):</strong> Every time you push code, GitHub triggers a build process (in this case, simply packaging or validating your static files). You don't need to manually run build scripts or upload files.</li>
-                    <li><strong>Continuous Deployment (CD):</strong> After building, the updated site is automatically published to the live URL. No manual "copy to FTP" or "click Deploy" steps are required. As soon as GitHub Pages finishes, your visitors see the latest version.</li>
+                    <li><strong>Continuous Integration (CI):</strong> Every time you push code, GitHub triggers a build
+                        process (in this case, simply packaging or validating your static files). You don't need to
+                        manually run build scripts or upload files.</li>
+                    <li><strong>Continuous Deployment (CD):</strong> After building, the updated site is automatically
+                        published to the live URL. No manual "copy to FTP" or "click Deploy" steps are required. As soon
+                        as GitHub Pages finishes, your visitors see the latest version.</li>
                 </ul>
 
-                <p>Put simply: with CI/CD, <strong>push → build → deploy → live</strong>, with zero manual steps after the initial setup.</p>
+                <p>Put simply: with CI/CD, <strong>push → build → deploy → live</strong>, with zero manual steps after
+                    the initial setup.</p>
 
                 <hr>
 
@@ -391,11 +423,17 @@
                 <p>Before you begin, ensure you have:</p>
 
                 <ol>
-                    <li><strong>A GitHub Account:</strong> Create one at <a href="https://github.com" target="_blank">github.com</a> if you don't already have it.</li>
-                    <li><strong>Git Installed on Your Machine:</strong> So you can run <code>git clone</code>, <code>git add</code>, <code>git commit</code>, and <code>git push</code>.</li>
-                    <li><strong>VS Code (or Any Code Editor):</strong> We'll use Visual Studio Code here, but any editor (Sublime Text, Atom, etc.) works.</li>
-                    <li><strong>Basic HTML Knowledge:</strong> We'll build a simple <code>index.html</code> page containing a sign-up form (username + password + confirm password).</li>
-                    <li><strong>GitHub CLI or SSH Key (Optional but Recommended):</strong> If you prefer using SSH over HTTPS for <code>git clone</code>, make sure your SSH key is registered with GitHub. Otherwise, you can clone via HTTPS.</li>
+                    <li><strong>A GitHub Account:</strong> Create one at <a href="https://github.com"
+                            target="_blank">github.com</a> if you don't already have it.</li>
+                    <li><strong>Git Installed on Your Machine:</strong> So you can run <code>git clone</code>,
+                        <code>git add</code>, <code>git commit</code>, and <code>git push</code>.</li>
+                    <li><strong>VS Code (or Any Code Editor):</strong> We'll use Visual Studio Code here, but any editor
+                        (Sublime Text, Atom, etc.) works.</li>
+                    <li><strong>Basic HTML Knowledge:</strong> We'll build a simple <code>index.html</code> page
+                        containing a sign-up form (username + password + confirm password).</li>
+                    <li><strong>GitHub CLI or SSH Key (Optional but Recommended):</strong> If you prefer using SSH over
+                        HTTPS for <code>git clone</code>, make sure your SSH key is registered with GitHub. Otherwise,
+                        you can clone via HTTPS.</li>
                 </ol>
 
                 <p>Once you have these in place, you're ready to dive into creating and deploying your site.</p>
@@ -405,16 +443,20 @@
                 <h2>1. Create a New GitHub Repository</h2>
 
                 <ol>
-                    <li>Log in to GitHub and click <strong>New repository</strong> (the green button on the top right).</li>
+                    <li>Log in to GitHub and click <strong>New repository</strong> (the green button on the top right).
+                    </li>
                     <li>Give it a name, for example:
                         <pre><code>my-github-pages-site</code></pre>
                     </li>
-                    <li>Choose <strong>Public</strong>. (Pages works for both public and private repos if you have GitHub Pro or a paid plan, but public is simplest.)</li>
-                    <li>Do <strong>not</strong> initialize with a README or <code>.gitignore</code>; we'll start from an empty repo.</li>
+                    <li>Choose <strong>Public</strong>. (Pages works for both public and private repos if you have
+                        GitHub Pro or a paid plan, but public is simplest.)</li>
+                    <li>Do <strong>not</strong> initialize with a README or <code>.gitignore</code>; we'll start from an
+                        empty repo.</li>
                     <li>Click <strong>Create repository</strong>.</li>
                 </ol>
 
-                <p>At this point, your new repository exists on GitHub, but it's empty. You'll see instructions under "…or create a new repository on the command line" showing how to clone it.</p>
+                <p>At this point, your new repository exists on GitHub, but it's empty. You'll see instructions under
+                    "…or create a new repository on the command line" showing how to clone it.</p>
 
                 <hr>
 
@@ -422,7 +464,8 @@
 
                 <ol>
                     <li>Copy the repository's HTTPS (or SSH) URL.</li>
-                    <li>Open a terminal on your computer and choose (or create) a folder where you want to store your project. For example, on macOS:
+                    <li>Open a terminal on your computer and choose (or create) a folder where you want to store your
+                        project. For example, on macOS:
                         <pre><code>cd ~/Desktop
 mkdir github-pages-ci-cd
 cd github-pages-ci-cd</code></pre>
@@ -435,16 +478,19 @@ cd github-pages-ci-cd</code></pre>
                     </li>
                 </ol>
 
-                <p>Since the repo is empty, you'll see a message like "Cloning into 'my-github-pages-site'… … done. You appear to have cloned an empty repository." That's expected.</p>
+                <p>Since the repo is empty, you'll see a message like "Cloning into 'my-github-pages-site'… … done. You
+                    appear to have cloned an empty repository." That's expected.</p>
 
                 <hr>
 
                 <h2>3. Create Your Basic Static Site</h2>
 
-                <p>In VS Code (or your editor of choice), open the <code>my-github-pages-site</code> folder. You'll notice it's empty. We'll now create a simple <code>index.html</code> file for our sign-up form.</p>
+                <p>In VS Code (or your editor of choice), open the <code>my-github-pages-site</code> folder. You'll
+                    notice it's empty. We'll now create a simple <code>index.html</code> file for our sign-up form.</p>
 
                 <ol>
-                    <li>In VS Code, click <strong>File → New File</strong> and save it as <code>index.html</code> at the root of the repo.</li>
+                    <li>In VS Code, click <strong>File → New File</strong> and save it as <code>index.html</code> at the
+                        root of the repo.</li>
                     <li>Paste the following HTML code (a basic username/password/confirm password form):
                         <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
@@ -523,7 +569,8 @@ cd github-pages-ci-cd</code></pre>
 &lt;/html&gt;
 </code></pre>
                     </li>
-                    <li>Save the file. This is all the HTML and CSS we need for our static page. No JavaScript or back-end is required since this is purely a demonstration of CI/CD with Pages.</li>
+                    <li>Save the file. This is all the HTML and CSS we need for our static page. No JavaScript or
+                        back-end is required since this is purely a demonstration of CI/CD with Pages.</li>
                 </ol>
 
                 <hr>
@@ -533,12 +580,16 @@ cd github-pages-ci-cd</code></pre>
                 <p>To confirm your page looks correct before pushing:</p>
 
                 <ol>
-                    <li>Install the <strong>Live Server</strong> extension in VS Code (if you don't already have it).</li>
+                    <li>Install the <strong>Live Server</strong> extension in VS Code (if you don't already have it).
+                    </li>
                     <li>In <code>index.html</code>, click <strong>Go Live</strong> at the bottom right of VS Code.</li>
-                    <li>A new browser tab opens pointing to something like <code>http://127.0.0.1:5500/index.html</code>. You should see your sign-up form styled exactly as above.</li>
+                    <li>A new browser tab opens pointing to something like
+                        <code>http://127.0.0.1:5500/index.html</code>. You should see your sign-up form styled exactly
+                        as above.</li>
                 </ol>
 
-                <p>If you don't see "Go Live," install the "Live Server" extension, reload VS Code, then try again. Verifying locally ensures you catch any typos before deployment.</p>
+                <p>If you don't see "Go Live," install the "Live Server" extension, reload VS Code, then try again.
+                    Verifying locally ensures you catch any typos before deployment.</p>
 
                 <hr>
 
@@ -567,8 +618,10 @@ cd github-pages-ci-cd</code></pre>
                 <ol>
                     <li>On GitHub, navigate to your repository (<code>my-github-pages-site</code>).</li>
                     <li>Click <strong>Settings</strong> → <strong>Pages</strong> (in the left sidebar).</li>
-                    <li>Under <strong>Build and deployment</strong>, you'll see <strong>Deploy from a branch</strong>.</li>
-                    <li>For <strong>Branch</strong>, select <code>main</code>. For <strong>Folder</strong>, choose <code>/ (root)</code>.</li>
+                    <li>Under <strong>Build and deployment</strong>, you'll see <strong>Deploy from a branch</strong>.
+                    </li>
+                    <li>For <strong>Branch</strong>, select <code>main</code>. For <strong>Folder</strong>, choose
+                        <code>/ (root)</code>.</li>
                     <li>Because <code>index.html</code> is at the repository's root, "root" is the correct folder.</li>
                     <li>Click <strong>Save</strong>.</li>
                 </ol>
@@ -576,22 +629,28 @@ cd github-pages-ci-cd</code></pre>
                 <p>Once you save, GitHub immediately triggers a build. Below, you'll see a note:</p>
 
                 <blockquote>
-                    <p>"Your site is ready to be deployed at <code>https://<your-username>.github.io/my-github-pages-site/</code> in a few minutes."</p>
+                    <p>"Your site is ready to be deployed at
+                        <code>https://<your-username>.github.io/my-github-pages-site/</code> in a few minutes."</p>
                 </blockquote>
 
-                <p>GitHub Pages leverages a built-in GitHub Action behind the scenes to build and deploy a static site. You don't need to write any YAML actions yourself; Pages configures it automatically. But you can check the <strong>Actions</strong> tab to see the workflow run.</p>
+                <p>GitHub Pages leverages a built-in GitHub Action behind the scenes to build and deploy a static site.
+                    You don't need to write any YAML actions yourself; Pages configures it automatically. But you can
+                    check the <strong>Actions</strong> tab to see the workflow run.</p>
 
                 <hr>
 
                 <h2>7. Verify the Live URL</h2>
 
                 <ol>
-                    <li>After a minute or two, click the provided URL (e.g., <code>https://<your-username>.github.io/my-github-pages-site/</code>).</li>
+                    <li>After a minute or two, click the provided URL (e.g.,
+                        <code>https://<your-username>.github.io/my-github-pages-site/</code>).</li>
                     <li>You should see the same sign-up form you built locally.</li>
-                    <li>Test it in an incognito window or another browser to confirm it's publicly accessible. Anyone with the link can view the page.</li>
+                    <li>Test it in an incognito window or another browser to confirm it's publicly accessible. Anyone
+                        with the link can view the page.</li>
                 </ol>
 
-                <p>At this point, <strong>CI/CD is working</strong>—you've built, committed, and pushed, and GitHub Pages handled building and deploying automatically.</p>
+                <p>At this point, <strong>CI/CD is working</strong>—you've built, committed, and pushed, and GitHub
+                    Pages handled building and deploying automatically.</p>
 
                 <hr>
 
@@ -617,55 +676,84 @@ cd github-pages-ci-cd</code></pre>
 git commit -m "Update confirm password label to 'Verify Password'"
 git push origin main</code></pre>
                     </li>
-                    <li>On GitHub, switch to the <strong>Actions</strong> tab. You'll see a new workflow run—“Github Pages build.” It should complete successfully within a minute.</li>
-                    <li>Once that finishes, refresh your live site (e.g., <code>https://<your-username>.github.io/my-github-pages-site/</code>). You should now see “Verify Password” instead of “Confirm Password.”</li>
+                    <li>On GitHub, switch to the <strong>Actions</strong> tab. You'll see a new workflow run—“Github
+                        Pages build.” It should complete successfully within a minute.</li>
+                    <li>Once that finishes, refresh your live site (e.g.,
+                        <code>https://<your-username>.github.io/my-github-pages-site/</code>). You should now see
+                        “Verify Password” instead of “Confirm Password.”</li>
                 </ol>
 
-                <p>Because Pages CI/CD rebuilt and redeployed automatically, the updated label appears live without any extra steps. That's CI/CD in action: <strong>every commit triggers a build → Pages deploys changes → visitors see the latest code</strong>.</p>
+                <p>Because Pages CI/CD rebuilt and redeployed automatically, the updated label appears live without any
+                    extra steps. That's CI/CD in action: <strong>every commit triggers a build → Pages deploys changes →
+                        visitors see the latest code</strong>.</p>
 
                 <hr>
 
                 <h2>9. Custom Domain (Optional)</h2>
 
-                <p>If you own a custom domain (e.g., <code>www.myawesomesite.com</code>) and want to serve your GitHub Pages site under your own URL:</p>
+                <p>If you own a custom domain (e.g., <code>www.myawesomesite.com</code>) and want to serve your GitHub
+                    Pages site under your own URL:</p>
 
                 <ol>
-                    <li>In your repo’s <strong>Settings</strong> → <strong>Pages</strong>, under <strong>Custom domain</strong>, enter <code>www.myawesomesite.com</code> and save.</li>
-                    <li>In your DNS provider (e.g., GoDaddy, Namecheap), create a CNAME record pointing <code>www</code> to <code>&lt;your-username&gt;.github.io</code>.</li>
-                    <li>It can take up to 24 hours for DNS changes to propagate. Once propagated, visiting <code>www.myawesomesite.com</code> will serve your Pages site.</li>
+                    <li>In your repo’s <strong>Settings</strong> → <strong>Pages</strong>, under <strong>Custom
+                            domain</strong>, enter <code>www.myawesomesite.com</code> and save.</li>
+                    <li>In your DNS provider (e.g., GoDaddy, Namecheap), create a CNAME record pointing <code>www</code>
+                        to <code>&lt;your-username&gt;.github.io</code>.</li>
+                    <li>It can take up to 24 hours for DNS changes to propagate. Once propagated, visiting
+                        <code>www.myawesomesite.com</code> will serve your Pages site.</li>
                 </ol>
 
-                <p>Using a custom domain is entirely optional—by default, GitHub hosts your site under <code>github.io</code>.</p>
+                <p>Using a custom domain is entirely optional—by default, GitHub hosts your site under
+                    <code>github.io</code>.</p>
 
                 <hr>
 
                 <h2>10. Tips & Best Practices</h2>
 
                 <ul>
-                    <li><strong>Branching Strategy:</strong> If you prefer keeping <code>main</code> “clean” (e.g., only stable releases), you can choose to deploy from a <code>gh-pages</code> branch. Create <code>gh-pages</code>, push <code>index.html</code> there, and set Pages to use <code>gh-pages</code> instead of <code>main</code>. (<a href="https://docs.github.com/en/pages/getting-started-with-github-pages/choosing-a-publishing-source-for-your-github-pages-site" target="_blank">GitHub Docs: Choosing a Publishing Source</a>)</li>
-                    <li><strong>Verify Workflow Logs:</strong> Under <strong>Actions</strong>, click the Pages workflow to see build logs. This helps debug if the site doesn’t deploy or shows errors.</li>
-                    <li><strong>Directory Structure:</strong> If your static site is in a subfolder (e.g., <code>/docs</code>), set Pages’ folder setting to <code>/docs</code>. Otherwise, keep it in root.</li>
-                    <li><strong>HTTPS Enforcement:</strong> GitHub Pages automatically sets up HTTPS. Make sure “Enforce HTTPS” is checked under Pages settings.</li>
-                    <li><strong>404 Pages & Ongoing Maintenance:</strong> Add a <code>404.html</code> to handle broken links. Keep your repo tidy by removing unused files.</li>
+                    <li><strong>Branching Strategy:</strong> If you prefer keeping <code>main</code> “clean” (e.g., only
+                        stable releases), you can choose to deploy from a <code>gh-pages</code> branch. Create
+                        <code>gh-pages</code>, push <code>index.html</code> there, and set Pages to use
+                        <code>gh-pages</code> instead of <code>main</code>. (<a
+                            href="https://docs.github.com/en/pages/getting-started-with-github-pages/choosing-a-publishing-source-for-your-github-pages-site"
+                            target="_blank">GitHub Docs: Choosing a Publishing Source</a>)</li>
+                    <li><strong>Verify Workflow Logs:</strong> Under <strong>Actions</strong>, click the Pages workflow
+                        to see build logs. This helps debug if the site doesn’t deploy or shows errors.</li>
+                    <li><strong>Directory Structure:</strong> If your static site is in a subfolder (e.g.,
+                        <code>/docs</code>), set Pages’ folder setting to <code>/docs</code>. Otherwise, keep it in
+                        root.</li>
+                    <li><strong>HTTPS Enforcement:</strong> GitHub Pages automatically sets up HTTPS. Make sure “Enforce
+                        HTTPS” is checked under Pages settings.</li>
+                    <li><strong>404 Pages & Ongoing Maintenance:</strong> Add a <code>404.html</code> to handle broken
+                        links. Keep your repo tidy by removing unused files.</li>
                 </ul>
 
                 <hr>
 
                 <h2>Conclusion</h2>
 
-                <p>By leveraging GitHub Pages, you can set up a fully automated CI/CD pipeline for static websites in just a few steps:</p>
+                <p>By leveraging GitHub Pages, you can set up a fully automated CI/CD pipeline for static websites in
+                    just a few steps:</p>
 
                 <ol>
                     <li><strong>Create a new repo</strong> on GitHub.</li>
-                    <li><strong>Clone</strong> it locally and build your static site (e.g., <code>index.html</code>).</li>
+                    <li><strong>Clone</strong> it locally and build your static site (e.g., <code>index.html</code>).
+                    </li>
                     <li><strong>Push</strong> your code to <code>main</code>.</li>
                     <li><strong>Configure GitHub Pages</strong> to deploy from <code>main</code> (root folder).</li>
-                    <li><strong>Observe the automatic build and deploy</strong> process under the <strong>Actions</strong> tab.</li>
+                    <li><strong>Observe the automatic build and deploy</strong> process under the
+                        <strong>Actions</strong> tab.</li>
                 </ol>
 
-                <p>Every time you push a change—whether it’s as simple as updating a label, adding a stylesheet, or introducing a new page—GitHub Pages rebuilds and publishes it. No manual FTP uploads, no separate build server needed. This workflow is ideal for landing pages, documentation, project sites, or any purely static web application.</p>
+                <p>Every time you push a change—whether it’s as simple as updating a label, adding a stylesheet, or
+                    introducing a new page—GitHub Pages rebuilds and publishes it. No manual FTP uploads, no separate
+                    build server needed. This workflow is ideal for landing pages, documentation, project sites, or any
+                    purely static web application.</p>
 
-                <p>Ready to try it yourself? Create a repository, paste in the HTML above (or your own static files), configure Pages, and watch your site go live. With CI/CD in place, you can focus on writing code and content, confident that GitHub will handle the “build → deploy → live” cycle automatically. Happy deploying!</p>
+                <p>Ready to try it yourself? Create a repository, paste in the HTML above (or your own static files),
+                    configure Pages, and watch your site go live. With CI/CD in place, you can focus on writing code and
+                    content, confident that GitHub will handle the “build → deploy → live” cycle automatically. Happy
+                    deploying!</p>
             </div>
         </article>
         <a href="../index.html#blog" class="back-to-blog"><i class="fas fa-arrow-left"></i> Back to Blog</a>
@@ -681,10 +769,14 @@ git push origin main</code></pre>
             <div class="footer-social">
                 <h4>Follow Me</h4>
                 <div class="social-icons-footer">
-                    <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube" target="_blank"><i class="fab fa-youtube"></i></a>
-                    <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://github.com/faruklmu17" class="social-icon github" aria-label="GitHub" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin"
+                        aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube"
+                        target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook"
+                        target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://github.com/faruklmu17" class="social-icon github" aria-label="GitHub"
+                        target="_blank"><i class="fab fa-github"></i></a>
                 </div>
             </div>
         </div>
@@ -693,4 +785,5 @@ git push origin main</code></pre>
         </div>
     </footer>
 </body>
+
 </html>

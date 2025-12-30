@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data & Web Scraping Quiz (20 MCQs)</title>
+  <link rel="canonical" href="https://faruk-hasan.com/quizzes/AI/ai_quiz_0_fundamentals.html" />
   <style>
     :root {
       --ok: #0a7f34;
@@ -14,37 +16,149 @@
       --card: #ffffff;
       --border: #e5e7eb;
     }
+
     body {
-      /* Body padding/margin removed to match resources.html header layout */ font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background: var(--bg);  color: #111827; }
-    .wrap { max-width: 920px; margin: 0 auto; padding: 24px; }
-    header { text-align: center; margin-bottom: 18px; }
-    h1 { font-size: 1.6rem; margin: 0 0 4px; }
-    .sub { color: var(--muted); font-size: 0.95rem; }
+      /* Body padding/margin removed to match resources.html header layout */
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: #111827;
+    }
 
-    form { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; box-shadow: 0 8px 20px rgba(0,0,0,0.04); }
+    .wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 24px;
+    }
 
-    .q { border-top: 1px dashed var(--border); padding: 16px 4px; }
-    .q:first-of-type { border-top: 0; }
-    .q h3 { margin: 0 0 10px; font-size: 1rem; }
-    .opts { display: grid; gap: 6px; }
-    label { display: flex; align-items: start; gap: 10px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 10px; cursor: pointer; transition: background 0.15s ease; }
-    label:hover { background: #fafafa; }
-    input[type="radio"] { margin-top: 3px; }
+    header {
+      text-align: center;
+      margin-bottom: 18px;
+    }
 
-    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
-    button { appearance: none; border: 1px solid var(--border); background: #111827; color: #fff; padding: 10px 14px; border-radius: 10px; cursor: pointer; font-weight: 600; }
-    button.secondary { background: #fff; color: #111827; }
+    h1 {
+      font-size: 1.6rem;
+      margin: 0 0 4px;
+    }
 
-    .result { margin-top: 16px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border); background: #f1f5ff; color: #0a2a7f; display: none; }
-    .detail { margin-top: 12px; display: none; }
-    .exp { border-left: 3px solid var(--info); padding: 10px 12px; margin: 10px 0 0 0; background: #f8fbff; border-radius: 6px; }
+    .sub {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
 
-    .correct { outline: 2px solid var(--ok); background: #f0fff6; }
-    .incorrect { outline: 2px solid var(--bad); background: #fff5f6; }
-    .correct .exp { border-left-color: var(--ok); }
-    .incorrect .exp { border-left-color: var(--bad); }
+    form {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+    }
 
-    .muted { color: var(--muted); font-size: 0.92rem; }
+    .q {
+      border-top: 1px dashed var(--border);
+      padding: 16px 4px;
+    }
+
+    .q:first-of-type {
+      border-top: 0;
+    }
+
+    .q h3 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+    }
+
+    .opts {
+      display: grid;
+      gap: 6px;
+    }
+
+    label {
+      display: flex;
+      align-items: start;
+      gap: 10px;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    label:hover {
+      background: #fafafa;
+    }
+
+    input[type="radio"] {
+      margin-top: 3px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    button {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: #111827;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    button.secondary {
+      background: #fff;
+      color: #111827;
+    }
+
+    .result {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #f1f5ff;
+      color: #0a2a7f;
+      display: none;
+    }
+
+    .detail {
+      margin-top: 12px;
+      display: none;
+    }
+
+    .exp {
+      border-left: 3px solid var(--info);
+      padding: 10px 12px;
+      margin: 10px 0 0 0;
+      background: #f8fbff;
+      border-radius: 6px;
+    }
+
+    .correct {
+      outline: 2px solid var(--ok);
+      background: #f0fff6;
+    }
+
+    .incorrect {
+      outline: 2px solid var(--bad);
+      background: #fff5f6;
+    }
+
+    .correct .exp {
+      border-left-color: var(--ok);
+    }
+
+    .incorrect .exp {
+      border-left-color: var(--bad);
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
   </style>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -52,11 +166,12 @@
   <link rel="stylesheet" href="../../shared/header-footer.css">
 
 </head>
+
 <body>
   <div class="wrap">
     <!-- Header will be automatically injected by shared/header-footer.js -->
 
-  <form id="quiz">
+    <form id="quiz">
 
       <!-- Q1 -->
       <div class="q" data-id="q1">
@@ -207,7 +322,8 @@
         <h3>13) What does parsing mean in web scraping?</h3>
         <div class="opts">
           <label><input type="radio" name="q13" value="A"> A) Saving files in folders</label>
-          <label><input type="radio" name="q13" value="B"> B) Breaking down HTML into smaller, understandable parts</label>
+          <label><input type="radio" name="q13" value="B"> B) Breaking down HTML into smaller, understandable
+            parts</label>
           <label><input type="radio" name="q13" value="C"> C) Encrypting website data</label>
           <label><input type="radio" name="q13" value="D"> D) Blocking a webpage</label>
         </div>
@@ -243,7 +359,8 @@
         <h3>16) In <code>soup.find_all('span', class_='text')</code>, what does <code>class_='text'</code> do?</h3>
         <div class="opts">
           <label><input type="radio" name="q16" value="A"> A) Deletes text from the page</label>
-          <label><input type="radio" name="q16" value="B"> B) Filters &lt;span&gt; tags that have the class “text”</label>
+          <label><input type="radio" name="q16" value="B"> B) Filters &lt;span&gt; tags that have the class
+            “text”</label>
           <label><input type="radio" name="q16" value="C"> C) Finds all buttons on the page</label>
           <label><input type="radio" name="q16" value="D"> D) Adds styles to the span</label>
         </div>
@@ -401,6 +518,7 @@
     });
   </script>
   <!-- Shared Header and Footer JavaScript -->
-    <script src="../../shared/header-footer.js"></script>
+  <script src="../../shared/header-footer.js"></script>
 </body>
+
 </html>

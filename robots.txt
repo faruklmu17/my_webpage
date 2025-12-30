@@ -24,5 +24,5 @@ Allow: /resources/
 # Sitemap location
 Sitemap: https://faruk-hasan.com/sitemap.xml
 
-# Crawl delay (optional - be respectful to search engines)
-Crawl-delay: 1
+# Crawl delay (optional)
+# Crawl-delay: 1
