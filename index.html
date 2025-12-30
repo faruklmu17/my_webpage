@@ -529,6 +529,9 @@
           <p><span class="highlight">Software QA Engineer | Automation & AI-Driven Testing Specialist</span></p>
         </div>
       </div>
+      <button class="menu-toggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
       <div class="nav-social-container">
         <nav>
           <ul>
@@ -1926,6 +1929,31 @@
       }
     });
   });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navContainer = document.querySelector('.nav-social-container');
+
+    if (menuToggle && navContainer) {
+      menuToggle.addEventListener('click', () => {
+        navContainer.classList.toggle('active');
+        const icon = menuToggle.querySelector('i');
+        if (navContainer.classList.contains('active')) {
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-times');
+        } else {
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        }
+      });
+    }
+  });
+</script>
+</body>
+
+</html>
 </script>
 
 <!-- Blog section removed -->

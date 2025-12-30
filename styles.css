@@ -219,6 +219,24 @@ header {
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Menu Toggle Button (Hidden on Desktop) */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--secondary-color);
+  font-size: 1.8rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1001;
+  transition: color 0.3s ease;
+}
+
+.menu-toggle:hover {
+  color: var(--primary-color);
 }
 
 header nav {
@@ -349,27 +367,90 @@ header nav ul li a:hover::after {
 
   .header-content {
     flex-direction: column;
-    padding: 0.8rem 0;
+    padding: 0.5rem 0;
+    position: relative;
+  }
+
+  /* Show Menu Toggle */
+  .menu-toggle {
+    display: block;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
   }
 
   .headline {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     text-align: center;
+    padding-right: 2rem;
+    /* Make space for hamburger */
   }
 
   .nav-social-container {
+    display: none;
+    /* Hidden by default on mobile */
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
+    width: 100%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    margin-top: 0.5rem;
+    animation: slideDown 0.3s ease-out forwards;
+    max-height: 80vh;
+    overflow-y: auto;
+    background-color: rgba(255, 255, 255, 0.98);
+  }
+
+  /* Show when active */
+  .nav-social-container.active {
+    display: flex;
+  }
+
+  header nav {
+    width: 100%;
+    justify-content: center;
   }
 
   header nav ul {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.8rem;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  header nav ul li {
+    width: 100%;
+    text-align: center;
+  }
+
+  header nav ul li a {
+    display: block;
+    padding: 0.8rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    width: 100%;
+  }
+
+  header nav ul li a:hover {
+    background-color: #e2e6ea;
   }
 
   .social-icons {
     margin-top: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
