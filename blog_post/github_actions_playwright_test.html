@@ -6,6 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Setting Up Playwright Tests in GitHub Actions - Faruk Hasan</title>
     <link rel="canonical" href="https://faruk-hasan.com/blog_post/github_actions_playwright_test.html" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Setting Up Playwright Tests in GitHub Actions",
+      "description": "Complete guide to setting up Playwright tests in GitHub Actions CI/CD pipeline with best practices and configuration examples.",
+      "author": {
+        "@type": "Person",
+        "name": "Faruk Hasan",
+        "url": "https://faruk-hasan.com"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Faruk Hasan",
+        "url": "https://faruk-hasan.com"
+      },
+      "datePublished": "2024-12-01",
+      "dateModified": "2024-12-01",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://faruk-hasan.com/blog_post/github_actions_playwright_test.html"
+      },
+      "keywords": ["Playwright", "GitHub Actions", "CI/CD", "Test Automation", "DevOps"]
+    }
+    </script>
+
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -355,7 +383,8 @@
                 <ul>
                     <li><strong>A GitHub Account</strong>: You need a shared repository for CI.</li>
                     <li><strong>Git Installed Locally</strong>: So you can run <code>git clone</code>,
-                        <code>git add</code>, <code>git commit</code>, and <code>git push</code>.</li>
+                        <code>git add</code>, <code>git commit</code>, and <code>git push</code>.
+                    </li>
                     <li><strong>VS Code (or another editor)</strong>: We'll use Visual Studio Code here.</li>
                     <li><strong>Node.js Installed</strong>: Playwright requires Node.js to install packages and run
                         tests.</li>
@@ -411,7 +440,8 @@ cd ci-playwright-testing</code></pre>
 
                         <ul>
                             <li>In VS Code, choose <strong>File → Open Folder…</strong> and select
-                                <code>ci-playwright-testing</code>.</li>
+                                <code>ci-playwright-testing</code>.
+                            </li>
                         </ul>
                     </li>
 
@@ -427,7 +457,8 @@ cd ci-playwright-testing</code></pre>
 
                         <p>This command creates a <code>package.json</code>, a <code>playwright.config.ts</code> (or
                             <code>.js</code>), and a <code>tests/</code> folder containing example specs like
-                            <code>example.spec.ts</code>.</p>
+                            <code>example.spec.ts</code>.
+                        </p>
                     </li>
 
                     <li><strong>Open a terminal in VS Code</strong> (View → Terminal), ensure you're in
@@ -447,7 +478,8 @@ cd ci-playwright-testing</code></pre>
 
                         <ul>
                             <li>In <code>playwright.config.ts</code>, comment out Firefox and WebKit under
-                                <code>projects</code> so that tests run faster locally.</li>
+                                <code>projects</code> so that tests run faster locally.
+                            </li>
                         </ul>
                     </li>
                 </ol>
@@ -465,14 +497,16 @@ cd ci-playwright-testing</code></pre>
                     <li><strong>When to Run</strong> (trigger: push, pull_request, etc.)</li>
                     <li><strong>Which Jobs to Run</strong> (e.g., "run Playwright tests on Ubuntu")</li>
                     <li><strong>Steps Inside Each Job</strong> (e.g., "checkout code," "install dependencies," "run
-                        <code>npx playwright test</code>")</li>
+                        <code>npx playwright test</code>")
+                    </li>
                 </ol>
 
                 <h3>3.1 Create the Workflow Directory & File</h3>
 
                 <ol>
                     <li>In VS Code's Explorer (left sidebar), ensure you're focused on the
-                        <strong><code>ci-playwright-testing</code></strong> root folder.</li>
+                        <strong><code>ci-playwright-testing</code></strong> root folder.
+                    </li>
 
                     <li><strong>Add a new folder</strong>: Name it
                         <pre><code>.github</code></pre>
@@ -573,7 +607,8 @@ jobs:
                             <li><strong>actions/checkout\@v3</strong>: This action fetches your repository’s files so
                                 the runner can see them.</li>
                             <li><strong>actions/setup-node\@v3</strong>: Installs Node.js so you can run
-                                <code>npm</code> commands.</li>
+                                <code>npm</code> commands.
+                            </li>
                             <li><code>npm install</code>: Installs dependencies listed in <code>package.json</code>,
                                 including Playwright itself.</li>
                             <li><code>npx playwright install</code>: Downloads browser binaries (Chromium, Firefox,
@@ -644,16 +679,20 @@ jobs:
                 <h2>What Happens on Future Pushes or Pull Requests?</h2>
 
                 <p>With the workflow file in place, <strong>every push</strong> or <strong>pull request</strong> to the
-                    <code>main</code> branch triggers this job. In practice:</p>
+                    <code>main</code> branch triggers this job. In practice:
+                </p>
 
                 <ol>
                     <li><strong>Developer or QA Engineer</strong> writes a new Playwright test (e.g.,
-                        <code>tests/login.spec.ts</code>) locally.</li>
+                        <code>tests/login.spec.ts</code>) locally.
+                    </li>
                     <li>They <strong>stage & commit</strong> the new test file, then <strong>push</strong> to
-                        <code>main</code>.</li>
+                        <code>main</code>.
+                    </li>
                     <li>GitHub Actions picks up the change, spins up a fresh Ubuntu VM, checks out the code, installs
                         Node.js, installs dependencies, adds browsers, and finally runs
-                        <code>npx playwright test</code>.</li>
+                        <code>npx playwright test</code>.
+                    </li>
                     <li>If the new test passes alongside existing tests, you’ll see green checks in GitHub Actions. If
                         anything fails, the workflow stops at the failing step, and the team is notified immediately.
                     </li>

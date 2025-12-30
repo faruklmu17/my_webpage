@@ -6,6 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Integrating Monocart Reporter in Playwright - Faruk Hasan</title>
     <link rel="canonical" href="https://faruk-hasan.com/blog_post/monocart_report_playwright.html" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Integrating Monocart Reporter in Playwright",
+      "description": "Learn how to integrate and configure Monocart Reporter for enhanced Playwright test reporting with code coverage and detailed insights.",
+      "author": {
+        "@type": "Person",
+        "name": "Faruk Hasan",
+        "url": "https://faruk-hasan.com"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Faruk Hasan",
+        "url": "https://faruk-hasan.com"
+      },
+      "datePublished": "2024-06-10",
+      "dateModified": "2024-06-10",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://faruk-hasan.com/blog_post/monocart_report_playwright.html"
+      },
+      "keywords": ["Playwright", "Monocart Reporter", "Test Reporting", "Code Coverage", "QA"]
+    }
+    </script>
+
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -330,7 +358,8 @@
                             <code>playwright.config.js</code>:</strong> Configuring multiple reporters in one place.
                     </li>
                     <li><strong>Tagging Tests:</strong> Leveraging custom labels (e.g., <code>@fast</code>,
-                        <code>@slow</code>, <code>@Alice</code>) to filter or group tests.</li>
+                        <code>@slow</code>, <code>@Alice</code>) to filter or group tests.
+                    </li>
                 </ol>
 
                 <hr>
@@ -346,7 +375,8 @@
                     <li>This prompts you to choose a language (TypeScript or JavaScript) and installs Playwright
                         dependencies.</li>
                     <li>It also creates a basic folder structure with an example test and a
-                        <code>playwright.config.ts</code> (or <code>playwright.config.js</code>) file.</li>
+                        <code>playwright.config.ts</code> (or <code>playwright.config.js</code>) file.
+                    </li>
                 </ul>
 
                 <hr>
@@ -354,7 +384,8 @@
                 <h2>2. Create or Use Existing Test Cases</h2>
 
                 <p>By default, Playwright scaffolds a sample test under <code>tests/example.spec.ts</code> (or
-                    <code>.js</code>). You can either:</p>
+                    <code>.js</code>). You can either:
+                </p>
 
                 <ul>
                     <li><strong>Run that sample</strong> to confirm the setup; or</li>
@@ -495,7 +526,8 @@ module.exports = {
                 <ul>
                     <li><strong>All-In-One</strong>: As shown above, you can keep <code>['list']</code>,
                         <code>['html']</code>, and Monocart together—great when you want a quick CLI summary, a basic
-                        HTML, plus the Monocart design.</li>
+                        HTML, plus the Monocart design.
+                    </li>
                     <li><strong>Only Monocart</strong>: If you prefer just the Monocart report, remove
                         <code>['list']</code> and <code>['html']</code>, leaving:
                         <pre><code>reporter: [
@@ -503,7 +535,8 @@ module.exports = {
 ],</code></pre>
                     </li>
                     <li><strong>Custom Combination</strong>: Feel free to mix and match. For example, if you only want
-                        <code>list</code> + Monocart and skip the default HTML, delete <code>['html']</code>.</li>
+                        <code>list</code> + Monocart and skip the default HTML, delete <code>['html']</code>.
+                    </li>
                 </ul>
 
                 <hr>
@@ -568,7 +601,8 @@ open monocart-report/index.html</code></pre>
                     <li><strong>CI Integration</strong>
                         <ul>
                             <li>In your CI pipeline, publish both the <code>playwright-report/</code> and
-                                <code>monocart-report/</code> folders as artifacts.</li>
+                                <code>monocart-report/</code> folders as artifacts.
+                            </li>
                             <li>Add a step to <code>npx playwright show-report --reporter=html</code> or serve
                                 Monocart'../index.html from a static-hosting solution (e.g., GitHub Pages).</li>
                         </ul>
@@ -577,7 +611,8 @@ open monocart-report/index.html</code></pre>
                         <ul>
                             <li>Monocart accepts configuration options such as <code>theme</code>,
                                 <code>showProgressBar</code>, or <code>showTimeStamps</code>. See Monocart's GitHub page
-                                for deeper customization.</li>
+                                for deeper customization.
+                            </li>
                         </ul>
                     </li>
                 </ol>
