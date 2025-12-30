@@ -361,29 +361,55 @@ header nav ul li a:hover::after {
 
 /* Responsive design */
 @media (max-width: 900px) {
+
+  html,
+  body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
   header {
     padding: 0.8rem 1rem;
+    position: relative;
   }
 
   .header-content {
     flex-direction: column;
     padding: 0.5rem 0;
-    position: relative;
+    position: static;
+    width: 100%;
   }
 
   /* Show Menu Toggle */
   .menu-toggle {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     top: 1rem;
     right: 1rem;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    z-index: 1002;
   }
 
   .headline {
     margin-bottom: 0.5rem;
     text-align: center;
-    padding-right: 2rem;
-    /* Make space for hamburger */
+    padding-right: 0;
+    width: 100%;
+    margin-top: 1.5rem;
+    /* Space for top-right hamburger */
+  }
+
+  /* Ensure text wraps on mobile */
+  .headline p,
+  .headline .highlight {
+    white-space: normal !important;
+    word-wrap: break-word;
+    display: inline-block;
   }
 
   .nav-social-container {
