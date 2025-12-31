@@ -407,18 +407,23 @@ header nav ul li a:hover::after {
     text-align: left;
     margin: 0;
     padding: 0;
+    padding-left: 0.5rem;
     width: auto;
     margin-top: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    overflow: visible;
+    /* Prevent clipping of cursive font */
   }
 
   .headline h1 {
-    font-size: 1.5rem;
-    /* Much smaller mobile font */
+    font-size: 1.4rem;
+    /* Slightly reduced for safety */
     margin: 0;
-    line-height: 1;
+    line-height: 1.2;
+    white-space: nowrap;
+    /* FORCE single line */
   }
 
   /* Hide subtitle on sticky mobile header to save space */
@@ -426,7 +431,6 @@ header nav ul li a:hover::after {
     display: none;
   }
 
-  /* Menu Toggle - Fixed Position Top Right */
   /* Menu Toggle - Fixed Position Top Right */
   .menu-toggle {
     display: flex;
