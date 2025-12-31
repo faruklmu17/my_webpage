@@ -3089,6 +3089,18 @@ a[href*="huggingface"].category-link-inline:hover {
   .tutoring-stats {
     padding: 1.5rem;
   }
+
+  /* Force education content to stack on mobile */
+  .education-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Stack layout for links on mobile */
+  .education-links {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
