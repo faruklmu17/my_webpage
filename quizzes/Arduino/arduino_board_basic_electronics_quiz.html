@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔌 Arduino Basics Quiz | Breadboards, Wokwi, LEDs & Ohm’s Law</title>
+  <meta name="description" content="Test Arduino fundamentals with this 25-question quiz covering breadboards, Wokwi simulation, LEDs, series vs parallel, Ohm’s Law, and USB power limits." />
+  <meta name="keywords" content="arduino quiz, breadboard quiz, Wokwi, LED series parallel, Ohm's Law, beginner electronics quiz" />
+  <meta name="author" content="Faruk Hasan" />
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Arduino Basics Quiz | Breadboards, Wokwi, LEDs & Ohm’s Law">
+  <meta property="og:description" content="25 questions to assess Arduino and electronics basics: breadboards, LEDs, Wokwi, and Ohm’s Law.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://faruk-hasan.com/quizzes/ARDUINO/arduino_basics_quiz.html">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Arduino Basics Quiz">
+  <meta name="twitter:description" content="Test your Arduino knowledge: breadboards, Wokwi, LEDs, Ohm’s Law, USB limits.">
+
+  <!-- Schema.org JSON-LD for Quiz -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Quiz",
+    "name": "Arduino Basics Quiz",
+    "description": "A 25-question quiz covering breadboards, Wokwi simulation, LED circuits (series/parallel), Ohm’s Law, and USB power limits.",
+    "educationalAlignment": {
+      "@type": "AlignmentObject",
+      "alignmentType": "educationalSubject",
+      "targetName": "Embedded Systems & Basic Electronics"
+    },
+    "educationalUse": "Practice Quiz",
+    "audience": {
+      "@type": "EducationalAudience",
+      "educationalRole": "student"
+    },
+    "provider": {
+      "@type": "Person",
+      "name": "Faruk Hasan",
+      "url": "https://faruk-hasan.com"
+    },
+    "about": ["Arduino", "Breadboard", "Wokwi", "Ohm's Law", "LED circuits"]
+  }
+  </script>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Shared Header and Footer Styles -->
+  <link rel="stylesheet" href="../../shared/header-footer.css">
+
+  <style>
+    :root {
+      --primary-color: #f39c12;
+      --primary-dark: #e67e22;
+      --secondary-color: #2c3e50;
+      --bg-light: #f8f9fa;
+      --card-bg: #ffffff;
+      --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+      --success: #27ae60;
+      --warning: #f39c12;
+      --error: #e74c3c;
+      --code-bg: #f8f9fa;
+      --code-border: #e9ecef;
+      --text-primary: #2c3e50;
+      --text-secondary: #7f8c8d;
+      --border-radius: 12px;
+      --transition: all 0.3s ease;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    header { margin-bottom: 2rem; }
+
+    /* Main Content */
+    .quiz-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem 2rem;
+    }
+
+    .quiz-title {
+      text-align: center;
+      color: white;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .quiz-subtitle {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    .intro {
+      background: var(--card-bg);
+      border-left: 5px solid var(--primary-color);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .intro h3 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .intro p { margin-bottom: 0.75rem; color: var(--text-secondary); }
+    .intro p:last-child { margin-bottom: 0; }
+
+    /* Question Styles */
+    .question {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .question:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+
+    .question p {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .question label {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      margin: 0.5rem 0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      background: var(--bg-light);
+      border: 2px solid transparent;
+      font-weight: 500;
+    }
+
+    .question label:hover {
+      background: rgba(243, 156, 18, 0.1);
+      border-color: var(--primary-color);
+    }
+
+    .question input[type="radio"] {
+      margin-right: 1rem;
+      transform: scale(1.2);
+      accent-color: var(--primary-color);
+    }
+
+    .short-answer, textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e1e8ed;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: var(--transition);
+      background: var(--bg-light);
+      resize: vertical;
+    }
+
+    .short-answer:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.1);
+    }
+
+    code {
+      background: var(--code-bg);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      color: var(--primary-dark);
+      border: 1px solid var(--code-border);
+    }
+
+    /* Submit & Score */
+    .submit-container { text-align: center; margin: 3rem 0 1rem; }
+
+    #submitBtn {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+      color: white;
+      border: none;
+      padding: 1rem 3rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    #submitBtn:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+    #submitBtn:active { transform: translateY(0); }
+
+    .score-card {
+      display: none;
+      background: var(--card-bg);
+      border-left: 5px solid var(--primary-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      margin: 0 0 2rem 0;
+      padding: 1.25rem 1.5rem;
+      font-weight: 600;
+    }
+
+    .score-card.good { border-left-color: var(--success); }
+    .score-card.ok { border-left-color: var(--warning); }
+    .score-card.bad { border-left-color: var(--error); }
+
+    /* Answer Key Styles */
+    .answer-key {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      margin-top: 2rem;
+      box-shadow: var(--shadow);
+      border-left: 5px solid var(--success);
+      display: none;
+    }
+
+    .answer-key h2 {
+      color: var(--success);
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .answer-key ul { list-style: none; padding: 0; }
+    .answer-key li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-weight: 500;
+    }
+    .answer-key li:last-child { border-bottom: none; }
+
+    /* Per-question feedback highlighting */
+    .correct { border-color: rgba(39, 174, 96, 0.6) !important; background: #ecf9f1 !important; }
+    .incorrect { border-color: rgba(231, 76, 60, 0.6) !important; background: #fff0ef !important; }
+    .feedback { margin-top: .75rem; font-weight: 500; }
+    .feedback .icon { margin-right: 6px; }
+
+    @media (max-width: 768px) {
+      .quiz-container { padding: 0 1rem 2rem; }
+      .quiz-title { font-size: 2rem; }
+      .question { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header will be automatically injected by shared/header-footer.js -->
+
+  <!-- Main Content -->
+  <div class="quiz-container">
+    <h1 class="quiz-title">
+      <i class="fas fa-microchip"></i> Arduino Basics Mastery Quiz
+    </h1>
+    <p class="quiz-subtitle">Test your electronics fundamentals with 25 comprehensive questions</p>
+
+    <div class="intro">
+      <h3><i class="fas fa-info-circle"></i> About This Quiz</h3>
+      <p><strong>🎯 Purpose:</strong> Check your understanding of breadboards, Wokwi, LEDs (series vs parallel), Ohm’s Law, and USB power limits.</p>
+      <p><strong>📊 Format:</strong> 25 questions — 10 MCQ, 10 True/False, 5 Short Answer</p>
+      <p><strong>⏱️ Time:</strong> ~20 minutes</p>
+      <p><strong>🧪 Tip:</strong> You can try circuits in Wokwi: <code>https://wokwi.com/projects/new/arduino-uno</code></p>
+    </div>
+
+    <div id="scoreCard" class="score-card">Score: <span id="scoreText">0 / 20</span></div>
+
+    <form id="quizForm">
+      <!-- Multiple Choice (1-10) -->
+      <div class="question" id="q1">
+        <p>1. What is the main purpose of a <strong>breadboard</strong>?</p>
+        <label><input type="radio" name="q1" value="a"> a) To permanently solder parts</label>
+        <label><input type="radio" name="q1" value="b"> b) To connect parts without soldering</label>
+        <label><input type="radio" name="q1" value="c"> c) To power an Arduino directly</label>
+        <label><input type="radio" name="q1" value="d"> d) To cool electronic components</label>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="question" id="q2">
+        <p>2. On a breadboard, the <strong>side rails</strong> are typically used for:</p>
+        <label><input type="radio" name="q2" value="a"> a) Connecting resistors</label>
+        <label><input type="radio" name="q2" value="b"> b) Holding the Arduino board</label>
+        <label><input type="radio" name="q2" value="c"> c) Power and ground connections</label>
+        <label><input type="radio" name="q2" value="d"> d) Mounting LEDs</label>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="question" id="q3">
+        <p>3. In Wokwi, clicking the <strong>green Start</strong> button does what?</p>
+        <label><input type="radio" name="q3" value="a"> a) Compiles Arduino code</label>
+        <label><input type="radio" name="q3" value="b"> b) Powers up and runs the simulation</label>
+        <label><input type="radio" name="q3" value="c"> c) Saves the circuit</label>
+        <label><input type="radio" name="q3" value="d"> d) Opens the Serial Monitor</label>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="question" id="q4">
+        <p>4. What is the role of a <strong>resistor</strong> in an LED circuit?</p>
+        <label><input type="radio" name="q4" value="a"> a) Increases current flow</label>
+        <label><input type="radio" name="q4" value="b"> b) Reduces current to protect the LED</label>
+        <label><input type="radio" name="q4" value="c"> c) Converts current to voltage</label>
+        <label><input type="radio" name="q4" value="d"> d) Stores energy</label>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="question" id="q5">
+        <p>5. When two LEDs are connected <strong>in series</strong>, how is brightness typically affected?</p>
+        <label><input type="radio" name="q5" value="a"> a) Brighter than one LED</label>
+        <label><input type="radio" name="q5" value="b"> b) Dimmer than one LED</label>
+        <label><input type="radio" name="q5" value="c"> c) The same brightness</label>
+        <label><input type="radio" name="q5" value="d"> d) Depends on the wire color</label>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="question" id="q6">
+        <p>6. In a <strong>parallel</strong> LED circuit, each LED should:</p>
+        <label><input type="radio" name="q6" value="a"> a) Share one resistor</label>
+        <label><input type="radio" name="q6" value="b"> b) Have its own resistor for equal brightness</label>
+        <label><input type="radio" name="q6" value="c"> c) Get half the current</label>
+        <label><input type="radio" name="q6" value="d"> d) Glow dimmer than series</label>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="question" id="q7">
+        <p>7. The max safe current draw from a <strong>USB 2.0</strong> port powering an Arduino is:</p>
+        <label><input type="radio" name="q7" value="a"> a) 100 mA</label>
+        <label><input type="radio" name="q7" value="b"> b) 250 mA</label>
+        <label><input type="radio" name="q7" value="c"> c) 500 mA</label>
+        <label><input type="radio" name="q7" value="d"> d) 900 mA</label>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="question" id="q8">
+        <p>8. According to <strong>Ohm’s Law</strong>, current <code>I</code> equals:</p>
+        <label><input type="radio" name="q8" value="a"> a) I = V × R</label>
+        <label><input type="radio" name="q8" value="b"> b) I = R / V</label>
+        <label><input type="radio" name="q8" value="c"> c) I = V / R</label>
+        <label><input type="radio" name="q8" value="d"> d) I = V + R</label>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="question" id="q9">
+        <p>9. In a series circuit with R₁ = 200 Ω and R₂ = 300 Ω, the total resistance is:</p>
+        <label><input type="radio" name="q9" value="a"> a) 100 Ω</label>
+        <label><input type="radio" name="q9" value="b"> b) 500 Ω</label>
+        <label><input type="radio" name="q9" value="c"> c) 150 Ω</label>
+        <label><input type="radio" name="q9" value="d"> d) 250 Ω</label>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="question" id="q10">
+        <p>10. Two resistors 200 Ω and 300 Ω in <strong>parallel</strong> have a total resistance of approximately:</p>
+        <label><input type="radio" name="q10" value="a"> a) 500 Ω</label>
+        <label><input type="radio" name="q10" value="b"> b) 120 Ω</label>
+        <label><input type="radio" name="q10" value="c"> c) 60 Ω</label>
+        <label><input type="radio" name="q10" value="d"> d) 300 Ω</label>
+        <div class="feedback"></div>
+      </div>
+
+      <!-- True / False (11-20) -->
+      <div class="question" id="q11">
+        <p>11. You must use glue to keep components on a breadboard.</p>
+        <label><input type="radio" name="q11" value="true"> True</label>
+        <label><input type="radio" name="q11" value="false"> False</label>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="question" id="q12">
+        <p>12. The blue/black line on a breadboard side rail usually represents ground (–).</p>
+        <label><input type="radio" name="q12" value="true"> True</label>
+        <label><input type="radio" name="q12" value="false"> False</label>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="question" id="q13">
+        <p>13. Removing a component from a breadboard damages it permanently.</p>
+        <label><input type="radio" name="q13" value="true"> True</label>
+        <label><input type="radio" name="q13" value="false"> False</label>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="question" id="q14">
+        <p>14. The LED anode connects to the positive side of the circuit (e.g., 5 V).</p>
+        <label><input type="radio" name="q14" value="true"> True</label>
+        <label><input type="radio" name="q14" value="false"> False</label>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="question" id="q15">
+        <p>15. A 220 Ω resistor offers less resistance than a 330 Ω resistor.</p>
+        <label><input type="radio" name="q15" value="true"> True</label>
+        <label><input type="radio" name="q15" value="false"> False</label>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="question" id="q16">
+        <p>16. Two LEDs in series share the same current but divide the voltage.</p>
+        <label><input type="radio" name="q16" value="true"> True</label>
+        <label><input type="radio" name="q16" value="false"> False</label>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="question" id="q17">
+        <p>17. The Arduino Uno can run in Wokwi without installing software.</p>
+        <label><input type="radio" name="q17" value="true"> True</label>
+        <label><input type="radio" name="q17" value="false"> False</label>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="question" id="q18">
+        <p>18. Parallel LED circuits use less total current than series circuits.</p>
+        <label><input type="radio" name="q18" value="true"> True</label>
+        <label><input type="radio" name="q18" value="false"> False</label>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="question" id="q19">
+        <p>19. The series resistor with an LED prevents the LED from burning out.</p>
+        <label><input type="radio" name="q19" value="true"> True</label>
+        <label><input type="radio" name="q19" value="false"> False</label>
+        <div class="feedback"></div>
+      </div>
+
+      <div class="question" id="q20">
+        <p>20. Ohm’s Law lets you find current, voltage, or resistance if any two are known.</p>
+        <label><input type="radio" name="q20" value="true"> True</label>
+        <label><input type="radio" name="q20" value="false"> False</label>
+        <div class="feedback"></div>
+      </div>
+
+      <!-- Short Answer (21-25, not auto-graded) -->
+      <div class="question" id="q21">
+        <p>21. Explain why LEDs are typically <strong>brighter in parallel</strong> than in series.</p>
+        <textarea name="q21" class="short-answer" rows="2"></textarea>
+      </div>
+
+      <div class="question" id="q22">
+        <p>22. A 9 V battery powers two resistors in series (200 Ω + 300 Ω). Calculate the <strong>total current</strong> in the circuit.</p>
+        <input type="text" name="q22" class="short-answer" placeholder="Show your work">
+      </div>
+
+      <div class="question" id="q23">
+        <p>23. For a single yellow LED (≈2 V drop) with a 220 Ω resistor on 5 V, estimate the <strong>current</strong> through the LED.</p>
+        <input type="text" name="q23" class="short-answer" placeholder="Use I = V/R">
+      </div>
+
+      <div class="question" id="q24">
+        <p>24. What happens if you connect an LED directly to 5 V without a resistor?</p>
+        <textarea name="q24" class="short-answer" rows="2"></textarea>
+      </div>
+
+      <div class="question" id="q25">
+        <p>25. If each yellow LED draws about 15 mA, roughly how many could you power from USB before reaching the 500 mA limit?</p>
+        <input type="text" name="q25" class="short-answer">
+      </div>
+
+      <div class="submit-container">
+        <button type="button" id="submitBtn" onclick="gradeQuiz()">
+          <i class="fas fa-check-circle"></i> Submit Quiz
+        </button>
+      </div>
+    </form>
+
+    <div id="answers" class="answer-key">
+      <h2><i class="fas fa-check-circle"></i> Answer Key & Explanations</h2>
+      <ul id="answerList"></ul>
+    </div>
+  </div>
+
+  <!-- Footer will be automatically injected by shared/header-footer.js -->
+
+  <!-- Shared Header and Footer JavaScript -->
+  
+
+  <script>
+    const correct = {
+      q1: 'b',
+      q2: 'c',
+      q3: 'b',
+      q4: 'b',
+      q5: 'b',
+      q6: 'b',
+      q7: 'c',
+      q8: 'c',
+      q9: 'b',
+      q10: 'b',
+      q11: 'false',
+      q12: 'true',
+      q13: 'false',
+      q14: 'true',
+      q15: 'true',
+      q16: 'true',
+      q17: 'true',
+      q18: 'false',
+      q19: 'true',
+      q20: 'true',
+    };
+
+    const explanations = {
+      q1: 'Breadboards let you prototype by plugging parts in — no solder or glue required.',
+      q2: 'Side rails distribute power: red for +V, blue/black for ground (−).',
+      q3: 'The green Start button powers and runs the Wokwi simulation.',
+      q4: 'A series resistor limits current so the LED stays within safe operating current.',
+      q5: 'In series, LEDs share the same current and split voltage, so each is typically dimmer.',
+      q6: 'Each LED in parallel needs its own resistor and gets full supply voltage → equal brightness.',
+      q7: 'USB 2.0 can provide up to ~500 mA; the Arduino uses some of this for itself.',
+      q8: 'Ohm’s Law: I = V / R — current equals voltage divided by resistance.',
+      q9: 'Series resistances add directly: 200 Ω + 300 Ω = 500 Ω.',
+      q10: 'Parallel: 1/Rt = 1/200 + 1/300 → Rt ≈ 120 Ω.',
+      q11: 'Breadboards are designed for reusability — no glue needed.',
+      q12: 'Conventionally, the blue/black rail is ground (−), red is +V.',
+      q13: 'Removing components from a breadboard does not damage them — they are reusable.',
+      q14: 'Anode is the positive LED lead; cathode goes to ground.',
+      q15: '220 Ω is less than 330 Ω, so it offers less resistance.',
+      q16: 'Series circuits have the same current through each component but divide the voltage.',
+      q17: 'Wokwi is browser‑based; no local installs are required.',
+      q18: 'Parallel paths add currents; total current is higher than a single series path.',
+      q19: 'The resistor prevents overcurrent that could burn out the LED.',
+      q20: 'Knowing any two of V, I, R lets you compute the third with Ohm’s Law.',
+    };
+
+    function gradeQuiz() {
+      const form = document.getElementById('quizForm');
+      const scoreCard = document.getElementById('scoreCard');
+      const scoreText = document.getElementById('scoreText');
+      const answersDiv = document.getElementById('answers');
+      const answerList = document.getElementById('answerList');
+
+      let score = 0;
+      let total = 20; // Only auto-grade first 20
+
+      // Clear previous feedback styles and list
+      document.querySelectorAll('.question').forEach(q => {
+        q.classList.remove('correct', 'incorrect');
+        const fb = q.querySelector('.feedback');
+        if (fb) fb.innerHTML = '';
+      });
+      answerList.innerHTML = '';
+
+      for (let i = 1; i <= 20; i++) {
+        const key = 'q' + i;
+        const chosen = form.querySelector(`input[name="${key}"]:checked`);
+        const qBlock = document.getElementById(key);
+        const fb = qBlock.querySelector('.feedback');
+        const correctVal = correct[key];
+
+        let resultIcon = '';
+        let line = '';
+
+        if (!chosen) {
+          qBlock.classList.add('incorrect');
+          resultIcon = '<span class="icon">❌</span>';
+          line = `<strong>${i}.</strong> Your answer: <em>None selected</em> → <strong>Correct:</strong> ${displayCorrect(i, correctVal)} — ${explanations[key]}`;
+        } else if (chosen.value === correctVal) {
+          score++;
+          qBlock.classList.add('correct');
+          resultIcon = '<span class="icon">✅</span>';
+          line = `<strong>${i}.</strong> Correct! (${displayCorrect(i, correctVal)}) — ${explanations[key]}`;
+        } else {
+          qBlock.classList.add('incorrect');
+          resultIcon = '<span class="icon">❌</span>';
+          line = `<strong>${i}.</strong> Your answer: <em>${displayChosen(i, chosen.value)}</em> → <strong>Correct:</strong> ${displayCorrect(i, correctVal)} — ${explanations[key]}`;
+        }
+
+        if (fb) fb.innerHTML = resultIcon + (chosen && chosen.value === correctVal ? 'Correct' : 'Try again next time');
+
+        const li = document.createElement('li');
+        li.innerHTML = line;
+        answerList.appendChild(li);
+      }
+
+      // Show score
+      scoreText.textContent = `${score} / ${total}`;
+      scoreCard.classList.remove('good', 'ok', 'bad');
+      const pct = (score / total) * 100;
+      if (pct >= 85) scoreCard.classList.add('good');
+      else if (pct >= 60) scoreCard.classList.add('ok');
+      else scoreCard.classList.add('bad');
+      scoreCard.style.display = 'block';
+
+      // Show answers panel and scroll
+      answersDiv.style.display = 'block';
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.innerHTML = '<i class="fas fa-eye"></i> Results Shown';
+      submitBtn.style.background = 'linear-gradient(135deg, #27ae60 0%, #2ecc71 100%)';
+      submitBtn.disabled = true;
+
+      setTimeout(() => {
+        scoreCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+
+    function displayCorrect(i, val) {
+      // Map letters/boolean to display text per question
+      const map = {
+        q1: {a:'a) To permanently solder parts', b:'b) To connect parts without soldering', c:'c) To power an Arduino directly', d:'d) To cool electronic components'},
+        q2: {a:'a) Connecting resistors', b:'b) Holding the Arduino board', c:'c) Power and ground connections', d:'d) Mounting LEDs'},
+        q3: {a:'a) Compiles Arduino code', b:'b) Powers up and runs the simulation', c:'c) Saves the circuit', d:'d) Opens the Serial Monitor'},
+        q4: {a:'a) Increases current flow', b:'b) Reduces current to protect the LED', c:'c) Converts current to voltage', d:'d) Stores energy'},
+        q5: {a:'a) Brighter than one LED', b:'b) Dimmer than one LED', c:'c) The same brightness', d:'d) Depends on the wire color'},
+        q6: {a:'a) Share one resistor', b:'b) Have its own resistor for equal brightness', c:'c) Get half the current', d:'d) Glow dimmer than series'},
+        q7: {a:'a) 100 mA', b:'b) 250 mA', c:'c) 500 mA', d:'d) 900 mA'},
+        q8: {a:'a) I = V × R', b:'b) I = R / V', c:'c) I = V / R', d:'d) I = V + R'},
+        q9: {a:'a) 100 Ω', b:'b) 500 Ω', c:'c) 150 Ω', d:'d) 250 Ω'},
+        q10:{a:'a) 500 Ω', b:'b) 120 Ω', c:'c) 60 Ω', d:'d) 300 Ω'},
+        q11:{true:'True', false:'False'},
+        q12:{true:'True', false:'False'},
+        q13:{true:'True', false:'False'},
+        q14:{true:'True', false:'False'},
+        q15:{true:'True', false:'False'},
+        q16:{true:'True', false:'False'},
+        q17:{true:'True', false:'False'},
+        q18:{true:'True', false:'False'},
+        q19:{true:'True', false:'False'},
+        q20:{true:'True', false:'False'}
+      };
+      const key = 'q' + i;
+      return map[key][val];
+    }
+
+    function displayChosen(i, val) {
+      return displayCorrect(i, val);
+    }
+
+    // Share helpers
+    function shareOnFacebook() {
+      const url = encodeURIComponent(window.location.href);
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+    }
+    function shareOnTwitter() {
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent('Check out this Arduino Basics Quiz!');
+      window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+    }
+    function shareOnLinkedIn() {
+      const url = encodeURIComponent(window.location.href);
+      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+    }
+    function shareByEmail() {
+      const subject = encodeURIComponent('Arduino Basics Quiz');
+      const body = encodeURIComponent('Try this Arduino Basics Quiz: ' + window.location.href);
+      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    }
+
+    // Animate questions on load
+    document.addEventListener('DOMContentLoaded', function() {
+      const questions = document.querySelectorAll('.question');
+      questions.forEach((q, i) => { q.style.animationDelay = `${i * 0.06}s`; });
+    });
+  </script>
+    <script src="../../shared/header-footer.js"></script>
+</body>
+</html>

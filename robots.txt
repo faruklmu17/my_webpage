@@ -1,0 +1,28 @@
+User-agent: *
+Allow: /
+
+# Disallow sensitive or private directories
+Disallow: /node_modules/
+Disallow: /temp_hf_space/
+Disallow: /maintenance/
+Disallow: /__pycache__/
+Disallow: /test-results/
+Disallow: /ai_chatbot/
+Disallow: /rag_project/
+Disallow: /.git/
+
+# Allow important directories
+Allow: /assets/
+Allow: /blog_post/
+Allow: /quizzes/
+Allow: /automation/
+Allow: /finance/
+Allow: /ai_resources/
+Allow: /projects/
+Allow: /resources/
+
+# Sitemap location
+Sitemap: https://faruk-hasan.com/sitemap.xml
+
+# Crawl delay (optional)
+# Crawl-delay: 1

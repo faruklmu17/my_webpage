@@ -1,0 +1,754 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Number Puzzles | Math Logic Puzzles for All Ages</title>
+  <meta name="description" content="Free interactive number puzzles that test your math skills with addition and multiplication. Solve fun math logic puzzles with instant feedback and scoring.">
+  <meta name="keywords" content="number puzzles, math puzzles, logic puzzles, interactive math games, math practice, addition puzzles, multiplication puzzles, math brain teasers">
+  
+  <!-- Open Graph tags for social sharing -->
+  <meta property="og:title" content="Interactive Number Puzzles | Math Logic Puzzles for All Ages">
+  <meta property="og:description" content="Challenge your math skills with these interactive number puzzles. Find the missing numbers using addition and multiplication in these engaging brain teasers.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://faruk-hasan.com/quizzes/number_puzzle_1.html">
+  
+  <!-- Canonical URL to prevent duplicate content issues -->
+  <link rel="canonical" href="https://faruk-hasan.com/quizzes/number_puzzle_1.html">
+  
+  <!-- Add structured data for rich results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Game",
+    "name": "Interactive Number Puzzles",
+    "description": "Free interactive number puzzles that test your math skills with addition and multiplication. Solve fun math logic puzzles with instant feedback and scoring.",
+    "educationalUse": "Math Practice",
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "All ages"
+    },
+    "provider": {
+      "@type": "Person",
+      "name": "Faruk Hasan",
+      "url": "https://faruk-hasan.com"
+    },
+    "about": [
+      "Number Puzzles",
+      "Math Logic",
+      "Addition",
+      "Multiplication",
+      "Brain Teasers" 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      
+      background-color: #f0f8ff;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 10px;
+      font-size: 2.2rem;
+    }
+    
+    .intro {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 30px;
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      border-left: 5px solid #3498db;
+    }
+    
+    .puzzles-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 0 auto;
+      max-width: 1200px;
+    }
+    
+    .puzzle-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    
+    .puzzle {
+      display: inline-block;
+      padding: 15px;
+      border-radius: 15px;
+      text-align: center;
+      background: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      width: 220px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .puzzle:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+    
+    .puzzle::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(90deg, #3498db, #2ecc71);
+    }
+    
+    .circle {
+      width: 60px;
+      height: 60px;
+      border: 2px solid #ddd;
+      border-radius: 50%;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 5px auto;
+      background-color: #f9f9f9;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+    }
+    
+    .row::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background-color: #ddd;
+      z-index: 0;
+    }
+    
+    input {
+      width: 100%;
+      height: 100%;
+      border: none;
+      font-size: 20px;
+      text-align: center;
+      border-radius: 50%;
+      background-color: white;
+      outline: none;
+      transition: background-color 0.3s;
+    }
+    
+    .label { 
+      font-weight: bold;
+      margin-top: 10px;
+      color: #555;
+    }
+    
+    .correct input { 
+      background-color: #c8f7c5;
+      animation: pulse-green 1s;
+    }
+    
+    .incorrect input { 
+      background-color: #f7c5c5;
+      animation: pulse-red 1s;
+    }
+    
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+    }
+    
+    @keyframes pulse-red {
+      0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+    }
+    
+    button {
+      margin-top: 15px;
+      padding: 8px 15px;
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, #2980b9, #3498db);
+    }
+    
+    .puzzle-type {
+      font-size: 0.8rem;
+      color: #777;
+      margin-bottom: 10px;
+    }
+    
+    .operation-symbol {
+      position: absolute;
+      font-size: 24px;
+      font-weight: bold;
+      color: #555;
+      z-index: 2;
+    }
+    
+    .multiply-symbol {
+      top: -25px;
+    }
+    
+    .add-symbol {
+      bottom: -25px;
+    }
+  </style>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Shared Header/Footer CSS -->
+  <link rel="stylesheet" href="../../shared/header-footer.css">
+
+</head>
+<body>
+
+<h1>🧩 Interactive Number Puzzles</h1>
+<div class="intro">
+  <p>Welcome to our collection of interactive number puzzles! These engaging math brain teasers will challenge your addition and multiplication skills.</p>
+  <p>Solve the puzzle! Fill in the missing numbers in the circles.</p>
+  <p>The <strong>top</strong> circle is the <strong>product</strong> (multiplication) of the two middle numbers.</p>
+  <p>The <strong>bottom</strong> circle is the <strong>sum</strong> (addition) of the two middle numbers.</p>
+  <p>Complete all 12 puzzles to test your math logic skills and see your final score!</p>
+</div>
+
+<div class="puzzles-container">
+  <!-- Row 1 -->
+  <div class="puzzle-row">
+    <div class="puzzle" data-base1="6" data-base2="7">
+      <div class="puzzle-type">Type: Find Product & Sum</div>
+      <div class="circle"><input type="number" class="product-input" placeholder="?"></div>
+      <div class="operation-symbol multiply-symbol">×</div>
+      <div class="row">
+        <div class="circle">6</div>
+        <div class="circle">7</div>
+      </div>
+      <div class="operation-symbol add-symbol">+</div>
+      <div class="circle"><input type="number" class="sum-input" placeholder="?"></div>
+      <button onclick="checkPuzzle(this)">Check Answer</button>
+    </div>
+    
+    <div class="puzzle" data-base1="6" data-product="90">
+      <div class="puzzle-type">Type: Find Missing Number & Sum</div>
+      <div class="circle">90</div>
+      <div class="operation-symbol multiply-symbol">×</div>
+      <div class="row">
+        <div class="circle">6</div>
+        <div class="circle"><input type="number" class="base2-input" placeholder="?"></div>
+      </div>
+      <div class="operation-symbol add-symbol">+</div>
+      <div class="circle"><input type="number" class="sum-input" placeholder="?"></div>
+      <button onclick="checkPuzzle(this)">Check Answer</button>
+    </div>
+    
+    <div class="puzzle" data-base1="20" data-base2="7">
+      <div class="puzzle-type">Type: Find Product & Sum</div>
+      <div class="circle"><input type="number" class="product-input" placeholder="?"></div>
+      <div class="operation-symbol multiply-symbol">×</div>
+      <div class="row">
+        <div class="circle">20</div>
+        <div class="circle">7</div>
+      </div>
+      <div class="operation-symbol add-symbol">+</div>
+      <div class="circle"><input type="number" class="sum-input" placeholder="?"></div>
+      <button onclick="checkPuzzle(this)">Check Answer</button>
+    </div>
+  </div>
+  
+  <!-- Row 2 -->
+  <div class="puzzle-row">
+    <div class="puzzle" data-base1="7" data-base2="14">
+      <div class="puzzle-type">Type: Find Product & Sum</div>
+      <div class="circle"><input type="number" class="product-input" placeholder="?"></div>
+      <div class="operation-symbol multiply-symbol">×</div>
+      <div class="row">
+        <div class="circle">7</div>
+        <div class="circle">14</div>
+      </div>
+      <div class="operation-symbol add-symbol">+</div>
+      <div class="circle"><input type="number" class="sum-input" placeholder="?"></div>
+      <button onclick="checkPuzzle(this)">Check Answer</button>
+    </div>
+    
+    <div class="puzzle" data-base2="13" data-sum="23">
+      <div class="puzzle-type">Type: Find Missing Number & Product</div>
+      <div class="circle"><input type="number" class="product-input" placeholder="?"></div>
+      <div class="operation-symbol multiply-symbol">×</div>
+      <div class="row">
+        <div class="circle"><input type="number" class="base1-input" placeholder="?"></div>
+        <div class="circle">13</div>
+      </div>
+      <div class="operation-symbol add-symbol">+</div>
+      <div class="circle">23</div>
+      <button onclick="checkPuzzle(this)">Check Answer</button>
+    </div>
+    
+    <div class="puzzle" data-base1="16" data-product="304">
+      <div class="puzzle-type">Type: Find Missing Number & Sum</div>
+      <div class="circle">304</div>
+      <div class="operation-symbol multiply-symbol">×</div>
+      <div class="row">
+        <div class="circle">16</div>
+        <div class="circle"><input type="number" class="base2-input" placeholder="?"></div>
+      </div>
+      <div class="operation-symbol add-symbol">+</div>
+      <div class="circle"><input type="number" class="sum-input" placeholder="?"></div>
+      <button onclick="checkPuzzle(this)">Check Answer</button>
+    </div>
+  </div>
+  
+  <!-- Row 3 -->
+  <div class="puzzle-row">
+    <div class="puzzle" data-base2="6" data-sum="26">
+      <div class="puzzle-type">Type: Find Missing Number & Product</div>
+      <div class="circle"><input type="number" class="product-input" placeholder="?"></div>
+      <div class="operation-symbol multiply-symbol">×</div>
+      <div class="row">
+        <div class="circle"><input type="number" class="base1-input" placeholder="?"></div>
+        <div class="circle">6</div>
+      </div>
+      <div class="operation-symbol add-symbol">+</div>
+      <div class="circle">26</div>
+      <button onclick="checkPuzzle(this)">Check Answer</button>
+    </div>
+    
+    <div class="puzzle" data-base1="12" data-base2="17">
+      <div class="puzzle-type">Type: Find Product & Sum</div>
+      <div class="circle"><input type="number" class="product-input" placeholder="?"></div>
+      <div class="operation-symbol multiply-symbol">×</div>
+      <div class="row">
+        <div class="circle">12</div>
+        <div class="circle">17</div>
+      </div>
+      <div class="operation-symbol add-symbol">+</div>
+      <div class="circle"><input type="number" class="sum-input" placeholder="?"></div>
+      <button onclick="checkPuzzle(this)">Check Answer</button>
+    </div>
+    
+    <div class="puzzle" data-base2="10" data-sum="17">
+      <div class="puzzle-type">Type: Find Missing Number & Product</div>
+      <div class="circle"><input type="number" class="product-input" placeholder="?"></div>
+      <div class="operation-symbol multiply-symbol">×</div>
+      <div class="row">
+        <div class="circle"><input type="number" class="base1-input" placeholder="?"></div>
+        <div class="circle">10</div>
+      </div>
+      <div class="operation-symbol add-symbol">+</div>
+      <div class="circle">17</div>
+      <button onclick="checkPuzzle(this)">Check Answer</button>
+    </div>
+  </div>
+
+  <!-- Row 4 -->
+  <div class="puzzle-row">
+    <div class="puzzle" data-base1="9" data-product="108">
+      <div class="puzzle-type">Type: Find Missing Number & Sum</div>
+      <div class="circle">108</div>
+      <div class="operation-symbol multiply-symbol">×</div>
+      <div class="row">
+        <div class="circle">9</div>
+        <div class="circle"><input type="number" class="base2-input" placeholder="?"></div>
+      </div>
+      <div class="operation-symbol add-symbol">+</div>
+      <div class="circle"><input type="number" class="sum-input" placeholder="?"></div>
+      <button onclick="checkPuzzle(this)">Check Answer</button>
+    </div>
+
+    <div class="puzzle" data-base1="11" data-base2="8">
+      <div class="puzzle-type">Type: Find Product & Sum</div>
+      <div class="circle"><input type="number" class="product-input" placeholder="?"></div>
+      <div class="operation-symbol multiply-symbol">×</div>
+      <div class="row">
+        <div class="circle">11</div>
+        <div class="circle">8</div>
+      </div>
+      <div class="operation-symbol add-symbol">+</div>
+      <div class="circle"><input type="number" class="sum-input" placeholder="?"></div>
+      <button onclick="checkPuzzle(this)">Check Answer</button>
+    </div>
+  
+    <div class="puzzle" data-base1="20" data-base2="16">
+      <div class="puzzle-type">Type: Find Product & Sum</div>
+      <div class="circle"><input type="number" class="product-input" placeholder="?"></div>
+      <div class="operation-symbol multiply-symbol">×</div>
+      <div class="row">
+        <div class="circle">20</div>
+        <div class="circle">16</div>
+      </div>
+      <div class="operation-symbol add-symbol">+</div>
+      <div class="circle"><input type="number" class="sum-input" placeholder="?"></div>
+      <button onclick="checkPuzzle(this)">Check Answer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Results Section -->
+<div id="results" style="display: none; margin-top: 30px; text-align: center;">
+  <h2>Your Results</h2>
+  <div class="score-container">
+    <div class="score-circle" id="score">0</div>
+    <div class="score-label">out of 12</div>
+  </div>
+  <div id="result-feedback" class="feedback"></div>
+  
+  <!-- Add social sharing buttons -->
+  <div class="share-section">
+    <p>Share your results:</p>
+    <div class="share-buttons">
+      <a href="#" onclick="shareOnFacebook(); return false;" class="share-btn facebook">
+        <i class="fab fa-facebook-f"></i> Share
+      </a>
+      <a href="#" onclick="shareOnTwitter(); return false;" class="share-btn twitter">
+        <i class="fab fa-twitter"></i> Tweet
+      </a>
+      <a href="#" onclick="shareByEmail(); return false;" class="share-btn email">
+        <i class="fas fa-envelope"></i> Email
+      </a>
+    </div>
+  </div>
+  
+  <!-- Add call-to-action -->
+  <div class="cta-section">
+    <p>Want to improve your math skills?</p>
+    <a href="../../resources/resources.html" class="cta-button">Explore More Math Resources</a>
+  </div>
+</div>
+
+<!-- Add a footer with related resources after the results section -->
+<div class="related-resources">
+  <h3>More Math Puzzles and Games</h3>
+  <ul>
+    <li><a href="number_puzzle_2.html">Advanced Number Puzzles</a></li>
+    <li><a href="math_logic_games.html">Math Logic Games</a></li>
+    <li><a href="multiplication_practice.html">Multiplication Practice</a></li>
+    <li><a href="addition_puzzles.html">Addition Puzzles</a></li>
+    <li><a href="math_brain_teasers.html">Math Brain Teasers</a></li>
+    <li><a href="../games.html">All Math Games</a></li>
+  </ul>
+</div>
+
+<style>
+  /* Add styles for the intro and related resources sections */
+  .intro {
+    max-width: 800px;
+    margin: 0 auto 30px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid #4a90e2;
+    line-height: 1.6;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .related-resources {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .related-resources h3 {
+    color: #4a90e2;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+  }
+  
+  .related-resources ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .related-resources li {
+    margin-bottom: 10px;
+  }
+  
+  .related-resources a {
+    color: #4a90e2;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  .related-resources a:hover {
+    color: #2a6fc9;
+    text-decoration: underline;
+  }
+  
+  /* Add styles for social sharing and CTA */
+  .share-section {
+    margin-top: 25px;
+  }
+  
+  .share-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+  }
+  
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: opacity 0.2s;
+  }
+  
+  .share-btn:hover {
+    opacity: 0.9;
+  }
+  
+  .facebook {
+    background-color: #3b5998;
+  }
+  
+  .twitter {
+    background-color: #1da1f2;
+  }
+  
+  .email {
+    background-color: #ea4335;
+  }
+  
+  .share-btn i {
+    margin-right: 5px;
+  }
+  
+  .cta-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4a90e2;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+  }
+  
+  .cta-button:hover {
+    background-color: #2a6fc9;
+  }
+  
+  /* Style for the score circle */
+  .score-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #4a90e2;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-right: 15px;
+  }
+  
+  .score-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  .score-label {
+    font-size: 1.5em;
+    color: #333;
+  }
+  
+  .feedback {
+    font-size: 1.2em;
+    color: #2a6fc9;
+    margin-top: 15px;
+  }
+</style>
+
+<script>
+  let totalScore = 0;
+  const totalPuzzles = 12;
+  
+  function checkPuzzle(button) {
+    const puzzle = button.parentElement;
+    let isCorrect = true;
+
+    const base1Attr = puzzle.dataset.base1;
+    const base2Attr = puzzle.dataset.base2;
+    const productAttr = puzzle.dataset.product;
+    const sumAttr = puzzle.dataset.sum;
+
+    let base1 = base1Attr ? parseFloat(base1Attr) : null;
+    let base2 = base2Attr ? parseFloat(base2Attr) : null;
+    let sum = sumAttr ? parseFloat(sumAttr) : null;
+    let product = productAttr ? parseFloat(productAttr) : null;
+
+    const base1Input = puzzle.querySelector('.base1-input');
+    const base2Input = puzzle.querySelector('.base2-input');
+    const sumInput = puzzle.querySelector('.sum-input');
+    const productInput = puzzle.querySelector('.product-input');
+
+    // Type 1: base1 + base2 → check product and sum
+    if (base1 !== null && base2 !== null) {
+      const correctProduct = base1 * base2;
+      const correctSum = base1 + base2;
+      
+      if (productInput) {
+        const userProduct = parseFloat(productInput.value);
+        const productCorrect = userProduct === correctProduct;
+        productInput.parentElement.className = 'circle ' + (productCorrect ? 'correct' : 'incorrect');
+        if (!productCorrect) isCorrect = false;
+      }
+      
+      if (sumInput) {
+        const userSum = parseFloat(sumInput.value);
+        const sumCorrect = userSum === correctSum;
+        sumInput.parentElement.className = 'circle ' + (sumCorrect ? 'correct' : 'incorrect');
+        if (!sumCorrect) isCorrect = false;
+      }
+    }
+
+    // Type 2: base1 + product → check base2 and sum
+    else if (base1 !== null && product !== null) {
+      const correctBase2 = product / base1;
+      const correctSum = base1 + correctBase2;
+      
+      if (base2Input) {
+        const userBase2 = parseFloat(base2Input.value);
+        const base2Correct = userBase2 === correctBase2;
+        base2Input.parentElement.className = 'circle ' + (base2Correct ? 'correct' : 'incorrect');
+        if (!base2Correct) isCorrect = false;
+      }
+      
+      if (sumInput) {
+        const userSum = parseFloat(sumInput.value);
+        const sumCorrect = userSum === correctSum;
+        sumInput.parentElement.className = 'circle ' + (sumCorrect ? 'correct' : 'incorrect');
+        if (!sumCorrect) isCorrect = false;
+      }
+    }
+
+    // Type 3: base2 + sum → check base1 and product
+    else if (base2 !== null && sum !== null) {
+      const correctBase1 = sum - base2;
+      const correctProduct = correctBase1 * base2;
+      
+      if (base1Input) {
+        const userBase1 = parseFloat(base1Input.value);
+        const base1Correct = userBase1 === correctBase1;
+        base1Input.parentElement.className = 'circle ' + (base1Correct ? 'correct' : 'incorrect');
+        if (!base1Correct) isCorrect = false;
+      }
+      
+      if (productInput) {
+        const userProduct = parseFloat(productInput.value);
+        const productCorrect = userProduct === correctProduct;
+        productInput.parentElement.className = 'circle ' + (productCorrect ? 'correct' : 'incorrect');
+        if (!productCorrect) isCorrect = false;
+      }
+    }
+
+    // Update the puzzle's appearance based on correctness
+    if (isCorrect) {
+      puzzle.classList.add('solved');
+      totalScore++;
+      updateScore();
+    } else {
+      puzzle.classList.remove('solved');
+    }
+  }
+  
+  function checkAllAttempted() {
+    const allPuzzles = document.querySelectorAll('.puzzle');
+    const attemptedPuzzles = document.querySelectorAll('.puzzle[data-attempted]');
+    
+    if (attemptedPuzzles.length === allPuzzles.length) {
+      showResults();
+    }
+  }
+  
+  function updateScore() {
+    document.getElementById('score').textContent = totalScore;
+  }
+  
+  function showResults() {
+    let feedback = '';
+    
+    if (totalScore <= 3) {
+      feedback = "Keep practicing! Number puzzles help improve your math skills and logical thinking.";
+    } else if (totalScore <= 6) {
+      feedback = "Good effort! You're developing your math logic skills. Keep going!";
+    } else if (totalScore <= 9) {
+      feedback = "Great job! You have strong math skills and logical thinking abilities.";
+    } else {
+      feedback = "Amazing work! You're a number puzzle master with excellent math logic skills!";
+    }
+    
+    document.getElementById('result-feedback').textContent = feedback;
+    document.getElementById('results').style.display = 'block';
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+  }
+  
+  // Add social sharing functions
+  function shareOnFacebook() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(`I scored ${totalScore} out of 12 on the Interactive Number Puzzles! Can you beat my score?`);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
+  }
+  
+  function shareOnTwitter() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(`I scored ${totalScore} out of 12 on the Interactive Number Puzzles! Can you beat my score? #MathPuzzles #BrainTeasers`);
+    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+  }
+  
+  function shareByEmail() {
+    const subject = encodeURIComponent('Check out this Number Puzzle game!');
+    const body = encodeURIComponent(`I scored ${totalScore} out of 12 on the Interactive Number Puzzles! Try it yourself: ${window.location.href}`);
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  }
+</script>
+  <!-- Shared Header and Footer JavaScript -->
+    <script src="../../shared/header-footer.js"></script>
+</body>
+</html>

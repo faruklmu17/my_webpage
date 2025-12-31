@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Playwright Test Result Viewer – Chrome Extension</title>
+    <link rel="canonical" href="https://faruk-hasan.com/projects/playwright_test_result_chrome_extension.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+        content="A Chrome extension that reads Playwright JSON reports from GitHub (or any public URL) and shows pass/fail status directly in your browser toolbar." />
+    <style>
+        :root {
+            --bg: #050714;
+            --bg-elevated: #0d1020;
+            --accent: #4f46e5;
+            --accent-soft: rgba(79, 70, 229, 0.12);
+            --accent-strong: #22c55e;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --border-subtle: #1f2933;
+            --badge-pass: #16a34a;
+            --badge-fail: #dc2626;
+            --badge-neutral: #4b5563;
+            --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.6);
+            --radius-xl: 18px;
+            --radius-full: 999px;
+            --max-width: 1040px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                sans-serif;
+            background: radial-gradient(circle at top, #111827 0, #020617 50%, #000 100%);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 24px 20px 64px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-mark {
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            background: radial-gradient(circle at 10% 0, #22c55e 0, #0ea5e9 35%, #4f46e5 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 12px 30px rgba(79, 70, 229, 0.6);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .logo-text-main {
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            font-size: 18px;
+        }
+
+        .logo-text-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        nav a:hover {
+            color: #e5e7eb;
+        }
+
+        .pill {
+            padding: 5px 12px;
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+            gap: 32px;
+            align-items: center;
+        }
+
+        .hero-heading {
+            font-size: clamp(32px, 4vw, 40px);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+        }
+
+        .hero-highlight {
+            background: linear-gradient(to right, #a855f7, #22c55e);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-sub {
+            color: var(--text-muted);
+            font-size: 15px;
+            max-width: 520px;
+            margin-bottom: 22px;
+        }
+
+        .hero-badge-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 24px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .hero-badge-row span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge-pill {
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(31, 41, 55, 0.9);
+            border: 1px solid rgba(55, 65, 81, 0.7);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: var(--radius-full);
+            border: 1px solid transparent;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.12s ease, box-shadow 0.12s ease,
+                background 0.12s ease, border-color 0.12s ease;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4f46e5, #22c55e);
+            color: #f9fafb;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 22px 50px rgba(15, 23, 42, 0.9);
+        }
+
+        .btn-ghost {
+            background: rgba(15, 23, 42, 0.7);
+            border-color: rgba(55, 65, 81, 0.8);
+            color: var(--text-muted);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(15, 23, 42, 0.95);
+            color: #e5e7eb;
+        }
+
+        .hero-note {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .hero-note strong {
+            color: #e5e7eb;
+        }
+
+        .hero-card {
+            background: radial-gradient(circle at top left, #111827, #020617 55%);
+            border-radius: 24px;
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            padding: 20px 20px 18px;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card::before {
+            content: "";
+            position: absolute;
+            inset: -40%;
+            background: radial-gradient(circle at top, rgba(59, 130, 246, 0.18), transparent 60%);
+            opacity: 0.9;
+            pointer-events: none;
+        }
+
+        .hero-card-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .toolbar-dots {
+            display: flex;
+            gap: 5px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #4b5563;
+        }
+
+        .dot.red {
+            background: #f97373;
+        }
+
+        .dot.yellow {
+            background: #facc15;
+        }
+
+        .dot.green {
+            background: #4ade80;
+        }
+
+        .toolbar-url {
+            flex: 1;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(55, 65, 81, 0.9);
+            color: #9ca3af;
+            font-size: 11px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .toolbar-ext {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(55, 65, 81, 0.8);
+            font-size: 11px;
+        }
+
+        .badge-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border-radius: var(--radius-full);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #f9fafb;
+        }
+
+        .badge-chip.neutral {
+            background: var(--badge-neutral);
+        }
+
+        .badge-chip.pass {
+            background: var(--badge-pass);
+        }
+
+        .badge-chip.fail {
+            background: var(--badge-fail);
+        }
+
+        .badge-chip span {
+            font-size: 10px;
+        }
+
+        /* POPUP REPLICA (Light Mode) */
+        .popup-replica {
+            margin-top: 10px;
+            width: 320px;
+            background-color: #f8f9fa;
+            /* var(--bg-color) */
+            border-radius: 12px;
+            /* var(--radius-md) */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            /* Boosted shadow for dark bg */
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            overflow: hidden;
+            color: #1f2937;
+            /* var(--text-primary) */
+            border: 1px solid #4b5563;
+        }
+
+        .replica-header {
+            background: #ffffff;
+            /* var(--surface-color) */
+            padding: 12px 16px;
+            border-bottom: 1px solid #e5e7eb;
+            /* var(--border-color) */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .replica-h1 {
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .replica-h1::before {
+            content: '🎭';
+            font-size: 18px;
+        }
+
+        .replica-container {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* URL Box Replica */
+        .replica-url-box {
+            background: #ffffff;
+            padding: 12px;
+            border-radius: 12px;
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            border: 1px solid #e5e7eb;
+        }
+
+        .replica-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 500;
+            color: #6b7280;
+            /* var(--text-secondary) */
+            margin-bottom: 4px;
+        }
+
+        .replica-input-fake {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            font-size: 13px;
+            background: #f9fafb;
+            color: #1f2937;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .replica-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .replica-btn {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .replica-btn-save {
+            background-color: #2563eb;
+            /* var(--primary-color) */
+            color: white;
+        }
+
+        .replica-btn-refresh {
+            background-color: white;
+            color: #1f2937;
+            border: 1px solid #e5e7eb;
+        }
+
+        /* Results Card Replica */
+        .replica-results-card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+        }
+
+        .replica-results-header {
+            background: #f9fafb;
+            padding: 8px 12px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .replica-results-body {
+            padding: 12px;
+            text-align: center;
+        }
+
+        .replica-stats {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .replica-stat-box {
+            flex: 1;
+            padding: 10px 8px;
+            border-radius: 8px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .replica-stat-val {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .replica-stat-lbl {
+            font-size: 10px;
+            font-weight: 500;
+            opacity: 0.9;
+            text-transform: uppercase;
+        }
+
+        .replica-passed {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .replica-failed {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
+        .replica-meta-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .replica-total {
+            font-size: 16px;
+            font-weight: 800;
+            color: #1f2937;
+        }
+
+        .replica-timestamp {
+            font-size: 11px;
+            color: #6b7280;
+        }
+
+        .sections {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 32px;
+        }
+
+        section {
+            border-radius: var(--radius-xl);
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(31, 41, 55, 0.9);
+            padding: 20px 18px 18px;
+        }
+
+        section h2 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        section p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .section-tag {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .feature-list,
+        .steps-list {
+            list-style: none;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            color: #e5e7eb;
+        }
+
+        .feature-list li,
+        .steps-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .feature-icon {
+            font-size: 16px;
+            margin-top: 1px;
+        }
+
+        .step-index {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            font-size: 11px;
+            border-radius: 999px;
+            background: rgba(55, 65, 81, 0.9);
+            color: #e5e7eb;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .code-block {
+            margin-top: 10px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(31, 41, 55, 0.9);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+                "Liberation Mono", "Courier New", monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .subtle {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .pill-card {
+            border-radius: 12px;
+            padding: 10px 12px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(31, 41, 55, 0.9);
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .pill-card strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #e5e7eb;
+        }
+
+        .links-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+
+        .link-pill {
+            padding: 6px 11px;
+            border-radius: 999px;
+            border: 1px solid rgba(55, 65, 81, 0.8);
+            background: rgba(15, 23, 42, 0.9);
+            color: #e5e7eb;
+        }
+
+        .link-pill span {
+            color: var(--text-muted);
+            margin-left: 4px;
+            font-size: 11px;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(31, 41, 55, 0.9);
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 8px;
+            align-items: center;
+        }
+
+        footer a {
+            color: var(--text-muted);
+        }
+
+        footer a:hover {
+            color: #e5e7eb;
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .sections {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero {
+                gap: 24px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-card {
+                padding: 18px 14px 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="wrapper">
+            <header>
+                <div class="logo-wrap">
+                    <div class="logo-mark">T</div>
+                    <div>
+                        <div class="logo-text-main">Playwright Test Results</div>
+                        <div class="logo-text-sub">Chrome Extension • QA tooling</div>
+                    </div>
+                </div>
+                <nav>
+                    <a href="#features">Features</a>
+                    <a href="#setup">Setup</a>
+                    <a href="#how-it-works">How it works</a>
+                    <span class="pill">Playwright • JSON • GitHub</span>
+                </nav>
+            </header>
+
+            <main>
+                <!-- HERO -->
+                <section class="hero" aria-label="Playwright Test Result Viewer overview">
+                    <div>
+                        <div class="badge-pill">NEW • Built for QA teams</div>
+                        <h1 class="hero-heading">
+                            See your <span class="hero-highlight">Playwright test results</span>
+                            right in Chrome.
+                        </h1>
+                        <p class="hero-sub">
+                            This extension reads your Playwright JSON report directly from GitHub
+                            and shows a pass/fail summary in a clean popup, with a predictive badge that shows
+                            <strong>pass/fail counts</strong> (e.g. 42/1).
+                        </p>
+
+                        <div class="hero-badge-row">
+                            <span>
+                                <span class="badge-chip neutral">42 / 1</span>
+                                Live pass/fail counts
+                            </span>
+                            <span>•</span>
+                            <span>Auto-refreshes every 5 minutes</span>
+                        </div>
+
+                        <div class="hero-actions">
+                            <a class="btn btn-primary"
+                                href="https://chromewebstore.google.com/detail/playwright-test-results/cnbifhpjofgeaobfppnfnngfkkjniodh?authuser=0&hl=en"
+                                target="_blank" rel="noopener noreferrer">
+                                Install from Chrome Web Store
+                            </a>
+                            <a class="btn btn-ghost" href="https://github.com/faruklmu17/browser_extension_test"
+                                target="_blank" rel="noopener noreferrer">
+                                Try with sample repo
+                            </a>
+                        </div>
+
+                        <p class="hero-note">
+                            <strong>Works with any CI/CD</strong> that produces a Playwright JSON report –
+                            you only need a public URL to the JSON file.
+                        </p>
+                    </div>
+
+                    <!-- VISUAL MOCKUP -->
+                    <div class="hero-card" aria-hidden="true">
+                        <div class="hero-card-inner">
+                            <div class="toolbar">
+                                <div class="toolbar-left">
+                                    <div class="toolbar-dots">
+                                        <span class="dot red"></span>
+                                        <span class="dot yellow"></span>
+                                        <span class="dot green"></span>
+                                    </div>
+                                    <div class="toolbar-url">
+                                        https://raw.githubusercontent.com/.../tests/test-results.json
+                                    </div>
+                                </div>
+                                <div class="toolbar-ext">
+                                    <span>🧩</span>
+                                    <span>Playwright Test Results</span>
+                                </div>
+                            </div>
+
+                            <div class="popup-replica">
+                                <div class="replica-header">
+                                    <div class="replica-h1">Test Results</div>
+                                </div>
+
+                                <div class="replica-container">
+                                    <div class="replica-url-box">
+                                        <label class="replica-label">GitHub Raw JSON URL</label>
+                                        <div class="replica-input-fake">https://raw.githubusercontent.com/...</div>
+                                        <div class="replica-actions">
+                                            <div class="replica-btn replica-btn-save">Save URL</div>
+                                            <div class="replica-btn replica-btn-refresh">Refresh</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="replica-results-card">
+                                        <div class="replica-results-header">Summary</div>
+                                        <div class="replica-results-body">
+                                            <div class="replica-stats">
+                                                <div class="replica-stat-box replica-passed">
+                                                    <span class="replica-stat-val">42</span>
+                                                    <span class="replica-stat-lbl">Passed</span>
+                                                </div>
+                                                <div class="replica-stat-box replica-failed">
+                                                    <span class="replica-stat-val">1</span>
+                                                    <span class="replica-stat-lbl">Failed</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="replica-meta-info">
+                                                <div class="replica-total">43 Total Tests</div>
+                                                <div class="replica-timestamp">Last updated: 5m ago</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+        </div>
+        </section>
+
+        <!-- FEATURES + SETUP -->
+        <div class="sections">
+            <section id="features">
+                <div class="section-tag">Why this extension</div>
+                <h2>Turn raw JSON into a readable test dashboard.</h2>
+                <p>
+                    Stop digging through CI logs or opening full HTML reports just to see whether
+                    your tests passed. This extension gives you a fast, visual summary:
+                </p>
+                <ul class="feature-list">
+                    <li>
+                        <span class="feature-icon">✅</span>
+                        <div>
+                            <strong>Live badge counts</strong><br />
+                            The badge shows a <code>Passed/Failed</code> count (e.g. <code>42/1</code>).
+                            Color reflects status: green when all tests pass, red when any test fails.
+                        </div>
+                    </li>
+                    <li>
+                        <span class="feature-icon">🌐</span>
+                        <div>
+                            <strong>Pulls from GitHub</strong><br />
+                            Optimized for GitHub raw URLs. Securely fetches the JSON report you configure.
+                        </div>
+                    </li>
+                    <li>
+                        <span class="feature-icon">🧩</span>
+                        <div>
+                            <strong>No project changes required</strong><br />
+                            Just enable Playwright’s JSON reporter and point the extension at the
+                            generated file.
+                        </div>
+                    </li>
+                    <li>
+                        <span class="feature-icon">🔁</span>
+                        <div>
+                            <strong>Auto-refresh every 5 minutes</strong><br />
+                            Keeps your badge and popup in sync with your latest CI run.
+                        </div>
+                    </li>
+                    <li>
+                        <span class="feature-icon">🔒</span>
+                        <div>
+                            <strong>Minimal permissions</strong><br />
+                            Only fetches the JSON you configure. It does not inspect your tabs or
+                            browse history.
+                        </div>
+                    </li>
+                </ul>
+
+                <p class="subtle">
+                    Tip: many teams pin this extension in their toolbar so the current test
+                    status is always visible while coding or reviewing PRs.
+                </p>
+            </section>
+
+            <section id="setup">
+                <div class="section-tag">Quick setup</div>
+                <h2>Connect your Playwright project in 3 steps.</h2>
+                <p>
+                    Assuming you already run Playwright in CI, setup usually takes just a few
+                    minutes:
+                </p>
+                <ol class="steps-list">
+                    <li>
+                        <span class="step-index">1</span>
+                        <div>
+                            <strong>Enable the JSON reporter</strong><br />
+                            In <code>playwright.config.ts</code>:
+                            <div class="code-block">
+                                reporter: [
+                                ['html'],
+                                ['json', { outputFile: 'tests/test-results.json' }]
+                                ]
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-index">2</span>
+                        <div>
+                            <strong>Expose the JSON via a public URL</strong><br />
+                            Commit the file or let CI upload it. On GitHub, this often looks like:<br />
+                            <code>https://raw.githubusercontent.com/&lt;user&gt;/&lt;repo&gt;/main/tests/test-results.json</code>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-index">3</span>
+                        <div>
+                            <strong>Paste the URL into the extension popup</strong><br />
+                            Click the extension icon, paste your URL, hit <em>Save</em>. The
+                            summary will appear immediately.
+                        </div>
+                    </li>
+                </ol>
+
+                <p class="subtle">
+                    If your pipeline skips uploading <code>test-results.json</code> when tests
+                    fail, the extension will keep showing the last successful run. To see failures,
+                    make sure the report is updated even on failed builds.
+                </p>
+            </section>
+        </div>
+
+        <!-- HOW IT WORKS / TROUBLESHOOT -->
+        <div class="sections" id="how-it-works">
+            <section>
+                <div class="section-tag">Under the hood</div>
+                <h2>How it works behind the scenes.</h2>
+                <p>
+                    The extension stays intentionally simple so you can trust what you see:
+                </p>
+                <div class="grid-3">
+                    <div class="pill-card">
+                        <strong>1. Fetch</strong>
+                        On load and every 5 minutes, the extension fetches your configured JSON
+                        URL using a standard HTTP GET request.
+                    </div>
+                    <div class="pill-card">
+                        <strong>2. Parse</strong>
+                        It reads the Playwright JSON report, counts passed and failed tests, and
+                        calculates the total.
+                    </div>
+                    <div class="pill-card">
+                        <strong>3. Display</strong>
+                        The popup updates its summary, and the badge color changes based on
+                        whether a failure is detected.
+                    </div>
+                </div>
+
+                <div class="links-row">
+                    <a class="link-pill"
+                        href="https://chromewebstore.google.com/detail/playwright-test-results/cnbifhpjofgeaobfppnfnngfkkjniodh?authuser=0&hl=en"
+                        target="_blank" rel="noopener noreferrer">
+                        Chrome Web Store
+                        <span>↗</span>
+                    </a>
+                    <a class="link-pill" href="https://github.com/faruklmu17/browser_extension_test" target="_blank"
+                        rel="noopener noreferrer">
+                        Sample test project <span>Try it instantly</span>
+                    </a>
+                </div>
+            </section>
+
+            <section>
+                <div class="section-tag">FAQ &amp; troubleshooting</div>
+                <h2>Common questions.</h2>
+
+                <div class="pill-card">
+                    <strong>Why does the badge still show green after a failed run?</strong>
+                    If your CI pipeline doesn’t upload or commit <code>test-results.json</code>
+                    on failure, the extension will keep showing the last successful result.
+                    Make sure the JSON is updated even when tests fail.
+                </div>
+
+                <div class="pill-card" style="margin-top: 10px;">
+                    <strong>The popup doesn’t show my latest changes.</strong>
+                    Chrome can cache extension code aggressively. Try disabling and re-enabling
+                    the extension from <code>chrome://extensions</code>, or fully remove and
+                    re-load it as unpacked during development.
+                </div>
+
+                <div class="pill-card" style="margin-top: 10px;">
+                    <strong>What permissions does it use?</strong>
+                    Only the minimum needed to fetch the URL you provide. It does not read page
+                    content, cookies, or other browsing data.
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <div>
+                Created by
+                <a href="https://github.com/faruklmu17" target="_blank" rel="noopener noreferrer">Faruk
+                    Hasan</a> · MIT Licensed
+            </div>
+            <div>Powered by Playwright · Built for QA &amp; automation engineers</div>
+        </footer>
+        </main>
+    </div>
+    </div>
+    <script src="../shared/header-footer.js"></script>
+</body>
+
+</html>

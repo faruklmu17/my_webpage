@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GED Math: Order of Operations (PEMDAS) Practice Quiz | Free GED Prep</title>
+    <meta name="description"
+        content="Free GED Math practice quiz on order of operations (PEMDAS). Test your skills with 20 questions covering basic arithmetic operations for the GED test. Get instant feedback and explanations.">
+    <meta name="keywords"
+        content="GED math practice, PEMDAS quiz, order of operations, GED test prep, free GED practice, GED math questions, basic arithmetic, GED study guide">
+
+    <!-- Open Graph tags for social sharing -->
+    <meta property="og:title" content="GED Math: Order of Operations (PEMDAS) Practice Quiz">
+    <meta property="og:description"
+        content="Test your GED math skills with this free practice quiz on order of operations (PEMDAS). Get instant feedback and detailed explanations.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://faruk-hasan.com/quizzes/GED/basic_arithmetic_operations.html">
+
+    <!-- Canonical URL to prevent duplicate content issues -->
+    <link rel="canonical" href="https://faruk-hasan.com/quizzes/GED/basic_arithmetic_operations.html">
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <!-- Shared Header/Footer CSS -->
+    <link rel="stylesheet" href="../../shared/header-footer.css">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <!-- Shared Header/Footer CSS -->
+        <link rel="stylesheet" href="../../shared/header-footer.css">
+    </noscript>
+
+    <!-- Defer non-critical CSS -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+    </noscript>
+
+    <!-- Defer non-critical JavaScript -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script>
+
+    <!-- Add structured data for rich results -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Quiz",
+      "name": "GED Math: Order of Operations (PEMDAS) Practice Quiz",
+      "description": "Free GED Math practice quiz with 20 questions on order of operations (PEMDAS). Perfect for GED test prep with instant scoring and explanations.",
+      "educationalAlignment": {
+        "@type": "AlignmentObject",
+        "alignmentType": "educationalSubject",
+        "targetName": "Mathematics"
+      },
+      "educationalUse": "Practice Quiz",
+      "audience": {
+        "@type": "EducationalAudience",
+        "educationalRole": "student"
+      },
+      "provider": {
+        "@type": "Person",
+        "name": "Faruk Hasan",
+        "url": "https://faruk-hasan.com"
+      },
+      "about": [
+        "GED Math",
+        "Order of Operations",
+        "PEMDAS",
+        "Basic Arithmetic",
+        "Test Preparation"
+      ]
+    }
+    </script>
+
+    <!-- Inline critical CSS -->
+    <style>
+        :root {
+            --primary-color: #3a6ea5;
+            --secondary-color: #004e98;
+            --accent-color: #ff6b35;
+            --correct-color: #4caf50;
+            --incorrect-color: #f44336;
+            --neutral-color: #f5f5f5;
+            --text-color: #333;
+            --light-text: #666;
+            --white: #fff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .quiz-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .quiz-header {
+            padding: 2.5rem 2rem 1rem;
+            text-align: center;
+            background: none;
+            color: var(--text-color);
+        }
+
+        .quiz-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+        }
+
+        .quiz-header p {
+            font-size: 1.1rem;
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .quiz-intro {
+            background-color: var(--neutral-color);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            width: 100%;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            text-align: left;
+        }
+
+        .quiz-progress {
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.3);
+            margin-top: 1.5rem;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+
+        .question-container {
+            display: none;
+        }
+
+        .question-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .question-number {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .options-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .option {
+            background-color: var(--neutral-color);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.2s;
+            position: relative;
+        }
+
+        .option:hover {
+            background-color: #e8e8e8;
+        }
+
+        .option.selected {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .option-letter {
+            background-color: var(--primary-color);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .option.selected .option-letter {
+            background-color: var(--white);
+            color: var(--primary-color);
+        }
+
+        .result-icon {
+            display: none;
+            position: absolute;
+            right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .quiz-container {
+                margin: 1rem;
+                border-radius: 8px;
+            }
+
+            .quiz-header {
+                padding: 1.2rem;
+            }
+
+            .quiz-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .quiz-body,
+            .quiz-footer {
+                padding: 1.2rem;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .option {
+                padding: 0.8rem;
+            }
+        }
+    </style>
+
+    <!-- Non-critical CSS -->
+    <style>
+        .quiz-footer {
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #eee;
+        }
+
+        .quiz-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .quiz-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .quiz-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .quiz-btn i {
+            margin-right: 8px;
+        }
+
+        #next-btn i,
+        #submit-btn i {
+            margin-left: 8px;
+            margin-right: 0;
+        }
+
+        .short-answer-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .short-answer-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .short-answer-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .short-answer-input.correct {
+            border-color: var(--correct-color);
+        }
+
+        .short-answer-input.incorrect {
+            border-color: var(--incorrect-color);
+        }
+
+        .feedback {
+            margin-top: 0.8rem;
+            padding: 0.8rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .feedback.correct {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--correct-color);
+        }
+
+        .feedback.incorrect {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: var(--incorrect-color);
+        }
+
+        .results-container {
+            display: none;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .results-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .results-score {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 1rem 0;
+        }
+
+        .results-message {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--text-color);
+        }
+
+        .results-details {
+            text-align: left;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+        }
+
+        .results-details h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .result-detail {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        .result-answer.correct {
+            color: var(--correct-color);
+        }
+
+        .result-answer.incorrect {
+            color: var(--incorrect-color);
+        }
+
+        .restart-btn {
+            background-color: var(--accent-color);
+            padding: 1rem 2rem;
+        }
+
+        .faq-section,
+        .related-resources {
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-section h2,
+        .related-resources h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .faq-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .related-resources ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .related-resources li {
+            margin-bottom: 0.8rem;
+        }
+
+        .related-resources a {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: inline-block;
+            padding: 0.3rem 0;
+        }
+
+        .related-resources a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>Order of Operations (PEMDAS) Quiz</h1>
+            <p>Master the essential PEMDAS rules for the GED Math test</p>
+
+            <!-- Add SEO-friendly introduction -->
+            <div class="quiz-intro">
+                <p>Prepare for the GED Math test by focusing on the <strong>PEMDAS</strong> rules:
+                    <strong>P</strong>arentheses, <strong>E</strong>xponents, <strong>M</strong>ultiplication &
+                    <strong>D</strong>ivision, <strong>A</strong>ddition & <strong>S</strong>ubtraction.
+                </p>
+                <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to
+                    Resources</a>
+            </div>
+
+            <div class="quiz-progress">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+        </div>
+
+        <div class="quiz-body">
+            <!-- Question 1 -->
+            <div class="question-container active" id="question-1">
+                <div class="question-text">
+                    <span class="question-number">1</span>
+                    What is the result of 15 + 7 × 2?
+                </div>
+                <div class="options-container">
+                    <div class="option" data-option="a">
+                        <div class="option-letter">A</div>
+                        <div class="option-text">34</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="b">
+                        <div class="option-letter">B</div>
+                        <div class="option-text">29</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="c">
+                        <div class="option-letter">C</div>
+                        <div class="option-text">25</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="d">
+                        <div class="option-letter">D</div>
+                        <div class="option-text">29</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-container" id="question-2">
+                <div class="question-text">
+                    <span class="question-number">2</span>
+                    Simplify: 18 - 4 × 3 + 6
+                </div>
+                <div class="options-container">
+                    <div class="option" data-option="a">
+                        <div class="option-letter">A</div>
+                        <div class="option-text">6</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="b">
+                        <div class="option-letter">B</div>
+                        <div class="option-text">12</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="c">
+                        <div class="option-letter">C</div>
+                        <div class="option-text">15</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="d">
+                        <div class="option-letter">D</div>
+                        <div class="option-text">12</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-container" id="question-3">
+                <div class="question-text">
+                    <span class="question-number">3</span>
+                    What is the result of (6 + 4) × 3?
+                </div>
+                <div class="options-container">
+                    <div class="option" data-option="a">
+                        <div class="option-letter">A</div>
+                        <div class="option-text">28</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="b">
+                        <div class="option-letter">B</div>
+                        <div class="option-text">30</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="c">
+                        <div class="option-letter">C</div>
+                        <div class="option-text">27</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="d">
+                        <div class="option-letter">D</div>
+                        <div class="option-text">24</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-container" id="question-4">
+                <div class="question-text">
+                    <span class="question-number">4</span>
+                    Simplify: 24 ÷ (2 + 4)
+                </div>
+                <div class="options-container">
+                    <div class="option" data-option="a">
+                        <div class="option-letter">A</div>
+                        <div class="option-text">4</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="b">
+                        <div class="option-letter">B</div>
+                        <div class="option-text">6</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="c">
+                        <div class="option-letter">C</div>
+                        <div class="option-text">3</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="d">
+                        <div class="option-letter">D</div>
+                        <div class="option-text">5</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question-container" id="question-5">
+                <div class="question-text">
+                    <span class="question-number">5</span>
+                    What is 4 × (5 + 3) - 12?
+                </div>
+                <div class="options-container">
+                    <div class="option" data-option="a">
+                        <div class="option-letter">A</div>
+                        <div class="option-text">20</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="b">
+                        <div class="option-letter">B</div>
+                        <div class="option-text">16</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="c">
+                        <div class="option-letter">C</div>
+                        <div class="option-text">22</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="d">
+                        <div class="option-letter">D</div>
+                        <div class="option-text">24</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-container" id="question-6">
+                <div class="question-text">
+                    <span class="question-number">6</span>
+                    Simplify: 6 + 2 × (5 + 3)
+                </div>
+                <div class="options-container">
+                    <div class="option" data-option="a">
+                        <div class="option-letter">A</div>
+                        <div class="option-text">30</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="b">
+                        <div class="option-letter">B</div>
+                        <div class="option-text">20</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="c">
+                        <div class="option-letter">C</div>
+                        <div class="option-text">16</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="d">
+                        <div class="option-letter">D</div>
+                        <div class="option-text">22</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question-container" id="question-7">
+                <div class="question-text">
+                    <span class="question-number">7</span>
+                    What is the result of (12 - 3) × 4 ÷ 3?
+                </div>
+                <div class="options-container">
+                    <div class="option" data-option="a">
+                        <div class="option-letter">A</div>
+                        <div class="option-text">12</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="b">
+                        <div class="option-letter">B</div>
+                        <div class="option-text">15</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="c">
+                        <div class="option-letter">C</div>
+                        <div class="option-text">9</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="d">
+                        <div class="option-letter">D</div>
+                        <div class="option-text">16</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question-container" id="question-8">
+                <div class="question-text">
+                    <span class="question-number">8</span>
+                    Simplify: 10 + 3 × (8 - 5)
+                </div>
+                <div class="options-container">
+                    <div class="option" data-option="a">
+                        <div class="option-letter">A</div>
+                        <div class="option-text">19</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="b">
+                        <div class="option-letter">B</div>
+                        <div class="option-text">13</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="c">
+                        <div class="option-letter">C</div>
+                        <div class="option-text">20</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="d">
+                        <div class="option-letter">D</div>
+                        <div class="option-text">17</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-container" id="question-9">
+                <div class="question-text">
+                    <span class="question-number">9</span>
+                    What is the result of 8 + 5 × (6 - 4)?
+                </div>
+                <div class="options-container">
+                    <div class="option" data-option="a">
+                        <div class="option-letter">A</div>
+                        <div class="option-text">18</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="b">
+                        <div class="option-letter">B</div>
+                        <div class="option-text">20</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="c">
+                        <div class="option-letter">C</div>
+                        <div class="option-text">25</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="d">
+                        <div class="option-letter">D</div>
+                        <div class="option-text">14</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-container" id="question-10">
+                <div class="question-text">
+                    <span class="question-number">10</span>
+                    Simplify: 9 + 3 × 4 ÷ 2
+                </div>
+                <div class="options-container">
+                    <div class="option" data-option="a">
+                        <div class="option-letter">A</div>
+                        <div class="option-text">15</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="b">
+                        <div class="option-letter">B</div>
+                        <div class="option-text">12</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="c">
+                        <div class="option-letter">C</div>
+                        <div class="option-text">18</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                    <div class="option" data-option="d">
+                        <div class="option-letter">D</div>
+                        <div class="option-text">13</div>
+                        <i class="fas fa-check result-icon correct"></i>
+                        <i class="fas fa-times result-icon incorrect"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 11 (Short Answer) -->
+            <div class="question-container" id="question-11">
+                <div class="question-text">
+                    <span class="question-number">11</span>
+                    Simplify: 12 × (3 + 2) - 8 ÷ 4
+                </div>
+                <div class="short-answer-container">
+                    <input type="text" class="short-answer-input" id="answer-11" placeholder="Enter your answer">
+                    <div class="feedback correct" style="display: none;">Correct! 12 × 5 - 2 = 60 - 2 = 58</div>
+                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 58. First,
+                        calculate 3 + 2 = 5, then 12 × 5 = 60, and 8 ÷ 4 = 2. Finally, 60 - 2 = 58.</div>
+                </div>
+            </div>
+
+            <!-- Question 12 (Short Answer) -->
+            <div class="question-container" id="question-12">
+                <div class="question-text">
+                    <span class="question-number">12</span>
+                    What is the result of 7 + 5 × (6 - 2)?
+                </div>
+                <div class="short-answer-container">
+                    <input type="text" class="short-answer-input" id="answer-12" placeholder="Enter your answer">
+                    <div class="feedback correct" style="display: none;">Correct! 7 + 5 × 4 = 7 + 20 = 27</div>
+                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 27. First,
+                        calculate 6 - 2 = 4, then 5 × 4 = 20. Finally, 7 + 20 = 27.</div>
+                </div>
+            </div>
+
+            <!-- Question 13 (Short Answer) -->
+            <div class="question-container" id="question-13">
+                <div class="question-text">
+                    <span class="question-number">13</span>
+                    Simplify: (10 + 5) × 3 ÷ 5
+                </div>
+                <div class="short-answer-container">
+                    <input type="text" class="short-answer-input" id="answer-13" placeholder="Enter your answer">
+                    <div class="feedback correct" style="display: none;">Correct! (10 + 5) × 3 ÷ 5 = 15 × 3 ÷ 5 = 45 ÷ 5
+                        = 9</div>
+                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 9. First,
+                        calculate 10 + 5 = 15, then 15 × 3 = 45. Finally, 45 ÷ 5 = 9.</div>
+                </div>
+            </div>
+
+            <!-- Question 14 (Short Answer) -->
+            <div class="question-container" id="question-14">
+                <div class="question-text">
+                    <span class="question-number">14</span>
+                    What is the value of 36 ÷ (3 × 4) + 2?
+                </div>
+                <div class="short-answer-container">
+                    <input type="text" class="short-answer-input" id="answer-14" placeholder="Enter your answer">
+                    <div class="feedback correct" style="display: none;">Correct! 36 ÷ (3 × 4) + 2 = 36 ÷ 12 + 2 = 3 + 2
+                        = 5</div>
+                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 5. First,
+                        calculate 3 × 4 = 12, then 36 ÷ 12 = 3. Finally, 3 + 2 = 5.</div>
+                </div>
+            </div>
+
+            <!-- Question 15 (Short Answer) -->
+            <div class="question-container" id="question-15">
+                <div class="question-text">
+                    <span class="question-number">15</span>
+                    Simplify: 4 × 3 + 2 × 5
+                </div>
+                <div class="short-answer-container">
+                    <input type="text" class="short-answer-input" id="answer-15" placeholder="Enter your answer">
+                    <div class="feedback correct" style="display: none;">Correct! 4 × 3 + 2 × 5 = 12 + 10 = 22</div>
+                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 22. First,
+                        calculate 4 × 3 = 12 and 2 × 5 = 10. Then, 12 + 10 = 22.</div>
+                </div>
+            </div>
+
+            <!-- Question 16 (Short Answer) -->
+            <div class="question-container" id="question-16">
+                <div class="question-text">
+                    <span class="question-number">16</span>
+                    What is the result of 48 ÷ (4 + 8) × 2?
+                </div>
+                <div class="short-answer-container">
+                    <input type="text" class="short-answer-input" id="answer-16" placeholder="Enter your answer">
+                    <div class="feedback correct" style="display: none;">Correct! 48 ÷ (4 + 8) × 2 = 48 ÷ 12 × 2 = 4 × 2
+                        = 8</div>
+                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 8. First,
+                        calculate 4 + 8 = 12, then 48 ÷ 12 = 4. Finally, 4 × 2 = 8.</div>
+                </div>
+            </div>
+
+            <!-- Question 17 (Short Answer) -->
+            <div class="question-container" id="question-17">
+                <div class="question-text">
+                    <span class="question-number">17</span>
+                    Simplify: 5 × (6 - 2) + 3 × 4
+                </div>
+                <div class="short-answer-container">
+                    <input type="text" class="short-answer-input" id="answer-17" placeholder="Enter your answer">
+                    <div class="feedback correct" style="display: none;">Correct! 5 × (6 - 2) + 3 × 4 = 5 × 4 + 3 × 4 =
+                        20 + 12 = 32</div>
+                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 32. First,
+                        calculate 6 - 2 = 4, then 5 × 4 = 20 and 3 × 4 = 12. Finally, 20 + 12 = 32.</div>
+                </div>
+            </div>
+
+            <!-- Question 18 (Short Answer) -->
+            <div class="question-container" id="question-18">
+                <div class="question-text">
+                    <span class="question-number">18</span>
+                    What is the value of 72 ÷ (3 + 6) - 4?
+                </div>
+                <div class="short-answer-container">
+                    <input type="text" class="short-answer-input" id="answer-18" placeholder="Enter your answer">
+                    <div class="feedback correct" style="display: none;">Correct! 72 ÷ (3 + 6) - 4 = 72 ÷ 9 - 4 = 8 - 4
+                        = 4</div>
+                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 4. First,
+                        calculate 3 + 6 = 9, then 72 ÷ 9 = 8. Finally, 8 - 4 = 4.</div>
+                </div>
+            </div>
+
+            <!-- Question 19 (Short Answer) -->
+            <div class="question-container" id="question-19">
+                <div class="question-text">
+                    <span class="question-number">19</span>
+                    Simplify: 3 × (8 - 2) ÷ 2 + 5
+                </div>
+                <div class="short-answer-container">
+                    <input type="text" class="short-answer-input" id="answer-19" placeholder="Enter your answer">
+                    <div class="feedback correct" style="display: none;">Correct! 3 × (8 - 2) ÷ 2 + 5 = 3 × 6 ÷ 2 + 5 =
+                        18 ÷ 2 + 5 = 9 + 5 = 14</div>
+                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 14. First,
+                        calculate 8 - 2 = 6, then 3 × 6 = 18, and 18 ÷ 2 = 9. Finally, 9 + 5 = 14.</div>
+                </div>
+            </div>
+
+            <!-- Question 20 (Short Answer) -->
+            <div class="question-container" id="question-20">
+                <div class="question-text">
+                    <span class="question-number">20</span>
+                    What is the result of 6 × (4 + 3) - 9 ÷ 3?
+                </div>
+                <div class="short-answer-container">
+                    <input type="text" class="short-answer-input" id="answer-20" placeholder="Enter your answer">
+                    <div class="feedback correct" style="display: none;">Correct! 6 × (4 + 3) - 9 ÷ 3 = 6 × 7 - 9 ÷ 3 =
+                        42 - 3 = 39</div>
+                    <div class="feedback incorrect" style="display: none;">Incorrect. The correct answer is 39. First,
+                        calculate 4 + 3 = 7, then 6 × 7 = 42, and 9 ÷ 3 = 3. Finally, 42 - 3 = 39.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quiz-footer">
+            <button class="quiz-btn prev-btn" id="prev-btn" disabled>
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="quiz-btn next-btn" id="next-btn">
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
+            <button class="quiz-btn submit-btn" id="submit-btn" style="display: none;">
+                Submit <i class="fas fa-check-circle"></i>
+            </button>
+        </div>
+
+        <div class="results-container" id="results-container">
+            <h2>Quiz Results</h2>
+            <div class="results-score" id="results-score">0/20</div>
+            <div class="results-message" id="results-message"></div>
+            <div class="results-details">
+                <h3>Question Summary</h3>
+                <div id="results-details-content"></div>
+            </div>
+            <button class="quiz-btn restart-btn" id="restart-btn">
+                Restart Quiz <i class="fas fa-redo"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const questions = document.querySelectorAll('.question-container');
+            const progressBar = document.getElementById('progress-bar');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            const resultsContainer = document.getElementById('results-container');
+            const resultsScore = document.getElementById('results-score');
+            const resultsMessage = document.getElementById('results-message');
+            const resultsDetailsContent = document.getElementById('results-details-content');
+            const restartBtn = document.getElementById('restart-btn');
+
+            let currentQuestion = 0;
+            const totalQuestions = questions.length;
+            const userAnswers = Array(totalQuestions).fill(null);
+            const correctAnswers = {
+                1: 'd', 2: 'b', 3: 'b', 4: 'a', 5: 'a',
+                6: 'd', 7: 'a', 8: 'a', 9: 'a', 10: 'a',
+                11: '68', 12: '27', 13: '9', 14: '5', 15: '22',
+                16: '8', 17: '32', 18: '4', 19: '14', 20: '39'
+            };
+
+            // Initialize progress bar
+            updateProgressBar();
+
+            // Add click event to options
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function () {
+                    const questionIndex = parseInt(this.closest('.question-container').id.split('-')[1]) - 1;
+                    const selectedOption = this.getAttribute('data-option');
+
+                    // Remove selected class from all options in this question
+                    this.closest('.options-container').querySelectorAll('.option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+
+                    // Store user's answer
+                    userAnswers[questionIndex] = selectedOption;
+
+                    // Update progress bar
+                    updateProgressBar();
+                });
+            });
+
+            // Add input event to short answer inputs
+            document.querySelectorAll('.short-answer-input').forEach(input => {
+                input.addEventListener('input', function () {
+                    const questionIndex = parseInt(this.id.split('-')[1]) - 1;
+                    userAnswers[questionIndex] = this.value.trim();
+
+                    // Update progress bar
+                    updateProgressBar();
+                });
+            });
+
+            // Previous button click
+            prevBtn.addEventListener('click', function () {
+                if (currentQuestion > 0) {
+                    questions[currentQuestion].classList.remove('active');
+                    currentQuestion--;
+                    questions[currentQuestion].classList.add('active');
+                    updateButtons();
+                }
+            });
+
+            // Next button click
+            nextBtn.addEventListener('click', function () {
+                if (currentQuestion < totalQuestions - 1) {
+                    questions[currentQuestion].classList.remove('active');
+                    currentQuestion++;
+                    questions[currentQuestion].classList.add('active');
+                    updateButtons();
+                }
+            });
+
+            // Submit button click
+            submitBtn.addEventListener('click', function () {
+                showResults();
+            });
+
+            // Restart button click
+            restartBtn.addEventListener('click', function () {
+                resetQuiz();
+            });
+
+            // Update buttons based on current question
+            function updateButtons() {
+                prevBtn.disabled = currentQuestion === 0;
+
+                if (currentQuestion === totalQuestions - 1) {
+                    nextBtn.style.display = 'none';
+                    submitBtn.style.display = 'flex';
+                } else {
+                    nextBtn.style.display = 'flex';
+                    submitBtn.style.display = 'none';
+                }
+            }
+
+            // Update progress bar
+            function updateProgressBar() {
+                const answeredCount = userAnswers.filter(answer => answer !== null).length;
+                const progress = (answeredCount / totalQuestions) * 100;
+                progressBar.style.width = `${progress}%`;
+            }
+
+            // Show results
+            function showResults() {
+                let score = 0;
+                let detailsHTML = '';
+
+                // Calculate score and generate details
+                for (let i = 0; i < totalQuestions; i++) {
+                    const questionNum = i + 1;
+                    const userAnswer = userAnswers[i];
+                    const correctAnswer = correctAnswers[questionNum];
+                    const isCorrect = userAnswer === correctAnswer;
+
+                    if (isCorrect) {
+                        score++;
+                    }
+
+                    // Get question text
+                    const questionText = questions[i].querySelector('.question-text').textContent.trim();
+
+                    // Add to details HTML
+                    detailsHTML += `
+                        <div class="result-item">
+                            <div class="result-question">${questionText}</div>
+                            <div class="result-answer ${isCorrect ? 'correct' : 'incorrect'}">
+                                ${isCorrect ? '✓' : '✗'}
+                            </div>
+                        </div>`;
+
+                    // Add user's answer and correct answer if incorrect
+                    if (!isCorrect) {
+                        let userAnswerDisplay = userAnswer || 'No answer';
+                        let correctAnswerDisplay = correctAnswer;
+
+                        // For multiple choice questions (1-10), convert option letter to text
+                        if (i < 10) {
+                            if (userAnswer) {
+                                const userOption = questions[i].querySelector(`.option[data-option="${userAnswer}"] .option-text`);
+                                if (userOption) {
+                                    userAnswerDisplay = `${userAnswer}) ${userOption.textContent}`;
+                                }
+                            }
+
+                            const correctOption = questions[i].querySelector(`.option[data-option="${correctAnswer}"] .option-text`);
+                            if (correctOption) {
+                                correctAnswerDisplay = `${correctAnswer}) ${correctOption.textContent}`;
+                            }
+                        }
+
+                        detailsHTML += `
+                            <div class="result-detail">
+                                <div class="user-answer">Your answer: ${userAnswerDisplay}</div>
+                                <div class="correct-answer">Correct answer: ${correctAnswerDisplay}</div>
+                            </div>`;
+                    }
+                }
+
+                // Update results
+                resultsScore.textContent = `${score}/${totalQuestions}`;
+
+                // Set message based on score
+                const percentage = (score / totalQuestions) * 100;
+                if (percentage >= 90) {
+                    resultsMessage.textContent = 'Excellent! You have a strong understanding of order of operations.';
+                } else if (percentage >= 70) {
+                    resultsMessage.textContent = 'Good job! You understand most order of operations concepts.';
+                } else if (percentage >= 50) {
+                    resultsMessage.textContent = 'You\'re on the right track, but could use more practice with order of operations.';
+                } else {
+                    resultsMessage.textContent = 'You should review the order of operations (PEMDAS) rules and practice more.';
+                }
+
+                resultsDetailsContent.innerHTML = detailsHTML;
+
+                // Hide quiz content and show results
+                document.querySelector('.quiz-body').style.display = 'none';
+                document.querySelector('.quiz-footer').style.display = 'none';
+                resultsContainer.classList.add('active');
+            }
+
+            // Reset quiz
+            function resetQuiz() {
+                // Reset user answers
+                userAnswers.fill(null);
+
+                // Reset question display
+                questions.forEach((question, index) => {
+                    if (index === 0) {
+                        question.classList.add('active');
+                    } else {
+                        question.classList.remove('active');
+                    }
+
+                    // Reset options
+                    question.querySelectorAll('.option').forEach(option => {
+                        option.classList.remove('selected', 'correct', 'incorrect');
+                    });
+
+                    // Reset short answer inputs
+                    const input = question.querySelector('.short-answer-input');
+                    if (input) {
+                        input.value = '';
+                        input.classList.remove('correct', 'incorrect');
+
+                        // Hide feedback
+                        question.querySelectorAll('.feedback').forEach(feedback => {
+                            feedback.style.display = 'none';
+                        });
+                    }
+                });
+
+                // Reset current question
+                currentQuestion = 0;
+
+                // Reset progress bar
+                updateProgressBar();
+
+                // Reset buttons
+                updateButtons();
+
+                // Show quiz content and hide results
+                document.querySelector('.quiz-body').style.display = 'block';
+                document.querySelector('.quiz-footer').style.display = 'flex';
+                resultsContainer.classList.remove('active');
+            }
+        });
+    </script>
+
+    <!-- Add FAQ section with structured data at the bottom -->
+    <div class="faq-section">
+        <h2>Frequently Asked Questions about Order of Operations</h2>
+        <div class="faq-item">
+            <h3>Why is the order of operations important?</h3>
+            <p>The order of operations ensures that everyone gets the same answer when evaluating mathematical
+                expressions.
+                Without these rules, different people might interpret the same expression differently and get different
+                results.</p>
+        </div>
+        <div class="faq-item">
+            <h3>What does PEMDAS stand for?</h3>
+            <p>PEMDAS stands for Parentheses, Exponents, Multiplication/Division, and Addition/Subtraction. It helps you
+                remember the correct order to perform operations in a mathematical expression.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Do I need to know PEMDAS for the GED Math test?</h3>
+            <p>Yes, understanding order of operations is essential for the GED Math test. You'll need to apply these
+                rules
+                to solve many problems, including those involving basic arithmetic, algebra, and word problems.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Is multiplication always done before division?</h3>
+            <p>No, multiplication and division have the same precedence and are performed from left to right. The same
+                applies to addition and subtraction.</p>
+        </div>
+        <div class="faq-item">
+            <h3>How can I improve my order of operations skills?</h3>
+            <p>Regular practice is key. Work through problems step by step, following the PEMDAS rules. Use parentheses
+                when
+                in doubt to clarify the intended order of operations.</p>
+        </div>
+    </div>
+
+    <!-- Add FAQ structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why is the order of operations important?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The order of operations ensures that everyone gets the same answer when evaluating mathematical expressions. Without these rules, different people might interpret the same expression differently and get different results."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does PEMDAS stand for?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "PEMDAS stands for Parentheses, Exponents, Multiplication/Division, and Addition/Subtraction. It helps you remember the correct order to perform operations in a mathematical expression."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to know PEMDAS for the GED Math test?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, understanding order of operations is essential for the GED Math test. You'll need to apply these rules to solve many problems, including those involving basic arithmetic, algebra, and word problems."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is multiplication always done before division?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, multiplication and division have the same precedence and are performed from left to right. The same applies to addition and subtraction."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I improve my order of operations skills?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Regular practice is key. Work through problems step by step, following the PEMDAS rules. Use parentheses when in doubt to clarify the intended order of operations."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Add related resources section -->
+    <div class="related-resources">
+        <h2>More GED Math Practice Resources</h2>
+        <ul>
+            <li><a href="../../quizzes/GED/number_puzzle_1.html">Number Puzzles Practice</a></li>
+            <li><a href="../ged-fractions-decimals.html">Fractions & Decimals Quiz</a></li>
+            <li><a href="../ged-algebra.html">Algebra Fundamentals Quiz</a></li>
+            <li><a href="../ged-geometry.html">Geometry & Measurement Practice</a></li>
+            <li><a href="../../quizzes/GED/ged_prep_test_1.html">Complete GED Math Practice Test</a></li>
+            <li><a href="../../quizzes/GED/ged-math-quizzes.html">All GED Math Quizzes</a></li>
+        </ul>
+    </div>
+
+    <!-- Shared Header and Footer JavaScript -->
+    <script src="../../shared/header-footer.js"></script>
+</body>
+</html>

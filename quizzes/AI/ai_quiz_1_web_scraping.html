@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Quiz 1: Python Web Scraping | BeautifulSoup & Requests</title>
+  <meta name="description" content="AI Quiz 1: Free Python web scraping quiz with 15 questions covering BeautifulSoup, requests, and HTML parsing. Perfect for Python developers learning web scraping techniques.">
+  <meta name="keywords" content="AI quiz, Python quiz, web scraping, BeautifulSoup, requests, HTML parsing, Python tutorial, coding quiz">
+  
+  <!-- Add structured data for rich results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Quiz",
+    "name": "AI Quiz 1: Python Web Scraping Quiz",
+    "description": "AI Quiz 1: Free Python web scraping quiz with 15 questions covering BeautifulSoup, requests, and HTML parsing. Perfect for Python developers learning web scraping techniques.",
+    "educationalAlignment": {
+      "@type": "AlignmentObject",
+      "alignmentType": "educationalSubject",
+      "targetName": "Computer Programming"
+    },
+    "educationalUse": "Practice Quiz",
+    "audience": {
+      "@type": "EducationalAudience",
+      "educationalRole": "student"
+    },
+    "provider": {
+      "@type": "Person",
+      "name": "Faruk Hasan",
+      "url": "https://faruk-hasan.com"
+    },
+    "about": [
+      "Python",
+      "Web Scraping",
+      "BeautifulSoup",
+      "HTML Parsing",
+      "Data Extraction"
+    ]
+  }
+  </script>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Shared Header/Footer CSS -->
+  <link rel="stylesheet" href="../../shared/header-footer.css">
+  
+  <style>
+    :root {
+      --primary-color: #3776ab;
+      --primary-dark: #2b5b84;
+      --secondary-color: #f5f7fa;
+      --text-color: #333;
+      --light-gray: #f5f5f5;
+      --border-color: #e0e0e0;
+      --success-color: #27ae60;
+      --error-color: #e74c3c;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    body {
+      /* Body padding/margin removed to match resources.html header layout */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      
+      
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+    }
+    
+    h1 {
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: 30px;
+      font-size: 2.2rem;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+    
+    .quiz-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow);
+      padding: 25px;
+    }
+    
+    .question {
+      margin-bottom: 25px;
+      padding: 20px;
+      background: #eef2f5;
+      border-left: 4px solid var(--primary-color);
+      border-radius: 5px;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+    
+    .question:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .question p {
+      font-weight: bold;
+      margin-top: 0;
+      font-size: 1.1rem;
+    }
+    
+    .options {
+      margin-top: 15px;
+    }
+    
+    .options label {
+      display: block;
+      padding: 10px 15px;
+      margin-bottom: 8px;
+      background: white;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+    
+    .options label:hover {
+      background-color: #f0f7ff;
+      border-color: var(--primary-color);
+    }
+    
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+    
+    #submitBtn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 20px;
+    }
+    
+    #submitBtn:hover {
+      background-color: var(--primary-dark);
+    }
+    
+    #result {
+      margin-top: 20px;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.2rem;
+      border-radius: 5px;
+      display: none;
+    }
+    
+    /* Progress bar styles */
+    .progress-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: white;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 20px;
+    }
+    
+    .progress-container {
+      height: 10px;
+      background-color: #e0e0e0;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    
+    #progress-fill {
+      height: 100%;
+      background-color: var(--primary-color);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    
+    #progress-count {
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      color: #666;
+    }
+    
+    /* Results styles */
+    #results {
+      display: none;
+      margin-top: 30px;
+    }
+    
+    .score-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .score-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+    .score-label {
+      font-size: 1.1rem;
+      color: #666;
+    }
+    
+    .feedback {
+      text-align: center;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+    
+    .answer-key {
+      margin-top: 30px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 20px;
+    }
+    
+    .answer-item {
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    
+    .answer-item.correct {
+      background-color: rgba(39, 174, 96, 0.1);
+      border-left: 3px solid var(--success-color);
+    }
+    
+    .answer-item.incorrect {
+      background-color: rgba(231, 76, 60, 0.1);
+      border-left: 3px solid var(--error-color);
+    }
+    
+    .answer-item h4 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    
+    .user-answer {
+      margin-bottom: 5px;
+    }
+    
+    .correct-answer {
+      font-weight: bold;
+    }
+
+    
+    /* Intro section styles */
+    .intro-section {
+      margin-bottom: 25px;
+    }
+    
+    .intro-section a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 5px;
+      transition: color 0.2s;
+    }
+    
+    .intro-section a:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+    
+    .intro-section a i {
+      margin-right: 5px;
+    }
+
+    
+    /* FAQ styles */
+    .faq-list {
+      margin: 0;
+      padding: 0;
+    }
+    
+    .faq-list dt {
+      font-weight: bold;
+      margin-top: 15px;
+      color: var(--primary-color);
+    }
+    
+    .faq-list dd {
+      margin-left: 0;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .faq-list dd:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>AI Quiz 1: Python Web Scraping</h1>
+
+
+  
+  <div class="quiz-container">
+    <!-- Add an introduction paragraph for SEO -->
+    <div class="intro-section">
+      <h2 style="text-align:center;">AI Quiz 1: 15 Python Web Scraping Questions</h2>
+      <p>This quiz tests your knowledge of web scraping with Python, focusing on the BeautifulSoup library and the requests module. You'll be tested on HTML parsing, element selection, and data extraction techniques.</p>
+      <p>Perfect for Python developers looking to improve their web scraping skills or assess their knowledge of HTML parsing.</p>
+      <p><a href="python_scraping_quiz.pdf" download><i class="fas fa-file-pdf"></i> Download this quiz as a PDF</a></p>
+    </div>
+    
+    <!-- Wrap progress elements in a sticky container -->
+    <div class="progress-wrapper">
+      <div class="progress-container">
+        <div id="progress-fill"></div>
+      </div>
+      <div id="progress-count">0/15 answered</div>
+    </div>
+    
+    <form id="quiz-form">
+      <!-- True/False Questions -->
+      <div class="question">
+        <p>1. BeautifulSoup is used to parse HTML content from a web page.</p>
+        <div class="options">
+          <label><input type="radio" name="q1" value="true"> True</label>
+          <label><input type="radio" name="q1" value="false"> False</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>2. The requests module is used to style HTML elements.</p>
+        <div class="options">
+          <label><input type="radio" name="q2" value="true"> True</label>
+          <label><input type="radio" name="q2" value="false"> False</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>3. You can use random.choice() to select a random item from a list in Python.</p>
+        <div class="options">
+          <label><input type="radio" name="q3" value="true"> True</label>
+          <label><input type="radio" name="q3" value="false"> False</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>4. Parsing means converting structured data (like HTML) into a format that is easy to work with in Python.</p>
+        <div class="options">
+          <label><input type="radio" name="q4" value="true"> True</label>
+          <label><input type="radio" name="q4" value="false"> False</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>5. In web scraping, a module and a package are the same thing.</p>
+        <div class="options">
+          <label><input type="radio" name="q5" value="true"> True</label>
+          <label><input type="radio" name="q5" value="false"> False</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>6. You must always use a &lt;span&gt; tag to scrape data from a website.</p>
+        <div class="options">
+          <label><input type="radio" name="q6" value="true"> True</label>
+          <label><input type="radio" name="q6" value="false"> False</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>7. You can extract specific tags with attributes (like class) using BeautifulSoup's find_all() function.</p>
+        <div class="options">
+          <label><input type="radio" name="q7" value="true"> True</label>
+          <label><input type="radio" name="q7" value="false"> False</label>
+        </div>
+      </div>
+
+      <!-- Multiple Choice Questions -->
+      <div class="question">
+        <p>8. Which Python module is used to make HTTP requests to fetch web pages?</p>
+        <div class="options">
+          <label><input type="radio" name="q8" value="A"> A. urllib</label>
+          <label><input type="radio" name="q8" value="B"> B. BeautifulSoup</label>
+          <label><input type="radio" name="q8" value="C"> C. requests</label>
+          <label><input type="radio" name="q8" value="D"> D. json</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>9. Which module is used to parse and search HTML/XML content in this project?</p>
+        <div class="options">
+          <label><input type="radio" name="q9" value="A"> A. pandas</label>
+          <label><input type="radio" name="q9" value="B"> B. bs4 (BeautifulSoup)</label>
+          <label><input type="radio" name="q9" value="C"> C. urllib</label>
+          <label><input type="radio" name="q9" value="D"> D. random</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>10. What is the correct term for this code: import requests?</p>
+        <div class="options">
+          <label><input type="radio" name="q10" value="A"> A. A module import</label>
+          <label><input type="radio" name="q10" value="B"> B. A package class</label>
+          <label><input type="radio" name="q10" value="C"> C. An HTML element</label>
+          <label><input type="radio" name="q10" value="D"> D. A function call</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>11. What is the difference between a module and a package?</p>
+        <div class="options">
+          <label><input type="radio" name="q11" value="A"> A. Modules contain packages</label>
+          <label><input type="radio" name="q11" value="B"> B. Packages are single files; modules are folders</label>
+          <label><input type="radio" name="q11" value="C"> C. Modules are single files; packages are folders with __init__.py</label>
+          <label><input type="radio" name="q11" value="D"> D. They are the same</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>12. What is the class used to find all quotes on the page?</p>
+        <div class="options">
+          <label><input type="radio" name="q12" value="A"> A. quote</label>
+          <label><input type="radio" name="q12" value="B"> B. author</label>
+          <label><input type="radio" name="q12" value="C"> C. text</label>
+          <label><input type="radio" name="q12" value="D"> D. span</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>13. Which function returns all matching tags from HTML in BeautifulSoup?</p>
+        <div class="options">
+          <label><input type="radio" name="q13" value="A"> A. find()</label>
+          <label><input type="radio" name="q13" value="B"> B. select_one()</label>
+          <label><input type="radio" name="q13" value="C"> C. get_all()</label>
+          <label><input type="radio" name="q13" value="D"> D. find_all()</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>14. What does .text do in BeautifulSoup?</p>
+        <div class="options">
+          <label><input type="radio" name="q14" value="A"> A. It changes the text color</label>
+          <label><input type="radio" name="q14" value="B"> B. It extracts the visible text from a tag</label>
+          <label><input type="radio" name="q14" value="C"> C. It adds text to an element</label>
+          <label><input type="radio" name="q14" value="D"> D. It finds the tag name</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>15. What is the main purpose of using random.choice(quotes) in the code?</p>
+        <div class="options">
+          <label><input type="radio" name="q15" value="A"> A. To shuffle the quotes</label>
+          <label><input type="radio" name="q15" value="B"> B. To find the most popular quote</label>
+          <label><input type="radio" name="q15" value="C"> C. To select one quote at random from the list</label>
+          <label><input type="radio" name="q15" value="D"> D. To sort the quotes</label>
+        </div>
+      </div>
+
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Quiz</button>
+      <div id="result"></div>
+
+    </form>
+
+    <!-- Add results section -->
+    <div id="results" style="display: none;">
+      <div class="score-container">
+        <div class="score-circle">0</div>
+        <div class="score-label">Your Score</div>
+      </div>
+      <div class="feedback"></div>
+      <div class="answer-key">
+        <h3>Answer Key</h3>
+        <!-- Answer details will be inserted here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const answers = {
+      q1: "true",
+      q2: "false",
+      q3: "true",
+      q4: "true",
+      q5: "false",
+      q6: "false",
+      q7: "true",
+      q8: "C",
+      q9: "B",
+      q10: "A",
+      q11: "C",
+      q12: "A",
+      q13: "D",
+      q14: "B",
+      q15: "C"
+    };
+
+    // Track progress when radio buttons are selected
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+    radioButtons.forEach(radio => {
+      radio.addEventListener('change', updateProgress);
+    });
+    
+    function updateProgress() {
+      // Count answered questions
+      let answeredQuestions = 0;
+      const totalQuestions = 15;
+      
+      for (let i = 1; i <= totalQuestions; i++) {
+        if (document.querySelector(`input[name="q${i}"]:checked`)) {
+          answeredQuestions++;
+        }
+      }
+      
+      // Update progress text and bar
+      document.getElementById('progress-count').textContent = `${answeredQuestions}/${totalQuestions} answered`;
+      const progressPercentage = (answeredQuestions / totalQuestions) * 100;
+      document.getElementById('progress-fill').style.width = `${progressPercentage}%`;
+    }
+
+    function submitQuiz() {
+      let score = 0;
+      let answersHTML = '';
+      
+      // Check each question
+      for (let key in answers) {
+        const questionNumber = key.substring(1); // Extract number from q1, q2, etc.
+        const selectedOption = document.querySelector(`input[name="${key}"]:checked`);
+        
+        // Get question text
+        const questionText = document.querySelector(`[name="${key}"]`).closest('.question').querySelector('p').textContent;
+        
+        // Start answer item
+        answersHTML += `<div class="answer-item ${selectedOption && selectedOption.value === answers[key] ? 'correct' : 'incorrect'}">`;
+        answersHTML += `<h4>Question ${questionNumber}</h4>`;
+        answersHTML += `<p>${questionText}</p>`;
+        
+        if (selectedOption) {
+          const userAnswer = selectedOption.value;
+          const isCorrect = userAnswer === answers[key];
+          
+          if (isCorrect) {
+            score++;
+            answersHTML += `<p class="user-answer">Your answer: ${userAnswer} - Correct</p>`;
+          } else {
+            answersHTML += `<p class="user-answer">Your answer: ${userAnswer} - Incorrect</p>`;
+            answersHTML += `<p class="correct-answer">Correct answer: ${answers[key]}</p>`;
+          }
+        } else {
+          answersHTML += `<p class="user-answer">Not answered</p>`;
+          answersHTML += `<p class="correct-answer">Correct answer: ${answers[key]}</p>`;
+        }
+        
+        answersHTML += `</div>`;
+      }
+      
+      // Update score display
+      document.querySelector('.score-circle').textContent = score;
+      
+      // Add feedback based on score
+      const percentage = (score / Object.keys(answers).length) * 100;
+      let feedbackText = '';
+      
+      if (percentage >= 90) {
+        feedbackText = 'Excellent! You have a strong understanding of Python web scraping.';
+      } else if (percentage >= 70) {
+        feedbackText = 'Good job! You have a solid grasp of Python web scraping concepts.';
+      } else if (percentage >= 50) {
+        feedbackText = 'Not bad. You have a basic understanding of Python web scraping, but there\'s room for improvement.';
+      } else {
+        feedbackText = 'You might need more practice with Python web scraping concepts.';
+      }
+      
+      document.querySelector('.feedback').textContent = feedbackText;
+      
+      // Add answers to the answer key section
+      document.querySelector('.answer-key').innerHTML = `<h3>Answer Key</h3>${answersHTML}`;
+      
+      // Hide the quiz form and show results
+      document.getElementById('quiz-form').style.display = 'none';
+      document.getElementById('results').style.display = 'block';
+      
+      // Scroll to results
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+  <!-- Shared Header and Footer JavaScript -->
+    <script src="../../shared/header-footer.js"></script>
+</body>
+</html>

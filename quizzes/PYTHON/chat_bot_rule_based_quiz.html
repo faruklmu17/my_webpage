@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🤖 Python Rule-Based Chatbot Quiz | Code Analysis</title>
+  <meta name="description" content="A comprehensive 15-question quiz on Python rule-based chatbot development, covering requests, BeautifulSoup, pattern matching, and chatbot logic." />
+  <meta name="keywords" content="python chatbot quiz, rule-based chatbot, python requests, beautifulsoup, pattern matching, python quiz" />
+  <meta name="author" content="Faruk Hasan" />
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Python Rule-Based Chatbot Quiz | Code Analysis">
+  <meta property="og:description" content="Test your understanding of Python chatbot development with 15 questions on requests, BeautifulSoup, and pattern matching.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://faruk-hasan.com/quizzes/chat_bot_rule_based_quiz.html">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Python Rule-Based Chatbot Quiz">
+  <meta name="twitter:description" content="Take this comprehensive quiz on Python chatbot development and pattern matching!">
+
+  <!-- Schema.org JSON-LD for Quiz -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Quiz",
+    "name": "Python Rule-Based Chatbot Quiz",
+    "description": "A 15-question Python quiz covering chatbot development, requests library, BeautifulSoup, and pattern matching.",
+    "educationalAlignment": {
+      "@type": "AlignmentObject",
+      "alignmentType": "educationalSubject",
+      "targetName": "Python Programming"
+    },
+    "educationalUse": "Practice Quiz",
+    "audience": {
+      "@type": "EducationalAudience",
+      "educationalRole": "student"
+    },
+    "provider": {
+      "@type": "Person",
+      "name": "Faruk Hasan",
+      "url": "https://faruk-hasan.com"
+    },
+    "about": ["Python", "Chatbot", "Requests", "BeautifulSoup", "Pattern Matching"]
+  }
+  </script>
+
+  <style>
+    :root {
+      --primary-color: #2196F3;
+      --primary-dark: #1976D2;
+      --bg-light: #f5f5f5;
+      --card-bg: #fff;
+      --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      --success: #4CAF50;
+      --warning: #FF9800;
+      --error: #F44336;
+      --code-bg: #f8f9fa;
+      --code-border: #e9ecef;
+    }
+    
+    body {
+      /* Body padding/margin removed to match resources.html header layout */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-light);
+      
+      max-width: 900px;
+      
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    h1 {
+      text-align: center;
+      color: var(--primary-color);
+      border-bottom: 3px solid var(--primary-color);
+      padding-bottom: 15px;
+      margin-bottom: 30px;
+      font-size: 2.2em;
+    }
+    
+    .intro {
+      background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+      border-left: 5px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow);
+    }
+    
+    .intro p {
+      margin: 0 0 10px 0;
+      font-size: 1.1em;
+    }
+    
+    .intro p:last-child {
+      margin-bottom: 0;
+    }
+    
+    .question {
+      background: var(--card-bg);
+      padding: 20px;
+      margin-bottom: 25px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .question:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .question h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: var(--primary-dark);
+      font-size: 1.2em;
+    }
+    
+    .question label {
+      display: block;
+      margin: 10px 0;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    
+    .question label:hover {
+      background-color: #f0f8ff;
+    }
+    
+    .question input[type="radio"] {
+      margin-right: 10px;
+      transform: scale(1.1);
+    }
+    
+    .code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--code-border);
+      border-left: 4px solid var(--primary-color);
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 5px;
+      overflow-x: auto;
+      font-size: 0.9em;
+    }
+    
+    code {
+      background: var(--code-bg);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 0.9em;
+      border: 1px solid var(--code-border);
+    }
+    
+    .feedback {
+      font-weight: bold;
+      margin-top: 10px;
+      padding: 8px 12px;
+      border-radius: 5px;
+      display: none;
+    }
+    
+    button {
+      display: block;
+      margin: 30px auto;
+      padding: 15px 30px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: none;
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      font-weight: 600;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    @media (max-width: 768px) {
+      body {
+        
+      }
+      
+      h1 {
+        font-size: 1.8em;
+      }
+      
+      .question {
+        padding: 15px;
+      }
+      
+      button {
+        padding: 12px 24px;
+        font-size: 16px;
+      }
+    }
+  </style>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Shared Header/Footer CSS -->
+  <link rel="stylesheet" href="../../shared/header-footer.css">
+
+</head>
+<body>
+
+  <h1>🤖 Python Rule-Based Chatbot Quiz</h1>
+  
+  <div class="intro">
+    <p>This comprehensive quiz tests your understanding of Python rule-based chatbot development, covering essential topics like HTTP requests, HTML parsing with BeautifulSoup, pattern matching, and chatbot logic implementation.</p>
+    <p>Perfect for students learning Python web scraping, natural language processing basics, and chatbot development fundamentals.</p>
+  </div>
+
+  <div id="quiz"></div>
+  <button onclick="checkAnswers()">Submit Answers</button>
+
+  <script>
+    const questions = [
+      {
+        q: "1. What is the purpose of the <code>requests.get(url)</code> line?",
+        options: [
+          "A) Open a file",
+          "B) Send an HTTP GET request to the given URL",
+          "C) Post a message to a server",
+          "D) Launch a browser"
+        ],
+        correct: "B"
+      },
+      {
+        q: "2. True or False: The code uses BeautifulSoup to parse HTML content from a website.",
+        options: [
+          "A) True",
+          "B) False"
+        ],
+        correct: "A"
+      },
+      {
+        q: "3. Which of the following is a correct description of the <code>intents</code> variable?",
+        options: [
+          "A) It stores website links",
+          "B) It stores Python functions",
+          "C) It stores user data",
+          "D) It maps chatbot patterns and responses"
+        ],
+        correct: "D"
+      },
+      {
+        q: "4. What type of data will be stored in the variable <code>greetings</code>?",
+        options: [
+          "A) Integer",
+          "B) List of strings",
+          "C) Dictionary",
+          "D) Single string"
+        ],
+        correct: "B"
+      },
+      {
+        q: "5. True or False: The line <code>message_list = [msg.text for msg in message_tags]</code> uses list comprehension.",
+        options: [
+          "A) True",
+          "B) False"
+        ],
+        correct: "A"
+      },
+      {
+        q: "6. Which Python module is required to make <code>random.choice()</code> work?",
+        options: [
+          "A) time",
+          "B) requests",
+          "C) random",
+          "D) itertools"
+        ],
+        correct: "C"
+      },
+      {
+        q: "7. What happens if a user types something not included in any pattern list?",
+        options: [
+          "A) The program crashes",
+          "B) It says 'Try again'",
+          "C) It prints chatbot response: None",
+          "D) It loops infinitely without printing anything"
+        ],
+        correct: "C"
+      },
+      {
+        q: "8. True or False: The keys in the <code>intents</code> dictionary are used to directly match user input.",
+        options: [
+          "A) True",
+          "B) False"
+        ],
+        correct: "B"
+      },
+      {
+        q: "9. How would you print all the responses for the <code>goodbyes</code> intent?",
+        options: [
+          "A) <code>print(intents[\"goodbyes\"][\"responses\"])</code>",
+          "B) <code>print(intents.goodbyes.responses)</code>",
+          "C) <code>print(goodbyes[\"responses\"])</code>",
+          "D) <code>print(intents[\"responses\"][\"goodbyes\"])</code>"
+        ],
+        correct: "A"
+      },
+      {
+        q: "10. What does <code>long_string.split(\"\\n\")</code> do?",
+        options: [
+          "A) Joins strings",
+          "B) Splits into characters",
+          "C) Splits by line breaks",
+          "D) Replaces line breaks"
+        ],
+        correct: "C"
+      },
+      {
+        q: "11. What is a potential issue with the current chatbot logic?",
+        options: [
+          "A) Doesn't convert user input to lowercase",
+          "B) Doesn't remove punctuation",
+          "C) Only checks exact matches",
+          "D) All of the above"
+        ],
+        correct: "D"
+      },
+      {
+        q: "12. Why is <code>.pop(0)</code> used multiple times?",
+        options: [
+          "A) To shuffle the list",
+          "B) To remove header/extra data",
+          "C) To get only the last line",
+          "D) To remove duplicate values"
+        ],
+        correct: "B"
+      },
+      {
+        q: "13. True or False: Each intent has a <code>patterns</code> and <code>responses</code> key.",
+        options: [
+          "A) True",
+          "B) False"
+        ],
+        correct: "A"
+      },
+      {
+        q: "14. Which loop correctly prints each intent name?",
+        options: [
+          "A) <code>for i in intents: print(i)</code>",
+          "B) <code>print(intents[i])</code>",
+          "C) <code>for intent in intents: print(intent[\"name\"])</code>",
+          "D) <code>print(intents[\"intent\"])</code>"
+        ],
+        correct: "A"
+      },
+      {
+        q: "15. Which of the following would improve the chatbot's ability to understand varied input?",
+        options: [
+          "A) Use of regex or NLP",
+          "B) Adding more responses",
+          "C) Adding a GUI",
+          "D) Changing class names in HTML"
+        ],
+        correct: "A"
+      }
+    ];
+
+    // Generate quiz HTML
+    const quizDiv = document.getElementById("quiz");
+    questions.forEach((q, i) => {
+      const id = `q${i + 1}`;
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `
+        <h3>${q.q}</h3>
+        <form id="${id}">
+          ${q.options.map(opt => `
+            <label>
+              <input type="radio" name="${id}" value="${opt.charAt(0)}"> ${opt}
+            </label>
+          `).join("")}
+        </form>
+        <p class="feedback" id="feedback-${id}"></p>
+      `;
+      quizDiv.appendChild(div);
+    });
+
+    function checkAnswers() {
+      let totalCorrect = 0;
+
+      questions.forEach((q, i) => {
+        const id = `q${i + 1}`;
+        const selected = document.querySelector(`input[name="${id}"]:checked`);
+        const feedback = document.getElementById(`feedback-${id}`);
+
+        feedback.style.display = "block";
+
+        if (!selected) {
+          feedback.textContent = "⚠️ No answer selected.";
+          feedback.style.backgroundColor = "#fff3cd";
+          feedback.style.color = "#856404";
+          feedback.style.border = "1px solid #ffeaa7";
+        } else if (selected.value === q.correct) {
+          feedback.textContent = "✅ Correct!";
+          feedback.style.backgroundColor = "#d4edda";
+          feedback.style.color = "#155724";
+          feedback.style.border = "1px solid #c3e6cb";
+          totalCorrect++;
+        } else {
+          feedback.textContent = `❌ Incorrect. Correct answer: ${q.correct}`;
+          feedback.style.backgroundColor = "#f8d7da";
+          feedback.style.color = "#721c24";
+          feedback.style.border = "1px solid #f5c6cb";
+        }
+      });
+
+      // Scroll to top and show overall score
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      setTimeout(() => {
+        alert(`Quiz Complete! You scored ${totalCorrect} out of ${questions.length} (${Math.round((totalCorrect/questions.length)*100)}%)`);
+      }, 500);
+    }
+  </script>
+
+  <!-- Shared Header and Footer JavaScript -->
+    <script src="../../shared/header-footer.js"></script>
+</body>
+</html>
