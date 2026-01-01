@@ -1,0 +1,964 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TF-IDF Word Detective Lab</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#121b2f;
+      --card2:#0f1730;
+      --text:#eaf0ff;
+      --muted:#a9b7e6;
+      --accent:#6ee7ff;
+      --accent2:#a78bfa;
+      --good:#34d399;
+      --warn:#fbbf24;
+      --bad:#fb7185;
+      --border: rgba(255,255,255,.12);
+      --shadow: 0 12px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background: radial-gradient(1200px 700px at 20% 10%, rgba(110,231,255,.15), transparent 55%),
+                  radial-gradient(900px 600px at 80% 0%, rgba(167,139,250,.18), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      min-height:100vh;
+    }
+    header{
+      padding: 26px 18px 8px;
+      max-width: 1220px;
+      margin: 0 auto;
+    }
+    .titleRow{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 14px;
+      flex-wrap:wrap;
+    }
+    h1{
+      margin:0;
+      font-size: clamp(22px, 3vw, 34px);
+      letter-spacing:.2px;
+    }
+    .subtitle{
+      margin-top: 8px;
+      color:var(--muted);
+      line-height:1.45;
+      max-width: 860px;
+      font-size: 14.5px;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,.2);
+      user-select:none;
+      white-space:nowrap;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .badge strong{color:var(--text)}
+    main{
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 14px 18px 36px;
+      display:grid;
+      grid-template-columns: 380px 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 980px){
+      main{grid-template-columns: 1fr}
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .cardHeader{
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .cardHeader h2{
+      margin:0;
+      font-size: 15px;
+      letter-spacing:.2px;
+    }
+    .cardBody{ padding: 14px; }
+    .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .row + .row{ margin-top: 12px; }
+    .label{
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .control{
+      width: 100%;
+    }
+    select, input[type="number"], input[type="text"]{
+      width: 100%;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(10,15,30,.55);
+      color: var(--text);
+      outline:none;
+    }
+    textarea{
+      width:100%;
+      min-height: 105px;
+      resize: vertical;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(10,15,30,.55);
+      color: var(--text);
+      outline:none;
+      line-height: 1.4;
+    }
+    .tog{
+      display:flex; align-items:center; gap:10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(10,15,30,.45);
+      user-select:none;
+      cursor:pointer;
+    }
+    .tog input{ transform: scale(1.15); }
+    .btnRow{ display:flex; gap:10px; flex-wrap:wrap; }
+    button{
+      border:0;
+      border-radius: 14px;
+      padding: 11px 12px;
+      font-weight: 650;
+      cursor:pointer;
+      color: #06101e;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 10px 22px rgba(0,0,0,.25);
+    }
+    button.secondary{
+      color: var(--text);
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow:none;
+    }
+    button.ghost{
+      color: var(--muted);
+      background: transparent;
+      border: 1px dashed rgba(255,255,255,.22);
+      box-shadow:none;
+    }
+    .hint{
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.45;
+      margin-top: 8px;
+    }
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 980px){ .split{grid-template-columns:1fr} }
+    .docsGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 12px;
+    }
+    @media (max-width: 980px){ .docsGrid{grid-template-columns:1fr} }
+    .docCard{
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      overflow:hidden;
+    }
+    .docTop{
+      padding: 10px 12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    .docTop .name{
+      display:flex; align-items:center; gap:8px;
+      font-weight: 700;
+      font-size: 13.5px;
+    }
+    .pill{
+      font-size: 12px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      color: var(--muted);
+      user-select:none;
+      white-space:nowrap;
+    }
+    .docBody{ padding: 12px; }
+    .keywords{
+      display:flex; flex-wrap:wrap; gap: 8px;
+      margin-top: 10px;
+    }
+    .kw{
+      padding: 7px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      font-size: 12.5px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .kw strong{ font-family: var(--mono); font-weight: 700; }
+    .kw .score{ color: var(--muted); margin-left: 6px; font-family: var(--mono); }
+    .render{
+      margin-top: 10px;
+      padding: 10px 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(10,15,30,.35);
+      line-height: 1.65;
+      word-wrap:break-word;
+    }
+    .w{
+      padding: 1px 3px;
+      border-radius: 7px;
+      border: 1px solid rgba(255,255,255,.08);
+      margin: 1px 1px;
+      display:inline-block;
+      cursor:pointer;
+      transition: transform .06s ease;
+    }
+    .w:hover{ transform: translateY(-1px); }
+    .panel{
+      padding: 12px 14px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.14);
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .status{
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height:1.4;
+    }
+    .status b{ color: var(--text); }
+    .mini{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+    .mini code{
+      font-family: var(--mono);
+      padding: 3px 7px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+    }
+    .modal{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 16px;
+      z-index: 999;
+    }
+    .modal.open{ display:flex; }
+    .modalBox{
+      width: min(720px, 96vw);
+      background: rgba(15,23,48,.92);
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 18px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.45);
+      overflow:hidden;
+    }
+    .modalHead{
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .modalHead h3{
+      margin:0; font-size: 14px;
+    }
+    .modalBody{
+      padding: 14px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 13.5px;
+    }
+    .modalBody ul{ margin: 10px 0 0 18px; }
+    .closeBtn{ background: rgba(255,255,255,.07); color: var(--text); border: 1px solid rgba(255,255,255,.14); box-shadow:none; }
+    .smallNote{
+      margin-top: 8px;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+    .guessBox{
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(10,15,30,.25);
+    }
+    .guessBox .label{ margin:0 0 6px; }
+    .guessRow{ display:flex; gap:10px; flex-wrap:wrap; }
+    .guessRow input{ flex: 1 1 160px; }
+    .resultTag{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+    .ok{ color: var(--good); }
+    .no{ color: var(--bad); }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="titleRow">
+    <div>
+      <h1>TF-IDF Word Detective Lab 🕵️‍♀️📄</h1>
+      <div class="subtitle">
+        Students edit documents, then the app calculates TF-IDF keywords and highlights important words.
+        Use <b>Challenge Mode</b> to make it a game: students guess keywords first, then reveal scores.
+      </div>
+    </div>
+    <div class="badge">
+      <span>Mode:</span> <strong id="modeLabel">Guided</strong> <span>•</span>
+      <span>Docs:</span> <strong id="docCountLabel">4</strong>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- LEFT: Controls -->
+  <section class="card">
+    <div class="cardHeader">
+      <h2>Teacher Controls</h2>
+      <button class="secondary" id="howBtn">How it works</button>
+    </div>
+
+    <div class="cardBody">
+      <div class="row split">
+        <div class="control">
+          <div class="label">Number of documents</div>
+          <select id="docCount">
+            <option value="3">3</option>
+            <option value="4" selected>4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+        </div>
+        <div class="control">
+          <div class="label">Top keywords per document</div>
+          <select id="topN">
+            <option value="3">3</option>
+            <option value="5" selected>5</option>
+            <option value="7">7</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row split">
+        <div class="control">
+          <div class="label">TF mode (term frequency)</div>
+          <select id="tfMode">
+            <option value="raw" selected>Raw counts</option>
+            <option value="log">Log scaled (1 + ln(tf))</option>
+            <option value="norm">Normalized (tf / max_tf)</option>
+          </select>
+        </div>
+        <div class="control">
+          <div class="label">IDF mode (inverse document frequency)</div>
+          <select id="idfMode">
+            <option value="classic" selected>Classic ln(N / df)</option>
+            <option value="smooth">Smooth ln((N+1)/(df+1)) + 1</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="tog" title="Remove common words like 'the', 'is', 'and'">
+          <input id="stopwords" type="checkbox" checked />
+          <span><b>Stopwords ON</b> (recommended)</span>
+        </label>
+
+        <label class="tog" title="Very simple suffix stripping to group similar forms (e.g., testing → test). Not perfect, but helps older students discuss preprocessing.">
+          <input id="stemLite" type="checkbox" />
+          <span><b>Stem-Lite</b> (optional)</span>
+        </label>
+      </div>
+
+      <div class="row split">
+        <div class="control">
+          <div class="label">Highlight intensity</div>
+          <select id="heat">
+            <option value="soft" selected>Soft</option>
+            <option value="medium">Medium</option>
+            <option value="strong">Strong</option>
+          </select>
+        </div>
+        <div class="control">
+          <div class="label">Challenge Mode</div>
+          <select id="challenge">
+            <option value="off" selected>Off (show scores)</option>
+            <option value="on">On (hide scores, guess first)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="btnRow" style="margin-top: 12px;">
+        <button id="analyzeBtn">Analyze TF-IDF</button>
+        <button class="secondary" id="resetBtn">Reset Sample Docs</button>
+        <button class="ghost" id="shuffleBtn">Shuffle Topics</button>
+      </div>
+
+      <div class="hint">
+        Tip: For high schoolers, turn on <b>Log TF</b> + <b>Smooth IDF</b> + <b>Stem-Lite</b> and ask:
+        “How do preprocessing choices change the top keywords?”
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="status" id="status">
+        Ready. Click <b>Analyze TF-IDF</b>.
+      </div>
+      <div class="mini">
+        <span>Click a highlighted word to inspect:</span>
+        <code>tf</code> <code>df</code> <code>idf</code> <code>tfidf</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- RIGHT: Documents -->
+  <section class="card">
+    <div class="cardHeader">
+      <h2>Documents</h2>
+      <div class="pill" id="pillInfo">Edit → Analyze → Discuss</div>
+    </div>
+
+    <div class="docsGrid" id="docsGrid"></div>
+  </section>
+</main>
+
+<!-- Modal -->
+<div class="modal" id="modal">
+  <div class="modalBox">
+    <div class="modalHead">
+      <h3>How TF-IDF Works (student-friendly)</h3>
+      <button class="closeBtn" id="closeBtn">Close</button>
+    </div>
+    <div class="modalBody">
+      TF-IDF helps a computer find words that are <b>important for one document</b>.
+      <ul>
+        <li><b>TF</b> (Term Frequency): a word gets more points if it repeats in the same document.</li>
+        <li><b>DF</b> (Document Frequency): how many documents contain the word.</li>
+        <li><b>IDF</b> (Inverse Document Frequency): a word gets more points if it appears in <b>fewer</b> documents.</li>
+        <li><b>TF-IDF</b>: TF × IDF → high when a word is frequent in one doc but rare overall.</li>
+      </ul>
+      <div class="smallNote">
+        Challenge idea: Have students guess the top keywords before revealing. Then discuss why some “common” words shouldn’t count.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---------------------------
+  // Sample topic sets (shuffle)
+  // ---------------------------
+  const TOPIC_SETS = [
+    {
+      name: "Space / Sports / Cooking / Animals",
+      docs: [
+        `The rocket launched into orbit and the astronauts studied space dust. The mission used a powerful engine and a new navigation computer.`,
+        `The basketball team practiced defense and fast passes. The coach wanted better teamwork and stronger shooting during the game.`,
+        `The recipe used garlic, onions, and tomatoes. The chef simmered the sauce slowly and added fresh basil for flavor.`,
+        `The dolphin communicates with clicks and whistles. Marine scientists study ocean behavior and social groups in the wild.`
+      ]
+    },
+    {
+      name: "Tech / Music / Weather / History",
+      docs: [
+        `The computer program used a neural network to classify images. The model improved after training with more labeled data.`,
+        `The singer performed a melody with harmony and rhythm. The audience cheered during the chorus and clapped at the finale.`,
+        `The storm brought heavy rain and strong winds. The forecast warned about flooding and colder temperatures overnight.`,
+        `Ancient empires built roads and traded goods. Historians analyze artifacts and inscriptions to understand daily life.`
+      ]
+    },
+    {
+      name: "Health / Finance / Gaming / Ecology",
+      docs: [
+        `The doctor recommended exercise and better sleep habits. Healthy meals and hydration can improve energy and focus.`,
+        `The investor diversified with stocks and bonds. The portfolio balanced risk, dividends, and long term growth goals.`,
+        `The game included quests, upgrades, and strategy battles. Players earned rewards by completing missions and leveling up.`,
+        `The rainforest ecosystem includes insects, birds, and plants. Biodiversity supports food chains and stabilizes habitats.`
+      ]
+    }
+  ];
+
+  // A small stopword list (enough for teaching)
+  const STOPWORDS = new Set([
+    "the","a","an","and","or","but","if","then","so","to","of","in","on","at","for","with","from","by",
+    "is","are","was","were","be","been","being","it","this","that","these","those","as","into","over","after",
+    "about","during","can","could","should","would","will","just","more","most","very","new","better","strong",
+    "their","they","them","he","she","we","you","i","my","our","your","his","her","its","also","than"
+  ]);
+
+  // ---------------------------
+  // UI Elements
+  // ---------------------------
+  const docsGrid = document.getElementById("docsGrid");
+  const analyzeBtn = document.getElementById("analyzeBtn");
+  const resetBtn = document.getElementById("resetBtn");
+  const shuffleBtn = document.getElementById("shuffleBtn");
+
+  const docCountSel = document.getElementById("docCount");
+  const topNSel = document.getElementById("topN");
+  const tfModeSel = document.getElementById("tfMode");
+  const idfModeSel = document.getElementById("idfMode");
+  const stopwordsChk = document.getElementById("stopwords");
+  const stemLiteChk = document.getElementById("stemLite");
+  const heatSel = document.getElementById("heat");
+  const challengeSel = document.getElementById("challenge");
+
+  const statusEl = document.getElementById("status");
+  const pillInfo = document.getElementById("pillInfo");
+  const modeLabel = document.getElementById("modeLabel");
+  const docCountLabel = document.getElementById("docCountLabel");
+
+  const modal = document.getElementById("modal");
+  const howBtn = document.getElementById("howBtn");
+  const closeBtn = document.getElementById("closeBtn");
+
+  let activeTopicIndex = 0;
+
+  function clamp(x, a, b){ return Math.max(a, Math.min(b, x)); }
+
+  // ---------------------------
+  // Build documents UI
+  // ---------------------------
+  function buildDocsUI(initialDocs){
+    docsGrid.innerHTML = "";
+    const count = Number(docCountSel.value);
+    docCountLabel.textContent = String(count);
+
+    for(let i=0;i<count;i++){
+      const docText = initialDocs[i] ?? "";
+      const doc = document.createElement("div");
+      doc.className = "docCard";
+      doc.dataset.index = String(i);
+
+      doc.innerHTML = `
+        <div class="docTop">
+          <div class="name">📄 Doc ${i+1}</div>
+          <div class="pill" id="pill-${i}">Not analyzed</div>
+        </div>
+        <div class="docBody">
+          <div class="label">Edit the document text</div>
+          <textarea id="txt-${i}" spellcheck="false">${escapeHtml(docText)}</textarea>
+
+          <div class="guessBox" id="guess-${i}" style="display:none;">
+            <div class="label">Challenge: guess top keywords (comma-separated)</div>
+            <div class="guessRow">
+              <input id="guessInput-${i}" type="text" placeholder="e.g., rocket, orbit, engine" />
+              <button class="secondary" type="button" onclick="window.__checkGuess(${i})">Check</button>
+            </div>
+            <div id="guessResult-${i}"></div>
+          </div>
+
+          <div class="label" style="margin-top:10px;">Top keywords</div>
+          <div class="keywords" id="kw-${i}">
+            <span class="pill">Run Analyze to see keywords</span>
+          </div>
+
+          <div class="label" style="margin-top:10px;">Highlighted view (click words)</div>
+          <div class="render" id="render-${i}">
+            <span class="pill">Run Analyze to see highlights</span>
+          </div>
+        </div>
+      `;
+      docsGrid.appendChild(doc);
+    }
+    applyChallengeUI();
+  }
+
+  function escapeHtml(str){
+    return String(str)
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
+  // ---------------------------
+  // Tokenization & preprocessing
+  // ---------------------------
+  function stemLite(word){
+    // intentionally simple for teaching discussion
+    // removes common suffixes (not accurate stemming)
+    const w = word;
+    if(w.length > 5 && w.endsWith("ing")) return w.slice(0,-3);
+    if(w.length > 4 && w.endsWith("ed")) return w.slice(0,-2);
+    if(w.length > 4 && w.endsWith("es")) return w.slice(0,-2);
+    if(w.length > 3 && w.endsWith("s")) return w.slice(0,-1);
+    return w;
+  }
+
+  function tokenize(text){
+    // keep words, drop punctuation; keep apostrophes inside words minimally
+    const raw = text.toLowerCase().match(/[a-z0-9']+/g) || [];
+    const cleaned = [];
+    for(const t of raw){
+      let w = t.replace(/^'+|'+$/g,""); // trim '
+      if(!w) continue;
+      if(stemLiteChk.checked) w = stemLite(w);
+      if(stopwordsChk.checked && STOPWORDS.has(w)) continue;
+      cleaned.push(w);
+    }
+    return cleaned;
+  }
+
+  // ---------------------------
+  // TF, DF, IDF, TF-IDF
+  // ---------------------------
+  function computeTf(tokens){
+    const tf = new Map();
+    for(const w of tokens){
+      tf.set(w, (tf.get(w)||0) + 1);
+    }
+    return tf;
+  }
+
+  function applyTfMode(tfMap){
+    const mode = tfModeSel.value;
+    const out = new Map();
+    let maxTf = 1;
+    for(const v of tfMap.values()) maxTf = Math.max(maxTf, v);
+
+    for(const [w, c] of tfMap.entries()){
+      let val = c;
+      if(mode === "log"){
+        val = 1 + Math.log(c);
+      } else if(mode === "norm"){
+        val = c / maxTf;
+      }
+      out.set(w, val);
+    }
+    return out;
+  }
+
+  function computeDf(tfMaps){
+    const df = new Map();
+    for(const tf of tfMaps){
+      for(const w of tf.keys()){
+        df.set(w, (df.get(w)||0) + 1);
+      }
+    }
+    return df;
+  }
+
+  function idfValue(N, df){
+    const mode = idfModeSel.value;
+    if(mode === "smooth"){
+      return Math.log((N+1)/(df+1)) + 1;
+    }
+    // classic
+    return Math.log(N / df);
+  }
+
+  function computeTfidf(tfModeMaps, dfMap, N){
+    // returns array of Map(word -> tfidf)
+    const tfidfMaps = [];
+    for(const tf of tfModeMaps){
+      const m = new Map();
+      for(const [w, tfv] of tf.entries()){
+        const df = dfMap.get(w) || 1;
+        const idf = idfValue(N, df);
+        m.set(w, tfv * idf);
+      }
+      tfidfMaps.push(m);
+    }
+    return tfidfMaps;
+  }
+
+  // ---------------------------
+  // Rendering helpers
+  // ---------------------------
+  function getHeatAlpha(xNorm){
+    // xNorm in [0,1]
+    const mode = heatSel.value;
+    if(mode === "soft") return 0.18 + 0.42 * xNorm;
+    if(mode === "medium") return 0.22 + 0.55 * xNorm;
+    return 0.25 + 0.65 * xNorm;
+  }
+
+  function scoreToBg(scoreNorm){
+    // Using accent-ish rgba; no hard-coded colors for each word, but a single hue
+    const a = getHeatAlpha(scoreNorm);
+    // cyan-ish highlight
+    return `rgba(110,231,255,${a})`;
+  }
+
+  function buildKeywordsUI(i, topWords, showScores){
+    const kwWrap = document.getElementById(`kw-${i}`);
+    kwWrap.innerHTML = "";
+    if(topWords.length === 0){
+      kwWrap.innerHTML = `<span class="pill">No keywords (try turning stopwords off?)</span>`;
+      return;
+    }
+    for(const item of topWords){
+      const el = document.createElement("div");
+      el.className = "kw";
+      const scorePart = showScores ? `<span class="score">${item.score.toFixed(3)}</span>` : `<span class="score">hidden</span>`;
+      el.innerHTML = `<strong>${escapeHtml(item.word)}</strong>${scorePart}`;
+      el.title = "Click to highlight this word in the document";
+      el.addEventListener("click", () => highlightWordInDoc(i, item.word));
+      kwWrap.appendChild(el);
+    }
+  }
+
+  function highlightWordInDoc(docIndex, word){
+    const render = document.getElementById(`render-${docIndex}`);
+    // flash all matching words
+    render.querySelectorAll(`[data-word="${CSS.escape(word)}"]`).forEach(sp=>{
+      sp.style.outline = "2px solid rgba(167,139,250,.8)";
+      sp.style.transform = "translateY(-1px)";
+      setTimeout(()=>{
+        sp.style.outline = "";
+        sp.style.transform = "";
+      }, 450);
+    });
+  }
+
+  function renderDoc(docIndex, originalText, tokensInfo, tfMap, dfMap, N, tfidfMap, globalMax){
+    const renderEl = document.getElementById(`render-${docIndex}`);
+
+    // Split into "word-like" and "non-word-like" parts to preserve punctuation/spaces.
+    const parts = originalText.match(/[a-zA-Z0-9']+|[^a-zA-Z0-9']+/g) || [originalText];
+
+    const spans = [];
+    for(const p of parts){
+      const isWord = /^[a-zA-Z0-9']+$/.test(p);
+      if(!isWord){
+        spans.push(escapeHtml(p));
+        continue;
+      }
+      let w = p.toLowerCase().replace(/^'+|'+$/g,"");
+      if(stemLiteChk.checked) w = stemLite(w);
+      const removed = (stopwordsChk.checked && STOPWORDS.has(w));
+
+      // If removed by stopwords, show but not highlighted
+      const tfidf = removed ? 0 : (tfidfMap.get(w) || 0);
+      const norm = globalMax > 0 ? clamp(tfidf / globalMax, 0, 1) : 0;
+      const bg = (removed || tfidf === 0) ? "rgba(255,255,255,.03)" : scoreToBg(norm);
+
+      const df = removed ? 0 : (dfMap.get(w) || 0);
+      const idf = removed ? 0 : idfValue(N, df || 1);
+      const tfRaw = removed ? 0 : (tfMap.get(w) || 0);
+
+      const title =
+        removed
+          ? `Stopword: ignored`
+          : `word: ${w}\nTF(raw): ${tfRaw}\nDF: ${df}\nIDF: ${idf.toFixed(3)}\nTF-IDF: ${tfidf.toFixed(4)}`;
+
+      spans.push(
+        `<span class="w" data-word="${escapeHtml(w)}"
+          style="background:${bg}"
+          title="${escapeHtml(title)}">${escapeHtml(p)}</span>`
+      );
+    }
+
+    renderEl.innerHTML = spans.join("");
+  }
+
+  // ---------------------------
+  // Challenge mode guess checking
+  // ---------------------------
+  window.__checkGuess = function(docIndex){
+    const input = document.getElementById(`guessInput-${docIndex}`);
+    const result = document.getElementById(`guessResult-${docIndex}`);
+
+    const guess = (input.value || "")
+      .split(",")
+      .map(s => s.trim().toLowerCase())
+      .filter(Boolean);
+
+    const kwWrap = document.getElementById(`kw-${docIndex}`);
+    const kwWords = Array.from(kwWrap.querySelectorAll(".kw strong")).map(el => el.textContent.trim().toLowerCase());
+
+    if(kwWords.length === 0){
+      result.innerHTML = `<div class="resultTag"><span class="no">✖</span> Analyze first to generate keywords.</div>`;
+      return;
+    }
+
+    const topSet = new Set(kwWords);
+    const hits = guess.filter(w => topSet.has(stemLiteChk.checked ? stemLite(w) : w));
+    const uniqueHits = Array.from(new Set(hits));
+    const score = uniqueHits.length;
+
+    let msg = "";
+    if(score === 0) msg = `<span class="no">✖</span> No matches yet. Try again with more specific words.`;
+    else if(score < Math.min(3, kwWords.length)) msg = `<span class="warn">▲</span> Good start! You matched <b>${score}</b> keyword(s).`;
+    else msg = `<span class="ok">✔</span> Nice! You matched <b>${score}</b> keyword(s).`;
+
+    result.innerHTML = `<div class="resultTag">${msg}</div>`;
+  }
+
+  // ---------------------------
+  // Main analyze action
+  // ---------------------------
+  function analyze(){
+    const count = Number(docCountSel.value);
+    const texts = [];
+    for(let i=0;i<count;i++){
+      const t = document.getElementById(`txt-${i}`).value || "";
+      texts.push(t);
+    }
+
+    // token lists & raw TF
+    const tokenLists = texts.map(tokenize);
+    const tfRawMaps = tokenLists.map(computeTf);
+
+    // TF mode adjusted
+    const tfModeMaps = tfRawMaps.map(applyTfMode);
+
+    // DF across docs
+    const dfMap = computeDf(tfRawMaps);
+    const N = count;
+
+    // TF-IDF
+    const tfidfMaps = computeTfidf(tfModeMaps, dfMap, N);
+
+    // global max for highlighting
+    let globalMax = 0;
+    for(const m of tfidfMaps){
+      for(const v of m.values()) globalMax = Math.max(globalMax, v);
+    }
+
+    const topN = Number(topNSel.value);
+    const challenge = (challengeSel.value === "on");
+    modeLabel.textContent = challenge ? "Challenge" : "Guided";
+
+    for(let i=0;i<count;i++){
+      // top words by TF-IDF
+      const entries = Array.from(tfidfMaps[i].entries())
+        .sort((a,b) => b[1]-a[1])
+        .slice(0, topN)
+        .map(([word, score]) => ({word, score}));
+
+      document.getElementById(`pill-${i}`).textContent = `Top ${entries.length} keywords`;
+      buildKeywordsUI(i, entries, !challenge);
+
+      renderDoc(i, texts[i], tokenLists[i], tfRawMaps[i], dfMap, N, tfidfMaps[i], globalMax);
+    }
+
+    const summary = `Analyzed ${count} document(s). TF=${tfModeSel.value}, IDF=${idfModeSel.value}, stopwords=${stopwordsChk.checked ? "on" : "off"}, stem-lite=${stemLiteChk.checked ? "on" : "off"}.`;
+    statusEl.innerHTML = `<b>Done.</b> ${escapeHtml(summary)} Click any highlighted word to inspect TF/DF/IDF/TF-IDF.`;
+
+    pillInfo.textContent = challenge ? "Guess → Check → Reveal" : "Show scores → Explain why";
+    applyChallengeUI();
+  }
+
+  // ---------------------------
+  // Challenge mode UI toggles
+  // ---------------------------
+  function applyChallengeUI(){
+    const count = Number(docCountSel.value);
+    const challenge = (challengeSel.value === "on");
+    modeLabel.textContent = challenge ? "Challenge" : "Guided";
+
+    for(let i=0;i<count;i++){
+      const guessBox = document.getElementById(`guess-${i}`);
+      if(guessBox) guessBox.style.display = challenge ? "block" : "none";
+    }
+  }
+
+  // ---------------------------
+  // Reset / Shuffle
+  // ---------------------------
+  function getCurrentTopicDocs(){
+    const set = TOPIC_SETS[activeTopicIndex % TOPIC_SETS.length];
+    const docs = set.docs.slice();
+    const count = Number(docCountSel.value);
+
+    // If count > 4, expand by remixing sentences
+    while(docs.length < count){
+      // create a blended doc to increase difficulty
+      const a = set.docs[Math.floor(Math.random()*set.docs.length)];
+      const b = set.docs[Math.floor(Math.random()*set.docs.length)];
+      const aSent = a.split(".").filter(Boolean)[0] || a;
+      const bSent = b.split(".").filter(Boolean)[1] || b;
+      docs.push(`${aSent.trim()}. ${bSent.trim()}.`);
+    }
+    return docs.slice(0, count);
+  }
+
+  function resetSample(){
+    const docs = getCurrentTopicDocs();
+    buildDocsUI(docs);
+    statusEl.innerHTML = `Ready. Sample set loaded: <b>${escapeHtml(TOPIC_SETS[activeTopicIndex].name)}</b>. Click <b>Analyze TF-IDF</b>.`;
+  }
+
+  function shuffleTopics(){
+    activeTopicIndex = (activeTopicIndex + 1) % TOPIC_SETS.length;
+    resetSample();
+  }
+
+  // ---------------------------
+  // Event handlers
+  // ---------------------------
+  analyzeBtn.addEventListener("click", analyze);
+  resetBtn.addEventListener("click", resetSample);
+  shuffleBtn.addEventListener("click", shuffleTopics);
+
+  docCountSel.addEventListener("change", resetSample);
+  challengeSel.addEventListener("change", applyChallengeUI);
+
+  howBtn.addEventListener("click", () => modal.classList.add("open"));
+  closeBtn.addEventListener("click", () => modal.classList.remove("open"));
+  modal.addEventListener("click", (e) => { if(e.target === modal) modal.classList.remove("open"); });
+
+  // First load
+  resetSample();
+</script>
+</body>
+</html>
