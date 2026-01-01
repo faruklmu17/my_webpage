@@ -449,6 +449,112 @@
             color: #999;
         }
 
+        /* ——— Help Button & Explanation ——— */
+        .help-btn {
+            background: var(--accent);
+            color: var(--text);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 1.4rem;
+            border: 2px solid var(--accent-dark);
+            box-shadow: 0 4px 0 var(--accent-dark);
+            margin-left: 10px;
+            vertical-align: middle;
+            transition: all 0.1s;
+        }
+
+        .help-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 var(--accent-dark);
+        }
+
+        .explanation-card {
+            background: white;
+            width: min(750px, 95vw);
+            max-height: 85vh;
+            border-radius: 30px;
+            padding: 30px 40px;
+            text-align: left;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border: 4px solid var(--secondary);
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .explanation-card h2 {
+            font-family: var(--font-head);
+            color: var(--secondary-dark);
+            font-size: 1.8rem;
+            margin-top: 0;
+            padding-right: 40px;
+        }
+
+        .explanation-card h3 {
+            font-family: var(--font-head);
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin: 24px 0 10px;
+        }
+
+        .explanation-card p,
+        .explanation-card li {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .explanation-card hr {
+            border: 0;
+            border-top: 2px dashed #eee;
+            margin: 24px 0;
+        }
+
+        .explanation-card blockquote {
+            background: #fdf2f2;
+            border-left: 5px solid var(--primary);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .explanation-card blockquote p {
+            margin-bottom: 0;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary-dark);
+        }
+
+        .explanation-card .close-x {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #f1f3f5;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #adb5bd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .explanation-card .close-x:hover {
+            background: #e9ecef;
+            color: var(--danger);
+        }
+
         .result-table {
             width: 100%;
             margin-top: 20px;
@@ -564,7 +670,8 @@
     <!-- Game Over Overlay -->
     <div class="overlay" id="overlay">
         <div class="result-card">
-            <h3>Time's Up! 🎉</h3>
+            <h3>Time's Up! 🎉 <span class="help-btn" onclick="openExplanation()" title="How was this decided?">?</span>
+            </h3>
             <p>Great job detective! Here is your score:</p>
 
             <div class="big-score" id="finalScore">0</div>
@@ -579,6 +686,74 @@
                 onclick="document.getElementById('overlay').classList.remove('show')">
                 Close & Play Again
             </button>
+        </div>
+    </div>
+
+    <!-- Explanation Overlay -->
+    <div class="overlay" id="explanationOverlay">
+        <div class="explanation-card">
+            <button class="close-x" onclick="closeExplanation()">×</button>
+            <h2>🧠 How Your Score Was Decided (Read This!)</h2>
+            <p><strong>The computer did NOT mark words as “right” or “wrong.”</strong> It did something different:</p>
+
+            <h3>🔍 What the computer actually does</h3>
+            <ul>
+                <li>It <strong>ranks all words</strong> in each story</li>
+                <li>It keeps only the <strong>strongest few clues</strong></li>
+                <li>Strong clues are words that:
+                    <ul>
+                        <li>appear <strong>often in one story</strong></li>
+                        <li>but <strong>not across all stories</strong></li>
+                    </ul>
+                </li>
+            </ul>
+            <p>These top-ranked words are shown as <strong>Correct</strong>.</p>
+
+            <hr>
+
+            <h3>⚠️ What “Extra” means</h3>
+            <p><strong>Extra does NOT mean bad or stupid.</strong></p>
+            <p>It means:</p>
+            <ul>
+                <li>The word makes sense to a human</li>
+                <li>But it <strong>did not rank high enough</strong> compared to other words</li>
+            </ul>
+            <p><em>Example:</em> <code>basil</code> makes sense, but words like <code>chef</code> or <code>recipe</code>
+                were <strong>stronger signals</strong>. Think of it like a leaderboard — not everyone can be in the top.
+            </p>
+
+            <hr>
+
+            <h3>❌ What “Missed” means</h3>
+            <p><strong>Missed does NOT mean you were wrong.</strong></p>
+            <p>It means:</p>
+            <ul>
+                <li>The computer ranked that word high</li>
+                <li>But it didn’t get picked</li>
+            </ul>
+            <p>This often happens with very specific words, words that repeat, or words that uniquely identify the
+                story.</p>
+
+            <hr>
+
+            <h3>🧠 The BIG idea to remember</h3>
+            <blockquote>
+                <p>The computer is trying to IDENTIFY the story, not explain it like a human.</p>
+            </blockquote>
+            <p style="text-align: center;">Humans think in <strong>topics</strong> <br> ↕️ <br> Computers think in
+                <strong>signals</strong>
+            </p>
+
+            <hr>
+
+            <h3>🎯 Strategy tip for next round</h3>
+            <ul>
+                <li>Pick <strong>fewer, stronger words</strong></li>
+                <li>Avoid broad words that could fit many stories</li>
+                <li>Ask yourself: <em>“If I only saw this word, could I guess which story it came from?”</em></li>
+            </ul>
+
+            <button class="btn btn-secondary" onclick="closeExplanation()">Dismiss</button>
         </div>
     </div>
 
@@ -1067,6 +1242,14 @@
         });
 
         resetBtn.addEventListener("click", resetPicks);
+
+        // Explanation functions
+        function openExplanation() {
+            document.getElementById('explanationOverlay').classList.add('show');
+        }
+        function closeExplanation() {
+            document.getElementById('explanationOverlay').classList.remove('show');
+        }
 
         // Initial load
         (function () {
