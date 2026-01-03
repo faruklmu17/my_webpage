@@ -121,8 +121,18 @@ function injectFooter() {
   document.body.insertAdjacentHTML('beforeend', footerHTML);
 }
 
+// Inject CSS for Header and Footer
+function injectStyles() {
+  const root = getRootPath();
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = `${root}shared/header-footer.css`;
+  document.head.appendChild(link);
+}
+
 // Initialize header and footer on page load
 document.addEventListener('DOMContentLoaded', function () {
+  injectStyles();
   injectHeader();
   injectFooter();
 });
