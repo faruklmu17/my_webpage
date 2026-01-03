@@ -2206,11 +2206,67 @@ footer {
 .projection-title {
   font-size: 2.2rem;
   color: #1a202c;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   text-align: center;
   font-weight: 800;
   letter-spacing: -0.5px;
   position: relative;
+}
+
+.target-snapshot-card {
+  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+  color: white;
+  border-radius: 24px;
+  padding: 2.5rem;
+  margin-bottom: 3rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.target-snapshot-card h4 {
+  color: #fbd38d;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.snapshot-table {
+  width: 100%;
+  max-width: 600px;
+  border-collapse: collapse;
+}
+
+.snapshot-table th {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #a0aec0;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.snapshot-table td {
+  padding: 15px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.snapshot-table tr:last-child td {
+  border-bottom: none;
+}
+
+.snapshot-table .bucket-name {
+  font-weight: 600;
+  color: #fff;
+}
+
+.snapshot-table .target-percent {
+  font-weight: 700;
+  color: #63b3ed;
+  text-align: right;
 }
 
 .projection-title i {

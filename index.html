@@ -1137,14 +1137,49 @@
           <canvas id="dividendChart"></canvas>
         </div>
       </div>
-      <!-- 1-Year Projection Table -->
+      <!-- 2-Year Target Snapshot -->
       <div class="projection-container">
-        <h3 class="projection-title"><i class="fas fa-chart-line"></i> 1-Year Portfolio Projection</h3>
+        <h3 class="projection-title"><i class="fas fa-bullseye"></i> 2-Year Target Snapshot</h3>
+
+        <!-- Target Snapshot Summary Card -->
+        <div class="target-snapshot-card">
+          <h4><i class="fas fa-target"></i>🎯 Target Snapshot</h4>
+          <table class="snapshot-table">
+            <thead>
+              <tr>
+                <th>Bucket</th>
+                <th style="text-align: right;">Target %</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="bucket-name">Core ETFs</td>
+                <td class="target-percent">65–70%</td>
+              </tr>
+              <tr>
+                <td class="bucket-name">Return Boosters</td>
+                <td class="target-percent">5–8%</td>
+              </tr>
+              <tr>
+                <td class="bucket-name">Income Enhancers</td>
+                <td class="target-percent">15–18%</td>
+              </tr>
+              <tr>
+                <td class="bucket-name">Defensive / Real Assets</td>
+                <td class="target-percent">8–10%</td>
+              </tr>
+              <tr>
+                <td class="bucket-name">Speculative</td>
+                <td class="target-percent">5–8%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         <div class="projection-grid">
           <!-- Core ETFs -->
           <div class="projection-card">
-            <h4><i class="fas fa-rocket"></i> Core ETFs</h4>
+            <h4><i class="fas fa-anchor"></i> Core ETFs</h4>
             <table class="projection-table">
               <thead>
                 <tr>
@@ -1152,30 +1187,15 @@
                   <th>Est. %</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td class="ticker-cell">SCHD</td>
-                  <td class="percent-cell">19.1%</td>
-                </tr>
-                <tr>
-                  <td class="ticker-cell">VOO</td>
-                  <td class="percent-cell">12.1%</td>
-                </tr>
-                <tr>
-                  <td class="ticker-cell">DGRO</td>
-                  <td class="percent-cell">5.1%</td>
-                </tr>
-                <tr class="total-row">
-                  <td class="ticker-cell">Core Total</td>
-                  <td class="percent-cell">36.3%</td>
-                </tr>
+              <tbody id="core-table-body">
+                <!-- Will be populated by JS -->
               </tbody>
             </table>
           </div>
 
-          <!-- Existing Income -->
+          <!-- Return Boosters -->
           <div class="projection-card">
-            <h4><i class="fas fa-shield-alt"></i> Existing Income / Defensive</h4>
+            <h4><i class="fas fa-rocket"></i> Return Boosters</h4>
             <table class="projection-table">
               <thead>
                 <tr>
@@ -1183,42 +1203,15 @@
                   <th>Est. %</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td class="ticker-cell">JEPI</td>
-                  <td class="percent-cell">8.6%</td>
-                </tr>
-                <tr>
-                  <td class="ticker-cell">SPYD</td>
-                  <td class="percent-cell">7.3%</td>
-                </tr>
-                <tr>
-                  <td class="ticker-cell">O</td>
-                  <td class="percent-cell">6.7%</td>
-                </tr>
-                <tr>
-                  <td class="ticker-cell">VYMI</td>
-                  <td class="percent-cell">6.3%</td>
-                </tr>
-                <tr>
-                  <td class="ticker-cell">T</td>
-                  <td class="percent-cell">6.0%</td>
-                </tr>
-                <tr>
-                  <td class="ticker-cell">XLU</td>
-                  <td class="percent-cell">4.4%</td>
-                </tr>
-                <tr>
-                  <td class="ticker-cell">JEPQ</td>
-                  <td class="percent-cell">4.2%</td>
-                </tr>
+              <tbody id="boosters-table-body">
+                <!-- Will be populated by JS -->
               </tbody>
             </table>
           </div>
 
-          <!-- Individual Stocks -->
+          <!-- Income Enhancers -->
           <div class="projection-card">
-            <h4><i class="fas fa-briefcase"></i> Individual Stocks & Other</h4>
+            <h4><i class="fas fa-money-bill-wave"></i> Income Enhancers</h4>
             <table class="projection-table">
               <thead>
                 <tr>
@@ -1226,23 +1219,40 @@
                   <th>Est. %</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="enhancers-table-body">
+                <!-- Will be populated by JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Defensive / Real Assets -->
+          <div class="projection-card">
+            <h4><i class="fas fa-shield-alt"></i> Defensive / Real Assets</h4>
+            <table class="projection-table">
+              <thead>
                 <tr>
-                  <td class="ticker-cell">PFE</td>
-                  <td class="percent-cell">3.9%</td>
+                  <th>Holding</th>
+                  <th>Est. %</th>
                 </tr>
+              </thead>
+              <tbody id="defensive-table-body">
+                <!-- Will be populated by JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Speculative / Conviction Plays -->
+          <div class="projection-card">
+            <h4><i class="fas fa-lightbulb"></i> Speculative / Conviction</h4>
+            <table class="projection-table">
+              <thead>
                 <tr>
-                  <td class="ticker-cell">JNJ</td>
-                  <td class="percent-cell">2.7%</td>
+                  <th>Holding</th>
+                  <th>Est. %</th>
                 </tr>
-                <tr>
-                  <td class="ticker-cell">ABBV</td>
-                  <td class="percent-cell">2.6%</td>
-                </tr>
-                <tr>
-                  <td class="ticker-cell">Other</td>
-                  <td class="percent-cell">11.1%</td>
-                </tr>
+              </thead>
+              <tbody id="speculative-table-body">
+                <!-- Will be populated by JS -->
               </tbody>
             </table>
           </div>
@@ -1505,7 +1515,6 @@
     // Calculate total market value for each position
     let totalPortfolioValue = 0;
     let totalDividendIncome = 0;
-    let totalYield = 0;
 
     // Add market value to each stock
     data.forEach(stock => {
@@ -1523,10 +1532,73 @@
     // Calculate overall portfolio yield
     const portfolioYield = (totalDividendIncome / totalPortfolioValue) * 100;
 
-    // Sort stocks by market value (descending)
+    // Categorization into Buckets
+    const buckets = {
+      core: { id: 'core-table-body', tickers: ['SCHD', 'DGRO', 'VYMI', 'VOO'], items: [], total: 0 },
+      boosters: { id: 'boosters-table-body', tickers: ['QQQ', 'SMH', 'IJR', 'QQQM', 'VGT', 'VUG'], items: [], total: 0 },
+      enhancers: { id: 'enhancers-table-body', tickers: ['JEPI', 'JEPQ', 'ARCC', 'BST', 'DIVO', 'MAIN', 'SPYD', 'T'], items: [], total: 0 },
+      defensive: { id: 'defensive-table-body', tickers: ['XLU', 'O', 'IAU', 'GLD', 'GOLD', 'VNQ'], items: [], total: 0 },
+      speculative: { id: 'speculative-table-body', tickers: [], items: [], total: 0 }
+    };
+
+    // Sort all data by market value first
     data.sort((a, b) => b.marketValue - a.marketValue);
 
-    // Group smaller positions as "Other" if they're less than 3% of portfolio
+    data.forEach(stock => {
+      const ticker = stock.Stock.toUpperCase();
+      let assigned = false;
+
+      for (const key in buckets) {
+        if (buckets[key].tickers && buckets[key].tickers.includes(ticker)) {
+          buckets[key].items.push({
+            ticker: ticker,
+            percentage: (stock.marketValue / totalPortfolioValue) * 100
+          });
+          buckets[key].total += stock.marketValue;
+          assigned = true;
+          break;
+        }
+      }
+
+      if (!assigned) {
+        buckets.speculative.items.push({
+          ticker: ticker,
+          percentage: (stock.marketValue / totalPortfolioValue) * 100
+        });
+        buckets.speculative.total += stock.marketValue;
+      }
+    });
+
+    // Populate the tables
+    for (const key in buckets) {
+      const bucket = buckets[key];
+      const tbody = document.getElementById(bucket.id);
+      if (!tbody) continue;
+
+      tbody.innerHTML = ''; // Clear existing
+
+      // Add individual items
+      bucket.items.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="ticker-cell">${item.ticker}</td>
+          <td class="percent-cell">${item.percentage.toFixed(1)}%</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Add total row
+      const totalPercent = (bucket.total / totalPortfolioValue) * 100;
+      const totalTr = document.createElement('tr');
+      totalTr.className = 'total-row';
+      totalTr.innerHTML = `
+        <td class="ticker-cell">Total</td>
+        <td class="percent-cell">${totalPercent.toFixed(1)}%</td>
+      `;
+      tbody.appendChild(totalTr);
+    }
+
+    // Prepare data for the pie chart (main positions > 3% + Other)
     const threshold = totalPortfolioValue * 0.03;
     const mainPositions = [];
     let otherValue = 0;
@@ -1535,7 +1607,6 @@
       if (stock.marketValue >= threshold) {
         mainPositions.push({
           ticker: stock.Stock,
-          value: stock.marketValue,
           percentage: (stock.marketValue / totalPortfolioValue) * 100
         });
       } else {
@@ -1543,20 +1614,17 @@
       }
     });
 
-    // Add "Other" category if needed
     if (otherValue > 0) {
       mainPositions.push({
         ticker: 'Other',
-        value: otherValue,
         percentage: (otherValue / totalPortfolioValue) * 100
       });
     }
 
-    // Prepare data for chart
     const labels = mainPositions.map(pos => `${pos.ticker} (${pos.percentage.toFixed(1)}%)`);
     const values = mainPositions.map(pos => pos.percentage.toFixed(1));
 
-    // Initialize chart with the processed data
+    // Initialize chart
     initDividendChart(labels, values);
 
     // Update portfolio stats
@@ -1695,16 +1763,16 @@
   function initDividendChartWithDefaultData() {
     // Default data if file loading fails
     const labels = [
-      'SCHD (25.0%)',
-      'JEPI (20.0%)',
-      'T (15.0%)',
-      'SPYD (10.0%)',
-      'O (10.0%)',
-      'PFE (8.0%)',
-      'XYLD (7.0%)',
-      'Other (5.0%)'
+      'SCHD (14.3%)',
+      'JEPI (10.3%)',
+      'SPYD (8.8%)',
+      'O (8.1%)',
+      'VYMI (7.6%)',
+      'T (7.2%)',
+      'VOO (6.3%)',
+      'Other (37.4%)'
     ];
-    const data = [25, 20, 15, 10, 10, 8, 7, 5];
+    const data = [14.3, 10.3, 8.8, 8.1, 7.6, 7.2, 6.3, 37.4];
 
     initDividendChart(labels, data);
 
@@ -1717,6 +1785,58 @@
 
     // Create default progress chart
     createIncomeProgressChart(98);
+
+    // Populate tables with 2-Year Target data (fallback)
+    const defaultData = {
+      'core-table-body': [
+        { t: 'SCHD', p: '14.3%' },
+        { t: 'VYMI', p: '7.6%' },
+        { t: 'VOO', p: '6.3%' },
+        { t: 'DGRO', p: '2.7%' },
+        { t: 'Total', p: '30.9%', total: true }
+      ],
+      'boosters-table-body': [
+        { t: 'QQQ', p: '2.3%' },
+        { t: 'Total', p: '2.3%', total: true }
+      ],
+      'enhancers-table-body': [
+        { t: 'JEPI', p: '10.3%' },
+        { t: 'SPYD', p: '8.8%' },
+        { t: 'T', p: '7.2%' },
+        { t: 'JEPQ', p: '5.0%' },
+        { t: 'ARCC', p: '2.3%' },
+        { t: 'Total', p: '33.6%', total: true }
+      ],
+      'defensive-table-body': [
+        { t: 'O', p: '8.1%' },
+        { t: 'XLU', p: '5.3%' },
+        { t: 'Total', p: '13.4%', total: true }
+      ],
+      'speculative-table-body': [
+        { t: 'PFE', p: '4.7%' },
+        { t: 'JNJ', p: '3.2%' },
+        { t: 'ABBV', p: '3.1%' },
+        { t: 'VICI', p: '2.9%' },
+        { t: 'MO', p: '1.6%' },
+        { t: 'XOM', p: '1.5%' },
+        { t: 'EPD', p: '1.2%' },
+        { t: 'GLDM', p: '0.9%' },
+        { t: 'ENB', p: '0.8%' },
+        { t: 'Total', p: '19.8%', total: true }
+      ]
+    };
+
+    for (const id in defaultData) {
+      const tbody = document.getElementById(id);
+      if (tbody) {
+        tbody.innerHTML = defaultData[id].map(item => `
+          <tr class="${item.total ? 'total-row' : ''}">
+            <td class="ticker-cell">${item.t}</td>
+            <td class="percent-cell">${item.p}</td>
+          </tr>
+        `).join('');
+      }
+    }
   }
 </script>
 
