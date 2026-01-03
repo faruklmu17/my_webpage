@@ -1477,7 +1477,7 @@
 
   function loadPortfolioData() {
     // Fetch the Excel file
-    fetch('portfolio_data.xlsx')
+    fetch('finance/portfolio_data.xlsx')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
