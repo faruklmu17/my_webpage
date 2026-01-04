@@ -307,6 +307,13 @@
     <priority>0.4</priority>
   </url>
 
+  <url>
+    <loc>https://faruk-hasan.com/ai_resources/bag_of_words_students.html</loc>
+    <lastmod>2025-01-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- Python Quizzes -->
   <url>
     <loc>https://faruk-hasan.com/quizzes/PYTHON/python_basic_escape_room_level_1.html</loc>
