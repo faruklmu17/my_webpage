@@ -3,7 +3,61 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bag of Words Challenge 🧺🔢</title>
+
+  <!-- SEO Meta Tags -->
+  <title>Bag of Words Challenge - Interactive Machine Learning Game | Learn NLP Concepts</title>
+  <meta name="description" content="Master the Bag of Words concept with this interactive educational game. Learn natural language processing (NLP) fundamentals through hands-on practice. Perfect for students learning AI and machine learning." />
+  <meta name="keywords" content="bag of words, machine learning, NLP, natural language processing, AI education, interactive learning, text analysis, tokenization, word counting, ML tutorial, AI game, educational tool" />
+  <meta name="author" content="Faruk Hasan" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="English" />
+
+  <!-- Open Graph Meta Tags (Facebook, LinkedIn) -->
+  <meta property="og:title" content="Bag of Words Challenge - Interactive Machine Learning Game" />
+  <meta property="og:description" content="Master the Bag of Words concept with this interactive educational game. Learn NLP fundamentals through hands-on practice." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://faruk-hasan.com/ai_resources/bag_of_words_students.html" />
+  <meta property="og:image" content="https://faruk-hasan.com/blog_images/ai.jpg" />
+  <meta property="og:site_name" content="Faruk Hasan - AI Education" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Bag of Words Challenge - Interactive ML Game" />
+  <meta name="twitter:description" content="Master the Bag of Words concept with this interactive educational game. Learn NLP fundamentals through hands-on practice." />
+  <meta name="twitter:image" content="https://faruk-hasan.com/blog_images/ai.jpg" />
+  <meta name="twitter:creator" content="@farukhasan" />
+
+  <!-- Additional SEO Meta Tags -->
+  <meta name="theme-color" content="#FF6B6B" />
+  <meta name="msapplication-TileColor" content="#FF6B6B" />
+  <link rel="canonical" href="https://faruk-hasan.com/ai_resources/bag_of_words_students.html" />
+
+  <!-- Educational Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    "name": "Bag of Words Challenge - Interactive Machine Learning Game",
+    "description": "Interactive educational game to learn the Bag of Words concept in natural language processing and machine learning",
+    "educationalLevel": "Intermediate",
+    "learningResourceType": "Interactive Game",
+    "teaches": ["Bag of Words", "Natural Language Processing", "Machine Learning", "Text Analysis", "Tokenization"],
+    "author": {
+      "@type": "Person",
+      "name": "Faruk Hasan",
+      "url": "https://faruk-hasan.com"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Faruk Hasan"
+    },
+    "datePublished": "2025-01-03",
+    "inLanguage": "en-US",
+    "isAccessibleForFree": true,
+    "url": "https://faruk-hasan.com/ai_resources/bag_of_words_students.html"
+  }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -149,6 +203,48 @@
     <div class="pill score">🏆 Score: <span id="scoreNow">—</span></div>
   </div>
 </header>
+
+<!-- Educational Description Section -->
+<section class="card" style="max-width: 1200px; margin: 0 auto 24px;">
+  <div class="h2">📚 What is Bag of Words?</div>
+  <div style="line-height: 1.6; color: var(--text); margin-bottom: 16px;">
+    <p><strong>Bag of Words (BoW)</strong> is a fundamental concept in <strong>Natural Language Processing (NLP)</strong> and <strong>Machine Learning</strong>. It's a simple yet powerful way to convert text into numbers that computers can understand and analyze.</p>
+
+    <p><strong>Key Concepts:</strong></p>
+    <ul style="margin: 12px 0; padding-left: 24px;">
+      <li><strong>Tokenization:</strong> Breaking text into individual words</li>
+      <li><strong>Vocabulary:</strong> All unique words across your documents</li>
+      <li><strong>Word Counting:</strong> How many times each word appears in each document</li>
+      <li><strong>Order Doesn't Matter:</strong> We only care about frequency, not word position</li>
+    </ul>
+
+    <div style="background: #f8f9fa; border-left: 4px solid var(--secondary); padding: 16px; border-radius: 8px; margin: 16px 0;">
+      <strong>🎯 Example:</strong><br/>
+      <strong>Documents:</strong> ["I love pizza", "Pizza is great", "I love food"]<br/>
+      <strong>Vocabulary:</strong> [i, love, pizza, is, great, food]<br/>
+      <strong>BoW Matrix:</strong><br/>
+      <code style="font-family: monospace; background: #fff; padding: 8px; display: block; margin-top: 8px; border-radius: 4px;">
+      Doc 0: [1, 1, 1, 0, 0, 0]  ← "I love pizza"<br/>
+      Doc 1: [0, 0, 1, 1, 1, 0]  ← "Pizza is great"<br/>
+      Doc 2: [1, 1, 0, 0, 0, 1]  ← "I love food"
+      </code>
+    </div>
+
+    <p><strong>🚀 Real-World Applications:</strong></p>
+    <ul style="margin: 12px 0; padding-left: 24px;">
+      <li><strong>Spam Detection:</strong> Email classification</li>
+      <li><strong>Sentiment Analysis:</strong> Positive/negative reviews</li>
+      <li><strong>Document Classification:</strong> News categorization</li>
+      <li><strong>Search Engines:</strong> Finding relevant documents</li>
+      <li><strong>Recommendation Systems:</strong> Content-based filtering</li>
+    </ul>
+
+    <div style="background: #fff3cd; border-left: 4px solid var(--accent); padding: 16px; border-radius: 8px; margin: 16px 0;">
+      <strong>🎮 How This Game Works:</strong><br/>
+      You'll see 3 text messages and a vocabulary of unique words. Your job is to manually count how many times each vocabulary word appears in each message. This hands-on practice helps you understand exactly how computers process text for machine learning!
+    </div>
+  </div>
+</section>
 
 <div class="wrap">
   <!-- Left: mission + controls -->
