@@ -5,16 +5,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
-    content="Step-by-step explanation of how Naive Bayes predicts user intent using Bag of Words and probability, ideal for middle school AI and ML students." />
+    content="A comprehensive, step-by-step guide to Naive Bayes for intent classification. Learn how chatbots predict user requests using Bag of Words, Laplace smoothing, and probability normalization with full mathematical breakdowns." />
   <meta name="keywords"
-    content="Naive Bayes, Chatbot, Machine Learning, Bag of Words, Text Classification, AI for Kids, ML Tutorial, Middle School AI, Educational AI Example, Natural Language Processing" />
+    content="Naive Bayes, Bayes Theorem calculation, Naive Bayes smoothing, Laplace smoothing example, Prior probability machine learning, Normalization in Naive Bayes, Intent classification example, Bag of Words step by step, Chatbot AI, Machine Learning Tutorial, Text Classification" />
   <meta name="author" content="Faruk Hasan" />
-  <meta property="og:title" content="Naive Bayes Chatbot: Step-by-Step AI Example for Students" />
+  <meta property="og:title" content="Naive Bayes Explained: Step-by-Step Chatbot Intent Prediction" />
   <meta property="og:description"
-    content="Learn how a Naive Bayes model predicts intent from user input using Bag of Words and Laplace smoothing. Designed for student learning." />
-  <meta property="og:image" content="naive-bayes-chatbot-diagram.png" />
-  <meta property="og:type" content="website" />
+    content="Understand the math behind AI chatbots. This guide explains Naive Bayes with full probability calculations, smoothing, and normalization." />
+  <meta property="og:image" content="https://faruk-hasan.com/blog_images/naive_bayes_model.png" />
+  <meta property="og:type" content="article" />
   <meta property="og:url" content="https://faruk-hasan.com/blog_post/naive_bayes_explained_easy.html" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Naive Bayes Explained: Step-by-Step Guide" />
+  <meta name="twitter:description"
+    content="Step-by-step Naive Bayes tutorial with full math calculations for intent classification." />
+  <meta name="twitter:image" content="https://faruk-hasan.com/blog_images/naive_bayes_model.png" />
   <link rel="canonical" href="https://faruk-hasan.com/blog_post/naive_bayes_explained_easy.html" />
 
   <!-- JSON-LD Structured Data -->
@@ -22,9 +27,9 @@
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "Naive Bayes Chatbot: Step-by-Step AI Example for Students",
-    "description": "Step-by-step explanation of how Naive Bayes predicts user intent using Bag of Words and probability, ideal for middle school AI and ML students.",
-    "image": "https://faruk-hasan.com/blog_post/naive-bayes-chatbot-diagram.png",
+    "headline": "Naive Bayes Explained: Step-by-Step Chatbot Intent Prediction with Full Math",
+    "description": "Comprehensive guide explaining Naive Bayes intent classification with Bag of Words, Laplace smoothing, and probability normalization.",
+    "image": "https://faruk-hasan.com/blog_images/naive_bayes_model.png",
     "author": {
       "@type": "Person",
       "name": "Faruk Hasan",
@@ -33,21 +38,25 @@
     "publisher": {
       "@type": "Person",
       "name": "Faruk Hasan",
-      "url": "https://faruk-hasan.com"
+      "url": "https://faruk-hasan.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://faruk-hasan.com/favicon.png"
+      }
     },
     "datePublished": "2024-12-01",
-    "dateModified": "2024-12-01",
+    "dateModified": "2026-01-05",
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https://faruk-hasan.com/blog_post/naive_bayes_explained_easy.html"
     },
-    "keywords": ["Naive Bayes", "Chatbot", "Machine Learning", "AI for Kids", "Educational AI", "Natural Language Processing"],
-    "educationalLevel": "Middle School",
+    "keywords": ["Naive Bayes", "Bayes Theorem", "Machine Learning", "Intent Classification", "Laplace Smoothing", "Probability Normalization"],
+    "educationalLevel": "Intermediate",
     "learningResourceType": "Tutorial"
   }
   </script>
 
-  <title>Naive Bayes Step-by-Step - Pizza Chatbot | Faruk Hasan</title>
+  <title>Naive Bayes Explained: Step-by-Step Chatbot Intent Prediction</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- MathJax for beautiful mathematical formulas -->
@@ -369,7 +378,7 @@
 <body>
   <div class="blog-container">
     <div class="blog-header">
-      <h1 class="blog-title">🧐 Naive Bayes Chatbot: Step-by-Step Example</h1>
+      <h1 class="blog-title">🧐 Naive Bayes Explained: Step-by-Step Chatbot Intent Prediction</h1>
       <div class="blog-meta">
         <div class="blog-meta-item">
           <i class="far fa-calendar-alt"></i>
@@ -498,7 +507,7 @@
           <td>i</td>
           <td>0</td>
           <td>1</td>
-          <td>1</td>
+          <td>0</td>
         </tr>
         <tr>
           <td>order</td>
@@ -510,7 +519,7 @@
           <td>a</td>
           <td>0</td>
           <td>1</td>
-          <td>0</td>
+          <td>1</td>
         </tr>
         <tr>
           <td>pizza</td>
@@ -562,12 +571,12 @@
       <div class="code-block">["hi", "hello", "there", "can", "i", "order", "a", "pizza", "i'd", "like", "burger"]
         → That's 11 unique words total</div>
 
-      <p><strong>📝 Words that appear in "greeting" category:</strong></p>
-      <div class="code-block">Training sentences for "greeting":
-        - "hi" → 1 word
-        - "hello" → 1 word
-        - "hi there" → 2 words (hi + there)
-        Total = 1 + 1 + 2 = 4 words</div>
+      <p><strong>📝 Total words in each category:</strong></p>
+      <div class="code-block">
+        - "greeting" total words: 4 (hi, hello, hi, there)
+        <br>- "order_pizza" total words: 5 (can, I, order, a, pizza)
+        <br>- "order_burger" total words: 4 (I'd, like, a, burger)
+      </div>
     </div>
 
     <h2 class="section-header">
@@ -666,7 +675,93 @@
 
     <div class="explanation-box">
       So even though "hi" is a strong match for <code>greeting</code>, the other words don't appear in any training
-      sentences for <code>greeting</code>, so the overall probability becomes very low.
+      sentences for <code>greeting</code>, so the overall probability becomes very low (~0.000004).
+    </div>
+
+    <h2 class="section-header">
+      <i class="section-icon fas fa-calculator"></i>
+      Step-by-Step Calculation for "order_burger"
+    </h2>
+
+    <div class="formula-box">
+      <div class="formula-explanation">
+        <strong>For "order_burger" category:</strong><br>
+        • total_words_in_category = 4<br>
+        • vocabulary_size = 11<br>
+        • denominator = 4 + 11 = 15
+      </div>
+    </div>
+
+    <ul class="probability-list">
+      <li><strong>hi</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\)</li>
+      <li><strong>can</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\)</li>
+      <li><strong>i</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\) (Note: "i" is not in "I'd like
+        a burger")</li>
+      <li><strong>order</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\)</li>
+      <li><strong>pizza</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\)</li>
+    </ul>
+
+    <div class="formula-box">
+      <div class="formula-title">Final Probability for Order_Burger</div>
+      <div class="formula-content">
+        \[\begin{align}
+        P(\text{words} \mid \text{order\_burger}) &= 0.067 \times 0.067 \times 0.067 \times 0.067 \times 0.067 \\
+        &\approx \mathbf{0.00000135}
+        \end{align}\]
+      </div>
+    </div>
+
+    <h2 class="section-header">
+      <i class="section-icon fas fa-pizza-slice"></i>
+      Step-by-Step Calculation for "order_pizza"
+    </h2>
+
+    <div class="formula-box">
+      <div class="formula-explanation">
+        <strong>For "order_pizza" category:</strong><br>
+        • total_words_in_category = 5<br>
+        • vocabulary_size = 11<br>
+        • denominator = 5 + 11 = 16
+      </div>
+    </div>
+
+    <ul class="probability-list">
+      <li><strong>hi</strong>: \(\frac{0 + 1}{16} = \frac{1}{16} = \mathbf{0.0625}\)</li>
+      <li><strong>can</strong>: \(\frac{1 + 1}{16} = \frac{2}{16} = \mathbf{0.125}\)</li>
+      <li><strong>i</strong>: \(\frac{1 + 1}{16} = \frac{2}{16} = \mathbf{0.125}\)</li>
+      <li><strong>order</strong>: \(\frac{1 + 1}{16} = \frac{2}{16} = \mathbf{0.125}\)</li>
+      <li><strong>pizza</strong>: \(\frac{1 + 1}{16} = \frac{2}{16} = \mathbf{0.125}\)</li>
+    </ul>
+
+    <div class="formula-box">
+      <div class="formula-title">Final Probability for Order_Pizza</div>
+      <div class="formula-content">
+        \[\begin{align}
+        P(\text{words} \mid \text{order\_pizza}) &= 0.0625 \times 0.125 \times 0.125 \times 0.125 \times 0.125 \\
+        &\approx \mathbf{0.00001526}
+        \end{align}\]
+      </div>
+    </div>
+
+    <div class="explanation-box" style="background: #fffbeb; border-color: #f59e0b;">
+      <h3 style="color: #d97706; margin-bottom: 1rem;">✍️ Now You Try: Find the Probability for order_pizza</h3>
+      <p>Use the same input: <strong>"hi can I order pizza"</strong></p>
+      <p><strong>Hints:</strong></p>
+      <ul>
+        <li>Total words in order_pizza = 5</li>
+        <li>Vocabulary size = 11</li>
+        <li>Denominator = 5 + 11 = 16</li>
+        <li>P(word|order_pizza) = (count + 1) / 16</li>
+        <li>Use word counts from the training sentence: "can I order a pizza"</li>
+      </ul>
+      <p style="margin-top: 1rem;"><strong>What is the final probability for order_pizza?</strong></p>
+      <details style="margin-top: 1rem; cursor: pointer;">
+        <summary style="font-weight: 600; color: var(--primary-color);">Check your answer</summary>
+        <div style="padding: 1rem; background: white; border-radius: 6px; margin-top: 0.5rem; border: 1px dashed #ccc;">
+          It is <strong>0.00001526</strong>! This is much higher than the greeting category (0.000004) and the burger
+          category (0.00000135).
+        </div>
+      </details>
     </div>
 
     <h2 class="section-header">
@@ -696,14 +791,63 @@
     </div>
 
     <h2 class="section-header">
+      <i class="section-icon fas fa-balance-scale"></i>
+      Normalizing the Results (The Final Step)
+    </h2>
+
+    <div class="explanation-box">
+      Now that we have the raw scores (likelihoods), we need to turn them into <strong>percentages</strong>. This
+      process is called normalization.
+    </div>
+
+    <div class="calculation-section">
+      <h3>1. Apply Prior Probabilities</h3>
+      <p>Since we have 3 possible categories (Greeting, Order_Pizza, Order_Burger), the "prior" chance for each is
+        <strong>1/3 (or 0.3333)</strong>.
+      </p>
+
+      <div class="formula-box">
+        <div class="formula-content" style="text-align: left; font-size: 0.95rem;">
+          • <strong>Greeting:</strong> 0.00000395 × 0.3333 = <strong>0.0000013167</strong>
+          <br>• <strong>Order_Pizza:</strong> 0.00001526 × 0.3333 = <strong>0.0000050867</strong>
+          <br>• <strong>Order_Burger:</strong> 0.0000000264 × 0.3333 = <strong>0.0000000088</strong>
+          <br><br>
+          <strong>Total Sum:</strong> 0.0000013167 + 0.0000050867 + 0.0000000088 = <strong>0.0000064122</strong>
+        </div>
+      </div>
+
+      <h3>2. Divide by Total (Normalization)</h3>
+      <p>Divide each value by the total sum to get the final probability percentage:</p>
+
+      <ul class="probability-list">
+        <li><strong>Greeting</strong>: 0.0000013167 ÷ 0.0000064122 ≈ <strong>20.5%</strong></li>
+        <li><strong>Order_Pizza</strong>: 0.0000050867 ÷ 0.0000064122 ≈ <strong>79.3%</strong></li>
+        <li><strong>Order_Burger</strong>: 0.0000000088 ÷ 0.0000064122 ≈ <strong>0.1%</strong></li>
+      </ul>
+    </div>
+
+    <h2 class="section-header">
       <i class="section-icon fas fa-trophy"></i>
       Final Prediction
     </h2>
     <div class="result-highlight">
-      → The model predicts: <strong>order_pizza</strong> 🍕
+      → The model predicts: <strong>order_pizza (79.3%)</strong> 🍕
     </div>
     <div class="explanation-box">
-      Because words like "order", "pizza", and "can" are strongly associated with that category.
+      The model is <strong>79.3% confident</strong> that the message "hi can I order pizza" belongs to the
+      <code>order_pizza</code> category based on the word frequencies it learned during training!
+      <br><br>
+      <strong>Final Percentage Breakdown:</strong>
+      <br>• 🍕 Order Pizza: <strong>79.3%</strong>
+      <br>• 👋 Greeting: 20.5%
+      <br>• 🍔 Order Burger: 0.1%
+    </div>
+
+    <div class="explanation-box" style="margin-top: 3rem;">
+      <h3 style="color: var(--primary-color); margin-bottom: 1rem;">🔗 Learn More AI Concepts</h3>
+      <p>If you enjoyed this, check out our guide on <a href="../ai_resources/tf_idf.html"
+          style="color: var(--accent-color); font-weight: 600;">TF-IDF Explained</a> to see another way computers
+        understand text!</p>
     </div>
   </div>
 
