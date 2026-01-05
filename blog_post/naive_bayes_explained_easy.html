@@ -12,14 +12,14 @@
   <meta property="og:title" content="Naive Bayes Explained: Step-by-Step Chatbot Intent Prediction" />
   <meta property="og:description"
     content="Understand the math behind AI chatbots. This guide explains Naive Bayes with full probability calculations, smoothing, and normalization." />
-  <meta property="og:image" content="https://faruk-hasan.com/blog_images/naive_bayes_model.png" />
+  <meta property="og:image" content="https://faruk-hasan.com/blog_images/naive_bayes_cover.png" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://faruk-hasan.com/blog_post/naive_bayes_explained_easy.html" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Naive Bayes Explained: Step-by-Step Guide" />
   <meta name="twitter:description"
     content="Step-by-step Naive Bayes tutorial with full math calculations for intent classification." />
-  <meta name="twitter:image" content="https://faruk-hasan.com/blog_images/naive_bayes_model.png" />
+  <meta name="twitter:image" content="https://faruk-hasan.com/blog_images/naive_bayes_cover.png" />
   <link rel="canonical" href="https://faruk-hasan.com/blog_post/naive_bayes_explained_easy.html" />
 
   <!-- JSON-LD Structured Data -->
@@ -29,7 +29,7 @@
     "@type": "BlogPosting",
     "headline": "Naive Bayes Explained: Step-by-Step Chatbot Intent Prediction with Full Math",
     "description": "Comprehensive guide explaining Naive Bayes intent classification with Bag of Words, Laplace smoothing, and probability normalization.",
-    "image": "https://faruk-hasan.com/blog_images/naive_bayes_model.png",
+    "image": "https://faruk-hasan.com/blog_images/naive_bayes_cover.png",
     "author": {
       "@type": "Person",
       "name": "Faruk Hasan",
@@ -345,6 +345,7 @@
     }
 
     @media (max-width: 768px) {
+
       .blog-container {
         margin: 1rem;
         padding: 1.5rem;
@@ -395,6 +396,8 @@
       </div>
     </div>
 
+
+
     <h2 class="section-header">
       <i class="section-icon fas fa-brain"></i>
       What is Naive Bayes?
@@ -402,7 +405,8 @@
 
     <div class="explanation-box">
       <strong>Naive Bayes</strong> is a simple but powerful machine learning algorithm used for classification tasks.
-      It's called "naive" because it assumes that all features (words in our case) are independent of each other, which
+      It's called "naive" because it assumes that all features (words in our case) are independent of each other,
+      which
       isn't always true in real language but works surprisingly well!
     </div>
 
@@ -642,8 +646,10 @@
     </div>
 
     <ul class="probability-list">
-      <li><strong>hi</strong>: \(\frac{2 + 1}{15} = \frac{3}{15} = \mathbf{0.200}\) ← appears 2 times in "greeting"</li>
-      <li><strong>can</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\) ← never appears in "greeting"
+      <li><strong>hi</strong>: \(\frac{2 + 1}{15} = \frac{3}{15} = \mathbf{0.200}\) ← appears 2 times in "greeting"
+      </li>
+      <li><strong>can</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\) ← never appears in
+        "greeting"
       </li>
       <li><strong>i</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\) ← never appears in "greeting"
       </li>
@@ -695,7 +701,8 @@
     <ul class="probability-list">
       <li><strong>hi</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\)</li>
       <li><strong>can</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\)</li>
-      <li><strong>i</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\) (Note: "i" is not in "I'd like
+      <li><strong>i</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\) (Note: "i" is not in "I'd
+        like
         a burger")</li>
       <li><strong>order</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\)</li>
       <li><strong>pizza</strong>: \(\frac{0 + 1}{15} = \frac{1}{15} \approx \mathbf{0.067}\)</li>
