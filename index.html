@@ -540,7 +540,7 @@
             <li><a href="#projects">Projects</a></li>
             <li><a href="blog.html">Blog</a></li>
             <li><a href="tutoring/tutoring.html">Tutoring</a></li>
-            <li><a href="#dividend-income">Dividends</a></li>
+            <!-- <li><a href="#dividend-income">Dividends</a></li> -->
             <li><a href="resources/resources.html">Resources</a></li>
           </ul>
         </nav>
@@ -1057,6 +1057,7 @@
 
 
 
+  <!-- 
   <section id="dividend-income">
     <div class="dividend-wrapper">
       <h2 class="section-title">Dividend Income Portfolio</h2>
@@ -1070,196 +1071,197 @@
           <div class="dividend-stats">
             <div class="dividend-stats">
               <!-- Yield Card -->
-              <div class="stat-item">
-                <span class="stat-value">5.7%</span>
-                <span class="stat-label">Average Yield</span>
-              </div>
+  <div class="stat-item">
+    <span class="stat-value">5.7%</span>
+    <span class="stat-label">Average Yield</span>
+  </div>
 
-              <!-- Growth Card -->
-              <div class="stat-item">
-                <span class="stat-value">2.2%</span>
-                <span class="stat-label">Annual Growth</span>
-              </div>
+  <!-- Growth Card -->
+  <div class="stat-item">
+    <span class="stat-value">2.2%</span>
+    <span class="stat-label">Annual Growth</span>
+  </div>
 
-              <!-- New: Annual Income Card -->
-              <div class="stat-item">
-                <span class="stat-value" id="annual-income">$2,940</span>
-                <span class="stat-label">Proj. Annual Income</span>
-              </div>
+  <!-- New: Annual Income Card -->
+  <div class="stat-item">
+    <span class="stat-value" id="annual-income">$2,940</span>
+    <span class="stat-label">Proj. Annual Income</span>
+  </div>
 
-              <!-- Monthly Goal Card (Redesigned) -->
-              <div class="stat-item income-stat">
-                <div class="income-header">
-                  <span class="stat-label">Monthly Goal</span>
-                </div>
-                <div class="income-flex-container">
-                  <div class="income-text-content">
-                    <span class="stat-value main-income" id="current-income">$245</span>
-                    <div class="target-wrapper">
-                      <span class="target-label">Target: <span class="target-val">$250</span></span>
-                    </div>
-                  </div>
-                  <div class="income-progress-mini">
-                    <canvas id="incomeProgressChart"></canvas>
-                    <div class="progress-percentage-mini" id="income-percentage">98%</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="strategy-container">
-            <a href="javascript:void(0)" class="view-more-link" id="strategy-trigger">View Investment Strategy <i
-                class="fas fa-arrow-right"></i></a>
-
-            <div id="strategy-card" class="hover-card">
-              <div class="card-content">
-                <h3>My Dividend Investment Strategy</h3>
-                <p>My investment approach focuses on building a sustainable dividend income stream for early retirement
-                  through:</p>
-                <ul>
-                  <li><strong>Quality over yield:</strong> Prioritizing companies with sustainable payout ratios and
-                    growth potential</li>
-                  <li><strong>Sector diversification:</strong> Spreading investments across multiple industries to
-                    reduce risk</li>
-                  <li><strong>Dividend growth:</strong> Focusing on companies with a history of increasing dividends
-                  </li>
-                  <li><strong>ETF core:</strong> Using dividend ETFs like SCHD and JEPI as the foundation of the
-                    portfolio</li>
-                  <li><strong>Reinvestment:</strong> Automatically reinvesting dividends to compound returns</li>
-                </ul>
-                <p>My goal is to achieve financial independence through a growing passive income stream that eventually
-                  covers all living expenses.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="dividend-chart">
-          <canvas id="dividendChart"></canvas>
+  <!-- Monthly Goal Card (Redesigned) -->
+  <div class="stat-item income-stat">
+    <div class="income-header">
+      <span class="stat-label">Monthly Goal</span>
+    </div>
+    <div class="income-flex-container">
+      <div class="income-text-content">
+        <span class="stat-value main-income" id="current-income">$245</span>
+        <div class="target-wrapper">
+          <span class="target-label">Target: <span class="target-val">$250</span></span>
         </div>
       </div>
-      <!-- 2-Year Target Snapshot -->
-      <div class="projection-container">
-        <h3 class="projection-title"><i class="fas fa-bullseye"></i> 2-Year Target Snapshot</h3>
-
-        <!-- Target Snapshot Summary Card -->
-        <div class="target-snapshot-card">
-          <h4><i class="fas fa-target"></i>🎯 Target Snapshot</h4>
-          <table class="snapshot-table">
-            <thead>
-              <tr>
-                <th>Bucket</th>
-                <th style="text-align: right;">Target %</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="bucket-name">Core ETFs</td>
-                <td class="target-percent">65–70%</td>
-              </tr>
-              <tr>
-                <td class="bucket-name">Return Boosters</td>
-                <td class="target-percent">5–8%</td>
-              </tr>
-              <tr>
-                <td class="bucket-name">Income Enhancers</td>
-                <td class="target-percent">15–18%</td>
-              </tr>
-              <tr>
-                <td class="bucket-name">Defensive / Real Assets</td>
-                <td class="target-percent">8–10%</td>
-              </tr>
-              <tr>
-                <td class="bucket-name">Speculative</td>
-                <td class="target-percent">5–8%</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="projection-grid">
-          <!-- Core ETFs -->
-          <div class="projection-card">
-            <h4><i class="fas fa-anchor"></i> Core ETFs</h4>
-            <table class="projection-table">
-              <thead>
-                <tr>
-                  <th>Holding</th>
-                  <th>Est. %</th>
-                </tr>
-              </thead>
-              <tbody id="core-table-body">
-                <!-- Will be populated by JS -->
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Return Boosters -->
-          <div class="projection-card">
-            <h4><i class="fas fa-rocket"></i> Return Boosters</h4>
-            <table class="projection-table">
-              <thead>
-                <tr>
-                  <th>Holding</th>
-                  <th>Est. %</th>
-                </tr>
-              </thead>
-              <tbody id="boosters-table-body">
-                <!-- Will be populated by JS -->
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Income Enhancers -->
-          <div class="projection-card">
-            <h4><i class="fas fa-money-bill-wave"></i> Income Enhancers</h4>
-            <table class="projection-table">
-              <thead>
-                <tr>
-                  <th>Holding</th>
-                  <th>Est. %</th>
-                </tr>
-              </thead>
-              <tbody id="enhancers-table-body">
-                <!-- Will be populated by JS -->
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Defensive / Real Assets -->
-          <div class="projection-card">
-            <h4><i class="fas fa-shield-alt"></i> Defensive / Real Assets</h4>
-            <table class="projection-table">
-              <thead>
-                <tr>
-                  <th>Holding</th>
-                  <th>Est. %</th>
-                </tr>
-              </thead>
-              <tbody id="defensive-table-body">
-                <!-- Will be populated by JS -->
-              </tbody>
-            </table>
-          </div>
-
-          <!-- Speculative / Conviction Plays -->
-          <div class="projection-card">
-            <h4><i class="fas fa-lightbulb"></i> Speculative / Conviction</h4>
-            <table class="projection-table">
-              <thead>
-                <tr>
-                  <th>Holding</th>
-                  <th>Est. %</th>
-                </tr>
-              </thead>
-              <tbody id="speculative-table-body">
-                <!-- Will be populated by JS -->
-              </tbody>
-            </table>
-          </div>
-        </div>
+      <div class="income-progress-mini">
+        <canvas id="incomeProgressChart"></canvas>
+        <div class="progress-percentage-mini" id="income-percentage">98%</div>
       </div>
     </div>
+  </div>
+  </div>
+  </div>
+  <div class="strategy-container">
+    <a href="javascript:void(0)" class="view-more-link" id="strategy-trigger">View Investment Strategy <i
+        class="fas fa-arrow-right"></i></a>
+
+    <div id="strategy-card" class="hover-card">
+      <div class="card-content">
+        <h3>My Dividend Investment Strategy</h3>
+        <p>My investment approach focuses on building a sustainable dividend income stream for early retirement
+          through:</p>
+        <ul>
+          <li><strong>Quality over yield:</strong> Prioritizing companies with sustainable payout ratios and
+            growth potential</li>
+          <li><strong>Sector diversification:</strong> Spreading investments across multiple industries to
+            reduce risk</li>
+          <li><strong>Dividend growth:</strong> Focusing on companies with a history of increasing dividends
+          </li>
+          <li><strong>ETF core:</strong> Using dividend ETFs like SCHD and JEPI as the foundation of the
+            portfolio</li>
+          <li><strong>Reinvestment:</strong> Automatically reinvesting dividends to compound returns</li>
+        </ul>
+        <p>My goal is to achieve financial independence through a growing passive income stream that eventually
+          covers all living expenses.</p>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="dividend-chart">
+    <canvas id="dividendChart"></canvas>
+  </div>
+  </div>
+  <!-- 2-Year Target Snapshot -->
+  <div class="projection-container">
+    <h3 class="projection-title"><i class="fas fa-bullseye"></i> 2-Year Target Snapshot</h3>
+
+    <!-- Target Snapshot Summary Card -->
+    <div class="target-snapshot-card">
+      <h4><i class="fas fa-target"></i>🎯 Target Snapshot</h4>
+      <table class="snapshot-table">
+        <thead>
+          <tr>
+            <th>Bucket</th>
+            <th style="text-align: right;">Target %</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="bucket-name">Core ETFs</td>
+            <td class="target-percent">65–70%</td>
+          </tr>
+          <tr>
+            <td class="bucket-name">Return Boosters</td>
+            <td class="target-percent">5–8%</td>
+          </tr>
+          <tr>
+            <td class="bucket-name">Income Enhancers</td>
+            <td class="target-percent">15–18%</td>
+          </tr>
+          <tr>
+            <td class="bucket-name">Defensive / Real Assets</td>
+            <td class="target-percent">8–10%</td>
+          </tr>
+          <tr>
+            <td class="bucket-name">Speculative</td>
+            <td class="target-percent">5–8%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="projection-grid">
+      <!-- Core ETFs -->
+      <div class="projection-card">
+        <h4><i class="fas fa-anchor"></i> Core ETFs</h4>
+        <table class="projection-table">
+          <thead>
+            <tr>
+              <th>Holding</th>
+              <th>Est. %</th>
+            </tr>
+          </thead>
+          <tbody id="core-table-body">
+            <!-- Will be populated by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Return Boosters -->
+      <div class="projection-card">
+        <h4><i class="fas fa-rocket"></i> Return Boosters</h4>
+        <table class="projection-table">
+          <thead>
+            <tr>
+              <th>Holding</th>
+              <th>Est. %</th>
+            </tr>
+          </thead>
+          <tbody id="boosters-table-body">
+            <!-- Will be populated by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Income Enhancers -->
+      <div class="projection-card">
+        <h4><i class="fas fa-money-bill-wave"></i> Income Enhancers</h4>
+        <table class="projection-table">
+          <thead>
+            <tr>
+              <th>Holding</th>
+              <th>Est. %</th>
+            </tr>
+          </thead>
+          <tbody id="enhancers-table-body">
+            <!-- Will be populated by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Defensive / Real Assets -->
+      <div class="projection-card">
+        <h4><i class="fas fa-shield-alt"></i> Defensive / Real Assets</h4>
+        <table class="projection-table">
+          <thead>
+            <tr>
+              <th>Holding</th>
+              <th>Est. %</th>
+            </tr>
+          </thead>
+          <tbody id="defensive-table-body">
+            <!-- Will be populated by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Speculative / Conviction Plays -->
+      <div class="projection-card">
+        <h4><i class="fas fa-lightbulb"></i> Speculative / Conviction</h4>
+        <table class="projection-table">
+          <thead>
+            <tr>
+              <th>Holding</th>
+              <th>Est. %</th>
+            </tr>
+          </thead>
+          <tbody id="speculative-table-body">
+            <!-- Will be populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  </div>
   </section>
+  -->
 
   <script>
     function toggleStrategySection() {
@@ -1463,6 +1465,7 @@
     });
   }
 
+  /*
   // Add Chart.js and XLSX libraries
   document.addEventListener('DOMContentLoaded', function () {
     // Load Chart.js
@@ -1838,9 +1841,10 @@
       }
     }
   }
-</script>
+  */</script>
 
 <script>
+  /*
   document.addEventListener('DOMContentLoaded', function () {
     const strategyTrigger = document.getElementById('strategy-trigger');
     const strategyCard = document.getElementById('strategy-card');
@@ -1880,6 +1884,7 @@
       }, 300);
     });
   });
+  */
 </script>
 
 <!-- Enhanced Chatbot JavaScript -->
@@ -2074,6 +2079,4 @@
 </body>
 
 </html>
-</script>
-
 <!-- Blog section removed -->

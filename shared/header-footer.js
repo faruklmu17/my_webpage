@@ -46,7 +46,7 @@ function injectHeader() {
               <li><a href="${root}index.html#projects">Projects</a></li>
               <li><a href="${root}blog.html">Blog</a></li>
               <li><a href="${root}tutoring/tutoring.html">Tutoring</a></li>
-              <li><a href="${root}index.html#dividend-income">Dividends</a></li>
+              <!-- <li><a href="${root}index.html#dividend-income">Dividends</a></li> -->
               <li><a href="${root}resources/resources.html">Resources</a></li>
             </ul>
           </nav>
