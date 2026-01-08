@@ -540,7 +540,7 @@
             <li><a href="#projects">Projects</a></li>
             <li><a href="blog.html">Blog</a></li>
             <li><a href="tutoring/tutoring.html">Tutoring</a></li>
-            <li><a href="#dividend-income">Dividends</a></li>
+            <!-- <li><a href="#dividend-income">Dividends</a></li> -->
             <li><a href="resources/resources.html">Resources</a></li>
           </ul>
         </nav>
@@ -1057,6 +1057,7 @@
 
 
 
+  <!-- 
   <section id="dividend-income">
     <div class="dividend-wrapper">
       <h2 class="section-title">Dividend Income Portfolio</h2>
@@ -1069,25 +1070,21 @@
             early retirement. Below is the current allocation of my dividend portfolio.</p>
           <div class="dividend-stats">
             <div class="dividend-stats">
-              <!-- Yield Card -->
               <div class="stat-item">
                 <span class="stat-value">5.7%</span>
                 <span class="stat-label">Average Yield</span>
               </div>
 
-              <!-- Growth Card -->
               <div class="stat-item">
                 <span class="stat-value">2.2%</span>
                 <span class="stat-label">Annual Growth</span>
               </div>
 
-              <!-- New: Annual Income Card -->
               <div class="stat-item">
                 <span class="stat-value" id="annual-income">$2,940</span>
                 <span class="stat-label">Proj. Annual Income</span>
               </div>
 
-              <!-- Monthly Goal Card (Redesigned) -->
               <div class="stat-item income-stat">
                 <div class="income-header">
                   <span class="stat-label">Monthly Goal</span>
@@ -1137,11 +1134,9 @@
           <canvas id="dividendChart"></canvas>
         </div>
       </div>
-      <!-- 2-Year Target Snapshot -->
       <div class="projection-container">
         <h3 class="projection-title"><i class="fas fa-bullseye"></i> 2-Year Target Snapshot</h3>
 
-        <!-- Target Snapshot Summary Card -->
         <div class="target-snapshot-card">
           <h4><i class="fas fa-target"></i>🎯 Target Snapshot</h4>
           <table class="snapshot-table">
@@ -1177,7 +1172,6 @@
         </div>
 
         <div class="projection-grid">
-          <!-- Core ETFs -->
           <div class="projection-card">
             <h4><i class="fas fa-anchor"></i> Core ETFs</h4>
             <table class="projection-table">
@@ -1188,12 +1182,10 @@
                 </tr>
               </thead>
               <tbody id="core-table-body">
-                <!-- Will be populated by JS -->
               </tbody>
             </table>
           </div>
 
-          <!-- Return Boosters -->
           <div class="projection-card">
             <h4><i class="fas fa-rocket"></i> Return Boosters</h4>
             <table class="projection-table">
@@ -1204,12 +1196,10 @@
                 </tr>
               </thead>
               <tbody id="boosters-table-body">
-                <!-- Will be populated by JS -->
               </tbody>
             </table>
           </div>
 
-          <!-- Income Enhancers -->
           <div class="projection-card">
             <h4><i class="fas fa-money-bill-wave"></i> Income Enhancers</h4>
             <table class="projection-table">
@@ -1220,12 +1210,10 @@
                 </tr>
               </thead>
               <tbody id="enhancers-table-body">
-                <!-- Will be populated by JS -->
               </tbody>
             </table>
           </div>
 
-          <!-- Defensive / Real Assets -->
           <div class="projection-card">
             <h4><i class="fas fa-shield-alt"></i> Defensive / Real Assets</h4>
             <table class="projection-table">
@@ -1236,12 +1224,10 @@
                 </tr>
               </thead>
               <tbody id="defensive-table-body">
-                <!-- Will be populated by JS -->
               </tbody>
             </table>
           </div>
 
-          <!-- Speculative / Conviction Plays -->
           <div class="projection-card">
             <h4><i class="fas fa-lightbulb"></i> Speculative / Conviction</h4>
             <table class="projection-table">
@@ -1252,7 +1238,6 @@
                 </tr>
               </thead>
               <tbody id="speculative-table-body">
-                <!-- Will be populated by JS -->
               </tbody>
             </table>
           </div>
@@ -1260,6 +1245,7 @@
       </div>
     </div>
   </section>
+  -->
 
   <script>
     function toggleStrategySection() {
@@ -1463,423 +1449,426 @@
     });
   }
 
-  // Add Chart.js and XLSX libraries
-  document.addEventListener('DOMContentLoaded', function () {
-    // Load Chart.js
-    const chartScript = document.createElement('script');
-    chartScript.src = 'https://cdn.jsdelivr.net/npm/chart.js';
-
-    // Load XLSX library for Excel parsing
-    const xlsxScript = document.createElement('script');
-    xlsxScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
-
-    // When all scripts are loaded, initialize the chart
-    Promise.all([
-      new Promise(resolve => { chartScript.onload = resolve; }),
-      new Promise(resolve => { xlsxScript.onload = resolve; })
-    ]).then(() => {
-      loadPortfolioData();
-    });
-
-    document.body.appendChild(chartScript);
-    document.body.appendChild(xlsxScript);
-  });
-
-  function loadPortfolioData() {
-    // Fetch the Excel file
-    fetch('finance/portfolio_data.xlsx')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.arrayBuffer();
-      })
-      .then(data => {
-        // Parse the Excel file
-        const workbook = XLSX.read(data, { type: 'array' });
-        const firstSheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[firstSheetName];
-        const jsonData = XLSX.utils.sheet_to_json(worksheet);
-
-        // Process the data for the chart
-        processPortfolioData(jsonData);
-      })
-      .catch(error => {
-        console.error('Error loading portfolio data:', error);
-        // Fallback to default data if file can't be loaded
-        initDividendChartWithDefaultData();
+  /*
+    // Add Chart.js and XLSX libraries
+    document.addEventListener('DOMContentLoaded', function () {
+      // Load Chart.js
+      const chartScript = document.createElement('script');
+      chartScript.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+  
+      // Load XLSX library for Excel parsing
+      const xlsxScript = document.createElement('script');
+      xlsxScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+  
+      // When all scripts are loaded, initialize the chart
+      Promise.all([
+        new Promise(resolve => { chartScript.onload = resolve; }),
+        new Promise(resolve => { xlsxScript.onload = resolve; })
+      ]).then(() => {
+        loadPortfolioData();
       });
-  }
-
-  function processPortfolioData(data) {
-    // Calculate total market value for each position
-    let totalPortfolioValue = 0;
-    let totalDividendIncome = 0;
-
-    // Add market value to each stock
-    data.forEach(stock => {
-      // Calculate market value (shares * current price)
-      stock.marketValue = stock.Shares * stock['Current Price'];
-
-      // Calculate annual dividend income
-      stock.dividendIncome = stock.marketValue * (stock['Dividend Yield (%)'] / 100);
-
-      // Add to totals
-      totalPortfolioValue += stock.marketValue;
-      totalDividendIncome += stock.dividendIncome;
+  
+      document.body.appendChild(chartScript);
+      document.body.appendChild(xlsxScript);
     });
-
-    // Calculate overall portfolio yield
-    const portfolioYield = (totalDividendIncome / totalPortfolioValue) * 100;
-
-    // Categorization into Buckets
-    const buckets = {
-      core: { id: 'core-table-body', tickers: ['SCHD', 'DGRO', 'VYMI', 'VOO'], items: [], total: 0 },
-      boosters: { id: 'boosters-table-body', tickers: ['QQQ', 'SMH', 'IJR', 'QQQM', 'VGT', 'VUG'], items: [], total: 0 },
-      enhancers: { id: 'enhancers-table-body', tickers: ['JEPI', 'JEPQ', 'ARCC', 'BST', 'DIVO', 'MAIN', 'SPYD', 'T'], items: [], total: 0 },
-      defensive: { id: 'defensive-table-body', tickers: ['XLU', 'O', 'IAU', 'GLD', 'GOLD', 'VNQ'], items: [], total: 0 },
-      speculative: { id: 'speculative-table-body', tickers: [], items: [], total: 0 }
-    };
-
-    // Sort all data by market value first
-    data.sort((a, b) => b.marketValue - a.marketValue);
-
-    data.forEach(stock => {
-      const ticker = stock.Stock.toUpperCase();
-      let assigned = false;
-
-      for (const key in buckets) {
-        if (buckets[key].tickers && buckets[key].tickers.includes(ticker)) {
-          buckets[key].items.push({
+  
+    function loadPortfolioData() {
+      // Fetch the Excel file
+      fetch('finance/portfolio_data.xlsx')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.arrayBuffer();
+        })
+        .then(data => {
+          // Parse the Excel file
+          const workbook = XLSX.read(data, { type: 'array' });
+          const firstSheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[firstSheetName];
+          const jsonData = XLSX.utils.sheet_to_json(worksheet);
+  
+          // Process the data for the chart
+          processPortfolioData(jsonData);
+        })
+        .catch(error => {
+          console.error('Error loading portfolio data:', error);
+          // Fallback to default data if file can't be loaded
+          initDividendChartWithDefaultData();
+        });
+    }
+  
+    function processPortfolioData(data) {
+      // Calculate total market value for each position
+      let totalPortfolioValue = 0;
+      let totalDividendIncome = 0;
+  
+      // Add market value to each stock
+      data.forEach(stock => {
+        // Calculate market value (shares * current price)
+        stock.marketValue = stock.Shares * stock['Current Price'];
+  
+        // Calculate annual dividend income
+        stock.dividendIncome = stock.marketValue * (stock['Dividend Yield (%)'] / 100);
+  
+        // Add to totals
+        totalPortfolioValue += stock.marketValue;
+        totalDividendIncome += stock.dividendIncome;
+      });
+  
+      // Calculate overall portfolio yield
+      const portfolioYield = (totalDividendIncome / totalPortfolioValue) * 100;
+  
+      // Categorization into Buckets
+      const buckets = {
+        core: { id: 'core-table-body', tickers: ['SCHD', 'DGRO', 'VYMI', 'VOO'], items: [], total: 0 },
+        boosters: { id: 'boosters-table-body', tickers: ['QQQ', 'SMH', 'IJR', 'QQQM', 'VGT', 'VUG'], items: [], total: 0 },
+        enhancers: { id: 'enhancers-table-body', tickers: ['JEPI', 'JEPQ', 'ARCC', 'BST', 'DIVO', 'MAIN', 'SPYD', 'T'], items: [], total: 0 },
+        defensive: { id: 'defensive-table-body', tickers: ['XLU', 'O', 'IAU', 'GLD', 'GOLD', 'VNQ'], items: [], total: 0 },
+        speculative: { id: 'speculative-table-body', tickers: [], items: [], total: 0 }
+      };
+  
+      // Sort all data by market value first
+      data.sort((a, b) => b.marketValue - a.marketValue);
+  
+      data.forEach(stock => {
+        const ticker = stock.Stock.toUpperCase();
+        let assigned = false;
+  
+        for (const key in buckets) {
+          if (buckets[key].tickers && buckets[key].tickers.includes(ticker)) {
+            buckets[key].items.push({
+              ticker: ticker,
+              percentage: (stock.marketValue / totalPortfolioValue) * 100
+            });
+            buckets[key].total += stock.marketValue;
+            assigned = true;
+            break;
+          }
+        }
+  
+        if (!assigned) {
+          buckets.speculative.items.push({
             ticker: ticker,
             percentage: (stock.marketValue / totalPortfolioValue) * 100
           });
-          buckets[key].total += stock.marketValue;
-          assigned = true;
-          break;
+          buckets.speculative.total += stock.marketValue;
         }
-      }
-
-      if (!assigned) {
-        buckets.speculative.items.push({
-          ticker: ticker,
-          percentage: (stock.marketValue / totalPortfolioValue) * 100
+      });
+  
+      // Populate the tables
+      for (const key in buckets) {
+        const bucket = buckets[key];
+        const tbody = document.getElementById(bucket.id);
+        if (!tbody) continue;
+  
+        tbody.innerHTML = ''; // Clear existing
+  
+        // Add individual items
+        bucket.items.forEach(item => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="ticker-cell">${item.ticker}</td>
+            <td class="percent-cell">${item.percentage.toFixed(1)}%</td>
+          `;
+          tbody.appendChild(tr);
         });
-        buckets.speculative.total += stock.marketValue;
-      }
-    });
-
-    // Populate the tables
-    for (const key in buckets) {
-      const bucket = buckets[key];
-      const tbody = document.getElementById(bucket.id);
-      if (!tbody) continue;
-
-      tbody.innerHTML = ''; // Clear existing
-
-      // Add individual items
-      bucket.items.forEach(item => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td class="ticker-cell">${item.ticker}</td>
-          <td class="percent-cell">${item.percentage.toFixed(1)}%</td>
+  
+        // Add total row
+        const totalPercent = (bucket.total / totalPortfolioValue) * 100;
+        const totalTr = document.createElement('tr');
+        totalTr.className = 'total-row';
+        totalTr.innerHTML = `
+          <td class="ticker-cell">Total</td>
+          <td class="percent-cell">${totalPercent.toFixed(1)}%</td>
         `;
-        tbody.appendChild(tr);
+        tbody.appendChild(totalTr);
+      }
+  
+      // Prepare data for the pie chart (main positions > 3% + Other)
+      const threshold = totalPortfolioValue * 0.03;
+      const mainPositions = [];
+      let otherValue = 0;
+  
+      data.forEach(stock => {
+        if (stock.marketValue >= threshold) {
+          mainPositions.push({
+            ticker: stock.Stock,
+            percentage: (stock.marketValue / totalPortfolioValue) * 100
+          });
+        } else {
+          otherValue += stock.marketValue;
+        }
       });
-
-      // Add total row
-      const totalPercent = (bucket.total / totalPortfolioValue) * 100;
-      const totalTr = document.createElement('tr');
-      totalTr.className = 'total-row';
-      totalTr.innerHTML = `
-        <td class="ticker-cell">Total</td>
-        <td class="percent-cell">${totalPercent.toFixed(1)}%</td>
-      `;
-      tbody.appendChild(totalTr);
-    }
-
-    // Prepare data for the pie chart (main positions > 3% + Other)
-    const threshold = totalPortfolioValue * 0.03;
-    const mainPositions = [];
-    let otherValue = 0;
-
-    data.forEach(stock => {
-      if (stock.marketValue >= threshold) {
+  
+      if (otherValue > 0) {
         mainPositions.push({
-          ticker: stock.Stock,
-          percentage: (stock.marketValue / totalPortfolioValue) * 100
+          ticker: 'Other',
+          percentage: (otherValue / totalPortfolioValue) * 100
         });
-      } else {
-        otherValue += stock.marketValue;
       }
-    });
-
-    if (otherValue > 0) {
-      mainPositions.push({
-        ticker: 'Other',
-        percentage: (otherValue / totalPortfolioValue) * 100
+  
+      const labels = mainPositions.map(pos => `${pos.ticker} (${pos.percentage.toFixed(1)}%)`);
+      const values = mainPositions.map(pos => pos.percentage.toFixed(1));
+  
+      // Initialize chart
+      initDividendChart(labels, values);
+  
+      // Update portfolio stats
+      updatePortfolioStats(portfolioYield, totalDividendIncome, data);
+    }
+  
+    function updatePortfolioStats(yield, annualIncome, data) {
+      // Calculate growth rate (using the difference between current and purchase prices)
+      let totalGrowth = 0;
+      let totalInvestment = 0;
+  
+      data.forEach(stock => {
+        const investment = stock.Shares * stock['Purchase Price'];
+        const currentValue = stock.Shares * stock['Current Price'];
+        totalInvestment += investment;
+        totalGrowth += (currentValue - investment);
+      });
+  
+      const growthRate = (totalGrowth / totalInvestment) * 100;
+      const monthlyIncome = (annualIncome / 12);
+      const targetMonthlyIncome = 250; // Target monthly income by end of 2025
+      const progressPercentage = (monthlyIncome / targetMonthlyIncome) * 100;
+  
+      // Update the stats display
+      document.querySelector('.dividend-stats .stat-item:nth-child(1) .stat-value').textContent = yield.toFixed(1) + '%';
+      document.querySelector('.dividend-stats .stat-item:nth-child(2) .stat-value').textContent = growthRate.toFixed(1) + '%';
+      document.getElementById('annual-income').textContent = '$' + annualIncome.toLocaleString(undefined, { maximumFractionDigits: 0 });
+      document.getElementById('current-income').textContent = '$' + monthlyIncome.toFixed(0);
+      document.getElementById('income-percentage').textContent = progressPercentage.toFixed(0) + '%';
+  
+      // Create the progress chart
+      createIncomeProgressChart(progressPercentage);
+    }
+  
+    function initDividendChart(labels, data) {
+      const ctx = document.getElementById('dividendChart').getContext('2d');
+  
+      // Color palette for the chart
+      const colors = [
+        '#4285F4', // Blue
+        '#34A853', // Green
+        '#FBBC05', // Yellow
+        '#EA4335', // Red
+        '#5F6368', // Grey
+        '#1A73E8', // Light Blue
+        '#188038', // Dark Green
+        '#F29900', // Orange
+        '#D93025', // Dark Red
+        '#9AA0A6', // Light Grey
+        '#185ABC', // Dark Blue
+        '#137333', // Forest Green
+        '#E37400'  // Dark Orange
+      ];
+  
+      // Chart configuration
+      const config = {
+        type: 'pie',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: data,
+            backgroundColor: colors.slice(0, labels.length),
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: {
+                font: {
+                  family: 'Montserrat',
+                  size: 12
+                }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  const label = context.label || '';
+                  return label;
+                }
+              }
+            }
+          }
+        }
+      };
+  
+      // Create the chart
+      new Chart(ctx, config);
+    }
+  
+    function createIncomeProgressChart(percentage) {
+      const ctx = document.getElementById('incomeProgressChart').getContext('2d');
+  
+      // Destroy previous chart if it exists
+      if (window.incomeChart) {
+        window.incomeChart.destroy();
+      }
+  
+      // Create new chart
+      window.incomeChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          datasets: [{
+            data: [percentage, 100 - percentage],
+            backgroundColor: [
+              '#28a745', // Green for progress
+              '#e9ecef'  // Light gray for remaining
+            ],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          cutout: '70%',
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              enabled: false
+            }
+          },
+          animation: {
+            animateRotate: true,
+            animateScale: true
+          }
+        }
       });
     }
-
-    const labels = mainPositions.map(pos => `${pos.ticker} (${pos.percentage.toFixed(1)}%)`);
-    const values = mainPositions.map(pos => pos.percentage.toFixed(1));
-
-    // Initialize chart
-    initDividendChart(labels, values);
-
-    // Update portfolio stats
-    updatePortfolioStats(portfolioYield, totalDividendIncome, data);
-  }
-
-  function updatePortfolioStats(yield, annualIncome, data) {
-    // Calculate growth rate (using the difference between current and purchase prices)
-    let totalGrowth = 0;
-    let totalInvestment = 0;
-
-    data.forEach(stock => {
-      const investment = stock.Shares * stock['Purchase Price'];
-      const currentValue = stock.Shares * stock['Current Price'];
-      totalInvestment += investment;
-      totalGrowth += (currentValue - investment);
-    });
-
-    const growthRate = (totalGrowth / totalInvestment) * 100;
-    const monthlyIncome = (annualIncome / 12);
-    const targetMonthlyIncome = 250; // Target monthly income by end of 2025
-    const progressPercentage = (monthlyIncome / targetMonthlyIncome) * 100;
-
-    // Update the stats display
-    document.querySelector('.dividend-stats .stat-item:nth-child(1) .stat-value').textContent = yield.toFixed(1) + '%';
-    document.querySelector('.dividend-stats .stat-item:nth-child(2) .stat-value').textContent = growthRate.toFixed(1) + '%';
-    document.getElementById('annual-income').textContent = '$' + annualIncome.toLocaleString(undefined, { maximumFractionDigits: 0 });
-    document.getElementById('current-income').textContent = '$' + monthlyIncome.toFixed(0);
-    document.getElementById('income-percentage').textContent = progressPercentage.toFixed(0) + '%';
-
-    // Create the progress chart
-    createIncomeProgressChart(progressPercentage);
-  }
-
-  function initDividendChart(labels, data) {
-    const ctx = document.getElementById('dividendChart').getContext('2d');
-
-    // Color palette for the chart
-    const colors = [
-      '#4285F4', // Blue
-      '#34A853', // Green
-      '#FBBC05', // Yellow
-      '#EA4335', // Red
-      '#5F6368', // Grey
-      '#1A73E8', // Light Blue
-      '#188038', // Dark Green
-      '#F29900', // Orange
-      '#D93025', // Dark Red
-      '#9AA0A6', // Light Grey
-      '#185ABC', // Dark Blue
-      '#137333', // Forest Green
-      '#E37400'  // Dark Orange
-    ];
-
-    // Chart configuration
-    const config = {
-      type: 'pie',
-      data: {
-        labels: labels,
-        datasets: [{
-          data: data,
-          backgroundColor: colors.slice(0, labels.length),
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'right',
-            labels: {
-              font: {
-                family: 'Montserrat',
-                size: 12
-              }
-            }
-          },
-          tooltip: {
-            callbacks: {
-              label: function (context) {
-                const label = context.label || '';
-                return label;
-              }
-            }
-          }
+  
+    function initDividendChartWithDefaultData() {
+      // Default data if file loading fails
+      const labels = [
+        'SCHD (14.3%)',
+        'JEPI (10.3%)',
+        'SPYD (8.8%)',
+        'O (8.1%)',
+        'VYMI (7.6%)',
+        'T (7.2%)',
+        'VOO (6.3%)',
+        'Other (37.4%)'
+      ];
+      const data = [14.3, 10.3, 8.8, 8.1, 7.6, 7.2, 6.3, 37.4];
+  
+      initDividendChart(labels, data);
+  
+      // Set default stats
+      document.querySelector('.dividend-stats .stat-item:nth-child(1) .stat-value').textContent = '5.7%';
+      document.querySelector('.dividend-stats .stat-item:nth-child(2) .stat-value').textContent = '2.2%';
+      document.getElementById('annual-income').textContent = '$2,940';
+      document.getElementById('current-income').textContent = '$245';
+      document.getElementById('income-percentage').textContent = '98%';
+  
+      // Create default progress chart
+      createIncomeProgressChart(98);
+  
+      // Populate tables with 2-Year Target data (fallback)
+      const defaultData = {
+        'core-table-body': [
+          { t: 'SCHD', p: '14.3%' },
+          { t: 'VYMI', p: '7.6%' },
+          { t: 'VOO', p: '6.3%' },
+          { t: 'DGRO', p: '2.7%' },
+          { t: 'Total', p: '30.9%', total: true }
+        ],
+        'boosters-table-body': [
+          { t: 'QQQ', p: '2.3%' },
+          { t: 'Total', p: '2.3%', total: true }
+        ],
+        'enhancers-table-body': [
+          { t: 'JEPI', p: '10.3%' },
+          { t: 'SPYD', p: '8.8%' },
+          { t: 'T', p: '7.2%' },
+          { t: 'JEPQ', p: '5.0%' },
+          { t: 'ARCC', p: '2.3%' },
+          { t: 'Total', p: '33.6%', total: true }
+        ],
+        'defensive-table-body': [
+          { t: 'O', p: '8.1%' },
+          { t: 'XLU', p: '5.3%' },
+          { t: 'Total', p: '13.4%', total: true }
+        ],
+        'speculative-table-body': [
+          { t: 'PFE', p: '4.7%' },
+          { t: 'JNJ', p: '3.2%' },
+          { t: 'ABBV', p: '3.1%' },
+          { t: 'VICI', p: '2.9%' },
+          { t: 'MO', p: '1.6%' },
+          { t: 'XOM', p: '1.5%' },
+          { t: 'EPD', p: '1.2%' },
+          { t: 'GLDM', p: '0.9%' },
+          { t: 'ENB', p: '0.8%' },
+          { t: 'Total', p: '19.8%', total: true }
+        ]
+      };
+  
+      for (const id in defaultData) {
+        const tbody = document.getElementById(id);
+        if (tbody) {
+          tbody.innerHTML = defaultData[id].map(item => `
+            <tr class="${item.total ? 'total-row' : ''}">
+              <td class="ticker-cell">${item.t}</td>
+              <td class="percent-cell">${item.p}</td>
+            </tr>
+          `).join('');
         }
       }
-    };
-
-    // Create the chart
-    new Chart(ctx, config);
-  }
-
-  function createIncomeProgressChart(percentage) {
-    const ctx = document.getElementById('incomeProgressChart').getContext('2d');
-
-    // Destroy previous chart if it exists
-    if (window.incomeChart) {
-      window.incomeChart.destroy();
     }
-
-    // Create new chart
-    window.incomeChart = new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        datasets: [{
-          data: [percentage, 100 - percentage],
-          backgroundColor: [
-            '#28a745', // Green for progress
-            '#e9ecef'  // Light gray for remaining
-          ],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        cutout: '70%',
-        responsive: true,
-        maintainAspectRatio: true,
-        plugins: {
-          legend: {
-            display: false
-          },
-          tooltip: {
-            enabled: false
-          }
-        },
-        animation: {
-          animateRotate: true,
-          animateScale: true
-        }
-      }
-    });
-  }
-
-  function initDividendChartWithDefaultData() {
-    // Default data if file loading fails
-    const labels = [
-      'SCHD (14.3%)',
-      'JEPI (10.3%)',
-      'SPYD (8.8%)',
-      'O (8.1%)',
-      'VYMI (7.6%)',
-      'T (7.2%)',
-      'VOO (6.3%)',
-      'Other (37.4%)'
-    ];
-    const data = [14.3, 10.3, 8.8, 8.1, 7.6, 7.2, 6.3, 37.4];
-
-    initDividendChart(labels, data);
-
-    // Set default stats
-    document.querySelector('.dividend-stats .stat-item:nth-child(1) .stat-value').textContent = '5.7%';
-    document.querySelector('.dividend-stats .stat-item:nth-child(2) .stat-value').textContent = '2.2%';
-    document.getElementById('annual-income').textContent = '$2,940';
-    document.getElementById('current-income').textContent = '$245';
-    document.getElementById('income-percentage').textContent = '98%';
-
-    // Create default progress chart
-    createIncomeProgressChart(98);
-
-    // Populate tables with 2-Year Target data (fallback)
-    const defaultData = {
-      'core-table-body': [
-        { t: 'SCHD', p: '14.3%' },
-        { t: 'VYMI', p: '7.6%' },
-        { t: 'VOO', p: '6.3%' },
-        { t: 'DGRO', p: '2.7%' },
-        { t: 'Total', p: '30.9%', total: true }
-      ],
-      'boosters-table-body': [
-        { t: 'QQQ', p: '2.3%' },
-        { t: 'Total', p: '2.3%', total: true }
-      ],
-      'enhancers-table-body': [
-        { t: 'JEPI', p: '10.3%' },
-        { t: 'SPYD', p: '8.8%' },
-        { t: 'T', p: '7.2%' },
-        { t: 'JEPQ', p: '5.0%' },
-        { t: 'ARCC', p: '2.3%' },
-        { t: 'Total', p: '33.6%', total: true }
-      ],
-      'defensive-table-body': [
-        { t: 'O', p: '8.1%' },
-        { t: 'XLU', p: '5.3%' },
-        { t: 'Total', p: '13.4%', total: true }
-      ],
-      'speculative-table-body': [
-        { t: 'PFE', p: '4.7%' },
-        { t: 'JNJ', p: '3.2%' },
-        { t: 'ABBV', p: '3.1%' },
-        { t: 'VICI', p: '2.9%' },
-        { t: 'MO', p: '1.6%' },
-        { t: 'XOM', p: '1.5%' },
-        { t: 'EPD', p: '1.2%' },
-        { t: 'GLDM', p: '0.9%' },
-        { t: 'ENB', p: '0.8%' },
-        { t: 'Total', p: '19.8%', total: true }
-      ]
-    };
-
-    for (const id in defaultData) {
-      const tbody = document.getElementById(id);
-      if (tbody) {
-        tbody.innerHTML = defaultData[id].map(item => `
-          <tr class="${item.total ? 'total-row' : ''}">
-            <td class="ticker-cell">${item.t}</td>
-            <td class="percent-cell">${item.p}</td>
-          </tr>
-        `).join('');
-      }
-    }
-  }
-</script>
+    */</script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const strategyTrigger = document.getElementById('strategy-trigger');
-    const strategyCard = document.getElementById('strategy-card');
-
-    // Add a small delay before closing to prevent accidental closures
-    let timeout;
-
-    strategyTrigger.addEventListener('mouseenter', function () {
-      clearTimeout(timeout);
-      strategyCard.classList.add('active');
-    });
-
-    strategyTrigger.addEventListener('mouseleave', function (e) {
-      // Check if the mouse is moving toward the card
-      const rect = strategyCard.getBoundingClientRect();
-      const isMovingToward =
-        e.clientX >= rect.left - 20 &&
-        e.clientX <= rect.right + 20 &&
-        e.clientY >= rect.top - 20;
-
-      if (!isMovingToward) {
+  /*
+    document.addEventListener('DOMContentLoaded', function () {
+      const strategyTrigger = document.getElementById('strategy-trigger');
+      const strategyCard = document.getElementById('strategy-card');
+  
+      // Add a small delay before closing to prevent accidental closures
+      let timeout;
+  
+      strategyTrigger.addEventListener('mouseenter', function () {
+        clearTimeout(timeout);
+        strategyCard.classList.add('active');
+      });
+  
+      strategyTrigger.addEventListener('mouseleave', function (e) {
+        // Check if the mouse is moving toward the card
+        const rect = strategyCard.getBoundingClientRect();
+        const isMovingToward =
+          e.clientX >= rect.left - 20 &&
+          e.clientX <= rect.right + 20 &&
+          e.clientY >= rect.top - 20;
+  
+        if (!isMovingToward) {
+          timeout = setTimeout(() => {
+            if (!strategyCard.matches(':hover')) {
+              strategyCard.classList.remove('active');
+            }
+          }, 300);
+        }
+      });
+  
+      strategyCard.addEventListener('mouseenter', function () {
+        clearTimeout(timeout);
+      });
+  
+      strategyCard.addEventListener('mouseleave', function () {
         timeout = setTimeout(() => {
-          if (!strategyCard.matches(':hover')) {
-            strategyCard.classList.remove('active');
-          }
+          strategyCard.classList.remove('active');
         }, 300);
-      }
+      });
     });
-
-    strategyCard.addEventListener('mouseenter', function () {
-      clearTimeout(timeout);
-    });
-
-    strategyCard.addEventListener('mouseleave', function () {
-      timeout = setTimeout(() => {
-        strategyCard.classList.remove('active');
-      }, 300);
-    });
-  });
+    */
 </script>
 
 <!-- Enhanced Chatbot JavaScript -->
@@ -2074,6 +2063,4 @@
 </body>
 
 </html>
-</script>
-
 <!-- Blog section removed -->
