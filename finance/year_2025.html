@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Financial Dashboard</title>
+  <link rel="canonical" href="https://faruk-hasan.com/finance/year_2025.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top left, #101827, #020617);
+      color: #e5e7eb;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #9ca3af;
+      margin-bottom: 24px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 1.8fr 2.2fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 18px;
+      padding: 16px 18px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.7);
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .kpi {
+      background: radial-gradient(circle at top, #0f172a, #020617);
+      border-radius: 16px;
+      padding: 12px 12px;
+      border: 1px solid rgba(55, 65, 81, 0.8);
+    }
+
+    .kpi-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #9ca3af;
+      margin-bottom: 4px;
+    }
+
+    .kpi-value {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .kpi-change {
+      font-size: 11px;
+      margin-top: 3px;
+    }
+
+    .kpi-change.positive {
+      color: #4ade80;
+    }
+
+    .kpi-change.negative {
+      color: #f97373;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      color: #9ca3af;
+    }
+
+    .tag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
+    }
+
+    .charts-grid {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 1100px) {
+      .charts-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .chart-card {
+      background: radial-gradient(circle at top, #020617, #020617);
+      border-radius: 16px;
+      padding: 12px;
+      border: 1px solid rgba(55, 65, 81, 0.8);
+    }
+
+    .chart-title {
+      font-size: 13px;
+      color: #9ca3af;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    canvas {
+      max-width: 100%;
+    }
+
+    .legend {
+      display: flex;
+      gap: 10px;
+      font-size: 11px;
+      margin-top: 4px;
+      color: #9ca3af;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .legend-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+    }
+
+    .table-card {
+      margin-top: 10px;
+      max-height: 260px;
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+
+    th,
+    td {
+      padding: 6px 8px;
+      text-align: right;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    th:first-child,
+    td:first-child {
+      text-align: left;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #020617;
+      z-index: 1;
+      color: #9ca3af;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:nth-child(even) td {
+      background: rgba(15, 23, 42, 0.65);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      font-size: 10px;
+      background: rgba(31, 41, 55, 0.9);
+      color: #9ca3af;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div
+      style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
+      <div>
+        <h1>Wealth Overview</h1>
+        <p class="subtitle">Tracking liquid savings, retirement, property, and debt over time.</p>
+      </div>
+      <div class="tag">
+        <span class="tag-dot"></span>
+        Updated through <strong style="color:#e5e7eb;">Nov</strong>
+      </div>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <!-- Left: KPIs + Table -->
+    <section>
+      <div class="card">
+        <h2>Key Metrics</h2>
+        <div class="kpi-grid">
+          <div class="kpi">
+            <div class="kpi-label">Net Worth</div>
+            <div class="kpi-value">$613,403</div>
+            <div class="kpi-change positive">
+              ▲ 33,720 vs last month
+            </div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">Liquid Savings</div>
+            <div class="kpi-value">$105,514</div>
+            <div class="kpi-change">Robinhood, savings & cash</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">Retirement</div>
+            <div class="kpi-value">$69,946</div>
+            <div class="kpi-change">401(k), Roth & NYCERS</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">Property Value</div>
+            <div class="kpi-value">$1,209,000</div>
+            <div class="kpi-change">Total estimated real estate</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">Total Debt</div>
+            <div class="kpi-value">$771,057</div>
+            <div class="kpi-change">Mortgages & other loans</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">Debt / Assets</div>
+            <div class="kpi-value">
+              55.7%
+            </div>
+            <div class="kpi-change">Lower is better over time</div>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="chart-title" style="margin-bottom:4px;margin-top:10px;">
+            <span>Timeline Details</span>
+            <span class="pill">
+              <span style="width:7px;height:7px;border-radius:999px;background:#22c55e;"></span>
+              Monthly snapshot
+            </span>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th>Liquid</th>
+                <th>Retirement</th>
+                <th>Property</th>
+                <th>Net Worth</th>
+                <th>Debt</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Jan</td>
+                <td>$79,784</td>
+                <td>$47,896</td>
+                <td>$1,199,709</td>
+                <td>$532,228</td>
+                <td>$795,161</td>
+              </tr>
+              <tr>
+                <td>Feb</td>
+                <td>$82,386</td>
+                <td>$49,821</td>
+                <td>$1,203,522</td>
+                <td>$543,189</td>
+                <td>$789,243</td>
+              </tr>
+              <tr>
+                <td>Mar</td>
+                <td>$85,779</td>
+                <td>$50,007</td>
+                <td>$1,193,000</td>
+                <td>$542,085</td>
+                <td>$786,701</td>
+              </tr>
+              <tr>
+                <td>Apr</td>
+                <td>$89,003</td>
+                <td>$51,055</td>
+                <td>$1,180,069</td>
+                <td>$535,050</td>
+                <td>$785,077</td>
+              </tr>
+              <tr>
+                <td>May</td>
+                <td>$93,435</td>
+                <td>$53,886</td>
+                <td>$1,164,386</td>
+                <td>$529,677</td>
+                <td>$782,030</td>
+              </tr>
+              <tr>
+                <td>Jun</td>
+                <td>$97,407</td>
+                <td>$56,367</td>
+                <td>$1,211,716</td>
+                <td>$585,021</td>
+                <td>$780,469</td>
+              </tr>
+              <tr>
+                <td>Jul</td>
+                <td>$95,240</td>
+                <td>$57,689</td>
+                <td>$1,211,805</td>
+                <td>$585,335</td>
+                <td>$779,399</td>
+              </tr>
+              <tr>
+                <td>Aug</td>
+                <td>$98,474</td>
+                <td>$60,719</td>
+                <td>$1,229,025</td>
+                <td>$609,893</td>
+                <td>$778,325</td>
+              </tr>
+              <tr>
+                <td>Sep</td>
+                <td>$101,425</td>
+                <td>$64,600</td>
+                <td>$1,179,060</td>
+                <td>$568,839</td>
+                <td>$776,246</td>
+              </tr>
+              <tr>
+                <td>Oct</td>
+                <td>$102,630</td>
+                <td>$68,191</td>
+                <td>$1,181,957</td>
+                <td>$579,683</td>
+                <td>$773,095</td>
+              </tr>
+              <tr>
+                <td>Nov</td>
+                <td>$105,514</td>
+                <td>$69,946</td>
+                <td>$1,209,000</td>
+                <td>$613,403</td>
+                <td>$771,057</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right: Charts -->
+    <section>
+      <div class="card">
+        <div class="charts-grid">
+          <div class="chart-card">
+            <div class="chart-title">
+              <span>Net Worth Trend</span>
+              <span style="font-size:11px;color:#6b7280;">Line · Monthly</span>
+            </div>
+            <canvas id="netWorthChart"></canvas>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">
+              <span>Current Asset Allocation</span>
+              <span style="font-size:11px;color:#6b7280;">Pie · Latest month</span>
+            </div>
+            <canvas id="assetPieChart"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card" style="margin-top:12px;">
+          <div class="chart-title">
+            <span>Liquid vs Retirement vs Property</span>
+            <span style="font-size:11px;color:#6b7280;">Lines · Stacked view</span>
+          </div>
+          <canvas id="assetsLineChart"></canvas>
+          <div class="legend">
+            <div class="legend-item">
+              <span class="legend-dot" style="background:#38bdf8;"></span> Liquid
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background:#22c55e;"></span> Retirement
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background:#eab308;"></span> Property
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const data = [{ "month": "Jan", "liquid": 79784, "retirement": 47896, "property": 1199709, "net_worth": 532228, "debt": 795161 }, { "month": "Feb", "liquid": 82386, "retirement": 49821, "property": 1203522, "net_worth": 543189, "debt": 789243 }, { "month": "Mar", "liquid": 85779, "retirement": 50007, "property": 1193000, "net_worth": 542085, "debt": 786701 }, { "month": "Apr", "liquid": 89003, "retirement": 51055, "property": 1180069, "net_worth": 535050, "debt": 785077 }, { "month": "May", "liquid": 93435, "retirement": 53886, "property": 1164386, "net_worth": 529677, "debt": 782030 }, { "month": "Jun", "liquid": 97407, "retirement": 56367, "property": 1211716, "net_worth": 585021, "debt": 780469 }, { "month": "Jul", "liquid": 95240, "retirement": 57689, "property": 1211805, "net_worth": 585335, "debt": 779399 }, { "month": "Aug", "liquid": 98474, "retirement": 60719, "property": 1229025, "net_worth": 609893, "debt": 778325 }, { "month": "Sep", "liquid": 101425, "retirement": 64600, "property": 1179060, "net_worth": 568839, "debt": 776246 }, { "month": "Oct", "liquid": 102630, "retirement": 68191, "property": 1181957, "net_worth": 579683, "debt": 773095 }, { "month": "Nov", "liquid": 105514, "retirement": 69946, "property": 1209000, "net_worth": 613403, "debt": 771057 }];
+
+    const labels = data.map(d => d.month);
+    const netWorthData = data.map(d => d.net_worth);
+    const liquidData = data.map(d => d.liquid);
+    const retirementData = data.map(d => d.retirement);
+    const propertyData = data.map(d => d.property);
+
+    const latest = data[data.length - 1];
+    const assetTotal = latest.liquid + latest.retirement + latest.property;
+
+    // Net Worth Line Chart
+    const netWorthCtx = document.getElementById('netWorthChart').getContext('2d');
+    new Chart(netWorthCtx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Net Worth',
+          data: netWorthData,
+          borderColor: '#22c55e',
+          backgroundColor: 'rgba(34, 197, 94, 0.12)',
+          borderWidth: 2,
+          tension: 0.35,
+          pointRadius: 3,
+          pointHoverRadius: 5
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: ctx => ' $' + ctx.parsed.y.toLocaleString()
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { color: '#9ca3af', font: { size: 10 } }
+          },
+          y: {
+            grid: { color: 'rgba(31, 41, 55, 0.8)' },
+            ticks: {
+              color: '#6b7280',
+              callback: (value) => '$' + value.toLocaleString()
+            }
+          }
+        }
+      }
+    });
+
+    // Asset Allocation Pie Chart
+    const assetPieCtx = document.getElementById('assetPieChart').getContext('2d');
+    new Chart(assetPieCtx, {
+      type: 'pie',
+      data: {
+        labels: ['Liquid', 'Retirement', 'Property'],
+        datasets: [{
+          data: [latest.liquid, latest.retirement, latest.property],
+          backgroundColor: ['#38bdf8', '#22c55e', '#eab308']
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { color: '#9ca3af', font: { size: 11 } }
+          }
+        }
+      }
+    });
+
+    // Assets Line Chart
+    const assetsLineCtx = document.getElementById('assetsLineChart').getContext('2d');
+    new Chart(assetsLineCtx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'Liquid',
+            data: liquidData,
+            borderColor: '#38bdf8',
+            backgroundColor: 'rgba(56, 189, 248, 0.18)',
+            borderWidth: 2,
+            tension: 0.35,
+            pointRadius: 2,
+          },
+          {
+            label: 'Retirement',
+            data: retirementData,
+            borderColor: '#22c55e',
+            backgroundColor: 'rgba(34, 197, 94, 0.12)',
+            borderWidth: 2,
+            tension: 0.35,
+            pointRadius: 2,
+          },
+          {
+            label: 'Property',
+            data: propertyData,
+            borderColor: '#eab308',
+            backgroundColor: 'rgba(234, 179, 8, 0.1)',
+            borderWidth: 2,
+            tension: 0.35,
+            pointRadius: 2,
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: ctx => ctx.dataset.label + ': $' + ctx.parsed.y.toLocaleString()
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { color: '#9ca3af', font: { size: 10 } }
+          },
+          y: {
+            grid: { color: 'rgba(31, 41, 55, 0.8)' },
+            ticks: {
+              color: '#6b7280',
+              callback: (value) => '$' + value.toLocaleString()
+            }
+          }
+        }
+      }
+    });
+  </script>
+  <script src="../shared/header-footer.js"></script>
+</body>
+
+</html>

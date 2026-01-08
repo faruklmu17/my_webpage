@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Learn how to test localStorage, persistent UI state, and hidden DOM elements using Playwright and TypeScript. Step-by-step guide perfect for QA Engineers, SDETs, JavaScript testers, and automation beginners." />
+  <meta name="keywords"
+    content="Playwright localStorage, Playwright testing tutorial, Playwright persistent state, Playwright expect.poll, E2E testing localStorage, test UI persistence, Playwright TypeScript tutorial, QA automation tutorial, SDET portfolio project" />
+  <meta name="author" content="Faruk Hasan" />
+  <meta property="og:title" content="How to Test localStorage & Persistent UI State in Playwright" />
+  <meta property="og:description"
+    content="Step-by-step guide to testing persistent UI state, localStorage, and hidden DOM elements using Playwright and TypeScript. Perfect for SDETs and QA testers." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://faruk-hasan.com/assets/playwright-localstorage-thumb.jpg" />
+  <meta property="og:url" content="https://faruk-hasan.com/blog_post/local_storage_testing_with_playwright.html" />
+  <link rel="canonical" href="https://faruk-hasan.com/blog_post/local_storage_testing_with_playwright.html" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How to Test localStorage & Persistent UI State in Playwright",
+    "description": "Learn how to test localStorage, persistent UI state, and hidden DOM elements using Playwright and TypeScript. Step-by-step guide perfect for QA Engineers and SDETs.",
+    "image": "https://faruk-hasan.com/assets/playwright-localstorage-thumb.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Faruk Hasan",
+      "url": "https://faruk-hasan.com"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Faruk Hasan",
+      "url": "https://faruk-hasan.com"
+    },
+    "datePublished": "2024-11-28",
+    "dateModified": "2024-11-28",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://faruk-hasan.com/blog_post/local_storage_testing_with_playwright.html"
+    },
+    "keywords": ["Playwright", "localStorage", "Testing", "TypeScript", "QA", "SDET", "E2E Testing"]
+  }
+  </script>
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>How to Test localStorage & Persistent UI State in Playwright | Faruk Hasan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #4f46e5;
+      --secondary-color: #7c3aed;
+      --accent-color: #06b6d4;
+      --success-color: #059669;
+      --warning-color: #d97706;
+      --error-color: #dc2626;
+      --text-color: #1f2937;
+      --text-light: #6b7280;
+      --text-muted: #9ca3af;
+      --bg-color: #ffffff;
+      --bg-light: #f9fafb;
+      --bg-warm: #fef7ed;
+      --border-color: #e5e7eb;
+      --border-light: #f3f4f6;
+      --code-bg: #0f172a;
+      --code-text: #e2e8f0;
+      --highlight-bg: #fef3c7;
+      --highlight-border: #f59e0b;
+      --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --soft-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #fef7ed 0%, #f0f9ff 50%, #f3f4f6 100%);
+      color: var(--text-color);
+      line-height: 1.8;
+      min-height: 100vh;
+      font-size: 16px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .blog-container {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 4rem 8%;
+      background: var(--bg-color);
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .blog-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--secondary-color));
+    }
+
+    .blog-content {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .blog-header {
+      text-align: left;
+      margin-bottom: 3rem;
+      padding: 0;
+      border: none;
+      background: none;
+      color: var(--text-color);
+    }
+
+    .blog-title {
+      font-size: 2.75rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+    }
+
+    .blog-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    .blog-meta {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 2rem;
+    }
+
+    .blog-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .blog-meta-item i {
+      color: var(--accent-color);
+    }
+
+    .section-header {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-top: 3.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-color);
+      position: relative;
+      padding-left: 1rem;
+    }
+
+    .section-header::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 2rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+      border-radius: 2px;
+    }
+
+    .section-header:first-of-type {
+      margin-top: 2rem;
+    }
+
+    .content-text {
+      font-size: 1.125rem;
+      line-height: 1.8;
+      margin-bottom: 1.75rem;
+      color: var(--text-color);
+      font-weight: 400;
+    }
+
+    .intro-text {
+      font-size: 1.25rem;
+      line-height: 1.7;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, var(--highlight-bg) 0%, #fef9c3 100%);
+      border: 1px solid var(--highlight-border);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2.5rem 0;
+      position: relative;
+      box-shadow: var(--soft-shadow);
+    }
+
+    .highlight-box::before {
+      content: '💡';
+      position: absolute;
+      top: -10px;
+      left: 20px;
+      background: var(--bg-color);
+      padding: 0.5rem;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      box-shadow: var(--soft-shadow);
+    }
+
+    .highlight-box h3 {
+      color: var(--warning-color);
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .highlight-box ul,
+    .highlight-box ol {
+      margin: 0;
+      padding-left: 1.5rem;
+    }
+
+    .highlight-box li {
+      margin-bottom: 0.75rem;
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .code-block {
+      background: var(--code-bg);
+      color: var(--code-text);
+      border-radius: 16px;
+      padding: 2rem;
+      overflow-x: auto;
+      margin: 2.5rem 0;
+      border: 1px solid #334155;
+      font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      position: relative;
+      box-shadow: var(--card-shadow);
+    }
+
+    .code-block::before {
+      content: 'TypeScript';
+      position: absolute;
+      top: 0.75rem;
+      right: 1rem;
+      background: var(--accent-color);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .code-block code {
+      white-space: pre;
+      display: block;
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 16px;
+      margin: 3rem 0;
+      box-shadow: var(--card-shadow);
+      background: var(--bg-light);
+    }
+
+    .video-container::before {
+      content: '🎥 Watch the Tutorial';
+      position: absolute;
+      top: -2rem;
+      left: 0;
+      color: var(--text-light);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      border-radius: 16px;
+    }
+
+    .github-link {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--success-color), #059669);
+      color: white;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      margin: 1rem 0;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .github-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+    }
+
+    .back-link {
+      display: inline-block;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      margin-bottom: 2rem;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: var(--secondary-color);
+    }
+
+    .back-link i {
+      margin-right: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .blog-container {
+        padding: 2rem 5%;
+      }
+
+      .header-container {
+        padding: 0 5%;
+      }
+
+      .footer {
+        padding: 3rem 5% 2rem;
+      }
+
+      .blog-title {
+        font-size: 2.2rem;
+      }
+
+      .blog-meta {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .section-header {
+        font-size: 1.7rem;
+      }
+
+      .content-text {
+        font-size: 1.1rem;
+      }
+    }
+
+    /* Header and Footer Styles */
+    .header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: white;
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+    }
+
+    .header-container {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 0 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: white;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-menu a:hover {
+      opacity: 0.8;
+    }
+
+    .footer {
+      background: var(--text-color);
+      color: white;
+      text-align: center;
+      padding: 3rem 8% 2rem;
+      margin-top: 4rem;
+      width: 100%;
+    }
+
+    .footer-content {
+      max-width: none;
+      margin: 0;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-color);
+    }
+
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-social a {
+      color: white;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-social a:hover {
+      color: var(--accent-color);
+    }
+
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 0 1rem;
+      }
+
+      .nav-menu {
+        gap: 1rem;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <a href="../index.html" class="logo">Faruk Hasan</a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about/about_me.html">About</a></li>
+          <!-- <li><a href="../finance/dividend_income.html">Investments</a></li> -->
+          <li><a href="../index.html#blog">Blog</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="blog-container">
+    <div class="blog-content">
+      <a href="../index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i>
+        Back to Home
+      </a>
+
+      <div class="blog-header">
+        <h1 class="blog-title">Testing localStorage & Persistent UI State with Playwright</h1>
+        <p class="blog-subtitle">A practical guide to ensuring your web app's state persists exactly as users expect —
+          even after they refresh the page.</p>
+        <div class="blog-meta">
+          <div class="blog-meta-item">
+            <i class="fas fa-user"></i>
+            <span>Faruk Hasan</span>
+          </div>
+          <div class="blog-meta-item">
+            <i class="fas fa-calendar"></i>
+            <span>November 28, 2025</span>
+          </div>
+          <div class="blog-meta-item">
+            <i class="fas fa-clock"></i>
+            <span>8 min read</span>
+          </div>
+          <div class="blog-meta-item">
+            <i class="fas fa-tag"></i>
+            <span>Playwright Tutorial</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/scBKNnRScEQ"
+          title="How to Test localStorage & Persistent UI State in Playwright"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
+      </div>
+
+      <p class="intro-text">
+        Ever clicked a "Hide this section" button on a website, only to have it magically reappear after refreshing?
+        That's exactly the kind of bug that drives users crazy — and it's surprisingly common in modern web apps.
+      </p>
+
+      <p class="content-text">
+        Here's the thing: most developers test the happy path (click button → element hides), but they forget to test
+        what happens when users refresh the page. That's where localStorage testing comes in, and honestly, it's one of
+        the most overlooked aspects of end-to-end testing.
+      </p>
+
+      <p class="content-text">
+        In this guide, I'll walk you through exactly how I test persistent UI state using Playwright and TypeScript.
+        We'll cover everything from reading localStorage values with <code
+          style="background: var(--bg-light); padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em;">page.evaluate()</code>
+        to ensuring hidden elements stay hidden after a page reload.
+      </p>
+
+      <p class="content-text">
+        This isn't just theory — I'll show you a real-world scenario where we test a mission panel that needs to stay
+        hidden permanently once a user dismisses it. It's the exact type of test you'd write in a professional QA role.
+      </p>
+
+      <h2 class="section-header">Why This Matters More Than You Think</h2>
+
+      <p class="content-text">
+        Picture this: You're building an e-commerce site with a "Don't show this promotion again" button. A user clicks
+        it, continues shopping, then refreshes the page. If that promotion pops back up, you've just lost a potential
+        customer to frustration.
+      </p>
+
+      <p class="content-text">
+        Modern web applications rely heavily on localStorage to remember user preferences, dismissed notifications,
+        collapsed sections, and personalized settings. When this persistence breaks, the user experience falls apart.
+      </p>
+
+      <div class="highlight-box">
+        <h3>What happens when localStorage testing is skipped:</h3>
+        <ul>
+          <li><strong>User frustration:</strong> Dismissed elements keep coming back</li>
+          <li><strong>Lost personalization:</strong> Settings reset on every page load</li>
+          <li><strong>Broken workflows:</strong> Multi-step processes lose their state</li>
+          <li><strong>Support tickets:</strong> Users report "bugs" that seem random</li>
+          <li><strong>Revenue impact:</strong> Poor UX leads to higher bounce rates</li>
+        </ul>
+      </div>
+
+      <p class="content-text">
+        The good news? Testing localStorage with Playwright is straightforward once you know the right techniques. Let
+        me show you how I approach it.
+      </p>
+
+      <h2 class="section-header">What We'll Build Together</h2>
+
+      <p class="content-text">
+        I'll walk you through testing a real scenario: a mission panel that users can permanently dismiss. Once they
+        click "Hide this mission," it should stay hidden forever — even if they refresh, close their browser, or come
+        back next week.
+      </p>
+
+      <div class="highlight-box">
+        <h3>Here's our testing roadmap:</h3>
+        <ul>
+          <li><strong>Start with the basics:</strong> Automate clicking the dismiss button</li>
+          <li><strong>Verify the immediate change:</strong> Confirm the element disappears from the DOM</li>
+          <li><strong>Check the storage:</strong> Use <code>page.evaluate()</code> to read localStorage values</li>
+          <li><strong>Test the persistence:</strong> Refresh the page and verify the element stays hidden</li>
+          <li><strong>Handle edge cases:</strong> Use <code>expect.poll()</code> for reliable async testing</li>
+          <li><strong>Real-world validation:</strong> Test the complete user journey</li>
+        </ul>
+      </div>
+
+      <p class="content-text">
+        By the end of this tutorial, you'll have a solid understanding of localStorage testing that you can apply to any
+        web application. Plus, you'll have a great example for your portfolio that shows you understand both UI testing
+        and client-side state management.
+      </p>
+
+      <h2 class="section-header">The Secret Sauce: Reading localStorage</h2>
+
+      <p class="content-text">
+        Here's where things get interesting. Most testers only check if an element is visible or hidden, but they never
+        verify that the underlying data was actually saved. That's like checking if a door is closed without confirming
+        it's locked.
+      </p>
+
+      <p class="content-text">
+        Playwright's <code
+          style="background: var(--bg-light); padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em;">page.evaluate()</code>
+        method lets us execute JavaScript directly in the browser context, which means we can access localStorage just
+        like the application does:
+      </p>
+
+      <div class="code-block"><code>// Read the localStorage value to confirm it was saved
+const storedValue = await page.evaluate(() => {
+  return localStorage.getItem("mission7PersistentHide");
+});
+
+// Verify it contains the expected value
+expect(storedValue).toBe("true");</code></div>
+
+      <p class="content-text">
+        This is crucial because sometimes the UI might look correct, but the data isn't actually persisted. By checking
+        both the visual state and the stored data, we catch bugs that would otherwise slip through.
+      </p>
+
+      <h2 class="section-header">The Complete Test Journey</h2>
+
+      <p class="content-text">
+        Let me break down the exact steps we'll automate. This mirrors how a real user would interact with the feature,
+        plus the behind-the-scenes validation that ensures everything works correctly:
+      </p>
+
+      <div class="highlight-box">
+        <h3>Our testing workflow:</h3>
+        <ol>
+          <li><strong>Initial state check:</strong> Confirm the mission panel is visible by default</li>
+          <li><strong>User action:</strong> Click the "Hide this mission" button</li>
+          <li><strong>Immediate validation:</strong> Verify the element disappears from the UI</li>
+          <li><strong>Data verification:</strong> Check that localStorage was updated correctly</li>
+          <li><strong>Persistence test:</strong> Refresh the page to simulate a real user scenario</li>
+          <li><strong>Final validation:</strong> Confirm the element stays hidden and data persists</li>
+        </ol>
+      </div>
+
+      <p class="content-text">
+        This approach catches three types of bugs: UI bugs (element doesn't hide), storage bugs (data isn't saved), and
+        persistence bugs (state doesn't survive page reloads). Most test suites only catch the first one.
+      </p>
+
+      <h2 class="section-header">
+        <i class="fas fa-users"></i>
+        Who Is This Tutorial For?
+      </h2>
+      <p class="content-text">
+        This Playwright testing tutorial is perfect for:
+      </p>
+
+      <div class="highlight-box">
+        <ul>
+          <li>QA Engineers</li>
+          <li>SDETs</li>
+          <li>Test Automation Beginners</li>
+          <li>JavaScript/TypeScript testers</li>
+          <li>Anyone building a Playwright portfolio</li>
+          <li>Students preparing for QA or automation interviews</li>
+        </ul>
+      </div>
+
+      <p class="content-text">
+        If you're learning Playwright, this is the exact type of test hiring managers expect you to know.
+      </p>
+
+      <h2 class="section-header">
+        <i class="fas fa-video"></i>
+        Watch the Full Video
+      </h2>
+      <p class="content-text">
+        👉 <a href="https://youtu.be/scBKNnRScEQ" target="_blank" rel="noopener"
+          style="color: var(--primary-color); font-weight: 600;">https://youtu.be/scBKNnRScEQ</a>
+      </p>
+      <p class="content-text">
+        In the video, I show every step in real time so you can follow along.
+      </p>
+
+      <h2 class="section-header">Wrapping Up</h2>
+
+      <p class="content-text">
+        localStorage testing might seem like a small detail, but it's these details that separate good testers from
+        great ones. When you can confidently say "I've verified that user preferences persist across sessions," you're
+        demonstrating a level of thoroughness that employers value.
+      </p>
+
+      <p class="content-text">
+        The techniques we've covered here — using <code
+          style="background: var(--bg-light); padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em;">page.evaluate()</code>,
+        <code
+          style="background: var(--bg-light); padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9em;">expect.poll()</code>,
+        and testing persistence across page reloads — are applicable to any web application that uses client-side
+        storage.
+      </p>
+
+      <div class="highlight-box">
+        <h3>💼 Portfolio tip:</h3>
+        <p>This type of test makes an excellent addition to your GitHub portfolio. It shows you understand:</p>
+        <ul>
+          <li>End-to-end user workflows</li>
+          <li>Client-side state management</li>
+          <li>Async testing patterns</li>
+          <li>Real-world edge cases</li>
+        </ul>
+      </div>
+
+      <p class="content-text">
+        Remember, great testing isn't just about finding bugs — it's about building confidence that your application
+        works exactly as users expect, even in scenarios they might not think to test.
+      </p>
+
+      <div
+        style="margin-top: 3rem; padding: 2rem; background: var(--bg-light); border-radius: 12px; border-left: 4px solid var(--accent-color);">
+        <p style="margin: 0; color: var(--text-light); font-style: italic;">
+          <strong>Questions about localStorage testing or Playwright in general?</strong> I'm always happy to help
+          fellow testers level up their automation skills. Feel free to reach out!
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="../index.html">Home</a>
+        <a href="../about/about_me.html">About Me</a>
+        <!-- <a href="../finance/dividend_income.html">My Investments</a> -->
+        <a href="../index.html#blog">Blog</a>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+
+      <div class="footer-social">
+        <a href="https://linkedin.com/in/md-faruk-hasan" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/faruklmu17" target="_blank" rel="noopener" aria-label="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://youtube.com/@kidz_code" target="_blank" rel="noopener" aria-label="YouTube">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="mailto:faruqmul@gmail.com" aria-label="Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+
+      <p>&copy; 2025 Faruk Hasan. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+
+</html>

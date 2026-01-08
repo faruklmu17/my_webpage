@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learning Resources & Automation Practice - Faruk Hasan</title>
+  <link rel="canonical" href="https://faruk-hasan.com/resources/resources.html" />
+  <meta name="description"
+    content="Access interactive programming quizzes and automation testing practice environments. Perfect for developers and QA engineers to enhance skills in Python, Java, web development, and test automation.">
+  <meta name="keywords"
+    content="programming quizzes, automation testing practice, QA engineering, Python quiz, Java quiz, web development, Selenium practice, Playwright testing, Cypress automation">
+  <link rel="stylesheet" href="../styles.css">
+  <!-- Add Font Awesome for social media icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Add Google Fonts for signature style font -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <!-- Add Montserrat font for professional styling -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Google AdSense Code -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8655026160093979"
+    crossorigin="anonymous"></script>
+
+  <style>
+    /* Additional styles for quiz resources page */
+    .resources-container {
+      max-width: 1200px;
+      margin: 10px auto;
+      padding: 15px;
+    }
+
+    h2.section-title {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .resource-intro {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .resource-intro p {
+      max-width: 800px;
+      margin: 0 auto;
+      color: #ffffff;
+      line-height: 1.4;
+    }
+
+    .ad-container {
+      width: 100%;
+      margin: 10px 0;
+      text-align: center;
+      clear: both;
+      min-height: 90px;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .quiz-section {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      margin-top: 10px;
+      margin-bottom: 15px;
+    }
+
+    .quiz-nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 0;
+    }
+
+    .quiz-category {
+      position: relative;
+    }
+
+    /* Updated button styles with different colors for each category */
+    .category-button.python {
+      background-color: #3776AB;
+      /* Python blue */
+      box-shadow: 0 4px 8px rgba(55, 118, 171, 0.3);
+    }
+
+    .category-button.java {
+      background-color: #E76F00;
+      /* Java orange */
+      box-shadow: 0 4px 8px rgba(231, 111, 0, 0.3);
+    }
+
+    .category-button.web {
+      background-color: #2965f1;
+      /* CSS blue */
+      box-shadow: 0 4px 8px rgba(41, 101, 241, 0.3);
+    }
+
+    .category-button.ged {
+      background-color: #7248b6;
+      /* Purple */
+      box-shadow: 0 4px 8px rgba(114, 72, 182, 0.3);
+    }
+
+    .category-button.automation {
+      background-color: #ff5722;
+      /* Orange color for automation */
+      box-shadow: 0 4px 8px rgba(255, 87, 34, 0.3);
+    }
+
+    .category-button.version-control {
+      background-color: #f39c12;
+      /* Git orange/yellow */
+      box-shadow: 0 4px 8px rgba(243, 156, 18, 0.3);
+    }
+
+    .category-button.ai {
+      background-color: #9b59b6;
+      /* Purple for AI */
+      box-shadow: 0 4px 8px rgba(155, 89, 182, 0.3);
+    }
+
+    .category-button.arduino {
+      background-color: #00979D;
+      /* Teal/cyan for Arduino */
+      box-shadow: 0 4px 8px rgba(0, 151, 157, 0.3);
+    }
+
+    .category-button.cyber-security {
+      background-color: #e74c3c;
+      /* Red for Cyber Security */
+      box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+    }
+
+    /* Modern sleek button style updates */
+    .category-button {
+      background-color: #0077b5;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 15px;
+      border-radius: 8px;
+      /* Slightly more rounded */
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      letter-spacing: 0.5px;
+    }
+
+    .category-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .quiz-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 10;
+      background-color: white;
+      min-width: 250px;
+      border-radius: 5px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      padding: 10px 0;
+      display: none;
+    }
+
+    .quiz-category:hover .quiz-dropdown {
+      display: block;
+    }
+
+    .quiz-dropdown h3 {
+      color: #333;
+      margin: 0;
+      padding: 10px 15px;
+      border-bottom: 1px solid #eee;
+      font-size: 16px;
+    }
+
+    .quiz-dropdown ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .quiz-dropdown li {
+      padding: 8px 15px;
+      transition: background-color 0.2s;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .quiz-dropdown li:last-child {
+      border-bottom: none;
+    }
+
+    .quiz-dropdown li:hover {
+      background-color: #f5f7fa;
+    }
+
+    .quiz-dropdown a {
+      color: #333;
+      text-decoration: none;
+      display: block;
+      font-size: 14px;
+    }
+
+    .quiz-dropdown a:hover {
+      color: #0077b5;
+    }
+
+    .content-area {
+      margin-top: 15px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+    }
+
+    .content-area h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .content-area p {
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    /* New feature grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 25px;
+      text-align: left;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s;
+    }
+
+    .feature:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature i {
+      color: #0077b5;
+      font-size: 20px;
+    }
+
+    .feature p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .ad-container {
+      width: 100%;
+      margin: 20px 0;
+      text-align: center;
+      clear: both;
+      min-height: 90px;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .resource-intro {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .resource-intro p {
+      max-width: 800px;
+      margin: 0 auto;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quiz-nav {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .quiz-category {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .category-button {
+        width: 100%;
+      }
+
+      .quiz-dropdown {
+        width: 100%;
+      }
+    }
+
+    /* Header styling to match index.html exactly */
+    header {
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.5rem 0;
+      transition: all 0.3s ease;
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
+      padding: 0 1rem;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding-right: 0.5rem;
+      flex: 1;
+      min-width: 0;
+      max-width: 75%;
+    }
+
+    .profile-image {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid #3498db;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0;
+      margin: 0.5rem;
+    }
+
+    .profile-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .profile-image:hover img {
+      transform: scale(1.05);
+    }
+
+    .headline {
+      text-align: left;
+      padding: 0.5rem 0;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .headline h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3.2rem;
+      color: #0077b5;
+      margin-bottom: 0.5rem;
+    }
+
+    .headline p {
+      color: #666;
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.3;
+      margin-top: 0.3rem;
+      letter-spacing: 0.1px;
+      white-space: nowrap;
+    }
+
+    .headline .highlight {
+      background: linear-gradient(135deg, #2c3e50 0%, #3498db 50%, #e74c3c 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 600;
+      font-size: 1.02rem;
+      position: relative;
+      display: inline-block;
+      animation: gradientShift 4s ease-in-out infinite;
+      transition: all 0.3s ease;
+    }
+
+    .headline .highlight:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.1);
+    }
+
+    @keyframes gradientShift {
+
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    .nav-social-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding: 0.8rem 2rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1rem;
+      flex-wrap: nowrap;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #666;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      padding: 0.5rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #3498db, #e74c3c);
+      transition: width 0.3s ease, left 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #3498db;
+    }
+
+    nav ul li a:hover::after {
+      width: 80%;
+      left: 10%;
+    }
+
+    nav ul li a.active {
+      color: #3498db;
+      font-weight: 600;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .social-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      font-size: 1.2rem;
+      background-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    /* Brand-specific styling */
+    .social-icon.linkedin {
+      color: #0077B5;
+      border-color: rgba(0, 119, 181, 0.3);
+    }
+
+    .social-icon.youtube {
+      color: #FF0000;
+      border-color: rgba(255, 0, 0, 0.3);
+    }
+
+    .social-icon.facebook {
+      color: #1877F2;
+      border-color: rgba(24, 119, 242, 0.3);
+    }
+
+    /* Hover effects */
+    .social-icon:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .social-icon.linkedin:hover {
+      background-color: #0077B5;
+      color: white;
+      border-color: #0077B5;
+    }
+
+    .social-icon.youtube:hover {
+      background-color: #FF0000;
+      color: white;
+      border-color: #FF0000;
+    }
+
+    .social-icon.facebook:hover {
+      background-color: #1877F2;
+      color: white;
+      border-color: #1877F2;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .header-content {
+        flex-direction: column;
+        padding: 0.5rem;
+      }
+
+      .header-left {
+        width: 100%;
+        margin-bottom: 1rem;
+        padding-right: 0;
+        justify-content: center;
+      }
+
+      .profile-image {
+        width: 100px;
+        height: 100px;
+        margin: 0.5rem 1rem 0.5rem 0;
+      }
+
+      .headline {
+        text-align: left;
+      }
+
+      .headline h1 {
+        font-size: 2.8rem;
+      }
+
+      .nav-social-container {
+        width: 100%;
+        align-items: center;
+        padding: 0.8rem;
+      }
+
+      .social-icons {
+        margin-top: 1rem;
+      }
+
+      .social-icon {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header-left {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .profile-image {
+        width: 120px;
+        height: 120px;
+        margin: 0.5rem auto;
+      }
+
+      .headline {
+        text-align: center;
+        padding: 0.5rem;
+      }
+    }
+
+    /* Enhanced styling for GED quiz dropdown */
+    .quiz-dropdown h4 {
+      margin: 15px 15px 8px;
+      color: #7248b6;
+      /* Matches the GED button color */
+      font-size: 15px;
+      border-bottom: 1px solid #e0d5f0;
+      padding-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .quiz-dropdown ul {
+      margin-bottom: 10px;
+    }
+
+    .quiz-dropdown ul li a {
+      padding: 6px 15px;
+      display: block;
+      transition: background-color 0.2s;
+    }
+
+    .quiz-dropdown ul li a:hover {
+      background-color: #f5f0ff;
+    }
+
+    /* Make the dropdown wider to accommodate longer category names */
+    .quiz-category .quiz-dropdown {
+      min-width: 280px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <div class="header-left">
+        <div class="profile-image">
+          <img src="../assets/images/me.jpg" alt="Faruk Hasan">
+        </div>
+        <div class="headline">
+          <h1>Faruk Hasan</h1>
+          <p><span class="highlight">Software QA Engineer | Automation & AI-Driven Testing Specialist</span></p>
+        </div>
+      </div>
+      <div class="nav-social-container">
+        <nav>
+          <ul>
+            <li><a href="../index.html#about">About Me</a></li>
+            <li><a href="../index.html#courses">Courses</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="../blog.html">Blog</a></li>
+            <li><a href="../tutoring/tutoring.html">Tutoring</a></li>
+            <!-- <li><a href="../index.html#dividend-income">Dividends</a></li> -->
+            <li><a href="../resources/resources.html" class="active">Resources</a></li>
+          </ul>
+        </nav>
+        <div class="social-icons">
+          <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn"><i
+              class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube"><i
+              class="fab fa-youtube"></i></a>
+          <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook"><i
+              class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+    </div>
+    <!-- //test -->
+    <!-- <div class="ai-image-link">
+      <a href="../assets/images/ai.png" target="_blank">
+        <img src="../assets/images/ai.png" alt="AI Technology Illustration" class="thumbnail">
+        <span>View AI Illustration <i class="fas fa-external-link-alt"></i></span>
+      </a>
+    </div> -->
+  </header>
+
+  <div class="resources-container">
+    <h2 class="section-title">Learning Resources</h2>
+
+    <div class="resource-intro">
+      <p>Welcome to my comprehensive learning resources section. Here you'll find interactive quizzes to test your
+        knowledge on various programming languages, web development topics, and a dedicated automation practice
+        environment for QA engineers. Enhance your skills in Python, Java, HTML/CSS/JavaScript, or practice automation
+        testing with Selenium, Playwright, or Cypress. Choose a category below to start learning and testing your
+        knowledge.</p>
+    </div>
+
+    <!-- Quiz navigation moved above the ad -->
+    <div class="quiz-section">
+      <div class="quiz-nav">
+        <div class="quiz-category">
+          <button class="category-button python">Python Quizzes</button>
+          <div class="quiz-dropdown">
+            <h3>Python Quizzes</h3>
+            <ul>
+              <li><a href="../quizzes/python-basics.html">Python Basics Quiz</a></li>
+              <li><a href="../quizzes/python-functions.html">Python Functions & Methods</a></li>
+              <li><a href="../quizzes/python-oop.html">Object-Oriented Python</a></li>
+              <li><a href="../quizzes/python-data-structures.html">Python Data Structures</a></li>
+              <li><a href="../quizzes/python-file-handling.html">File Handling in Python</a></li>
+              <li><a href="../quizzes/python-modules.html">Python Modules & Packages</a></li>
+              <li><a href="../quizzes/PYTHON/python_quiz_advance_1.html">Advanced Python Quiz 1</a></li>
+              <li><a href="../quizzes/PYTHON/python_playwright_quiz_1.html">Playwright Python Quiz</a></li>
+              <li><a href="../quizzes/PYTHON/python_decorator_quiz.html">Python Decorators Quiz</a></li>
+              <li><a href="../quizzes/PYTHON/data_scraping_quiz.html">Data Scraping Quiz</a></li>
+              <li><a href="../quizzes/PYTHON/python_dictionary_quiz.html">Python Dictionary Quiz</a></li>
+              <li><a href="../quizzes/PYTHON/python_oop_quiz_2.html">Python OOP Quiz 2</a></li>
+              <li><a href="../quizzes/PYTHON/chat_bot_rule_based_quiz.html">Python Chatbot Quiz</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="quiz-category">
+          <button class="category-button ai">AI Quizzes</button>
+          <div class="quiz-dropdown">
+            <h3>AI & Data Science Quizzes</h3>
+            <ul>
+              <li><a href="../quizzes/AI/ai_quiz_1_web_scraping.html">AI Quiz 1: Web Scraping</a></li>
+              <li><a href="../quizzes/AI/ai_quiz_2_numpy_pandas.html">AI Quiz 2: NumPy & Pandas</a></li>
+              <li><a href="../quizzes/AI/ai_quiz_3_bag_of_words.html">AI Quiz 3: Bag of Words</a></li>
+              <li><a href="../quizzes/AI/ai_quiz_0_fundamentals.html">Data & AI Fundamentals</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="quiz-category">
+          <button class="category-button arduino">Arduino & Electronics Quizzes</button>
+          <div class="quiz-dropdown">
+            <h3>Arduino & Basic Electronics Quizzes</h3>
+            <ul>
+              <li><a href="../quizzes/Arduino/arduino_board_basic_quiz.html">Electronics Basics Quiz</a></li>
+              <li><a href="../quizzes/Arduino/arduino_board_basic_electronics_quiz.html">Arduino Basics Mastery Quiz</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="quiz-category">
+          <button class="category-button cyber-security">Cyber Security Quizzes</button>
+          <div class="quiz-dropdown">
+            <h3>Cyber Security Quizzes</h3>
+            <ul>
+              <li><a href="../cyber_security/password.html">Password Security Quiz</a></li>
+              <li><a href="../cyber_security/phishing.html">Phishing Awareness Quiz</a></li>
+              <li><a href="../cyber_security/websites.html">Website Security Quiz</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="quiz-category">
+          <button class="category-button java">Java Quizzes</button>
+          <div class="quiz-dropdown">
+            <h3>Java Quizzes</h3>
+            <ul>
+              <li><a href="../quizzes/java-basics.html">Java Basics Quiz</a></li>
+              <li><a href="../quizzes/java-oop.html">Java OOP Concepts</a></li>
+              <li><a href="../quizzes/java-collections.html">Java Collections Framework</a></li>
+              <li><a href="../quizzes/java-inheritance.html">Inheritance & Polymorphism</a></li>
+              <li><a href="../quizzes/java-exceptions.html">Exception Handling in Java</a></li>
+              <li><a href="../quizzes/java-io.html">Java I/O Operations</a></li>
+              <li><a href="../quizzes/java-threads.html">Java Multithreading</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="quiz-category">
+          <button class="category-button version-control">Version Control Quizzes</button>
+          <div class="quiz-dropdown">
+            <h3>Version Control Quizzes</h3>
+            <ul>
+              <li><a href="../quizzes/GIT/git_quiz_basics.html">Git & GitHub Basics Quiz</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="quiz-category">
+          <button class="category-button web">HTML, CSS, JavaScript Quizzes</button>
+          <div class="quiz-dropdown">
+            <ul>
+              <li><a href="#" class="quiz-link" data-quiz="Quiz-1 HTML"
+                  data-url="../quizzes/HTML-CSS-JS/wd_quiz1.html">Quiz-1 HTML</a></li>
+              <li><a href="#" class="quiz-link" data-quiz="HTML Fundamentals"
+                  data-url="../quizzes/HTML-CSS-JS/wd_project_4_quiz1.html">Project-4 Quiz:1</a></li>
+              <li><a href="#" class="quiz-link" data-quiz="Project-4"
+                  data-url="../quizzes/HTML-CSS-JS/wd_project_4_quiz2.html">Project-4 Quiz:2</a></li>
+              <li><a href="../quizzes/HTML-CSS-JS/project5_quiz2.html">Project-5 Quiz:2</a></li>
+              <li><a href="../quizzes/css-basics.html">CSS Styling Basics</a></li>
+              <li><a href="../quizzes/css-layout.html">CSS Layout & Flexbox</a></li>
+              <li><a href="../quizzes/js-basics.html">JavaScript Fundamentals</a></li>
+              <li><a href="../quizzes/js-dom.html">DOM Manipulation</a></li>
+              <li><a href="../quizzes/js-events.html">JavaScript Events</a></li>
+              <li><a href="../quizzes/js-forms.html">Form Validation</a></li>
+              <li><a href="../quizzes/web-concepts.html">Web Development Concepts</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- GED Math Quizzes - Direct link instead of dropdown -->
+        <div class="quiz-category">
+          <a href="../quizzes/GED/ged-math-quizzes.html" class="category-button ged"
+            style="display: inline-block; text-decoration: none;">GED Math Quizzes</a>
+        </div>
+
+        <!-- New Automation Practice Button -->
+        <div class="quiz-category">
+          <a href="../automation/signup.html" class="category-button automation"
+            style="display: inline-block; text-decoration: none;">Automation Practice</a>
+        </div>
+      </div>
+
+      <!-- Content area with improved styling -->
+      <div class="content-area">
+        <h2>Interactive Quiz Section</h2>
+        <p>Select any quiz category above to begin testing your knowledge!</p>
+        <div class="features-grid">
+          <div class="feature">
+            <i class="fas fa-check-circle"></i>
+            <p>Immediate feedback on your answers</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-lightbulb"></i>
+            <p>Detailed explanations for each question</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-chart-line"></i>
+            <p>Track your progress over time</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-medal"></i>
+            <p>Earn badges for completing quizzes</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Middle AdSense -->
+      <div class="ad-container">
+        <!-- Google AdSense -->
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8655026160093979"
+          data-ad-slot="YOUR_AD_SLOT_2" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+    </div>
+
+    <!-- Bottom AdSense -->
+    <div class="ad-container">
+      <!-- Google AdSense -->
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8655026160093979"
+        data-ad-slot="YOUR_AD_SLOT_3" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </div>
+
+  <script>
+    // Updated script to handle quiz selection and navigation
+    document.querySelectorAll('.quiz-dropdown a').forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const quizName = this.textContent;
+        const contentArea = document.querySelector('.content-area');
+
+        // Get the custom data attribute for the quiz URL
+        const quizUrl = this.dataset.url || '';
+
+        contentArea.innerHTML = `
+          <h2>${quizName}</h2>
+          <p>You've selected the ${quizName} quiz. This quiz will test your knowledge of key concepts in this area.</p>
+          <button id="startQuizBtn" style="padding: 10px 20px; background-color: #0077b5; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px;">Start Quiz</button>
+        `;
+
+        // Add click event to the start quiz button
+        const startQuizBtn = document.getElementById('startQuizBtn');
+        startQuizBtn.addEventListener('click', function () {
+          // If it's the HTML Fundamentals quiz or has a custom URL, navigate to that page
+          if (quizName === 'HTML Fundamentals' || quizUrl) {
+            window.location.href = quizUrl || '../quizzes/HTML-CSS-JS/wd_project_4_quiz1.html';
+          } else {
+            // For other quizzes, navigate to their respective pages
+            // This keeps the original behavior for non-HTML Fundamentals quizzes
+            const quizPageUrl = link.getAttribute('href');
+            if (quizPageUrl && quizPageUrl !== '#') {
+              window.location.href = quizPageUrl;
+            }
+          }
+        });
+      });
+    });
+  </script>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-info">
+        <div class="footer-logo">Faruk Hasan</div>
+        <p>QA Engineer | Automation & AI-Driven Testing Specialist</p>
+        <p>Empowering developers and testers with knowledge and tools for success.</p>
+      </div>
+
+      <div class="footer-social">
+        <h4>Connect With Me</h4>
+        <div class="social-icons-footer">
+          <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn"
+            target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube"
+            target="_blank"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook"
+            target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://github.com/faruklmu17" class="social-icon github" aria-label="GitHub" target="_blank"><i
+              class="fab fa-github"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-share">
+        <h4>Share This Page</h4>
+        <div class="share-buttons">
+          <a href="javascript:void(0)" onclick="shareOnFacebook()" class="share-btn facebook"
+            aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="javascript:void(0)" onclick="shareOnTwitter()" class="share-btn twitter"
+            aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="javascript:void(0)" onclick="shareOnLinkedIn()" class="share-btn linkedin"
+            aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="javascript:void(0)" onclick="shareByEmail()" class="share-btn email" aria-label="Share by Email"><i
+              class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Faruk Hasan. All rights reserved. |
+        <a href="../index.html">Home</a> |
+        <a href="../resources/resources.html">Resources</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Social sharing functions -->
+  <script>
+    function shareOnFacebook() {
+      const url = encodeURIComponent(window.location.href);
+      const title = encodeURIComponent(document.title);
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+    }
+
+    function shareOnTwitter() {
+      const url = encodeURIComponent(window.location.href);
+      const title = encodeURIComponent(document.title);
+      window.open(`https://twitter.com/intent/tweet?url=${url}&text=${title}`, '_blank', 'width=600,height=400');
+    }
+
+    function shareOnLinkedIn() {
+      const url = encodeURIComponent(window.location.href);
+      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=400');
+    }
+
+    function shareByEmail() {
+      const url = window.location.href;
+      const title = document.title;
+      const body = `Check out this page: ${title}\n${url}`;
+      window.location.href = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+    }
+  </script>
+
+  <!-- Cosmic Galaxy Background Art -->
+  <script src="../ai_resources/art.js"></script>
+  <script src="../shared/header-footer.js"></script>
+</body>
+
+</html>

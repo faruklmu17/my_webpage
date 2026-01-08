@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Understand Python Decorators in 5 Easy Steps - Faruk Hasan</title>
+  <link rel="canonical" href="https://faruk-hasan.com/blog_post/python_decorator_tutorial.html" />
 </head>
+
 <body style="font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: #fff; color: #333;">
   <main style="max-width: 900px; margin: 0 auto; padding: 2rem; line-height: 1.7;">
     <article>
       <div style="text-align: center; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid #eee;">
-        <h1 style="font-size: 2.5rem; margin-bottom: 1rem; line-height: 1.3; color: #3a6ea5;">Python Decorators in 5 Easy Steps (With Simple Code Examples)</h1>
-        <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; color: #666; font-size: 0.95rem;">
+        <h1 style="font-size: 2.5rem; margin-bottom: 1rem; line-height: 1.3; color: #3a6ea5;">Python Decorators in 5
+          Easy Steps (With Simple Code Examples)</h1>
+        <div
+          style="display: flex; justify-content: center; align-items: center; gap: 2rem; color: #666; font-size: 0.95rem;">
           <div><i class="far fa-calendar-alt"></i> June 18, 2025</div>
           <div><i class="far fa-clock"></i> 7 min read</div>
           <div><i class="fas fa-tag"></i> Python, Decorators, Beginners</div>
@@ -18,46 +23,64 @@
       </div>
 
       <div>
-        <p>In Python, a decorator is like a wrapper around a function. You add it on top of a function using <code>@</code> syntax, and it lets you do something extra every time that function runs—without changing the original code. Sounds confusing? Let’s break it down in 5 simple steps so it clicks.</p>
+        <p>In Python, a decorator is like a wrapper around a function. You add it on top of a function using
+          <code>@</code> syntax, and it lets you do something extra every time that function runs—without changing the
+          original code. Sounds confusing? Let’s break it down in 5 simple steps so it clicks.</p>
 
         <!-- Step 1 -->
-        <h2 style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">🧠 Step 1: Functions Are Objects</h2>
-        <p>Functions in Python can be treated like variables. You can assign a function to another variable and call it from there.</p>
-<pre style="background-color: #1e1e1e; padding: 1rem; border-radius: 5px; overflow-x: auto; color: #f8f8f8;"><code>def recipe():
+        <h2
+          style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">
+          🧠 Step 1: Functions Are Objects</h2>
+        <p>Functions in Python can be treated like variables. You can assign a function to another variable and call it
+          from there.</p>
+        <pre style="background-color: #1e1e1e; padding: 1rem; border-radius: 5px; overflow-x: auto; color: #f8f8f8;"><code>def recipe():
     print("this is my recipe")
 
 my_recipe = recipe
 my_recipe()</code></pre>
-        <p><strong>Explanation:</strong> <code>my_recipe = recipe</code> copies the function (not its result), and <code>my_recipe()</code> executes it. This is the foundation for decorators.</p>
+        <p><strong>Explanation:</strong> <code>my_recipe = recipe</code> copies the function (not its result), and
+          <code>my_recipe()</code> executes it. This is the foundation for decorators.</p>
 
         <!-- Step 2 -->
-        <h2 style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">🧁 Step 2: Functions Inside Functions</h2>
+        <h2
+          style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">
+          🧁 Step 2: Functions Inside Functions</h2>
         <p>You can define one function inside another. This lets you group logic and control scope.</p>
-<pre style="background-color: #1e1e1e; padding: 1rem; border-radius: 5px; overflow-x: auto; color: #f8f8f8;"><code>def outer():
+        <pre style="background-color: #1e1e1e; padding: 1rem; border-radius: 5px; overflow-x: auto; color: #f8f8f8;"><code>def outer():
     def inner():
         print("I'm the inner function!")
     inner()
 
 my_outer = outer
 my_outer()</code></pre>
-        <p><strong>Explanation:</strong> <code>inner()</code> exists only within <code>outer()</code>. When you call <code>outer()</code>, it runs <code>inner()</code>. In this example, we assign <code>outer</code> to <code>my_outer</code> (as a function object), and then call it with <code>my_outer()</code>. This shows how nested functions can be executed from outside their definition block, and this nesting is key to how decorators work.</p>
+        <p><strong>Explanation:</strong> <code>inner()</code> exists only within <code>outer()</code>. When you call
+          <code>outer()</code>, it runs <code>inner()</code>. In this example, we assign <code>outer</code> to
+          <code>my_outer</code> (as a function object), and then call it with <code>my_outer()</code>. This shows how
+          nested functions can be executed from outside their definition block, and this nesting is key to how
+          decorators work.</p>
 
         <!-- Step 3 -->
-        <h2 style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">🧁 Step 3: Functions Returning Functions</h2>
+        <h2
+          style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">
+          🧁 Step 3: Functions Returning Functions</h2>
         <p>Functions can return other functions—this lets us customize behavior dynamically.</p>
-<pre style="background-color: #1e1e1e; padding: 1rem; border-radius: 5px; overflow-x: auto; color: #f8f8f8;"><code>def outer():
+        <pre style="background-color: #1e1e1e; padding: 1rem; border-radius: 5px; overflow-x: auto; color: #f8f8f8;"><code>def outer():
     def inner():
         print("Hello from inner!")
     return inner
 
 my_func = outer()
 my_func()</code></pre>
-        <p><strong>Explanation:</strong> <code>outer()</code> returns <code>inner</code> (not executed), and <code>my_func()</code> then executes it. This lets us create decorators that return a new function that wraps the original.</p>
+        <p><strong>Explanation:</strong> <code>outer()</code> returns <code>inner</code> (not executed), and
+          <code>my_func()</code> then executes it. This lets us create decorators that return a new function that wraps
+          the original.</p>
 
         <!-- Step 4 -->
-        <h2 style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">🧁 Step 4: Passing Functions to Functions</h2>
+        <h2
+          style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">
+          🧁 Step 4: Passing Functions to Functions</h2>
         <p>Functions can take other functions as arguments. These are often called callbacks.</p>
-<pre style="background-color: #1e1e1e; padding: 1rem; border-radius: 5px; overflow-x: auto; color: #f8f8f8;"><code>def greet(func):
+        <pre style="background-color: #1e1e1e; padding: 1rem; border-radius: 5px; overflow-x: auto; color: #f8f8f8;"><code>def greet(func):
     print("Doing something first...")
     func()
 
@@ -65,12 +88,16 @@ def say_hi():
     print("Hi!")
 
 greet(say_hi)</code></pre>
-        <p><strong>Explanation:</strong> We pass <code>say_hi</code> into <code>greet</code>, which then calls it. This is another essential idea behind decorators—they accept a function, modify its behavior, and return a new version.</p>
+        <p><strong>Explanation:</strong> We pass <code>say_hi</code> into <code>greet</code>, which then calls it. This
+          is another essential idea behind decorators—they accept a function, modify its behavior, and return a new
+          version.</p>
 
         <!-- Step 5 -->
-        <h2 style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">🧁 Step 5: Making Your First Decorator!</h2>
+        <h2
+          style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">
+          🧁 Step 5: Making Your First Decorator!</h2>
         <p>This is the real deal. Here's your first decorator in action:</p>
-<pre style="background-color: #1e1e1e; padding: 1rem; border-radius: 5px; overflow-x: auto; color: #f8f8f8;"><code>def my_decorator(func):
+        <pre style="background-color: #1e1e1e; padding: 1rem; border-radius: 5px; overflow-x: auto; color: #f8f8f8;"><code>def my_decorator(func):
     def wrapper():
         print("Before the function runs")
         func()
@@ -82,12 +109,16 @@ def say_hello():
     print("Hello!")
 
 say_hello()</code></pre>
-        <p><strong>Explanation:</strong> The <code>@my_decorator</code> line means Python runs <code>say_hello = my_decorator(say_hello)</code> behind the scenes. This replaces <code>say_hello</code> with the <code>wrapper</code> function that calls the original one, with extra steps before and after.</p>
-<pre style="background-color: #1e1e1e; padding: 1rem; border-radius: 5px; overflow-x: auto; color: #f8f8f8;"><code>say_hello = my_decorator(say_hello)
+        <p><strong>Explanation:</strong> The <code>@my_decorator</code> line means Python runs
+          <code>say_hello = my_decorator(say_hello)</code> behind the scenes. This replaces <code>say_hello</code> with
+          the <code>wrapper</code> function that calls the original one, with extra steps before and after.</p>
+        <pre style="background-color: #1e1e1e; padding: 1rem; border-radius: 5px; overflow-x: auto; color: #f8f8f8;"><code>say_hello = my_decorator(say_hello)
 say_hello()</code></pre>
 
         <!-- Summary -->
-        <h2 style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">✨ Why Use Decorators?</h2>
+        <h2
+          style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">
+          ✨ Why Use Decorators?</h2>
         <ul>
           <li>Logging</li>
           <li>Timing</li>
@@ -100,21 +131,31 @@ say_hello()</code></pre>
           Decorators are powerful tools for enhancing functions without modifying their internals.
         </blockquote>
 
-        <h2 style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">🎥 Watch the Full Tutorial</h2>
+        <h2
+          style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">
+          🎥 Watch the Full Tutorial</h2>
         <p>Prefer to learn by watching? Check out the full step-by-step video tutorial on my YouTube channel:</p>
-        <p><a href="https://youtu.be/oFFZWT-SMTs" target="_blank" style="color: #3a6ea5; text-decoration: none; border-bottom: 1px solid #3a6ea5;">Watch on YouTube →</a></p>
+        <p><a href="https://youtu.be/oFFZWT-SMTs" target="_blank"
+            style="color: #3a6ea5; text-decoration: none; border-bottom: 1px solid #3a6ea5;">Watch on YouTube →</a></p>
 
         <hr style="border: none; height: 1px; background-color: #eee; margin: 2rem 0;">
 
         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-          <span style="background-color: rgba(58, 110, 165, 0.1); color: #3a6ea5; padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.85rem;">#Python</span>
-          <span style="background-color: rgba(58, 110, 165, 0.1); color: #3a6ea5; padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.85rem;">#Decorators</span>
-          <span style="background-color: rgba(58, 110, 165, 0.1); color: #3a6ea5; padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.85rem;">#Beginners</span>
-          <span style="background-color: rgba(58, 110, 165, 0.1); color: #3a6ea5; padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.85rem;">#Tutorial</span>
+          <span
+            style="background-color: rgba(58, 110, 165, 0.1); color: #3a6ea5; padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.85rem;">#Python</span>
+          <span
+            style="background-color: rgba(58, 110, 165, 0.1); color: #3a6ea5; padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.85rem;">#Decorators</span>
+          <span
+            style="background-color: rgba(58, 110, 165, 0.1); color: #3a6ea5; padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.85rem;">#Beginners</span>
+          <span
+            style="background-color: rgba(58, 110, 165, 0.1); color: #3a6ea5; padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.85rem;">#Tutorial</span>
         </div>
       </div>
     </article>
-    <a href="../index.html#blog" style="display: inline-flex; align-items: center; margin-top: 2rem; color: #3a6ea5; text-decoration: none; font-weight: 600;"><i class="fas fa-arrow-left" style="margin-right: 0.5rem;"></i> Back to Blog</a>
+    <a href="../index.html#blog"
+      style="display: inline-flex; align-items: center; margin-top: 2rem; color: #3a6ea5; text-decoration: none; font-weight: 600;"><i
+        class="fas fa-arrow-left" style="margin-right: 0.5rem;"></i> Back to Blog</a>
   </main>
 </body>
+
 </html>

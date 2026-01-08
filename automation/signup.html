@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sign Up - Automation Practice</title>
-  <meta name="description" content="Sign up page for Automation Practice. Perfect for QA engineers to practice Selenium, Playwright, and Cypress automation." />
+  <link rel="canonical" href="https://faruk-hasan.com/automation/signup.html" />
+  <meta name="description"
+    content="Sign up page for Automation Practice. Perfect for QA engineers to practice Selenium, Playwright, and Cypress automation." />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -16,13 +19,13 @@
       --error-color: #e63946;
       --success-color: #2a9d8f;
     }
-    
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-    
+
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -42,7 +45,7 @@
       background-color: #fff;
       padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     .progress-steps {
@@ -121,13 +124,13 @@
       background: #fff;
       padding: 40px;
       border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
       max-width: 450px;
       width: 100%;
       position: relative;
       overflow: hidden;
     }
-    
+
     .container::before {
       content: "";
       position: absolute;
@@ -159,7 +162,9 @@
       color: #555;
     }
 
-    input[type="text"], input[type="password"], input[type="email"] {
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
       width: 100%;
       padding: 14px;
       border: 1px solid var(--border-color);
@@ -211,6 +216,7 @@
     }
   </style>
 </head>
+
 <body>
   <!-- Progress bar container -->
   <div class="progress-container">
@@ -241,47 +247,48 @@
 
       <div class="form-group">
         <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required />
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password"
+          required />
       </div>
 
       <button type="submit">Sign Up</button>
 
       <div class="toggle">
-        Already have an account? <a href="login.html">Login</a>
+        Already have an account? <a href="../automation/login.html">Login</a>
       </div>
     </form>
   </div>
 
   <script>
     // Add this at the very top of your script
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       // Clear all localStorage to reset everything
       localStorage.clear();
       console.log('Cleared all localStorage');
-      
+
       // Initialize empty registered users
       let registeredUsers = {};
       localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
-      
+
       // Set progress bar to 0%
       const progressBarFill = document.getElementById('progressBarFill');
       progressBarFill.style.width = '0%';
       document.querySelector('.progress-text').textContent = 'Step 1 of 3: Sign Up (0%)';
     });
-    
+
     // Load registered users from localStorage
     let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || {};
-    
+
     // Initialize progress bar - FIXED VERSION
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       // Set progress bar to 0% for signup page
       const progressBarFill = document.getElementById('progressBarFill');
       progressBarFill.style.width = '0%';
       document.querySelector('.progress-text').textContent = 'Step 1 of 3: Sign Up (0%)';
-      
+
       // Clear any previous progress that might be causing issues
       localStorage.removeItem('currentProgress');
-      
+
       // Only update if there's a current user with higher progress
       const currentUser = localStorage.getItem('currentUser');
       if (currentUser && registeredUsers[currentUser] && registeredUsers[currentUser].progress > 0) {
@@ -289,14 +296,14 @@
         // Only update if they've actually completed later steps
         if (userProgress > 0) {
           progressBarFill.style.width = userProgress + '%';
-          document.querySelector('.progress-text').textContent = 
+          document.querySelector('.progress-text').textContent =
             `Progress: ${userProgress}% complete`;
         }
       }
     });
-    
+
     // Handle form submit
-    document.getElementById('signupForm').addEventListener('submit', function(e) {
+    document.getElementById('signupForm').addEventListener('submit', function (e) {
       e.preventDefault();
 
       const username = document.getElementById('username').value.trim();
@@ -314,33 +321,35 @@
         alert('Passwords do not match.');
         return;
       }
-      
+
       if (registeredUsers[username]) {
         alert('Username already exists. Please choose another one.');
         return;
       }
-      
+
       // Update progress bar to 33% before redirecting
       const progressBarFill = document.getElementById('progressBarFill');
       progressBarFill.style.width = '33%';
       document.querySelector('.progress-text').textContent = 'Step 1 of 3: Sign Up (33%)';
-      
+
       // Register new user with 33% progress (completed step 1 of 3)
       registeredUsers[username] = {
         password: password,
         email: email,
         progress: 33
       };
-      
+
       localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
       localStorage.setItem('currentUser', username);
-      
+
       // Add a small delay to show the progress update before redirecting
-      setTimeout(function() {
+      setTimeout(function () {
         alert('Signup successful! Proceeding to login...');
-        window.location.href = 'login.html';
+        window.location.href = '../automation/login.html';
       }, 500);
     });
   </script>
+  <script src="../shared/header-footer.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,3 @@
+gradio==5.42.0
+requests
+huggingface_hub

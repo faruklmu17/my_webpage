@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Phishing Email Detective - Cyber Safety Lab</title>
+  <link rel="canonical" href="https://faruk-hasan.com/cyber_security/phishing.html" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    "name": "Phishing Email Detective",
+    "description": "Interactive educational tool to learn how to identify phishing emails.",
+    "url": "https://faruk-hasan.com/cyber_security/phishing.html",
+    "educationalLevel": "Beginner",
+    "learningResourceType": "Simulation",
+    "author": {
+      "@type": "Person",
+      "name": "Faruk Hasan",
+      "url": "https://faruk-hasan.com"
+    }
+  }
+  </script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #4f46e5, #06b6d4);
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #6b7280;
+      --border-soft: #e5e7eb;
+      --accent-safe: #22c55e;
+      --accent-phish: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      color: var(--text-main);
+    }
+
+    .app {
+      width: 100%;
+      max-width: 960px;
+      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.16), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.08), transparent 50%);
+      border-radius: 1.75rem;
+      padding: 2.3rem 2rem;
+      backdrop-filter: blur(18px);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.6fr);
+      gap: 2.2rem;
+    }
+
+    @media (max-width: 800px) {
+      .app {
+        grid-template-columns: 1fr;
+        padding: 1.8rem 1.4rem 2rem;
+        border-radius: 1.5rem;
+      }
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.06);
+      color: #111827;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+    }
+
+    .tag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.35);
+    }
+
+    h1 {
+      font-size: clamp(1.9rem, 2.6vw, 2.4rem);
+      line-height: 1.1;
+      margin-bottom: 0.6rem;
+      color: #0b1120;
+    }
+
+    .fun-text {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      max-width: 26rem;
+      color: rgba(241, 245, 249, 0.95);
+    }
+
+    .badge {
+      margin-top: 1.1rem;
+      align-self: flex-start;
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      border: 1px solid rgba(191, 219, 254, 0.8);
+      color: #eff6ff;
+      background: linear-gradient(90deg, rgba(59, 130, 246, 0.55), rgba(236, 72, 153, 0.65));
+      box-shadow: 0 0 18px rgba(96, 165, 250, 0.7);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #fbbf24;
+      box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.45);
+    }
+
+    @media (max-width: 800px) {
+      .right-panel {
+        order: -1;
+      }
+
+      .badge {
+        margin-top: 0.5rem;
+      }
+    }
+
+    .right-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      color: white;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.97);
+      border-radius: 1.5rem;
+      padding: 1.4rem 1.4rem 1.5rem;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .email-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 0.6rem;
+    }
+
+    .email-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .email-from-to {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .email-subject {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #020617;
+    }
+
+    .email-meta {
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+
+    .email-body {
+      font-size: 0.9rem;
+      color: #111827;
+      line-height: 1.5;
+      white-space: pre-line;
+      margin-top: 0.4rem;
+    }
+
+    .email-footer-note {
+      margin-top: 0.7rem;
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+
+    .choice-buttons {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .btn {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 0.6rem 1rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.12s ease;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+      box-shadow: none;
+    }
+
+    .btn-safe {
+      background: rgba(16, 185, 129, 0.08);
+      color: #047857;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      box-shadow: 0 10px 22px rgba(16, 185, 129, 0.25);
+    }
+
+    .btn-safe:hover {
+      background: rgba(16, 185, 129, 0.18);
+    }
+
+    .btn-phish {
+      background: rgba(239, 68, 68, 0.08);
+      color: #b91c1c;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      box-shadow: 0 10px 22px rgba(239, 68, 68, 0.25);
+    }
+
+    .btn-phish:hover {
+      background: rgba(239, 68, 68, 0.18);
+    }
+
+    .btn-next {
+      background: #0f172a;
+      color: #f9fafb;
+      border: 1px solid #020617;
+      margin-left: auto;
+      margin-top: 0.4rem;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.35);
+      font-size: 0.8rem;
+    }
+
+    .btn-next[disabled] {
+      opacity: 0.3;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .result-box {
+      margin-top: 0.2rem;
+      padding: 0.6rem 0.75rem;
+      border-radius: 0.9rem;
+      font-size: 0.8rem;
+      display: none;
+      align-items: flex-start;
+      gap: 0.45rem;
+    }
+
+    .result-box.visible {
+      display: flex;
+    }
+
+    .result-icon {
+      font-size: 1.1rem;
+      margin-top: 0.05rem;
+    }
+
+    .result-text strong {
+      display: block;
+      margin-bottom: 0.1rem;
+    }
+
+    .result-box.safe {
+      background: #ecfdf3;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+    }
+
+    .result-box.phish {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+    }
+
+    .score-box {
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .score-main {
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .progress-dots {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #e5e7eb;
+    }
+
+    .dot.current {
+      background: #6366f1;
+    }
+
+    .dot.done {
+      background: #22c55e;
+    }
+
+    /* Next activity section */
+    .next-activity {
+      margin-top: 0.7rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .next-activity a {
+      text-decoration: none;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <!-- RIGHT SIDE: instructions -->
+    <section class="right-panel">
+      <div class="tag">
+        <span class="tag-dot"></span>
+        CYBER SAFETY LAB
+      </div>
+      <h1>Phishing Email Detective 🕵️‍♀️</h1>
+      <p class="fun-text">
+        Read each pretend email on the left and decide:
+        <strong>Is this a safe, normal email or a tricky phishing email?</strong>
+        Watch for red flags like strange links, “hurry up!” messages, or people
+        asking for passwords.
+      </p>
+      <p class="fun-text">
+        Click <strong>“This is Phishing”</strong> if it feels suspicious.
+        Click <strong>“This is Safe”</strong> if it seems like a normal message.
+        Then check the explanation to learn what clues you spotted—or missed!
+      </p>
+      <div class="badge">
+        <span class="badge-dot"></span>
+        These emails are examples only — do not click real suspicious links
+      </div>
+    </section>
+
+    <!-- LEFT SIDE: email and quiz -->
+    <section class="card">
+      <div class="email-header">
+        <div class="email-row">
+          <div class="email-from-to">
+            <span id="email-from">From: support@example.com</span>
+            <span id="email-to">To: you@studentmail.com</span>
+          </div>
+          <span class="email-meta" id="email-time">Today · 2:14 PM</span>
+        </div>
+        <div class="email-subject" id="email-subject">
+          Subject: Example subject line
+        </div>
+      </div>
+
+      <div class="email-body" id="email-body">
+        Email body goes here.
+      </div>
+
+      <div class="email-footer-note">
+        (This is a practice email. Do not copy or use these links in real life.)
+      </div>
+
+      <div class="choice-buttons">
+        <button class="btn btn-safe" id="btn-safe">
+          ✅ This is Safe
+        </button>
+        <button class="btn btn-phish" id="btn-phish">
+          ⚠️ This is Phishing
+        </button>
+        <button class="btn btn-next" id="btn-next" disabled>
+          Next Email →
+        </button>
+      </div>
+
+      <div class="result-box" id="result-box">
+        <div class="result-icon" id="result-icon">💬</div>
+        <div class="result-text" id="result-text">
+          <strong>Result line</strong>
+          Explanation text.
+        </div>
+      </div>
+
+      <div class="score-box">
+        <div>
+          <span class="score-main" id="score-main">Score: 0 / 0</span>
+          <span id="score-extra"></span>
+        </div>
+        <div class="progress-dots" id="progress-dots"></div>
+      </div>
+
+      <!-- Next activity: appears only after last email answered -->
+      <div class="next-activity hidden" id="next-activity">
+        <a href="../cyber_security/websites.html" class="btn btn-next">
+          Next: Fake vs Real Website →
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const scenarios = [
+      {
+        from: "GamingRewards <rewards@gamingworld.com>",
+        to: "you@studentmail.com",
+        time: "Today · 9:12 AM",
+        subject: "Your game points bonus is ready!",
+        body:
+          `Hi player!
+
+Thanks for playing Galaxy Racers this week 🎮
+We added 500 bonus points to your account.
+
+You can open the app like normal to see your bonus.
+No password or extra info needed.
+
+Have fun!
+The Galaxy Racers Team`,
+        isPhishing: false,
+        explanationSafe: "This email does not ask for passwords, personal details, or strange links. It tells you to open the app normally, which is safer.",
+        explanationPhish: "This one is actually safe. It doesn’t ask for your password or personal info, and it doesn’t send you to a strange link."
+      },
+      {
+        from: "School Office <office@schoolmail.edu>",
+        to: "you@studentmail.com",
+        time: "Today · 7:45 AM",
+        subject: "Field trip form reminder",
+        body:
+          `Good morning,
+
+This is a reminder to bring your signed field trip form back to school
+by Friday. We cannot accept digital signatures.
+
+Please bring the printed paper form to your homeroom teacher.
+
+Thank you,
+School Office`,
+        isPhishing: false,
+        explanationSafe: "This email is simple and clear. It doesn't ask you to click a link, download a file, or share personal information online.",
+        explanationPhish: "This email is actually safe. It asks you to bring a paper form to school, not to click any links or give personal info online."
+      },
+      {
+        from: "URGENT: School Password Reset <it-help@school-secure-login.com>",
+        to: "you@studentmail.com",
+        time: "Today · 6:03 AM",
+        subject: "Your account will be deleted in 1 hour!",
+        body:
+          `ATTENTION STUDENT,
+
+Your school account has been flagged and will be deleted in 1 hour.
+
+To keep your account, click the link below and type your
+username, password, and date of birth:
+
+http://school-login-verify-now.com
+
+HURRY OR YOU WILL LOSE ACCESS FOREVER.`,
+        isPhishing: true,
+        explanationSafe: "This email is actually dangerous. Real schools do NOT ask you to type your password into random websites, and the scary countdown is a common trick.",
+        explanationPhish: "Correct! The email uses fear (“deleted in 1 hour”), a strange link, and asks for your password and birthday. Those are big phishing red flags."
+      },
+      {
+        from: "Free Gift Card <prizes@super-store-gifts.net>",
+        to: "you@studentmail.com",
+        time: "Yesterday · 5:22 PM",
+        subject: "You won a $200 gift card! Just confirm your info",
+        body:
+          `Congratulations!
+
+You were randomly selected to win a $200 Super Store gift card.
+
+To claim your card, reply to this email with:
+- Your full name
+- Home address
+- Phone number
+- Date of birth
+
+Claim in the next 10 minutes or we will pick someone else!`,
+        isPhishing: true,
+        explanationSafe: "This message is not safe. It is asking for personal details (address, phone, birthday) and uses time pressure to make you act fast.",
+        explanationPhish: "Good call. Real stores do not randomly give $200 gift cards for no reason and then ask for lots of personal information under time pressure."
+      },
+      {
+        from: "Math Club <mathclub@schoolmail.edu>",
+        to: "you@studentmail.com",
+        time: "Yesterday · 3:40 PM",
+        subject: "Math club meeting moved to Thursday",
+        body:
+          `Hi everyone,
+
+This week’s math club meeting is moved from Wednesday to Thursday
+after school in Room 204.
+
+Please bring your puzzle sheets from last time.
+
+See you there!
+Math Club Leaders`,
+        isPhishing: false,
+        explanationSafe: "This is a normal school email. It gives information but does not ask you to click links or share private details.",
+        explanationPhish: "This one is safe. It’s just giving you updated meeting info and doesn't ask you to share personal information or login anywhere."
+      },
+      {
+        from: "Game Coins Support <support@free-coins-now.xyz>",
+        to: "you@studentmail.com",
+        time: "Last week · 8:05 PM",
+        subject: "Get 10,000 free coins by logging in here",
+        body:
+          `Hello gamer,
+
+We noticed you are low on coins.
+Get 10,000 FREE coins instantly!
+
+Just log in with your game username and password at:
+http://free-coins-now.xyz/login
+
+Offer ends in 30 minutes. Do NOT tell anyone about this secret link.`,
+        isPhishing: true,
+        explanationSafe: "This email is risky. It offers something huge for free, asks for your login, and uses a strange link. Those are classic phishing tricks.",
+        explanationPhish: "Exactly. A weird web address, asking for your password, and 'secret free coins' are all major phishing warning signs."
+      }
+    ];
+
+    let currentIndex = 0;
+    let correctCount = 0;
+    let totalAnswered = 0;
+    let answeredCurrent = false;
+
+    const emailFrom = document.getElementById("email-from");
+    const emailTo = document.getElementById("email-to");
+    const emailTime = document.getElementById("email-time");
+    const emailSubject = document.getElementById("email-subject");
+    const emailBody = document.getElementById("email-body");
+
+    const btnSafe = document.getElementById("btn-safe");
+    const btnPhish = document.getElementById("btn-phish");
+    const btnNext = document.getElementById("btn-next");
+
+    const resultBox = document.getElementById("result-box");
+    const resultIcon = document.getElementById("result-icon");
+    const resultText = document.getElementById("result-text");
+
+    const scoreMain = document.getElementById("score-main");
+    const scoreExtra = document.getElementById("score-extra");
+    const progressDots = document.getElementById("progress-dots");
+
+    const nextActivity = document.getElementById("next-activity");
+
+    function initDots() {
+      progressDots.innerHTML = "";
+      for (let i = 0; i < scenarios.length; i++) {
+        const d = document.createElement("div");
+        d.classList.add("dot");
+        if (i === 0) d.classList.add("current");
+        progressDots.appendChild(d);
+      }
+    }
+
+    function updateDots() {
+      const dots = progressDots.querySelectorAll(".dot");
+      dots.forEach((dot, index) => {
+        dot.classList.remove("current", "done");
+        if (index < currentIndex) {
+          dot.classList.add("done");
+        } else if (index === currentIndex) {
+          dot.classList.add("current");
+        }
+      });
+    }
+
+    function loadScenario(index) {
+      const s = scenarios[index];
+
+      emailFrom.textContent = `From: ${s.from}`;
+      emailTo.textContent = `To: ${s.to}`;
+      emailTime.textContent = s.time;
+      emailSubject.textContent = `Subject: ${s.subject}`;
+      emailBody.textContent = s.body;
+
+      resultBox.classList.remove("visible", "safe", "phish");
+      resultText.innerHTML = "";
+      answeredCurrent = false;
+      btnNext.disabled = true;
+      nextActivity.classList.add("hidden");
+      updateDots();
+      updateScore();
+    }
+
+    function handleAnswer(isSafeChosen) {
+      if (answeredCurrent) return;
+
+      const s = scenarios[currentIndex];
+      answeredCurrent = true;
+      totalAnswered++;
+
+      const userThinksPhish = !isSafeChosen;
+      const isCorrect =
+        (s.isPhishing && userThinksPhish) ||
+        (!s.isPhishing && !userThinksPhish);
+
+      if (isCorrect) correctCount++;
+
+      resultBox.classList.add("visible");
+      if (s.isPhishing) {
+        resultBox.classList.add("phish");
+        resultBox.classList.remove("safe");
+      } else {
+        resultBox.classList.add("safe");
+        resultBox.classList.remove("phish");
+      }
+
+      if (isCorrect) {
+        resultIcon.textContent = s.isPhishing ? "🛡️" : "✅";
+        resultText.innerHTML =
+          "<strong>Nice job! You spotted it correctly.</strong> " +
+          (s.isPhishing ? s.explanationPhish : s.explanationSafe);
+      } else {
+        resultIcon.textContent = "🤔";
+        resultText.innerHTML =
+          "<strong>Not quite. Let’s look at the clues.</strong> " +
+          (s.isPhishing ? s.explanationSafe : s.explanationPhish);
+      }
+
+      // Enable next email unless this is the last one
+      btnNext.disabled = currentIndex >= scenarios.length - 1;
+
+      // If this was the last email, show the next activity button
+      if (currentIndex === scenarios.length - 1) {
+        nextActivity.classList.remove("hidden");
+      }
+
+      updateScore();
+    }
+
+    function updateScore() {
+      scoreMain.textContent = `Score: ${correctCount} / ${totalAnswered}`;
+      if (totalAnswered === 0) {
+        scoreExtra.textContent = " · Start reading and make your first guess!";
+      } else {
+        const percent = Math.round((correctCount / totalAnswered) * 100);
+        scoreExtra.textContent = ` · Accuracy: ${percent}%`;
+      }
+    }
+
+    btnSafe.addEventListener("click", () => handleAnswer(true));
+    btnPhish.addEventListener("click", () => handleAnswer(false));
+
+    btnNext.addEventListener("click", () => {
+      if (currentIndex < scenarios.length - 1) {
+        currentIndex++;
+        loadScenario(currentIndex);
+      }
+    });
+
+    // Initialize
+    initDots();
+    loadScenario(currentIndex);
+  </script>
+</body>
+
+</html>

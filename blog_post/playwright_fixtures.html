@@ -1,16 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Learn what Playwright fixtures are, why they matter, and how to use a custom fixture to streamline test setup. Includes TypeScript code, GitHub repo, and a video walkthrough." />
-  <meta name="keywords" content="Playwright, Fixtures, Test Automation, TypeScript, QA, End-to-End Testing, Test Setup, Playwright Tutorial"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Learn what Playwright fixtures are, why they matter, and how to use a custom fixture to streamline test setup. Includes TypeScript code, GitHub repo, and a video walkthrough." />
+  <meta name="keywords"
+    content="Playwright, Fixtures, Test Automation, TypeScript, QA, End-to-End Testing, Test Setup, Playwright Tutorial" />
   <meta name="author" content="Faruk Hasan" />
   <meta property="og:title" content="Mastering Playwright Fixtures: Simplify Your Test Setup" />
-  <meta property="og:description" content="A practical guide to Playwright fixtures with TypeScript code, GitHub repo, and a video walkthrough." />
+  <meta property="og:description"
+    content="A practical guide to Playwright fixtures with TypeScript code, GitHub repo, and a video walkthrough." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://faruk-hasan.com/assets/playwright-fixtures-thumb.jpg" />
-  <meta property="og:url" content="https://faruk-hasan.com/blog/playwright-fixtures.html" />
+  <meta property="og:image" content="../blog_images/playwright_fixtures.png" />
+  <meta property="og:url" content="https://faruk-hasan.com/blog_post/playwright_fixtures.html" />
+  <link rel="canonical" href="https://faruk-hasan.com/blog_post/playwright_fixtures.html" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Mastering Playwright Fixtures: Simplify Your Test Setup",
+    "description": "Learn what Playwright fixtures are, why they matter, and how to use a custom fixture to streamline test setup. Includes TypeScript code, GitHub repo, and a video walkthrough.",
+    "image": "https://faruk-hasan.com/blog_images/playwright_fixtures.png",
+    "author": {
+      "@type": "Person",
+      "name": "Faruk Hasan",
+      "url": "https://faruk-hasan.com"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Faruk Hasan",
+      "url": "https://faruk-hasan.com"
+    },
+    "datePublished": "2024-09-07",
+    "dateModified": "2024-09-07",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://faruk-hasan.com/blog_post/playwright_fixtures.html"
+    },
+    "keywords": ["Playwright", "Fixtures", "Test Automation", "TypeScript", "QA", "End-to-End Testing"]
+  }
+  </script>
+
   <meta name="twitter:card" content="summary_large_image" />
   <title>Mastering Playwright Fixtures: Simplify Your Test Setup | Faruk Hasan</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -48,6 +82,7 @@
       line-height: 1.7;
       min-height: 100vh;
     }
+
     .blog-container {
       max-width: 900px;
       margin: 0 auto;
@@ -226,6 +261,7 @@
         font-size: 1.5rem;
       }
     }
+
     /* Header and Footer Styles */
     .header {
       background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
@@ -337,6 +373,7 @@
     }
   </style>
 </head>
+
 <body>
   <!-- Header -->
   <header class="header">
@@ -345,8 +382,8 @@
       <nav>
         <ul class="nav-menu">
           <li><a href="../index.html">Home</a></li>
-          <li><a href="../about_me.html">About</a></li>
-          <li><a href="../dividend_income.html">Investments</a></li>
+          <li><a href="../about/about_me.html">About</a></li>
+          <!-- <li><a href="../finance/dividend_income.html">Investments</a></li> -->
           <li><a href="../index.html#blog">Blog</a></li>
         </ul>
       </nav>
@@ -378,16 +415,15 @@
     </div>
 
     <div class="video-container">
-      <iframe
-        src="https://www.youtube.com/embed/tkjPe86JpGk"
-        title="Playwright Fixtures: Video Walkthrough"
+      <iframe src="https://www.youtube.com/embed/tkjPe86JpGk" title="Playwright Fixtures: Video Walkthrough"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen></iframe>
     </div>
 
     <p class="content-text">
-      In this tutorial, we’ll dive into one of Playwright’s most powerful concepts: <strong>fixtures</strong>.  
-      We’ll explore both the <strong>built-in fixtures</strong> (like browser, context, page) and see how to create a <strong>custom fixture</strong> for signup.  
+      In this tutorial, we’ll dive into one of Playwright’s most powerful concepts: <strong>fixtures</strong>.
+      We’ll explore both the <strong>built-in fixtures</strong> (like browser, context, page) and see how to create a
+      <strong>custom fixture</strong> for signup.
       Fixtures allow you to avoid boilerplate, keep tests clean, and ensure a consistent test setup and teardown.
     </p>
 
@@ -396,7 +432,8 @@
       What is a Fixture?
     </h2>
     <p class="content-text">
-      A fixture is a <em>ready-made object</em> that Playwright sets up before your test runs and cleans up after the test finishes.
+      A fixture is a <em>ready-made object</em> that Playwright sets up before your test runs and cleans up after the
+      test finishes.
       Think of it as “hidden setup code” that saves you from launching browsers or creating contexts manually.
     </p>
 
@@ -473,7 +510,8 @@ export { test, expect };
       <ul>
         <li><code>base.extend</code> → extends Playwright’s built-in test with our custom logic.</li>
         <li><code>use</code> → passes the prepared page (signed up) to your tests.</li>
-        <li><code>export</code> → share <code>test</code> and <code>expect</code> so other test files can import them.</li>
+        <li><code>export</code> → share <code>test</code> and <code>expect</code> so other test files can import them.
+        </li>
       </ul>
     </div>
 
@@ -513,7 +551,8 @@ test("login page loads correctly", async ({ signedUpPage }) => {
     <p class="content-text">
       You can explore the full project and run it yourself:
     </p>
-    <a class="github-link" href="https://github.com/faruklmu17/custom_fixture_playwright" target="_blank" rel="noopener">
+    <a class="github-link" href="https://github.com/faruklmu17/custom_fixture_playwright" target="_blank"
+      rel="noopener">
       <i class="fab fa-github"></i>
       View on GitHub: custom_fixture_playwright
     </a>
@@ -525,11 +564,14 @@ test("login page loads correctly", async ({ signedUpPage }) => {
     </h2>
     <p class="content-text">
       Everything above is explained step-by-step in my video tutorial:
-      <a href="https://youtu.be/tkjPe86JpGk" target="_blank" rel="noopener" style="color: var(--primary-color); font-weight: 600;">Watch on YouTube</a>
+      <a href="https://youtu.be/tkjPe86JpGk" target="_blank" rel="noopener"
+        style="color: var(--primary-color); font-weight: 600;">Watch on YouTube</a>
     </p>
 
-    <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--border-color); color: var(--text-light); font-style: italic;">
-      Have questions or want a follow-up on advanced fixtures? Reach out—I love helping QAs and devs level up with Playwright.
+    <div
+      style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--border-color); color: var(--text-light); font-style: italic;">
+      Have questions or want a follow-up on advanced fixtures? Reach out—I love helping QAs and devs level up with
+      Playwright.
     </div>
   </div>
 
@@ -538,8 +580,8 @@ test("login page loads correctly", async ({ signedUpPage }) => {
     <div class="footer-content">
       <div class="footer-links">
         <a href="../index.html">Home</a>
-        <a href="../about_me.html">About Me</a>
-        <a href="../dividend_income.html">My Investments</a>
+        <a href="../about/about_me.html">About Me</a>
+        <!-- <a href="../finance/dividend_income.html">My Investments</a> -->
         <a href="../index.html#blog">Blog</a>
         <a href="../index.html#contact">Contact</a>
       </div>
@@ -563,4 +605,5 @@ test("login page loads correctly", async ({ signedUpPage }) => {
     </div>
   </footer>
 </body>
+
 </html>

@@ -57,11 +57,12 @@
         --error: #e74c3c;
       }
       body {
+      /* Body padding/margin removed to match resources.html header layout */
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background: var(--bg-light);
-        padding: 20px;
+        
         max-width: 900px;
-        margin: auto;
+        
         color: #333;
       }
       h1 {
@@ -107,7 +108,12 @@
         background-color: var(--primary-dark);
       }
     </style>
-  </head>
+    <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Shared Header/Footer CSS -->
+  <link rel="stylesheet" href="../../shared/header-footer.css">
+
+</head>
 
   <body>
     <h1>🔍 Python Dictionary Quiz</h1>
@@ -263,5 +269,7 @@
         });
       }
     </script>
-  </body>
+    <!-- Shared Header and Footer JavaScript -->
+    <script src="../../shared/header-footer.js"></script>
+</body>
 </html>

@@ -263,3 +263,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+
+// Mission 10 - Tooltip aria-hidden toggle (for reliable automation assertions)
+document.addEventListener("DOMContentLoaded", () => {
+    const trigger = document.getElementById("tooltip-trigger");
+    const tooltip = document.getElementById("tooltip-box");
+  
+    if (!trigger || !tooltip) return;
+  
+    trigger.addEventListener("mouseenter", () => tooltip.setAttribute("aria-hidden", "false"));
+    trigger.addEventListener("mouseleave", () => tooltip.setAttribute("aria-hidden", "true"));
+  });
+  

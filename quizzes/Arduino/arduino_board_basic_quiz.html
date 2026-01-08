@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔌 Electronics Basics Quiz | Arduino Fundamentals</title>
+  <meta name="description" content="Test your electronics fundamentals with this 15-question quiz covering resistors, LEDs, voltage, current, and breadboards for Arduino projects." />
+  <meta name="keywords" content="electronics quiz, arduino basics, resistor quiz, LED circuit, breadboard quiz, ohm's law" />
+  <meta name="author" content="Faruk Hasan" />
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Electronics Basics Quiz | Arduino Fundamentals">
+  <meta property="og:description" content="15 questions covering connections, resistors, LEDs, voltage, current, and breadboards.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://faruk-hasan.com/quizzes/Arduino/arduino_board_basic_quiz.html">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Electronics Basics Quiz">
+  <meta name="twitter:description" content="Test your Arduino electronics knowledge: resistors, LEDs, breadboards, and Ohm's Law.">
+
+  <!-- Schema.org JSON-LD for Quiz -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Quiz",
+    "name": "Electronics Basics Quiz",
+    "description": "A 15-question quiz covering connections, resistors, LEDs, voltage, current, and breadboards for Arduino projects.",
+    "educationalAlignment": {
+      "@type": "AlignmentObject",
+      "alignmentType": "educationalSubject",
+      "targetName": "Electronics & Arduino Fundamentals"
+    },
+    "educationalUse": "Practice Quiz",
+    "audience": {
+      "@type": "EducationalAudience",
+      "educationalRole": "student"
+    },
+    "provider": {
+      "@type": "Person",
+      "name": "Faruk Hasan",
+      "url": "https://faruk-hasan.com"
+    },
+    "about": ["Arduino", "Electronics", "Resistors", "LEDs", "Breadboards", "Ohm's Law"]
+  }
+  </script>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Shared Header and Footer Styles -->
+  <link rel="stylesheet" href="../../shared/header-footer.css">
+
+  <style>
+    :root {
+      --primary-color: #f39c12;
+      --primary-dark: #e67e22;
+      --secondary-color: #2c3e50;
+      --bg-light: #f8f9fa;
+      --card-bg: #ffffff;
+      --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+      --success: #27ae60;
+      --warning: #f39c12;
+      --error: #e74c3c;
+      --code-bg: #f8f9fa;
+      --code-border: #e9ecef;
+      --text-primary: #2c3e50;
+      --text-secondary: #7f8c8d;
+      --border-radius: 12px;
+      --transition: all 0.3s ease;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    header { margin-bottom: 2rem; }
+
+    /* Main Content */
+    .quiz-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem 2rem;
+    }
+
+    .quiz-title {
+      text-align: center;
+      color: white;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .quiz-subtitle {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    .intro {
+      background: var(--card-bg);
+      border-left: 5px solid var(--primary-color);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .intro h3 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .intro p { margin-bottom: 0.75rem; color: var(--text-secondary); }
+    .intro p:last-child { margin-bottom: 0; }
+
+    /* Question Styles */
+    .question {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .question:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+
+    .question p {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .question label {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      margin: 0.5rem 0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      background: var(--bg-light);
+      border: 2px solid transparent;
+      font-weight: 500;
+    }
+
+    .question label:hover {
+      background: rgba(243, 156, 18, 0.1);
+      border-color: var(--primary-color);
+    }
+
+    .question input[type="radio"] {
+      margin-right: 1rem;
+      transform: scale(1.2);
+      accent-color: var(--primary-color);
+    }
+
+    .explanation {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: var(--bg-light);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      border-left: 4px solid var(--primary-color);
+    }
+    .explanation.show { display: block; }
+
+    /* Per-question feedback highlighting */
+    .correct { border-color: rgba(39, 174, 96, 0.6) !important; background: #ecf9f1 !important; }
+    .incorrect { border-color: rgba(231, 76, 60, 0.6) !important; background: #fff0ef !important; }
+
+    /* Submit & Score */
+    .submit-container { text-align: center; margin: 3rem 0 1rem; }
+
+    #submitBtn {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+      color: white;
+      border: none;
+      padding: 1rem 3rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-right: 1rem;
+    }
+
+    #submitBtn:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+    #submitBtn:active { transform: translateY(0); }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    button.secondary {
+      background: white;
+      color: var(--text-primary);
+      border: 2px solid var(--primary-color);
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    button.secondary:hover {
+      background: var(--primary-color);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .score-card {
+      display: none;
+      background: var(--card-bg);
+      border-left: 5px solid var(--primary-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      margin: 2rem 0;
+      padding: 1.25rem 1.5rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .score-card.good { border-left-color: var(--success); }
+    .score-card.ok { border-left-color: var(--warning); }
+    .score-card.bad { border-left-color: var(--error); }
+
+    .key {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      margin-top: 2rem;
+      box-shadow: var(--shadow);
+      border-left: 5px solid var(--success);
+      display: none;
+    }
+    .key.show { display: block; }
+
+    .small { font-size: 0.9rem; color: var(--text-secondary); }
+
+    details {
+      margin-top: 1rem;
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+    }
+    summary {
+      cursor: pointer;
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .quiz-container { padding: 0 1rem 2rem; }
+      .quiz-title { font-size: 2rem; }
+      .question { padding: 1.5rem; }
+      .toolbar { flex-direction: column; align-items: center; }
+      #submitBtn, button.secondary { width: 100%; margin-right: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header will be automatically injected by shared/header-footer.js -->
+
+  <!-- Main Content -->
+  <div class="quiz-container">
+    <h1 class="quiz-title">
+      <i class="fas fa-microchip"></i> Electronics Basics Quiz
+    </h1>
+    <p class="quiz-subtitle">Test your Arduino fundamentals with 15 comprehensive questions</p>
+
+    <div class="intro">
+      <h3><i class="fas fa-info-circle"></i> About This Quiz</h3>
+      <p><strong>🎯 Purpose:</strong> Check your understanding of resistors, LEDs, voltage, current, and breadboard connections.</p>
+      <p><strong>📊 Format:</strong> 15 multiple-choice questions</p>
+      <p><strong>⏱️ Time:</strong> ~10 minutes</p>
+      <p><strong>🧪 Tip:</strong> Think about basic electronics principles and Ohm's Law!</p>
+    </div>
+
+    <div id="scoreCard" class="score-card">Score: <span id="scoreText">0 / 15</span></div>
+
+    <form id="quizForm">
+      <div class="question" id="q1">
+        <p>1. What is the purpose of a resistor in a circuit?</p>
+        <label><input type="radio" name="q1" value="A"> A) To increase current</label>
+        <label><input type="radio" name="q1" value="B"> B) To limit current flow</label>
+        <label><input type="radio" name="q1" value="C"> C) To store energy</label>
+        <label><input type="radio" name="q1" value="D"> D) To generate voltage</label>
+        <div class="explanation">Resistors limit current to protect components and set operating points.</div>
+      </div>
+
+      <div class="question" id="q2">
+        <p>2. What happens if an LED is connected without a resistor?</p>
+        <label><input type="radio" name="q2" value="A"> A) It glows brighter safely</label>
+        <label><input type="radio" name="q2" value="B"> B) It may burn out due to too much current</label>
+        <label><input type="radio" name="q2" value="C"> C) It will not turn on</label>
+        <label><input type="radio" name="q2" value="D"> D) It will blink automatically</label>
+        <div class="explanation">LEDs require current limiting; otherwise they can overheat and fail.</div>
+      </div>
+
+      <section class="question" data-answer="B">
+        <div class="qhead">3. In an Arduino circuit, where should the LED’s cathode (C) be connected?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q3" value="A"/> A) To the 5V pin</label>
+          <label class="option"><input type="radio" name="q3" value="B"/> B) To the ground (GND)</label>
+          <label class="option"><input type="radio" name="q3" value="C"/> C) To digital pin 13</label>
+          <label class="option"><input type="radio" name="q3" value="D"/> D) To the resistor</label>
+        </div>
+        <div class="explanation">Cathode typically goes to ground; anode goes to the positive side through a resistor.</div>
+      </section>
+
+      <section class="question" data-answer="C">
+        <div class="qhead">4. The anode (A) of an LED connects to:</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q4" value="A"/> A) Ground</label>
+          <label class="option"><input type="radio" name="q4" value="B"/> B) Negative terminal</label>
+          <label class="option"><input type="radio" name="q4" value="C"/> C) Positive voltage through a resistor</label>
+          <label class="option"><input type="radio" name="q4" value="D"/> D) Analog input pin</label>
+        </div>
+        <div class="explanation">The resistor limits current from the positive supply into the LED’s anode.</div>
+      </section>
+
+      <section class="question" data-answer="C">
+        <div class="qhead">5. If voltage increases but resistance stays the same, what happens to the current?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q5" value="A"/> A) It decreases</label>
+          <label class="option"><input type="radio" name="q5" value="B"/> B) It stays the same</label>
+          <label class="option"><input type="radio" name="q5" value="C"/> C) It increases</label>
+          <label class="option"><input type="radio" name="q5" value="D"/> D) It becomes zero</label>
+        </div>
+        <div class="explanation">Ohm’s Law: I = V / R. With R constant, increasing V increases I.</div>
+      </section>
+
+      <section class="question" data-answer="D">
+        <div class="qhead">6. Which color wire is typically used for ground in breadboard circuits?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q6" value="A"/> A) Red</label>
+          <label class="option"><input type="radio" name="q6" value="B"/> B) Blue</label>
+          <label class="option"><input type="radio" name="q6" value="C"/> C) Green</label>
+          <label class="option"><input type="radio" name="q6" value="D"/> D) Black</label>
+        </div>
+        <div class="explanation">Convention: black for GND, red for +V. (You can choose any, but be consistent.)</div>
+      </section>
+
+      <section class="question" data-answer="A">
+        <div class="qhead">7. The resistor in this circuit has a value of 220 Ω. What is its main function?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q7" value="A"/> A) Reduce LED brightness and protect it</label>
+          <label class="option"><input type="radio" name="q7" value="B"/> B) Supply more power to the LED</label>
+          <label class="option"><input type="radio" name="q7" value="C"/> C) Store charge</label>
+          <label class="option"><input type="radio" name="q7" value="D"/> D) Measure voltage drop</label>
+        </div>
+        <div class="explanation">A series resistor limits current; brightness drops as current is limited.</div>
+      </section>
+
+      <section class="question" data-answer="B">
+        <div class="qhead">8. What does voltage represent in a circuit?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q8" value="A"/> A) The number of electrons</label>
+          <label class="option"><input type="radio" name="q8" value="B"/> B) The push or force that moves electrons</label>
+          <label class="option"><input type="radio" name="q8" value="C"/> C) The resistance of the wires</label>
+          <label class="option"><input type="radio" name="q8" value="D"/> D) The brightness of the LED</label>
+        </div>
+        <div class="explanation">Voltage is the electric potential difference—the “push.”</div>
+      </section>
+
+      <section class="question" data-answer="B">
+        <div class="qhead">9. What happens if you swap the LED’s anode and cathode connections?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q9" value="A"/> A) It will still work normally</label>
+          <label class="option"><input type="radio" name="q9" value="B"/> B) It won’t light up</label>
+          <label class="option"><input type="radio" name="q9" value="C"/> C) It will blink faster</label>
+          <label class="option"><input type="radio" name="q9" value="D"/> D) It will get brighter</label>
+        </div>
+        <div class="explanation">LEDs are polarized; reverse‑bias prevents current flow (and light).</div>
+      </section>
+
+      <section class="question" data-answer="B">
+        <div class="qhead">10. In the Wokwi connection diagram, pin 13 of the Arduino is used to:</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q10" value="A"/> A) Power the LED directly</label>
+          <label class="option"><input type="radio" name="q10" value="B"/> B) Control the LED as a digital output</label>
+          <label class="option"><input type="radio" name="q10" value="C"/> C) Read analog voltage</label>
+          <label class="option"><input type="radio" name="q10" value="D"/> D) Connect to ground</label>
+        </div>
+        <div class="explanation">Pin 13 can be set HIGH/LOW to switch the LED via a resistor.</div>
+      </section>
+
+      <!-- Breadboard specific -->
+      <section class="question" data-answer="A">
+        <div class="qhead">11. What are the long horizontal rows on a breadboard usually used for?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q11" value="A"/> A) Power and ground connections</label>
+          <label class="option"><input type="radio" name="q11" value="B"/> B) Data transfer</label>
+          <label class="option"><input type="radio" name="q11" value="C"/> C) Analog inputs</label>
+          <label class="option"><input type="radio" name="q11" value="D"/> D) Resistor placement only</label>
+        </div>
+        <div class="explanation">These are power rails to distribute +V and GND along the board.</div>
+      </section>
+
+      <section class="question" data-answer="B">
+        <div class="qhead">12. What are the vertical columns in the center section of a breadboard called?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q12" value="A"/> A) Power rails</label>
+          <label class="option"><input type="radio" name="q12" value="B"/> B) Terminal strips</label>
+          <label class="option"><input type="radio" name="q12" value="C"/> C) Connection rails</label>
+          <label class="option"><input type="radio" name="q12" value="D"/> D) Bus lines</label>
+        </div>
+        <div class="explanation">Terminal strips are the main grid where components connect.</div>
+      </section>
+
+      <section class="question" data-answer="C">
+        <div class="qhead">13. How are the holes connected inside a breadboard’s main area (the middle section)?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q13" value="A"/> A) All holes are connected together</label>
+          <label class="option"><input type="radio" name="q13" value="B"/> B) Holes in each row are connected</label>
+          <label class="option"><input type="radio" name="q13" value="C"/> C) Holes in each column are connected</label>
+          <label class="option"><input type="radio" name="q13" value="D"/> D) Only corner holes are connected</label>
+        </div>
+        <div class="explanation">Each 5‑hole column is tied together; the center gap separates left/right.</div>
+      </section>
+
+      <section class="question" data-answer="B">
+        <div class="qhead">14. If you place a resistor across the gap in the middle of the breadboard, what are you doing?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q14" value="A"/> A) Creating a short circuit</label>
+          <label class="option"><input type="radio" name="q14" value="B"/> B) Connecting components on both sides</label>
+          <label class="option"><input type="radio" name="q14" value="C"/> C) Disconnecting both sides</label>
+          <label class="option"><input type="radio" name="q14" value="D"/> D) Measuring current flow</label>
+        </div>
+        <div class="explanation">Bridging the center gap links separate terminal strips in one path.</div>
+      </section>
+
+      <section class="question" data-answer="C">
+        <div class="qhead">15. Why is a breadboard called a “breadboard”?</div>
+        <div class="options">
+          <label class="option"><input type="radio" name="q15" value="A"/> A) It was originally used to make bread</label>
+          <label class="option"><input type="radio" name="q15" value="B"/> B) It looks like a loaf of bread</label>
+          <label class="option"><input type="radio" name="q15" value="C"/> C) Early experimenters used wooden breadboards to build circuits</label>
+          <label class="option"><input type="radio" name="q15" value="D"/> D) It has a bread‑like texture</label>
+        </div>
+        <div class="explanation">Historically, hobbyists nailed terminals into wooden breadboards to prototype.</div>
+      </section>
+
+      <div class="submit-container">
+        <button type="button" id="submitBtn" onclick="gradeQuiz()">
+          <i class="fas fa-check-circle"></i> Submit Quiz
+        </button>
+      </div>
+    </form>
+
+    <div id="answers" class="key">
+      <h2><i class="fas fa-check-circle"></i> Answer Key & Explanations</h2>
+      <ul id="answerList"></ul>
+    </div>
+  </div>
+
+  <!-- Footer will be automatically injected by shared/header-footer.js -->
+
+  <!-- Shared Header and Footer JavaScript -->
+  
+
+  <script>
+    const correct = {
+      q1: 'B',
+      q2: 'B',
+      q3: 'B',
+      q4: 'C',
+      q5: 'C',
+      q6: 'D',
+      q7: 'A',
+      q8: 'B',
+      q9: 'B',
+      q10: 'B',
+      q11: 'A',
+      q12: 'B',
+      q13: 'C',
+      q14: 'B',
+      q15: 'C',
+    };
+
+    const explanations = {
+      q1: 'Resistors limit current to protect components and set operating points.',
+      q2: 'LEDs require current limiting; otherwise they can overheat and fail.',
+      q3: 'Cathode typically goes to ground; anode goes to the positive side through a resistor.',
+      q4: 'The resistor limits current from the positive supply into the LED\'s anode.',
+      q5: 'Ohm\'s Law: I = V / R. With R constant, increasing V increases I.',
+      q6: 'Convention: black for GND, red for +V. (You can choose any, but be consistent.)',
+      q7: 'A series resistor limits current; brightness drops as current is limited.',
+      q8: 'Voltage is the electric potential difference—the "push."',
+      q9: 'LEDs are polarized; reverse‑bias prevents current flow (and light).',
+      q10: 'Pin 13 can be set HIGH/LOW to switch the LED via a resistor.',
+      q11: 'These are power rails to distribute +V and GND along the board.',
+      q12: 'Terminal strips are the main grid where components connect.',
+      q13: 'Each 5‑hole column is tied together; the center gap separates left/right.',
+      q14: 'Bridging the center gap links separate terminal strips in one path.',
+      q15: 'Historically, hobbyists nailed terminals into wooden breadboards to prototype.',
+    };
+
+    function gradeQuiz() {
+      const form = document.getElementById('quizForm');
+      const scoreCard = document.getElementById('scoreCard');
+      const scoreText = document.getElementById('scoreText');
+      const answersDiv = document.getElementById('answers');
+      const answerList = document.getElementById('answerList');
+
+      let score = 0;
+      let total = 15;
+
+      // Clear previous feedback styles and list
+      document.querySelectorAll('.question').forEach(q => {
+        q.classList.remove('correct', 'incorrect');
+        const exp = q.querySelector('.explanation');
+        if (exp) exp.classList.remove('show');
+      });
+      answerList.innerHTML = '';
+
+      // Get all questions (both div and section elements)
+      const questions = document.querySelectorAll('.question');
+
+      questions.forEach((qBlock, index) => {
+        const i = index + 1;
+        const key = 'q' + i;
+        const chosen = form.querySelector(`input[name="${key}"]:checked`);
+        const correctVal = correct[key];
+        const exp = qBlock.querySelector('.explanation');
+
+        let line = '';
+
+        if (!chosen) {
+          qBlock.classList.add('incorrect');
+          line = `<strong>${i}.</strong> Your answer: <em>None selected</em> → <strong>Correct:</strong> ${correctVal} — ${explanations[key]}`;
+        } else if (chosen.value === correctVal) {
+          score++;
+          qBlock.classList.add('correct');
+          if (exp) exp.classList.add('show');
+          line = `<strong>${i}.</strong> Correct! (${correctVal}) — ${explanations[key]}`;
+        } else {
+          qBlock.classList.add('incorrect');
+          if (exp) exp.classList.add('show');
+          line = `<strong>${i}.</strong> Your answer: <em>${chosen.value}</em> → <strong>Correct:</strong> ${correctVal} — ${explanations[key]}`;
+        }
+
+        const li = document.createElement('li');
+        li.innerHTML = line;
+        answerList.appendChild(li);
+      });
+
+      // Show score
+      total = questions.length; // Use actual number of questions
+      scoreText.textContent = `${score} / ${total}`;
+      scoreCard.classList.remove('good', 'ok', 'bad');
+      const pct = (score / total) * 100;
+      if (pct >= 85) scoreCard.classList.add('good');
+      else if (pct >= 60) scoreCard.classList.add('ok');
+      else scoreCard.classList.add('bad');
+      scoreCard.style.display = 'block';
+
+      // Show answers panel and scroll
+      answersDiv.style.display = 'block';
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.innerHTML = '<i class="fas fa-eye"></i> Results Shown';
+      submitBtn.style.background = 'linear-gradient(135deg, #27ae60 0%, #2ecc71 100%)';
+      submitBtn.disabled = true;
+
+      setTimeout(() => {
+        scoreCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 200);
+    }
+
+    // Animate questions on load
+    document.addEventListener('DOMContentLoaded', function() {
+      const questions = document.querySelectorAll('.question');
+      questions.forEach((q, i) => { q.style.animationDelay = `${i * 0.06}s`; });
+    });
+  </script>
+    <script src="../../shared/header-footer.js"></script>
+</body>
+</html>

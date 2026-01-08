@@ -60,11 +60,12 @@
     }
     
     body {
+      /* Body padding/margin removed to match resources.html header layout */
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: var(--bg-light);
-      padding: 20px;
+      
       max-width: 900px;
-      margin: auto;
+      
       color: #333;
       line-height: 1.6;
     }
@@ -190,7 +191,7 @@
     
     @media (max-width: 768px) {
       body {
-        padding: 15px;
+        
       }
       
       h1 {
@@ -207,6 +208,11 @@
       }
     }
   </style>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Shared Header/Footer CSS -->
+  <link rel="stylesheet" href="../../shared/header-footer.css">
+
 </head>
 <body>
 
@@ -424,5 +430,7 @@
     }
   </script>
 
+  <!-- Shared Header and Footer JavaScript -->
+    <script src="../../shared/header-footer.js"></script>
 </body>
 </html>

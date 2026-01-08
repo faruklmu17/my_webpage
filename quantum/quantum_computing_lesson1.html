@@ -1,0 +1,1177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🚀 Quantum Computing for Kids: Bits → Bytes → Qubits!</title>
+
+  <!-- Kid-friendly fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#E0F7FA; --card:#fff; --text:#2c3e50; --muted:#6b7c93;
+      --primary:#FF6B6B; --primaryDark:#EE5253;
+      --secondary:#4ECDC4; --secondaryDark:#22A6B3;
+      --accent:#FFE66D; --accentDark:#F9CA24;
+      --ok:#6AB04C; --warn:#F9CA24; --bad:#EB4D4B;
+      --purple:#9B59B6; --purpleDark:#8E44AD;
+      --orange:#FF9F43; --orangeDark:#FF7675;
+      --radius:24px; --shadow:0 10px 22px rgba(0,0,0,.10);
+      --fontH:'Fredoka',sans-serif; --fontB:'Nunito',sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--fontB); color:var(--text);
+      background:var(--bg);
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(78,205,196,.15) 0%, transparent 22%),
+        radial-gradient(circle at 90% 80%, rgba(255,107,107,.15) 0%, transparent 22%),
+        radial-gradient(circle at 50% 50%, rgba(255,230,109,.12) 0%, transparent 25%);
+      min-height:100vh; padding:26px 18px 42px;
+    }
+
+    /* Big kid-friendly typography */
+    h1{
+      margin:0; font-family:var(--fontH);
+      font-size:clamp(2.2rem,4.5vw,3.5rem); color:var(--primary);
+      text-shadow:2px 2px 0 rgba(0,0,0,.08);
+    }
+    h2{
+      margin:0; font-family:var(--fontH);
+      font-size:clamp(1.4rem,2.8vw,2rem); color:var(--text);
+    }
+    h3{margin:0; font-size:clamp(1.1rem,2.2vw,1.4rem); color:var(--muted);}
+    p{margin:0; color:var(--muted); font-size:clamp(1rem,1.8vw,1.1rem); line-height:1.55;}
+
+    .wrap{
+      max-width:1200px; margin:0 auto;
+    }
+
+    header{
+      text-align:center; margin-bottom:24px;
+    }
+    .sub{
+      max-width:900px; margin:10px auto 0; color:var(--muted);
+      line-height:1.55; font-size:1.06rem;
+    }
+
+    .pillRow{
+      display:flex; flex-wrap:wrap; gap:10px; margin:18px 0;
+      justify-content:center;
+    }
+    .pill{
+      background:#fff; border-radius:999px; padding:12px 16px;
+      box-shadow:0 4px 10px rgba(0,0,0,.06);
+      font-weight:900; display:flex; align-items:center; gap:8px;
+      border:2px solid transparent; font-family:var(--fontH);
+    }
+    .pill.points{border-color:var(--accent); color:var(--accentDark);}
+    .pill.missions{border-color:rgba(78,205,196,.6); color:var(--secondaryDark);}
+    .pill.tip{border-color:rgba(155,89,182,.6); color:var(--purple);}
+
+    .grid{
+      display:grid; grid-template-columns:1fr; gap:18px; margin-top:20px;
+    }
+
+    .card{
+      background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow);
+      padding:20px; border:2px solid rgba(0,0,0,.03); position:relative; overflow:hidden;
+    }
+    .card::before{
+      content:""; position:absolute; left:0; right:0; top:0; height:8px;
+      background:linear-gradient(90deg,var(--secondary),var(--primary));
+    }
+
+    .missionHeader{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; flex-wrap:wrap; margin-bottom:16px;
+    }
+    .mission{
+      display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+    }
+    .badge{
+      width:50px; height:50px; border-radius:16px;
+      display:grid; place-items:center;
+      background:var(--primary); color:#fff;
+      font-family:var(--fontH); font-weight:900; font-size:20px;
+      box-shadow:0 4px 0 var(--primaryDark);
+    }
+    .missionText h2{
+      margin:0; font-family:var(--fontH); font-size:1.4rem; color:var(--text);
+    }
+    .missionText p{
+      margin:4px 0 0; color:var(--muted); font-size:1rem;
+    }
+    .status{
+      padding:10px 14px; border-radius:999px;
+      background:#f1f3f5; color:var(--muted);
+      font-family:var(--fontH); font-weight:700; font-size:0.9rem;
+      border:2px solid #e6eaee;
+    }
+    .status.done{
+      background:rgba(106,176,76,.15); color:var(--ok);
+      border-color:rgba(106,176,76,.4);
+    }
+    .status.todo{
+      background:#fff3cd; color:#856404;
+      border-color:#ffeaa7;
+    }
+
+    .btnRow{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:16px;
+    }
+    .btn{
+      border:none; border-radius:16px; padding:14px 18px; cursor:pointer;
+      font-family:var(--fontH); font-weight:900; font-size:1rem;
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      transition:transform .08s, box-shadow .08s; min-width:120px;
+    }
+    .btn:active{transform:translateY(2px);}
+
+    .btnPrimary{
+      background:var(--primary); color:#fff;
+      box-shadow:0 4px 0 var(--primaryDark);
+    }
+    .btnPrimary:active{box-shadow:0 0 0 var(--primaryDark);}
+
+    .btnSecondary{
+      background:var(--secondary); color:#fff;
+      box-shadow:0 4px 0 var(--secondaryDark);
+    }
+    .btnSecondary:active{box-shadow:0 0 0 var(--secondaryDark);}
+
+    .btnWarn{
+      background:var(--warn); color:#fff;
+      box-shadow:0 4px 0 var(--accentDark);
+    }
+    .btnWarn:active{box-shadow:0 0 0 var(--accentDark);}
+
+    .btnBad{
+      background:var(--bad); color:#fff;
+      box-shadow:0 4px 0 #c0392b;
+    }
+    .btnBad:active{box-shadow:0 0 0 #c0392b;}
+
+    .bigBox{
+      background:#F8F9FA; border:2px dashed #D1D8E0;
+      border-radius:18px; padding:20px; margin-top:16px;
+    }
+
+    .bigNumber{
+      font-size:clamp(2.5rem,5vw,4rem); font-weight:900;
+      font-family:var(--mono); letter-spacing:2px; line-height:1;
+      color:var(--primary);
+    }
+
+    .note{
+      margin-top:16px; padding:16px; border-radius:16px;
+      background:#FFF8E1; border-left:5px solid var(--accent);
+      color:#6b5b00; line-height:1.55; font-size:1rem;
+      font-family:var(--fontB);
+    }
+
+    /* Toggle switch - kid friendly */
+    .switchRow{
+      display:flex; gap:16px; align-items:center; flex-wrap:wrap; margin-top:16px;
+    }
+    .toggle{
+      width:120px; height:60px; border-radius:999px;
+      border:3px solid #e6eaee; background:#f1f3f5;
+      position:relative; cursor:pointer; user-select:none;
+      box-shadow:0 6px 16px rgba(0,0,0,.1);
+      transition:all .2s ease;
+    }
+    .knob{
+      width:48px; height:48px; border-radius:999px;
+      position:absolute; top:3px; left:6px;
+      background:#fff; box-shadow:0 4px 12px rgba(0,0,0,.15);
+      transition:left .3s ease, background .3s ease;
+    }
+    .toggle.on{
+      background:rgba(106,176,76,.2); border-color:rgba(106,176,76,.6);
+    }
+    .toggle.on .knob{
+      left:63px; background:var(--ok);
+    }
+
+    /* Byte grid - colorful and fun */
+    .byteGrid{
+      display:grid; grid-template-columns:repeat(8,1fr);
+      gap:12px; margin-top:16px;
+    }
+    .bitTile{
+      height:70px; border-radius:20px;
+      border:3px solid #e6eaee; background:#fff;
+      display:grid; place-items:center;
+      font-family:var(--mono); font-size:2rem; font-weight:900;
+      cursor:pointer; user-select:none; position:relative;
+      box-shadow:0 6px 16px rgba(0,0,0,.1);
+      transition:all .2s ease; color:var(--muted);
+    }
+    .bitTile:hover{
+      transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,0,0,.15);
+    }
+    .bitTile.on{
+      background:var(--ok); border-color:var(--ok); color:#fff;
+      box-shadow:0 6px 16px rgba(106,176,76,.3);
+    }
+    .bitTile.flip{
+      border-color:var(--accent); background:rgba(255,230,109,.2);
+      animation:bounce .4s ease;
+    }
+    .bitTile.flash{
+      animation:flash .6s ease;
+    }
+    @keyframes bounce{
+      0%,100%{transform:scale(1)}
+      50%{transform:scale(1.1)}
+    }
+    @keyframes flash{
+      0%,100%{background:#fff}
+      50%{background:var(--accent)}
+    }
+
+    .readouts{
+      display:flex; gap:12px; flex-wrap:wrap; margin-top:16px; align-items:center;
+    }
+    .pillBox{
+      padding:12px 16px; border-radius:999px;
+      background:#fff; border:2px solid #e6eaee;
+      font-size:1rem; color:var(--muted);
+      box-shadow:0 4px 10px rgba(0,0,0,.06);
+      font-family:var(--fontB); font-weight:700;
+    }
+    .pillBox .mono{
+      color:var(--primary); font-weight:900; font-family:var(--mono);
+    }
+
+    /* Count tiles for binary counting */
+    .countGrid{
+      display:grid; grid-template-columns:repeat(8,1fr);
+      gap:10px; margin-top:16px;
+    }
+    .countTile{
+      height:60px; border-radius:16px;
+      border:2px solid #e6eaee; background:#fff;
+      display:grid; place-items:center;
+      font-family:var(--mono); font-size:1.5rem; font-weight:900;
+      user-select:none; position:relative;
+      box-shadow:0 4px 12px rgba(0,0,0,.08);
+      color:var(--muted);
+    }
+    .countTile.flip{
+      border-color:var(--accent); background:rgba(255,230,109,.3);
+      animation:pulse .5s ease;
+    }
+    @keyframes pulse{
+      0%,100%{transform:scale(1)}
+      50%{transform:scale(1.05)}
+    }
+
+    /* ASCII magic */
+    .inputs{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:12px;
+    }
+    @media (max-width: 760px){ .inputs{grid-template-columns:1fr} }
+    .field{
+      border:1px solid var(--border);
+      border-radius: 18px;
+      background: rgba(0,0,0,.18);
+      padding: 12px;
+    }
+    .field label{
+      display:block;
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .field input{
+      width:100%;
+      border:2px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      background: rgba(255,255,255,.08);
+      color: var(--text);
+      padding: 14px 14px;
+      font-size: 20px;
+      font-weight: 900;
+      outline:none;
+    }
+    .field input:focus{border-color: rgba(124,92,255,.62);}
+    .field .monoInput{font-family: var(--mono); letter-spacing:1px;}
+
+    /* Counting activity */
+    .countGrid{
+      display:grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap:10px;
+      margin-top: 12px;
+    }
+    .countTile{
+      height: 58px;
+      border-radius: 16px;
+      border:2px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.07);
+      display:grid;
+      place-items:center;
+      font-family: var(--mono);
+      font-size: 22px;
+      font-weight: 1000;
+      user-select:none;
+      position:relative;
+      overflow:hidden;
+      box-shadow: 0 10px 22px rgba(0,0,0,.20);
+    }
+    .countTile.flip{
+      border-color: rgba(255,176,32,.85);
+      background: rgba(255,176,32,.12);
+      box-shadow: 0 0 0 4px rgba(255,176,32,.18), 0 10px 22px rgba(0,0,0,.20);
+    }
+
+    /* Qubit coin */
+    .coinZone{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .coin{
+      width: 160px; height: 160px;
+      border-radius: 999px;
+      border:2px solid rgba(255,255,255,.18);
+      background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.26), rgba(255,255,255,.06) 45%, rgba(0,0,0,.25) 100%);
+      display:grid;
+      place-items:center;
+      position:relative;
+      overflow:hidden;
+      box-shadow: 0 16px 36px rgba(0,0,0,.32);
+    }
+    .coin span{
+      z-index:2;
+      font-size: 34px;
+      font-weight: 1000;
+      letter-spacing: 1px;
+    }
+    .coin::after{
+      content:"";
+      position:absolute;
+      inset:-45%;
+      background: conic-gradient(from 90deg, rgba(124,92,255,0), rgba(124,92,255,.38), rgba(54,211,153,0), rgba(255,176,32,.34), rgba(124,92,255,0));
+      opacity:.0;
+      transform: rotate(0deg);
+    }
+    .spinning .coin::after{
+      opacity:.95;
+      animation: spin 650ms linear infinite;
+    }
+
+    .meter{
+      flex:1;
+      min-width: 240px;
+    }
+    .meterTitle{
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .bars{
+      display:grid;
+      gap:10px;
+      margin-top: 8px;
+    }
+    .barRow{
+      display:grid;
+      grid-template-columns: 34px 1fr 52px;
+      gap:10px;
+      align-items:center;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 14px;
+    }
+    .bar{
+      height: 14px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      overflow:hidden;
+    }
+    .fill{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(124,92,255,.9), rgba(54,211,153,.9));
+      transition: width .3s ease;
+    }
+
+    textarea{
+      width:100%;
+      margin-top:10px;
+      border-radius:18px;
+      border:2px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.08);
+      color:var(--text);
+      padding:14px;
+      resize:vertical;
+      font-family: var(--sans);
+      font-size: 16px;
+      font-weight: 700;
+      outline:none;
+    }
+    textarea:focus{border-color: rgba(124,92,255,.62);}
+
+    .confetti{
+      pointer-events:none;
+      position:fixed;
+      inset:0;
+      overflow:hidden;
+      z-index:999;
+    }
+    .confetti span{
+      position:absolute;
+      top:-12px;
+      width:10px;
+      height:14px;
+      border-radius: 4px;
+      opacity:.95;
+      animation: fall 900ms linear forwards;
+    }
+    @keyframes fall{
+      to{ transform: translateY(110vh) rotate(420deg); opacity: 1; }
+    }
+
+    .foot{
+      margin-top:14px;
+      color: rgba(255,255,255,.55);
+      font-size: 13px;
+      text-align:center;
+    }
+
+    /* small helper text (still big-ish) */
+    .tinyHelp{
+      margin-top: 10px;
+      color: rgba(255,255,255,.72);
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>🚀 Quantum Computing for Kids!</h1>
+      <div class="sub">
+        Learn about <strong>Bits → Bytes → Qubits</strong> through fun, interactive missions!
+        Click, play, and discover how quantum computers work. Less reading, more doing! 🎮
+      </div>
+
+      <div class="pillRow">
+        <div class="pill points">⭐ Points: <span id="points">0</span></div>
+        <div class="pill missions">🏁 Missions: <span id="doneCount">0</span>/4</div>
+        <div class="pill tip">⌨️ Press <span style="font-family:var(--mono)">Space</span> to measure qubits!</div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- Mission 1 -->
+      <div class="card" id="m1">
+        <div class="missionHeader">
+          <div class="mission">
+            <div class="badge">1</div>
+            <div class="missionText">
+              <h2>🔄 Mission 1: Flip a Bit</h2>
+              <p>Bits are simple: only 0 or 1. Let's play with them!</p>
+            </div>
+          </div>
+          <div class="status todo" id="m1Status">Not finished</div>
+        </div>
+
+        <div class="bigBox">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;">
+            <div>
+              <div style="color:var(--muted); font-size:1rem; margin-bottom:8px;">🎯 Current Bit Value</div>
+              <div class="bigNumber" id="bitValue">0</div>
+            </div>
+
+            <div class="switchRow">
+              <div class="toggle" id="bitToggle" aria-label="bit toggle">
+                <div class="knob"></div>
+              </div>
+              <div>
+                <div style="color:var(--muted); font-size:1rem; margin-bottom:4px;">🎮 Your Goal</div>
+                <div style="font-size:1.2rem; font-weight:900; color:var(--primary);">Flip it 3 times!</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="note" id="m1Hint">💡 Click the switch to change 0 ↔ 1. Watch the number change!</div>
+        </div>
+      </div>
+
+      <!-- Mission 2 -->
+      <div class="card" id="m2">
+        <div class="missionHeader">
+          <div class="mission">
+            <div class="badge">2</div>
+            <div class="missionText">
+              <h2>🧱 Mission 2: Build a Byte</h2>
+              <p>A byte is 8 bits working together. Tap the colorful boxes!</p>
+            </div>
+          </div>
+          <div class="status todo" id="m2Status">Not finished</div>
+        </div>
+
+        <div class="readouts">
+          <div class="pillBox">💎 Bit Values: <span class="mono">128 64 32 16 8 4 2 1</span></div>
+        </div>
+
+        <div class="byteGrid" id="byteGrid"></div>
+
+        <div class="readouts">
+          <div class="pillBox">🔢 Binary: <span class="mono" id="binaryText">00000000</span></div>
+          <div class="pillBox">🎯 Decimal: <span class="mono" id="decimalText">0</span></div>
+          <div class="pillBox">✨ ON Bits: <span class="mono" id="onBits">0</span>/8</div>
+        </div>
+
+        <div class="bigBox">
+          <div style="color:var(--muted); font-size:1rem; margin-bottom:8px;">🧮 How Your Byte Becomes a Number</div>
+          <div style="font-size:1.3rem; font-weight:900; margin-top:8px; color:var(--primary);" id="sumLine">
+            Turn bits ON to add their values together!
+          </div>
+          <div style="margin-top:8px; color:var(--muted); font-size:0.95rem;">
+            💡 Example: Turn ON 128 and 1 to get 129!
+          </div>
+        </div>
+
+        <div class="btnRow">
+          <button class="btn btnSecondary" id="randomByte">🎲 Random</button>
+          <button class="btn btnWarn" id="animateByte">🎬 Auto-build</button>
+          <button class="btn btnWarn" id="maxByteBtn">🚀 Make MAX</button>
+          <button class="btn btnBad" id="clearByte">🧹 Clear</button>
+        </div>
+
+        <div class="note" id="m2Hint">🎯 Goal: Make at least 4 bits turn ON (green)!</div>
+      </div>
+
+      <!-- NEW: Binary Counting Activity (why 1,2,4,8...) -->
+      <div class="card" id="countCard">
+        <div class="head">
+          <div class="mission">
+            <div class="badge">🔢</div>
+            <div>
+              <h2>Bonus Game: Binary Counting</h2>
+              <p>Press Next and watch which bit flips.</p>
+            </div>
+          </div>
+          <div class="status" id="countStatus">Try it</div>
+        </div>
+
+        <div class="body">
+          <div class="bigBox">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+              <div>
+                <div style="color:var(--muted); font-size:14px;">Decimal</div>
+                <div class="bigNumber mono" id="countDec">0</div>
+              </div>
+              <div>
+                <div style="color:var(--muted); font-size:14px;">Binary (8 bits)</div>
+                <div style="font-size:34px; font-weight:1000; letter-spacing:2px" class="mono" id="countBinText">00000000</div>
+              </div>
+            </div>
+
+            <div class="countGrid" id="countGrid"></div>
+
+            <div class="row">
+              <button class="btn" id="prevCount">Back</button>
+              <button class="btn good" id="nextCount">Next</button>
+              <button class="btn primary" id="autoCount">Auto</button>
+              <button class="btn bad" id="resetCount">Reset</button>
+            </div>
+
+            <div class="hint" id="countHint">
+              Watch this: the rightmost bit changes every time. The next bit changes every 2 steps. That’s why values double.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mission 3 -->
+      <div class="card" id="m3">
+        <div class="head">
+          <div class="mission">
+            <div class="badge">3</div>
+            <div>
+              <h2>Mission 3: Letter Magic</h2>
+              <p>Type a letter and it becomes 8 bits.</p>
+            </div>
+          </div>
+          <div class="status todo" id="m3Status">Not finished</div>
+        </div>
+
+        <div class="body">
+          <div class="inputs">
+            <div class="field">
+              <label>Type 1 character (try A or a)</label>
+              <input id="charInput" maxlength="1" placeholder="A" />
+            </div>
+            <div class="field">
+              <label>Or type 8 bits (try 01000001)</label>
+              <input id="byteInput" class="monoInput" maxlength="8" placeholder="01000001" />
+            </div>
+          </div>
+
+          <div class="row">
+            <button class="btn good" id="toByteBtn">Letter → Byte</button>
+            <button class="btn good" id="toCharBtn">Byte → Letter</button>
+            <button class="btn bad" id="clearAsciiBtn">Clear</button>
+          </div>
+
+          <div class="bigBox">
+            <div style="color:var(--muted); font-size:14px;">Result</div>
+            <div style="font-size:22px; font-weight:1000; margin-top:8px;" id="asciiOutput">
+              Try: A → 01000001
+            </div>
+          </div>
+
+          <div class="hint" id="m3Hint">Goal: successfully convert A or a.</div>
+        </div>
+      </div>
+
+      <!-- Mission 4 -->
+      <div class="card" id="m4">
+        <div class="head">
+          <div class="mission">
+            <div class="badge">4</div>
+            <div>
+              <h2>Mission 4: Meet the Qubit</h2>
+              <p>Qubit is like a “spinning coin” until you measure it.</p>
+            </div>
+          </div>
+          <div class="status todo" id="m4Status">Not finished</div>
+        </div>
+
+        <div class="body">
+          <div class="bigBox">
+            <div class="coinZone" id="coinZone">
+              <div class="coin" id="coin"><span id="coinText">Ready</span></div>
+
+              <div class="meter">
+                <div class="meterTitle">After many measurements, you often see a mix of 0 and 1</div>
+
+                <div class="row" style="margin-top:10px">
+                  <button class="btn primary" id="spinBtn">Spin</button>
+                  <button class="btn good" id="measureBtn">Measure</button>
+                  <button class="btn warn" id="run20">Run 20</button>
+                  <button class="btn bad" id="clearCounts">Clear</button>
+                </div>
+
+                <div class="bars">
+                  <div class="barRow">
+                    <div>0</div>
+                    <div class="bar"><div class="fill" id="fill0"></div></div>
+                    <div><span id="pct0">0%</span></div>
+                  </div>
+                  <div class="barRow">
+                    <div>1</div>
+                    <div class="bar"><div class="fill" id="fill1"></div></div>
+                    <div><span id="pct1">0%</span></div>
+                  </div>
+                </div>
+
+                <div class="bigBox" style="margin-top:12px">
+                  <div style="color:var(--muted); font-size:14px;">Counts</div>
+                  <div style="font-size:20px; font-weight:1000; margin-top:8px" id="countText">0 → 0, 1 → 0 (Total: 0)</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hint" id="m4Hint">Goal: Spin + then Measure at least 3 times.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Exit ticket -->
+      <div class="card">
+        <div class="head">
+          <div class="mission">
+            <div class="badge">✍️</div>
+            <div>
+              <h2>Exit Ticket (super short)</h2>
+              <p>Write 1 sentence: What is different about a qubit?</p>
+            </div>
+          </div>
+          <div class="status" id="exitStatus">Optional</div>
+        </div>
+
+        <div class="body">
+          <textarea id="exitTicket" rows="3" placeholder="Example: A bit is 0 or 1, but a qubit can be like a spinning coin until you measure it."></textarea>
+          <div class="row">
+            <button class="btn" id="copyTicket">Copy</button>
+            <button class="btn bad" id="clearTicket">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot">
+        Teacher tip: After Binary Counting, ask: “Which bit flips the most? Which flips the least?”
+      </div>
+    </div>
+  </div>
+
+  <div class="confetti" id="confetti"></div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    // Global progress
+    let points = 0;
+    let done = { m1:false, m2:false, m3:false, m4:false };
+
+    function addPoints(n){
+      points += n;
+      $("points").textContent = points;
+    }
+
+    function setDone(mKey){
+      if (done[mKey]) return;
+      done[mKey] = true;
+      const doneCount = Object.values(done).filter(Boolean).length;
+      $("doneCount").textContent = doneCount;
+      $(mKey + "Status").textContent = "Finished";
+      $(mKey + "Status").classList.remove("todo");
+      $(mKey + "Status").classList.add("done");
+      addPoints(25);
+      popConfetti();
+    }
+
+    function popConfetti(){
+      const wrap = $("confetti");
+      for (let i=0;i<26;i++){
+        const s = document.createElement("span");
+        s.style.left = Math.random()*100 + "vw";
+        s.style.background = `hsl(${Math.random()*360}, 90%, 60%)`;
+        s.style.animationDuration = (700 + Math.random()*500) + "ms";
+        wrap.appendChild(s);
+        setTimeout(()=>s.remove(), 1400);
+      }
+    }
+
+    // =========================
+    // Mission 1: Flip a bit
+    // =========================
+    let bit = 0;
+    let flips = 0;
+    const bitToggle = $("bitToggle");
+
+    function renderBit(){
+      $("bitValue").textContent = bit;
+      if (bit === 1) bitToggle.classList.add("on");
+      else bitToggle.classList.remove("on");
+    }
+
+    bitToggle.addEventListener("click", () => {
+      bit = bit ? 0 : 1;
+      flips++;
+      addPoints(2);
+      renderBit();
+      $("m1Hint").textContent = `🎉 Awesome! You've flipped ${flips}/3 times! ${flips >= 3 ? 'Mission Complete! 🚀' : 'Keep going!'}`;
+      if (flips >= 3) setDone("m1");
+    });
+
+    renderBit();
+
+    // =========================
+    // Mission 2: Build a byte (with sum + max)
+    // =========================
+    const byteGrid = $("byteGrid");
+    let bits = Array(8).fill(0);
+    const bitValues = [128, 64, 32, 16, 8, 4, 2, 1];
+
+    function bitsToBinary(){ return bits.join(""); }
+    function bitsToDecimal(){
+      let v = 0;
+      for (let i=0;i<8;i++) v = v*2 + bits[i];
+      return v;
+    }
+    function countOn(){ return bits.reduce((a,b)=>a+b,0); }
+
+    function updateSumLine(){
+      const parts = [];
+      for (let i=0; i<8; i++){
+        if (bits[i] === 1) parts.push(bitValues[i]);
+      }
+      const total = bitsToDecimal();
+      if (parts.length === 0) {
+        $("sumLine").textContent = "🔢 No green bits yet! Click some boxes to add numbers!";
+      } else {
+        $("sumLine").textContent = `🧮 ${parts.join(" + ")} = ${total}`;
+      }
+    }
+
+    function renderByteGrid(){
+      byteGrid.innerHTML = "";
+      bits.forEach((b, i) => {
+        const tile = document.createElement("div");
+        tile.className = "bitTile" + (b ? " on":"");
+        tile.textContent = b;
+        tile.title = `This position is worth ${bitValues[i]}`;
+        tile.addEventListener("click", () => {
+          bits[i] = bits[i] ? 0 : 1;
+          addPoints(1);
+          renderByteGrid();
+          updateByteReadout();
+        });
+        byteGrid.appendChild(tile);
+      });
+    }
+
+    function updateByteReadout(){
+      $("binaryText").textContent = bitsToBinary();
+      $("decimalText").textContent = bitsToDecimal();
+      const on = countOn();
+      $("onBits").textContent = on;
+      updateSumLine();
+      $("m2Hint").textContent = `🎯 Goal: Turn ON 4 bits! You have ${on}/8 green bits so far! ${on >= 4 ? '🎉' : ''}`;
+      if (on >= 4) setDone("m2");
+    }
+
+    $("randomByte").addEventListener("click", () => {
+      bits = bits.map(()=> Math.random()<0.5 ? 0:1);
+      addPoints(5);
+      renderByteGrid();
+      updateByteReadout();
+    });
+
+    $("clearByte").addEventListener("click", () => {
+      bits = Array(8).fill(0);
+      renderByteGrid();
+      updateByteReadout();
+    });
+
+    $("maxByteBtn").addEventListener("click", () => {
+      bits = Array(8).fill(1);
+      addPoints(6);
+      renderByteGrid();
+      updateByteReadout();
+      $("m2Hint").textContent = "MAX byte is 11111111 = 255 ✅";
+      setDone("m2");
+    });
+
+    let animRunning = false;
+    $("animateByte").addEventListener("click", async () => {
+      if (animRunning) return;
+      animRunning = true;
+      addPoints(3);
+
+      const target = Array(8).fill(0).map(()=> Math.random()<0.5?0:1);
+      bits = Array(8).fill(0);
+      renderByteGrid();
+      updateByteReadout();
+
+      const tiles = () => Array.from(byteGrid.querySelectorAll(".bitTile"));
+      for (let i=0;i<8;i++){
+        const t = tiles()[i];
+        t.classList.add("flash");
+        await new Promise(r=>setTimeout(r, 260));
+        bits[i] = target[i];
+        renderByteGrid();
+        updateByteReadout();
+        tiles()[i].classList.remove("flash");
+        await new Promise(r=>setTimeout(r, 120));
+      }
+      animRunning = false;
+    });
+
+    renderByteGrid();
+    updateByteReadout();
+
+    // =========================
+    // BONUS GAME: Binary Counting (why 1,2,4,8...)
+    // =========================
+    const countGrid = $("countGrid");
+    let countN = 0;              // 0..255
+    let lastFlipIndex = null;    // which bit changed last time
+    let autoTimer = null;
+    let stepsSeen = 0;
+
+    function nToBits8(n){
+      const arr = [];
+      for (let i=7; i>=0; i--){
+        arr.push( (n >> i) & 1 );
+      }
+      return arr;
+    }
+
+    function renderCountGrid(bitsArr){
+      countGrid.innerHTML = "";
+      bitsArr.forEach((b, idx) => {
+        const tile = document.createElement("div");
+        tile.className = "countTile" + (idx === lastFlipIndex ? " flip" : "");
+        tile.textContent = b;
+        countGrid.appendChild(tile);
+      });
+    }
+
+    function updateCountUI(prevN){
+      const bitsArr = nToBits8(countN);
+      $("countDec").textContent = countN;
+      $("countBinText").textContent = bitsArr.join("");
+
+      // find which index flipped compared to prev
+      if (prevN !== null){
+        const prevBits = nToBits8(prevN);
+        lastFlipIndex = null;
+        for (let i=0; i<8; i++){
+          if (prevBits[i] !== bitsArr[i]){
+            // lastFlipIndex = i; // if multiple flipped (like 0111->1000), we highlight the leftmost change
+            lastFlipIndex = i;
+            break;
+          }
+        }
+      } else {
+        lastFlipIndex = null;
+      }
+
+      renderCountGrid(bitsArr);
+
+      // mission-like reward: after they press Next 8 times, give points
+      if (stepsSeen >= 8){
+        $("countStatus").textContent = "Nice!";
+        $("countStatus").classList.add("done");
+      } else {
+        $("countStatus").textContent = "Try it";
+        $("countStatus").classList.remove("done");
+      }
+    }
+
+    function nextCount(){
+      const prev = countN;
+      if (countN < 255) countN++;
+      stepsSeen++;
+      addPoints(1);
+      updateCountUI(prev);
+    }
+
+    function prevCount(){
+      const prev = countN;
+      if (countN > 0) countN--;
+      addPoints(1);
+      updateCountUI(prev);
+    }
+
+    function resetCount(){
+      const prev = countN;
+      countN = 0;
+      lastFlipIndex = null;
+      stepsSeen = 0;
+      if (autoTimer){ clearInterval(autoTimer); autoTimer = null; $("autoCount").textContent = "Auto"; }
+      updateCountUI(prev);
+    }
+
+    $("nextCount").addEventListener("click", () => {
+      nextCount();
+      if (stepsSeen === 8){ addPoints(10); popConfetti(); }
+    });
+
+    $("prevCount").addEventListener("click", () => prevCount());
+    $("resetCount").addEventListener("click", () => resetCount());
+
+    $("autoCount").addEventListener("click", () => {
+      if (autoTimer){
+        clearInterval(autoTimer);
+        autoTimer = null;
+        $("autoCount").textContent = "Auto";
+        return;
+      }
+      $("autoCount").textContent = "Stop";
+      autoTimer = setInterval(() => {
+        if (countN >= 255){
+          clearInterval(autoTimer);
+          autoTimer = null;
+          $("autoCount").textContent = "Auto";
+          return;
+        }
+        nextCount();
+      }, 520);
+    });
+
+    // initialize
+    updateCountUI(null);
+
+    // =========================
+    // Mission 3: ASCII Letter <-> Byte
+    // =========================
+    function isValidByteString(s){ return /^[01]{8}$/.test(s); }
+    function byteStringToDecimal(bits8){
+      let v = 0;
+      for (const ch of bits8) v = v*2 + (ch==="1"?1:0);
+      return v;
+    }
+    function decimalToByteString(n){ return n.toString(2).padStart(8,"0"); }
+
+    function markM3IfAorA(ch){
+      if (ch === "A" || ch === "a") setDone("m3");
+    }
+
+    $("toByteBtn").addEventListener("click", () => {
+      const ch = ($("charInput").value || "").slice(0,1);
+      if (!ch){
+        $("asciiOutput").textContent = "Type 1 character first (try A).";
+        return;
+      }
+      const code = ch.charCodeAt(0);
+      if (code > 127){
+        $("asciiOutput").textContent = `That character is ${code}. Try basic letters like A, a, 1, !`;
+        return;
+      }
+      const byteStr = decimalToByteString(code);
+      $("byteInput").value = byteStr;
+      $("asciiOutput").textContent = `"${ch}" → decimal ${code} → byte ${byteStr}`;
+      addPoints(8);
+      markM3IfAorA(ch);
+    });
+
+    $("toCharBtn").addEventListener("click", () => {
+      const bits8 = ($("byteInput").value || "").trim();
+      if (!isValidByteString(bits8)){
+        $("asciiOutput").textContent = "Type exactly 8 bits (example: 01000001).";
+        return;
+      }
+      const dec = byteStringToDecimal(bits8);
+      if (dec > 127){
+        $("asciiOutput").textContent = `Decimal ${dec} is outside basic ASCII (0–127). Try 01000001.`;
+        return;
+      }
+      const ch = String.fromCharCode(dec);
+      $("charInput").value = ch;
+      $("asciiOutput").textContent = `${bits8} → decimal ${dec} → character "${ch}"`;
+      addPoints(8);
+      markM3IfAorA(ch);
+    });
+
+    $("clearAsciiBtn").addEventListener("click", () => {
+      $("charInput").value = "";
+      $("byteInput").value = "";
+      $("asciiOutput").textContent = "Try: A → 01000001";
+    });
+
+    // =========================
+    // Mission 4: Qubit coin
+    // =========================
+    const coinZone = $("coinZone");
+    const coinText = $("coinText");
+    const fill0 = $("fill0");
+    const fill1 = $("fill1");
+    let spinning = false;
+    let c0 = 0, c1 = 0;
+    let measureCountAfterSpin = 0;
+
+    function randBit(){ return Math.random()<0.5 ? 0:1; }
+
+    function startSpin(){
+      spinning = true;
+      coinZone.classList.add("spinning");
+      coinText.textContent = "Spinning";
+      addPoints(3);
+    }
+
+    function updateBars(){
+      const total = c0 + c1;
+      const p0 = total ? Math.round((c0/total)*100) : 0;
+      const p1 = total ? (100 - p0) : 0;
+      fill0.style.width = p0 + "%";
+      fill1.style.width = p1 + "%";
+      $("pct0").textContent = p0 + "%";
+      $("pct1").textContent = p1 + "%";
+      $("countText").textContent = `0 → ${c0}, 1 → ${c1} (Total: ${total})`;
+    }
+
+    function measureOnce(){
+      const r = randBit();
+      spinning = false;
+      coinZone.classList.remove("spinning");
+      coinText.textContent = r.toString();
+      if (r===0) c0++; else c1++;
+      updateBars();
+      addPoints(2);
+
+      measureCountAfterSpin++;
+      $("m4Hint").textContent = `Goal: Spin + Measure 3 times. You did ${measureCountAfterSpin}/3.`;
+      if (measureCountAfterSpin >= 3) setDone("m4");
+      return r;
+    }
+
+    $("spinBtn").addEventListener("click", () => startSpin());
+
+    $("measureBtn").addEventListener("click", () => {
+      if (!spinning){
+        $("m4Hint").textContent = "Spin first, then Measure 🙂";
+        return;
+      }
+      measureOnce();
+    });
+
+    $("run20").addEventListener("click", () => {
+      startSpin();
+      for (let i=0;i<20;i++){
+        const r = randBit();
+        if (r===0) c0++; else c1++;
+      }
+      spinning = false;
+      coinZone.classList.remove("spinning");
+      coinText.textContent = randBit().toString();
+      updateBars();
+      addPoints(10);
+    });
+
+    $("clearCounts").addEventListener("click", () => {
+      c0 = 0; c1 = 0;
+      updateBars();
+      coinText.textContent = "Ready";
+      spinning = false;
+      coinZone.classList.remove("spinning");
+      measureCountAfterSpin = 0;
+      $("m4Hint").textContent = "Goal: Spin + then Measure at least 3 times.";
+    });
+
+    // Spacebar to measure (only if spinning)
+    window.addEventListener("keydown", (e) => {
+      if (e.code === "Space"){
+        e.preventDefault();
+        if (spinning) measureOnce();
+      }
+    });
+
+    updateBars();
+
+    // =========================
+    // Exit ticket
+    // =========================
+    $("copyTicket").addEventListener("click", async () => {
+      const text = ($("exitTicket").value || "").trim();
+      if (!text) return;
+      try{
+        await navigator.clipboard.writeText(text);
+        addPoints(10);
+        $("exitStatus").textContent = "Copied";
+        $("exitStatus").classList.add("done");
+        popConfetti();
+      }catch{
+        alert("Copy failed. You can select and copy manually.");
+      }
+    });
+
+    $("clearTicket").addEventListener("click", () => {
+      $("exitTicket").value = "";
+      $("exitStatus").textContent = "Optional";
+      $("exitStatus").classList.remove("done");
+    });
+  </script>
+</body>
+</html>

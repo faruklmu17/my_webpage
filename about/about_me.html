@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Faruk Hasan | Personal Journey & Career Story</title>
+    <link rel="canonical" href="https://faruk-hasan.com/about/about_me.html" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "Faruk Hasan",
+        "jobTitle": "Software QA Engineer",
+        "description": "Passionate QA Engineer specializing in test automation, AI-driven testing, and continuous improvement",
+        "url": "https://faruk-hasan.com",
+        "sameAs": [
+          "https://www.linkedin.com/in/md-faruk-hasan/",
+          "https://github.com/faruklmu17"
+        ]
+      }
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #60a5fa;
+            --secondary-color: #3b82f6;
+            --accent-color: #fbbf24;
+            --success-color: #34d399;
+            --text-color: #f8fafc;
+            --text-light: #cbd5e1;
+            --text-dark: #1e293b;
+            --bg-color: rgba(255, 255, 255, 0.1);
+            --bg-light: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Cosmic background canvas */
+        #cosmic-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .hero-section {
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #60a5fa, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            width: 100%;
+            margin: 0;
+            padding: 0 2rem;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 2rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .content-text {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .timeline-section {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.3);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -1.4rem;
+            top: 1.2rem;
+            width: 2px;
+            height: calc(100% + 1.5rem);
+            background: linear-gradient(180deg, var(--primary-color), transparent);
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .timeline-year {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .travel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .travel-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .travel-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .travel-flag {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .travel-country {
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .navigation {
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .nav-link {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 0 1rem;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(96, 165, 250, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .content-section {
+                padding: 2rem 1.5rem;
+                margin: 1rem 0;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .timeline-section {
+                padding-left: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .travel-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .nav-link {
+                display: block;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="cosmic-canvas"></canvas>
+
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">👋 About Me</h1>
+            <p class="hero-subtitle">The journey of my life, career, and adventures around the world</p>
+        </div>
+    </div>
+
+    <!-- Intro Section with minimal spacing -->
+    <div class="container" style="margin-top: -2.5rem;">
+        <div class="content-section" style="margin-top: 0; padding-top: 1.5rem;">
+            <p class="intro-text" style="margin-bottom: 1rem;">Hello and welcome to my personal story!</p>
+            <p class="content-text">I was born in <span class="highlight">Chandpur, Bangladesh</span> in 1988. My
+                childhood was shaped by my father's job at <span class="highlight">Biman Bangladesh Airlines</span>,
+                which meant we moved a few times during my early years — and also brought me the gift of travel. My
+                journey has taken me from <span class="highlight">Dhaka</span> to <span class="highlight">London</span>,
+                then to <span class="highlight">Los Angeles</span>, and finally to <span class="highlight">New York
+                    City</span>. I feel very lucky to have experienced life in some of the world's largest and most
+                vibrant metropolitan cities.</p>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- Stats Overview -->
+        <div class="content-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">14</div>
+                    <div class="stat-label">Countries Visited</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">37</div>
+                    <div class="stat-label">Years of Life</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Years in Tech</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Countries Lived In</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Early Education Timeline -->
+        <div class="content-section">
+            <h2 class="section-title">🎓 Early Education Journey</h2>
+            <div class="timeline-section">
+                <div class="timeline-item">
+                    <div class="timeline-year">1994-1996</div>
+                    <div class="timeline-title">Sylhet & Early Years</div>
+                    <div class="timeline-content">My schooling began in <span class="highlight">Sylhet</span>, where I
+                        studied up to Grade 2. When my father was transferred to Biman's head office in <span
+                            class="highlight">Dhaka</span>, our family moved first to <span class="highlight">Tongi,
+                            Gazipur</span> for a year.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">1996-1999</div>
+                    <div class="timeline-title">Little Flower School Excellence</div>
+                    <div class="timeline-content">Moved to <span class="highlight">Middle Piererbag, Mirpur,
+                            Dhaka</span> and joined <span class="highlight">Little Flower School</span> in Grade 3. I
+                        spent three wonderful years there, earning the "Good Student" title and graduating as the top
+                        student in Grade 5.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">1999-2001</div>
+                    <div class="timeline-title">Alim Uddin High School</div>
+                    <div class="timeline-content">Studied for two years (Grades 6 and 7) and ranked among the top 3
+                        students in my class, maintaining academic excellence.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2001-2004</div>
+                    <div class="timeline-title">Government Science Attached High School</div>
+                    <div class="timeline-content">Admitted to <span class="highlight">Government Science Attached High
+                            School</span> in Tejgaon. After three years there, I passed my <span class="highlight">SSC
+                            exams in 2004</span> with a GPA of 4.81 out of 5.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2004-2006</div>
+                    <div class="timeline-title">HSC Completion</div>
+                    <div class="timeline-content">Completed my <span class="highlight">HSC</span> at <span
+                            class="highlight">Udayan Higher Secondary School</span> in 2006, preparing for the next
+                        chapter of my educational journey.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Childhood Travels -->
+        <div class="content-section">
+            <h2 class="section-title">✈️ Childhood Adventures</h2>
+            <p class="content-text">One of the greatest privileges of my childhood was the free flight tickets my father
+                received through his work. Thanks to him, I was able to explore various countries at a young age,
+                starting with my first international trip to <span class="highlight">India</span> when I was in Grade 8.
+            </p>
+
+            <div class="travel-grid">
+                <div class="travel-card">
+                    <div class="travel-flag">🇮🇳</div>
+                    <div class="travel-country">India</div>
+                </div>
+                <div class="travel-card">
+                    <div class="travel-flag">🇹🇭</div>
+                    <div class="travel-country">Thailand</div>
+                </div>
+                <div class="travel-card">
+                    <div class="travel-flag">🇲🇴</div>
+                    <div class="travel-country">Macau</div>
+                </div>
+                <div class="travel-card">
+                    <div class="travel-flag">🇳🇵</div>
+                    <div class="travel-country">Nepal</div>
+                </div>
+                <div class="travel-card">
+                    <div class="travel-flag">🇸🇬</div>
+                    <div class="travel-country">Singapore</div>
+                </div>
+                <div class="travel-card">
+                    <div class="travel-flag">🇸🇦</div>
+                    <div class="travel-country">Saudi Arabia</div>
+                </div>
+                <div class="travel-card">
+                    <div class="travel-flag">🇬🇧</div>
+                    <div class="travel-country">United Kingdom</div>
+                </div>
+                <div class="travel-card">
+                    <div class="travel-flag">🇮🇹</div>
+                    <div class="travel-country">Italy</div>
+                </div>
+                <div class="travel-card">
+                    <div class="travel-flag">🇳🇱</div>
+                    <div class="travel-country">Netherlands</div>
+                </div>
+                <div class="travel-card">
+                    <div class="travel-flag">🇫🇷</div>
+                    <div class="travel-country">France</div>
+                </div>
+                <div class="travel-card">
+                    <div class="travel-flag">🇨🇭</div>
+                    <div class="travel-country">Switzerland</div>
+                </div>
+                <div class="travel-card">
+                    <div class="travel-flag">🇧🇪</div>
+                    <div class="travel-country">Belgium</div>
+                </div>
+                <div class="travel-card">
+                    <div class="travel-flag">🇦🇪</div>
+                    <div class="travel-country">Dubai (UAE)</div>
+                </div>
+                <div class="travel-card">
+                    <div class="travel-flag">🇨🇦</div>
+                    <div class="travel-country">Canada</div>
+                </div>
+            </div>
+
+            <p class="content-text">These journeys opened my eyes to the world, gave me unforgettable memories, and
+                deepened my appreciation for different cultures. I can't thank my father enough for giving me such
+                beautiful travel experiences.</p>
+        </div>
+
+        <!-- University Journey -->
+        <div class="content-section">
+            <h2 class="section-title">🎓 University & Higher Education</h2>
+            <div class="timeline-section">
+                <div class="timeline-item">
+                    <div class="timeline-year">2006-2007</div>
+                    <div class="timeline-title">Finding My Path</div>
+                    <div class="timeline-content">After HSC, I was uncertain about my career path. I tried for several
+                        public university admission exams but didn't secure a spot. I initially enrolled in a private
+                        university to study Textile Engineering but soon realized it wasn't for me.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2007-2009</div>
+                    <div class="timeline-title">AIUB - Electrical Engineering</div>
+                    <div class="timeline-content">Joined <span class="highlight">AIUB</span> (American International
+                        University-Bangladesh) to study <span class="highlight">Electrical and Electronics
+                            Engineering</span>. After two years, I decided to pursue higher studies abroad.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2009-2012</div>
+                    <div class="timeline-title">Queen Mary University of London</div>
+                    <div class="timeline-content">Transferred my credits to <span class="highlight">Queen Mary
+                            University of London</span>, UK, completing my <span class="highlight">B.Eng</span> degree
+                        in 2012 with an Upper Second Class. This was my first major international educational
+                        experience.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2014-2016</div>
+                    <div class="timeline-title">Master's in Los Angeles</div>
+                    <div class="timeline-content">Moved to the USA for my master's degree at <span
+                            class="highlight">Loyola Marymount University</span> in Los Angeles, completing it in 2016
+                        with a GPA of 3.54. This opened doors to the American tech industry.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Career Path -->
+        <div class="content-section">
+            <h2 class="section-title">💼 Career Evolution</h2>
+            <div class="timeline-section">
+                <div class="timeline-item">
+                    <div class="timeline-year">2016-2020</div>
+                    <div class="timeline-title">Early Career Challenges</div>
+                    <div class="timeline-content">After my master's, I faced challenges finding work due to my visa
+                        status. I took on various roles, including teaching science and math at charter schools, working
+                        as a lecturer at a community college, and driving for Uber to make ends meet. These experiences
+                        taught me resilience and adaptability.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2020</div>
+                    <div class="timeline-title">Breaking into Tech</div>
+                    <div class="timeline-content">Landed my first tech role as a <span class="highlight">QA
+                            Engineer</span> and relocated from NYC to Albany, New York. This was a pivotal moment that
+                        launched my technology career.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2020-2025</div>
+                    <div class="timeline-title">Senior QA Engineer & Educator</div>
+                    <div class="timeline-content">Grew into my current role as a <span class="highlight">Senior QA
+                            Engineer</span>. Alongside my tech career, I've continued teaching — currently working as an
+                        independent instructor at <span class="highlight">Outschool</span>, where I teach technology
+                        subjects to middle and high school students.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Life Today -->
+        <div class="content-section">
+            <h2 class="section-title">🌟 Life Today</h2>
+            <p class="content-text">It's now 2025, and I'm fortunate to work <span class="highlight">remotely</span> for
+                both my QA engineering role and my teaching work. I've been living in the <span class="highlight">Hudson
+                    Valley</span> for the past three years, enjoying a balance of technology, education, and a peaceful
+                lifestyle.</p>
+
+            <p class="content-text">My journey from a curious child traveling the world thanks to my father's airline
+                job, to becoming a technology professional and educator in the United States, has been filled with
+                challenges, growth, and incredible experiences. Each step has shaped who I am today.</p>
+
+            <p class="content-text">When I'm not working, you'll find me exploring new technologies, teaching students,
+                working on personal projects like this website, or planning my next adventure. The spirit of curiosity
+                and exploration that began in my childhood continues to drive me forward.</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="../index.html" class="nav-link">🏠 Back to Home</a>
+            <!-- <a href="../finance/dividend_income.html" class="nav-link">💰 My Investment Journey</a> -->
+        </div>
+    </div>
+
+    <!-- Include the cosmic art script -->
+    <script src="../ai_resources/art.js"></script>
+    <script>
+        // Initialize cosmic background when page loads
+        window.addEventListener('load', function () {
+            console.log('🌌 Starting to load Cosmic Galaxy Art...');
+            if (typeof createCosmicGalaxyArt === 'function') {
+                createCosmicGalaxyArt();
+                console.log('🌌 Cosmic Galaxy Art loaded for about page!');
+            } else {
+                console.error('❌ createCosmicGalaxyArt function not found!');
+            }
+        });
+    </script>
+    <script src="../shared/header-footer.js"></script>
+</body>
+
+</html>

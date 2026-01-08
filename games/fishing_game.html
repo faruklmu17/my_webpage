@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>🎣 Realistic Fishing Game</title>
+  <link rel="canonical" href="https://faruk-hasan.com/games/fishing_game.html" />
+  <style>
+    :root {
+      --sky1: #87CEEB;
+      --sky2: #4682B4;
+      --waterTop: #1e90ff;
+      --waterMid: #0077be;
+      --waterDeep: #004d7a;
+      --sand: #d4a574;
+      --sand2: #b8935c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden
+    }
+
+    body {
+      user-select: none;
+      -webkit-user-select: none;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+      background: linear-gradient(180deg, var(--sky1) 0%, var(--sky2) 100%);
+      position: relative;
+    }
+
+    /* HUD - Floating overlay */
+    #hud {
+      position: fixed;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      z-index: 1000;
+      padding: 12px 20px;
+      border-radius: 15px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      transition: opacity 0.3s ease, background 0.3s ease;
+    }
+
+    /* Transparent HUD during gameplay */
+    #hud.game-active {
+      opacity: 0.3;
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(5px);
+      pointer-events: none;
+    }
+
+    /* Show HUD on hover during gameplay */
+    #hud.game-active:hover {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+    }
+
+    #score,
+    #timer {
+      font-size: 20px;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    #legend {
+      font-size: 14px;
+      padding: 6px 12px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px dashed rgba(255, 255, 255, 0.3);
+    }
+
+    #legend .pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin: 0 4px;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .pill.small {
+      background: #e53935
+    }
+
+    .pill.medium {
+      background: #1e88e5
+    }
+
+    .pill.big {
+      background: #ffb300
+    }
+
+    button {
+      font-size: 18px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+      background: linear-gradient(135deg, #ff9800, #ff5722);
+      color: #fff;
+      cursor: pointer;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(255, 87, 34, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(255, 87, 34, 0.6)
+    }
+
+    button[disabled] {
+      opacity: .5;
+      cursor: not-allowed;
+      transform: none
+    }
+
+    /* Full Screen Pond / Underwater */
+    #pond {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 8%),
+        radial-gradient(ellipse 150% 100% at 50% 0%, rgba(135, 206, 250, 0.4) 0%, transparent 50%),
+        linear-gradient(180deg, var(--waterTop) 0%, var(--waterMid) 40%, var(--waterDeep) 100%);
+    }
+
+    /* God rays / Light beams */
+    #rays {
+      position: absolute;
+      inset: -20% -20% auto -20%;
+      height: 140%;
+      background: conic-gradient(from 180deg at 50% 0%,
+          rgba(255, 255, 255, .22) 0 5deg, transparent 5deg 18deg,
+          rgba(255, 255, 255, .18) 18deg 23deg, transparent 23deg 40deg,
+          rgba(255, 255, 255, .20) 40deg 45deg, transparent 45deg 65deg,
+          rgba(255, 255, 255, .16) 65deg 70deg, transparent 70deg 360deg);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      animation: swayRays 15s ease-in-out infinite alternate;
+    }
+
+    @keyframes swayRays {
+      0% {
+        transform: translateX(0) rotate(0deg)
+      }
+
+      50% {
+        transform: translateX(-3%) rotate(-1deg)
+      }
+
+      100% {
+        transform: translateX(2%) rotate(1deg)
+      }
+    }
+
+    /* Caustics - realistic water light patterns */
+    #caustics {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      mix-blend-mode: overlay;
+      opacity: .45;
+      background:
+        radial-gradient(ellipse 60px 25px at 15% 25%, #ffffff88 20%, transparent 21%) 0 0/280px 150px,
+        radial-gradient(ellipse 55px 22px at 65% 45%, #ffffff88 20%, transparent 21%) 40px 20px/300px 160px,
+        radial-gradient(ellipse 50px 20px at 35% 75%, #ffffff88 20%, transparent 21%) 80px 40px/250px 140px,
+        radial-gradient(ellipse 58px 24px at 80% 60%, #ffffff88 20%, transparent 21%) 120px 60px/290px 155px;
+      animation: causticDrift 8s linear infinite;
+    }
+
+    @keyframes causticDrift {
+      to {
+        background-position: 280px 150px, -260px -140px, 330px -100px, -240px 215px
+      }
+    }
+
+    /* Seabed - full screen bottom */
+    .seabed {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -20px;
+      height: 25vh;
+      min-height: 180px;
+      pointer-events: none;
+      background:
+        radial-gradient(100px 50px at 12% 25%, #00000015 0 65%, transparent 66%) 0 0/350px 180px,
+        radial-gradient(120px 60px at 68% 35%, #00000015 0 65%, transparent 66%) 100px 40px/400px 200px,
+        radial-gradient(90px 45px at 45% 55%, #00000012 0 65%, transparent 66%) 200px 20px/320px 170px,
+        linear-gradient(180deg, transparent 0 30%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.35) 100%),
+        linear-gradient(180deg, var(--sand) 0%, var(--sand2) 100%);
+      border-top-left-radius: 50% 60px;
+      border-top-right-radius: 50% 60px;
+      box-shadow: inset 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Underwater plants */
+    .plants {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: calc(25vh - 40px);
+      height: 180px;
+      pointer-events: none;
+    }
+
+    .plants svg {
+      position: absolute;
+      bottom: 0;
+      opacity: .85;
+      filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.4));
+    }
+
+    .weed {
+      animation: sway 5s ease-in-out infinite alternate
+    }
+
+    .weed.delay {
+      animation-delay: 1.8s
+    }
+
+    .weed.delay2 {
+      animation-delay: 3.2s
+    }
+
+    @keyframes sway {
+      0% {
+        transform: skewX(0deg) translateX(0)
+      }
+
+      100% {
+        transform: skewX(5deg) translateX(8px)
+      }
+    }
+
+
+    /* Bubbles - more realistic */
+    .bubble {
+      position: absolute;
+      bottom: -30px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.9), rgba(174, 230, 255, 0.6) 50%, rgba(126, 200, 255, 0.3) 100%);
+      opacity: .7;
+      pointer-events: none;
+      box-shadow: inset -2px -2px 4px rgba(255, 255, 255, 0.5), 0 2px 6px rgba(0, 0, 0, 0.2);
+      animation: rise var(--dur) linear infinite;
+    }
+
+    @keyframes rise {
+      from {
+        transform: translateY(0) translateX(0) scale(0.8);
+        opacity: .3
+      }
+
+      to {
+        transform: translateY(-120vh) translateX(var(--dx)) scale(1.2);
+        opacity: .8
+      }
+    }
+
+    /* Fish container - realistic styling */
+    .fish {
+      position: absolute;
+      cursor: pointer;
+      display: inline-block;
+      z-index: 10;
+      will-change: transform, opacity;
+      transform: translate(-9999px, -9999px);
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+      transition: filter 0.2s;
+    }
+
+    .fish:hover {
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5)) brightness(1.1);
+    }
+
+    .fish svg {
+      width: 100%;
+      height: 100%
+    }
+
+    .fish.face-right svg {
+      transform: scaleX(-1);
+      transform-origin: 50% 50%;
+    }
+
+    /* Sizes - larger for better visibility */
+    .fish.big {
+      width: 180px;
+      height: 95px
+    }
+
+    .fish.medium {
+      width: 130px;
+      height: 72px
+    }
+
+    .fish.small {
+      width: 95px;
+      height: 54px
+    }
+
+    /* Caught fade */
+    .fish.caught {
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0;
+      transform: scale(1.2) rotate(15deg) !important;
+      transition: opacity .5s ease-out, transform .5s ease-out;
+    }
+
+
+    /* Splash & +points visuals */
+    .splash {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.95), rgba(135, 206, 250, 0.6));
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+      animation: splash .5s ease-out forwards;
+    }
+
+    @keyframes splash {
+      from {
+        transform: scale(.5);
+        opacity: 1
+      }
+
+      to {
+        transform: scale(3.5);
+        opacity: 0
+      }
+    }
+
+    .plus {
+      position: absolute;
+      color: #ffeb3b;
+      font-weight: 900;
+      font-size: 24px;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6);
+      animation: pop .8s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes pop {
+      from {
+        transform: translateY(0) scale(.8);
+        opacity: 1
+      }
+
+      to {
+        transform: translateY(-40px) scale(1.3);
+        opacity: 0
+      }
+    }
+
+    /* End screen */
+    #endBanner {
+      position: fixed;
+      inset: 0;
+      display: none;
+      place-items: center;
+      background: rgba(0, 0, 0, .6);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+    }
+
+    #endCard {
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      padding: 30px 40px;
+      border-radius: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      color: #fff;
+    }
+
+    #endCard h2 {
+      margin: 0 0 15px;
+      font-size: 32px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5)
+    }
+
+    #endCard p {
+      font-size: 20px;
+      margin: 10px 0 20px
+    }
+
+    /* Mobile Responsive Styles */
+    @media (max-width: 768px) {
+
+      /* Compact HUD for mobile */
+      #hud {
+        top: 8px;
+        padding: 8px 12px;
+        gap: 8px;
+        flex-direction: column;
+        align-items: center;
+        max-width: 95vw;
+      }
+
+      /* Smaller fonts and padding for mobile */
+      #score,
+      #timer {
+        font-size: 16px;
+        padding: 6px 12px;
+        margin: 0;
+      }
+
+      #legend {
+        font-size: 12px;
+        padding: 4px 8px;
+        text-align: center;
+        line-height: 1.2;
+      }
+
+      #legend .pill {
+        padding: 2px 6px;
+        margin: 0 2px;
+        font-size: 11px;
+        display: inline-block;
+      }
+
+      button {
+        font-size: 16px;
+        padding: 8px 16px;
+        margin: 0;
+      }
+
+      /* Adjust seabed and plants for mobile */
+      .seabed {
+        height: 20vh;
+        min-height: 120px;
+      }
+
+      .plants {
+        bottom: calc(20vh - 30px);
+        height: 120px;
+      }
+
+      .plants svg {
+        transform: scale(0.8);
+      }
+
+      /* Smaller fish sizes for mobile */
+      .fish.big {
+        width: 140px;
+        height: 75px;
+      }
+
+      .fish.medium {
+        width: 100px;
+        height: 55px;
+      }
+
+      .fish.small {
+        width: 75px;
+        height: 42px;
+      }
+
+      /* End card mobile adjustments */
+      #endCard {
+        padding: 20px;
+        margin: 0 10px;
+        max-width: calc(100vw - 20px);
+      }
+
+      #endCard h2 {
+        font-size: 24px;
+        margin: 0 0 10px;
+      }
+
+      #endCard p {
+        font-size: 16px;
+        margin: 8px 0 15px;
+      }
+    }
+
+    /* Extra small mobile devices */
+    @media (max-width: 480px) {
+      #hud {
+        top: 5px;
+        padding: 6px 8px;
+        gap: 6px;
+      }
+
+      #score,
+      #timer {
+        font-size: 14px;
+        padding: 4px 8px;
+      }
+
+      #legend {
+        font-size: 11px;
+        padding: 3px 6px;
+      }
+
+      #legend .pill {
+        font-size: 10px;
+        padding: 1px 4px;
+        margin: 0 1px;
+      }
+
+      button {
+        font-size: 14px;
+        padding: 6px 12px;
+      }
+
+      /* Even smaller fish for very small screens */
+      .fish.big {
+        width: 120px;
+        height: 65px;
+      }
+
+      .fish.medium {
+        width: 85px;
+        height: 48px;
+      }
+
+      .fish.small {
+        width: 65px;
+        height: 36px;
+      }
+
+      /* Compact seabed */
+      .seabed {
+        height: 18vh;
+        min-height: 100px;
+      }
+
+      .plants {
+        bottom: calc(18vh - 25px);
+        height: 100px;
+      }
+
+      .plants svg {
+        transform: scale(0.7);
+      }
+    }
+
+    /* Landscape mobile orientation */
+    @media (max-height: 500px) and (orientation: landscape) {
+      #hud {
+        top: 3px;
+        padding: 4px 8px;
+        gap: 4px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      #score,
+      #timer {
+        font-size: 12px;
+        padding: 3px 6px;
+      }
+
+      #legend {
+        font-size: 10px;
+        padding: 2px 4px;
+        order: 3;
+        width: 100%;
+      }
+
+      #legend .pill {
+        font-size: 9px;
+        padding: 1px 3px;
+      }
+
+      button {
+        font-size: 12px;
+        padding: 4px 8px;
+      }
+
+      .seabed {
+        height: 25vh;
+        min-height: 80px;
+      }
+
+      .plants {
+        bottom: calc(25vh - 20px);
+        height: 80px;
+      }
+
+      .plants svg {
+        transform: scale(0.6);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="hud">
+    <div id="score">🐟 Score: 0</div>
+    <div id="timer">⏱️ Time: 45</div>
+    <div id="legend">
+      <span class="pill big">Big = 1 pt</span>
+      <span class="pill medium">Medium = 2 pts</span>
+      <span class="pill small">Small = 5 pts</span>
+    </div>
+    <button id="startBtn">🎣 Start Game (45s)</button>
+  </div>
+
+  <div id="pond">
+    <div id="rays"></div>
+    <div id="caustics"></div>
+    <div class="plants" aria-hidden="true">
+      <svg class="weed" width="130" height="150" style="left:5%">
+        <path d="M50 150 C40 115, 60 90, 45 55 C30 20, 50 5, 45 -15" stroke="#0a7a4f" stroke-width="14" fill="none"
+          stroke-linecap="round" opacity="0.9" />
+        <path d="M80 150 C70 115, 90 90, 75 50 C60 15, 80 0, 75 -20" stroke="#0d9960" stroke-width="12" fill="none"
+          stroke-linecap="round" opacity="0.85" />
+      </svg>
+      <svg class="weed delay" width="160" height="160" style="left:22%">
+        <path d="M70 160 C60 120, 80 95, 65 60 C50 25, 70 10, 65 -10" stroke="#0a7a4f" stroke-width="14" fill="none"
+          stroke-linecap="round" opacity="0.9" />
+        <path d="M100 160 C90 120, 110 95, 95 55 C80 20, 100 5, 95 -15" stroke="#0d9960" stroke-width="12" fill="none"
+          stroke-linecap="round" opacity="0.85" />
+      </svg>
+      <svg class="weed delay2" width="140" height="155" style="left:45%">
+        <path d="M60 155 C50 118, 70 92, 55 57 C40 22, 60 7, 55 -13" stroke="#0a7a4f" stroke-width="14" fill="none"
+          stroke-linecap="round" opacity="0.9" />
+        <path d="M90 155 C80 118, 100 92, 85 52 C70 17, 90 2, 85 -18" stroke="#0d9960" stroke-width="12" fill="none"
+          stroke-linecap="round" opacity="0.85" />
+      </svg>
+      <svg class="weed" width="130" height="150" style="left:68%">
+        <path d="M50 150 C40 115, 60 90, 45 55 C30 20, 50 5, 45 -15" stroke="#0a7a4f" stroke-width="14" fill="none"
+          stroke-linecap="round" opacity="0.9" />
+        <path d="M80 150 C70 115, 90 90, 75 50 C60 15, 80 0, 75 -20" stroke="#0d9960" stroke-width="12" fill="none"
+          stroke-linecap="round" opacity="0.85" />
+      </svg>
+      <svg class="weed delay" width="150" height="160" style="left:88%">
+        <path d="M70 160 C60 120, 80 95, 65 60 C50 25, 70 10, 65 -10" stroke="#0a7a4f" stroke-width="14" fill="none"
+          stroke-linecap="round" opacity="0.9" />
+        <path d="M100 160 C90 120, 110 95, 95 55 C80 20, 100 5, 95 -15" stroke="#0d9960" stroke-width="12" fill="none"
+          stroke-linecap="round" opacity="0.85" />
+      </svg>
+    </div>
+    <div class="seabed" aria-hidden="true"></div>
+  </div>
+
+  <div id="endBanner">
+    <div id="endCard">
+      <h2>Time’s up! 🎉</h2>
+      <p id="finalScore">Total score: 0 points</p>
+      <button id="restartBtn">Play Again</button>
+    </div>
+  </div>
+
+  <!-- SVG defs for realistic fish -->
+  <svg width="0" height="0" style="position:absolute; left:-9999px; pointer-events:none" aria-hidden="true">
+    <defs>
+      <!-- Gradients for different fish types -->
+      <linearGradient id="gBodyWarm" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#ffd966" />
+        <stop offset="40%" stop-color="#ff9933" />
+        <stop offset="100%" stop-color="#cc5500" />
+      </linearGradient>
+      <linearGradient id="gBodyCool" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#66d9ff" />
+        <stop offset="50%" stop-color="#0099ff" />
+        <stop offset="100%" stop-color="#0066cc" />
+      </linearGradient>
+      <linearGradient id="gBodyRed" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#ff9999" />
+        <stop offset="50%" stop-color="#ff3333" />
+        <stop offset="100%" stop-color="#cc0000" />
+      </linearGradient>
+
+      <!-- Shine/highlight gradients -->
+      <radialGradient id="gHighlight" cx="35%" cy="30%" r="50%">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8" />
+        <stop offset="50%" stop-color="#ffffff" stop-opacity="0.3" />
+        <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+      </radialGradient>
+      <radialGradient id="gBellyLight" cx="50%" cy="70%" r="60%">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.6" />
+        <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+      </radialGradient>
+
+      <!-- Realistic fish symbol -->
+      <symbol id="fishSymbol" viewBox="0 0 220 110">
+        <!-- Main body -->
+        <ellipse cx="95" cy="55" rx="75" ry="38" fill="url(#gBodyWarm)" />
+
+        <!-- Belly highlight -->
+        <ellipse cx="95" cy="68" rx="60" ry="25" fill="url(#gBellyLight)" />
+
+        <!-- Top shadow/contour -->
+        <path d="M25 48 C65 25, 135 22, 175 48 C135 42, 65 40, 25 48 Z" fill="rgba(0,0,0,0.15)" />
+
+        <!-- Bottom shadow -->
+        <path d="M25 62 C65 85, 135 88, 175 62 C135 68, 65 70, 25 62 Z" fill="rgba(0,0,0,0.2)" />
+
+        <!-- Tail fin -->
+        <path class="tailPath" d="M165 55 L210 25 L215 55 L210 85 Z" fill="url(#gBodyWarm)" opacity="0.9" />
+        <path d="M165 55 L210 25 L215 55 Z" fill="rgba(255,255,255,0.15)" />
+
+        <!-- Dorsal fin -->
+        <path d="M80 20 L95 10 L110 20 L100 40 Z" fill="url(#gBodyWarm)" opacity="0.85" />
+
+        <!-- Pectoral fin -->
+        <ellipse cx="60" cy="60" rx="18" ry="28" fill="url(#gBodyWarm)" opacity="0.7" transform="rotate(-25 60 60)" />
+
+        <!-- Body shine -->
+        <ellipse cx="75" cy="42" rx="35" ry="22" fill="url(#gHighlight)" />
+
+        <!-- Scales pattern -->
+        <g opacity="0.15">
+          <circle cx="50" cy="50" r="8" fill="none" stroke="white" stroke-width="1" />
+          <circle cx="65" cy="48" r="8" fill="none" stroke="white" stroke-width="1" />
+          <circle cx="80" cy="50" r="8" fill="none" stroke="white" stroke-width="1" />
+          <circle cx="95" cy="52" r="8" fill="none" stroke="white" stroke-width="1" />
+          <circle cx="50" cy="60" r="8" fill="none" stroke="white" stroke-width="1" />
+          <circle cx="65" cy="62" r="8" fill="none" stroke="white" stroke-width="1" />
+          <circle cx="80" cy="60" r="8" fill="none" stroke="white" stroke-width="1" />
+        </g>
+
+        <!-- Gill line -->
+        <path d="M58 38 C56 50, 56 54, 58 66" stroke="rgba(0,0,0,0.4)" stroke-width="2.5" fill="none"
+          stroke-linecap="round" />
+
+        <!-- Eye -->
+        <circle cx="48" cy="42" r="9" fill="white" />
+        <circle cx="50" cy="43" r="5" fill="#000" />
+        <circle cx="49" cy="41" r="2" fill="white" />
+
+        <!-- Mouth -->
+        <path d="M25 52 Q30 56, 35 54" stroke="rgba(0,0,0,0.5)" stroke-width="2" fill="none" stroke-linecap="round" />
+
+        <!-- Top highlight line -->
+        <path d="M35 32 C85 18, 140 24, 170 45" stroke="rgba(255,255,255,0.5)" stroke-width="2.5" fill="none"
+          stroke-linecap="round" />
+      </symbol>
+    </defs>
+  </svg>
+
+  <script>
+    (() => {
+      const pond = document.getElementById('pond');
+      const scoreBox = document.getElementById('score');
+      const timerBox = document.getElementById('timer');
+      const startBtn = document.getElementById('startBtn');
+      const endBanner = document.getElementById('endBanner');
+      const finalScore = document.getElementById('finalScore');
+      const restartBtn = document.getElementById('restartBtn');
+
+      let score = 0, gameActive = false, timeLeft = 45;
+      let timerId = null, spawnTimer = null, rafId = null;
+
+      /* Sounds */
+      let audioCtx = null;
+      function ensureAudio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+      function tone(f = 440, d = 0.15, t = 'sine', g = 0.15, w = 0) {
+        if (!audioCtx) return;
+        const a = audioCtx.currentTime + (w || 0);
+        const o = audioCtx.createOscillator(), G = audioCtx.createGain();
+        o.type = t; o.frequency.setValueAtTime(f, a);
+        G.gain.setValueAtTime(0, a); G.gain.linearRampToValueAtTime(g, a + 0.01); G.gain.exponentialRampToValueAtTime(0.0001, a + d);
+        o.connect(G).connect(audioCtx.destination); o.start(a); o.stop(a + d + 0.02);
+      }
+      function playSplash() {
+        if (!audioCtx) return;
+        const t0 = audioCtx.currentTime;
+        const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+        o.type = 'triangle'; o.frequency.setValueAtTime(900, t0); o.frequency.exponentialRampToValueAtTime(300, t0 + 0.12);
+        g.gain.setValueAtTime(0.001, t0); g.gain.linearRampToValueAtTime(0.18, t0 + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.18);
+        o.connect(g).connect(audioCtx.destination); o.start(t0); o.stop(t0 + 0.2);
+      }
+      function playTimesUp() { tone(880, 0.22, 'sine', 0.18, 0); tone(1318.5, 0.28, 'triangle', 0.16, 0.18); }
+
+      /* Types (px/sec speeds) - FASTER SPEEDS */
+      const TYPES = [
+        { name: 'big', points: 1, speed: [150, 200], yPad: 120, weight: 0.50, grad: 'gBodyWarm', w: 180, h: 95 },
+        { name: 'medium', points: 2, speed: [200, 280], yPad: 90, weight: 0.30, grad: 'gBodyCool', w: 130, h: 72 },
+        { name: 'small', points: 5, speed: [280, 380], yPad: 70, weight: 0.20, grad: 'gBodyRed', w: 95, h: 54 },
+      ];
+      function weightedPick() { const r = Math.random(); let a = 0; for (const t of TYPES) { a += t.weight; if (r <= a) return t; } return TYPES[0]; }
+      const rand = (min, max) => Math.random() * (max - min) + min;
+
+      /* Fish store */
+      const fishes = [];
+      const MIN_Y_GAP = 50;   // minimum vertical distance between fish
+      const MIN_X_GAP = 140;  // minimum horizontal distance for same-row neighbors
+      const MARGIN = 60;      // off-screen start/end margin
+
+      function buildFishSVG(gradId) {
+        const svgNS = 'http://www.w3.org/2000/svg';
+        const svg = document.createElementNS(svgNS, 'svg');
+        svg.setAttribute('viewBox', '0 0 220 110');
+        svg.setAttribute('width', '100%');
+        svg.setAttribute('height', '100%');
+        svg.innerHTML = `<defs></defs><use href="#fishSymbol"></use>`;
+
+        const st = document.createElementNS(svgNS, 'style');
+        st.textContent = `
+      ellipse:first-of-type{fill:url(#${gradId})!important}
+      .tailPath{fill:url(#${gradId})!important}
+      path[d*="M80 20"]{fill:url(#${gradId})!important}
+      ellipse[transform]{fill:url(#${gradId})!important}
+    `;
+        svg.querySelector('defs').appendChild(st);
+
+        // Tail wag animation - more realistic
+        const anim = document.createElementNS(svgNS, 'animateTransform');
+        anim.setAttribute('attributeName', 'transform');
+        anim.setAttribute('type', 'rotate');
+        anim.setAttribute('values', '0 190 55; 10 190 55; 0 190 55; -10 190 55; 0 190 55');
+        anim.setAttribute('dur', '1.2s');
+        anim.setAttribute('repeatCount', 'indefinite');
+        const tailPath = svg.querySelector('.tailPath');
+        if (tailPath) tailPath.appendChild(anim);
+
+        return svg;
+      }
+
+      function canPlace(y, dir) {
+        // Ensure vertical spacing & horizontal gap with neighbors moving in the same direction nearby
+        for (const f of fishes) {
+          if (Math.abs(f.y - y) < MIN_Y_GAP) {
+            // If close vertically, also check horizontal spacing to avoid clumping
+            if (f.dir === dir) {
+              const futureX = f.x + f.dir * 120; // a bit ahead
+              if (Math.abs(futureX - f.x) < MIN_X_GAP) return false;
+            } else {
+              return false;
+            }
+          }
+        }
+        return true;
+      }
+
+      function spawnFish() {
+        if (!gameActive) return;
+
+        const t = weightedPick();
+        const el = document.createElement('div');
+        el.className = `fish ${t.name}`;
+        el.style.width = t.w + 'px'; el.style.height = t.h + 'px';
+        el.dataset.points = t.points;
+
+        const svg = buildFishSVG(t.grad);
+        el.appendChild(svg);
+
+        const pondRect = pond.getBoundingClientRect();
+        const dir = Math.random() > 0.5 ? 1 : -1; // 1=right, -1=left
+        const speed = rand(t.speed[0], t.speed[1]); // px/s
+
+        // Choose a y that respects spacing
+        let y = rand(20, pond.clientHeight - t.yPad);
+        let tries = 0;
+        while (!canPlace(y, dir) && tries < 15) { y = rand(20, pond.clientHeight - t.yPad); tries++; }
+        if (tries >= 15) { /* skip this spawn to keep spacing */ setTimeout(spawnFish, rand(150, 350)); return; }
+
+        const startX = dir === 1 ? -t.w - MARGIN : pond.clientWidth + MARGIN;
+        const endLimit = dir === 1 ? pond.clientWidth + MARGIN : -t.w - MARGIN;
+
+        if (dir === 1) el.classList.add('face-right'); else el.classList.remove('face-right');
+
+        // model object
+        const fish = { el, dir, x: startX, y, w: t.w, h: t.h, speed, caught: false };
+
+        // click/catch
+        el.addEventListener('pointerdown', (e) => {
+          if (!gameActive || fish.caught) return;
+          fish.caught = true;
+          score += parseInt(el.dataset.points || '1', 10);
+          scoreBox.textContent = `Score: ${score}`;
+          splashAt(e.clientX, e.clientY);
+          showPlus(parseInt(el.dataset.points || '1', 10), e.clientX, e.clientY);
+          playSplash();
+          el.classList.add('caught');
+          // let it fade while still drifting; remove after fade
+          setTimeout(() => removeFish(fish), 650);
+        }, { passive: true });
+
+        pond.appendChild(el);
+        fishes.push(fish);
+        // schedule next spawn
+        spawnTimer = setTimeout(spawnFish, Math.floor(rand(450, 850)));
+      }
+
+      function removeFish(fish) {
+        const i = fishes.indexOf(fish);
+        if (i >= 0) fishes.splice(i, 1);
+        fish.el.remove();
+      }
+
+      // Animation loop (no CSS keyframes for movement)
+      let last = 0;
+      function tick(ts) {
+        if (!last) last = ts;
+        const dt = Math.min(64, ts - last); // clamp for big tab jumps
+        last = ts;
+
+        const w = pond.clientWidth;
+
+        for (const f of [...fishes]) {
+          // natural swim
+          f.x += f.dir * f.speed * (dt / 1000);
+
+          // slight undulation
+          const wave = Math.sin((ts / 1000) * (0.8 + (f.speed / 240))) * 4;
+          f.el.style.transform = `translate(${Math.round(f.x)}px, ${Math.round(f.y + wave)}px)`;
+
+          // off-screen cleanup (only when really out)
+          if ((f.dir === 1 && f.x > w + MARGIN) || (f.dir === -1 && f.x < -f.w - MARGIN)) {
+            removeFish(f);
+          }
+        }
+
+        if (gameActive) rafId = requestAnimationFrame(tick);
+      }
+
+      // Visual feedback
+      function splashAt(x, y) {
+        const r = pond.getBoundingClientRect();
+        const s = document.createElement('div'); s.className = 'splash';
+        s.style.left = (x - r.left - 9) + 'px'; s.style.top = (y - r.top - 9) + 'px';
+        pond.appendChild(s); setTimeout(() => s.remove(), 520);
+      }
+      function showPlus(pts, x, y) {
+        const r = pond.getBoundingClientRect();
+        const p = document.createElement('div'); p.className = 'plus';
+        p.textContent = `+${pts}`;
+        p.style.left = (x - r.left + 6) + 'px'; p.style.top = (y - r.top - 6) + 'px';
+        pond.appendChild(p); setTimeout(() => p.remove(), 720);
+      }
+
+      // Background bubbles - more frequent and varied
+      function spawnBubble() {
+        if (!gameActive) return;
+        const b = document.createElement('div'); b.className = 'bubble';
+        const size = rand(8, 18);
+        b.style.width = b.style.height = size + 'px';
+        b.style.left = rand(0, pond.clientWidth - size) + 'px';
+        b.style.setProperty('--dx', (Math.random() > 0.5 ? '-' : '') + rand(15, 60) + 'px');
+        b.style.setProperty('--dur', rand(8, 16) + 's');
+        pond.appendChild(b);
+        setTimeout(() => b.remove(), 18000);
+        setTimeout(spawnBubble, rand(200, 600));
+      }
+
+      // Game flow
+      function startGame() {
+        ensureAudio();
+        if (gameActive) return;
+        score = 0; timeLeft = 45; gameActive = true; last = 0;
+        scoreBox.textContent = 'Score: 0'; timerBox.textContent = 'Time: 45';
+        startBtn.disabled = true; endBanner.style.display = 'none';
+
+        // Make HUD transparent during gameplay
+        document.getElementById('hud').classList.add('game-active');
+
+        clearInterval(timerId); clearTimeout(spawnTimer); cancelAnimationFrame(rafId);
+        fishes.splice(0, fishes.length);
+        [...pond.querySelectorAll('.fish,.splash,.plus,.bubble')].forEach(n => n.remove());
+
+        spawnFish();           // begin spawns
+        spawnBubble();         // ambiance
+        rafId = requestAnimationFrame(tick); // start animation loop
+
+        timerId = setInterval(() => {
+          timeLeft--;
+          timerBox.textContent = `Time: ${timeLeft}`;
+          if (timeLeft <= 0) endGame();
+        }, 1000);
+      }
+
+      function endGame() {
+        gameActive = false; startBtn.disabled = false;
+
+        // Restore HUD visibility when game ends
+        document.getElementById('hud').classList.remove('game-active');
+
+        clearInterval(timerId); clearTimeout(spawnTimer); cancelAnimationFrame(rafId);
+        fishes.forEach(f => f.el.style.pointerEvents = 'none');
+        finalScore.textContent = `Total score: ${score} points`;
+        endBanner.style.display = 'grid';
+        playTimesUp();
+      }
+
+      startBtn.addEventListener('click', startGame);
+      restartBtn.addEventListener('click', startGame);
+    })();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,1268 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Word Detective 🕵️‍♀️</title>
+
+    <!-- Friendly Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600;700&family=Nunito:wght@400;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            /* Palette: Fun & Bright */
+            --bg: #E0F7FA;
+            /* Light Cyan */
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --text-soft: #637b94;
+
+            --primary: #FF6B6B;
+            /* Coral Red */
+            --primary-dark: #EE5253;
+            --secondary: #4ECDC4;
+            /* Teal */
+            --secondary-dark: #22A6B3;
+            --accent: #FFE66D;
+            /* Pastel Yellow */
+            --accent-dark: #F7D744;
+
+            --success: #6AB04C;
+            --warn: #F9CA24;
+            --danger: #EB4D4B;
+
+            --radius: 24px;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 15px 35px rgba(0, 0, 0, 0.12);
+
+            --font-head: 'Fredoka', sans-serif;
+            --font-body: 'Nunito', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-body);
+            background: var(--bg);
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(78, 205, 196, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 107, 107, 0.15) 0%, transparent 20%);
+            color: var(--text);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        /* ——— Header ——— */
+        header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-family: var(--font-head);
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            color: var(--primary);
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+            letter-spacing: 1px;
+        }
+
+        .sub {
+            margin: 10px auto 20px;
+            max-width: 800px;
+            font-size: 1.2rem;
+            color: var(--text-soft);
+            line-height: 1.6;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .stat-pill {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            font-weight: 700;
+            color: var(--secondary-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .stat-pill.timer {
+            border-color: var(--primary);
+            color: var(--primary-dark);
+        }
+
+        /* ——— Layout ——— */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ——— Cards ——— */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px;
+            border: 2px solid rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-family: var(--font-head);
+            color: var(--text);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ——— Controls ——— */
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-soft);
+            font-size: 0.95rem;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text);
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%232c3e50%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem top 50%;
+            background-size: 0.65rem auto;
+            appearance: none;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        select:focus {
+            border-color: var(--secondary);
+            outline: none;
+            background-color: white;
+        }
+
+        /* ——— Buttons ——— */
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 16px;
+            font-family: var(--font-head);
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transform: translateY(0);
+            transition: all 0.1s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 0 var(--primary-dark);
+        }
+
+        .btn-primary:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 var(--primary-dark);
+        }
+
+        .btn-primary:disabled {
+            background: #ccc;
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #f1f3f5;
+            color: var(--text-soft);
+            border: 2px solid #e0e0e0;
+            margin-top: 10px;
+            font-size: 1rem;
+            padding: 12px;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        /* ——— Bucket (Clue Bag) ——— */
+        .bucket-container {
+            margin-top: 20px;
+            min-height: 100px;
+            padding: 15px;
+            background: #F8F9FA;
+            border-radius: 16px;
+            border: 2px dashed #D1D8E0;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            background: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 4px;
+            font-size: 0.9rem;
+            color: var(--text);
+            border: 1px solid #E0E0E0;
+        }
+
+        .chip code {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            color: var(--primary);
+            margin-right: 8px;
+        }
+
+        .chip .x {
+            cursor: pointer;
+            color: #999;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .chip .x:hover {
+            color: var(--danger);
+            background: #fee;
+        }
+
+        /* ——— Documents Grid ——— */
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .doc-item {
+            background: white;
+            border-radius: 18px;
+            border: 2px solid #EEE;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .doc-item:hover {
+            border-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .doc-header {
+            background: #F4F7FA;
+            padding: 10px 16px;
+            border-bottom: 2px solid #EEE;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-soft);
+        }
+
+        .doc-body {
+            padding: 16px;
+        }
+
+        textarea.doc-edit {
+            width: 100%;
+            min-height: 80px;
+            border-radius: 12px;
+            border: 2px solid #eee;
+            padding: 10px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            resize: vertical;
+            color: var(--text);
+            margin-bottom: 12px;
+            transition: border-color 0.2s;
+        }
+
+        textarea.doc-edit:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        .render-area {
+            line-height: 1.8;
+            font-size: 1.05rem;
+            color: #34495e;
+        }
+
+        /* Word Spans */
+        .w {
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 6px;
+            transition: all 0.15s ease;
+            display: inline-block;
+            border: 1px solid transparent;
+            user-select: none;
+        }
+
+        .w:hover {
+            background: rgba(78, 205, 196, 0.2);
+        }
+
+        .w.selected {
+            background: var(--secondary);
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 4px 10px rgba(78, 205, 196, 0.4);
+            font-weight: 700;
+        }
+
+        .w.locked {
+            cursor: default;
+            opacity: 0.6;
+        }
+
+        .w.locked:hover {
+            background: transparent;
+        }
+
+        /* ——— Intro / Status Box ——— */
+        .status-msg {
+            background: #FFF8E1;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 20px;
+            border-left: 5px solid var(--accent);
+            color: #795548;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* ——— Overlay (Game Over) ——— */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(44, 62, 80, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: none;
+            /* Flex when active */
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .overlay.show {
+            display: flex;
+        }
+
+        .result-card {
+            background: white;
+            width: min(700px, 95vw);
+            border-radius: 30px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border: 4px solid var(--primary);
+        }
+
+        .result-card h3 {
+            font-family: var(--font-head);
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin: 0 0 10px;
+        }
+
+        .big-score {
+            font-size: 4rem;
+            font-weight: 800;
+            font-family: var(--font-head);
+            color: var(--secondary-dark);
+            margin: 10px 0;
+        }
+
+        .score-percentage {
+            font-size: 1.5rem;
+            color: #999;
+        }
+
+        /* ——— Help Button & Explanation ——— */
+        .help-btn {
+            background: var(--accent);
+            color: var(--text);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 1.4rem;
+            border: 2px solid var(--accent-dark);
+            box-shadow: 0 4px 0 var(--accent-dark);
+            margin-left: 10px;
+            vertical-align: middle;
+            transition: all 0.1s;
+        }
+
+        .help-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 var(--accent-dark);
+        }
+
+        .explanation-card {
+            background: white;
+            width: min(750px, 95vw);
+            max-height: 85vh;
+            border-radius: 30px;
+            padding: 30px 40px;
+            text-align: left;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border: 4px solid var(--secondary);
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .explanation-card h2 {
+            font-family: var(--font-head);
+            color: var(--secondary-dark);
+            font-size: 1.8rem;
+            margin-top: 0;
+            padding-right: 40px;
+        }
+
+        .explanation-card h3 {
+            font-family: var(--font-head);
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin: 24px 0 10px;
+        }
+
+        .explanation-card p,
+        .explanation-card li {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .explanation-card hr {
+            border: 0;
+            border-top: 2px dashed #eee;
+            margin: 24px 0;
+        }
+
+        .explanation-card blockquote {
+            background: #fdf2f2;
+            border-left: 5px solid var(--primary);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .explanation-card blockquote p {
+            margin-bottom: 0;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary-dark);
+        }
+
+        .explanation-card .close-x {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #f1f3f5;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #adb5bd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .explanation-card .close-x:hover {
+            background: #e9ecef;
+            color: var(--danger);
+        }
+
+        .result-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .result-table th {
+            padding: 10px;
+            color: var(--text-soft);
+            font-size: 0.9rem;
+            border-bottom: 2px solid #eee;
+        }
+
+        .result-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+
+        .result-table .good {
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .result-table .bad {
+            color: var(--danger);
+        }
+
+        .result-table .warn {
+            color: #e67e22;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Word Detective 🕵️‍♀️✨</h1>
+        <div class="sub">
+            Welcome to the <strong>Keyword Hunt</strong>! Your mission is to find the special "Keyword Clues" in these
+            stories.
+            Select the words that make each story <em>unique</em>!
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-pill timer">
+                <span style="font-size:1.2rem">⏳</span>
+                <span id="timeLeft">00:00</span>
+            </div>
+            <div class="stat-pill">
+                <span>🎒 Clues Collected:</span>
+                <b id="selCount">0</b>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Sidebar Controls -->
+        <section class="card">
+            <h2>🛠️ Mission Control</h2>
+
+            <div class="control-group">
+                <label class="control-label">⏳ Time Limit (Minutes)</label>
+                <select id="minutes">
+                    <option value="2">2 Minutes</option>
+                    <option value="3">3 Minutes</option>
+                    <option value="5" selected>5 Minutes</option>
+                    <option value="10">10 Minutes</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">🌶️ Difficulty</label>
+                <select id="difficulty">
+                    <option value="easy">Easy (Simple Stories)</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="hard">Hard (Tricky!)</option>
+                </select>
+            </div>
+
+            <button id="startBtn" class="btn btn-primary">
+                🚀 Start Mission
+            </button>
+
+            <button id="resetBtn" class="btn btn-secondary">
+                🧹 Clear My Bag
+            </button>
+
+            <div class="bucket-container" id="bucket">
+                <div style="text-align:center; color:#adb5bd; padding-top:20px;">
+                    <em>Your bag is empty.<br>Start the game and click words!</em>
+                </div>
+            </div>
+
+            <div class="status-msg" id="statusBox">
+                👋 Hello Detective! Pick the <strong>Settings</strong> above and click <strong>Start Mission</strong> to
+                look for clues.
+            </div>
+        </section>
+
+        <!-- Content Area -->
+        <section class="card">
+            <h2>📚 The Stories <span
+                    style="font-size:0.6em; color:var(--text-soft); margin-left:10px; font-weight:400;">(Click words to
+                    collect them)</span></h2>
+            <div id="docsGrid" class="docs-grid">
+                <!-- Generated by JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Game Over Overlay -->
+    <div class="overlay" id="overlay">
+        <div class="result-card">
+            <h3>Time's Up! 🎉 <span class="help-btn" onclick="openExplanation()" title="How was this decided?">?</span>
+            </h3>
+            <p>Great job detective! Here is your score:</p>
+
+            <div class="big-score" id="finalScore">0</div>
+            <div id="finalSummary"></div>
+
+            <div
+                style="max-height: 300px; overflow-y:auto; margin-top:20px; border:1px solid #eee; border-radius:12px; padding:0 10px;">
+                <table class="result-table" id="breakdown"></table>
+            </div>
+
+            <button class="btn btn-primary" style="margin-top:20px"
+                onclick="document.getElementById('overlay').classList.remove('show')">
+                Close & Play Again
+            </button>
+        </div>
+    </div>
+
+    <!-- Explanation Overlay -->
+    <div class="overlay" id="explanationOverlay">
+        <div class="explanation-card">
+            <button class="close-x" onclick="closeExplanation()">×</button>
+            <h2>🧠 How Your Score Was Decided (Read This!)</h2>
+            <p><strong>The computer did NOT mark words as “right” or “wrong.”</strong> It did something different:</p>
+
+            <h3>🔍 What the computer actually does</h3>
+            <ul>
+                <li>It <strong>ranks all words</strong> in each story</li>
+                <li>It keeps only the <strong>strongest few clues</strong></li>
+                <li>Strong clues are words that:
+                    <ul>
+                        <li>appear <strong>often in one story</strong></li>
+                        <li>but <strong>not across all stories</strong></li>
+                    </ul>
+                </li>
+            </ul>
+            <p>These top-ranked words are shown as <strong>Correct</strong>.</p>
+
+            <hr>
+
+            <h3>⚠️ What “Extra” means</h3>
+            <p><strong>Extra does NOT mean bad or stupid.</strong></p>
+            <p>It means:</p>
+            <ul>
+                <li>The word makes sense to a human</li>
+                <li>But it <strong>did not rank high enough</strong> compared to other words</li>
+            </ul>
+            <p><em>Example:</em> <code>basil</code> makes sense, but words like <code>chef</code> or <code>recipe</code>
+                were <strong>stronger signals</strong>. Think of it like a leaderboard — not everyone can be in the top.
+            </p>
+
+            <hr>
+
+            <h3>❌ What “Missed” means</h3>
+            <p><strong>Missed does NOT mean you were wrong.</strong></p>
+            <p>It means:</p>
+            <ul>
+                <li>The computer ranked that word high</li>
+                <li>But it didn’t get picked</li>
+            </ul>
+            <p>This often happens with very specific words, words that repeat, or words that uniquely identify the
+                story.</p>
+
+            <hr>
+
+            <h3>🧠 The BIG idea to remember</h3>
+            <blockquote>
+                <p>The computer is trying to IDENTIFY the story, not explain it like a human.</p>
+            </blockquote>
+            <p style="text-align: center;">Humans think in <strong>topics</strong> <br> ↕️ <br> Computers think in
+                <strong>signals</strong>
+            </p>
+
+            <hr>
+
+            <h3>🎯 Strategy tip for next round</h3>
+            <ul>
+                <li>Pick <strong>fewer, stronger words</strong></li>
+                <li>Avoid broad words that could fit many stories</li>
+                <li>Ask yourself: <em>“If I only saw this word, could I guess which story it came from?”</em></li>
+            </ul>
+
+            <button class="btn btn-secondary" onclick="closeExplanation()">Dismiss</button>
+        </div>
+    </div>
+
+    <script>
+        // ---------------------------
+        // LOGIC & GAME ENGINE
+        // ---------------------------
+
+        const TFIDF_SETTINGS = {
+            docsCount: 4,
+            topN: 5,
+            useStopwords: true,
+            stemLite: true,
+            tfMode: "log",      // raw | log | norm
+            idfMode: "smooth"   // classic | smooth
+        };
+
+        const STOPWORDS = new Set([
+            "the", "a", "an", "and", "or", "but", "if", "then", "so", "to", "of", "in", "on", "at", "for", "with", "from", "by",
+            "is", "are", "was", "were", "be", "been", "being", "it", "this", "that", "these", "those", "as", "into", "over", "after",
+            "about", "during", "can", "could", "should", "would", "will", "just", "more", "most", "very", "new", "better", "strong",
+            "their", "they", "them", "he", "she", "we", "you", "i", "my", "our", "your", "his", "her", "its", "also", "than"
+        ]);
+
+        const DATASETS = {
+            easy: [
+                "The rocket launched into orbit and the astronauts studied space dust. The mission used a powerful engine and a new navigation computer.",
+                "The basketball team practiced defense and fast passes. The coach wanted better teamwork and stronger shooting during the game.",
+                "The recipe used garlic, onions, and tomatoes. The chef simmered the sauce slowly and added fresh basil for flavor.",
+                "The dolphin communicates with clicks and whistles. Marine scientists study ocean behavior and social groups in the wild."
+            ],
+            medium: [
+                "The rocket launched into orbit and the astronauts studied space dust. The mission used a navigation computer and a new engine system.",
+                "The team practiced defense and fast passes. The coach studied game strategy and teamwork improvements during practice.",
+                "The chef tested a new recipe using tomatoes and basil. The sauce simmered slowly for better flavor and texture.",
+                "Marine scientists study dolphin behavior. The ocean environment influences communication and social groups over time."
+            ],
+            hard: [
+                "The rocket computer analyzed data during the mission. Scientists studied results and improved navigation models.",
+                "The team analyzed game data and improved strategy. Coaches studied teamwork and defense patterns across seasons.",
+                "The chef analyzed taste results and improved the sauce recipe. The kitchen tested ingredients and flavor balance.",
+                "Marine scientists analyzed ocean data and studied dolphin communication. Research teams improved methods and tools."
+            ]
+        };
+
+        // UI Elements
+        const docsGrid = document.getElementById("docsGrid");
+        const minutesSel = document.getElementById("minutes");
+        const difficultySel = document.getElementById("difficulty");
+        const startBtn = document.getElementById("startBtn");
+        const resetBtn = document.getElementById("resetBtn");
+        const bucketEl = document.getElementById("bucket");
+        const selCountEl = document.getElementById("selCount");
+        const timeLeftEl = document.getElementById("timeLeft");
+        const statusBox = document.getElementById("statusBox");
+
+        const overlay = document.getElementById("overlay");
+        const finalScoreEl = document.getElementById("finalScore");
+        const finalSummaryEl = document.getElementById("finalSummary");
+        const breakdownEl = document.getElementById("breakdown");
+
+        let timerId = null;
+        let endTime = null;
+        let locked = false;
+
+        // selections: Map(docIndex -> Set(words))
+        const selections = new Map();
+        // wordSpans: Map(docIndex -> Map(word -> Set(spanEls)))
+        const wordSpans = new Map();
+
+        function escapeHtml(str) {
+            return String(str)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        // --- Preprocessing & Stemming ---
+        function stemLite(word) {
+            const w = word;
+            if (w.length > 5 && w.endsWith("ing")) return w.slice(0, -3);
+            if (w.length > 4 && w.endsWith("ed")) return w.slice(0, -2);
+            if (w.length > 4 && w.endsWith("es")) return w.slice(0, -2);
+            if (w.length > 3 && w.endsWith("s")) return w.slice(0, -1);
+            return w;
+        }
+
+        function normalizeWord(raw) {
+            let w = raw.toLowerCase().replace(/^'+|'+$/g, "");
+            if (TFIDF_SETTINGS.stemLite) w = stemLite(w);
+            return w;
+        }
+
+        function tokenize(text) {
+            const raw = text.toLowerCase().match(/[a-z0-9']+/g) || [];
+            const cleaned = [];
+            for (const t of raw) {
+                let w = t.replace(/^'+|'+$/g, "");
+                if (!w) continue;
+                if (TFIDF_SETTINGS.stemLite) w = stemLite(w);
+                if (TFIDF_SETTINGS.useStopwords && STOPWORDS.has(w)) continue;
+                cleaned.push(w);
+            }
+            return cleaned;
+        }
+
+        // --- TF-IDF Calculation ---
+        function computeTf(tokens) {
+            const tf = new Map();
+            for (const w of tokens) tf.set(w, (tf.get(w) || 0) + 1);
+            return tf;
+        }
+
+        function applyTfMode(tfMap) {
+            const mode = TFIDF_SETTINGS.tfMode;
+            const out = new Map();
+            let maxTf = 1;
+            for (const v of tfMap.values()) maxTf = Math.max(maxTf, v);
+            for (const [w, c] of tfMap.entries()) {
+                let val = c;
+                if (mode === "log") val = 1 + Math.log(c);
+                else if (mode === "norm") val = c / maxTf;
+                out.set(w, val);
+            }
+            return out;
+        }
+
+        function computeDf(tfMaps) {
+            const df = new Map();
+            for (const tf of tfMaps) {
+                for (const w of tf.keys()) {
+                    df.set(w, (df.get(w) || 0) + 1);
+                }
+            }
+            return df;
+        }
+
+        function idfValue(N, df) {
+            if (TFIDF_SETTINGS.idfMode === "smooth") return Math.log((N + 1) / (df + 1)) + 1;
+            return Math.log(N / df);
+        }
+
+        function computeTfidf(tfModeMaps, dfMap, N) {
+            const out = [];
+            for (const tf of tfModeMaps) {
+                const m = new Map();
+                for (const [w, tfv] of tf.entries()) {
+                    const df = dfMap.get(w) || 1;
+                    m.set(w, tfv * idfValue(N, df));
+                }
+                out.push(m);
+            }
+            return out;
+        }
+
+        function topKeywords(tfidfMap, topN) {
+            return Array.from(tfidfMap.entries())
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, topN)
+                .map(([word]) => word);
+        }
+
+        function getAnswerSets(texts) {
+            const tokenLists = texts.map(tokenize);
+            const tfRawMaps = tokenLists.map(computeTf);
+            const tfModeMaps = tfRawMaps.map(applyTfMode);
+            const dfMap = computeDf(tfRawMaps);
+            const N = texts.length;
+            const tfidfMaps = computeTfidf(tfModeMaps, dfMap, N);
+            return tfidfMaps.map(m => new Set(topKeywords(m, TFIDF_SETTINGS.topN)));
+        }
+
+        // --- UI Building ---
+        function buildDocsUI(texts) {
+            docsGrid.innerHTML = "";
+            selections.clear();
+            wordSpans.clear();
+
+            for (let i = 0; i < texts.length; i++) {
+                selections.set(i, new Set());
+                wordSpans.set(i, new Map());
+
+                const doc = document.createElement("div");
+                doc.className = "doc-item";
+                doc.innerHTML = `
+        <div class="doc-header">
+          <span>📄 Story #${i + 1}</span>
+          <span id="docSel-${i}" style="background:var(--secondary); color:#fff; padding:2px 8px; border-radius:10px; font-size:0.8em;">0 picked</span>
+        </div>
+        <div class="doc-body">
+          <textarea id="txt-${i}" class="doc-edit" spellcheck="false" placeholder="You can edit the story here...">${escapeHtml(texts[i])}</textarea>
+          <div class="render-area" id="render-${i}"></div>
+        </div>
+      `;
+                docsGrid.appendChild(doc);
+
+                renderWordSpans(i);
+
+                const ta = document.getElementById(`txt-${i}`);
+                ta.addEventListener("input", () => {
+                    if (locked) return;
+                    selections.get(i).clear();
+                    renderWordSpans(i);
+                    syncBucket();
+                });
+            }
+            syncBucket();
+        }
+
+        function renderWordSpans(docIndex) {
+            const text = document.getElementById(`txt-${docIndex}`).value || "";
+            const renderEl = document.getElementById(`render-${docIndex}`);
+
+            // Split keeping separators
+            const parts = text.match(/[a-zA-Z0-9']+|[^a-zA-Z0-9']+/g) || [text];
+            const map = new Map();
+            wordSpans.set(docIndex, map);
+
+            const html = parts.map(p => {
+                const isWord = /^[a-zA-Z0-9']+$/.test(p);
+                if (!isWord) return escapeHtml(p);
+
+                const norm = normalizeWord(p);
+                const isStop = TFIDF_SETTINGS.useStopwords && STOPWORDS.has(norm);
+
+                // Allow picking anything, even stopwords! That's how they learn.
+                const selectable = norm.length > 0;
+
+                // Title tip warning
+                let title = "Click to add to bucket!";
+                if (isStop) title = "Common word (might not be a good clue!)";
+
+                return `<span class="w" 
+        data-doc="${docIndex}" data-word="${escapeHtml(norm)}"
+        title="${title}">${escapeHtml(p)}</span>`;
+            }).join("");
+
+            renderEl.innerHTML = html;
+
+            // Listeners
+            renderEl.querySelectorAll(".w").forEach(span => {
+                const w = span.getAttribute("data-word") || "";
+                const doc = Number(span.getAttribute("data-doc"));
+
+                if (!map.has(w)) map.set(w, new Set());
+                map.get(w).add(span);
+
+                span.addEventListener("click", () => {
+                    if (locked) return;
+                    if (span.classList.contains("locked")) return;
+                    toggleWord(doc, w);
+                });
+            });
+
+            // Re-mark
+            const sel = selections.get(docIndex) || new Set();
+            sel.forEach(w => markSelected(docIndex, w, true));
+            updateDocPickLabel(docIndex);
+        }
+
+        function markSelected(docIndex, word, isSelected) {
+            const map = wordSpans.get(docIndex);
+            if (!map) return;
+            const spans = map.get(word);
+            if (!spans) return;
+            spans.forEach(sp => {
+                sp.classList.toggle("selected", isSelected);
+                // Remove locked style if it's selected (though it shouldn't be locked if selected)
+            });
+        }
+
+        function toggleWord(docIndex, word) {
+            const set = selections.get(docIndex);
+            if (!set) return;
+
+            if (set.has(word)) {
+                set.delete(word);
+                markSelected(docIndex, word, false);
+            } else {
+                set.add(word);
+                markSelected(docIndex, word, true);
+            }
+            updateDocPickLabel(docIndex);
+            syncBucket();
+        }
+
+        function updateDocPickLabel(docIndex) {
+            const set = selections.get(docIndex) || new Set();
+            const el = document.getElementById(`docSel-${docIndex}`);
+            if (el) el.textContent = `${set.size} picked`;
+        }
+
+        function syncBucket() {
+            let total = 0;
+            selections.forEach(set => total += set.size);
+            selCountEl.textContent = String(total);
+            bucketEl.innerHTML = "";
+
+            if (total === 0) {
+                bucketEl.innerHTML = `<div style="text-align:center; color:#adb5bd; padding:20px 0;"><em>Bag is empty! Go click some words.</em></div>`;
+                return;
+            }
+
+            selections.forEach((set, docIndex) => {
+                if (set.size === 0) return;
+
+                const groupDiv = document.createElement("div");
+                groupDiv.style.marginBottom = "10px";
+                groupDiv.innerHTML = `<div style="font-size:0.8rem; font-weight:bold; color:var(--text-soft); margin-bottom:4px;">Story ${docIndex + 1}</div>`;
+
+                const chipsDiv = document.createElement("div");
+                Array.from(set).sort().forEach(word => {
+                    const chip = document.createElement("span");
+                    chip.className = "chip";
+                    chip.innerHTML = `<code>${escapeHtml(word)}</code> <span class="x">×</span>`;
+                    chip.querySelector(".x").addEventListener("click", () => {
+                        if (locked) return;
+                        set.delete(word);
+                        markSelected(docIndex, word, false);
+                        updateDocPickLabel(docIndex);
+                        syncBucket();
+                    });
+                    chipsDiv.appendChild(chip);
+                });
+                groupDiv.appendChild(chipsDiv);
+                bucketEl.appendChild(groupDiv);
+            });
+        }
+
+        // --- Clock & Game Flow ---
+
+        function fmtTime(ms) {
+            const s = Math.max(0, Math.floor(ms / 1000));
+            const m = Math.floor(s / 60);
+            const r = s % 60;
+            return `${String(m).padStart(2, "0")}:${String(r).padStart(2, "0")}`;
+        }
+
+        function startRound() {
+            locked = false;
+            overlay.classList.remove("show");
+            breakdownEl.innerHTML = "";
+            finalScoreEl.textContent = "0";
+
+            const level = difficultySel.value;
+            const texts = DATASETS[level].slice(0, TFIDF_SETTINGS.docsCount);
+            buildDocsUI(texts);
+
+            minutesSel.disabled = true;
+            difficultySel.disabled = true;
+            startBtn.disabled = true;
+            startBtn.innerHTML = "🔥 Mission Active!";
+            resetBtn.disabled = false;
+
+            // Timer
+            const minutes = Number(minutesSel.value);
+            endTime = Date.now() + (minutes * 60 * 1000);
+
+            statusBox.style.background = "#e3f2fd";
+            statusBox.style.borderColor = "#2196f3";
+            statusBox.innerHTML = `<strong>Game On!</strong> Click words to add them to your bag.<br><br>💡 <strong>Hint:</strong> Good clues appear often in ONE story, but not in all stories.`;
+
+            tick();
+            if (timerId) clearInterval(timerId);
+            timerId = setInterval(tick, 200);
+        }
+
+        function tick() {
+            const msLeft = endTime - Date.now();
+            timeLeftEl.textContent = fmtTime(msLeft);
+            if (msLeft <= 0) {
+                clearInterval(timerId);
+                timerId = null;
+                finishRound();
+            }
+        }
+
+        function finishRound() {
+            locked = true;
+            timeLeftEl.textContent = "00:00";
+            startBtn.innerHTML = "🚀 Start Mission";
+
+            // Disable interactions
+            docsGrid.querySelectorAll(".w").forEach(sp => sp.classList.add("locked"));
+            for (let i = 0; i < TFIDF_SETTINGS.docsCount; i++) {
+                document.getElementById(`txt-${i}`).disabled = true;
+            }
+
+            // Calc Score
+            const texts = [];
+            for (let i = 0; i < TFIDF_SETTINGS.docsCount; i++) {
+                texts.push(document.getElementById(`txt-${i}`).value || "");
+            }
+            const answers = getAnswerSets(texts);
+            const results = [];
+
+            let totalCorrect = 0, totalPicked = 0, totalPossible = 0, totalExtras = 0;
+
+            for (let i = 0; i < TFIDF_SETTINGS.docsCount; i++) {
+                const picked = selections.get(i) || new Set();
+                const ans = answers[i] || new Set();
+
+                const correct = new Set([...picked].filter(w => ans.has(w)));
+                const extras = new Set([...picked].filter(w => !ans.has(w)));
+                const missed = new Set([...ans].filter(w => !picked.has(w)));
+
+                totalCorrect += correct.size;
+                totalPicked += picked.size;
+                totalPossible += ans.size;
+                totalExtras += extras.size;
+
+                results.push({ doc: i, correct, extras, missed });
+            }
+
+            // Gamified Score: +2 for correct, -1 for extra
+            const score = Math.max(0, (totalCorrect * 2) - totalExtras); // Prevent negative score? Maybe allow it? User didn't specify, but max(0) is usually friendlier for kids. Let's stick to raw calc if they want "real ML cost", but for kids 0 floor is properly better. Actually, let's allow negative to show "bad performance" but maybe floor visually. Let's just show raw score.
+            // On second thought, let's keep it raw.
+            const rawScore = (totalCorrect * 2) - totalExtras;
+
+            // Populate Overlay
+            // Color score
+            const maxPossScore = totalPossible * 2;
+            const pct = maxPossScore > 0 ? (rawScore / maxPossScore) : 0;
+
+            let scoreColor = pct >= 0.7 ? "var(--success)" : (pct >= 0.3 ? "var(--warn)" : "var(--danger)");
+
+            finalScoreEl.style.color = scoreColor;
+            finalScoreEl.innerHTML = `${rawScore} <span style="font-size:0.5em; color:#999;">pts</span>`;
+
+            finalSummaryEl.innerHTML = `
+      <div style="font-size:1.1rem; margin-bottom:12px; color:var(--text-soft);">
+        Correct: <b class="good">${totalCorrect}</b> (+2) &nbsp;|&nbsp; 
+        Bad Clues: <b class="bad">${totalExtras}</b> (-1)
+      </div>
+      <div style="font-size:0.95rem; line-height:1.4;">
+        You found <b>${totalCorrect}</b> correct clues, but picked <b>${totalExtras}</b> extra words that were confusing.
+      </div>
+    `;
+
+            breakdownEl.innerHTML = `
+      <tr>
+        <th width="20%">Story</th>
+        <th width="30%">Correct ✅</th>
+        <th width="25%">Extra (Oops) ⚠️</th>
+        <th width="25%">Missed ❌</th>
+      </tr>
+    `;
+
+            results.forEach(r => {
+                breakdownEl.innerHTML += `
+        <tr>
+          <td><strong>Story ${r.doc + 1}</strong></td>
+          <td class="good">${Array.from(r.correct).join(", ") || "—"}</td>
+          <td class="warn">${Array.from(r.extras).join(", ") || "—"}</td>
+          <td class="bad">${Array.from(r.missed).join(", ") || "—"}</td>
+        </tr>
+      `;
+            });
+
+            overlay.classList.add("show");
+
+            // Enable restart
+            minutesSel.disabled = false;
+            difficultySel.disabled = false;
+            startBtn.disabled = false;
+
+            statusBox.innerHTML = `🏁 Mission Complete! Check your score. Click Start to play again.`;
+        }
+
+        function resetPicks() {
+            if (locked) return;
+            for (let i = 0; i < TFIDF_SETTINGS.docsCount; i++) {
+                selections.get(i)?.clear();
+                renderWordSpans(i);
+                updateDocPickLabel(i);
+            }
+            syncBucket();
+        }
+
+        // --- Init ---
+        startBtn.addEventListener("click", () => {
+            if (timerId) return; // already running
+            startRound();
+        });
+
+        resetBtn.addEventListener("click", resetPicks);
+
+        // Explanation functions
+        function openExplanation() {
+            document.getElementById('explanationOverlay').classList.add('show');
+        }
+        function closeExplanation() {
+            document.getElementById('explanationOverlay').classList.remove('show');
+        }
+
+        // Initial load
+        (function () {
+            const level = difficultySel.value;
+            const initialDocs = DATASETS[level].slice(0, TFIDF_SETTINGS.docsCount);
+            // Render initially just so it looks populated
+            buildDocsUI(initialDocs);
+            // Lock them until start
+            docsGrid.querySelectorAll(".w").forEach(sp => sp.classList.add("locked"));
+            statusBox.innerHTML = `👋 <strong>Welcome!</strong> Choose a difficulty and click "Start Mission" to begin.`;
+        })();
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+{
+    "cache_responses": {
+        "who is faruk?": "Faruk Hasan is a Senior QA Automation Engineer (SDET) and STEM Educator who teaches Python, AI, Web Development, and Robotics to students around the world. He combines 5+ years of professional QA experience with a strong passion for teaching, curriculum design, and building practical AI tools. Faruk is known for creating hands-on courses and innovative automation projects using Playwright, Python, and SQLite.",
+        "what courses do you teach?": "I teach a variety of hands-on STEM courses for ages 9–18:\n- Python Programming (Beginner to Advanced)\n- Python + Algebra Year-Long Course\n- AI Coding & Chatbot Development\n- Web Development (HTML, CSS, JavaScript, React)\n- Arduino & Electronics\n- Computer Fundamentals (OS, CLI, hardware basics)\n- Robotics with Python\n- VR App Development\nI also build custom tech courses and curriculum for schools and organizations.",
+        "what is your education?": "I hold a **B.Eng in Electrical Engineering** from Queen Mary University of London and a **Master’s degree** from Loyola Marymount University in Los Angeles.",
+        "how many students have you taught?": "I’ve taught more than **1,894 students** across my online platforms with an average rating of **4.82/5 stars** from parents and learners.",
+        "do you have a udemy course?": "Yes. I recently launched **'Python Fundamentals: Fun and Practical Projects for Beginners'** on Udemy. I am also creating new courses on AI, Robotics, and Web Development.",
+        "what are your technical skills?": "I specialize in building QA automation frameworks and AI-assisted testing tools.\n\n**Core Tech Skills:**\n- **Languages:** Python, JavaScript, SQL\n- **Automation:** Playwright, Selenium, Pytest\n- **DevOps:** GitHub Actions, CI/CD, Docker\n- **AI:** RAG systems, LLM-based test analysis, chatbot development\n- **Web Dev:** HTML, CSS, JS, React\nI design modern, scalable, test automation frameworks and build educational and productivity tools.",
+        "tell me about your background": "I was born in Bangladesh and grew up across several countries because of my father's airline career. I've lived in London, Los Angeles, and now New York, where I work remotely as a Senior SDET while teaching STEM globally. My diverse path—from teaching math to developing automation frameworks—shapes the way I teach and build technology today.",
+        "what is your career journey?": "After completing my studies in London and Los Angeles, I worked in various fields including education and gig work before entering tech in 2020. I quickly advanced from QA Engineer to Senior SDET, specializing in automation frameworks, AI-driven testing, and CI/CD pipelines. Alongside my industry work, I built a thriving teaching career, designing project-based courses for young learners and creating real-world technical tools such as Chrome extensions, dashboards, SQLite-based test systems, and AI agents."
+    },
+    "settings": {
+        "similarity_threshold": 0.6,
+        "cache_enabled": true,
+        "cache_indicator": "⚡"
+    }
+}

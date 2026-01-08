@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bag of Words Lab 🧺🔢</title>
+
+  <!-- Friendly Font (same vibe as your example) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600;700&family=Nunito:wght@400;700;800&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      /* Fun palette (inspired by your provided example styling) */
+      --bg: #E0F7FA;
+      --card-bg: #ffffff;
+      --text: #2c3e50;
+      --text-soft: #637b94;
+
+      --primary: #FF6B6B;
+      --primary-dark: #EE5253;
+      --secondary: #4ECDC4;
+      --secondary-dark: #22A6B3;
+      --accent: #FFE66D;
+      --accent-dark: #F7D744;
+
+      --success: #6AB04C;
+      --warn: #F9CA24;
+      --danger: #EB4D4B;
+
+      --radius: 24px;
+      --shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 15px 35px rgba(0, 0, 0, 0.12);
+
+      --font-head: 'Fredoka', sans-serif;
+      --font-body: 'Nunito', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background: var(--bg);
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(78, 205, 196, 0.15) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(255, 107, 107, 0.15) 0%, transparent 20%);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+
+    header {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--font-head);
+      font-size: clamp(2.2rem, 5vw, 3.3rem);
+      color: var(--primary);
+      text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+      letter-spacing: 1px;
+    }
+
+    .sub {
+      margin: 10px auto 18px;
+      max-width: 920px;
+      font-size: 1.1rem;
+      color: var(--text-soft);
+      line-height: 1.6;
+    }
+
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .stat-pill {
+      background: white;
+      padding: 10px 18px;
+      border-radius: 50px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      font-weight: 800;
+      color: var(--secondary-dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .stat-pill.primary {
+      border-color: var(--primary);
+      color: var(--primary-dark);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      border: 2px solid rgba(0, 0, 0, 0.03);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+    }
+
+    .card h2 {
+      margin: 0 0 12px;
+      font-family: var(--font-head);
+      color: var(--text);
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .control-group {
+      margin-bottom: 16px;
+    }
+
+    .control-label {
+      display: block;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 70px;
+      border-radius: 14px;
+      border: 2px solid #eee;
+      padding: 10px 12px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      resize: vertical;
+      color: var(--text);
+      transition: border-color 0.2s, background 0.2s;
+      background: #fbfbfb;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--secondary);
+      background: #fff;
+    }
+
+    .btnRow {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px 14px;
+      border: none;
+      border-radius: 16px;
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      transform: translateY(0);
+      transition: all 0.1s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 0 var(--primary-dark);
+    }
+
+    .btn-primary:active {
+      transform: translateY(4px);
+      box-shadow: 0 0 0 var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: #f1f3f5;
+      color: var(--text-soft);
+      border: 2px solid #e0e0e0;
+      font-size: 1rem;
+      padding: 12px;
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      border-color: var(--secondary);
+      color: var(--secondary);
+    }
+
+    .btn-ghost {
+      background: #fff;
+      color: var(--text-soft);
+      border: 2px dashed #d7e2ea;
+      font-size: 1rem;
+      padding: 12px;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent-dark);
+      color: #6b5b00;
+    }
+
+    .status-msg {
+      background: #FFF8E1;
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 14px;
+      border-left: 5px solid var(--accent);
+      color: #795548;
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .chipsBox {
+      margin-top: 14px;
+      padding: 14px;
+      background: #F8F9FA;
+      border-radius: 16px;
+      border: 2px dashed #D1D8E0;
+      min-height: 100px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      background: white;
+      padding: 6px 12px;
+      border-radius: 999px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+      margin: 4px;
+      font-size: 0.95rem;
+      color: var(--text);
+      border: 1px solid #E0E0E0;
+      user-select: none;
+      cursor: pointer;
+    }
+
+    .chip code {
+      font-family: var(--font-head);
+      font-weight: 800;
+      color: var(--primary);
+      margin-right: 6px;
+    }
+
+    .chip:hover {
+      border-color: var(--secondary);
+      transform: translateY(-1px);
+    }
+
+    .hint {
+      color: var(--text-soft);
+      font-size: 0.92rem;
+      margin-top: 8px;
+      line-height: 1.45;
+    }
+
+    .gridRight {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .panel {
+      background: white;
+      border-radius: 18px;
+      border: 2px solid #EEE;
+      overflow: hidden;
+    }
+
+    .panelHeader {
+      background: #F4F7FA;
+      padding: 10px 16px;
+      border-bottom: 2px solid #EEE;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      color: var(--text-soft);
+      flex-wrap: wrap;
+    }
+
+    .panelBody {
+      padding: 16px;
+    }
+
+    .miniTitle {
+      font-family: var(--font-head);
+      color: var(--secondary-dark);
+      font-size: 1.15rem;
+      margin: 0 0 8px;
+    }
+
+    .kbd {
+      font-family: var(--font-head);
+      background: #fff;
+      border: 2px solid #e6eef3;
+      border-radius: 10px;
+      padding: 2px 8px;
+      color: var(--primary-dark);
+      font-weight: 800;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.98rem;
+    }
+
+    th {
+      text-align: left;
+      padding: 10px;
+      color: var(--text-soft);
+      border-bottom: 2px solid #eee;
+      font-size: 0.9rem;
+    }
+
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #f0f0f0;
+      vertical-align: top;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-weight: 900;
+      border: 2px solid transparent;
+    }
+
+    .pill.ok {
+      background: rgba(106, 176, 76, 0.12);
+      border-color: rgba(106, 176, 76, 0.35);
+      color: #2e7d32;
+    }
+
+    .pill.warn {
+      background: rgba(249, 202, 36, 0.12);
+      border-color: rgba(249, 202, 36, 0.35);
+      color: #9a6b00;
+    }
+
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      background: #fbfbfd;
+      border: 1px solid #eef0f3;
+      border-radius: 12px;
+      padding: 10px;
+      overflow: auto;
+      line-height: 1.45;
+      color: #334;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(78, 205, 196, 0.15);
+      color: var(--secondary-dark);
+      font-weight: 900;
+      font-size: 0.85rem;
+      border: 1px solid rgba(78, 205, 196, 0.35);
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(44, 62, 80, 0.85);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .overlay.show {
+      display: flex;
+    }
+
+    .modalCard {
+      background: white;
+      width: min(820px, 96vw);
+      border-radius: 30px;
+      padding: 26px 28px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      border: 4px solid var(--secondary);
+      position: relative;
+      max-height: 88vh;
+      overflow: auto;
+    }
+
+    .closeX {
+      position: sticky;
+      top: 0;
+      float: right;
+      background: #f1f3f5;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #adb5bd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .closeX:hover {
+      background: #e9ecef;
+      color: var(--danger);
+    }
+
+    .stepList {
+      padding-left: 20px;
+      line-height: 1.65;
+      color: var(--text);
+      margin-top: 0;
+    }
+
+    .stepList li {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Bag of Words Lab 🧺🔢</h1>
+    <div class="sub">
+      Type 3 messages, then click <span class="kbd">Build Vocabulary</span> to see how <strong>vectorization</strong>
+      turns text into numbers (Bag of Words = just word counts).
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat-pill primary">
+        🧠 Vocabulary Size: <b id="vocabSize">0</b>
+      </div>
+      <div class="stat-pill">
+        📄 Messages: <b id="docCount">3</b>
+      </div>
+      <div class="stat-pill">
+        🧊 Non-Zero Cells: <b id="nnz">0</b>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- LEFT: Controls -->
+    <section class="card">
+      <h2>🛠️ Mission Control</h2>
+
+      <div class="control-group">
+        <label class="control-label">✍️ Message #1</label>
+        <textarea id="m1" spellcheck="false">Hi there</textarea>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label">✍️ Message #2</label>
+        <textarea id="m2" spellcheck="false">Hello</textarea>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label">✍️ Message #3</label>
+        <textarea id="m3" spellcheck="false">Hi again</textarea>
+      </div>
+
+      <div class="btnRow">
+        <button class="btn btn-primary" id="buildBtn">🧺 Build Vocabulary</button>
+        <button class="btn btn-secondary" id="vectorBtn">🔢 Vectorize (Make Numbers)</button>
+        <button class="btn btn-ghost" id="helpBtn">❓ Show Explanation</button>
+        <button class="btn btn-secondary" id="resetBtn">🧹 Reset to Example</button>
+      </div>
+
+      <div class="chipsBox" id="vocabChips">
+        <div style="text-align:center; color:#adb5bd; padding:18px 0;">
+          <em>Click “Build Vocabulary” to fill the bag.</em>
+        </div>
+      </div>
+
+      <div class="hint">
+        ✅ Tip: Click a word-chip to <strong>highlight its column</strong> in the table.
+      </div>
+
+      <div class="status-msg" id="statusBox">
+        👋 Start with the example, or type your own messages. Then build the vocabulary and vectorize.
+      </div>
+    </section>
+
+    <!-- RIGHT: Output -->
+    <section class="gridRight">
+      <div class="panel">
+        <div class="panelHeader">
+          <span>📚 Step 1: Vocabulary (word → column index)</span>
+          <span class="tag" id="vocabTag">Not built</span>
+        </div>
+        <div class="panelBody">
+          <p class="miniTitle">Vocabulary Dictionary</p>
+          <div id="vocabDict" class="mono">{}</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panelHeader">
+          <span>📊 Step 2: Count Table (rows = messages, cols = words)</span>
+          <span class="tag" id="tableTag">Waiting</span>
+        </div>
+        <div class="panelBody">
+          <div id="countTableWrap">
+            <div style="color:#adb5bd;"><em>Click “Vectorize” to generate the table.</em></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panelHeader">
+          <span>🧊 Step 3: Sparse Matrix (only non-zero cells)</span>
+          <span class="tag" id="sparseTag">Waiting</span>
+        </div>
+        <div class="panelBody">
+          <p class="miniTitle">What the computer stores</p>
+          <div id="sparseOut" class="mono">Shape (0, 0)</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Explanation Modal -->
+  <div class="overlay" id="overlay">
+    <div class="modalCard">
+      <button class="closeX" id="closeHelp">×</button>
+      <h2 style="font-family:var(--font-head); color:var(--secondary-dark); margin-top:0;">
+        🧠 Bag of Words Explanation
+      </h2>
+
+      <ol class="stepList">
+        <li>
+          <strong>Vectorization</strong> means converting text into numbers.
+          The model can’t learn from words directly — it needs numbers.
+        </li>
+        <li>
+          <strong>Bag of Words</strong> means we ignore grammar and order.
+          We only care:
+          <br>➡️ Which words exist?
+          <br>➡️ How many times each word appears?
+        </li>
+        <li>
+          We build a <strong>vocabulary</strong> (a list of all unique words).
+          Each word gets a <strong>column index</strong> like:
+          <div class="mono" style="margin-top:8px;">{ "again": 0, "hello": 1, "hi": 2, "there": 3 }</div>
+        </li>
+        <li>
+          Each message becomes a <strong>row</strong> of numbers.
+          Each number is the <strong>count</strong> for one vocabulary word.
+        </li>
+        <li>
+          The result is usually mostly zeros, so we store it as a <strong>sparse matrix</strong>
+          (only the important non-zero values).
+        </li>
+      </ol>
+
+      <div class="status-msg" style="margin-top:14px;">
+        🎯 If you see <span class="kbd">(0, 2) 1</span> that means:
+        <br>→ message row 0
+        <br>→ word column 2
+        <br>→ count is 1
+      </div>
+
+      <button class="btn btn-primary" style="margin-top:14px;" id="closeHelp2">Got it!</button>
+    </div>
+  </div>
+
+  <script>
+    // ------------------------------
+    // Bag of Words Lab (kid-friendly)
+    // ------------------------------
+
+    // UI
+    const m1 = document.getElementById("m1");
+    const m2 = document.getElementById("m2");
+    const m3 = document.getElementById("m3");
+
+    const buildBtn = document.getElementById("buildBtn");
+    const vectorBtn = document.getElementById("vectorBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    const vocabChips = document.getElementById("vocabChips");
+    const vocabDictEl = document.getElementById("vocabDict");
+    const countTableWrap = document.getElementById("countTableWrap");
+    const sparseOut = document.getElementById("sparseOut");
+
+    const vocabSizeEl = document.getElementById("vocabSize");
+    const nnzEl = document.getElementById("nnz");
+
+    const vocabTag = document.getElementById("vocabTag");
+    const tableTag = document.getElementById("tableTag");
+    const sparseTag = document.getElementById("sparseTag");
+    const statusBox = document.getElementById("statusBox");
+
+    // Help modal
+    const overlay = document.getElementById("overlay");
+    const helpBtn = document.getElementById("helpBtn");
+    const closeHelp = document.getElementById("closeHelp");
+    const closeHelp2 = document.getElementById("closeHelp2");
+
+    // State
+    let vocab = [];               // array of words (sorted)
+    let wordToIdx = {};           // dict mapping
+    let matrix = [];              // counts (rows x cols)
+    let selectedWord = null;      // for highlighting
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    // Simple tokenizer: lowercase, keep letters + numbers + apostrophes, split by non-word
+    function tokenize(text) {
+      const raw = (text || "").toLowerCase().match(/[a-z0-9']+/g) || [];
+      return raw.map(w => w.replace(/^'+|'+$/g, "")).filter(Boolean);
+    }
+
+    function getMessages() {
+      return [m1.value, m2.value, m3.value];
+    }
+
+    function buildVocabulary() {
+      const msgs = getMessages();
+      const set = new Set();
+      msgs.forEach(msg => tokenize(msg).forEach(w => set.add(w)));
+
+      vocab = Array.from(set).sort(); // alphabetical
+      wordToIdx = {};
+      vocab.forEach((w, i) => wordToIdx[w] = i);
+
+      // UI updates
+      vocabSizeEl.textContent = String(vocab.length);
+      vocabTag.textContent = "Built ✅";
+      tableTag.textContent = "Waiting";
+      sparseTag.textContent = "Waiting";
+
+      vocabDictEl.textContent = JSON.stringify(wordToIdx, null, 2);
+
+      renderVocabChips();
+      clearTable();
+      clearSparse();
+
+      statusBox.style.background = "#e3f2fd";
+      statusBox.style.borderLeftColor = "#2196f3";
+      statusBox.innerHTML =
+        `✅ Vocabulary built! Now click <strong>Vectorize</strong> to count each word in each message.`;
+
+      selectedWord = null;
+    }
+
+    function renderVocabChips() {
+      vocabChips.innerHTML = "";
+      if (vocab.length === 0) {
+        vocabChips.innerHTML = `<div style="text-align:center; color:#adb5bd; padding:18px 0;">
+          <em>No words yet. Type something and build the vocabulary.</em>
+        </div>`;
+        return;
+      }
+
+      vocab.forEach(w => {
+        const chip = document.createElement("span");
+        chip.className = "chip";
+        chip.innerHTML = `<code>${escapeHtml(w)}</code><span style="opacity:.7;">#${wordToIdx[w]}</span>`;
+        chip.title = "Click to highlight this word's column";
+        chip.addEventListener("click", () => {
+          selectedWord = (selectedWord === w) ? null : w;
+          renderCountTable(); // re-render with highlight
+        });
+        vocabChips.appendChild(chip);
+      });
+    }
+
+    function vectorize() {
+      if (vocab.length === 0) {
+        statusBox.style.background = "#fff3cd";
+        statusBox.style.borderLeftColor = "#ffca2c";
+        statusBox.innerHTML = `⚠️ Build the vocabulary first (click <strong>Build Vocabulary</strong>).`;
+        return;
+      }
+
+      const msgs = getMessages();
+      matrix = msgs.map(msg => {
+        const counts = new Array(vocab.length).fill(0);
+        tokenize(msg).forEach(w => {
+          const idx = wordToIdx[w];
+          if (idx !== undefined) counts[idx] += 1;
+        });
+        return counts;
+      });
+
+      renderCountTable();
+      renderSparse();
+
+      tableTag.textContent = "Ready ✅";
+      sparseTag.textContent = "Ready ✅";
+
+      statusBox.style.background = "#e8f5e9";
+      statusBox.style.borderLeftColor = "var(--success)";
+      statusBox.innerHTML =
+        `🎉 Vectorization complete! Each message is now a row of numbers. Mostly zeros → that's why we use a sparse matrix.`;
+    }
+
+    function clearTable() {
+      countTableWrap.innerHTML = `<div style="color:#adb5bd;"><em>Click “Vectorize” to generate the table.</em></div>`;
+      nnzEl.textContent = "0";
+    }
+
+    function clearSparse() {
+      sparseOut.textContent = "Shape (0, 0)";
+      nnzEl.textContent = "0";
+    }
+
+    function renderCountTable() {
+      if (!matrix.length) {
+        clearTable();
+        return;
+      }
+
+      const highlightIdx = (selectedWord && wordToIdx[selectedWord] !== undefined) ? wordToIdx[selectedWord] : null;
+
+      // Build table HTML
+      let html = `<table>
+        <tr>
+          <th style="width:160px;">Message (row)</th>`;
+
+      vocab.forEach((w, col) => {
+        const isHL = (highlightIdx === col);
+        html += `<th title="Column ${col}: ${escapeHtml(w)}" style="${isHL ? 'background:rgba(255,230,109,0.45);' : ''}">
+          ${escapeHtml(w)}<div style="font-size:.8rem; opacity:.7;">col ${col}</div>
+        </th>`;
+      });
+
+      html += `</tr>`;
+
+      matrix.forEach((row, r) => {
+        html += `<tr>
+          <td><strong>Message ${r}</strong><div style="color:var(--text-soft); font-size:.85rem;">"${escapeHtml(getMessages()[r])}"</div></td>`;
+
+        row.forEach((val, c) => {
+          const isHL = (highlightIdx === c);
+          const cellStyle = isHL ? 'background:rgba(255,230,109,0.45); font-weight:900;' : '';
+          const pill = val > 0
+            ? `<span class="pill ok">✅ ${val}</span>`
+            : `<span class="pill warn">0</span>`;
+          html += `<td style="${cellStyle}">${pill}</td>`;
+        });
+
+        html += `</tr>`;
+      });
+
+      html += `</table>`;
+
+      countTableWrap.innerHTML = html;
+    }
+
+    function renderSparse() {
+      if (!matrix.length) {
+        clearSparse();
+        return;
+      }
+
+      const rows = matrix.length;
+      const cols = vocab.length;
+
+      // Collect non-zero entries
+      const entries = [];
+      let nnz = 0;
+
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const v = matrix[r][c];
+          if (v !== 0) {
+            nnz += 1;
+            entries.push({ r, c, v });
+          }
+        }
+      }
+
+      nnzEl.textContent = String(nnz);
+
+      // Example coordinate explanation (first non-zero)
+      let explain = "";
+      if (entries.length) {
+        const first = entries[0];
+        const word = vocab[first.c];
+        explain =
+          `\n\nExample:\n(${first.r}, ${first.c})  ${first.v}\nmeans:\n → In message ${first.r}\n → the word "${word}" (column ${first.c})\n → appears ${first.v} time(s).`;
+      }
+
+      // Build sparse text
+      let out = `Vocabulary:\n${JSON.stringify(wordToIdx, null, 2)}\n\nShape (${rows}, ${cols})\n` +
+        `${rows} rows = ${rows} messages (documents)\n` +
+        `${cols} cols = ${cols} unique vocabulary words\n\nNon-zero entries (row, col) value:\n`;
+
+      if (!entries.length) {
+        out += "(none) — everything is 0";
+      } else {
+        out += entries.map(e => `(${e.r}, ${e.c})  ${e.v}`).join("\n");
+      }
+
+      out += explain;
+
+      sparseOut.textContent = out;
+    }
+
+    function resetExample() {
+      m1.value = "Hi there";
+      m2.value = "Hello";
+      m3.value = "Hi again";
+      vocab = [];
+      wordToIdx = {};
+      matrix = [];
+      selectedWord = null;
+
+      vocabSizeEl.textContent = "0";
+      nnzEl.textContent = "0";
+
+      vocabTag.textContent = "Not built";
+      tableTag.textContent = "Waiting";
+      sparseTag.textContent = "Waiting";
+
+      vocabDictEl.textContent = "{}";
+      vocabChips.innerHTML = `<div style="text-align:center; color:#adb5bd; padding:18px 0;">
+        <em>Click “Build Vocabulary” to fill the bag.</em>
+      </div>`;
+      clearTable();
+      clearSparse();
+
+      statusBox.style.background = "#FFF8E1";
+      statusBox.style.borderLeftColor = "var(--accent)";
+      statusBox.innerHTML = `👋 Reset done. Build the vocabulary again!`;
+    }
+
+    // Events
+    buildBtn.addEventListener("click", buildVocabulary);
+    vectorBtn.addEventListener("click", vectorize);
+    resetBtn.addEventListener("click", resetExample);
+
+    helpBtn.addEventListener("click", () => overlay.classList.add("show"));
+    closeHelp.addEventListener("click", () => overlay.classList.remove("show"));
+    closeHelp2.addEventListener("click", () => overlay.classList.remove("show"));
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) overlay.classList.remove("show");
+    });
+
+    // Initial UI
+    (function init() {
+      document.getElementById("docCount").textContent = "3";
+      resetExample();
+    })();
+  </script>
+</body>
+
+</html>

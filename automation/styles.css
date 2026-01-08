@@ -82,15 +82,19 @@ nav {
 nav ul {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;          /* 🔴 prevent moving to next line */
     list-style-type: none;
     padding: 0;
     margin: 0;
+    overflow-x: auto;           /* allow horizontal scroll if needed */
+    white-space: nowrap;
 }
 
 nav li {
-    margin: 0 15px;
+    margin: 0 8px;              /* 🔽 reduced from 15px */
+    flex-shrink: 0;             /* prevents items from shrinking */
 }
+
 
 nav a {
     text-decoration: none;
@@ -252,3 +256,64 @@ footer {
         padding: 20px;
     }
 }
+
+
+/* Mission 10 - Tooltip Hover */
+.tooltip-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  #tooltip-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #1D4D7F;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  #tooltip-box {
+    position: absolute;
+    left: 45px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #111;
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    white-space: nowrap;
+  
+    /* hidden by default */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+  }
+  
+  #tooltip-box::after {
+    content: "";
+    position: absolute;
+    left: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent #111 transparent transparent;
+  }
+  
+  /* show tooltip on hover */
+  .tooltip-wrapper:hover #tooltip-box {
+    opacity: 1;
+    visibility: visible;
+  }
+  

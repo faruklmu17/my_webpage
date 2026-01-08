@@ -1,25 +1,29 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Faruk Hasan - Portfolio</title>
+  <link rel="canonical" href="https://faruk-hasan.com/" />
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="https://faruk-hasan.com/sitemap.xml" />
 
-  <link rel="stylesheet" href="chatbot.css">
+  <link rel="stylesheet" href="assets/css/chatbot.css">
 
-  
+
   <!-- Open Graph / Social Media Meta Tags -->
   <meta property="og:title" content="Faruk Hasan - QA Engineer & Automation Specialist">
-  <meta property="og:description" content="Portfolio of Faruk Hasan, a QA Engineer specializing in automation testing, CI/CD, and AI-driven testing strategies.">
+  <meta property="og:description"
+    content="Portfolio of Faruk Hasan, a QA Engineer specializing in automation testing, CI/CD, and AI-driven testing strategies.">
   <meta property="og:image" content="https://faruk-hasan.com/og-image.jpg">
   <meta property="og:url" content="https://faruk-hasan.com">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Faruk Hasan - QA Engineer & Automation Specialist">
-  <meta name="twitter:description" content="Portfolio of Faruk Hasan, a QA Engineer specializing in automation testing, CI/CD, and AI-driven testing strategies.">
+  <meta name="twitter:description"
+    content="Portfolio of Faruk Hasan, a QA Engineer specializing in automation testing, CI/CD, and AI-driven testing strategies.">
   <meta name="twitter:image" content="https://faruk-hasan.com/og-image.jpg">
-  
+
   <link rel="stylesheet" href="styles.css">
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png">
@@ -33,119 +37,672 @@
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <!-- Add Montserrat font for professional styling -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Faruk Hasan",
+    "jobTitle": "Software QA Engineer",
+    "description": "Automation & AI-Driven Testing Specialist with expertise in Playwright, Selenium, and CI/CD pipelines",
+    "url": "https://faruk-hasan.com",
+    "image": "https://faruk-hasan.com/assets/images/me.jpg",
+    "sameAs": [
+      "https://www.linkedin.com/in/md-faruk-hasan/",
+      "https://github.com/faruklmu17",
+      "https://www.youtube.com/@kidz_code",
+      "https://www.facebook.com/HasanMd2020/"
+    ],
+    "knowsAbout": [
+      "Test Automation",
+      "Playwright",
+      "Selenium",
+      "Cypress",
+      "CI/CD",
+      "Quality Assurance",
+      "Python",
+      "JavaScript",
+      "AI-Driven Testing"
+    ],
+    "alumniOf": {
+      "@type": "Organization",
+      "name": "Lincoln Memorial University"
+    }
+  }
+  </script>
+
+  <style>
+    /* Enhanced Chatbot Frame Styling */
+    .elegant-chatbot-frame-wrapper {
+      background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+      border-radius: 16px;
+      box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.1),
+        0 5px 15px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .elegant-chatbot-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .elegant-chatbot-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% {
+        left: -100%;
+      }
+
+      100% {
+        left: 100%;
+      }
+    }
+
+    .chatbot-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: white;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      background-color: #10b981;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      }
+
+      70% {
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+      }
+    }
+
+    .elegant-chatbot-header .chatbot-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .elegant-chatbot-header .chatbot-title i {
+      font-size: 1.2rem;
+      animation: rotate 4s linear infinite;
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .chatbot-frame-container {
+      position: relative;
+      height: 600px;
+      background: #f8f9fa;
+    }
+
+    .chatbot-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: white;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .elegant-chatbot-header {
+        padding: 0.8rem 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+      }
+
+      .chatbot-frame-container {
+        height: 500px;
+      }
+
+      .elegant-chatbot-header .chatbot-title {
+        font-size: 1rem;
+      }
+
+      .chatbot-status {
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .chatbot-frame-container {
+        height: 450px;
+      }
+    }
+
+    /* Chatbot Window and Controls */
+    .chatbot-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .chatbot-toggle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chatbot-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .chatbot-toggle svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+
+    /* Dancing Icon Animation */
+    .chatbot-toggle .chat-icon {
+      animation: dance 3s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    @keyframes dance {
+
+      0%,
+      100% {
+        transform: scale(1) rotate(0deg) translateY(0);
+      }
+
+      20% {
+        transform: scale(1.1) rotate(-10deg) translateY(-5px);
+      }
+
+      40% {
+        transform: scale(1.1) rotate(10deg) translateY(-5px);
+      }
+
+      60% {
+        transform: scale(1.1) rotate(-10deg) translateY(-5px);
+      }
+
+      80% {
+        transform: scale(1.1) rotate(10deg) translateY(-5px);
+      }
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #e74c3c;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .chatbot-window {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      width: 400px;
+      height: 500px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      transform: translateY(20px) scale(0.95);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chatbot-window.active {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .chatbot-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chatbot-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    .chatbot-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-weight: 600;
+    }
+
+    .chatbot-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      background-color: #10b981;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      }
+
+      70% {
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+      }
+    }
+
+    .chatbot-name {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .chatbot-icon {
+      font-size: 1.1rem;
+      animation: rotate 4s linear infinite;
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .chatbot-avatar {
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .minimize-btn {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .minimize-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .minimize-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .chatbot-content {
+      flex: 1;
+      position: relative;
+      background: #f8f9fa;
+      min-height: 0;
+      /* Important for flex child */
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chatbot-frame {
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+      /* Ensure minimum height */
+      border: none;
+      background: white;
+      flex: 1;
+    }
+
+    .chatbot-loading {
+      position: absolute;
+      top: 60px;
+      /* Below header */
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
+      color: #6c757d;
+      font-weight: 500;
+      z-index: 10;
+      transition: opacity 0.3s ease;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #e9ecef;
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .chatbot-window {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+      }
+
+      .chatbot-container {
+        bottom: 15px;
+        right: 15px;
+      }
+
+      .chatbot-toggle {
+        width: 55px;
+        height: 55px;
+      }
+    }
+  </style>
 </head>
+
 <body>
   <header>
     <div class="header-content">
       <div class="header-left">
         <div class="profile-image">
-          <img src="me.jpg" alt="Faruk Hasan">
+          <img src="assets/images/me.jpg" alt="Faruk Hasan">
         </div>
         <div class="headline">
           <h1>Faruk Hasan</h1>
           <p><span class="highlight">Software QA Engineer | Automation & AI-Driven Testing Specialist</span></p>
         </div>
       </div>
+      <button class="menu-toggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
       <div class="nav-social-container">
         <nav>
           <ul>
             <li><a href="#about">About Me</a></li>
             <li><a href="#courses">Courses</a></li>
             <li><a href="#projects">Projects</a></li>
-            <li><a href="#blog">Blog</a></li>
-            <li><a href="#my dividends">Dividends</a></li>
-            <li><a href="resources.html">Resources</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="tutoring/tutoring.html">Tutoring</a></li>
+            <!-- <li><a href="#dividend-income">Dividends</a></li> -->
+            <li><a href="resources/resources.html">Resources</a></li>
           </ul>
         </nav>
         <div class="social-icons">
-          <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-          <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-          <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn"><i
+              class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube"><i
+              class="fab fa-youtube"></i></a>
+          <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook"><i
+              class="fab fa-facebook-f"></i></a>
         </div>
       </div>
     </div>
     <!-- //test -->
     <!-- <div class="ai-image-link">
-      <a href="ai.png" target="_blank">
-        <img src="ai.png" alt="AI Technology Illustration" class="thumbnail">
+      <a href="assets/images/ai.png" target="_blank">
+        <img src="assets/images/ai.png" alt="AI Technology Illustration" class="thumbnail">
         <span>View AI Illustration <i class="fas fa-external-link-alt"></i></span>
       </a>
     </div> -->
   </header>
 
-  <!-- Skills at a glance section -->
-  <section class="skills-glance">
-    <div class="skills-container">
-      <div class="skills-title">
-        <h2>Skills at a Glance</h2>
+  <!-- Skills & Education section -->
+  <section class="skills-education-section">
+    <div class="skills-education-container">
+      <!-- Left Column: Skills Grid -->
+      <div class="skills-column">
+        <div class="skills-header">
+          <h2>Technical Skills</h2>
+        </div>
+        <div class="skills-categories">
+          <!-- Python & Testing Framework -->
+          <div class="skill-category">
+            <div class="category-header">
+              <div class="category-icon">
+                <i class="fab fa-python"></i>
+              </div>
+              <h3>Python & Testing Framework</h3>
+            </div>
+            <p class="category-description">
+              Playwright Python framework with advanced features and CI/CD integration
+              <a href="https://github.com/faruklmu17/playwright_python_framework" target="_blank"
+                class="category-link-inline">
+                <i class="fab fa-github"></i>
+              </a>
+            </p>
+          </div>
+
+
+
+          <!-- QE & DevOps Tools -->
+          <div class="skill-category">
+            <div class="category-header">
+              <div class="category-icon">
+                <i class="fas fa-tools"></i>
+              </div>
+              <h3>QE & DevOps Tools</h3>
+            </div>
+            <p class="category-description">
+              Browser extension for Playwright test results with enhanced visualization
+              <a href="https://chromewebstore.google.com/detail/playwright-test-results/cnbifhpjofgeaobfppnfnngfkkjniodh?authuser=0&hl=en"
+                target="_blank" class="category-link-inline">
+                <i class="fab fa-chrome"></i>
+              </a>
+            </p>
+          </div>
+
+          <!-- AI and ML Experience -->
+          <div class="skill-category">
+            <div class="category-header">
+              <div class="category-icon">
+                <i class="fas fa-robot"></i>
+              </div>
+              <h3>AI & ML</h3>
+            </div>
+            <p class="category-description">
+              Deployed my own personalized chatbot using Ollama and Hugging Face Spaces.
+              <a href="https://huggingface.co/spaces/hasanfaruk25/faruk-assistant" target="_blank"
+                class="category-link-inline">
+                <i class="fas fa-brain"></i>
+              </a>
+            </p>
+          </div>
+        </div>
       </div>
-      <div class="skills-badges">
-        <!-- First row -->
-        <div class="skill-badge">
-          <i class="fas fa-code"></i>
-          <span>Playwright</span>
+
+      <!-- Right Column: Teaching & Courses -->
+      <div class="education-column">
+        <div class="education-header">
+          <h2>Teaching Experiences</h2>
+          <p>Empowering the next generation of young learners!</p>
         </div>
-        <div class="skill-badge">
-          <i class="fab fa-python"></i>
-          <span>Python</span>
+
+        <!-- Combined Content -->
+        <div class="education-content">
+          <!-- Tutoring Stats -->
+          <div class="tutoring-stats">
+            <h3><i class="fas fa-chalkboard-teacher"></i> Impact</h3>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <div class="stat-number">2000+</div>
+                <div class="stat-label">Students</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">12+</div>
+                <div class="stat-label">Years</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">4.82/5</div>
+                <div class="stat-label">Rating</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Courses</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course Cards -->
+          <div class="course-cards">
+            <h3><i class="fas fa-graduation-cap"></i> Highlighted Courses</h3>
+            <div class="course-list">
+              <div class="course-item">
+                <div class="course-info">
+                  <h4>Python Fundamentals</h4>
+                  <div class="course-platform-small">Udemy</div>
+                </div>
+                <div class="course-rating-small">
+                  <a href="https://www.udemy.com/share/10bHxx/" target="_blank" class="course-btn-small">
+                    View
+                  </a>
+                </div>
+              </div>
+
+              <div class="course-item">
+                <div class="course-info">
+                  <h4>AI & Machine Learning for Beginners</h4>
+                  <div class="course-platform-small">Udemy</div>
+                </div>
+                <div class="course-rating-small">
+                  <a href="https://www.udemy.com/share/10epAN3@05VLbZS6cyYWeanWr7aYYXJ9vYtzQ3pKj91dOS0vuGMtSk-q1ALWSAWO_Lam1fvX/"
+                    target="_blank" class="course-btn-small">
+                    View
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="skill-badge">
-          <i class="fab fa-js"></i>
-          <span>TypeScript</span>
-        </div>
-        <div class="skill-badge">
-          <i class="fas fa-robot"></i>
-          <span>Test Automation</span>
-        </div>
-        <div class="skill-badge">
-          <i class="fab fa-github-alt"></i>
-          <span>CI/CD</span>
-        </div>
-        <div class="skill-badge">
-          <i class="fas fa-brain"></i>
-          <span>AI Testing</span>
-        </div>
-        <div class="skill-badge">
-          <i class="fab fa-java"></i>
-          <span>Java</span>
-        </div>
-        <div class="skill-badge">
-          <i class="fas fa-certificate"></i>
-          <span>Playwright MCP</span>
-        </div>
-        
-        <!-- Second row -->
-        <div class="skill-badge">
-          <i class="fas fa-database"></i>
-          <span>SQL</span>
-        </div>
-        <div class="skill-badge">
-          <i class="fab fa-docker"></i>
-          <span>Docker</span>
-        </div>
-        <div class="skill-badge">
-          <i class="fab fa-aws"></i>
-          <span>AWS</span>
-        </div>
-        <div class="skill-badge">
-          <i class="fab fa-jenkins"></i>
-          <span>Jenkins</span>
-        </div>
-        <div class="skill-badge">
-          <i class="fab fa-html5"></i>
-          <span>HTML/CSS</span>
-        </div>
-        <div class="skill-badge">
-          <i class="fab fa-git-alt"></i>
-          <span>Git</span>
-        </div>
-        <div class="skill-badge">
-          <i class="fab fa-github"></i>
-          <span>GitHub Actions</span>
-        </div>
-        <div class="skill-badge">
-          <i class="fab fa-react"></i>
-          <span>React Basics</span>
+
+        <!-- Quick Links -->
+        <div class="education-links">
+          <a href="tutoring/tutoring.html" class="education-link">
+            <i class="fas fa-user-graduate"></i>
+            <span>Interested in Tutoring?</span>
+            <i class="fas fa-arrow-right"></i>
+          </a>
+          <a href="#courses" class="education-link">
+            <i class="fas fa-book-open"></i>
+            <span>Course Details</span>
+            <i class="fas fa-arrow-right"></i>
+          </a>
         </div>
       </div>
     </div>
@@ -156,7 +713,76 @@
     <div class="container">
       <h2 class="section-title">Latest Blog Posts</h2>
       <div class="blog-grid">
-        <!-- Blog Post 1 - Playwright Fixtures (Latest) -->
+        <!-- Blog Post: Playwright Extension (Dec 20, 2025) -->
+        <div class="blog-card">
+          <div class="blog-image">
+            <a href="blog_post/playwright_browser_extension_test_result.html">
+              <img src="blog_images/playwright_extension_thumb.png" alt="Playwright Test Results Extension tutorial"
+                loading="lazy">
+            </a>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta">
+              <div class="blog-date">
+                <i class="far fa-calendar-alt"></i>
+                <span>December 20, 2025</span>
+              </div>
+              <div class="blog-read-time">
+                <i class="far fa-clock"></i>
+                <span>7 min read</span>
+              </div>
+            </div>
+            <h3 class="blog-title">Context-Switching is Dead: Monitoring Playwright Results via Chrome Extension</h3>
+            <p class="blog-excerpt">Stop digging through CI logs. Learn how to monitor your Playwright test results
+              directly from your Chrome toolbar using a live status badge and GitHub Actions.</p>
+
+            <a href="blog_post/playwright_browser_extension_test_result.html" class="read-more-link">Read More <i
+                class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Blog Post 1 - localStorage Testing (Latest) -->
+        <div class="blog-card">
+          <div class="blog-image">
+            <a href="blog_post/local_storage_testing_with_playwright.html">
+              <img src="blog_images/local.jpg" alt="Playwright localStorage Testing Tutorial" loading="lazy">
+            </a>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta">
+              <div class="blog-date">
+                <i class="far fa-calendar-alt"></i>
+                <span>November 28, 2025</span>
+              </div>
+              <div class="blog-read-time">
+                <i class="far fa-clock"></i>
+                <span>8 min read</span>
+              </div>
+            </div>
+            <h3 class="blog-title">Testing localStorage & Persistent UI State with Playwright</h3>
+            <p class="blog-excerpt">Learn how to test localStorage, persistent UI state, and hidden DOM elements using
+              Playwright and TypeScript. A practical guide to ensuring your web app's state persists exactly as users
+              expect.</p>
+
+            <!-- YouTube thumbnail -->
+            <div class="youtube-thumbnail">
+              <a href="https://youtu.be/scBKNnRScEQ" target="_blank" class="youtube-link">
+                <div class="thumbnail-container">
+                  <img src="https://img.youtube.com/vi/scBKNnRScEQ/0.jpg" alt="Watch video tutorial" loading="lazy">
+                  <div class="play-button">
+                    <i class="fab fa-youtube"></i>
+                  </div>
+                </div>
+                <span class="watch-text">Watch video tutorial</span>
+              </a>
+            </div>
+
+            <a href="blog_post/local_storage_testing_with_playwright.html" class="read-more-link">Read More <i
+                class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Blog Post 2 - Playwright Fixtures -->
         <div class="blog-card">
           <div class="blog-image">
             <a href="blog_post/playwright_fixtures.html">
@@ -175,7 +801,9 @@
               </div>
             </div>
             <h3 class="blog-title">Mastering Playwright Fixtures: Built-in vs Custom</h3>
-            <p class="blog-excerpt">Learn how to use Playwright fixtures to simplify test setup and avoid boilerplate code. Complete guide with TypeScript examples, custom fixtures, and best practices for test automation.</p>
+            <p class="blog-excerpt">Learn how to use Playwright fixtures to simplify test setup and avoid boilerplate
+              code. Complete guide with TypeScript examples, custom fixtures, and best practices for test automation.
+            </p>
 
             <!-- YouTube thumbnail -->
             <div class="youtube-thumbnail">
@@ -190,85 +818,11 @@
               </a>
             </div>
 
-            <a href="blog_post/playwright_fixtures.html" class="read-more-link">Read More <i class="fas fa-arrow-right"></i></a>
+            <a href="blog_post/playwright_fixtures.html" class="read-more-link">Read More <i
+                class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
-        <!-- Blog Post 2 -->
-        <div class="blog-card">
-          <div class="blog-image">
-            <a href="blog_post/monocart_report_playwright.html">
-              <img src="blog_images/monocart-reporter.jpg" alt="Monocart Playwright Report" loading="lazy">
-            </a>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <div class="blog-date">
-                <i class="far fa-calendar-alt"></i>
-                <span>June 10, 2024</span>
-              </div>
-              <div class="blog-read-time">
-                <i class="far fa-clock"></i>
-                <span>8 min read</span>
-              </div>
-            </div>
-            <h3 class="blog-title">Integrating Monocart Reporter with Playwright Tests</h3>
-            <p class="blog-excerpt">Learn how to enhance your Playwright test reports with Monocart, a powerful visual reporting tool that makes test results more accessible to stakeholders.</p>
-
-            <!-- YouTube thumbnail -->
-            <div class="youtube-thumbnail">
-              <a href="https://youtu.be/8Ae-lkFAG5Q" target="_blank" class="youtube-link">
-                <div class="thumbnail-container">
-                  <img src="https://img.youtube.com/vi/8Ae-lkFAG5Q/maxresdefault.jpg" alt="Watch video tutorial" loading="lazy">
-                  <div class="play-button">
-                    <i class="fab fa-youtube"></i>
-                  </div>
-                </div>
-                <span class="watch-text">Watch video tutorial</span>
-              </a>
-            </div>
-
-            <a href="blog_post/monocart_report_playwright.html" class="read-more-link">Read More <i class="fas fa-arrow-right"></i></a>
-          </div>
-        </div>
-        
-        <!-- Blog Post 3 -->
-        <div class="blog-card">
-          <div class="blog-image">
-            <a href="blog_post/github_actions_playwright_test.html">
-              <img src="blog_images/github-actions-playwright.jpg" alt="GitHub Actions CI/CD" loading="lazy">
-            </a>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <div class="blog-date">
-                <i class="far fa-calendar-alt"></i>
-                <span>June 20, 2024</span>
-              </div>
-              <div class="blog-read-time">
-                <i class="far fa-clock"></i>
-                <span>12 min read</span>
-              </div>
-            </div>
-            <h3 class="blog-title">Setting Up Playwright Tests in Your CI Pipeline with GitHub Actions</h3>
-            <p class="blog-excerpt">A step-by-step guide to configuring GitHub Actions for running Playwright tests automatically on every push and pull request.</p>
-
-            <!-- YouTube thumbnail -->
-            <div class="youtube-thumbnail">
-              <a href="https://youtu.be/J3XbKWAFvC0" target="_blank" class="youtube-link">
-                <div class="thumbnail-container">
-                  <img src="https://img.youtube.com/vi/J3XbKWAFvC0/maxresdefault.jpg" alt="Watch video tutorial" loading="lazy">
-                  <div class="play-button">
-                    <i class="fab fa-youtube"></i>
-                  </div>
-                </div>
-                <span class="watch-text">Watch video tutorial</span>
-              </a>
-            </div>
-
-            <a href="blog_post/github_actions_playwright_test.html" class="read-more-link">Read More <i class="fas fa-arrow-right"></i></a>
-          </div>
-        </div>
 
       </div>
     </div>
@@ -281,19 +835,24 @@
         <h2 class="section-title">About Me</h2>
         <div class="about-content">
           <div class="about-text">
-            <p class="about-intro">Hi, I'm <span class="name-highlight">Faruk Hasan</span> — a QA Engineer, educator, and AI enthusiast with over 5 years of experience in automation testing, CI/CD, and cloud infrastructure.</p>
-            
-            <p>I specialize in building advanced testing frameworks using Playwright with TypeScript and Python, ensuring efficient and reliable software delivery. I also design and teach coding and AI courses for middle and high school students, blending real-world tech skills with hands-on learning.</p>
-            
-            <p>Currently, I'm exploring AI-driven QA tools to enhance test reliability, identify flaky tests, and optimize automation strategies.</p>
+            <p class="about-intro">Hi, I'm <span class="name-highlight">Faruk Hasan</span> — a QA Engineer, educator,
+              and AI enthusiast with over 5 years of experience in automation testing, CI/CD, and cloud infrastructure.
+            </p>
+
+            <p>I specialize in building advanced testing frameworks using Playwright with TypeScript and Python,
+              ensuring efficient and reliable software delivery. I also design and teach coding and AI courses for
+              middle and high school students, blending real-world tech skills with hands-on learning.</p>
+
+            <p>Currently, I'm exploring AI-driven QA tools to enhance test reliability, identify flaky tests, and
+              optimize automation strategies.</p>
           </div>
         </div>
       </div>
-      
+
       <!-- Career Highlights Column -->
       <div class="career-highlights">
         <h2 class="section-title">Career Highlights</h2>
-        
+
         <div class="career-card compact">
           <div class="career-header">
             <h3>Senior Software QA Engineer</h3>
@@ -325,8 +884,9 @@
             <li>Collaborated with developers to implement CI/CD pipelines for continuous testing.</li>
           </ul>
         </div>
-        
-        <a href="javascript:void(0)" onclick="openResume()" class="view-more-link">View Full Career <i class="fas fa-arrow-right"></i></a>
+
+        <a href="javascript:void(0)" onclick="openResume()" class="view-more-link">View Full Career <i
+            class="fas fa-arrow-right"></i></a>
       </div>
     </div>
   </section>
@@ -376,7 +936,7 @@
       <div class="courses-grid">
         <div class="course-card">
           <div class="course-image">
-            <img src="udemy_course_image.jpg" alt="Python Fundamentals Course" loading="lazy">
+            <img src="assets/images/udemy_course_image.jpg" alt="Python Fundamentals Course" loading="lazy">
           </div>
           <div class="course-badge">Udemy</div>
           <a href="https://www.udemy.com/share/10bHxx/" target="_blank" class="course-link">
@@ -384,42 +944,48 @@
           </a>
           <div class="course-year">2024</div>
           <p class="course-description">An interactive course focusing on Python basics through real-world projects.</p>
-          
+
           <!-- Reviews Section for first course -->
           <div class="course-reviews">
             <h4>Student Reviews</h4>
             <div class="review-container">
               <div class="review">
                 <div class="stars">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                    class="fas fa-star"></i><i class="fas fa-star"></i>
                 </div>
-                <p class="review-text">"Great course. This is actually fun. Never learned Python but it looks so easy now. Thank You Instructor Mr. Faruk Hasan."</p>
+                <p class="review-text">"Great course. This is actually fun. Never learned Python but it looks so easy
+                  now. Thank You Instructor Mr. Faruk Hasan."</p>
                 <p class="reviewer">- Habibus Sobhan S.</p>
               </div>
               <div class="review">
                 <div class="stars">
-                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                    class="fas fa-star"></i><i class="fas fa-star"></i>
                 </div>
                 <p class="review-text">"Really easy to follow and learn!"</p>
                 <p class="reviewer">- Syed M.</p>
               </div>
             </div>
           </div>
-          
+
           <a href="https://www.udemy.com/share/10bHxx/" target="_blank" class="course-button">View Course</a>
         </div>
-        
+
         <div class="course-card">
           <div class="course-image">
-            <img src="pro_python.png" alt="Advanced Python Development Course" loading="lazy">
+            <img src="blog_images/ai.jpg" alt="AI & Machine Learning for Beginners Course" loading="lazy">
           </div>
-          <div class="course-badge">Outschool</div>
-          <a href="https://outschool.com/classes/python-advanced-coding-playwright-flask-git-html-database-and-api-projects-ESjTt3fz" target="_blank" class="course-link">
-            <h3>Advanced Python/Playwright Development</h3>
+          <div class="course-badge">Udemy</div>
+          <a href="https://www.udemy.com/share/10epAN3@05VLbZS6cyYWeanWr7aYYXJ9vYtzQ3pKj91dOS0vuGMtSk-q1ALWSAWO_Lam1fvX/"
+            target="_blank" class="course-link">
+            <h3>AI & Machine Learning for Beginners</h3>
           </a>
-          <div class="course-year">2023</div>
-          <p class="course-description">Hands-on learning for advanced Python topics, equipping learners with professional skills.</p>
-          <a href="https://outschool.com/classes/python-advanced-coding-playwright-flask-git-html-database-and-api-projects-ESjTt3fz" target="_blank" class="course-button">View Course</a>
+          <div class="course-year">2024</div>
+          <p class="course-description">An accessible introduction to AI and machine learning concepts with hands-on
+            projects for beginners.</p>
+          <a href="https://www.udemy.com/share/10epAN3@05VLbZS6cyYWeanWr7aYYXJ9vYtzQ3pKj91dOS0vuGMtSk-q1ALWSAWO_Lam1fvX/"
+            target="_blank" class="course-button">View Course</a>
         </div>
       </div>
     </div>
@@ -430,7 +996,7 @@
   <section id="projects">
     <div class="projects-wrapper">
       <h2 class="section-title">Projects & GitHub Activity</h2>
-      
+
       <div class="projects-grid">
         <div class="project-card">
           <div class="project-header">
@@ -441,13 +1007,16 @@
               <span class="project-tag">Testing</span>
             </div>
           </div>
-          <p class="project-description">A Chrome extension that displays Playwright test results in real-time, providing instant feedback on test execution status.</p>
+          <p class="project-description">A Chrome extension that displays Playwright test results in real-time,
+            providing instant feedback on test execution status.</p>
           <div class="project-links">
-            <a href="https://github.com/faruklmu17/playwright_test_result" class="project-link" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
-            <a href="#" class="project-link demo-link" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+            <a href="https://github.com/faruklmu17/playwright_test_result" class="project-link" target="_blank"><i
+                class="fab fa-github"></i> View on GitHub</a>
+            <a href="#" class="project-link demo-link" target="_blank"><i class="fas fa-external-link-alt"></i> Live
+              Demo</a>
           </div>
         </div>
-        
+
         <div class="project-card">
           <div class="project-header">
             <h3>AI-Powered Test Generator</h3>
@@ -457,78 +1026,106 @@
               <span class="project-tag">Automation</span>
             </div>
           </div>
-          <p class="project-description">An intelligent test generator that uses machine learning to analyze application behavior and create optimized test cases automatically.</p>
+          <p class="project-description">An intelligent test generator that uses machine learning to analyze application
+            behavior and create optimized test cases automatically.</p>
           <div class="project-links">
-            <a href="https://github.com/faruklmu17/ai-test-generator" class="project-link" target="_blank"><i class="fab fa-github"></i> View on GitHub</a>
+            <a href="https://github.com/faruklmu17/ai-test-generator" class="project-link" target="_blank"><i
+                class="fab fa-github"></i> View on GitHub</a>
           </div>
         </div>
       </div>
-      
+
       <!-- GitHub Activity Widget -->
       <div class="github-activity">
         <h3>My GitHub Contributions</h3>
         <div class="github-calendar">
           <!-- GitHub contribution calendar widget -->
-          <img src="https://ghchart.rshah.org/faruklmu17" alt="Faruk Hasan's GitHub Contribution Chart" class="github-chart">
+          <img src="https://ghchart.rshah.org/faruklmu17" alt="Faruk Hasan's GitHub Contribution Chart"
+            class="github-chart">
         </div>
         <div class="github-stats">
-          <script src="https://gist-it.appspot.com/github/faruklmu17/github-stats/blob/main/generated/overview.svg"></script>
-          <script src="https://gist-it.appspot.com/github/faruklmu17/github-stats/blob/main/generated/languages.svg"></script>
+          <script
+            src="https://gist-it.appspot.com/github/faruklmu17/github-stats/blob/main/generated/overview.svg"></script>
+          <script
+            src="https://gist-it.appspot.com/github/faruklmu17/github-stats/blob/main/generated/languages.svg"></script>
         </div>
-        <a href="https://github.com/faruklmu17" class="view-more-link" target="_blank">View My GitHub Profile <i class="fas fa-arrow-right"></i></a>
+        <a href="https://github.com/faruklmu17" class="view-more-link" target="_blank">View My GitHub Profile <i
+            class="fas fa-arrow-right"></i></a>
       </div>
     </div>
   </section>
 
 
 
+  <!-- 
   <section id="dividend-income">
     <div class="dividend-wrapper">
       <h2 class="section-title">Dividend Income Portfolio</h2>
+      <p class="last-updated"
+        style="text-align: center; color: #6c757d; font-size: 0.9rem; margin-top: -1rem; margin-bottom: 2rem; font-style: italic;">
+        Last Updated: 12/25/2025</p>
       <div class="dividend-container">
         <div class="dividend-info">
-          <p class="dividend-intro">My investment strategy focuses on building a sustainable dividend income stream for early retirement. Below is the current allocation of my dividend portfolio.</p>
+          <p class="dividend-intro">My investment strategy focuses on building a sustainable dividend income stream for
+            early retirement. Below is the current allocation of my dividend portfolio.</p>
           <div class="dividend-stats">
-            <div class="stat-item">
-              <span class="stat-value">5.7%</span>
-              <span class="stat-label">Average Yield</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-value">12%</span>
-              <span class="stat-label">Annual Growth</span>
-            </div>
-            <div class="stat-item income-stat">
-              <div class="income-values">
-                <div class="current-income">
-                  <span class="stat-value" id="current-income">$190</span>
-                  <span class="stat-label">Current Monthly</span>
-                </div>
-                <div class="target-income">
-                  <span class="stat-value">$250</span>
-                  <span class="stat-label">2025 Target</span>
-                </div>
+            <div class="dividend-stats">
+              <div class="stat-item">
+                <span class="stat-value">5.7%</span>
+                <span class="stat-label">Average Yield</span>
               </div>
-              <div class="income-progress">
-                <canvas id="incomeProgressChart"></canvas>
-                <div class="progress-percentage" id="income-percentage">50%</div>
+
+              <div class="stat-item">
+                <span class="stat-value">2.2%</span>
+                <span class="stat-label">Annual Growth</span>
+              </div>
+
+              <div class="stat-item">
+                <span class="stat-value" id="annual-income">$2,940</span>
+                <span class="stat-label">Proj. Annual Income</span>
+              </div>
+
+              <div class="stat-item income-stat">
+                <div class="income-header">
+                  <span class="stat-label">Monthly Goal</span>
+                </div>
+                <div class="income-flex-container">
+                  <div class="income-text-content">
+                    <span class="stat-value main-income" id="current-income">$245</span>
+                    <div class="target-wrapper">
+                      <span class="target-label">Target: <span class="target-val">$250</span></span>
+                    </div>
+                  </div>
+                  <div class="income-progress-mini">
+                    <canvas id="incomeProgressChart"></canvas>
+                    <div class="progress-percentage-mini" id="income-percentage">98%</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           <div class="strategy-container">
-            <a href="javascript:void(0)" class="view-more-link" id="strategy-trigger">View Investment Strategy <i class="fas fa-arrow-right"></i></a>
-            
+            <a href="javascript:void(0)" class="view-more-link" id="strategy-trigger">View Investment Strategy <i
+                class="fas fa-arrow-right"></i></a>
+
             <div id="strategy-card" class="hover-card">
               <div class="card-content">
                 <h3>My Dividend Investment Strategy</h3>
-                <p>My investment approach focuses on building a sustainable dividend income stream for early retirement through:</p>
+                <p>My investment approach focuses on building a sustainable dividend income stream for early retirement
+                  through:</p>
                 <ul>
-                  <li><strong>Quality over yield:</strong> Prioritizing companies with sustainable payout ratios and growth potential</li>
-                  <li><strong>Sector diversification:</strong> Spreading investments across multiple industries to reduce risk</li>
-                  <li><strong>Dividend growth:</strong> Focusing on companies with a history of increasing dividends</li>
-                  <li><strong>ETF core:</strong> Using dividend ETFs like SCHD and JEPI as the foundation of the portfolio</li>
+                  <li><strong>Quality over yield:</strong> Prioritizing companies with sustainable payout ratios and
+                    growth potential</li>
+                  <li><strong>Sector diversification:</strong> Spreading investments across multiple industries to
+                    reduce risk</li>
+                  <li><strong>Dividend growth:</strong> Focusing on companies with a history of increasing dividends
+                  </li>
+                  <li><strong>ETF core:</strong> Using dividend ETFs like SCHD and JEPI as the foundation of the
+                    portfolio</li>
                   <li><strong>Reinvestment:</strong> Automatically reinvesting dividends to compound returns</li>
                 </ul>
-                <p>My goal is to achieve financial independence through a growing passive income stream that eventually covers all living expenses.</p>
+                <p>My goal is to achieve financial independence through a growing passive income stream that eventually
+                  covers all living expenses.</p>
               </div>
             </div>
           </div>
@@ -537,27 +1134,137 @@
           <canvas id="dividendChart"></canvas>
         </div>
       </div>
+      <div class="projection-container">
+        <h3 class="projection-title"><i class="fas fa-bullseye"></i> 2-Year Target Snapshot</h3>
+
+        <div class="target-snapshot-card">
+          <h4><i class="fas fa-target"></i>🎯 Target Snapshot</h4>
+          <table class="snapshot-table">
+            <thead>
+              <tr>
+                <th>Bucket</th>
+                <th style="text-align: right;">Target %</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="bucket-name">Core ETFs</td>
+                <td class="target-percent">65–70%</td>
+              </tr>
+              <tr>
+                <td class="bucket-name">Return Boosters</td>
+                <td class="target-percent">5–8%</td>
+              </tr>
+              <tr>
+                <td class="bucket-name">Income Enhancers</td>
+                <td class="target-percent">15–18%</td>
+              </tr>
+              <tr>
+                <td class="bucket-name">Defensive / Real Assets</td>
+                <td class="target-percent">8–10%</td>
+              </tr>
+              <tr>
+                <td class="bucket-name">Speculative</td>
+                <td class="target-percent">5–8%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="projection-grid">
+          <div class="projection-card">
+            <h4><i class="fas fa-anchor"></i> Core ETFs</h4>
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>Holding</th>
+                  <th>Est. %</th>
+                </tr>
+              </thead>
+              <tbody id="core-table-body">
+              </tbody>
+            </table>
+          </div>
+
+          <div class="projection-card">
+            <h4><i class="fas fa-rocket"></i> Return Boosters</h4>
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>Holding</th>
+                  <th>Est. %</th>
+                </tr>
+              </thead>
+              <tbody id="boosters-table-body">
+              </tbody>
+            </table>
+          </div>
+
+          <div class="projection-card">
+            <h4><i class="fas fa-money-bill-wave"></i> Income Enhancers</h4>
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>Holding</th>
+                  <th>Est. %</th>
+                </tr>
+              </thead>
+              <tbody id="enhancers-table-body">
+              </tbody>
+            </table>
+          </div>
+
+          <div class="projection-card">
+            <h4><i class="fas fa-shield-alt"></i> Defensive / Real Assets</h4>
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>Holding</th>
+                  <th>Est. %</th>
+                </tr>
+              </thead>
+              <tbody id="defensive-table-body">
+              </tbody>
+            </table>
+          </div>
+
+          <div class="projection-card">
+            <h4><i class="fas fa-lightbulb"></i> Speculative / Conviction</h4>
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>Holding</th>
+                  <th>Est. %</th>
+                </tr>
+              </thead>
+              <tbody id="speculative-table-body">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
+  -->
 
   <script>
-  function toggleStrategySection() {
-    const details = document.getElementById('strategy-details');
-    const toggle = document.getElementById('strategy-toggle');
-    
-    if (details.style.display === 'none') {
-      details.style.display = 'block';
-      toggle.innerHTML = 'Hide Investment Strategy <i class="fas fa-arrow-up"></i>';
-      // Smooth scroll to the details section
-      details.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      details.style.display = 'none';
-      toggle.innerHTML = 'View Investment Strategy <i class="fas fa-arrow-right"></i>';
+    function toggleStrategySection() {
+      const details = document.getElementById('strategy-details');
+      const toggle = document.getElementById('strategy-toggle');
+
+      if (details.style.display === 'none') {
+        details.style.display = 'block';
+        toggle.innerHTML = 'Hide Investment Strategy <i class="fas fa-arrow-up"></i>';
+        // Smooth scroll to the details section
+        details.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        details.style.display = 'none';
+        toggle.innerHTML = 'View Investment Strategy <i class="fas fa-arrow-right"></i>';
+      }
     }
-  }
   </script>
 
-<!--   
+  <!--   
   <section id="projects" class="container">
     <h2>Projects</h2>
     <ul>
@@ -599,24 +1306,32 @@
         <div class="footer-logo">Faruk Hasan</div>
         <p>QA Engineer | Automation & AI-Driven Testing Specialist</p>
       </div>
-      
+
       <div class="footer-social">
         <h4>Connect With Me</h4>
         <div class="social-icons-footer">
-          <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
-          <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube" target="_blank"><i class="fab fa-youtube"></i></a>
-          <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-          <a href="https://github.com/faruklmu17" class="social-icon github" aria-label="GitHub" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn"
+            target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube"
+            target="_blank"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook"
+            target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://github.com/faruklmu17" class="social-icon github" aria-label="GitHub" target="_blank"><i
+              class="fab fa-github"></i></a>
         </div>
       </div>
-      
+
       <div class="footer-share">
         <h4>Share This Page</h4>
         <div class="share-buttons">
-          <a href="javascript:void(0)" onclick="shareOnFacebook()" class="share-btn facebook" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="javascript:void(0)" onclick="shareOnTwitter()" class="share-btn twitter" aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
-          <a href="javascript:void(0)" onclick="shareOnLinkedIn()" class="share-btn linkedin" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-          <a href="javascript:void(0)" onclick="shareByEmail()" class="share-btn email" aria-label="Share by Email"><i class="fas fa-envelope"></i></a>
+          <a href="javascript:void(0)" onclick="shareOnFacebook()" class="share-btn facebook"
+            aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="javascript:void(0)" onclick="shareOnTwitter()" class="share-btn twitter"
+            aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="javascript:void(0)" onclick="shareOnLinkedIn()" class="share-btn linkedin"
+            aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="javascript:void(0)" onclick="shareByEmail()" class="share-btn email" aria-label="Share by Email"><i
+              class="fas fa-envelope"></i></a>
         </div>
       </div>
     </div>
@@ -629,9 +1344,7 @@
   <div class="chatbot-container">
     <!-- Minimized Chatbot Button -->
     <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open Chat Assistant">
-      <svg class="chat-icon" viewBox="0 0 24 24">
-        <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
-      </svg>
+      <i class="fas fa-robot chat-icon" style="font-size: 24px;"></i>
       <div class="notification-badge" id="notification-badge">1</div>
     </button>
 
@@ -639,16 +1352,18 @@
     <div class="chatbot-window" id="chatbot-window">
       <div class="chatbot-header">
         <div class="chatbot-title">
-          <div class="chatbot-avatar">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-            </svg>
+          <div class="chatbot-status">
+            <div class="status-indicator"></div>
+            <span class="status-text">Online</span>
           </div>
-          <span>AI Assistant</span>
+          <div class="chatbot-name">
+            <i class="fas fa-robot chatbot-icon"></i>
+            <span>AI Bot v1.0</span>
+          </div>
         </div>
         <button class="minimize-btn" id="minimize-btn" aria-label="Minimize Chat">
           <svg class="minimize-icon" viewBox="0 0 24 24">
-            <path d="M19 13H5v-2h14v2z"/>
+            <path d="M19 13H5v-2h14v2z" />
           </svg>
         </button>
       </div>
@@ -658,13 +1373,11 @@
         <div class="loading-text">Loading AI Assistant...</div>
       </div>
 
-      <iframe
-        class="chatbot-frame"
-        id="chatbot-frame"
-        src=""
-        style="display: none;"
-        title="AI Chat Assistant">
-      </iframe>
+      <div class="chatbot-content">
+        <iframe class="chatbot-frame" id="chatbot-frame" src="" title="AI Chat Assistant" loading="lazy">
+        </iframe>
+      </div>
+
     </div>
   </div>
 
@@ -672,7 +1385,7 @@
 
 
 
-  
+
   <script>
     // Social sharing functions
     function shareOnFacebook() {
@@ -680,20 +1393,20 @@
       const text = encodeURIComponent("Check out Faruk Hasan's portfolio - QA Engineer & Automation Testing Specialist");
       window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
     }
-    
+
     function shareOnTwitter() {
       const url = encodeURIComponent(window.location.href);
       const text = encodeURIComponent("Check out Faruk Hasan's portfolio - QA Engineer & Automation Testing Specialist #QA #Testing #Automation");
       window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
     }
-    
+
     function shareOnLinkedIn() {
       const url = encodeURIComponent(window.location.href);
       const title = encodeURIComponent("Faruk Hasan - QA Engineer & Automation Specialist");
       const summary = encodeURIComponent("Portfolio of Faruk Hasan, a QA Engineer specializing in automation testing, CI/CD, and AI-driven testing strategies.");
       window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}&summary=${summary}`, '_blank');
     }
-    
+
     function shareByEmail() {
       const subject = encodeURIComponent("Check out Faruk Hasan's Portfolio");
       const body = encodeURIComponent(`I thought you might be interested in Faruk Hasan's portfolio: ${window.location.href}`);
@@ -701,30 +1414,31 @@
     }
   </script>
 </body>
+
 </html>
 
 <script>
   function openResume() {
     // Try multiple possible locations
     const possiblePaths = [
-      'resume.pdf',
+      'assets/resume.pdf',
       'Resume.pdf',
-      '/resume.pdf',
+      'assets/resume.pdf',
       '/Resume.pdf',
       'assets/resume.pdf',
-      'docs/resume.pdf',
-      'files/resume.pdf'
+      'assets/resume.pdf',
+      'assets/resume.pdf'
     ];
-    
+
     // Try to fetch each path to see if the file exists
-    Promise.all(possiblePaths.map(path => 
+    Promise.all(possiblePaths.map(path =>
       fetch(path, { method: 'HEAD' })
         .then(response => ({ path, exists: response.ok }))
         .catch(() => ({ path, exists: false }))
     )).then(results => {
       // Find the first path that exists
       const foundPath = results.find(result => result.exists);
-      
+
       if (foundPath) {
         // Open the PDF in a new tab
         window.open(foundPath.path, '_blank');
@@ -734,309 +1448,432 @@
       }
     });
   }
+
+  /*
+    // Add Chart.js and XLSX libraries
+    document.addEventListener('DOMContentLoaded', function () {
+      // Load Chart.js
+      const chartScript = document.createElement('script');
+      chartScript.src = 'https://cdn.jsdelivr.net/npm/chart.js';
   
-  // Add Chart.js and XLSX libraries
-  document.addEventListener('DOMContentLoaded', function() {
-    // Load Chart.js
-    const chartScript = document.createElement('script');
-    chartScript.src = 'https://cdn.jsdelivr.net/npm/chart.js';
-    
-    // Load XLSX library for Excel parsing
-    const xlsxScript = document.createElement('script');
-    xlsxScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
-    
-    // When all scripts are loaded, initialize the chart
-    Promise.all([
-      new Promise(resolve => { chartScript.onload = resolve; }),
-      new Promise(resolve => { xlsxScript.onload = resolve; })
-    ]).then(() => {
-      loadPortfolioData();
-    });
-    
-    document.body.appendChild(chartScript);
-    document.body.appendChild(xlsxScript);
-  });
+      // Load XLSX library for Excel parsing
+      const xlsxScript = document.createElement('script');
+      xlsxScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
   
-  function loadPortfolioData() {
-    // Fetch the Excel file
-    fetch('portfolio_data.xlsx')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.arrayBuffer();
-      })
-      .then(data => {
-        // Parse the Excel file
-        const workbook = XLSX.read(data, { type: 'array' });
-        const firstSheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[firstSheetName];
-        const jsonData = XLSX.utils.sheet_to_json(worksheet);
-        
-        // Process the data for the chart
-        processPortfolioData(jsonData);
-      })
-      .catch(error => {
-        console.error('Error loading portfolio data:', error);
-        // Fallback to default data if file can't be loaded
-        initDividendChartWithDefaultData();
+      // When all scripts are loaded, initialize the chart
+      Promise.all([
+        new Promise(resolve => { chartScript.onload = resolve; }),
+        new Promise(resolve => { xlsxScript.onload = resolve; })
+      ]).then(() => {
+        loadPortfolioData();
       });
-  }
   
-  function processPortfolioData(data) {
-    // Calculate total market value for each position
-    let totalPortfolioValue = 0;
-    let totalDividendIncome = 0;
-    let totalYield = 0;
-    
-    // Add market value to each stock
-    data.forEach(stock => {
-      // Calculate market value (shares * current price)
-      stock.marketValue = stock.Shares * stock['Current Price'];
-      
-      // Calculate annual dividend income
-      stock.dividendIncome = stock.marketValue * (stock['Dividend Yield (%)'] / 100);
-      
-      // Add to totals
-      totalPortfolioValue += stock.marketValue;
-      totalDividendIncome += stock.dividendIncome;
+      document.body.appendChild(chartScript);
+      document.body.appendChild(xlsxScript);
     });
-    
-    // Calculate overall portfolio yield
-    const portfolioYield = (totalDividendIncome / totalPortfolioValue) * 100;
-    
-    // Sort stocks by market value (descending)
-    data.sort((a, b) => b.marketValue - a.marketValue);
-    
-    // Group smaller positions as "Other" if they're less than 3% of portfolio
-    const threshold = totalPortfolioValue * 0.03;
-    const mainPositions = [];
-    let otherValue = 0;
-    
-    data.forEach(stock => {
-      if (stock.marketValue >= threshold) {
-        mainPositions.push({
-          ticker: stock.Stock,
-          value: stock.marketValue,
-          percentage: (stock.marketValue / totalPortfolioValue) * 100
+  
+    function loadPortfolioData() {
+      // Fetch the Excel file
+      fetch('finance/portfolio_data.xlsx')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.arrayBuffer();
+        })
+        .then(data => {
+          // Parse the Excel file
+          const workbook = XLSX.read(data, { type: 'array' });
+          const firstSheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[firstSheetName];
+          const jsonData = XLSX.utils.sheet_to_json(worksheet);
+  
+          // Process the data for the chart
+          processPortfolioData(jsonData);
+        })
+        .catch(error => {
+          console.error('Error loading portfolio data:', error);
+          // Fallback to default data if file can't be loaded
+          initDividendChartWithDefaultData();
         });
-      } else {
-        otherValue += stock.marketValue;
+    }
+  
+    function processPortfolioData(data) {
+      // Calculate total market value for each position
+      let totalPortfolioValue = 0;
+      let totalDividendIncome = 0;
+  
+      // Add market value to each stock
+      data.forEach(stock => {
+        // Calculate market value (shares * current price)
+        stock.marketValue = stock.Shares * stock['Current Price'];
+  
+        // Calculate annual dividend income
+        stock.dividendIncome = stock.marketValue * (stock['Dividend Yield (%)'] / 100);
+  
+        // Add to totals
+        totalPortfolioValue += stock.marketValue;
+        totalDividendIncome += stock.dividendIncome;
+      });
+  
+      // Calculate overall portfolio yield
+      const portfolioYield = (totalDividendIncome / totalPortfolioValue) * 100;
+  
+      // Categorization into Buckets
+      const buckets = {
+        core: { id: 'core-table-body', tickers: ['SCHD', 'DGRO', 'VYMI', 'VOO'], items: [], total: 0 },
+        boosters: { id: 'boosters-table-body', tickers: ['QQQ', 'SMH', 'IJR', 'QQQM', 'VGT', 'VUG'], items: [], total: 0 },
+        enhancers: { id: 'enhancers-table-body', tickers: ['JEPI', 'JEPQ', 'ARCC', 'BST', 'DIVO', 'MAIN', 'SPYD', 'T'], items: [], total: 0 },
+        defensive: { id: 'defensive-table-body', tickers: ['XLU', 'O', 'IAU', 'GLD', 'GOLD', 'VNQ'], items: [], total: 0 },
+        speculative: { id: 'speculative-table-body', tickers: [], items: [], total: 0 }
+      };
+  
+      // Sort all data by market value first
+      data.sort((a, b) => b.marketValue - a.marketValue);
+  
+      data.forEach(stock => {
+        const ticker = stock.Stock.toUpperCase();
+        let assigned = false;
+  
+        for (const key in buckets) {
+          if (buckets[key].tickers && buckets[key].tickers.includes(ticker)) {
+            buckets[key].items.push({
+              ticker: ticker,
+              percentage: (stock.marketValue / totalPortfolioValue) * 100
+            });
+            buckets[key].total += stock.marketValue;
+            assigned = true;
+            break;
+          }
+        }
+  
+        if (!assigned) {
+          buckets.speculative.items.push({
+            ticker: ticker,
+            percentage: (stock.marketValue / totalPortfolioValue) * 100
+          });
+          buckets.speculative.total += stock.marketValue;
+        }
+      });
+  
+      // Populate the tables
+      for (const key in buckets) {
+        const bucket = buckets[key];
+        const tbody = document.getElementById(bucket.id);
+        if (!tbody) continue;
+  
+        tbody.innerHTML = ''; // Clear existing
+  
+        // Add individual items
+        bucket.items.forEach(item => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="ticker-cell">${item.ticker}</td>
+            <td class="percent-cell">${item.percentage.toFixed(1)}%</td>
+          `;
+          tbody.appendChild(tr);
+        });
+  
+        // Add total row
+        const totalPercent = (bucket.total / totalPortfolioValue) * 100;
+        const totalTr = document.createElement('tr');
+        totalTr.className = 'total-row';
+        totalTr.innerHTML = `
+          <td class="ticker-cell">Total</td>
+          <td class="percent-cell">${totalPercent.toFixed(1)}%</td>
+        `;
+        tbody.appendChild(totalTr);
       }
-    });
-    
-    // Add "Other" category if needed
-    if (otherValue > 0) {
-      mainPositions.push({
-        ticker: 'Other',
-        value: otherValue,
-        percentage: (otherValue / totalPortfolioValue) * 100
+  
+      // Prepare data for the pie chart (main positions > 3% + Other)
+      const threshold = totalPortfolioValue * 0.03;
+      const mainPositions = [];
+      let otherValue = 0;
+  
+      data.forEach(stock => {
+        if (stock.marketValue >= threshold) {
+          mainPositions.push({
+            ticker: stock.Stock,
+            percentage: (stock.marketValue / totalPortfolioValue) * 100
+          });
+        } else {
+          otherValue += stock.marketValue;
+        }
+      });
+  
+      if (otherValue > 0) {
+        mainPositions.push({
+          ticker: 'Other',
+          percentage: (otherValue / totalPortfolioValue) * 100
+        });
+      }
+  
+      const labels = mainPositions.map(pos => `${pos.ticker} (${pos.percentage.toFixed(1)}%)`);
+      const values = mainPositions.map(pos => pos.percentage.toFixed(1));
+  
+      // Initialize chart
+      initDividendChart(labels, values);
+  
+      // Update portfolio stats
+      updatePortfolioStats(portfolioYield, totalDividendIncome, data);
+    }
+  
+    function updatePortfolioStats(yield, annualIncome, data) {
+      // Calculate growth rate (using the difference between current and purchase prices)
+      let totalGrowth = 0;
+      let totalInvestment = 0;
+  
+      data.forEach(stock => {
+        const investment = stock.Shares * stock['Purchase Price'];
+        const currentValue = stock.Shares * stock['Current Price'];
+        totalInvestment += investment;
+        totalGrowth += (currentValue - investment);
+      });
+  
+      const growthRate = (totalGrowth / totalInvestment) * 100;
+      const monthlyIncome = (annualIncome / 12);
+      const targetMonthlyIncome = 250; // Target monthly income by end of 2025
+      const progressPercentage = (monthlyIncome / targetMonthlyIncome) * 100;
+  
+      // Update the stats display
+      document.querySelector('.dividend-stats .stat-item:nth-child(1) .stat-value').textContent = yield.toFixed(1) + '%';
+      document.querySelector('.dividend-stats .stat-item:nth-child(2) .stat-value').textContent = growthRate.toFixed(1) + '%';
+      document.getElementById('annual-income').textContent = '$' + annualIncome.toLocaleString(undefined, { maximumFractionDigits: 0 });
+      document.getElementById('current-income').textContent = '$' + monthlyIncome.toFixed(0);
+      document.getElementById('income-percentage').textContent = progressPercentage.toFixed(0) + '%';
+  
+      // Create the progress chart
+      createIncomeProgressChart(progressPercentage);
+    }
+  
+    function initDividendChart(labels, data) {
+      const ctx = document.getElementById('dividendChart').getContext('2d');
+  
+      // Color palette for the chart
+      const colors = [
+        '#4285F4', // Blue
+        '#34A853', // Green
+        '#FBBC05', // Yellow
+        '#EA4335', // Red
+        '#5F6368', // Grey
+        '#1A73E8', // Light Blue
+        '#188038', // Dark Green
+        '#F29900', // Orange
+        '#D93025', // Dark Red
+        '#9AA0A6', // Light Grey
+        '#185ABC', // Dark Blue
+        '#137333', // Forest Green
+        '#E37400'  // Dark Orange
+      ];
+  
+      // Chart configuration
+      const config = {
+        type: 'pie',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: data,
+            backgroundColor: colors.slice(0, labels.length),
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: {
+                font: {
+                  family: 'Montserrat',
+                  size: 12
+                }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  const label = context.label || '';
+                  return label;
+                }
+              }
+            }
+          }
+        }
+      };
+  
+      // Create the chart
+      new Chart(ctx, config);
+    }
+  
+    function createIncomeProgressChart(percentage) {
+      const ctx = document.getElementById('incomeProgressChart').getContext('2d');
+  
+      // Destroy previous chart if it exists
+      if (window.incomeChart) {
+        window.incomeChart.destroy();
+      }
+  
+      // Create new chart
+      window.incomeChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          datasets: [{
+            data: [percentage, 100 - percentage],
+            backgroundColor: [
+              '#28a745', // Green for progress
+              '#e9ecef'  // Light gray for remaining
+            ],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          cutout: '70%',
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              enabled: false
+            }
+          },
+          animation: {
+            animateRotate: true,
+            animateScale: true
+          }
+        }
       });
     }
-    
-    // Prepare data for chart
-    const labels = mainPositions.map(pos => pos.ticker);
-    const values = mainPositions.map(pos => pos.percentage.toFixed(1));
-    
-    // Initialize chart with the processed data
-    initDividendChart(labels, values);
-    
-    // Update portfolio stats
-    updatePortfolioStats(portfolioYield, totalDividendIncome, data);
-  }
   
-  function updatePortfolioStats(yield, annualIncome, data) {
-    // Calculate growth rate (using the difference between current and purchase prices)
-    let totalGrowth = 0;
-    let totalInvestment = 0;
-    
-    data.forEach(stock => {
-      const investment = stock.Shares * stock['Purchase Price'];
-      const currentValue = stock.Shares * stock['Current Price'];
-      totalInvestment += investment;
-      totalGrowth += (currentValue - investment);
-    });
-    
-    const growthRate = (totalGrowth / totalInvestment) * 100;
-    const monthlyIncome = (annualIncome / 12);
-    const targetMonthlyIncome = 250; // Target monthly income by end of 2025
-    const progressPercentage = (monthlyIncome / targetMonthlyIncome) * 100;
-    
-    // Update the stats display
-    document.querySelector('.dividend-stats .stat-item:nth-child(1) .stat-value').textContent = yield.toFixed(1) + '%';
-    document.querySelector('.dividend-stats .stat-item:nth-child(2) .stat-value').textContent = growthRate.toFixed(1) + '%';
-    document.getElementById('current-income').textContent = '$' + monthlyIncome.toFixed(0);
-    document.getElementById('income-percentage').textContent = progressPercentage.toFixed(0) + '%';
-    
-    // Create the progress chart
-    createIncomeProgressChart(progressPercentage);
-  }
+    function initDividendChartWithDefaultData() {
+      // Default data if file loading fails
+      const labels = [
+        'SCHD (14.3%)',
+        'JEPI (10.3%)',
+        'SPYD (8.8%)',
+        'O (8.1%)',
+        'VYMI (7.6%)',
+        'T (7.2%)',
+        'VOO (6.3%)',
+        'Other (37.4%)'
+      ];
+      const data = [14.3, 10.3, 8.8, 8.1, 7.6, 7.2, 6.3, 37.4];
   
-  function initDividendChart(labels, data) {
-    const ctx = document.getElementById('dividendChart').getContext('2d');
-    
-    // Color palette for the chart
-    const colors = [
-      '#4285F4', // Blue
-      '#34A853', // Green
-      '#FBBC05', // Yellow
-      '#EA4335', // Red
-      '#5F6368', // Grey
-      '#1A73E8', // Light Blue
-      '#188038', // Dark Green
-      '#F29900', // Orange
-      '#D93025', // Dark Red
-      '#9AA0A6', // Light Grey
-      '#185ABC', // Dark Blue
-      '#137333', // Forest Green
-      '#E37400'  // Dark Orange
-    ];
-    
-    // Chart configuration
-    const config = {
-      type: 'pie',
-      data: {
-        labels: labels,
-        datasets: [{
-          data: data,
-          backgroundColor: colors.slice(0, labels.length),
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'right',
-            labels: {
-              font: {
-                family: 'Montserrat',
-                size: 12
-              }
-            }
-          },
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                const label = context.label || '';
-                const value = context.raw || 0;
-                return `${label}: ${value}%`;
-              }
-            }
-          }
+      initDividendChart(labels, data);
+  
+      // Set default stats
+      document.querySelector('.dividend-stats .stat-item:nth-child(1) .stat-value').textContent = '5.7%';
+      document.querySelector('.dividend-stats .stat-item:nth-child(2) .stat-value').textContent = '2.2%';
+      document.getElementById('annual-income').textContent = '$2,940';
+      document.getElementById('current-income').textContent = '$245';
+      document.getElementById('income-percentage').textContent = '98%';
+  
+      // Create default progress chart
+      createIncomeProgressChart(98);
+  
+      // Populate tables with 2-Year Target data (fallback)
+      const defaultData = {
+        'core-table-body': [
+          { t: 'SCHD', p: '14.3%' },
+          { t: 'VYMI', p: '7.6%' },
+          { t: 'VOO', p: '6.3%' },
+          { t: 'DGRO', p: '2.7%' },
+          { t: 'Total', p: '30.9%', total: true }
+        ],
+        'boosters-table-body': [
+          { t: 'QQQ', p: '2.3%' },
+          { t: 'Total', p: '2.3%', total: true }
+        ],
+        'enhancers-table-body': [
+          { t: 'JEPI', p: '10.3%' },
+          { t: 'SPYD', p: '8.8%' },
+          { t: 'T', p: '7.2%' },
+          { t: 'JEPQ', p: '5.0%' },
+          { t: 'ARCC', p: '2.3%' },
+          { t: 'Total', p: '33.6%', total: true }
+        ],
+        'defensive-table-body': [
+          { t: 'O', p: '8.1%' },
+          { t: 'XLU', p: '5.3%' },
+          { t: 'Total', p: '13.4%', total: true }
+        ],
+        'speculative-table-body': [
+          { t: 'PFE', p: '4.7%' },
+          { t: 'JNJ', p: '3.2%' },
+          { t: 'ABBV', p: '3.1%' },
+          { t: 'VICI', p: '2.9%' },
+          { t: 'MO', p: '1.6%' },
+          { t: 'XOM', p: '1.5%' },
+          { t: 'EPD', p: '1.2%' },
+          { t: 'GLDM', p: '0.9%' },
+          { t: 'ENB', p: '0.8%' },
+          { t: 'Total', p: '19.8%', total: true }
+        ]
+      };
+  
+      for (const id in defaultData) {
+        const tbody = document.getElementById(id);
+        if (tbody) {
+          tbody.innerHTML = defaultData[id].map(item => `
+            <tr class="${item.total ? 'total-row' : ''}">
+              <td class="ticker-cell">${item.t}</td>
+              <td class="percent-cell">${item.p}</td>
+            </tr>
+          `).join('');
         }
       }
-    };
-    
-    // Create the chart
-    new Chart(ctx, config);
-  }
-  
-  function createIncomeProgressChart(percentage) {
-    const ctx = document.getElementById('incomeProgressChart').getContext('2d');
-    
-    // Destroy previous chart if it exists
-    if (window.incomeChart) {
-      window.incomeChart.destroy();
     }
-    
-    // Create new chart
-    window.incomeChart = new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        datasets: [{
-          data: [percentage, 100 - percentage],
-          backgroundColor: [
-            '#28a745', // Green for progress
-            '#e9ecef'  // Light gray for remaining
-          ],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        cutout: '70%',
-        responsive: true,
-        maintainAspectRatio: true,
-        plugins: {
-          legend: {
-            display: false
-          },
-          tooltip: {
-            enabled: false
-          }
-        },
-        animation: {
-          animateRotate: true,
-          animateScale: true
-        }
-      }
-    });
-  }
-
-  function initDividendChartWithDefaultData() {
-    // Default data if file loading fails
-    const labels = ['SCHD', 'JEPI', 'T', 'SPYD', 'O', 'PFE', 'XYLD', 'Other'];
-    const data = [25, 20, 15, 10, 10, 8, 7, 5];
-    
-    initDividendChart(labels, data);
-    
-    // Set default stats
-    document.querySelector('.dividend-stats .stat-item:nth-child(1) .stat-value').textContent = '5.7%';
-    document.querySelector('.dividend-stats .stat-item:nth-child(2) .stat-value').textContent = '12%';
-    document.getElementById('current-income').textContent = '$190';
-    document.getElementById('income-percentage').textContent = '76%';
-
-    // Create default progress chart
-    createIncomeProgressChart(76);
-  }
-</script>
+    */</script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const strategyTrigger = document.getElementById('strategy-trigger');
-    const strategyCard = document.getElementById('strategy-card');
-    
-    // Add a small delay before closing to prevent accidental closures
-    let timeout;
-    
-    strategyTrigger.addEventListener('mouseenter', function() {
-      clearTimeout(timeout);
-      strategyCard.classList.add('active');
-    });
-    
-    strategyTrigger.addEventListener('mouseleave', function(e) {
-      // Check if the mouse is moving toward the card
-      const rect = strategyCard.getBoundingClientRect();
-      const isMovingToward = 
-        e.clientX >= rect.left - 20 && 
-        e.clientX <= rect.right + 20 && 
-        e.clientY >= rect.top - 20;
-      
-      if (!isMovingToward) {
+  /*
+    document.addEventListener('DOMContentLoaded', function () {
+      const strategyTrigger = document.getElementById('strategy-trigger');
+      const strategyCard = document.getElementById('strategy-card');
+  
+      // Add a small delay before closing to prevent accidental closures
+      let timeout;
+  
+      strategyTrigger.addEventListener('mouseenter', function () {
+        clearTimeout(timeout);
+        strategyCard.classList.add('active');
+      });
+  
+      strategyTrigger.addEventListener('mouseleave', function (e) {
+        // Check if the mouse is moving toward the card
+        const rect = strategyCard.getBoundingClientRect();
+        const isMovingToward =
+          e.clientX >= rect.left - 20 &&
+          e.clientX <= rect.right + 20 &&
+          e.clientY >= rect.top - 20;
+  
+        if (!isMovingToward) {
+          timeout = setTimeout(() => {
+            if (!strategyCard.matches(':hover')) {
+              strategyCard.classList.remove('active');
+            }
+          }, 300);
+        }
+      });
+  
+      strategyCard.addEventListener('mouseenter', function () {
+        clearTimeout(timeout);
+      });
+  
+      strategyCard.addEventListener('mouseleave', function () {
         timeout = setTimeout(() => {
-          if (!strategyCard.matches(':hover')) {
-            strategyCard.classList.remove('active');
-          }
+          strategyCard.classList.remove('active');
         }, 300);
-      }
+      });
     });
-    
-    strategyCard.addEventListener('mouseenter', function() {
-      clearTimeout(timeout);
-    });
-    
-    strategyCard.addEventListener('mouseleave', function() {
-      timeout = setTimeout(() => {
-        strategyCard.classList.remove('active');
-      }, 300);
-    });
-  });
+    */
 </script>
 
 <!-- Enhanced Chatbot JavaScript -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const chatbotToggle = document.getElementById('chatbot-toggle');
     const chatbotWindow = document.getElementById('chatbot-window');
     const minimizeBtn = document.getElementById('minimize-btn');
@@ -1048,96 +1885,113 @@ document.addEventListener('DOMContentLoaded', function() {
     let isLoaded = false;
 
     // Chatbot URLs
-    const chatbotUrl = 'https://hasanfaruk25-personal-chatbot.hf.space/?__theme=light';
+    //const chatbotUrl = 'https://hasanfaruk25-personal-chatbot.hf.space/?__theme=light';
+    // Chatbot URL – NEW Live Version (Direct Embed)
+    const chatbotUrl = 'https://hasanfaruk25-faruk-assistant.hf.space';
+
+    // Auto-open chatbot disabled - will now only open when clicked
+    /*
+    setTimeout(() => {
+      openChatbot();
+    }, 2000); // Wait 2 seconds after page load for smooth experience
+    */
 
     // Initialize chatbot state
     function initializeChatbot() {
-        // Hide notification badge after first interaction
-        if (notificationBadge) {
-            setTimeout(() => {
-                notificationBadge.style.display = 'none';
-            }, 3000);
-        }
-
-        // Add welcome animation to toggle button
+      // Keep notification badge visible until interaction
+      /*
+      if (notificationBadge) {
         setTimeout(() => {
-            chatbotToggle.style.animation = 'pulse 2s ease-in-out 3';
-        }, 2000);
+          notificationBadge.style.display = 'none';
+        }, 3000);
+      }
+      */
+
+      // Add welcome animation to toggle button
+      setTimeout(() => {
+        chatbotToggle.style.animation = 'pulse 2s ease-in-out 3';
+      }, 2000);
     }
 
     // Load chatbot iframe
     function loadChatbot() {
-        if (!isLoaded) {
-            chatbotFrame.src = chatbotUrl;
-            isLoaded = true;
+      if (!isLoaded) {
+        chatbotFrame.src = chatbotUrl;
+        isLoaded = true;
 
-            // Handle iframe load
-            chatbotFrame.onload = function() {
-                setTimeout(() => {
-                    chatbotLoading.style.display = 'none';
-                    chatbotFrame.style.display = 'block';
-                }, 1000);
-            };
-
-            // Fallback in case onload doesn't fire
+        // Handle iframe load with elegant transition
+        chatbotFrame.onload = function () {
+          setTimeout(() => {
+            chatbotLoading.style.opacity = '0';
             setTimeout(() => {
-                chatbotLoading.style.display = 'none';
-                chatbotFrame.style.display = 'block';
-            }, 3000);
-        } else {
+              chatbotLoading.style.display = 'none';
+              chatbotFrame.style.opacity = '1';
+            }, 300);
+          }, 1500);
+        };
+
+        // Fallback in case onload doesn't fire
+        setTimeout(() => {
+          chatbotLoading.style.opacity = '0';
+          setTimeout(() => {
             chatbotLoading.style.display = 'none';
-            chatbotFrame.style.display = 'block';
-        }
+            chatbotFrame.style.opacity = '1';
+          }, 300);
+        }, 4000);
+      } else {
+        chatbotLoading.style.display = 'none';
+        chatbotFrame.style.display = 'block';
+      }
     }
 
     // Open chatbot
     function openChatbot() {
-        if (!isOpen) {
-            isOpen = true;
-            chatbotWindow.classList.add('active');
-            chatbotToggle.style.transform = 'scale(0.9)';
+      if (!isOpen) {
+        isOpen = true;
+        chatbotWindow.classList.add('active');
+        chatbotToggle.style.transform = 'scale(0.9)';
 
-            // Hide notification badge
-            if (notificationBadge) {
-                notificationBadge.style.display = 'none';
-            }
-
-            // Load chatbot content
-            loadChatbot();
-
-            // Add body class to prevent scrolling on mobile
-            document.body.style.overflow = window.innerWidth <= 768 ? 'hidden' : 'auto';
+        // Hide notification badge
+        if (notificationBadge) {
+          notificationBadge.style.display = 'none';
         }
+
+        // Load chatbot content
+        loadChatbot();
+
+        // Add body class to prevent scrolling on mobile
+        document.body.style.overflow = window.innerWidth <= 768 ? 'hidden' : 'auto';
+      }
     }
 
     // Close chatbot
     function closeChatbot() {
-        if (isOpen) {
-            isOpen = false;
-            chatbotWindow.classList.remove('active');
-            chatbotToggle.style.transform = 'scale(1)';
+      if (isOpen) {
+        isOpen = false;
+        chatbotWindow.classList.remove('active');
+        chatbotToggle.style.transform = 'scale(1)';
 
-            // Reset loading state for next open
-            if (isLoaded) {
-                chatbotLoading.style.display = 'none';
-                chatbotFrame.style.display = 'block';
-            } else {
-                chatbotLoading.style.display = 'flex';
-                chatbotFrame.style.display = 'none';
-            }
-
-            // Restore body scrolling
-            document.body.style.overflow = 'auto';
+        // Reset loading state for next open
+        if (isLoaded) {
+          chatbotLoading.style.display = 'none';
+          chatbotFrame.style.display = 'block';
+        } else {
+          chatbotLoading.style.display = 'flex';
+          chatbotFrame.style.display = 'none';
         }
+
+        // Restore body scrolling
+        document.body.style.overflow = 'auto';
+      }
     }
 
     // Toggle chatbot
     function toggleChatbot() {
-        if (isOpen) {
-            closeChatbot();
-        } else {
-            openChatbot();
-        }
+      if (isOpen) {
+        closeChatbot();
+      } else {
+        openChatbot();
+      }
     }
 
     // Event listeners
@@ -1145,45 +1999,68 @@ document.addEventListener('DOMContentLoaded', function() {
     minimizeBtn.addEventListener('click', closeChatbot);
 
     // Close chatbot when clicking outside (optional)
-    document.addEventListener('click', function(event) {
-        if (isOpen && !chatbotWindow.contains(event.target) && !chatbotToggle.contains(event.target)) {
-            // Uncomment the line below if you want to close on outside click
-            // closeChatbot();
-        }
+    document.addEventListener('click', function (event) {
+      if (isOpen && !chatbotWindow.contains(event.target) && !chatbotToggle.contains(event.target)) {
+        // Uncomment the line below if you want to close on outside click
+        // closeChatbot();
+      }
     });
 
     // Handle escape key
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape' && isOpen) {
-            closeChatbot();
-        }
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && isOpen) {
+        closeChatbot();
+      }
     });
 
     // Handle window resize
-    window.addEventListener('resize', function() {
-        if (isOpen && window.innerWidth <= 768) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
-        }
+    window.addEventListener('resize', function () {
+      if (isOpen && window.innerWidth <= 768) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'auto';
+      }
     });
 
     // Initialize
     initializeChatbot();
 
     // Add some interactive feedback
-    chatbotToggle.addEventListener('mouseenter', function() {
-        if (!isOpen) {
-            this.style.transform = 'translateY(-2px) scale(1.05)';
-        }
+    chatbotToggle.addEventListener('mouseenter', function () {
+      if (!isOpen) {
+        this.style.transform = 'translateY(-4px)';
+      }
     });
 
-    chatbotToggle.addEventListener('mouseleave', function() {
-        if (!isOpen) {
-            this.style.transform = 'translateY(0) scale(1)';
-        }
+    chatbotToggle.addEventListener('mouseleave', function () {
+      if (!isOpen) {
+        this.style.transform = 'translateY(0)';
+      }
     });
-});
+  });
 </script>
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navContainer = document.querySelector('.nav-social-container');
+
+    if (menuToggle && navContainer) {
+      menuToggle.addEventListener('click', () => {
+        navContainer.classList.toggle('active');
+        const icon = menuToggle.querySelector('i');
+        if (navContainer.classList.contains('active')) {
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-times');
+        } else {
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        }
+      });
+    }
+  });
+</script>
+</body>
+
+</html>
 <!-- Blog section removed -->

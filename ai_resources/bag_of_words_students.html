@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- SEO Meta Tags -->
+  <title>Bag of Words Challenge - Interactive Machine Learning Game | Learn NLP Concepts</title>
+  <meta name="description" content="Master the Bag of Words concept with this interactive educational game. Learn natural language processing (NLP) fundamentals through hands-on practice. Perfect for students learning AI and machine learning." />
+  <meta name="keywords" content="bag of words, machine learning, NLP, natural language processing, AI education, interactive learning, text analysis, tokenization, word counting, ML tutorial, AI game, educational tool" />
+  <meta name="author" content="Faruk Hasan" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="English" />
+
+  <!-- Open Graph Meta Tags (Facebook, LinkedIn) -->
+  <meta property="og:title" content="Bag of Words Challenge - Interactive Machine Learning Game" />
+  <meta property="og:description" content="Master the Bag of Words concept with this interactive educational game. Learn NLP fundamentals through hands-on practice." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://faruk-hasan.com/ai_resources/bag_of_words_students.html" />
+  <meta property="og:image" content="https://faruk-hasan.com/blog_images/ai.jpg" />
+  <meta property="og:site_name" content="Faruk Hasan - AI Education" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Bag of Words Challenge - Interactive ML Game" />
+  <meta name="twitter:description" content="Master the Bag of Words concept with this interactive educational game. Learn NLP fundamentals through hands-on practice." />
+  <meta name="twitter:image" content="https://faruk-hasan.com/blog_images/ai.jpg" />
+  <meta name="twitter:creator" content="@farukhasan" />
+
+  <!-- Additional SEO Meta Tags -->
+  <meta name="theme-color" content="#FF6B6B" />
+  <meta name="msapplication-TileColor" content="#FF6B6B" />
+  <link rel="canonical" href="https://faruk-hasan.com/ai_resources/bag_of_words_students.html" />
+
+  <!-- Educational Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    "name": "Bag of Words Challenge - Interactive Machine Learning Game",
+    "description": "Interactive educational game to learn the Bag of Words concept in natural language processing and machine learning",
+    "educationalLevel": "Intermediate",
+    "learningResourceType": "Interactive Game",
+    "teaches": ["Bag of Words", "Natural Language Processing", "Machine Learning", "Text Analysis", "Tokenization"],
+    "author": {
+      "@type": "Person",
+      "name": "Faruk Hasan",
+      "url": "https://faruk-hasan.com"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Faruk Hasan"
+    },
+    "datePublished": "2025-01-03",
+    "inLanguage": "en-US",
+    "isAccessibleForFree": true,
+    "url": "https://faruk-hasan.com/ai_resources/bag_of_words_students.html"
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#E0F7FA; --card:#fff; --text:#2c3e50; --muted:#6b7c93;
+      --primary:#FF6B6B; --primaryDark:#EE5253;
+      --secondary:#4ECDC4; --secondaryDark:#22A6B3;
+      --accent:#FFE66D;
+      --ok:#6AB04C; --warn:#F9CA24; --bad:#EB4D4B;
+      --radius:24px; --shadow:0 10px 22px rgba(0,0,0,.10);
+      --fontH:'Fredoka',sans-serif; --fontB:'Nunito',sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:var(--fontB); color:var(--text);
+      background:var(--bg);
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(78,205,196,.15) 0%, transparent 22%),
+        radial-gradient(circle at 90% 80%, rgba(255,107,107,.15) 0%, transparent 22%);
+      min-height:100vh; padding:26px 18px 42px;
+    }
+    header{max-width:1200px;margin:0 auto 18px;text-align:center}
+    h1{
+      margin:0; font-family:var(--fontH);
+      font-size:clamp(2rem,4.5vw,3.1rem); color:var(--primary);
+      text-shadow:2px 2px 0 rgba(0,0,0,.08);
+    }
+    .sub{max-width:900px;margin:10px auto 0;color:var(--muted);line-height:1.55;font-size:1.06rem}
+    .wrap{max-width:1200px;margin:18px auto 0;display:grid;grid-template-columns:380px 1fr;gap:18px;align-items:start}
+    @media (max-width:980px){.wrap{grid-template-columns:1fr}}
+    .card{
+      background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow);
+      padding:20px; border:2px solid rgba(0,0,0,.03); position:relative; overflow:hidden;
+    }
+    .card::before{
+      content:""; position:absolute; left:0; right:0; top:0; height:8px;
+      background:linear-gradient(90deg,var(--secondary),var(--primary));
+    }
+    .h2{font-family:var(--fontH); font-size:1.35rem; margin:0 0 12px; display:flex; align-items:center; gap:10px}
+    .pillRow{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 0;justify-content:center}
+    .pill{
+      background:#fff; border-radius:999px; padding:10px 14px; box-shadow:0 4px 10px rgba(0,0,0,.06);
+      font-weight:900; display:flex; align-items:center; gap:8px; border:2px solid transparent;
+    }
+    .pill.timer{border-color:var(--accent)}
+    .pill.score{border-color:rgba(78,205,196,.6); color:var(--secondaryDark)}
+    .pill.level{border-color:rgba(255,107,107,.6); color:var(--primaryDark)}
+    .btnRow{display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px}
+    button{
+      border:none; border-radius:16px; padding:14px 14px; cursor:pointer;
+      font-family:var(--fontH); font-weight:900; font-size:1.08rem;
+      display:flex; align-items:center; justify-content:center; gap:10px;
+      transition:transform .08s, box-shadow .08s;
+    }
+    .btnPrimary{background:var(--primary); color:#fff; box-shadow:0 4px 0 var(--primaryDark)}
+    .btnPrimary:active{transform:translateY(4px); box-shadow:0 0 0 var(--primaryDark)}
+    .btnSecondary{background:#f1f3f5; color:var(--muted); border:2px solid #e6eaee; font-size:1rem; padding:12px}
+    .btnSecondary:hover{background:#fff; border-color:var(--secondary); color:var(--secondaryDark)}
+    .note{
+      margin-top:12px; padding:14px; border-radius:14px;
+      background:#FFF8E1; border-left:5px solid var(--accent);
+      color:#6b5b00; line-height:1.55; font-size:.98rem;
+    }
+    .msgs{
+      margin-top:10px; display:grid; gap:10px;
+    }
+    .msg{
+      background:#f8fafb; border:2px dashed #d8e2ea; border-radius:16px; padding:12px;
+    }
+    .msg .label{font-weight:900;color:var(--muted);font-size:.92rem}
+    .msg .text{font-family:var(--fontH);font-size:1.05rem;margin-top:4px}
+    .vocabBox{
+      margin-top:12px; padding:14px; border-radius:16px; background:#F8F9FA;
+      border:2px dashed #D1D8E0;
+    }
+    .chip{
+      display:inline-flex;align-items:center; gap:8px;
+      background:#fff; border:1px solid #e7ecef; border-radius:999px;
+      padding:6px 10px; margin:4px; font-weight:900;
+      box-shadow:0 2px 6px rgba(0,0,0,.06);
+    }
+    .chip code{color:var(--primaryDark)}
+    .gridCardHeader{
+      display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+      background:#F4F7FA; border:2px solid #EEE; border-bottom:none;
+      padding:10px 14px; border-radius:18px 18px 0 0;
+      font-weight:900; color:var(--muted);
+    }
+    .gridCardBody{
+      background:#fff; border:2px solid #EEE; border-top:none;
+      padding:14px; border-radius:0 0 18px 18px; overflow:auto;
+    }
+    table{width:100%; border-collapse:collapse; min-width:720px}
+    th,td{border-bottom:1px solid #f0f0f0; padding:10px; text-align:center}
+    th:first-child, td:first-child{text-align:left}
+    th{color:var(--muted); font-size:.9rem}
+    .rowTitle{font-weight:900}
+    input.count{
+      width:64px; padding:8px 8px; border-radius:12px;
+      border:2px solid #e6eaee; font-weight:900; font-size:1rem; text-align:center;
+      outline:none; background:#fbfbfb;
+    }
+    input.count:focus{border-color:var(--secondary); background:#fff}
+    .cellOk input{border-color:rgba(106,176,76,.55); background:rgba(106,176,76,.10)}
+    .cellBad input{border-color:rgba(235,77,75,.55); background:rgba(235,77,75,.10)}
+    .cellMiss input{border-color:rgba(249,202,36,.70); background:rgba(249,202,36,.12)}
+    .answerHint{
+      margin-top:12px; display:none;
+      background:#fbfbfd; border:1px solid #eef0f3; border-radius:14px;
+      padding:12px; font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      white-space:pre-wrap; line-height:1.45; color:#334;
+    }
+    .resultRow{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;
+    }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      border-radius:999px; padding:8px 12px; font-weight:900; border:2px solid transparent;
+      background:#fff;
+    }
+    .bOk{border-color:rgba(106,176,76,.45); color:#2e7d32; background:rgba(106,176,76,.10)}
+    .bBad{border-color:rgba(235,77,75,.45); color:#b71c1c; background:rgba(235,77,75,.10)}
+    .bMiss{border-color:rgba(249,202,36,.55); color:#7a5b00; background:rgba(249,202,36,.12)}
+    .bAll{border-color:rgba(78,205,196,.45); color:var(--secondaryDark); background:rgba(78,205,196,.10)}
+    .tiny{font-size:.92rem;color:var(--muted);line-height:1.5}
+  </style>
+</head>
+
+<body>
+<header>
+  <h1>Bag of Words Challenge 🧺🔢</h1>
+  <div class="sub">
+    Fill the <b>count table</b> by hand. You have <b>60 seconds</b>.
+    Counts must match the vocabulary columns exactly. (No word order — just counts!)
+  </div>
+
+  <div class="pillRow">
+    <div class="pill level">🎯 Round: <span id="roundNum">1</span></div>
+    <div class="pill timer">⏳ Time Left: <span id="timeLeft">60</span>s</div>
+    <div class="pill score">🏆 Score: <span id="scoreNow">—</span></div>
+  </div>
+</header>
+
+<!-- Educational Description Section -->
+<section class="card" style="max-width: 1200px; margin: 0 auto 24px;">
+  <div class="h2">📚 What is Bag of Words?</div>
+  <div style="line-height: 1.6; color: var(--text); margin-bottom: 16px;">
+    <p><strong>Bag of Words (BoW)</strong> is a fundamental concept in <strong>Natural Language Processing (NLP)</strong> and <strong>Machine Learning</strong>. It's a simple yet powerful way to convert text into numbers that computers can understand and analyze.</p>
+
+    <p><strong>Key Concepts:</strong></p>
+    <ul style="margin: 12px 0; padding-left: 24px;">
+      <li><strong>Tokenization:</strong> Breaking text into individual words</li>
+      <li><strong>Vocabulary:</strong> All unique words across your documents</li>
+      <li><strong>Word Counting:</strong> How many times each word appears in each document</li>
+      <li><strong>Order Doesn't Matter:</strong> We only care about frequency, not word position</li>
+    </ul>
+
+    <div style="background: #f8f9fa; border-left: 4px solid var(--secondary); padding: 16px; border-radius: 8px; margin: 16px 0;">
+      <strong>🎯 Example:</strong><br/>
+      <strong>Documents:</strong> ["I love pizza", "Pizza is great", "I love food"]<br/>
+      <strong>Vocabulary:</strong> [i, love, pizza, is, great, food]<br/>
+      <strong>BoW Matrix:</strong><br/>
+      <code style="font-family: monospace; background: #fff; padding: 8px; display: block; margin-top: 8px; border-radius: 4px;">
+      Doc 0: [1, 1, 1, 0, 0, 0]  ← "I love pizza"<br/>
+      Doc 1: [0, 0, 1, 1, 1, 0]  ← "Pizza is great"<br/>
+      Doc 2: [1, 1, 0, 0, 0, 1]  ← "I love food"
+      </code>
+    </div>
+
+    <p><strong>🚀 Real-World Applications:</strong></p>
+    <ul style="margin: 12px 0; padding-left: 24px;">
+      <li><strong>Spam Detection:</strong> Email classification</li>
+      <li><strong>Sentiment Analysis:</strong> Positive/negative reviews</li>
+      <li><strong>Document Classification:</strong> News categorization</li>
+      <li><strong>Search Engines:</strong> Finding relevant documents</li>
+      <li><strong>Recommendation Systems:</strong> Content-based filtering</li>
+    </ul>
+
+    <div style="background: #fff3cd; border-left: 4px solid var(--accent); padding: 16px; border-radius: 8px; margin: 16px 0;">
+      <strong>🎮 How This Game Works:</strong><br/>
+      You'll see 3 text messages and a vocabulary of unique words. Your job is to manually count how many times each vocabulary word appears in each message. This hands-on practice helps you understand exactly how computers process text for machine learning!
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <!-- Left: mission + controls -->
+  <section class="card">
+    <div class="h2">🧠 Your Mission</div>
+    <div class="tiny">
+      1) Read the 3 messages<br/>
+      2) Look at the vocabulary words<br/>
+      3) Fill counts in each cell (0,1,2...)<br/>
+      4) Submit before time runs out!
+    </div>
+
+    <div class="msgs" id="msgsBox"></div>
+
+    <div class="vocabBox">
+      <div style="font-weight:900;color:var(--muted);margin-bottom:8px;">📚 Vocabulary (columns)</div>
+      <div id="vocabChips"></div>
+      <div class="tiny" style="margin-top:8px;">
+        Tip: Words are lowercased. Punctuation is ignored.
+      </div>
+    </div>
+
+    <div class="btnRow">
+      <button class="btnPrimary" id="startBtn">🚀 Start Timer</button>
+      <button class="btnPrimary" id="submitBtn" disabled>✅ Submit & Score</button>
+      <button class="btnSecondary" id="newRoundBtn">🔁 New Round</button>
+      <button class="btnSecondary" id="showAnswersBtn" disabled>👀 Show Answer Key</button>
+    </div>
+
+    <div class="note" id="statusBox">
+      Click <b>Start Timer</b> when you’re ready. You can submit early.
+    </div>
+
+    <div class="answerHint" id="answerKey"></div>
+  </section>
+
+  <!-- Right: table -->
+  <section>
+    <div class="gridCardHeader">
+      <span>📊 Fill the Count Table</span>
+      <span class="tiny">Rows = messages, Columns = vocabulary words</span>
+    </div>
+    <div class="gridCardBody">
+      <div id="tableWrap">
+        <!-- table injected -->
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  // -------------------------------
+  // Bag of Words COUNT TABLE GAME
+  // -------------------------------
+
+  const POOL = [
+    ["Hi there", "Hello", "Hi again"],
+    ["red fish", "blue fish", "red red fish"],
+    ["go go go", "go home", "home"],
+    ["pizza is good", "pizza pizza", "good food"],
+    ["cats sleep", "dogs bark", "cats bark"],
+    ["hello there", "hello hello", "there again"],
+    ["teamwork wins", "defense wins", "teamwork defense"],
+    ["chef makes sauce", "sauce is hot", "chef chef"],
+    ["rocket mission", "mission control", "rocket rocket"],
+    ["ocean dolphin", "marine research", "dolphin dolphin ocean"]
+  ];
+
+  // UI
+  const msgsBox = document.getElementById("msgsBox");
+  const vocabChips = document.getElementById("vocabChips");
+  const tableWrap = document.getElementById("tableWrap");
+
+  const startBtn = document.getElementById("startBtn");
+  const submitBtn = document.getElementById("submitBtn");
+  const newRoundBtn = document.getElementById("newRoundBtn");
+  const showAnswersBtn = document.getElementById("showAnswersBtn");
+
+  const statusBox = document.getElementById("statusBox");
+  const answerKey = document.getElementById("answerKey");
+
+  const timeLeftEl = document.getElementById("timeLeft");
+  const scoreNowEl = document.getElementById("scoreNow");
+  const roundNumEl = document.getElementById("roundNum");
+
+  // State
+  let round = 1;
+  let messages = [];
+  let vocab = [];
+  let wordToIdx = {};
+  let correctMatrix = []; // rows x cols counts
+  let timer = null;
+  let seconds = 60;
+  let started = false;
+  let submitted = false;
+
+  function tokenize(text){
+    const raw = (text || "").toLowerCase().match(/[a-z0-9']+/g) || [];
+    return raw.map(w => w.replace(/^'+|'+$/g,"")).filter(Boolean);
+  }
+
+  function pickRound(){
+    const choice = POOL[Math.floor(Math.random()*POOL.length)];
+    messages = [...choice];
+    buildVocabAndAnswer();
+    renderRound();
+    resetGameStateUI();
+  }
+
+  function buildVocabAndAnswer(){
+    const set = new Set();
+    messages.forEach(m => tokenize(m).forEach(w => set.add(w)));
+    vocab = Array.from(set).sort();
+    wordToIdx = {};
+    vocab.forEach((w,i)=>wordToIdx[w]=i);
+
+    // correct matrix
+    correctMatrix = messages.map(m=>{
+      const row = new Array(vocab.length).fill(0);
+      tokenize(m).forEach(w=>{
+        const idx = wordToIdx[w];
+        if(idx !== undefined) row[idx] += 1;
+      });
+      return row;
+    });
+  }
+
+  function renderRound(){
+    // messages
+    msgsBox.innerHTML = "";
+    messages.forEach((m,i)=>{
+      const div = document.createElement("div");
+      div.className = "msg";
+      div.innerHTML = `<div class="label">Message ${i}</div><div class="text">"${escapeHtml(m)}"</div>`;
+      msgsBox.appendChild(div);
+    });
+
+    // chips
+    vocabChips.innerHTML = "";
+    vocab.forEach((w,i)=>{
+      const chip = document.createElement("span");
+      chip.className = "chip";
+      chip.innerHTML = `<code>${escapeHtml(w)}</code> <span style="opacity:.7;">col ${i}</span>`;
+      vocabChips.appendChild(chip);
+    });
+
+    // table
+    renderTable();
+  }
+
+  function renderTable(){
+    let html = `<table><tr><th style="width:220px;">Row (message)</th>`;
+    vocab.forEach((w,i)=>{
+      html += `<th title="col ${i}">${escapeHtml(w)}<div style="opacity:.7;font-size:.8rem;">col ${i}</div></th>`;
+    });
+    html += `</tr>`;
+
+    messages.forEach((m,r)=>{
+      html += `<tr>
+        <td>
+          <div class="rowTitle">Message ${r}</div>
+          <div class="tiny">"${escapeHtml(m)}"</div>
+        </td>`;
+      vocab.forEach((_,c)=>{
+        html += `<td class="cell" data-r="${r}" data-c="${c}">
+          <input class="count" inputmode="numeric" pattern="[0-9]*" placeholder="?" data-r="${r}" data-c="${c}" ${submitted ? "disabled": ""}/>
+        </td>`;
+      });
+      html += `</tr>`;
+    });
+
+    html += `</table>`;
+    tableWrap.innerHTML = html;
+
+    // allow only digits
+    tableWrap.querySelectorAll("input.count").forEach(inp=>{
+      inp.addEventListener("input", ()=>{
+        inp.value = inp.value.replace(/[^0-9]/g,"").slice(0,2); // 0-99
+      });
+    });
+  }
+
+  function resetGameStateUI(){
+    // stop timer
+    if(timer) clearInterval(timer);
+    timer = null;
+    seconds = 60;
+    started = false;
+    submitted = false;
+
+    timeLeftEl.textContent = String(seconds);
+    scoreNowEl.textContent = "—";
+
+    startBtn.disabled = false;
+    submitBtn.disabled = true;
+    showAnswersBtn.disabled = true;
+
+    answerKey.style.display = "none";
+    answerKey.textContent = "";
+
+    statusBox.style.background = "#FFF8E1";
+    statusBox.style.borderLeftColor = "var(--accent)";
+    statusBox.innerHTML = `Click <b>Start Timer</b> when you’re ready. You can submit early.`;
+
+    // clear any cell classes
+    tableWrap.querySelectorAll("td.cell").forEach(td=>{
+      td.classList.remove("cellOk","cellBad","cellMiss");
+    });
+
+    // enable inputs
+    tableWrap.querySelectorAll("input.count").forEach(inp=>{
+      inp.disabled = true; // locked until start
+      inp.value = "";
+    });
+  }
+
+  function startTimer(){
+    if(started) return;
+    started = true;
+
+    startBtn.disabled = true;
+    submitBtn.disabled = false;
+
+    // enable inputs
+    tableWrap.querySelectorAll("input.count").forEach(inp => inp.disabled = false);
+
+    statusBox.style.background = "#e3f2fd";
+    statusBox.style.borderLeftColor = "#2196f3";
+    statusBox.innerHTML = `⏳ Timer started! Fill the table, then click <b>Submit & Score</b>.`;
+
+    timer = setInterval(()=>{
+      seconds -= 1;
+      timeLeftEl.textContent = String(seconds);
+
+      if(seconds <= 10){
+        statusBox.style.background = "#fff3cd";
+        statusBox.style.borderLeftColor = "#ffca2c";
+        statusBox.innerHTML = `⚠️ Hurry! Only <b>${seconds}s</b> left!`;
+      }
+
+      if(seconds <= 0){
+        clearInterval(timer);
+        timer = null;
+        timeLeftEl.textContent = "0";
+        scoreGame(true);
+      }
+    }, 1000);
+  }
+
+  function getStudentMatrix(){
+    const rows = messages.length;
+    const cols = vocab.length;
+    const m = Array.from({length:rows}, ()=> Array(cols).fill(null));
+
+    tableWrap.querySelectorAll("input.count").forEach(inp=>{
+      const r = Number(inp.dataset.r);
+      const c = Number(inp.dataset.c);
+      const val = inp.value.trim();
+      m[r][c] = (val === "") ? null : Number(val);
+    });
+
+    return m;
+  }
+
+  function scoreGame(fromTimeout=false){
+    if(submitted) return;
+    submitted = true;
+
+    if(timer) clearInterval(timer);
+    timer = null;
+
+    // lock inputs
+    tableWrap.querySelectorAll("input.count").forEach(inp => inp.disabled = true);
+
+    const student = getStudentMatrix();
+
+    let correctCells = 0;
+    let wrongCells = 0;
+    let missedCells = 0;
+    const totalCells = messages.length * vocab.length;
+
+    // Clear old classes
+    tableWrap.querySelectorAll("td.cell").forEach(td=>{
+      td.classList.remove("cellOk","cellBad","cellMiss");
+    });
+
+    // Compare
+    for(let r=0;r<messages.length;r++){
+      for(let c=0;c<vocab.length;c++){
+        const td = tableWrap.querySelector(`td.cell[data-r="${r}"][data-c="${c}"]`);
+        const expected = correctMatrix[r][c];
+        const got = student[r][c];
+
+        if(got === null){
+          missedCells++;
+          td.classList.add("cellMiss");
+        } else if(got === expected){
+          correctCells++;
+          td.classList.add("cellOk");
+        } else {
+          wrongCells++;
+          td.classList.add("cellBad");
+        }
+      }
+    }
+
+    // Simple points:
+    // +2 correct, -1 wrong, 0 missed
+    const points = (correctCells * 2) - (wrongCells * 1);
+    scoreNowEl.textContent = String(points);
+
+    submitBtn.disabled = true;
+    showAnswersBtn.disabled = false;
+
+    // status
+    const doneMsg = fromTimeout ? "⏰ Time's up!" : "🎉 Submitted!";
+    statusBox.style.background = "#e8f5e9";
+    statusBox.style.borderLeftColor = "var(--ok)";
+    statusBox.innerHTML = `
+      ${doneMsg}<br/>
+      <div class="resultRow">
+        <span class="badge bAll">📦 Total Cells: ${totalCells}</span>
+        <span class="badge bOk">✅ Correct: ${correctCells} (+2)</span>
+        <span class="badge bBad">❌ Wrong: ${wrongCells} (-1)</span>
+        <span class="badge bMiss">⏭️ Missed: ${missedCells} (0)</span>
+      </div>
+      <div style="margin-top:8px;">
+        Score = (Correct × 2) − (Wrong × 1) = <b>${points}</b>
+      </div>
+    `;
+  }
+
+  function showAnswerKey(){
+    const obj = { ...wordToIdx };
+    let out = `Vocabulary (word → column):\n${JSON.stringify(obj, null, 2)}\n\n`;
+    out += `Shape (${messages.length}, ${vocab.length})\n\n`;
+    out += `Answer Matrix (rows = messages):\n`;
+    correctMatrix.forEach((row,i)=>{
+      out += `Message ${i}: [ ${row.join(", ")} ]\n`;
+    });
+    out += `\nNon-zero entries (row, col) value:\n`;
+    for(let r=0;r<messages.length;r++){
+      for(let c=0;c<vocab.length;c++){
+        const v = correctMatrix[r][c];
+        if(v !== 0) out += `(${r}, ${c})  ${v}\n`;
+      }
+    }
+
+    answerKey.textContent = out;
+    answerKey.style.display = "block";
+  }
+
+  function escapeHtml(str){
+    return String(str)
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
+  // Buttons
+  startBtn.addEventListener("click", startTimer);
+  submitBtn.addEventListener("click", ()=> scoreGame(false));
+  newRoundBtn.addEventListener("click", ()=>{
+    round++;
+    roundNumEl.textContent = String(round);
+    pickRound();
+  });
+  showAnswersBtn.addEventListener("click", showAnswerKey);
+
+  // Init
+  pickRound();
+</script>
+</body>
+</html>

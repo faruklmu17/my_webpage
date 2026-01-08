@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutoring - Faruk Hasan | STEM Education & Coding for Kids</title>
+  <link rel="canonical" href="https://faruk-hasan.com/tutoring/tutoring.html" />
+  <meta name="description"
+    content="Professional STEM tutoring and coding education for ages 9-18. Python, Web Development, AI/ML, Arduino, and Computer Fundamentals with experienced educator Faruk Hasan.">
+  <meta name="keywords"
+    content="coding tutoring, STEM education, Python for kids, web development tutoring, AI education, Arduino tutoring, programming lessons">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../styles.css">
+  <!-- Add Google Fonts for signature style font -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <!-- Add Montserrat font for professional styling -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0b1220;
+      --surface: #0f172a;
+      --muted: #0b1220;
+      --text: #e5e7eb;
+      --sub: #9ca3af;
+      --primary: #7c8cff;
+      --primary-600: #6366f1;
+      --primary-700: #4f46e5;
+      --accent: #f59e0b;
+      --ok: #22c55e;
+      --pink: #ec4899;
+      --cyan: #06b6d4;
+      --card: rgba(255, 255, 255, 0.06);
+      --glass: rgba(255, 255, 255, 0.08);
+      --shadow: 0 10px 30px rgba(0, 0, 0, .25);
+      --radius: 16px;
+      --grad-1: radial-gradient(1200px 600px at 10% -10%, rgba(99, 102, 241, .25), transparent 60%),
+        radial-gradient(800px 600px at 90% 10%, rgba(236, 72, 153, .18), transparent 60%),
+        radial-gradient(800px 600px at 50% 110%, rgba(14, 165, 233, .2), transparent 60%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html,
+    body {
+      scroll-behavior: smooth
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height: 1.7;
+    }
+
+    .section {
+      padding: 4.5rem 0;
+      background: var(--bg)
+    }
+
+    .section--tight {
+      padding: 2.25rem 0
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.25rem
+    }
+
+    /* ====== HERO ====== */
+    .hero {
+      position: relative;
+      background: var(--grad-1);
+      overflow: hidden;
+      padding: 6rem 0 5rem;
+      isolation: isolate;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(400px 200px at 80% 20%, rgba(245, 158, 11, .12), transparent 60%),
+        radial-gradient(600px 260px at 0% 100%, rgba(99, 102, 241, .20), transparent 60%);
+      z-index: -1;
+    }
+
+    .hero__grid {
+      display: grid;
+      gap: 2.5rem;
+      align-items: center;
+      grid-template-columns: 1.2fr .8fr;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.1rem, 3vw + 1.2rem, 3.2rem);
+      line-height: 1.15;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .hero .lead {
+      margin-top: 1rem;
+      font-size: 1.15rem;
+      color: var(--sub);
+      max-width: 48ch;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: .85rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .9rem 1.25rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: .25s;
+      will-change: transform, box-shadow;
+    }
+
+    .btn--primary {
+      background: linear-gradient(90deg, var(--primary-600), var(--primary-700));
+      color: #fff;
+      box-shadow: var(--shadow)
+    }
+
+    .btn--primary:hover {
+      transform: translateY(-2px)
+    }
+
+    .btn--ghost {
+      background: transparent;
+      color: #fff;
+      border-color: #ffffff33
+    }
+
+    .btn--ghost:hover {
+      background: #ffffff12;
+      border-color: #ffffff66
+    }
+
+    .hero__media {
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .avatar-blob {
+      width: min(320px, 70vw);
+      aspect-ratio: 1/1;
+      border-radius: 35% 65% 55% 45%/55% 35% 65% 45%;
+      background: conic-gradient(from 180deg at 50% 50%, #1f2937, #0b1220 35%, #1f2937 60%, #0b1220);
+      border: 1px solid #ffffff14;
+      box-shadow: inset 0 0 60px #0008, var(--shadow);
+      position: relative;
+      animation: blob 12s ease-in-out infinite;
+    }
+
+    .avatar-blob::after {
+      content: "👨‍💻";
+      font-size: 4rem;
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      filter: drop-shadow(0 6px 20px #0008)
+    }
+
+    @keyframes blob {
+
+      0%,
+      100% {
+        border-radius: 35% 65% 55% 45%/55% 35% 65% 45%
+      }
+
+      50% {
+        border-radius: 55% 45% 35% 65%/45% 65% 35% 55%
+      }
+    }
+
+    /* ====== SECTION TITLES ====== */
+    h2 {
+      font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      text-align: center;
+      margin-bottom: .6rem;
+    }
+
+    .sub {
+      color: var(--sub);
+      text-align: center;
+      max-width: 62ch;
+      margin: .25rem auto 1.75rem
+    }
+
+    /* ====== ANIMATED STATS ====== */
+    .stats-hero {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .stat-bubble {
+      position: absolute;
+      background: #fff;
+      border-radius: 999px;
+      padding: .6rem 1rem;
+      font-weight: 700;
+      color: var(--primary-700);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, .15);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .stat-bubble:nth-child(1) {
+      top: 15%;
+      right: 10%;
+      animation-delay: 0s;
+    }
+
+    .stat-bubble:nth-child(2) {
+      bottom: 20%;
+      left: 5%;
+      animation-delay: 3s;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px)
+      }
+
+      50% {
+        transform: translateY(-10px)
+      }
+    }
+
+    /* Two Column Layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .two-col h2 {
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .highlights {
+      list-style: none;
+    }
+
+    .highlights li {
+      padding: 0.75rem 0;
+      font-size: 1.1rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .highlights li:last-child {
+      border-bottom: none;
+    }
+
+    /* ====== SUBJECTS ====== */
+    .grid {
+      display: grid;
+      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr))
+    }
+
+    .card {
+      position: relative;
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      background: var(--card);
+      border: 1px solid #ffffff12;
+      box-shadow: var(--shadow);
+      transition: .25s
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #ffffff22
+    }
+
+    .card .icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      margin-bottom: .6rem;
+      background: linear-gradient(120deg, #4755ff33, #06b6d433)
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+      justify-content: center;
+      margin-top: 1rem
+    }
+
+    .pill {
+      padding: .45rem .8rem;
+      border-radius: 999px;
+      background: #ffffff10;
+      border: 1px solid #ffffff1a;
+      color: #e5e7eb;
+      font-weight: 600;
+      font-size: .9rem
+    }
+
+    /* ====== PLATFORMS ====== */
+    .platforms .p-card {
+      text-decoration: none;
+      color: inherit;
+      background: linear-gradient(135deg, var(--glass), rgba(255, 255, 255, 0.12));
+      border: 1px solid #ffffff25;
+      transition: all 0.3s ease;
+    }
+
+    .platforms .p-card:hover {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+      border-color: #ffffff40;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .p-card .icon {
+      background: linear-gradient(135deg, var(--primary-600), var(--accent));
+      color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .p-card h3 {
+      color: #ffffff;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .p-card p {
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+
+    /* ====== EXPERIENCE / TIMELINE ====== */
+    .timeline {
+      position: relative;
+      margin: 2rem auto 0;
+      max-width: 800px
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 22px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #ffffff1f
+    }
+
+    .t-item {
+      position: relative;
+      padding-left: 70px;
+      margin-bottom: 1.25rem
+    }
+
+    .t-dot {
+      position: absolute;
+      left: 10px;
+      top: .2rem;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-600), var(--pink));
+      border: 2px solid #0b1220;
+      box-shadow: 0 0 0 6px #0b1220
+    }
+
+    .t-card {
+      background: var(--card);
+      border: 1px solid #ffffff12;
+      border-radius: 14px;
+      padding: 1rem
+    }
+
+    .t-card h3 {
+      margin: 0 0 .35rem;
+      font-size: 1.05rem
+    }
+
+    /* Link Cards */
+    .link-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .link-card {
+      display: block;
+      padding: 1.5rem;
+      background: var(--card);
+      border: 1px solid #ffffff12;
+      border-radius: var(--radius);
+      text-decoration: none;
+      color: var(--text);
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .link-card:hover {
+      transform: translateY(-3px);
+      border-color: #ffffff22;
+    }
+
+    /* Reviews */
+    .review-scroller {
+      display: flex;
+      gap: 2rem;
+      overflow-x: auto;
+      padding: 2rem 0;
+      scroll-snap-type: x mandatory;
+    }
+
+    .review {
+      min-width: 300px;
+      background: var(--card);
+      border: 1px solid #ffffff12;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      scroll-snap-align: start;
+    }
+
+    .review blockquote {
+      font-style: italic;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    .review figcaption {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+
+
+    /* Courses Section */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    .course-card {
+      background: var(--card);
+      border: 1px solid #ffffff12;
+      border-radius: var(--radius);
+      padding: 1rem;
+      position: relative;
+      transition: all 0.3s ease;
+      border-top: 3px solid var(--primary-600);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow);
+    }
+
+    .course-card:hover {
+      transform: translateY(-3px);
+      border-color: #ffffff22;
+    }
+
+    .course-badge {
+      position: absolute;
+      top: -12px;
+      right: 20px;
+      background: linear-gradient(135deg, var(--accent), var(--pink));
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .course-card h3 {
+      color: var(--text);
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+      font-weight: 700;
+      padding-right: 15px;
+      line-height: 1.2;
+    }
+
+    .course-year {
+      font-size: 0.75rem;
+      color: var(--sub);
+      margin-bottom: 0.2rem;
+      font-weight: 500;
+    }
+
+    .course-description {
+      font-size: 0.8rem;
+      color: var(--sub);
+      margin-bottom: 0.3rem;
+      flex-grow: 1;
+      line-height: 1.3;
+    }
+
+    .course-link {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .course-link:hover h3 {
+      color: var(--primary-color);
+    }
+
+    .course-button {
+      display: inline-block;
+      margin-top: auto;
+      padding: 0.4rem 0.8rem;
+      background: linear-gradient(90deg, var(--primary-600), var(--primary-700));
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      align-self: flex-start;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .course-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .course-image {
+      width: 100%;
+      height: 80px;
+      margin-bottom: 0.3rem;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .course-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.3s ease;
+    }
+
+    .course-card:hover .course-image img {
+      transform: scale(1.02);
+    }
+
+    /* Course Reviews */
+    .course-reviews {
+      margin: 0.5rem 0;
+    }
+
+    .course-reviews h4 {
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+      color: var(--secondary-color);
+    }
+
+    .review-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .course-reviews .review {
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 0.6rem;
+      border-radius: 6px;
+      border-left: 2px solid var(--primary-color);
+    }
+
+    .stars {
+      color: #ffd700;
+      margin-bottom: 0.3rem;
+      font-size: 0.75rem;
+    }
+
+    .review-text {
+      font-size: 0.75rem;
+      font-style: italic;
+      margin-bottom: 0.3rem;
+      color: #555;
+      line-height: 1.3;
+    }
+
+    .reviewer {
+      font-size: 0.7rem;
+      color: #777;
+      font-weight: 500;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero__grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+
+
+      .cta-row {
+        justify-content: center;
+      }
+
+      .courses-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .course-image {
+        height: 100px;
+      }
+    }
+
+    /* ====== UTIL ====== */
+    .muted {
+      color: var(--sub)
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0
+    }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 980px) {
+      .hero__grid {
+        grid-template-columns: 1fr
+      }
+
+      .about {
+        grid-template-columns: 1fr
+      }
+
+      .row {
+        grid-template-columns: 1fr
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-content">
+      <div class="header-left">
+        <div class="profile-image">
+          <img src="../assets/images/me.jpg" alt="Faruk Hasan">
+        </div>
+        <div class="headline">
+          <h1>Faruk Hasan</h1>
+          <p><span class="highlight">Software QA Engineer | Automation & AI-Driven Testing Specialist</span></p>
+        </div>
+      </div>
+      <div class="nav-social-container">
+        <nav>
+          <ul>
+            <li><a href="../index.html#about">About Me</a></li>
+            <li><a href="../index.html#courses">Courses</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="../blog.html">Blog</a></li>
+            <li><a href="../tutoring/tutoring.html" class="active">Tutoring</a></li>
+            <!-- <li><a href="../index.html#dividend-income">Dividends</a></li> -->
+            <li><a href="../resources/resources.html">Resources</a></li>
+          </ul>
+        </nav>
+        <div class="social-icons">
+          <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn"><i
+              class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube"><i
+              class="fab fa-youtube"></i></a>
+          <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook"><i
+              class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Tutoring Page Sections ===== -->
+
+  <section id="hero" class="section hero" aria-labelledby="hero-title">
+    <div class="container hero__grid">
+      <div>
+        <h1 id="hero-title">Inspiring the Next Generation of Coders & Thinkers</h1>
+        <p class="lead">
+          Hi, I'm <strong>Faruk Hasan</strong> — STEM Educator & Senior QA Engineer.
+          I teach Python, Web Dev, AI/ML, Arduino, and Computer Fundamentals for ages 9–18.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn--primary" href="#subjects"><i class="fa-solid fa-rocket"></i> View Courses</a>
+          <a class="btn btn--ghost"
+            href="mailto:faruqmul@gmail.com?subject=Free%20Tutoring%20Consultation&body=Hi%20Faruk,%0A%0AI'm%20interested%20in%20learning%20more%20about%20your%20tutoring%20services.%0A%0AStudent%20Details:%0A-%20Age:%20%0A-%20Experience%20Level:%20%0A-%20Subjects%20of%20Interest:%20%0A-%20Goals:%20%0A%0APlease%20let%20me%20know%20your%20availability%20for%20a%20free%20consultation.%0A%0AThank%20you!"><i
+              class="fa-solid fa-calendar-check"></i> Book Free Consult</a>
+        </div>
+      </div>
+      <div class="hero__media">
+        <div class="avatar-blob" aria-hidden="true">
+          <div class="stats-hero">
+            <div class="stat-bubble">4.82/5 ⭐ Rating</div>
+            <div class="stat-bubble">2,000+ Learners</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container about">
+      <div>
+        <h2>Why Learn With Me?</h2>
+        <p class="sub">Project-based lessons, industry best practices, and kid-friendly pacing that builds confidence.
+        </p>
+        <p>
+          I blend my day-to-day experience as an SDET (Playwright, Selenium, APIs, CI/CD, AI-assisted testing) with
+          engaging activities and real-world mini-projects. Learners leave with portfolio-ready work and practical
+          skills.
+        </p>
+        <div class="stats" role="list" aria-label="Outschool teaching stats">
+          <div class="stat" role="listitem"><b id="rating-count">4.82/5</b><span class="muted">Average Star
+              Rating</span></div>
+          <div class="stat" role="listitem"><b id="followers-count">1,945</b><span class="muted">Followers</span></div>
+          <div class="stat" role="listitem"><b id="learners-count">2,000</b><span class="muted">Learners Taught</span>
+          </div>
+        </div>
+      </div>
+      <ul class="highlight-list" aria-label="Highlights">
+        <li class="highlight"><i class="fa-solid fa-person-chalkboard"></i><span>Live, interactive classes with clear
+            outcomes</span></li>
+        <li class="highlight"><i class="fa-solid fa-bug-slash"></i><span>Debugging mindset, clean code, and
+            testing</span></li>
+        <li class="highlight"><i class="fa-solid fa-shield-halved"></i><span>Kid-safe, parent-friendly
+            communication</span></li>
+        <li class="highlight"><i class="fa-solid fa-diagram-project"></i><span>Portfolio projects for school and
+            internships</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="subjects" class="section section--tight">
+    <div class="container">
+      <h2>What I Teach</h2>
+      <p class="sub">Practical, engaging STEM topics tailored for ages 9–18 — from coding fundamentals to AI and
+        hardware.</p>
+
+      <div class="grid" role="list">
+        <article class="card" role="listitem">
+          <div class="icon"><i class="fa-brands fa-python"></i></div>
+          <h3>Python Programming</h3>
+          <p>From fundamentals to mini-apps: loops, functions, data, OOP, and beginner ML.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <div class="icon"><i class="fa-solid fa-globe"></i></div>
+          <h3>Web Development</h3>
+          <p>HTML, CSS, JS. Build responsive sites, interactive apps, and deploy to GitHub Pages.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <div class="icon"><i class="fa-solid fa-robot"></i></div>
+          <h3>AI & Machine Learning</h3>
+          <p>Kid-friendly AI: BoW, Naive Bayes, simple chatbots, ethics & safety.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <div class="icon"><i class="fa-solid fa-microchip"></i></div>
+          <h3>Arduino & Electronics</h3>
+          <p>Hands-on circuits, sensors, LEDs, and simple automation (with Wokwi sims).</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <div class="icon"><i class="fa-solid fa-vial"></i></div>
+          <h3>QA Testing (Beginner)</h3>
+          <p>Testing mindset, Playwright/Selenium basics, and intro to automation.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <div class="icon"><i class="fa-solid fa-computer"></i></div>
+          <h3>Computer Fundamentals</h3>
+          <p>OS basics, files, browsers & DevTools, safe internet habits, CLI intro.</p>
+        </article>
+      </div>
+
+      <div class="pill-row" aria-label="Who I teach">
+        <span class="pill">Grades 4–5</span>
+        <span class="pill">Grades 6–8</span>
+        <span class="pill">Grades 9–12</span>
+        <span class="pill">1:1 & Small Groups</span>
+        <span class="pill">Project-Based</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="section">
+    <div class="container">
+      <h2>Professional Experience</h2>
+      <p class="sub">Real-world expertise that I bring to every lesson.</p>
+
+      <div class="timeline">
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-card">
+            <h3>Senior QA Automation Engineer (SDET)</h3>
+            <p class="muted">2020 - Present</p>
+            <p>Python, Playwright, Selenium, CI/CD, API testing, and LLM-assisted testing workflows.</p>
+          </div>
+        </div>
+
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-card">
+            <h3>STEM Instructor – Outschool</h3>
+            <p class="muted">2018 - Present</p>
+            <p>Teaching AI with Python, Year-Long Web Development, Python + Algebra, and Computer Fundamentals.</p>
+          </div>
+        </div>
+
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-card">
+            <h3>Course Creator & Educational Consultant</h3>
+            <p class="muted">2016 - Present</p>
+            <p>Designed project-based STEM curricula for kids and teens, focusing on practical skills and portfolio
+              development.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="platforms" class="section section--tight">
+    <div class="container">
+      <h2>Find Me Online</h2>
+      <p class="sub">Connect with me across different platforms for classes, content, and updates.</p>
+
+      <div class="grid platforms">
+        <a class="card p-card" href="https://outschool.com/teachers/Faruk-Hasan" target="_blank" rel="noopener">
+          <div class="icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <h3>Outschool</h3>
+          <p>Live classes, 4.82/5 rating, 2,000+ learners taught</p>
+        </a>
+
+        <a class="card p-card" href="https://youtube.com/@kidz_code" target="_blank" rel="noopener">
+          <div class="icon"><i class="fa-brands fa-youtube"></i></div>
+          <h3>YouTube</h3>
+          <p>Coding tutorials, project walkthroughs, and STEM content</p>
+        </a>
+
+        <a class="card p-card" href="https://www.linkedin.com/in/md-faruk-hasan/" target="_blank" rel="noopener">
+          <div class="icon"><i class="fa-brands fa-linkedin"></i></div>
+          <h3>LinkedIn</h3>
+          <p>Professional updates, industry insights, and networking</p>
+        </a>
+
+        <a class="card p-card" href="https://github.com/faruklmu17" target="_blank" rel="noopener">
+          <div class="icon"><i class="fa-brands fa-github"></i></div>
+          <h3>GitHub</h3>
+          <p>Open source projects, code samples, and portfolio work</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="courses" class="section">
+    <div class="container">
+      <h2>My Courses</h2>
+      <div class="courses-grid">
+        <div class="course-card">
+          <div class="course-image">
+            <img src="../assets/images/udemy_course_image.jpg" alt="Python Fundamentals Course" loading="lazy">
+          </div>
+          <div class="course-badge">Udemy</div>
+          <a href="https://www.udemy.com/share/10bHxx/" target="_blank" class="course-link">
+            <h3>Python Fundamentals: Fun and Practical Projects for Beginners</h3>
+          </a>
+          <div class="course-year">2024</div>
+          <p class="course-description">An interactive course focusing on Python basics through real-world projects.</p>
+
+
+
+          <a href="https://www.udemy.com/share/10bHxx/" target="_blank" class="course-button">View Course</a>
+        </div>
+
+        <div class="course-card">
+          <div class="course-image">
+            <img src="../blog_images/ai.jpg" alt="AI & Machine Learning for Beginners Course" loading="lazy">
+          </div>
+          <div class="course-badge">Udemy</div>
+          <a href="https://www.udemy.com/share/10epAN3@05VLbZS6cyYWeanWr7aYYXJ9vYtzQ3pKj91dOS0vuGMtSk-q1ALWSAWO_Lam1fvX/"
+            target="_blank" class="course-link">
+            <h3>AI & Machine Learning for Beginners</h3>
+          </a>
+          <div class="course-year">2024</div>
+          <p class="course-description">An accessible introduction to AI and machine learning concepts with hands-on
+            projects for beginners.</p>
+          <a href="https://www.udemy.com/share/10epAN3@05VLbZS6cyYWeanWr7aYYXJ9vYtzQ3pKj91dOS0vuGMtSk-q1ALWSAWO_Lam1fvX/"
+            target="_blank" class="course-button">View Course</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews" class="section section--alt">
+    <div class="container">
+      <h2>What Parents & Students Say</h2>
+      <div class="review-scroller" tabindex="0">
+        <figure class="review">
+          <blockquote>
+            "This is an excellent class. My daughter has been taking it for more than a year, and she doesn't want to
+            miss a single week! She really enjoys it."
+          </blockquote>
+          <figcaption>★★★★★ — Meghan S. • May 19, 2025</figcaption>
+        </figure>
+        <figure class="review">
+          <blockquote>
+            "My 13-year-old son thoroughly enjoyed this class! The teacher created a calm, positive learning environment
+            where students could dive deep into the concepts. There is a great balance of structured instruction and a
+            friendly atmosphere!"
+          </blockquote>
+          <figcaption>★★★★★ — Parent • Dec 28, 2024</figcaption>
+        </figure>
+        <figure class="review">
+          <blockquote>
+            "My child recently completed the 'Advanced Python Development: Data Science, Git, OOP, Pytest, Playwright,
+            and More' course, and I am incredibly impressed with its quality and depth of content. As a parent, I'm very
+            happy to see my child engaged and excited about learning, and this course certainly sparked my son's
+            enthusiasm. The teacher was knowledgeable and very patient, explaining complex concepts in a way that made
+            them accessible and interesting. Thank you so much!"
+          </blockquote>
+          <figcaption>★★★★★ — Parent • December 16, 2024</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2024 Faruk Hasan. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+
+  <!-- Animated Counter Script -->
+  <script>
+    // Animate counters when they come into view
+    function animateCounter(element, target, duration = 2000) {
+      const start = 0;
+      const increment = target / (duration / 16);
+      let current = start;
+
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        element.textContent = Math.floor(current) + '+';
+      }, 16);
+    }
+
+    // Special animation for rating
+    function animateRating(element, target, duration = 2000) {
+      const start = 0;
+      const increment = target / (duration / 16);
+      let current = start;
+
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        element.textContent = (Math.round(current * 100) / 100).toFixed(2) + '/5';
+      }, 16);
+    }
+
+    // Intersection Observer for triggering animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const element = entry.target;
+          if (element.id === 'rating-count') {
+            animateRating(element, 4.82);
+          } else if (element.id === 'followers-count') {
+            animateCounter(element, 1945);
+          } else if (element.id === 'learners-count') {
+            animateCounter(element, 2000);
+          }
+          observer.unobserve(element);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    // Start observing when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      const ratingElement = document.getElementById('rating-count');
+      const followersElement = document.getElementById('followers-count');
+      const learnersElement = document.getElementById('learners-count');
+
+      if (ratingElement) observer.observe(ratingElement);
+      if (followersElement) observer.observe(followersElement);
+      if (learnersElement) observer.observe(learnersElement);
+    });
+  </script>
+  <script src="../shared/header-footer.js"></script>
+</body>
+
+</html>

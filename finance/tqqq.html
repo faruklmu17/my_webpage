@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TQQQ Strategy | Faruk Hasan</title>
+    <link rel="canonical" href="https://faruk-hasan.com/finance/tqqq.html" />
+
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Page Specific Styles */
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 2.5rem;
+            color: #1e293b;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+            padding: 0 1rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2563eb;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .signal-buy {
+            color: #10b981;
+        }
+
+        .signal-sell {
+            color: #ef4444;
+        }
+
+        .signal-cash {
+            color: #f59e0b;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+        }
+
+        .table-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-weight: 600;
+            color: #475569;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header (Synced with index.html) -->
+    <header>
+        <div class="header-content">
+            <div class="header-left">
+                <div class="profile-image">
+                    <img src="../assets/images/me.jpg" alt="Faruk Hasan">
+                </div>
+                <div class="headline">
+                    <h1>Faruk Hasan</h1>
+                    <p><span class="highlight">Software QA Engineer | Automation & AI-Driven Testing Specialist</span>
+                    </p>
+                </div>
+            </div>
+            <div class="nav-social-container">
+                <nav>
+                    <ul>
+                        <li><a href="../index.html#about">About Me</a></li>
+                        <li><a href="../index.html#courses">Courses</a></li>
+                        <li><a href="../index.html#projects">Projects</a></li>
+                        <li><a href="../blog.html">Blog</a></li>
+                        <li><a href="../tutoring/tutoring.html">Tutoring</a></li>
+                        <!-- <li><a href="../index.html#dividend-income">Dividends</a></li> -->
+                        <li><a href="../resources/resources.html">Resources</a></li>
+                    </ul>
+                </nav>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin"
+                        aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube"><i
+                            class="fab fa-youtube"></i></a>
+                    <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook"
+                        aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <h1 class="section-title">TQQQ 200-Day SMA Strategy</h1>
+
+        <!-- Stats Dashboard -->
+        <div class="dashboard-grid">
+            <div class="stat-card">
+                <span class="stat-value" id="current-signal">-</span>
+                <span class="stat-label">Current Signal</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="current-price">-</span>
+                <span class="stat-label">TQQQ Price</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="ma-value">-</span>
+                <span class="stat-label" id="ma-label">200-Day MA</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value" id="current-equity">-</span>
+                <span class="stat-label">Strategy Equity</span>
+            </div>
+        </div>
+
+        <!-- Chart -->
+        <div class="chart-container">
+            <canvas id="strategyChart"></canvas>
+        </div>
+
+        <!-- Recent Signals Table -->
+        <div class="table-container">
+            <h3>Recent History</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Close Price</th>
+                        <th>200-Day MA</th>
+                        <th>Signal</th>
+                        <th>Instruction</th>
+                        <th>Equity</th>
+                    </tr>
+                </thead>
+                <tbody id="signalsTableBody">
+                    <!-- Populated by JS -->
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+
+    <script>
+        async function loadStrategyData() {
+            try {
+                const response = await fetch('TQQQ_signals_updated_with_new_data_formatted.xlsx');
+                if (!response.ok) throw new Error('Failed to fetch Excel file');
+
+                const arrayBuffer = await response.arrayBuffer();
+                const workbook = XLSX.read(arrayBuffer);
+                const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+                const rawData = XLSX.utils.sheet_to_json(worksheet);
+
+                // Helper to get key case-insensitively
+                const getKey = (row, ...keys) => {
+                    const rowKeys = Object.keys(row);
+                    for (let k of keys) {
+                        const found = rowKeys.find(rk => rk.toLowerCase().trim() === k.toLowerCase());
+                        if (found) return row[found];
+                    }
+                    return null;
+                };
+
+                // Excel date to JS Date helper
+                const excelDateToJSDate = (serial) => {
+                    if (typeof serial === 'string') return serial; // Already a string
+                    const utc_days = Math.floor(serial - 25569);
+                    const utc_value = utc_days * 86400;
+                    const date_info = new Date(utc_value * 1000);
+                    return date_info.toLocaleDateString();
+                };
+
+                const processedData = rawData.map(row => {
+                    const rawSig = getKey(row, 'Signal');
+                    // Translate 1 -> BUY, 0 -> CASH
+                    let signalText = 'N/A';
+                    if (rawSig == 1) signalText = 'BUY';
+                    else if (rawSig == 0) signalText = 'CASH';
+                    else signalText = rawSig;
+
+                    return {
+                        date: excelDateToJSDate(getKey(row, 'Date')),
+                        close: parseFloat(getKey(row, 'Close', 'Price')) || 0,
+                        ma200: parseFloat(getKey(row, '200-Day MA', 'MA200', '200MA')) || 0,
+                        signal: signalText,
+                        instruction: getKey(row, 'Instruction') || '',
+                        equity: parseFloat(getKey(row, 'Equity', 'Strategy Equity')) || 0
+                    };
+                }).filter(d => d.close > 0);
+
+                // Update Dashboard with Latest Data (last row)
+                const latest = processedData[processedData.length - 1];
+                if (latest) {
+                    // Display Last Updated Date
+                    const dateEl = document.createElement('div');
+                    dateEl.style.cssText = 'grid-column: 1 / -1; text-align: center; color: #64748b; margin-bottom: 1rem; font-style: italic;';
+                    dateEl.innerHTML = `Last Updated: <strong>${latest.date}</strong>`;
+                    const grid = document.querySelector('.dashboard-grid');
+                    grid.insertBefore(dateEl, grid.firstChild);
+
+                    const signalEl = document.getElementById('current-signal');
+
+                    // Use Signal from Excel
+                    signalEl.textContent = latest.signal;
+
+                    // Color coding - Safe string conversion
+                    const sigStr = String(latest.signal).toUpperCase();
+                    if (sigStr.includes('BUY')) signalEl.className = 'stat-value signal-buy';
+                    else if (sigStr.includes('SELL')) signalEl.className = 'stat-value signal-sell'; // fallback
+                    else signalEl.className = 'stat-value signal-cash'; // CASH is default yellow
+
+                    document.getElementById('current-price').textContent = '$' + latest.close.toFixed(2);
+
+                    // Revert labels for 200-Day MA
+                    document.getElementById('ma-label').textContent = '200-Day MA';
+                    document.getElementById('ma-value').textContent = '$' + latest.ma200.toFixed(2);
+
+                    document.getElementById('current-equity').textContent = '$' + latest.equity.toLocaleString(undefined, { maximumFractionDigits: 0 });
+                }
+
+                // Update Table (Last 10 entries, reversed)
+                const tableBody = document.getElementById('signalsTableBody');
+                processedData.slice(-10).reverse().forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                    <td>${row.date}</td>
+                    <td>$${row.close.toFixed(2)}</td>
+                    <td>$${row.ma200.toFixed(2)}</td>
+                    <td style="font-weight:bold; color: ${row.signal === 'BUY' ? '#10b981' : (row.signal === 'CASH' ? '#f59e0b' : '#ef4444')}">${row.signal}</td>
+                    <td>${row.instruction}</td>
+                    <td>$${row.equity.toLocaleString()}</td>
+                `;
+                    tableBody.appendChild(tr);
+                });
+
+                // Initialize Chart
+                initChart(processedData);
+
+            } catch (error) {
+                console.error(error);
+                document.querySelector('.dashboard-grid').innerHTML = `<p style="color:red; text-align:center; width:100%;">Error loading data: ${error.message}</p>`;
+            }
+        }
+
+        function initChart(data) {
+            const ctx = document.getElementById('strategyChart').getContext('2d');
+            const labels = data.map(d => d.date);
+            const prices = data.map(d => d.close);
+            const equity = data.map(d => d.equity);
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Strategy Equity',
+                            data: equity,
+                            borderColor: '#2563eb',
+                            backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                            borderWidth: 2,
+                            yAxisID: 'y',
+                            fill: true,
+                            pointRadius: 0 // Clean look
+                        },
+                        {
+                            label: 'TQQQ Price',
+                            data: prices,
+                            borderColor: '#94a3b8',
+                            borderWidth: 1,
+                            borderDash: [5, 5],
+                            yAxisID: 'y1',
+                            pointRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: { display: true, text: 'Equity Value ($)' }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            grid: { drawOnChartArea: false },
+                            title: { display: true, text: 'Price ($)' }
+                        }
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', loadStrategyData);
+    </script>
+    <script src="../shared/header-footer.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO: Optimized Meta Tags -->
+    <title>Streamline Your QA Workflow: Playwright Test Results Chrome Extension</title>
+    <meta name="description"
+        content="Monitor your Playwright test results directly from your Chrome toolbar. A complete guide to setting up the Playwright Test Results Badge with GitHub Actions." />
+    <meta name="keywords"
+        content="Playwright, QA Automation, Chrome Extension, GitHub Actions, Test Reporting, CI/CD, Software Testing, DevOps, Test Status Badge" />
+    <meta name="author" content="Faruk Hasan" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Monitor Playwright Results Like a Pro: The Live Chrome Status Badge" />
+    <meta property="og:description"
+        content="Stop digging through CI logs. Get an instant visual summary of your Playwright tests directly in your browser toolbar." />
+    <meta property="og:url" content="https://faruk-hasan.com/blog_post/playwright_browser_extension_test_result.html" />
+    <meta property="og:site_name" content="Faruk Hasan Portfolio" />
+
+    <!-- SEO: Canonical & Structured Data -->
+    <link rel="canonical" href="https://faruk-hasan.com/blog_post/playwright_browser_extension_test_result.html" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Playwright Test Results Badge: The Ultimate Monitoring Extension",
+      "description": "A lightweight Chrome extension to monitor Playwright test results from local files or GitHub repositories.",
+      "author": {
+        "@type": "Person",
+        "name": "Faruk Hasan",
+        "url": "https://linkedin.com/in/md-faruk-hasan/"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Faruk Hasan"
+      },
+      "datePublished": "2025-12-20",
+      "image": "https://faruk-hasan.com/blog_images/playwright_extension_thumb.png"
+    }
+    </script>
+
+    <!-- Typography & Icons -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --accent: #10b981;
+            --accent-soft: rgba(16, 185, 129, 0.1);
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            z-index: 1000;
+        }
+
+        /* Layout */
+        .main-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 5rem;
+        }
+
+        /* Header Section */
+        .article-header {
+            margin-bottom: 3.5rem;
+            text-align: center;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 0.35rem 1rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: clamp(2.25rem, 5vw, 3.25rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: #111827;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .author-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--border);
+        }
+
+        /* Content Sections */
+        .section-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            margin-bottom: 2.5rem;
+        }
+
+        h2 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            color: #111827;
+            margin: 0 0 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #111827;
+            margin: 2rem 0 1rem;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            font-size: 1.1rem;
+            color: #374151;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-item {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: transform 0.2s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            font-size: 1.75rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+
+        .feature-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* Status Pills */
+        .status-badge-preview {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .status-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .pill-green {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .pill-red {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .pill-gray {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        /* Code Blocks */
+        .code-container {
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .code-label {
+            background: #334155;
+            color: #f1f5f9;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            border-radius: 6px 6px 0 0;
+            display: inline-block;
+        }
+
+        pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 8px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            border: 1px solid #1e293b;
+        }
+
+        .inline-code {
+            background: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            color: var(--primary-dark);
+        }
+
+        /* Callouts */
+        .callout {
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin: 2rem 0;
+            border-left: 4px solid var(--primary);
+        }
+
+        .callout.info {
+            background: #eff6ff;
+            border-color: var(--primary);
+        }
+
+        .callout.success {
+            background: #f0fdf4;
+            border-color: var(--accent);
+        }
+
+        .callout.warning {
+            background: #fffbeb;
+            border-color: var(--warning);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 0;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: var(--radius);
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 99px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+
+        /* Step List */
+        .setup-steps {
+            counter-reset: step-counter;
+            list-style: none;
+            padding: 0;
+        }
+
+        .setup-step {
+            position: relative;
+            padding-left: 4rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .setup-step::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3rem;
+            height: 3rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .section-card {
+                padding: 1.5rem;
+            }
+
+            .setup-step {
+                padding-left: 0;
+                padding-top: 3.5rem;
+            }
+
+            .setup-step::before {
+                top: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scroll-progress" id="progressBar"></div>
+
+    <main class="main-wrapper">
+        <header class="article-header">
+            <span class="category-badge">QA Engineering • DevOps</span>
+            <h1>The Playwright Test Results Badge: Monitor Your CI/CD Directly from Chrome</h1>
+
+            <div class="article-meta">
+                <div class="meta-item">
+                    <img src="../assets/images/me.jpg" alt="Faruk Hasan" class="author-img">
+                    <span>By <strong>Faruk Hasan</strong></span>
+                </div>
+                <div class="meta-item">
+                    <i class="far fa-calendar"></i>
+                    <time datetime="2025-12-21">Dec 21, 2025</time>
+                </div>
+                <div class="meta-item">
+                    <i class="far fa-clock"></i>
+                    <span>10 min read</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="section-card">
+            <h2><i class="fas fa-eye"></i> Overview</h2>
+            <p>
+                As a developer or QA engineer, how much time do you lose switching between your IDE and your CI/CD
+                dashboard?
+                The <strong>Playwright Test Results Badge</strong> is a lightweight Chrome extension designed to
+                eliminate that friction.
+                Instead of digging through 100MB logs, you get an instant visual summary of your test status directly in
+                your browser toolbar.
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-user-ninja"></i></div>
+                    <div class="feature-title">Who is this for?</div>
+                    <div class="feature-desc">Perfect for DEVs, QA engineers, and students learning automated testing or
+                        CI/CD pipelines.</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="feature-title">Privacy First</div>
+                    <div class="feature-desc">No accounts, no tracking, and no external servers. Your data stays between
+                        your browser and your source.</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="feature-title">Auto Refresh</div>
+                    <div class="feature-desc">The extension polls your summary file every 1 minute in the background,
+                        keeping you always up to date.</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-card">
+            <h2><i class="fas fa-tachometer-alt"></i> What the Extension Does</h2>
+
+            <h3>Live Toolbar Badge</h3>
+            <p>The badge stays visible at all times, providing a quick health check of your project:</p>
+            <div class="status-badge-preview">
+                <div class="status-pill pill-green"><i class="fas fa-check-circle"></i> Green 42 / 0 (All Passed)</div>
+                <div class="status-pill pill-red"><i class="fas fa-times-circle"></i> Red 41 / 1 (Failure Detected)
+                </div>
+                <div class="status-pill pill-gray"><i class="fas fa-question-circle"></i> Gray ? (No Data / Syncing)
+                </div>
+            </div>
+
+            <h3>Detailed Popup View</h3>
+            <p>Click the extension to see a comprehensive breakdown:</p>
+            <ul style="list-style: none; margin-left: 0;">
+                <li style="padding-left: 2rem; position: relative; margin-bottom: 0.5rem;"><i class="fas fa-chart-pie"
+                        style="position: absolute; left: 0; color: var(--primary);"></i> Total number of tests executed
+                </li>
+                <li style="padding-left: 2rem; position: relative; margin-bottom: 0.5rem;"><i class="fas fa-check"
+                        style="position: absolute; left: 0; color: var(--accent);"></i> Verified Passed tests</li>
+                <li style="padding-left: 2rem; position: relative; margin-bottom: 0.5rem;"><i class="fas fa-times"
+                        style="position: absolute; left: 0; color: var(--danger);"></i> Failed and Flaky test counts
+                </li>
+                <li style="padding-left: 2rem; position: relative; margin-bottom: 0.5rem;"><i class="fas fa-clock"
+                        style="position: absolute; left: 0; color: var(--warning);"></i> Last updated timestamp and
+                    Manual Refresh button</li>
+            </ul>
+        </section>
+
+        <section class="section-card">
+            <h2><i class="fas fa-rocket"></i> Quick Setup Guide (4 Steps)</h2>
+            <p>Follow these steps to integrate the badge with your Playwright project today.</p>
+
+            <div class="setup-steps">
+                <div class="setup-step">
+                    <h3>Step 1: Create the Summary Reporter</h3>
+                    <p>Create <code>summary-reporter.js</code> in your project root. This converts heavy reports into a
+                        lightweight 1KB JSON.</p>
+                    <div class="code-container">
+                        <div class="code-label">summary-reporter.js</div>
+                        <pre><code>const fs = require('fs');
+
+class SummaryReporter {
+  onBegin(config, suite) {
+    this.rootSuite = suite;
+  }
+
+  onEnd(result) {
+    const summary = {
+      schemaVersion: 1,
+      passed: 0,
+      failed: 0,
+      flaky: 0,
+      total: 0,
+      startTime: new Date().toISOString(),
+      isSummary: true
+    };
+
+    if (this.rootSuite) {
+      for (const test of this.rootSuite.allTests()) {
+        const status = test.outcome();
+        if (status === 'expected') summary.passed++;
+        if (status === 'unexpected') summary.failed++;
+        if (status === 'flaky') summary.flaky++;
+      }
+    }
+
+    summary.total = summary.passed + summary.failed + summary.flaky;
+    fs.writeFileSync('test-summary.json', JSON.stringify(summary, null, 2));
+    console.log('✅ Test summary created: test-summary.json');
+  }
+}
+
+module.exports = SummaryReporter;</code></pre>
+                    </div>
+                </div>
+
+                <div class="setup-step">
+                    <h3>Step 2: Configure Playwright</h3>
+                    <p>Update your <code>playwright.config.ts</code> to include your new custom reporter.</p>
+                    <div class="code-container">
+                        <div class="code-label">playwright.config.ts</div>
+                        <pre><code>// ... other imports
+reporters: [
+  ['./summary-reporter.js'],  // Add this line
+  ['html'],                   // Keep your existing reporters
+  ['list']
+],</code></pre>
+                    </div>
+                </div>
+
+                <div class="setup-step">
+                    <h3>Step 3: Create GitHub Actions Workflow</h3>
+                    <p>Automate the test run and summary update. Ensure <code>contents: write</code> permission is
+                        enabled.</p>
+                    <div class="code-container">
+                        <div class="code-label">.github/workflows/playwright.yml</div>
+                        <pre><code>name: Playwright Tests
+on: [push, pull_request]
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+    - name: Run tests
+      run: npx playwright test
+    - name: Update test results
+      if: always()
+      run: |
+        git config user.name "Actions Bot"
+        git config user.email "actions@github.com"
+        git add test-summary.json
+        git diff --staged --quiet || git commit -m "chore: update results [skip ci]"
+        git push</code></pre>
+                    </div>
+                </div>
+
+                <div class="setup-step">
+                    <h3>Step 4: Connect & Test</h3>
+                    <p>Push your changes, find the <code>test-summary.json</code> file in your repo, click
+                        <strong>"Raw"</strong>, and paste that URL into the extension settings.
+                    </p>
+                    <div class="callout success">
+                        <strong>Pro Tip:</strong> GitHub UI links are supported too! The extension automatically
+                        converts them to raw links for you.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-card">
+            <h2><i class="fas fa-project-diagram"></i> Workflow & Best Practices</h2>
+            <p>The extension is designed to work with any CI tool including <strong>GitHub Actions</strong>,
+                <strong>GitLab CI</strong>, <strong>Jenkins</strong>, and <strong>CircleCI</strong>.
+            </p>
+
+            <div class="callout info">
+                <i class="fas fa-info-circle"></i> <strong>Important:</strong> Set the workflow to run
+                <code>if: always()</code>. This ensures the summary file is updated even when tests fail, which is
+                exactly when you need the badge most!
+            </div>
+
+            <h3>Permissions Explained</h3>
+            <ul style="list-style: disc; margin-left: 1.5rem; margin-bottom: 1.5rem;">
+                <li><strong>storage:</strong> To save your configured JSON URL locally.</li>
+                <li><strong>alarms:</strong> To handle the 1-minute background refresh polling.</li>
+                <li><strong>file access (optional):</strong> Required only if you're monitoring a
+                    <code>test-summary.json</code> on your local machine.
+                </li>
+            </ul>
+        </section>
+
+        <section class="section-card">
+            <h2><i class="fas fa-tools"></i> Troubleshooting common issues</h2>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div>
+                    <strong>Badge shows gray ?</strong>
+                    <p style="font-size: 0.95rem; color: var(--text-muted);">Check if <code>test-summary.json</code>
+                        exists and contains <code>"isSummary": true</code>. Verify the URL is public or reachable.</p>
+                </div>
+                <div>
+                    <strong>Tests not updating?</strong>
+                    <p style="font-size: 0.95rem; color: var(--text-muted);">Confirm your GitHub Workflow has
+                        <code>contents: write</code> permissions and that <code>[skip ci]</code> is used to avoid
+                        infinite loops.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="cta-box">
+            <h3>Boost Your Testing Productivity</h3>
+            <p>Get the extension for free and keep your test health visible at all times.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh" class="btn-primary"
+                    target="_blank">
+                    <i class="fab fa-chrome"></i> Add to Chrome
+                </a>
+                <a href="https://github.com/faruklmu17/browser_extension_test" class="btn-primary"
+                    style="background: #334155;" target="_blank">
+                    <i class="fab fa-github"></i> View Demo Repo
+                </a>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Faruk Hasan. Built for the QA community.</p>
+            <div style="margin-top: 1rem; font-size: 1.2rem; display: flex; justify-content: center; gap: 1.5rem;">
+                <a href="https://linkedin.com/in/md-faruk-hasan/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/faruklmu17" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://faruk-hasan.com" target="_blank"><i class="fas fa-globe"></i></a>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        window.onscroll = function () {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+    </script>
+</body>
+
+</html>
