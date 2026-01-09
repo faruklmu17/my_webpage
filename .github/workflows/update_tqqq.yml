@@ -1,0 +1,41 @@
+name: Update TQQQ Daily
+
+on:
+  schedule:
+    - cron: '0 23 * * 1-5'  # Runs at 11:00 PM UTC every weekday (Mon-Fri)
+  workflow_dispatch:      # Allows manual trigger
+
+jobs:
+  update-tqqq:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node_version: '20'
+
+      - name: Install dependencies
+        run: |
+          npm install
+          npx playwright install chromium --with-deps
+
+      - name: Run update script
+        run: node scripts/update_tqqq_daily.js
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add finance/TQQQ_signals_updated_with_new_data_formatted.xlsx
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Automated TQQQ data update: $(date +'%Y-%m-%d')"
+            git push
+          fi
