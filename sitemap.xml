@@ -509,6 +509,13 @@
     <priority>0.6</priority>
   </url>
 
+  <url>
+    <loc>https://faruk-hasan.com/quizzes/Arduino/arduino_board_potentiometer_quiz.html</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
   <!-- Testing Page -->
   <url>
     <loc>https://faruk-hasan.com/testing/test.html</loc>
