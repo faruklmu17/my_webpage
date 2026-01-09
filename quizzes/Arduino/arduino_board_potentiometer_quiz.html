@@ -4,24 +4,29 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🎛️ Arduino Potentiometer & Analog Quiz | Electronics Mastery</title>
+    <title>Arduino Potentiometer & Analog Quiz | Interactive Electronics Learning</title>
     <meta name="description"
-        content="Test your knowledge of potentiometers and analog input reading with this 15-question Arduino quiz." />
-    <meta name="keywords" content="arduino quiz, potentiometer, analogRead, ADC, electronics quiz, variable resistor" />
+        content="Master Arduino analog inputs with our interactive Potentiometer Quiz. 15 questions covering variable resistors, ADC, analogRead() values, and the map() function. Perfect for students and hobbyists." />
+    <meta name="keywords"
+        content="arduino quiz, potentiometer, analogRead, ADC, electronics quiz, variable resistor, arduino analog input, voltage divider, arduino mapping, electronics learning, faruk hasan arduino" />
     <meta name="author" content="Faruk Hasan" />
+    <link rel="canonical" href="https://faruk-hasan.com/quizzes/Arduino/arduino_board_potentiometer_quiz.html" />
+    <meta name="robots" content="index, follow" />
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Arduino Potentiometer & Analog Quiz">
+    <meta property="og:title" content="Arduino Potentiometer & Analog Quiz | Electronics Mastery">
     <meta property="og:description"
-        content="15 questions covering potentiometers, analog-to-digital conversion, and mapping values in Arduino.">
+        content="How well do you know Arduino analog inputs? Take this 15-question quiz on potentiometers, ADCs, and sensor scaling.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://faruk-hasan.com/quizzes/Arduino/arduino_board_potentiometer_quiz.html">
+    <meta property="og:image" content="https://faruk-hasan.com/assets/images/resources_header.png">
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Arduino Potentiometer Quiz">
     <meta name="twitter:description"
-        content="Master analog inputs! Test your Arduino skills with our Potentiometer quiz.">
+        content="Test your Arduino skills with our interactive Potentiometer and Analog Input quiz.">
+    <meta name="twitter:image" content="https://faruk-hasan.com/assets/images/resources_header.png">
 
     <!-- Schema.org JSON-LD for Quiz -->
     <script type="application/ld+json">
@@ -406,123 +411,127 @@
                 <label><input type="radio" name="q6" value="A"> A) Exactly 5V always</label>
                 <label><input type="radio" name="q6" value="B"> B) Fixed 2.5V</label>
                 <label><input type="radio" name="q6" value="C"> C) 0V to 5V</label>
-                <label><input type="radio" name="q6" value="D) Fixed 0V</label>
-        <div class=" explanation">As you turn the knob, the wiper moves between the 5V and GND terminals, creating a
-                    variable voltage.
+                <label><input type="radio" name="q6" value="D"> D) Fixed 0V</label>
+                <div class="explanation">As you turn the knob, the wiper moves between the 5V and GND terminals,
+                    creating a variable voltage.</div>
             </div>
-    </div>
 
-    <!-- Question 7 -->
-    <div class="question" id="q7">
-        <p>7. What does the map() function do in typical potentiometer projects?</p>
-        <label><input type="radio" name="q7" value="A"> A) It creates a GPS map</label>
-        <label><input type="radio" name="q7" value="B"> B) It converts the 0-1023 range to another range (like
-            0-255)</label>
-        <label><input type="radio" name="q7" value="C"> C) It prints the value to the Serial Monitor</label>
-        <label><input type="radio" name="q7" value="D"> D) It sets the pin mode</label>
-        <div class="explanation">map(value, fromLow, fromHigh, toLow, toHigh) is used to re-proportion the input range
-            to an output range.</div>
-    </div>
+            <!-- Question 7 -->
+            <div class="question" id="q7">
+                <p>7. What does the map() function do in typical potentiometer projects?</p>
+                <label><input type="radio" name="q7" value="A"> A) It creates a GPS map</label>
+                <label><input type="radio" name="q7" value="B"> B) It converts the 0-1023 range to another range (like
+                    0-255)</label>
+                <label><input type="radio" name="q7" value="C"> C) It prints the value to the Serial Monitor</label>
+                <label><input type="radio" name="q7" value="D"> D) It sets the pin mode</label>
+                <div class="explanation">map(value, fromLow, fromHigh, toLow, toHigh) is used to re-proportion the input
+                    range to an output range.</div>
+            </div>
 
-    <!-- Question 8 -->
-    <div class="question" id="q8">
-        <p>8. What component inside the Arduino chip converts the analog voltage to a digital number?</p>
-        <label><input type="radio" name="q8" value="A"> A) CPU</label>
-        <label><input type="radio" name="q8" value="B"> B) PWM Generator</label>
-        <label><input type="radio" name="q8" value="C"> C) ADC (Analog-to-Digital Converter)</label>
-        <label><input type="radio" name="q8" value="D"> D) EEPROM</label>
-        <div class="explanation">The ADC is the specialized hardware that measures voltage and turns it into a number.
+            <!-- Question 8 -->
+            <div class="question" id="q8">
+                <p>8. What component inside the Arduino chip converts the analog voltage to a digital number?</p>
+                <label><input type="radio" name="q8" value="A"> A) CPU</label>
+                <label><input type="radio" name="q8" value="B"> B) PWM Generator</label>
+                <label><input type="radio" name="q8" value="C"> C) ADC (Analog-to-Digital Converter)</label>
+                <label><input type="radio" name="q8" value="D"> D) EEPROM</label>
+                <div class="explanation">The ADC is the specialized hardware that measures voltage and turns it into a
+                    number.</div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question" id="q9">
+                <p>9. To control the brightness of an LED (0-255) using a potentiometer (0-1023), what formula or
+                    function is common?</p>
+                <label><input type="radio" name="q9" value="A"> A) brightness = val * 4;</label>
+                <label><input type="radio" name="q9" value="B"> B) brightness = val / 4;</label>
+                <label><input type="radio" name="q9" value="C"> C) brightness = val + 255;</label>
+                <label><input type="radio" name="q9" value="D"> D) brightness = analogRead(LED_PIN);</label>
+                <div class="explanation">Dividing 1023 by 4 gives approximately 255, scaling the input to the PWM range.
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question" id="q10">
+                <p>10. What electrical configuration is a potentiometer using when its wiper provides a variable
+                    voltage?</p>
+                <label><input type="radio" name="q10" value="A"> A) Series Circuit</label>
+                <label><input type="radio" name="q10" value="B"> B) Parallel Circuit</label>
+                <label><input type="radio" name="q10" value="C"> C) Voltage Divider</label>
+                <label><input type="radio" name="q10" value="D"> D) Current Mirror</label>
+                <div class="explanation">A potentiometer acts as two resistors in series, with the wiper tapping the
+                    voltage between them.</div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="question" id="q11">
+                <p>11. If you connect a 10k ohm potentiometer across 5V and GND, how much total resistance is between
+                    the 5V and GND pins?</p>
+                <label><input type="radio" name="q11" value="A"> A) It depends on the knob position</label>
+                <label><input type="radio" name="q11" value="B"> B) Fixed 10k ohms</label>
+                <label><input type="radio" name="q11" value="C"> C) 0 ohms</label>
+                <label><input type="radio" name="q11" value="D"> D) Infinity</label>
+                <div class="explanation">The resistance between the two outer pins is fixed at the rated value of the
+                    potentiometer.</div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question" id="q12">
+                <p>12. What happens to the analogRead() value if you leave an analog pin "floating" (connected to
+                    nothing)?</p>
+                <label><input type="radio" name="q12" value="A"> A) It stays at 0</label>
+                <label><input type="radio" name="q12" value="B"> B) It stays at 1023</label>
+                <label><input type="radio" name="q12" value="C"> C) It fluctuates randomly due to electrical
+                    noise</label>
+                <label><input type="radio" name="q12" value="D"> D) The Arduino resets</label>
+                <div class="explanation">Floating pins pick up EMI and noise, causing unpredictable readings.</div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="question" id="q13">
+                <p>13. Potentiometers are commonly used for which of the following?</p>
+                <label><input type="radio" name="q13" value="A"> A) Adjusting volume on a stereo</label>
+                <label><input type="radio" name="q13" value="B"> B) Calibrating sensor sensitivity</label>
+                <label><input type="radio" name="q13" value="C"> C) Tuning radio frequencies (older ones)</label>
+                <label><input type="radio" name="q13" value="D"> D) All of the above</label>
+                <div class="explanation">Potentiometers are versatile tools for any application requiring
+                    user-adjustable analog input.</div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="question" id="q14">
+                <p>14. In Arduino code, analog pins (A0-A5) need to be initialized with pinMode(pin, INPUT). Is this
+                    true?</p>
+                <label><input type="radio" name="q14" value="A"> A) Yes, always</label>
+                <label><input type="radio" name="q14" value="B"> B) No, analogRead() handles it automatically</label>
+                <label><input type="radio" name="q14" value="C"> C) Only if using them as digital pins</label>
+                <label><input type="radio" name="q14" value="D"> D) Both B and C</label>
+                <div class="explanation">While you can use pinMode, it's not strictly necessary for analogRead(), and
+                    pins A0-A5 can also function as digital pins.</div>
+            </div>
+
+            <!-- Question 15 -->
+            <div class="question" id="q15">
+                <p>15. What is the maximum voltage an Arduino Uno analog pin can safely measure by default?</p>
+                <label><input type="radio" name="q15" value="A"> A) 3.3V</label>
+                <label><input type="radio" name="q15" value="B"> B) 5V</label>
+                <label><input type="radio" name="q15" value="C"> C) 12V</label>
+                <label><input type="radio" name="q15" value="D"> D) 24V</label>
+                <div class="explanation">By default, the reference voltage (Vref) is 5V on an Uno. Exceeding this can
+                    damage the pin.</div>
+            </div>
+
+            <div class="submit-container">
+                <button type="button" id="submitBtn" onclick="gradeQuiz()">
+                    <i class="fas fa-check-circle"></i> Submit Quiz
+                </button>
+            </div>
+        </form>
+
+        <div id="answers" class="key">
+            <h2><i class="fas fa-list-check"></i> Answer Key & Explanations</h2>
+            <ul id="answerList"></ul>
         </div>
-    </div>
-
-    <!-- Question 9 -->
-    <div class="question" id="q9">
-        <p>9. To control the brightness of an LED (0-255) using a potentiometer (0-1023), what formula or function is
-            common?</p>
-        <label><input type="radio" name="q9" value="A"> A) brightness = val * 4;</label>
-        <label><input type="radio" name="q9" value="B"> B) brightness = val / 4;</label>
-        <label><input type="radio" name="q9" value="C"> C) brightness = val + 255;</label>
-        <label><input type="radio" name="q9" value="D"> D) brightness = analogRead(LED_PIN);</label>
-        <div class="explanation">Dividing 1023 by 4 gives approximately 255, scaling the input to the PWM range.</div>
-    </div>
-
-    <!-- Question 10 -->
-    <div class="question" id="q10">
-        <p>10. What electrical configuration is a potentiometer using when its wiper provides a variable voltage?</p>
-        <label><input type="radio" name="q10" value="A"> A) Series Circuit</label>
-        <label><input type="radio" name="q10" value="B"> B) Parallel Circuit</label>
-        <label><input type="radio" name="q10" value="C"> C) Voltage Divider</label>
-        <label><input type="radio" name="q10" value="D"> D) Current Mirror</label>
-        <div class="explanation">A potentiometer acts as two resistors in series, with the wiper tapping the voltage
-            between them.</div>
-    </div>
-
-    <!-- Question 11 -->
-    <div class="question" id="q11">
-        <p>11. If you connect a 10k ohm potentiometer across 5V and GND, how much total resistance is between the 5V and
-            GND pins?</p>
-        <label><input type="radio" name="q11" value="A"> A) It depends on the knob position</label>
-        <label><input type="radio" name="q11" value="B"> B) Fixed 10k ohms</label>
-        <label><input type="radio" name="q11" value="C"> C) 0 ohms</label>
-        <label><input type="radio" name="q11" value="D"> D) Infinity</label>
-        <div class="explanation">The resistance between the two outer pins is fixed at the rated value of the
-            potentiometer.</div>
-    </div>
-
-    <!-- Question 12 -->
-    <div class="question" id="q12">
-        <p>12. What happens to the analogRead() value if you leave an analog pin "floating" (connected to nothing)?</p>
-        <label><input type="radio" name="q12" value="A"> A) It stays at 0</label>
-        <label><input type="radio" name="q12" value="B"> B) It stays at 1023</label>
-        <label><input type="radio" name="q12" value="C"> C) It fluctuates randomly due to electrical noise</label>
-        <label><input type="radio" name="q12" value="D"> D) The Arduino resets</label>
-        <div class="explanation">Floating pins pick up EMI and noise, causing unpredictable readings.</div>
-    </div>
-
-    <!-- Question 13 -->
-    <div class="question" id="q13">
-        <p>13. Potentiometers are commonly used for which of the following?</p>
-        <label><input type="radio" name="q13" value="A"> A) Adjusting volume on a stereo</label>
-        <label><input type="radio" name="q13" value="B"> B) Calibrating sensor sensitivity</label>
-        <label><input type="radio" name="q13" value="C"> C) Tuning radio frequencies (older ones)</label>
-        <label><input type="radio" name="q13" value="D"> D) All of the above</label>
-        <div class="explanation">Potentiometers are versatile tools for any application requiring user-adjustable analog
-            input.</div>
-    </div>
-
-    <!-- Question 14 -->
-    <div class="question" id="q14">
-        <p>14. In Arduino code, analog pins (A0-A5) need to be initialized with pinMode(pin, INPUT). Is this true?</p>
-        <label><input type="radio" name="q14" value="A"> A) Yes, always</label>
-        <label><input type="radio" name="q14" value="B"> B) No, analogRead() handles it automatically</label>
-        <label><input type="radio" name="q14" value="C"> C) Only if using them as digital pins</label>
-        <label><input type="radio" name="q14" value="D"> D) Both B and C</label>
-        <div class="explanation">While you can use pinMode, it's not strictly necessary for analogRead(), and pins A0-A5
-            can also function as digital pins.</div>
-    </div>
-
-    <!-- Question 15 -->
-    <div class="question" id="q15">
-        <p>15. What is the maximum voltage an Arduino Uno analog pin can safely measure by default?</p>
-        <label><input type="radio" name="q15" value="A"> A) 3.3V</label>
-        <label><input type="radio" name="q15" value="B"> B) 5V</label>
-        <label><input type="radio" name="q15" value="C"> C) 12V</label>
-        <label><input type="radio" name="q15" value="D"> D) 24V</label>
-        <div class="explanation">By default, the reference voltage (Vref) is 5V on an Uno. Exceeding this can damage the
-            pin.</div>
-    </div>
-
-    <div class="submit-container">
-        <button type="button" id="submitBtn" onclick="gradeQuiz()">
-            <i class="fas fa-check-circle"></i> Submit Quiz
-        </button>
-    </div>
-    </form>
-
-    <div id="answers" class="key">
-        <h2><i class="fas fa-list-check"></i> Answer Key & Explanations</h2>
-        <ul id="answerList"></ul>
-    </div>
     </div>
 
     <script>
