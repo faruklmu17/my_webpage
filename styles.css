@@ -43,7 +43,7 @@ header {
 }
 
 .header-content {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -2944,6 +2944,83 @@ footer {
   font-weight: 400;
   overflow: visible;
   padding-right: 35px;
+}
+
+/* Open Source Contributions in Skills */
+.os-contrib-category {
+  padding: 0.6rem 0.8rem !important;
+}
+
+.os-stats-row {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.4rem 0;
+}
+
+.os-badge {
+  font-size: 0.7rem;
+  background: rgba(52, 152, 219, 0.1);
+  color: #2980b9;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.os-lang-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.os-lang-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.os-lang-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.os-progress {
+  height: 4px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.os-bar {
+  height: 100%;
+  border-radius: 4px;
+}
+
+.os-bar.python {
+  background: #3776ab;
+}
+
+.os-bar.typescript {
+  background: #3178c6;
+}
+
+.os-bar.html {
+  background: #e34c26;
+}
+
+.os-bar.javascript {
+  background: #f7df1e;
+}
+
+/* Even more compact for 4 items */
+.os-lang-stats {
+  gap: 0.35rem;
 }
 
 .category-link {
