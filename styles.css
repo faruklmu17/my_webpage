@@ -3103,6 +3103,69 @@ a[href*="huggingface"].category-link-inline:hover {
   margin-bottom: 0;
 }
 
+.edu-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.title-with-badge {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.2rem;
+  flex-wrap: wrap;
+}
+
+.udemy-badge-sleek {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #fdfaff;
+  color: #A435F0 !important;
+  padding: 0.4rem 0.9rem;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 1px solid rgba(164, 53, 240, 0.15);
+  box-shadow: 0 2px 8px rgba(164, 53, 240, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: none !important;
+}
+
+.udemy-svg-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.udemy-badge-sleek:hover {
+  transform: translateY(-2px) scale(1.02);
+  background: #A435F0;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(164, 53, 240, 0.25);
+  border-color: #A435F0;
+}
+
+.udemy-badge-sleek:hover .udemy-svg-icon {
+  transform: scale(1.1);
+}
+
+@media (max-width: 480px) {
+  .title-with-badge {
+    gap: 0.5rem;
+  }
+
+  .udemy-badge-sleek {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.75rem;
+  }
+}
+
 /* Combined Stats and Courses */
 .education-content {
   display: grid;
