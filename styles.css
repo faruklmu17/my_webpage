@@ -3341,10 +3341,11 @@ a[href*="huggingface"].category-link-inline:hover {
   justify-content: space-between;
   align-items: center;
   background: white;
-  padding: 0.6rem 0.8rem;
-  border-radius: 6px;
+  padding: 1.25rem 1.2rem;
+  border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
+  margin-bottom: 0.8rem;
 }
 
 .course-item:hover {
@@ -3411,11 +3412,11 @@ a[href*="huggingface"].category-link-inline:hover {
   justify-content: center;
   background: linear-gradient(135deg, #3498db, #2980b9);
   color: white;
-  padding: 0.6rem 0.8rem;
+  padding: 1.25rem 1rem;
   border-radius: 8px;
   text-decoration: none;
   transition: all 0.3s ease;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 600;
   text-align: center;
 }
