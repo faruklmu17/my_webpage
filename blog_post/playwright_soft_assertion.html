@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO: Optimized Meta Tags -->
+    <title>Mastering Playwright Soft Assertions: The Guide to expect.soft()</title>
+    <meta name="description"
+        content="Stop debugging blindly. Learn how Playwright soft assertions (expect.soft) let you catch multiple UI failures in a single test run. Full guide with examples." />
+    <meta name="keywords"
+        content="playwright soft assertion, playwright expect.soft, playwright assertions tutorial, playwright test automation, soft vs hard assertions, playwright testing, end to end testing, UI testing" />
+    <meta name="author" content="Faruk Hasan" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Mastering Playwright Soft Assertions: The Guide to expect.soft()" />
+    <meta property="og:description"
+        content="Stop debugging blindly. Learn how Playwright soft assertions (expect.soft) let you catch multiple UI failures in a single test run." />
+    <meta property="og:url" content="https://faruk-hasan.com/blog_post/playwright_soft_assertion.html" />
+    <meta property="og:site_name" content="Faruk Hasan Portfolio" />
+    <!-- Cover Image -->
+    <meta property="og:image" content="https://faruk-hasan.com/blog_images/soft_assertion_cover.png" />
+    <meta property="og:image:alt"
+        content="Visual representation of soft assertions allowing tests to continue after failure" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://faruk-hasan.com/blog_images/soft_assertion_cover.png" />
+
+    <!-- SEO: Canonical & Structured Data -->
+    <link rel="canonical" href="https://faruk-hasan.com/blog_post/playwright_soft_assertion.html" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Mastering Playwright Soft Assertions: The Guide to expect.soft()",
+      "description": "Learn how soft assertions work in Playwright using expect.soft(). See why hard assertions stop a test early, how soft assertions collect multiple failures, and best practices with examples.",
+      "author": {
+        "@type": "Person",
+        "name": "Faruk Hasan",
+        "url": "https://linkedin.com/in/md-faruk-hasan/"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Faruk Hasan"
+      },
+      "datePublished": "2026-01-11",
+      "dateModified": "2026-01-11",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://faruk-hasan.com/blog_post/playwright_soft_assertion.html"
+      }
+    }
+    </script>
+
+    <!-- Typography & Icons -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --accent: #10b981;
+            --accent-soft: rgba(16, 185, 129, 0.1);
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            z-index: 1000;
+        }
+
+        /* Layout */
+        .main-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 5rem;
+        }
+
+        /* Header Section */
+        .article-header {
+            margin-bottom: 3.5rem;
+            text-align: center;
+        }
+
+        .cover-image-container {
+            margin: 2rem 0 3rem 0;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+        }
+
+        .cover-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            max-height: 500px;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 0.35rem 1rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: clamp(2.25rem, 5vw, 3.25rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: #111827;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .author-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--border);
+        }
+
+        /* Content Sections */
+        .section-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            margin-bottom: 2.5rem;
+        }
+
+        h2 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            color: #111827;
+            margin: 0 0 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #111827;
+            margin: 2rem 0 1rem;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            font-size: 1.1rem;
+            color: #374151;
+        }
+
+        ul {
+            list-style: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1.25rem;
+            color: #374151;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Code Blocks */
+        .code-container {
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            border: 1px solid #1e293b;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        p code,
+        li code {
+            background: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: var(--primary-dark);
+        }
+
+        /* Callouts */
+        .callout {
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin: 2rem 0;
+            border-left: 4px solid var(--primary);
+        }
+
+        .callout strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+
+        .callout.info {
+            background: #eff6ff;
+            border-color: var(--primary);
+        }
+
+        /* Grid for comparison */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (min-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .compare-card {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            background: #f8fafc;
+        }
+
+        .compare-card h3 {
+            margin-top: 0;
+            font-size: 1.1rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 0;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scroll-progress" id="progressBar"></div>
+
+    <main class="main-wrapper">
+        <header class="article-header">
+            <span class="category-badge">Playwright • Testing</span>
+            <h1>Soft Assertions in Playwright (expect.soft): Why They Matter + Examples</h1>
+
+            <div class="article-meta">
+                <div class="meta-item">
+                    <img src="../assets/images/me.jpg" alt="Faruk Hasan" class="author-img">
+                    <span>By <strong>Faruk Hasan</strong></span>
+                </div>
+                <div class="meta-item">
+                    <i class="far fa-calendar"></i>
+                    <time datetime="2026-01-11">Jan 11, 2026</time>
+                </div>
+                <div class="meta-item">
+                    <i class="far fa-clock"></i>
+                    <span>5 min read</span>
+                </div>
+            </div>
+
+            <div class="cover-image-container">
+                <img src="../blog_images/soft_assertion_cover.png" alt="Soft Assertions Concept Art"
+                    class="cover-image">
+            </div>
+        </header>
+
+        <section class="section-card">
+            <h2><i class="fas fa-exclamation-triangle"></i> The Problem with Hard Assertions</h2>
+            <p>
+                Playwright assertions are usually <strong>hard assertions</strong>—meaning the test stops as soon as one
+                assertion fails.
+                That’s fine for critical logic checks, but it can slow down debugging when you want to validate multiple
+                UI elements on a page.
+            </p>
+            <p>
+                Here’s a simple test with three assertions. These are <strong>hard assertions</strong> (the default
+                behavior).
+            </p>
+
+            <div class="code-container">
+                <pre><code>import { test, expect } from "@playwright/test";
+
+test("Homepage validations (hard assertions)", async ({ page }) => {
+  await page.goto("https://example.com");
+
+  expect(await page.textContent("h1")).toBe("Welcome");   // Assertion 1
+  expect(await page.isVisible("#login")).toBe(true);      // Assertion 2
+  expect(await page.isVisible("#signup")).toBe(true);     // Assertion 3
+});</code></pre>
+            </div>
+
+            <div class="callout warning">
+                <strong>What happens if Assertion 1 fails?</strong>
+                <ul>
+                    <li>The test stops immediately.</li>
+                    <li>Assertion 2 and Assertion 3 never run.</li>
+                    <li>You only see the first failure in the report.</li>
+                </ul>
+            </div>
+
+            <p>
+                The key issue: you <strong>do not know</strong> whether the other two checks were passing or
+                failing—because the test ended early.
+            </p>
+        </section>
+
+        <section class="section-card">
+            <h2><i class="fas fa-bug"></i> Why Debugging Becomes Slow</h2>
+            <p>
+                Let’s say you fix the first failing assertion and run the test again.
+            </p>
+
+            <div class="comparison-grid">
+                <div class="compare-card">
+                    <h3><i class="fas fa-times-circle" style="color: var(--danger)"></i> Run #1</h3>
+                    <ul style="margin: 0; padding-left: 1rem;">
+                        <li>Assertion 1 fails ❌</li>
+                        <li>Test stops</li>
+                        <li>Assertions 2 and 3 are skipped</li>
+                    </ul>
+                </div>
+
+                <div class="compare-card">
+                    <h3><i class="fas fa-sync" style="color: var(--warning)"></i> Run #2 (after fix)</h3>
+                    <ul style="margin: 0; padding-left: 1rem;">
+                        <li>Assertion 1 passes ✅</li>
+                        <li>Assertion 2 fails ❌</li>
+                        <li>Test stops again</li>
+                        <li>Assertion 3 is still skipped</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p>
+                This creates a slow loop: <strong>Fix → Run → Find next failure → Fix → Run again</strong>.
+                It’s especially painful when you’re validating a UI page with many checks.
+            </p>
+        </section>
+
+        <section class="section-card">
+            <h2><i class="fas fa-check-double"></i> The Solution: expect.soft()</h2>
+            <p>
+                Soft assertions tell Playwright: "If this fails, record it—but keep going."
+            </p>
+
+            <div class="code-container">
+                <pre><code>import { test, expect } from "@playwright/test";
+
+test("Homepage validations (soft assertions)", async ({ page }) => {
+  await page.goto("https://example.com");
+
+  expect.soft(await page.textContent("h1")).toBe("Welcome");
+  expect.soft(await page.isVisible("#login")).toBe(true);
+  expect.soft(await page.isVisible("#signup")).toBe(true);
+});</code></pre>
+            </div>
+
+            <div class="callout info">
+                <strong>What changes now?</strong>
+                <ul>
+                    <li>If the first assertion fails, the test continues.</li>
+                    <li>Playwright runs assertion 2 and 3 anyway.</li>
+                    <li>At the end, you get a report showing all failures together.</li>
+                </ul>
+            </div>
+
+            <p>
+                <strong>Important:</strong> if any soft assertion fails, the test is still marked as
+                <strong>FAILED</strong>—you just get more useful feedback in one run.
+            </p>
+        </section>
+
+        <section class="section-card">
+            <h2><i class="fas fa-balance-scale"></i> When to Use Soft vs Hard Assertions</h2>
+
+            <div class="comparison-grid">
+                <div class="compare-card">
+                    <h3>Use Soft Assertions For:</h3>
+                    <ul>
+                        <li>UI validation (multiple checks on one page)</li>
+                        <li>Regression verification (collect all issues in one run)</li>
+                        <li>Dashboards, reports, content-heavy pages</li>
+                    </ul>
+                </div>
+
+                <div class="compare-card">
+                    <h3>Use Hard Assertions For:</h3>
+                    <ul>
+                        <li>Critical flow checks (e.g., login must succeed before continuing)</li>
+                        <li>API/logic validations where continuing doesn’t make sense</li>
+                        <li>Any step where failure should stop the rest of the test</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-card">
+            <h2><i class="fas fa-star"></i> Best Practice: Mix Them</h2>
+            <p>
+                A simple strategy that works well:
+            </p>
+            <ul>
+                <li><strong>Hard assertion</strong> for the critical step (example: "Login succeeded").</li>
+                <li><strong>Soft assertions</strong> for page validation after that (example: "UI elements are
+                    visible").</li>
+            </ul>
+
+            <div class="callout info">
+                <strong>Takeaway</strong>
+                <p style="margin-bottom: 0.5rem">Hard assertions stop a test early.</p>
+                <p style="margin-bottom: 0">Soft assertions keep the test running and collect all failures—making
+                    debugging much faster.</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Faruk Hasan. Built for the QA community.</p>
+            <div style="margin-top: 1rem; font-size: 1.2rem; display: flex; justify-content: center; gap: 1.5rem;">
+                <a href="https://linkedin.com/in/md-faruk-hasan/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/faruklmu17" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://faruk-hasan.com" target="_blank"><i class="fas fa-globe"></i></a>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        window.onscroll = function () {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+    </script>
+</body>
+
+</html>
