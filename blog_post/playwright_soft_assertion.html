@@ -349,6 +349,41 @@
         </header>
 
         <section class="section-card">
+            <h2><i class="fas fa-info-circle"></i> What Is an Assertion?</h2>
+            <p>
+                An assertion is a check that compares:
+            </p>
+            <div class="callout info" style="text-align: center; font-weight: 500;">
+                Expected Result <i class="fas fa-arrows-alt-h" style="margin: 0 10px; color: var(--text-muted);"></i>
+                Actual Result
+            </div>
+
+            <p>Example:</p>
+            <div class="code-container">
+                <pre><code>expect(title).toBe("Home");</code></pre>
+            </div>
+            <p>
+                This means: <em>"I expect the page title to be ‘Home’. If it is not, fail the test."</em>
+            </p>
+            <p>
+                Assertions are the core of any automated test. Without assertions, a test only performs actions but
+                never validates results.
+            </p>
+
+            <h3>Hard Assertions (Default Behavior)</h3>
+            <p>By default, Playwright uses <strong>hard assertions</strong>.</p>
+            <div class="code-container">
+                <pre><code>expect(value).toBe(10);</code></pre>
+            </div>
+            <p><strong>How hard assertions work:</strong></p>
+            <ul>
+                <li>If the assertion fails → the test stops <strong>immediately</strong>.</li>
+                <li>The remaining steps in that test never run.</li>
+                <li>Only the first failure is reported.</li>
+            </ul>
+        </section>
+
+        <section class="section-card">
             <h2><i class="fas fa-exclamation-triangle"></i> The Problem with Hard Assertions</h2>
             <p>
                 Playwright assertions are usually <strong>hard assertions</strong>—meaning the test stops as soon as one
