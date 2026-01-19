@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Robo-Balance: Learn Reinforcement Learning (RL) Basics with CartPole</title>
+    <meta name="description"
+        content="Play Robo-Balance, a fun and interactive game that teaches Reinforcement Learning (RL) basics through the classic CartPole challenge. Help the robot learn to balance!">
+    <meta name="keywords"
+        content="Reinforcement Learning, RL Basics, CartPole, AI Game, Machine Learning for Kids, Robo-Balance, Faruk Hasan, AI Education">
+    <link rel="canonical" href="https://faruk-hasan.com/games/cartpole_balance.html" />
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Robo-Balance: Learn Reinforcement Learning (RL) Basics">
+    <meta property="og:description"
+        content="Balance the stick with AI! A playful introduction to Reinforcement Learning and CartPole dynamics.">
+    <meta property="og:image" content="https://faruk-hasan.com/static/mascot.png">
+    <meta property="og:url" content="https://faruk-hasan.com/games/cartpole_balance.html">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Robo-Balance: Learn Reinforcement Learning (RL) Basics">
+    <meta name="twitter:description"
+        content="Balance the stick with AI! A playful introduction to Reinforcement Learning and CartPole dynamics.">
+    <meta name="twitter:image" content="https://faruk-hasan.com/static/mascot.png">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Robo-Balance",
+      "operatingSystem": "Web",
+      "applicationCategory": "EducationalGame",
+      "description": "An interactive web game to teach Reinforcement Learning basics using the CartPole problem.",
+      "genre": "Educational Game",
+      "author": {
+        "@type": "Person",
+        "name": "Faruk Hasan"
+      }
+    }
+    </script>
+    <style>
+        :root {
+            --bg: #fdfefe;
+            --card: #ffffff;
+            --text: #334e68;
+            --primary: #ffce00;
+            /* Sunny Yellow */
+            --secondary: #47cbd5;
+            /* Sky Blue */
+            --accent: #ff6b6b;
+            /* Playful Red */
+            --success: #63d471;
+            /* Happy Green */
+            --border: #e2e8f0;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', cursive, sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #fff9db 100%);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        header {
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: var(--accent);
+            text-shadow: 2px 2px 0px #fff;
+            margin-bottom: 10px;
+        }
+
+        .mascot {
+            width: 150px;
+            position: absolute;
+            top: 20px;
+            right: 5%;
+            animation: wave 2s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes wave {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(15deg);
+            }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .game-section {
+            background: white;
+            border: 8px solid var(--primary);
+            border-radius: 40px;
+            padding: 30px;
+            box-shadow: 0 20px 0px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+
+        canvas {
+            width: 100%;
+            height: 300px;
+            background: #f0f9ff;
+            border: 4px dashed var(--secondary);
+            border-radius: 20px;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .btn {
+            background: var(--primary);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 6px 0px #d9af00;
+            transition: transform 0.1s;
+            color: #333;
+        }
+
+        .btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0px #d9af00;
+        }
+
+        .btn.blue {
+            background: var(--secondary);
+            box-shadow: 0 6px 0px #36aab3;
+        }
+
+        .btn.red {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 6px 0px #d15656;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 20px;
+        }
+
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #64748b;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .instructions {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            border: 4px solid var(--secondary);
+        }
+
+        .step-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .emoji {
+            font-size: 3rem;
+        }
+
+        .explanation h3 {
+            margin: 0;
+            color: var(--secondary);
+        }
+
+        .explanation p {
+            margin: 5px 0 0;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <img src="../assets/images/mascot.png" class="mascot" alt="Friendly Robot" id="mascot">
+        <h1>Robo-Balance!</h1>
+        <p style="font-size: 1.5rem; color: #555;">Can you help the robot keep the stick from falling? 🍭</p>
+        <a href="cartpole_fullscreen.html" class="btn blue"
+            style="text-decoration: none; display: inline-block; margin-top: 10px;">🌟 Play Fullscreen (Keyboard
+            Mode)</a>
+    </header>
+
+    <div class="container">
+        <div class="game-section">
+            <canvas id="sim"></canvas>
+
+            <div class="controls">
+                <button id="actLeft" class="btn">⬅️ Push Left</button>
+                <button id="actRight" class="btn">Push Right ➡️</button>
+                <button id="actAuto" class="btn blue">🤖 Robot Helper</button>
+                <button id="reset" class="btn red">🔄 Try Again!</button>
+            </div>
+
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-label">High Score 🏆</div>
+                    <div class="stat-value" id="score">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Cookie Points 🍪</div>
+                    <div class="stat-value" id="rew">+0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Team Status</div>
+                    <div class="stat-value" id="status" style="color: var(--accent);">Ready!</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h2 style="text-align: center; color: var(--accent); font-size: 2.5rem;">How to Play!</h2>
+
+            <div class="step-card">
+                <div class="emoji">🎢</div>
+                <div class="explanation">
+                    <h3>1. The Balancing Act</h3>
+                    <p>Imagine balancing a broom on your hand. If you don't move, it falls! You have to move your hand
+                        underneath it to catch it.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="emoji">🧠</div>
+                <div class="explanation">
+                    <h3>2. The AI Brain</h3>
+                    <p>Our robot friend learns by trying. Every time it keeps the stick up, it gets a virtual
+                        <strong>cookie</strong> 🍪. It loves cookies, so it tries very hard to balance!
+                    </p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="emoji">👀</div>
+                <div class="explanation">
+                    <h3>3. Watch the Angle</h3>
+                    <p>If the stick leans right, you should push the cart <strong>right</strong> to get back under it.
+                        It's like catching a falling friend!</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="emoji">⌨️</div>
+                <div class="explanation">
+                    <h3>4. Keyboard Power!</h3>
+                    <p>On the <a href="cartpole_fullscreen.html">Fullscreen version</a>, you can use your <strong>Left
+                            and Right Arrow Keys</strong> to balance like a pro!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple Simulation Logic
+        // Continuous Physics Simulation
+        const canvas = document.getElementById("sim");
+        const ctx = canvas.getContext("2d");
+        const scoreEl = document.getElementById("score");
+        const rewEl = document.getElementById("rew");
+        const statusEl = document.getElementById("status");
+
+        let x = 0, xd = 0, th = 0.05, thd = 0.1;
+        let score = 0, alive = true, currentAction = null, autoMode = false;
+        const dt = 0.02, angleLimit = 0.6, posLimit = 2.4;
+
+        function gameLoop() {
+            if (alive) {
+                updatePhysics();
+            }
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+
+        function updatePhysics() {
+            // 1. Determine Force
+            let force = 0;
+            if (autoMode) {
+                force = (th + 0.1 * thd > 0) ? 1.0 : -1.0;
+            } else if (currentAction === "RIGHT") {
+                force = 1.0;
+            } else if (currentAction === "LEFT") {
+                force = -1.0;
+            }
+
+            // 2. Dynamics
+            xd *= 0.85; // Friction
+            thd *= 0.98; // Air resistance
+
+            xd = Math.max(-5, Math.min(5, xd + force * 0.15));
+            x = Math.max(-posLimit, Math.min(posLimit, x + xd * dt));
+
+            // Gravity + Cart Influence
+            const gravity = Math.sin(th) * 3;
+            const push = force * 4.0;
+            const thdd = gravity - push;
+
+            thd += thdd * dt;
+            th += thd * dt;
+
+            // 3. Termination
+            if (Math.abs(th) >= angleLimit || Math.abs(x) >= posLimit) {
+                alive = false;
+                statusEl.textContent = "Oops! 😵";
+                statusEl.style.color = "#ff6b6b";
+            } else {
+                score++;
+                if (score % 20 === 0) {
+                    const cookieCount = Math.min(5, Math.floor(score / 100) + 1);
+                    rewEl.textContent = "🍪".repeat(cookieCount);
+                }
+                scoreEl.textContent = Math.floor(score / 5);
+                statusEl.textContent = "Balancing... ✨";
+                statusEl.style.color = "#63d471";
+            }
+        }
+
+        function reset() {
+            x = 0; xd = 0; th = (Math.random() - 0.5) * 0.1; thd = 0;
+            score = 0; alive = true; autoMode = false; currentAction = null;
+            document.getElementById("actAuto").textContent = "🤖 Robot Helper";
+            scoreEl.textContent = "0";
+            rewEl.textContent = "+0";
+            statusEl.textContent = "Ready! 🚀";
+            statusEl.style.color = "#47cbd5";
+        }
+
+        function draw() {
+            const W = canvas.width = canvas.offsetWidth;
+            const H = canvas.height = canvas.offsetHeight;
+            ctx.clearRect(0, 0, W, H);
+
+            ctx.strokeStyle = "#cbd5e1";
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(50, H - 80); ctx.lineTo(W - 50, H - 80);
+            ctx.stroke();
+
+            const screenX = (x / (posLimit * 2) + 0.5) * (W - 100) + 50;
+
+            ctx.fillStyle = "#ffce00";
+            ctx.beginPath();
+            ctx.roundRect(screenX - 40, H - 100, 80, 40, 10);
+            ctx.fill();
+            ctx.strokeStyle = "#333";
+            ctx.stroke();
+
+            ctx.fillStyle = "#333";
+            ctx.beginPath(); ctx.arc(screenX - 25, H - 65, 10, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(screenX + 25, H - 65, 10, 0, Math.PI * 2); ctx.fill();
+
+            ctx.save();
+            ctx.translate(screenX, H - 100);
+            ctx.rotate(th);
+            ctx.fillStyle = "#ff6b6b";
+            ctx.beginPath();
+            ctx.roundRect(-5, -120, 10, 120, 5);
+            ctx.fill();
+            ctx.fillStyle = alive ? "#fff340" : "#999";
+            ctx.beginPath();
+            ctx.arc(0, -125, 8, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        // Action Handlers
+        const setAction = (a) => { if (alive && !autoMode) currentAction = a; };
+
+        elLeft = document.getElementById("actLeft");
+        elLeft.onmousedown = () => setAction("LEFT");
+        elLeft.onmouseup = () => currentAction = null;
+        elLeft.ontouchstart = (e) => { e.preventDefault(); setAction("LEFT"); };
+        elLeft.ontouchend = () => currentAction = null;
+
+        elRight = document.getElementById("actRight");
+        elRight.onmousedown = () => setAction("RIGHT");
+        elRight.onmouseup = () => currentAction = null;
+        elRight.ontouchstart = (e) => { e.preventDefault(); setAction("RIGHT"); };
+        elRight.ontouchend = () => currentAction = null;
+
+        document.getElementById("actAuto").onclick = () => {
+            if (!alive) return;
+            autoMode = !autoMode;
+            document.getElementById("actAuto").textContent = autoMode ? "🛑 Stop Robot" : "🤖 Robot Helper";
+            currentAction = null;
+        };
+        document.getElementById("reset").onclick = reset;
+
+        window.onresize = draw;
+        reset();
+        gameLoop();
+    </script>
+</body>
+
+</html>
