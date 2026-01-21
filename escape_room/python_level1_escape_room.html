@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PyBot's Space Escape: Python Basics</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Outfit:wght@300;400;600&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: rgba(30, 41, 59, 0.7);
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.3);
+            --success: #4ade80;
+            --error: #fb7185;
+            --warning: #fbbf24;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --radius: 24px;
+            --font-main: 'Outfit', sans-serif;
+            --font-fancy: 'Fredoka', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-main);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+            /* Animated Background */
+            background:
+                radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 40%),
+                linear-gradient(to bottom right, #0f172a, #1e1b4b);
+        }
+
+        /* Star animations */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        .container {
+            width: min(1100px, 100%);
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 950px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Glass Panels */
+        .panel {
+            background: var(--card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Styling */
+        .game-header {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .mascot-box {
+            font-size: 48px;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 0 10px var(--accent-glow));
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        h1 {
+            font-family: var(--font-fancy);
+            font-size: clamp(24px, 5vw, 36px);
+            margin: 0;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+        }
+
+        .story {
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 12px 0;
+        }
+
+        /* Progress & Scene */
+        .mission-status {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .scene-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .scene-title h3 {
+            margin: 0;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+        }
+
+        .progress-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+        }
+
+        .progress-bar-bg {
+            width: 120px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent), var(--success));
+            box-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        /* Puzzle Area */
+        .puzzle-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 24px;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .puzzle-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .puzzle-id {
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .puzzle-title {
+            font-family: var(--font-fancy);
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .question {
+            font-size: 17px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .code-block {
+            font-family: var(--font-mono);
+            background: #000;
+            color: #38bdf8;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            border-left: 4px solid var(--accent);
+            white-space: pre-wrap;
+        }
+
+        /* Inputs & Choices */
+        .choices-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .choice-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .choice-item:hover {
+            background: rgba(56, 189, 248, 0.1);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .choice-item input {
+            margin-right: 12px;
+            accent-color: var(--accent);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            color: var(--text);
+            font-family: var(--font-mono);
+            font-size: 16px;
+            outline: none;
+        }
+
+        .input-field:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        /* Buttons */
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 24px;
+            border-radius: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-main);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0ea5e9, #6366f1);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px var(--accent-glow);
+        }
+
+        .btn-ghost {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-danger {
+            background: rgba(244, 63, 94, 0.1);
+            color: #fb7185;
+            border: 1px solid rgba(244, 63, 94, 0.2);
+        }
+
+        .btn-danger:hover {
+            background: rgba(244, 63, 94, 0.2);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* Feedback & Log */
+        .feedback {
+            margin-top: 20px;
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 14px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .feedback.success {
+            background: rgba(74, 222, 128, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+        }
+
+        .feedback.error {
+            background: rgba(251, 113, 129, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(251, 113, 129, 0.2);
+        }
+
+        .feedback.info {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .mission-log {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .log-container {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            padding: 16px;
+            height: 250px;
+            overflow-y: auto;
+            font-size: 13px;
+            font-family: var(--font-mono);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .log-entry {
+            margin-bottom: 8px;
+            border-left: 2px solid var(--accent);
+            padding-left: 8px;
+        }
+
+        .log-success {
+            border-left-color: var(--success);
+            color: var(--success);
+        }
+
+        .log-error {
+            border-left-color: var(--error);
+            color: var(--error);
+        }
+
+        /* Final Lock */
+        .lock-section {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.05), rgba(139, 92, 246, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 24px;
+            margin-top: auto;
+        }
+
+        .fragment-badger-container {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .fragment-badge {
+            padding: 4px 8px;
+            background: rgba(56, 189, 248, 0.2);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--accent);
+        }
+
+        .final-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Win State */
+        #win-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.95);
+            z-index: 100;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px;
+            backdrop-filter: blur(8px);
+        }
+
+        .win-content {
+            max-width: 500px;
+            animation: zoomIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .win-mascot {
+            font-size: 100px;
+            margin-bottom: 20px;
+        }
+
+        .win-title {
+            font-family: var(--font-fancy);
+            font-size: 48px;
+            color: var(--success);
+            margin-bottom: 16px;
+        }
+
+        /* Tag/Pills */
+        .tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .tag {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 99px;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stars" id="stars-container"></div>
+
+    <div class="container">
+        <!-- Left Panel: Puzzles -->
+        <main class="panel">
+            <header class="game-header">
+                <div class="mascot-box">🚀</div>
+                <h1>PyBot's Space Escape</h1>
+                <p class="story">
+                    Help PyBot unlock the spaceship door! Solve 8 Python puzzles to gather key fragments.
+                </p>
+                <div class="tags">
+                    <span class="tag"># Variables</span>
+                    <span class="tag"># Math</span>
+                    <span class="tag"># Logic</span>
+                    <span class="tag"># Python Basics</span>
+                </div>
+            </header>
+
+            <section class="mission-status">
+                <div class="scene-title">
+                    <h3>Current Location: <span id="location-name">Communication Deck</span></h3>
+                    <div class="progress-info">
+                        <span id="progress-text">0 / 8 Keys Found</span>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" id="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="puzzle-card">
+                <div id="puzzle-content">
+                    <!-- Dynamically filled -->
+                </div>
+
+                <div class="feedback" id="feedback">
+                    Welcome, recruit! Select an answer to begin.
+                </div>
+
+                <div class="actions">
+                    <button class="btn-primary" id="btn-check">✨ Check Answer</button>
+                    <button class="btn-ghost" id="btn-hint">💡 Hint</button>
+                    <button class="btn-danger" id="btn-reset">🔄 Restart</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Panel: Log & Exit -->
+        <aside class="panel">
+            <div class="mission-log">
+                <div class="scene-title">
+                    <h3>Mission Log</h3>
+                    <div id="timer" style="font-family: var(--font-mono); color: var(--warning);">00:00</div>
+                </div>
+
+                <div class="log-container" id="log-display">
+                    <div class="log-entry">SYSTEM: Awaiting transmission...</div>
+                    <div class="log-entry">GOAL: Collect all 8 fragments.</div>
+                </div>
+
+                <div class="lock-section">
+                    <h3>🔐 Space Vault Lock</h3>
+                    <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+                        Combine fragments from Puzzles 1-8 in order.
+                    </p>
+
+                    <div class="fragment-badger-container" id="fragment-list">
+                        <!-- Fragments appear here -->
+                    </div>
+
+                    <div class="final-input-group">
+                        <input type="text" id="final-code" class="input-field" placeholder="Combined Code..."
+                            autocomplete="off">
+                        <button class="btn-primary" id="btn-unlock">🔓 UNLOCK</button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Win Overlay -->
+    <div id="win-overlay">
+        <div class="win-content">
+            <div class="win-mascot">🎉🤖✨</div>
+            <h1 class="win-title">MISSION COMPLETE!</h1>
+            <p style="font-size: 20px; line-height: 1.6; margin-bottom: 32px;">
+                You saved PyBot and unlocked the spaceship! <br>
+                Your Python skills are cosmic! 🌌
+            </p>
+            <div style="display: flex; gap: 16px; justify-content: center;">
+                <button class="btn-primary" style="flex: none;" onclick="location.reload()">Play Again</button>
+                <button class="btn-ghost" style="flex: none;" onclick="window.close()">Exit Game</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create background stars
+        const starsContainer = document.getElementById('stars-container');
+        for (let i = 0; i < 80; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            const size = Math.random() * 3 + 1;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.setProperty('--duration', `${Math.random() * 3 + 2}s`);
+            starsContainer.appendChild(star);
+        }
+
+        // Game Data
+        const puzzles = [
+            {
+                id: 1,
+                type: "mcq",
+                location: "Variable Vault",
+                title: "Magic Boxes",
+                prompt: "In Python, which way do we put the number 10 into a box named 'x'?",
+                choices: ["int x = 10", "x == 10", "x = 10", "x := 10"],
+                answer: "x = 10",
+                fragment: "PY",
+                hint: "We use a single '=' as a shortcut to say 'is now'."
+            },
+            {
+                id: 2,
+                type: "tf",
+                location: "Data Port",
+                title: "The Float Test",
+                prompt: "True or False: In Python, $3.0$ is an integer (whole number).",
+                answer: "false",
+                fragment: "TH",
+                hint: "If a number has a dot (decimal), Python calls it a 'float'!"
+            },
+            {
+                id: 3,
+                type: "fill",
+                location: "Printing Press",
+                title: "Hello World!",
+                prompt: "Someone forgot the magic word to show text on the screen! Fil in the blank:",
+                code: "_____(\"Hello Space\")",
+                answer: "print",
+                fragment: "ON",
+                hint: "It starts with 'p' and rhymes with 'mint'."
+            },
+            {
+                id: 4,
+                type: "mcq",
+                location: "Math Lab",
+                title: "Floor Division",
+                prompt: "Look at this tricky division! What will the computer say?",
+                code: "7 // 2",
+                choices: ["3.5", "3", "4", "72"],
+                answer: "3",
+                fragment: "BA",
+                hint: "// is like a floor! It chops off the decimal and keeps the whole number."
+            },
+            {
+                id: 5,
+                type: "exact",
+                location: "Input Station",
+                title: "Getting Input",
+                prompt: "Type the exact line of code to ask the user for their name and save it in a variable called 'name':",
+                answer: "name = input()",
+                fragment: "SI",
+                hint: "Use 'name = ' and then the special function to get user typing."
+            },
+            {
+                id: 6,
+                type: "mcq",
+                location: "Logic Gate",
+                title: "The Not-Equal Symbol",
+                prompt: "PyBot needs to check if x is NOT equal to 5. Which symbol is the 'Not Equal' champion?",
+                choices: ["x <> 5", "x != 5", "x == not 5", "not x 5"],
+                answer: "x != 5",
+                fragment: "CS",
+                hint: "The exclamation mark '!' usually means 'NOT' in coding."
+            },
+            {
+                id: 7,
+                type: "tf",
+                location: "Boolean Bridge",
+                title: "Capital Letters",
+                prompt: "True or False: In Python, you must use big 'T' and big 'F' for True and False.",
+                answer: "true",
+                fragment: "IC",
+                hint: "Python is very picky about capital letters!"
+            },
+            {
+                id: 8,
+                type: "fill",
+                location: "The Final Core",
+                title: "Transformation",
+                prompt: "Turn the string \"42\" into a real number we can do math with:",
+                code: "n = ____(\"42\")",
+                answer: "int",
+                fragment: "S!",
+                hint: "We use 'int' to turn text numbers into real integers."
+            }
+        ];
+
+        // Game State
+        let currentIndex = 0;
+        let solved = new Set();
+        let collectedFragments = Array(puzzles.length).fill(null);
+        let startTime = Date.now();
+
+        // DOM Elements
+        const puzzleContent = document.getElementById('puzzle-content');
+        const feedback = document.getElementById('feedback');
+        const logDisplay = document.getElementById('log-display');
+        const progressText = document.getElementById('progress-text');
+        const progressBar = document.getElementById('progress-bar');
+        const fragmentList = document.getElementById('fragment-list');
+        const timerDisplay = document.getElementById('timer');
+        const locationName = document.getElementById('location-name');
+
+        const btnCheck = document.getElementById('btn-check');
+        const btnHint = document.getElementById('btn-hint');
+        const btnReset = document.getElementById('btn-reset');
+        const btnUnlock = document.getElementById('btn-unlock');
+
+        // Timer Interval
+        setInterval(() => {
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const m = String(Math.floor(elapsed / 60)).padStart(2, '0');
+            const s = String(elapsed % 60).padStart(2, '0');
+            timerDisplay.textContent = `${m}:${s}`;
+        }, 1000);
+
+        function addLog(msg, type = 'info') {
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type === 'success' ? 'log-success' : type === 'error' ? 'log-error' : ''}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+            logDisplay.appendChild(entry);
+            logDisplay.scrollTop = logDisplay.scrollHeight;
+        }
+
+        function updateProgress() {
+            const count = solved.size;
+            progressText.textContent = `${count} / ${puzzles.length} Keys Found`;
+            progressBar.style.width = `${(count / puzzles.length) * 100}%`;
+
+            // Update Fragment Badges
+            fragmentList.innerHTML = '';
+            collectedFragments.forEach((f, idx) => {
+                if (f) {
+                    const badge = document.createElement('span');
+                    badge.className = 'fragment-badge';
+                    badge.textContent = f;
+                    badge.title = `From Puzzle ${idx + 1}`;
+                    fragmentList.appendChild(badge);
+                }
+            });
+        }
+
+        function renderPuzzle() {
+            const p = puzzles[currentIndex];
+            locationName.textContent = p.location;
+
+            let html = `
+        <div class="puzzle-nav">
+          <span class="puzzle-id">Puzzle ${p.id} of ${puzzles.length}</span>
+          <div style="display: flex; gap: 8px;">
+             <button class="btn-ghost" style="padding: 4px 12px;" onclick="changePuzzle(-1)" ${currentIndex === 0 ? 'disabled' : ''}>←</button>
+             <button class="btn-ghost" style="padding: 4px 12px;" onclick="changePuzzle(1)" ${currentIndex === puzzles.length - 1 ? 'disabled' : ''}>→</button>
+          </div>
+        </div>
+        <h2 class="puzzle-title">${p.title}</h2>
+        <div class="question">${p.prompt}</div>
+      `;
+
+            if (p.code) {
+                html += `<div class="code-block">${p.code}</div>`;
+            }
+
+            if (p.type === 'mcq') {
+                html += `<div class="choices-grid">`;
+                p.choices.forEach(c => {
+                    html += `
+            <label class="choice-item">
+              <input type="radio" name="puzzle-ans" value="${c}">
+              <span>${c}</span>
+            </label>
+          `;
+                });
+                html += `</div>`;
+            } else if (p.type === 'tf') {
+                html += `
+          <div class="choices-grid">
+            <label class="choice-item">
+              <input type="radio" name="puzzle-ans" value="true">
+              <span>True</span>
+            </label>
+            <label class="choice-item">
+              <input type="radio" name="puzzle-ans" value="false">
+              <span>False</span>
+            </label>
+          </div>
+        `;
+            } else {
+                html += `
+          <input type="text" id="user-input" class="input-field" placeholder="Type answer here..." autocomplete="off">
+        `;
+            }
+
+            const solvedInfo = solved.has(p.id) ? `<div style="margin-top:12px; font-size:12px; color:var(--success);">✅ Solved! Fragment: <b>${p.fragment}</b></div>` : '';
+            puzzleContent.innerHTML = html + solvedInfo;
+
+            // Reset feedback
+            feedback.className = 'feedback info';
+            feedback.textContent = solved.has(p.id) ? "You've already solved this one! Keep going!" : "Select your answer and press Check!";
+
+            const input = document.getElementById('user-input');
+            if (input) {
+                input.focus();
+                input.onkeydown = (e) => { if (e.key === 'Enter') checkAnswer(); };
+            }
+        }
+
+        window.changePuzzle = (dir) => {
+            currentIndex = Math.max(0, Math.min(puzzles.length - 1, currentIndex + dir));
+            renderPuzzle();
+        };
+
+        function checkAnswer() {
+            const p = puzzles[currentIndex];
+            let userAns = '';
+
+            if (p.type === 'mcq' || p.type === 'tf') {
+                const checked = document.querySelector('input[name="puzzle-ans"]:checked');
+                userAns = checked ? checked.value : '';
+            } else {
+                userAns = document.getElementById('user-input').value.trim();
+            }
+
+            if (!userAns) {
+                feedback.className = 'feedback error';
+                feedback.textContent = "Oops! You need to pick or type an answer first!";
+                return;
+            }
+
+            if (solved.has(p.id)) {
+                feedback.className = 'feedback success';
+                feedback.textContent = "Already solved! Use the arrows to find more puzzles.";
+                return;
+            }
+
+            let isCorrect = false;
+            if (p.type === 'tf') {
+                isCorrect = userAns.toLowerCase() === p.answer.toLowerCase();
+            } else if (p.type === 'mcq') {
+                isCorrect = userAns === p.answer;
+            } else {
+                isCorrect = userAns.toLowerCase() === p.answer.toLowerCase(); // Fill/Exact for kids: case insensitive is friendlier
+            }
+
+            if (isCorrect) {
+                solved.add(p.id);
+                collectedFragments[currentIndex] = p.fragment;
+                feedback.className = 'feedback success';
+                feedback.textContent = `WOW! Correct! 🌟 You found the fragment: ${p.fragment}`;
+                addLog(`Unlocked ${p.title}! Fragment: ${p.fragment}`, 'success');
+                updateProgress();
+                renderPuzzle(); // Re-render to show solved status
+
+                // Auto move if not finished
+                if (currentIndex < puzzles.length - 1) {
+                    setTimeout(() => { if (currentIndex < puzzles.length - 1) changePuzzle(1); }, 1500);
+                }
+            } else {
+                feedback.className = 'feedback error';
+                feedback.textContent = "Not quite! Try another way or use a hint! 🤖";
+                addLog(`Failed attempt on ${p.title}`, 'error');
+            }
+        }
+
+        function showHint() {
+            const p = puzzles[currentIndex];
+            feedback.className = 'feedback info';
+            feedback.textContent = `PyBot's Hint: ${p.hint}`;
+            addLog(`Hint used for ${p.title}`);
+        }
+
+        function unlockGate() {
+            const code = document.getElementById('final-code').value.toUpperCase().trim();
+            const correctAnswer = puzzles.map(p => p.fragment).join("");
+
+            if (solved.size < puzzles.length) {
+                feedback.className = 'feedback error';
+                feedback.textContent = "The lock is jammed! You need all 8 fragment keys first!";
+                addLog("Lock attempt failed: Missing fragments", "error");
+                return;
+            }
+
+            if (code === correctAnswer) {
+                addLog("ACCESS GRANTED! ESCAPING...", "success");
+                document.getElementById('win-overlay').style.display = 'flex';
+            } else {
+                feedback.className = 'feedback error';
+                feedback.textContent = "Incorrect code! Check the order of your fragments!";
+                addLog("Lock attempt failed: Wrong code", "error");
+            }
+        }
+
+        // Event Listeners
+        btnCheck.onclick = checkAnswer;
+        btnHint.onclick = showHint;
+        btnUnlock.onclick = unlockGate;
+        btnReset.onclick = () => {
+            if (confirm("Reset the mission? Your progress will be lost!")) {
+                location.reload();
+            }
+        };
+
+        // Initialize
+        renderPuzzle();
+        updateProgress();
+        addLog("Mission systems online. Good luck, commander!");
+
+    </script>
+</body>
+
+</html>
