@@ -4,19 +4,20 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Mission: PyBot Rescue | Python Escape Room</title>
+    <title>Mission: Deep Space | Python Escape Room Level 2</title>
     <meta name="description"
-        content="A kid-friendly Python Escape Room game! Solve Python puzzles, repair the spaceship, and save PyBot. Learn variables, loops, and logic in a fun way!">
+        content="Level 2: Deep Space Escape! A challenging Python coding game for advanced beginners. Solve harder logic puzzles, f-strings, and modulo math to fix the hyper-drive.">
     <meta name="keywords"
-        content="Python, Kids Coding, Escape Room, Python Game, Learn Python, Coding for Kids, Programming">
+        content="Python Level 2, Advanced Python Game, Coding Challenge, Escape Room, Python Tuples, Modulo, Logic Gates">
     <meta name="author" content="Faruk Hasan">
 
     <!-- Open Graph for Social Sharing -->
-    <meta property="og:title" content="Mission: PyBot Rescue | Python Escape Room">
+    <meta property="og:title" content="Mission: Deep Space | Python Escape Room Level 2">
     <meta property="og:description"
-        content="Can you save PyBot? Solve 8 Python puzzles to unlock the spaceship! perfect for beginners.">
+        content="Warning: Deep Space Detected! Prove your Python mastery with advanced puzzles to repair the hyper-drive.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://farukhasan.github.io/my_webpage/images/python_escape_room_cover.png">
+    <meta property="og:image"
+        content="https://farukhasan.github.io/my_webpage/images/python_escape_room_lvl2_cover.png">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,8 +29,9 @@
         :root {
             --bg: #0b1121;
             --card: rgba(23, 37, 84, 0.7);
-            --accent: #00e1ff;
-            --accent-glow: rgba(0, 225, 255, 0.4);
+            --accent: #d946ef;
+            /* Magenta for harder level */
+            --accent-glow: rgba(217, 70, 239, 0.4);
             --success: #39ff14;
             --error: #ff2a6d;
             --warning: #fbbf24;
@@ -57,8 +59,8 @@
             align-items: center;
             justify-content: center;
             overflow-x: hidden;
-            /* Deep Space Gradient */
-            background: radial-gradient(circle at 50% 10%, #1e293b 0%, #0f172a 40%, #020617 100%);
+            /* Deep Space Gradient - Darker, Red/Purple tint for danger */
+            background: radial-gradient(circle at 50% 10%, #310b2e 0%, #1a0524 40%, #020617 100%);
         }
 
         /* --- Space Background Animation --- */
@@ -317,11 +319,11 @@
             font-family: var(--font-fancy);
             font-size: clamp(28px, 5vw, 42px);
             margin: 0;
-            background: linear-gradient(to right, #fff, #38bdf8);
+            background: linear-gradient(to right, #fff, var(--accent));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
+            text-shadow: 0 0 30px rgba(217, 70, 239, 0.3);
         }
 
         .mission-subtitle {
@@ -386,14 +388,15 @@
             padding: 20px;
             border-radius: 12px;
             font-family: var(--font-mono);
-            color: #7dd3fc;
+            color: #f0abfc;
+            /* Light magenta text */
             margin-bottom: 24px;
             position: relative;
             box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
         }
 
         .code-display::before {
-            content: 'PYTHON TERMINAL';
+            content: 'ADVANCED TERMINAL';
             position: absolute;
             top: -10px;
             right: 10px;
@@ -430,9 +433,9 @@
         }
 
         .choice-btn.selected {
-            background: rgba(0, 225, 255, 0.15);
+            background: rgba(217, 70, 239, 0.15);
             border-color: var(--accent);
-            box-shadow: 0 0 15px rgba(0, 225, 255, 0.1);
+            box-shadow: 0 0 15px rgba(217, 70, 239, 0.1);
         }
 
         .choice-btn.shake {
@@ -472,7 +475,7 @@
 
         .input-box:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 20px rgba(0, 225, 255, 0.15);
+            box-shadow: 0 0 20px rgba(217, 70, 239, 0.15);
         }
 
         /* Action Bar */
@@ -500,7 +503,7 @@
         .btn-run {
             background: var(--accent);
             color: #000;
-            box-shadow: 0 4px 0 #0099b0;
+            box-shadow: 0 4px 0 #a21caf;
         }
 
         .btn-run:active {
@@ -579,7 +582,7 @@
         }
 
         .fragment {
-            background: rgba(0, 225, 255, 0.2);
+            background: rgba(217, 70, 239, 0.2);
             border: 1px solid var(--accent);
             color: var(--accent);
             padding: 2px 6px;
@@ -627,7 +630,7 @@
         }
 
         .btn-start {
-            background: linear-gradient(135deg, var(--accent), #6366f1);
+            background: linear-gradient(135deg, var(--accent), #e879f9);
             padding: 18px 40px;
             font-size: 20px;
             border-radius: 50px;
@@ -688,13 +691,13 @@
                 <div class="robot-mouth"></div>
             </div>
         </div>
-        <h1 style="margin-top:20px;">MISSION: PYBOT RESCUE</h1>
+        <h1 style="margin-top:20px;">MISSION: DEEP SPACE (LVL 2)</h1>
         <p>
-            <b>Alert!</b> PyBot is stranded in the Python Asteroid Belt.<br>
-            The spaceship's navigation system is corrupted.<br>
-            Use your coding skills to repair the 8 core systems and bring PyBot home!
+            <b>Warning!</b> We've entered Deep Space. The challenges are harder here.<br>
+            Advanced syntax is required to repair the hyper-drive.<br>
+            Are you ready to prove your Python mastery?
         </p>
-        <button class="btn-start" onclick="startMission()">🚀 LAUNCH MISSION</button>
+        <button class="btn-start" onclick="startMission()">🚀 ENGAGE HYPER-DRIVE</button>
     </div>
 
     <!-- Win Screen -->
@@ -711,10 +714,10 @@
             </div>
         </div>
         <p>
-            System fully operational! You saved PyBot!<br>
-            You are a certified Python Pilot.
+            Hyper-drive active! You navigated Deep Space successfully!<br>
+            You are a Python Expert.
         </p>
-        <button class="btn-start" onclick="location.reload()">🔄 PLAY AGAIN</button>
+        <button class="btn-start" onclick="location.reload()">🔄 REPLAY MISSION</button>
     </div>
 
     <!-- Fail Screen -->
@@ -731,8 +734,8 @@
             </div>
         </div>
         <p>
-            Time ran out! PyBot is lost in space forever.<br>
-            Don't give up, try again to save him!
+            Hyper-drive failure! The ship is lost in Deep Space.<br>
+            Re-calibrate and try again!
         </p>
         <button class="btn-start" onclick="location.reload()"
             style="background: var(--error); box-shadow: 0 0 30px rgba(255, 42, 109, 0.4);">🔄 RETRY MISSION</button>
@@ -757,8 +760,8 @@
                         <div class="robot-mouth"></div>
                     </div>
                 </div>
-                <h1>PyBot Interface</h1>
-                <div class="mission-subtitle">System Repair Protocol</div>
+                <h1>PyBot Interface v2.0</h1>
+                <div class="mission-subtitle">Advanced Repair Protocol</div>
                 <div id="missionTimer"
                     style="font-size: 24px; color: var(--warning); font-family: var(--font-mono); margin-top: 10px; font-weight: bold;">
                     T-MINUS: 90s</div>
@@ -785,7 +788,7 @@
             </div>
             <div class="chat-window" id="chatWindow">
                 <div class="chat-msg sys">> System Booting...</div>
-                <div class="chat-msg sys">> Connection Established.</div>
+                <div class="chat-msg sys">> Deep Space Link Established.</div>
             </div>
 
             <div class="vault">
@@ -806,7 +809,7 @@
     <script>
         // --- Stars Generator ---
         const starField = document.getElementById('starField');
-        for (let i = 0; i < 60; i++) {
+        for (let i = 0; i < 80; i++) {
             const s = document.createElement('div');
             s.className = 'star';
             s.style.left = Math.random() * 100 + '%';
@@ -877,76 +880,75 @@
             }
         };
 
-        // --- Game Data ---
+        // --- Game Data (LEVEL 2 - HARDER) ---
         const missions = [
             {
-                id: 1, type: 'mcq', fragment: 'PY',
-                title: "Initialize Engines",
-                desc: "The engines are offline! We need to create a variable named 'fuel' and give it value 100.",
-                code: "# Which code is correct?\n\n[?] fuel ... 100",
-                options: ["fuel = 100", "fuel == 100", "variable fuel 100", "100 >> fuel"],
-                answer: "fuel = 100",
-                hint: "In Python, use a single '=' sign to store a value in a variable."
+                id: 1, type: 'mcq', fragment: 'VA',
+                title: "Variable Swapping",
+                desc: "The energy cores are swapped! Correct the code to swap 'a' and 'b' back.",
+                code: "a = 10\nb = 20\n# How to swap efficiently?\n[?]",
+                options: ["a = b; b = a", "a, b = b, a", "swap(a, b)", "a = b"],
+                answer: "a, b = b, a",
+                hint: "Python allows tuple unpacking like 'x, y = y, x' to swap instantly."
             },
             {
-                id: 2, type: 'bool', fragment: 'TH',
-                title: "Shield Status",
-                desc: "Shields are at 50%. The computer asks: Is 50.5 an integer (whole number)?",
-                code: "is_integer(50.5)",
-                options: ["True", "False"],
-                answer: "False",
-                hint: "Numbers with decimal points like 50.5 are called Floats, not Integers."
+                id: 2, type: 'text', fragment: 'DS',
+                title: "Type Checking",
+                desc: "We need verify the input type. Fill in the code to check if 'x' is a String.",
+                code: "x = \"command\"\nif type(x) == ____:\n  print(\"Valid\")",
+                answer: "str",
+                hint: "The type class for a string in Python is just three letters: 'str'."
             },
             {
-                id: 3, type: 'text', fragment: 'ON',
-                title: "Communication Array",
-                desc: "We need to send a signal! Fill in the missing function to show 'SOS' on screen.",
-                code: "____('SOS')",
-                answer: "print",
-                hint: "The command to show text on the screen starts with 'p' (print)."
+                id: 3, type: 'text', fragment: 'TR',
+                title: "String Formatting",
+                desc: "The display is broken. Use an f-string to insert the variable 'fuel' into the message.",
+                code: "fuel = 99\nmsg = f'Fuel Level: {____}'",
+                answer: "fuel",
+                hint: "Inside an f-string, you put the variable name directly inside the curly braces {}."
             },
             {
-                id: 4, type: 'mcq', fragment: 'BA',
-                title: "Calculate Trajectory",
-                desc: "We need integer division for grid mapping. What is 7 // 2?",
-                code: "result = 7 // 2\nprint(result)",
-                options: ["3.5", "3", "4", "Error"],
-                answer: "3",
-                hint: "This symbol // means 'Floor Division'. It chops off the decimal part."
+                id: 4, type: 'mcq', fragment: 'MO',
+                title: "Modulo Operator",
+                desc: "We need just the remainder of a calculation. What is 10 % 3?",
+                code: "remainder = 10 % 3\nprint(remainder)",
+                options: ["3.33", "1", "3", "0"],
+                answer: "1",
+                hint: "Modulo (%) gives the remainder. 3 goes into 10 three times (9), leaving 1 left over."
             },
             {
-                id: 5, type: 'input', fragment: 'SI',
-                title: "Pilot Registration",
-                desc: "The security system needs your name. Type the exact code to get input from keyboard:",
-                code: "# Store input in variable 'name'\nname = _____",
-                answer: "input()",
-                hint: "Use the function input() to listen to keyboard typing."
+                id: 5, type: 'input', fragment: 'NG',
+                title: "Input Casting",
+                desc: "The system reads input as text. We need a float! Wrap correct function around input().",
+                code: "price = _____(input('Enter price: '))",
+                answer: "float",
+                hint: "If you need a decimal number from input, cast it with float()."
             },
             {
-                id: 6, type: 'mcq', fragment: 'CS',
-                title: "Navigation Logic",
-                desc: "If fuel is NOT 0, we can fly. Which symbol means 'Not Equal'?",
-                code: "if fuel [?] 0:\n  fly_ship()",
-                options: ["<>", "!=", "not=", "><"],
-                answer: "!=",
-                hint: "We use '!=' to verify two things are not the same."
+                id: 6, type: 'mcq', fragment: 'LO',
+                title: "Complex Logic",
+                desc: "Access requires fuel AND permissions. Which line is correct?",
+                code: "fuel = 100\nadmin = True\nif [?]:\n  access_granted()",
+                options: ["fuel > 0 & admin", "fuel > 0 and admin", "fuel > 0 || admin", "fuel > 0 plus admin"],
+                answer: "fuel > 0 and admin",
+                hint: "In Python, we use English words like 'and' / 'or' for logic gates."
             },
             {
-                id: 7, type: 'bool', fragment: 'IC',
-                title: "System Verifier",
-                desc: "True or False: Python requires you to Capitalize 'True' and 'False'.",
-                code: "is_active = true  # Error?\nis_active = True  # specific case?",
+                id: 7, type: 'bool', fragment: 'PY',
+                title: "List Booleans",
+                desc: "True or False: An empty list [] calculates to False in a boolean check.",
+                code: "items = []\nif items:\n  print('Has items')\nelse:\n  print('Empty')",
                 options: ["True", "False"],
                 answer: "True",
-                hint: "Python is case-sensitive! You must write True with a capital T."
+                hint: "Yes! Empty sequences (lists, strings) are 'Falsy' in Python. So bool([]) is False."
             },
             {
-                id: 8, type: 'text', fragment: 'S!',
-                title: "Data Conversion",
-                desc: "The coordinates came as text '100'. Convert it to a number.",
-                code: "coord = ____('100')",
-                answer: "int",
-                hint: "Use int() to turn a string of digits into a number."
+                id: 8, type: 'text', fragment: '!!',
+                title: "String Slicing",
+                desc: "We need just the first 3 letters of the code 'PYTHON'.",
+                code: "s = 'PYTHON'\nprefix = s[____]",
+                answer: "0:3",
+                hint: "Slicing uses [start:end]. We want indices 0, 1, 2. So we stop at 3."
             }
         ];
 
@@ -967,7 +969,7 @@
 
             document.getElementById('introScreen').style.display = 'none';
             document.getElementById('gameDashboard').style.filter = 'none';
-            log("Commander, the ship is yours. Let's fix these errors!", "sys");
+            log("Commander, entering Deep Space. Stay alert!", "sys");
             renderMission();
             renderPips();
             updateFragments();
@@ -1024,7 +1026,7 @@
 
             let content = `
         <div class="question-box">
-          <div style="font-size: 14px; text-transform: uppercase; color: var(--accent); margin-bottom:5px;">System Error #${m.id}</div>
+          <div style="font-size: 14px; text-transform: uppercase; color: var(--accent); margin-bottom:5px;">Deep Space Error #${m.id}</div>
           ${m.title}: ${m.desc}
         </div>
         <div class="code-display">${escapeHtml(m.code)}</div>
@@ -1098,7 +1100,7 @@
                         renderMission();
                     }, 1500);
                 } else {
-                    log("All systems operational. Enter Final Key.", "sys");
+                    log("Hyper-drive ready. Enter Final Key.", "sys");
                     renderPips();
                     document.getElementById('gameDashboard').style.opacity = '0.8';
                 }
@@ -1107,7 +1109,7 @@
                 // FAIL
                 SoundController.playError();
                 setMascot('sad');
-                log("Error: Invalid Syntax or Logic. Try again.", "err");
+                log("Error: Syntax Failure. Try again.", "err");
                 shakeInput();
             }
         }
@@ -1125,8 +1127,8 @@
             // Make fragments clickable for easy copying
             row.innerHTML = keyFragments.map(k =>
                 `<span class="fragment" onclick="SoundController.playClick(); document.getElementById('finalInput').value += '${k}'; this.style.transform='scale(1.2)'; setTimeout(()=>this.style.transform='scale(1)', 200);">
-                ${k}
-            </span>`
+            ${k}
+        </span>`
             ).join('');
         }
 
