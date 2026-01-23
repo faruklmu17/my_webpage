@@ -43,7 +43,7 @@ header {
 }
 
 .header-content {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -2946,6 +2946,87 @@ footer {
   padding-right: 35px;
 }
 
+/* Open Source Contributions in Skills */
+.os-contrib-category {
+  padding: 0.6rem 0.8rem !important;
+}
+
+.os-stats-row {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.4rem 0;
+}
+
+/* Ensure link in header has no margin */
+.os-contrib-category .category-link-inline {
+  margin: 0;
+}
+
+.os-badge-header {
+  font-size: 0.7rem;
+  background: rgba(52, 152, 219, 0.1);
+  color: #2980b9;
+  padding: 0.15rem 0.5rem;
+  border-radius: 99px;
+  font-weight: 600;
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+.os-lang-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.2rem;
+}
+
+.os-lang-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.os-lang-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.os-progress {
+  height: 4px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.os-bar {
+  height: 100%;
+  border-radius: 4px;
+}
+
+.os-bar.python {
+  background: #3776ab;
+}
+
+.os-bar.typescript {
+  background: #3178c6;
+}
+
+.os-bar.html {
+  background: #e34c26;
+}
+
+.os-bar.javascript {
+  background: #f7df1e;
+}
+
+/* Even more compact for 4 items */
+.os-lang-stats {
+  gap: 0.35rem;
+}
+
 .category-link {
   display: inline-flex;
   align-items: center;
@@ -3103,6 +3184,69 @@ a[href*="huggingface"].category-link-inline:hover {
   margin-bottom: 0;
 }
 
+.edu-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.title-with-badge {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.2rem;
+  flex-wrap: wrap;
+}
+
+.udemy-badge-sleek {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #fdfaff;
+  color: #A435F0 !important;
+  padding: 0.4rem 0.9rem;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 1px solid rgba(164, 53, 240, 0.15);
+  box-shadow: 0 2px 8px rgba(164, 53, 240, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: none !important;
+}
+
+.udemy-svg-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.udemy-badge-sleek:hover {
+  transform: translateY(-2px) scale(1.02);
+  background: #A435F0;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(164, 53, 240, 0.25);
+  border-color: #A435F0;
+}
+
+.udemy-badge-sleek:hover .udemy-svg-icon {
+  transform: scale(1.1);
+}
+
+@media (max-width: 480px) {
+  .title-with-badge {
+    gap: 0.5rem;
+  }
+
+  .udemy-badge-sleek {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.75rem;
+  }
+}
+
 /* Combined Stats and Courses */
 .education-content {
   display: grid;
@@ -3201,10 +3345,11 @@ a[href*="huggingface"].category-link-inline:hover {
   justify-content: space-between;
   align-items: center;
   background: white;
-  padding: 0.6rem 0.8rem;
-  border-radius: 6px;
+  padding: 1.25rem 1.2rem;
+  border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
+  margin-bottom: 0.8rem;
 }
 
 .course-item:hover {
@@ -3271,11 +3416,11 @@ a[href*="huggingface"].category-link-inline:hover {
   justify-content: center;
   background: linear-gradient(135deg, #3498db, #2980b9);
   color: white;
-  padding: 0.6rem 0.8rem;
+  padding: 1.25rem 1rem;
   border-radius: 8px;
   text-decoration: none;
   transition: all 0.3s ease;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 600;
   text-align: center;
 }

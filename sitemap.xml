@@ -190,6 +190,20 @@
     <priority>0.5</priority>
   </url>
 
+  <url>
+    <loc>https://faruk-hasan.com/games/cartpole_balance.html</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://faruk-hasan.com/games/cartpole_fullscreen.html</loc>
+    <lastmod>2026-01-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Health -->
   <url>
     <loc>https://faruk-hasan.com/health/my_health.html</loc>
@@ -320,6 +334,19 @@
     <lastmod>2025-01-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://farukhasan.github.io/my_webpage/escape_room/python_level1_escape_room.html</loc>
+    <lastmod>2026-01-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://farukhasan.github.io/my_webpage/escape_room/python_level2_escape_room.html</loc>
+    <lastmod>2026-01-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 
   <url>

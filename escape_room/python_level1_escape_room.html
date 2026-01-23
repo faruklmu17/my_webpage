@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Mission: PyBot Rescue | Python Escape Room</title>
+    <meta name="description"
+        content="A kid-friendly Python Escape Room game! Solve Python puzzles, repair the spaceship, and save PyBot. Learn variables, loops, and logic in a fun way!">
+    <meta name="keywords"
+        content="Python, Kids Coding, Escape Room, Python Game, Learn Python, Coding for Kids, Programming">
+    <meta name="author" content="Faruk Hasan">
+
+    <!-- Open Graph for Social Sharing -->
+    <meta property="og:title" content="Mission: PyBot Rescue | Python Escape Room">
+    <meta property="og:description"
+        content="Can you save PyBot? Solve 8 Python puzzles to unlock the spaceship! perfect for beginners.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://farukhasan.github.io/my_webpage/images/python_escape_room_cover.png">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0b1121;
+            --card: rgba(23, 37, 84, 0.7);
+            --accent: #00e1ff;
+            --accent-glow: rgba(0, 225, 255, 0.4);
+            --success: #39ff14;
+            --error: #ff2a6d;
+            --warning: #fbbf24;
+            --text: #f0f9ff;
+            --text-muted: #94a3b8;
+            --radius: 24px;
+            --font-main: 'Outfit', sans-serif;
+            --font-fancy: 'Fredoka', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-main);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            /* Deep Space Gradient */
+            background: radial-gradient(circle at 50% 10%, #1e293b 0%, #0f172a 40%, #020617 100%);
+        }
+
+        /* --- Space Background Animation --- */
+        .star-field {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            perspective: 800px;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: zoomIn var(--duration) linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes zoomIn {
+            0% {
+                opacity: 0;
+                transform: translateZ(0) scale(0.1);
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateZ(600px) scale(3);
+            }
+        }
+
+        /* --- Mascot "PyBot" --- */
+        .mascot-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 10px;
+            filter: drop-shadow(0 0 15px var(--accent-glow));
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+        }
+
+        .mascot-container:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .robot-face {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e2e8f0, #94a3b8);
+            border-radius: 24px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .robot-eyes {
+            display: flex;
+            gap: 14px;
+            width: 60%;
+            justify-content: center;
+        }
+
+        .eye {
+            width: 18px;
+            height: 26px;
+            background: #0f172a;
+            border-radius: 12px;
+            position: relative;
+            animation: blink 4s infinite;
+        }
+
+        .eye::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .robot-mouth {
+            position: absolute;
+            bottom: 20px;
+            width: 20px;
+            height: 6px;
+            background: #0f172a;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .robot-antenna {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 20px;
+            background: #94a3b8;
+        }
+
+        .robot-antenna::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -7px;
+            width: 20px;
+            height: 20px;
+            background: var(--error);
+            border-radius: 50%;
+            border: 2px solid white;
+            animation: pulse-red 1s infinite alternate;
+        }
+
+        /* PyBot Moods */
+        .mascot-container.happy .robot-mouth {
+            width: 30px;
+            height: 15px;
+            border-radius: 0 0 20px 20px;
+            background: var(--success);
+        }
+
+        .mascot-container.happy .robot-antenna::after {
+            background: var(--success);
+            animation: pulse-green 1s infinite;
+        }
+
+        .mascot-container.sad .eye {
+            height: 6px;
+            margin-top: 10px;
+        }
+
+        .mascot-container.sad .robot-mouth {
+            width: 20px;
+            height: 8px;
+            border-radius: 8px 8px 0 0;
+            bottom: 18px;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-8px)
+            }
+        }
+
+        @keyframes blink {
+
+            0%,
+            96%,
+            100% {
+                transform: scaleY(1)
+            }
+
+            98% {
+                transform: scaleY(0.1)
+            }
+        }
+
+        @keyframes pulse-red {
+            from {
+                box-shadow: 0 0 2px var(--error)
+            }
+
+            to {
+                box-shadow: 0 0 15px var(--error)
+            }
+        }
+
+        @keyframes pulse-green {
+            from {
+                box-shadow: 0 0 2px var(--success)
+            }
+
+            to {
+                box-shadow: 0 0 15px var(--success)
+            }
+        }
+
+
+        /* --- Layout --- */
+        .dashboard {
+            width: min(1200px, 95vw);
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 24px;
+            padding-bottom: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .cockpit-panel {
+            background: var(--card);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius);
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        /* Decoration: Scanner line */
+        .scanner-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+            opacity: 0.1;
+            animation: scan 4s linear infinite;
+            box-shadow: 0 0 15px var(--accent);
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0% {
+                top: 0
+            }
+
+            100% {
+                top: 100%
+            }
+        }
+
+        /* Headers */
+        .header-content {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-family: var(--font-fancy);
+            font-size: clamp(28px, 5vw, 42px);
+            margin: 0;
+            background: linear-gradient(to right, #fff, #38bdf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
+        }
+
+        .mission-subtitle {
+            color: var(--accent);
+            font-family: var(--font-mono);
+            letter-spacing: 1px;
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-top: 8px;
+        }
+
+        /* Game UI */
+        .level-bar {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .level-pip {
+            width: 30px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            transition: all 0.4s;
+        }
+
+        .level-pip.active {
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+        }
+
+        .puzzle-container {
+            min-height: 340px;
+            display: flex;
+            flex-direction: column;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .question-box {
+            font-size: 20px;
+            line-height: 1.5;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .code-display {
+            background: #0f172a;
+            border-left: 5px solid var(--accent);
+            padding: 20px;
+            border-radius: 12px;
+            font-family: var(--font-mono);
+            color: #7dd3fc;
+            margin-bottom: 24px;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .code-display::before {
+            content: 'PYTHON TERMINAL';
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            background: var(--accent);
+            color: #000;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        /* Choices / Input */
+        .choice-btn {
+            display: block;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            text-align: left;
+            color: white;
+            font-size: 16px;
+            font-family: var(--font-mono);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .choice-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent);
+            padding-left: 24px;
+        }
+
+        .choice-btn.selected {
+            background: rgba(0, 225, 255, 0.15);
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(0, 225, 255, 0.1);
+        }
+
+        .choice-btn.shake {
+            animation: shake 0.4s ease-in-out;
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0)
+            }
+
+            25% {
+                transform: translateX(-8px)
+            }
+
+            75% {
+                transform: translateX(8px)
+            }
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 18px;
+            background: #0f172a;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-family: var(--font-mono);
+            font-size: 18px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-box:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(0, 225, 255, 0.15);
+        }
+
+        /* Action Bar */
+        .action-bar {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+            padding-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: var(--font-main);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-run {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 4px 0 #0099b0;
+        }
+
+        .btn-run:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        .btn-hint {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            box-shadow: 0 4px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-hint:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        /* Chat / Log Panel */
+        .chat-panel {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .chat-window {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+            overflow-y: auto;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .chat-msg {
+            margin-bottom: 12px;
+            line-height: 1.4;
+            opacity: 0;
+            animation: fadeIn 0.3s forwards;
+        }
+
+        .chat-msg.sys {
+            color: var(--accent);
+        }
+
+        .chat-msg.err {
+            color: var(--error);
+        }
+
+        .chat-msg.success {
+            color: var(--success);
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1
+            }
+        }
+
+        /* Final Vault */
+        .vault {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        .fragment-row {
+            display: flex;
+            gap: 5px;
+            margin: 10px 0;
+            min-height: 30px;
+        }
+
+        .fragment {
+            background: rgba(0, 225, 255, 0.2);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        /* Intro Overlay */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(11, 17, 33, 0.95);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .overlay h1 {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .overlay p {
+            max-width: 600px;
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, var(--accent), #6366f1);
+            padding: 18px 40px;
+            font-size: 20px;
+            border-radius: 50px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 0 30px var(--accent-glow);
+            animation: pulse-btn 2s infinite;
+        }
+
+        @keyframes pulse-btn {
+            0% {
+                transform: scale(1)
+            }
+
+            50% {
+                transform: scale(1.05)
+            }
+
+            100% {
+                transform: scale(1)
+            }
+        }
+
+        /* Confetti Particle */
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            pointer-events: none;
+            animation: fall 1s forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Dynamic Background -->
+    <div class="star-field" id="starField"></div>
+
+    <!-- Intro Screen -->
+    <div class="overlay" id="introScreen">
+        <div class="mascot-container happy" style="transform: scale(1.5);">
+            <div class="robot-face">
+                <div class="robot-antenna"></div>
+                <div class="robot-eyes">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+                <div class="robot-mouth"></div>
+            </div>
+        </div>
+        <h1 style="margin-top:20px;">MISSION: PYBOT RESCUE</h1>
+        <p>
+            <b>Alert!</b> PyBot is stranded in the Python Asteroid Belt.<br>
+            The spaceship's navigation system is corrupted.<br>
+            Use your coding skills to repair the 8 core systems and bring PyBot home!
+        </p>
+        <button class="btn-start" onclick="startMission()">🚀 LAUNCH MISSION</button>
+    </div>
+
+    <!-- Win Screen -->
+    <div class="overlay" id="winScreen" style="display: none;">
+        <h1 style="color: var(--success)">MISSION ACCOMPLISHED!</h1>
+        <div class="mascot-container happy" style="transform: scale(2); margin: 30px auto;">
+            <div class="robot-face">
+                <div class="robot-antenna"></div>
+                <div class="robot-eyes">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+                <div class="robot-mouth"></div>
+            </div>
+        </div>
+        <p>
+            System fully operational! You saved PyBot!<br>
+            You are a certified Python Pilot.
+        </p>
+        <button class="btn-start" onclick="location.reload()">🔄 PLAY AGAIN</button>
+    </div>
+
+    <!-- Fail Screen -->
+    <div class="overlay" id="failScreen" style="display: none;">
+        <h1 style="color: var(--error)">MISSION FAILED!</h1>
+        <div class="mascot-container sad" style="transform: scale(2); margin: 30px auto;">
+            <div class="robot-face">
+                <div class="robot-antenna"></div>
+                <div class="robot-eyes">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+                <div class="robot-mouth"></div>
+            </div>
+        </div>
+        <p>
+            Time ran out! PyBot is lost in space forever.<br>
+            Don't give up, try again to save him!
+        </p>
+        <button class="btn-start" onclick="location.reload()"
+            style="background: var(--error); box-shadow: 0 0 30px rgba(255, 42, 109, 0.4);">🔄 RETRY MISSION</button>
+    </div>
+
+
+    <!-- Main Game Dashboard -->
+    <div class="dashboard" id="gameDashboard" style="filter: blur(10px);">
+
+        <!-- LEFT: Code / Puzzle -->
+        <div class="cockpit-panel">
+            <div class="scanner-line"></div>
+
+            <div class="header-content">
+                <div class="mascot-container" id="mascot">
+                    <div class="robot-face">
+                        <div class="robot-antenna"></div>
+                        <div class="robot-eyes">
+                            <div class="eye"></div>
+                            <div class="eye"></div>
+                        </div>
+                        <div class="robot-mouth"></div>
+                    </div>
+                </div>
+                <h1>PyBot Interface</h1>
+                <div class="mission-subtitle">System Repair Protocol</div>
+                <div id="missionTimer"
+                    style="font-size: 24px; color: var(--warning); font-family: var(--font-mono); margin-top: 10px; font-weight: bold;">
+                    T-MINUS: 90s</div>
+            </div>
+
+            <div class="level-bar" id="levelBar">
+                <!-- Pips generated by JS -->
+            </div>
+
+            <div class="puzzle-container" id="puzzleContainer">
+                <!-- Content injected by JS -->
+            </div>
+
+            <div class="action-bar">
+                <button class="btn btn-hint" onclick="showHint()">💡 HINT</button>
+                <button class="btn btn-run" onclick="checkAnswer()">⚡ RUN CODE</button>
+            </div>
+        </div>
+
+        <!-- RIGHT: Log / Vault -->
+        <div class="cockpit-panel chat-panel">
+            <div style="font-family: var(--font-fancy); font-size: 20px; margin-bottom: 10px; color: var(--accent);">
+                📟 Mission Log
+            </div>
+            <div class="chat-window" id="chatWindow">
+                <div class="chat-msg sys">> System Booting...</div>
+                <div class="chat-msg sys">> Connection Established.</div>
+            </div>
+
+            <div class="vault">
+                <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">Key Fragments</div>
+                <div class="fragment-row" id="fragmentRow">
+                    <!-- Fragments appear here -->
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="finalInput" class="input-box" style="font-size:14px; padding: 10px;"
+                        placeholder="ENTER FINAL KEY">
+                    <button class="btn-run" style="flex:0 0 60px; font-size: 20px;" onclick="tryUnlock()">🔓</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- Stars Generator ---
+        const starField = document.getElementById('starField');
+        for (let i = 0; i < 60; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            s.style.left = Math.random() * 100 + '%';
+            s.style.top = Math.random() * 100 + '%';
+            s.style.width = Math.random() * 3 + 'px';
+            s.style.height = s.style.width;
+            s.style.animationDuration = (Math.random() * 2 + 1) + 's';
+            s.style.animationDelay = Math.random() * 2 + 's';
+            starField.appendChild(s);
+        }
+
+        // --- Sound System (Web Audio API) ---
+        const SoundController = {
+            ctx: null,
+            init: function () {
+                if (!this.ctx) {
+                    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+            },
+            playTone: function (freq, type, duration, delay = 0) {
+                if (!this.ctx) return;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, this.ctx.currentTime + delay);
+                gain.gain.setValueAtTime(0.1, this.ctx.currentTime + delay);
+                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + delay + duration);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(this.ctx.currentTime + delay);
+                osc.stop(this.ctx.currentTime + delay + duration);
+            },
+            playSuccess: function () {
+                this.playTone(600, 'sine', 0.1);
+                this.playTone(800, 'sine', 0.1, 0.1);
+                this.playTone(1000, 'sine', 0.2, 0.2);
+            },
+            playError: function () {
+                this.playTone(150, 'sawtooth', 0.3);
+                this.playTone(100, 'sawtooth', 0.3, 0.1);
+            },
+            playWin: function () {
+                [400, 500, 600, 800, 1000, 1200].forEach((f, i) => {
+                    this.playTone(f, 'square', 0.2, i * 0.1);
+                });
+            },
+            playFail: function () {
+                this.playTone(300, 'triangle', 0.5);
+                this.playTone(200, 'triangle', 0.5, 0.4);
+                this.playTone(100, 'triangle', 1.0, 0.8);
+            },
+            playClick: function () {
+                this.playTone(800, 'sine', 0.05);
+            },
+            playHover: function () {
+                // Subtle tick
+                if (!this.ctx) return;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(400, this.ctx.currentTime);
+                gain.gain.setValueAtTime(0.02, this.ctx.currentTime);
+                gain.gain.linearRampToValueAtTime(0, this.ctx.currentTime + 0.03);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.03);
+            }
+        };
+
+        // --- Game Data ---
+        const missions = [
+            {
+                id: 1, type: 'mcq', fragment: 'PY',
+                title: "Initialize Engines",
+                desc: "The engines are offline! We need to create a variable named 'fuel' and give it value 100.",
+                code: "# Which code is correct?\n\n[?] fuel ... 100",
+                options: ["fuel = 100", "fuel == 100", "variable fuel 100", "100 >> fuel"],
+                answer: "fuel = 100",
+                hint: "In Python, use a single '=' sign to store a value in a variable."
+            },
+            {
+                id: 2, type: 'bool', fragment: 'TH',
+                title: "Shield Status",
+                desc: "Shields are at 50%. The computer asks: Is 50.5 an integer (whole number)?",
+                code: "is_integer(50.5)",
+                options: ["True", "False"],
+                answer: "False",
+                hint: "Numbers with decimal points like 50.5 are called Floats, not Integers."
+            },
+            {
+                id: 3, type: 'text', fragment: 'ON',
+                title: "Communication Array",
+                desc: "We need to send a signal! Fill in the missing function to show 'SOS' on screen.",
+                code: "____('SOS')",
+                answer: "print",
+                hint: "The command to show text on the screen starts with 'p' (print)."
+            },
+            {
+                id: 4, type: 'mcq', fragment: 'BA',
+                title: "Calculate Trajectory",
+                desc: "We need integer division for grid mapping. What is 7 // 2?",
+                code: "result = 7 // 2\nprint(result)",
+                options: ["3.5", "3", "4", "Error"],
+                answer: "3",
+                hint: "This symbol // means 'Floor Division'. It chops off the decimal part."
+            },
+            {
+                id: 5, type: 'input', fragment: 'SI',
+                title: "Pilot Registration",
+                desc: "The security system needs your name. Type the exact code to get input from keyboard:",
+                code: "# Store input in variable 'name'\nname = _____",
+                answer: "input()",
+                hint: "Use the function input() to listen to keyboard typing."
+            },
+            {
+                id: 6, type: 'mcq', fragment: 'CS',
+                title: "Navigation Logic",
+                desc: "If fuel is NOT 0, we can fly. Which symbol means 'Not Equal'?",
+                code: "if fuel [?] 0:\n  fly_ship()",
+                options: ["<>", "!=", "not=", "><"],
+                answer: "!=",
+                hint: "We use '!=' to verify two things are not the same."
+            },
+            {
+                id: 7, type: 'bool', fragment: 'IC',
+                title: "System Verifier",
+                desc: "True or False: Python requires you to Capitalize 'True' and 'False'.",
+                code: "is_active = true  # Error?\nis_active = True  # specific case?",
+                options: ["True", "False"],
+                answer: "True",
+                hint: "Python is case-sensitive! You must write True with a capital T."
+            },
+            {
+                id: 8, type: 'text', fragment: 'S!',
+                title: "Data Conversion",
+                desc: "The coordinates came as text '100'. Convert it to a number.",
+                code: "coord = ____('100')",
+                answer: "int",
+                hint: "Use int() to turn a string of digits into a number."
+            }
+        ];
+
+        let currentMission = 0;
+        let selectedOption = null;
+        let keyFragments = [];
+        let timerInterval = null;
+        let timeLeft = 90;
+
+        // --- Core Functions ---
+
+        function startMission() {
+            SoundController.init();
+            if (SoundController.ctx && SoundController.ctx.state === 'suspended') {
+                SoundController.ctx.resume();
+            }
+            SoundController.playWin(); // Startup sound
+
+            document.getElementById('introScreen').style.display = 'none';
+            document.getElementById('gameDashboard').style.filter = 'none';
+            log("Commander, the ship is yours. Let's fix these errors!", "sys");
+            renderMission();
+            renderPips();
+            updateFragments();
+            startTimer();
+        }
+
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timeLeft = 90;
+            updateTimerDisplay();
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    missionFailed();
+                } else if (timeLeft <= 10) {
+                    document.getElementById('missionTimer').style.color = 'red';
+                    document.getElementById('missionTimer').style.animation = 'blink 0.5s infinite';
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            document.getElementById('missionTimer').innerText = `T-MINUS: ${timeLeft}s`;
+        }
+
+        function missionFailed() {
+            SoundController.playFail();
+            document.getElementById('gameDashboard').style.filter = 'blur(10px)';
+            document.getElementById('failScreen').style.display = 'flex';
+        }
+
+        function renderPips() {
+            const bar = document.getElementById('levelBar');
+            bar.innerHTML = '';
+            missions.forEach((m, idx) => {
+                const p = document.createElement('div');
+                p.className = `level-pip ${idx === currentMission ? 'active' : ''} ${idx < currentMission ? 'solved' : ''}`;
+                if (idx < currentMission) p.style.background = 'var(--success)';
+                bar.appendChild(p);
+            });
+        }
+
+        function renderMission() {
+            const m = missions[currentMission];
+            const container = document.getElementById('puzzleContainer');
+
+            // Reset State
+            selectedOption = null;
+            setMascot('normal');
+
+            let content = `
+        <div class="question-box">
+          <div style="font-size: 14px; text-transform: uppercase; color: var(--accent); margin-bottom:5px;">System Error #${m.id}</div>
+          ${m.title}: ${m.desc}
+        </div>
+        <div class="code-display">${escapeHtml(m.code)}</div>
+      `;
+
+            if (m.type === 'mcq' || m.type === 'bool') {
+                content += `<div class="choices-grid">`;
+                m.options.forEach((opt, idx) => {
+                    content += `<button class="choice-btn" onmouseenter="SoundController.playHover()" onclick="selectOpt(this, ${idx})">${escapeHtml(opt)}</button>`;
+                });
+                content += `</div>`;
+            } else {
+                content += `
+          <input type="text" class="input-box" id="textAnswer" placeholder="Type code here..." autocomplete="off">
+        `;
+            }
+
+            container.innerHTML = content;
+
+            // Auto focus text
+            if (document.getElementById('textAnswer')) document.getElementById('textAnswer').focus();
+
+            renderPips();
+        }
+
+        function selectOpt(btn, idx) {
+            SoundController.playClick();
+            // Remove other selected
+            document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            selectedOption = missions[currentMission].options[idx];
+        }
+
+        function checkAnswer() {
+            const m = missions[currentMission];
+            let ans = "";
+
+            if (m.type === 'mcq' || m.type === 'bool') {
+                ans = selectedOption;
+            } else {
+                const inp = document.getElementById('textAnswer');
+                ans = inp ? inp.value.trim() : "";
+            }
+
+            if (!ans) {
+                log("No input detected. Please enter a command.", "err");
+                shakeInput();
+                return;
+            }
+
+            // Check logic
+            let correct = false;
+            if (m.type === 'text' || m.type === 'input') { // Loose check for text
+                correct = ans.toLowerCase() === m.answer.toLowerCase();
+            } else {
+                correct = ans === m.answer;
+            }
+
+            if (correct) {
+                // SUCCESS
+                SoundController.playSuccess();
+                setMascot('happy');
+                spawnConfetti();
+                log(`System ${m.id} Repaired! Key Segment Found: [${m.fragment}]`, "success");
+                keyFragments.push(m.fragment);
+                updateFragments();
+
+                if (currentMission < missions.length - 1) {
+                    currentMission++;
+                    setTimeout(() => {
+                        renderMission();
+                    }, 1500);
+                } else {
+                    log("All systems operational. Enter Final Key.", "sys");
+                    renderPips();
+                    document.getElementById('gameDashboard').style.opacity = '0.8';
+                }
+
+            } else {
+                // FAIL
+                SoundController.playError();
+                setMascot('sad');
+                log("Error: Invalid Syntax or Logic. Try again.", "err");
+                shakeInput();
+            }
+        }
+
+        function showHint() {
+            log(`HINT: ${missions[currentMission].hint}`, "sys");
+        }
+
+        function updateFragments() {
+            const row = document.getElementById('fragmentRow');
+            if (keyFragments.length === 0) {
+                row.innerHTML = '<span style="color:var(--text-muted); font-size:12px;">Solve puzzles to find keys...</span>';
+                return;
+            }
+            // Make fragments clickable for easy copying
+            row.innerHTML = keyFragments.map(k =>
+                `<span class="fragment" onclick="SoundController.playClick(); document.getElementById('finalInput').value += '${k}'; this.style.transform='scale(1.2)'; setTimeout(()=>this.style.transform='scale(1)', 200);">
+                ${k}
+            </span>`
+            ).join('');
+        }
+
+        function tryUnlock() {
+            const attempt = document.getElementById('finalInput').value.toUpperCase().trim();
+            const realKey = missions.map(m => m.fragment).join('');
+
+            if (attempt === realKey) {
+                SoundController.playWin();
+                clearInterval(timerInterval); // Stop timer on win
+                spawnConfetti();
+                setTimeout(() => {
+                    document.getElementById('winScreen').style.display = 'flex';
+                }, 500);
+            } else {
+                SoundController.playError();
+                log("ACCESS DENIED. Check fragment order.", "err");
+                shakeInput();
+            }
+        }
+
+        // --- Helpers ---
+
+        function log(msg, type) {
+            const w = document.getElementById('chatWindow');
+            const d = document.createElement('div');
+            d.className = `chat-msg ${type}`;
+            d.innerText = `> ${msg}`;
+            w.appendChild(d);
+            w.scrollTop = w.scrollHeight;
+        }
+
+        function setMascot(mood) {
+            const m = document.getElementById('mascot');
+            m.className = `mascot-container ${mood}`;
+        }
+
+        function shakeInput() {
+            const el = document.querySelector('.input-box') || document.querySelector('.selected');
+            if (el) {
+                el.classList.add('shake');
+                setTimeout(() => el.classList.remove('shake'), 400);
+            }
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        function spawnConfetti() {
+            for (let i = 0; i < 30; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.top = '-10px';
+                p.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                document.body.appendChild(p);
+                setTimeout(() => p.remove(), 1000);
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -572,25 +572,6 @@
           <h2>Technical Skills</h2>
         </div>
         <div class="skills-categories">
-          <!-- Python & Testing Framework -->
-          <div class="skill-category">
-            <div class="category-header">
-              <div class="category-icon">
-                <i class="fab fa-python"></i>
-              </div>
-              <h3>Python & Testing Framework</h3>
-            </div>
-            <p class="category-description">
-              Playwright Python framework with advanced features and CI/CD integration
-              <a href="https://github.com/faruklmu17/playwright_python_framework" target="_blank"
-                class="category-link-inline">
-                <i class="fab fa-github"></i>
-              </a>
-            </p>
-          </div>
-
-
-
           <!-- QE & DevOps Tools -->
           <div class="skill-category">
             <div class="category-header">
@@ -624,14 +605,104 @@
               </a>
             </p>
           </div>
+
+          <!-- AI-Driven Grading System -->
+          <div class="skill-category">
+            <div class="category-header">
+              <div class="category-icon">
+                <i class="fas fa-magic"></i>
+              </div>
+              <h3>AI-Driven Grading</h3>
+            </div>
+            <p class="category-description">
+              Automated student grading system with RAG-based personalized feedback.
+              <a href="https://github.com/faruklmu17/student_grader" target="_blank" class="category-link-inline">
+                <i class="fab fa-github"></i>
+              </a>
+            </p>
+          </div>
+
+          <!-- Open Source Contributions Entry -->
+          <div class="skill-category os-contrib-category">
+            <div class="category-header">
+              <div class="category-icon">
+                <i class="fab fa-github-alt"></i>
+              </div>
+              <div
+                style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding-right: 35px;">
+                <h3>Open Source Contributions</h3>
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                  <span class="os-badge-header">200+ Contributions</span>
+                  <a href="https://github.com/faruklmu17" target="_blank" class="category-link-inline">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="os-contrib-content">
+              <div class="os-lang-stats">
+                <div class="os-lang-item">
+                  <div class="os-lang-info">
+                    <span>Python</span>
+                    <span>45%</span>
+                  </div>
+                  <div class="os-progress">
+                    <div class="os-bar python" style="width: 45%;"></div>
+                  </div>
+                </div>
+                <div class="os-lang-item">
+                  <div class="os-lang-info">
+                    <span>TypeScript</span>
+                    <span>25%</span>
+                  </div>
+                  <div class="os-progress">
+                    <div class="os-bar typescript" style="width: 25%;"></div>
+                  </div>
+                </div>
+                <div class="os-lang-item">
+                  <div class="os-lang-info">
+                    <span>HTML/CSS</span>
+                    <span>20%</span>
+                  </div>
+                  <div class="os-progress">
+                    <div class="os-bar html" style="width: 20%;"></div>
+                  </div>
+                </div>
+                <div class="os-lang-item">
+                  <div class="os-lang-info">
+                    <span>JavaScript</span>
+                    <span>10%</span>
+                  </div>
+                  <div class="os-progress">
+                    <div class="os-bar javascript" style="width: 10%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Right Column: Teaching & Courses -->
       <div class="education-column">
         <div class="education-header">
-          <h2>Teaching Experiences</h2>
-          <p>Empowering the next generation of young learners!</p>
+          <div class="edu-header-wrapper">
+            <div class="edu-title-group">
+              <div class="title-with-badge">
+                <h2>Teaching Experiences</h2>
+                <a href="https://www.udemy.com/user/mohammadfarukhasan/" target="_blank" class="udemy-badge-sleek"
+                  title="View Udemy Profile">
+                  <svg class="udemy-svg-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M12 18.72c-4.32 0-7.44-2.88-7.44-6.96V1.2h4.56v10.32c0 1.92 1.2 3.12 2.88 3.12s2.88-1.2 2.88-3.12V1.2h4.56v10.56c0 4.08-3.12 6.96-7.44 6.96zM12 22.8l-5.04-3.6h10.08L12 22.8z"
+                      fill="currentColor" />
+                  </svg>
+                  <span>Udemy Profile</span>
+                </a>
+              </div>
+              <p>Empowering the next generation of young learners!</p>
+            </div>
+          </div>
         </div>
 
         <!-- Combined Content -->
@@ -713,6 +784,34 @@
     <div class="container">
       <h2 class="section-title">Latest Blog Posts</h2>
       <div class="blog-grid">
+        <!-- Blog Post: Soft Assertions (Jan 11, 2026) -->
+        <div class="blog-card">
+          <div class="blog-image">
+            <a href="blog_post/playwright_soft_assertion.html">
+              <img src="blog_images/soft_assertion_cover.png" alt="Playwright Soft Assertions Tutorial" loading="lazy">
+            </a>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta">
+              <div class="blog-date">
+                <i class="far fa-calendar-alt"></i>
+                <span>January 11, 2026</span>
+              </div>
+              <div class="blog-read-time">
+                <i class="far fa-clock"></i>
+                <span>5 min read</span>
+              </div>
+            </div>
+            <h3 class="blog-title">Mastering Playwright Soft Assertions: The Guide to expect.soft()</h3>
+            <p class="blog-excerpt">Stop debugging blindly. Learn how Playwright soft assertions (expect.soft) let you
+              catch multiple UI failures in
+              a single test run.</p>
+
+            <a href="blog_post/playwright_soft_assertion.html" class="read-more-link">Read More <i
+                class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
         <!-- Blog Post: Playwright Extension (Dec 20, 2025) -->
         <div class="blog-card">
           <div class="blog-image">
@@ -782,46 +881,7 @@
           </div>
         </div>
 
-        <!-- Blog Post 2 - Playwright Fixtures -->
-        <div class="blog-card">
-          <div class="blog-image">
-            <a href="blog_post/playwright_fixtures.html">
-              <img src="blog_images/playwright_fixtures.png" alt="Playwright Fixtures Tutorial" loading="lazy">
-            </a>
-          </div>
-          <div class="blog-content">
-            <div class="blog-meta">
-              <div class="blog-date">
-                <i class="far fa-calendar-alt"></i>
-                <span>September 7, 2025</span>
-              </div>
-              <div class="blog-read-time">
-                <i class="far fa-clock"></i>
-                <span>6 min read</span>
-              </div>
-            </div>
-            <h3 class="blog-title">Mastering Playwright Fixtures: Built-in vs Custom</h3>
-            <p class="blog-excerpt">Learn how to use Playwright fixtures to simplify test setup and avoid boilerplate
-              code. Complete guide with TypeScript examples, custom fixtures, and best practices for test automation.
-            </p>
 
-            <!-- YouTube thumbnail -->
-            <div class="youtube-thumbnail">
-              <a href="https://youtu.be/tkjPe86JpGk" target="_blank" class="youtube-link">
-                <div class="thumbnail-container">
-                  <img src="https://img.youtube.com/vi/tkjPe86JpGk/0.jpg" alt="Watch video tutorial" loading="lazy">
-                  <div class="play-button">
-                    <i class="fab fa-youtube"></i>
-                  </div>
-                </div>
-                <span class="watch-text">Watch video tutorial</span>
-              </a>
-            </div>
-
-            <a href="blog_post/playwright_fixtures.html" class="read-more-link">Read More <i
-                class="fas fa-arrow-right"></i></a>
-          </div>
-        </div>
 
 
       </div>
@@ -1037,6 +1097,34 @@
       <h2 class="section-title">Projects & GitHub Activity</h2>
 
       <div class="projects-grid">
+        <!-- Project: AI-Driven Student Grader (New) -->
+        <div class="project-card">
+          <div class="project-image-wrapper">
+            <img src="assets/images/student_grader_mockup.png" alt="AI-Driven Student Grader mockup" loading="lazy">
+            <div class="project-overlay">
+              <span class="project-tag">AI-Driven</span>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-header">
+              <h3>AI-Driven Student Grader</h3>
+              <div class="project-tags">
+                <span class="project-tag">Python</span>
+                <span class="project-tag">RAG / OpenAI</span>
+                <span class="project-tag">EdTech</span>
+              </div>
+            </div>
+            <p class="project-description">An intelligent grading system that leverages Retrieval-Augmented Generation
+              (RAG) to provide students with deeply personalized feedback and evidence-based scoring based on specific
+              rubrics.</p>
+            <div class="project-links">
+              <a href="https://github.com/faruklmu17/student_grader" class="project-link github-btn" target="_blank">
+                <i class="fab fa-github"></i> GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+
         <!-- Project 1 -->
         <div class="project-card">
           <div class="project-image-wrapper">
@@ -1092,6 +1180,34 @@
             <div class="project-links">
               <a href="https://github.com/faruklmu17/ai-test-generator" class="project-link github-btn" target="_blank">
                 <i class="fab fa-github"></i> GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project: Robo-Balance RL Game -->
+        <div class="project-card">
+          <div class="project-image-wrapper">
+            <img src="static/mascot.png" alt="Robo-Balance: RL Game Mockup" loading="lazy"
+              style="background: white; object-fit: contain; padding: 20px;">
+            <div class="project-overlay">
+              <span class="project-tag">Interactive AI</span>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-header">
+              <h3>Robo-Balance: RL Game</h3>
+              <div class="project-tags">
+                <span class="project-tag">JavaScript</span>
+                <span class="project-tag">Reinforcement Learning</span>
+                <span class="project-tag">CartPole</span>
+              </div>
+            </div>
+            <p class="project-description">An interactive web application that teaches Reinforcement Learning basics
+              through a gamified CartPole simulation. Help the robot learn to balance using AI dynamics!</p>
+            <div class="project-links">
+              <a href="games/cartpole_balance.html" class="project-link demo-btn">
+                <i class="fas fa-play"></i> Play Now
               </a>
             </div>
           </div>

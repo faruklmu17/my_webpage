@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <title>Robo-Balance Fullscreen: Mastery Challenge</title>
+    <meta name="description"
+        content="Take the ultimate Reinforcement Learning challenge in fullscreen. Use your keyboard to balance the pole and beat the high score!">
+    <link rel="canonical" href="https://faruk-hasan.com/games/cartpole_fullscreen.html" />
+
+    <style>
+        :root {
+            --bg: #0f172a;
+            --primary: #ffce00;
+            --secondary: #47cbd5;
+            --accent: #ff6b6b;
+            --success: #63d471;
+            --text-light: #f8fafc;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: var(--bg);
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-light);
+        }
+
+        #game-wrapper {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+        }
+
+        canvas {
+            width: 100%;
+            height: 70vh;
+            background: rgba(255, 255, 255, 0.03);
+            cursor: none;
+        }
+
+        .ui-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            pointer-events: none;
+            gap: 20px;
+        }
+
+        .stats-panel {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            pointer-events: auto;
+            min-width: 120px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .left-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            pointer-events: none;
+        }
+
+        .back-btn {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            transition: all 0.3s;
+            pointer-events: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        #message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            font-weight: 900;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            display: none;
+            pointer-events: none;
+        }
+
+        .mascot-fullscreen {
+            width: 150px;
+            position: absolute;
+            top: 150px;
+            right: 30px;
+            animation: wave 2s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 10;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+        }
+
+        @keyframes wave {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(15deg);
+            }
+        }
+
+        .btn-group {
+            position: absolute;
+            bottom: 100px;
+            display: flex;
+            gap: 15px;
+            pointer-events: auto;
+        }
+
+        .fancy-btn {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 206, 0, 0.3);
+            transition: all 0.2s;
+        }
+
+        .fancy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 206, 0, 0.4);
+        }
+
+        .fancy-btn.secondary {
+            background: var(--secondary);
+            box-shadow: 0 4px 15px rgba(71, 203, 213, 0.3);
+        }
+
+        .fancy-btn.secondary:hover {
+            box-shadow: 0 6px 20px rgba(71, 203, 213, 0.4);
+        }
+
+        .fancy-btn.red {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="game-wrapper">
+        <div class="ui-overlay">
+            <div class="left-controls">
+                <a href="cartpole_balance.html" class="back-btn">← Back to Normal View</a>
+                <div class="stats-panel">
+                    <div class="stat-item">
+                        <span class="stat-label">Score</span>
+                        <span class="stat-value" id="score">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">High Score</span>
+                        <span class="stat-value" id="high-score" style="color: var(--secondary);">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="stats-panel" style="text-align: right;">
+                <div class="stat-item">
+                    <span class="stat-label">Status</span>
+                    <span class="stat-value" id="status" style="color: var(--success);">READY</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Cookies</span>
+                    <span class="stat-value" id="rew">+0</span>
+                </div>
+            </div>
+        </div>
+
+        <canvas id="sim"></canvas>
+
+        <div id="message">OOPS! 😵</div>
+
+        <img src="../assets/images/mascot.png" class="mascot-fullscreen" alt="Friendly Robot" id="mascot">
+
+        <div class="btn-group">
+            <button id="reset" class="fancy-btn red">Try Again (Space)</button>
+            <button id="actAuto" class="fancy-btn secondary">Toggle Bot (A)</button>
+        </div>
+
+        <div class="controls-hint">
+            <span><span class="key-badge">←</span> Push Left</span>
+            <span><span class="key-badge">→</span> Push Right</span>
+            <span><span class="key-badge">A</span> AI Toggle</span>
+            <span><span class="key-badge">Space</span> Restart</span>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("sim");
+        const ctx = canvas.getContext("2d");
+        const scoreEl = document.getElementById("score");
+        const highScoreEl = document.getElementById("high-score");
+        const rewEl = document.getElementById("rew");
+        const statusEl = document.getElementById("status");
+        const messageEl = document.getElementById("message");
+
+        let x = 0, xd = 0, th = 0, thd = 0;
+        let score = 0, highScore = localStorage.getItem('cartpole_high_score') || 0;
+        let alive = true, autoMode = false;
+        let keys = {};
+        const dt = 0.02, angleLimit = 0.6, posLimit = 2.4;
+
+        highScoreEl.textContent = highScore;
+
+        window.addEventListener('keydown', e => {
+            keys[e.code] = true;
+            if (e.code === 'Space' && !alive) reset();
+            if (e.code === 'KeyA') toggleAuto();
+        });
+        window.addEventListener('keyup', e => keys[e.code] = false);
+
+        function toggleAuto() {
+            autoMode = !autoMode;
+            document.getElementById("actAuto").textContent = autoMode ? "🛑 Stop Bot (A)" : "🤖 Start Bot (A)";
+        }
+
+        document.getElementById("actAuto").onclick = toggleAuto;
+        document.getElementById("reset").onclick = reset;
+
+        function updatePhysics() {
+            let force = 0;
+            if (autoMode) {
+                force = (th + 0.1 * thd > 0) ? 1.0 : -1.0;
+            } else {
+                if (keys['ArrowLeft']) force = -1.0;
+                if (keys['ArrowRight']) force = 1.0;
+            }
+
+            xd *= 0.85;
+            thd *= 0.98;
+
+            xd = Math.max(-5, Math.min(5, xd + force * 0.15));
+            x = Math.max(-posLimit, Math.min(posLimit, x + xd * dt));
+
+            const gravity = Math.sin(th) * 3;
+            const push = force * 4.0;
+            const thdd = gravity - push;
+
+            thd += thdd * dt;
+            th += thd * dt;
+
+            if (Math.abs(th) >= angleLimit || Math.abs(x) >= posLimit) {
+                die();
+            } else {
+                score++;
+                if (score % 20 === 0) {
+                    const cookieCount = Math.min(5, Math.floor(score / 100) + 1);
+                    rewEl.textContent = "🍪".repeat(cookieCount);
+                }
+                const currentScore = Math.floor(score / 5);
+                scoreEl.textContent = currentScore;
+                if (currentScore > highScore) {
+                    highScore = currentScore;
+                    highScoreEl.textContent = highScore;
+                    localStorage.setItem('cartpole_high_score', highScore);
+                }
+                statusEl.textContent = "BALANCING";
+                statusEl.style.color = "var(--success)";
+            }
+        }
+
+        function die() {
+            alive = false;
+            statusEl.textContent = "CRASHED";
+            statusEl.style.color = "var(--accent)";
+            messageEl.style.display = "block";
+        }
+
+        function reset() {
+            x = 0; xd = 0; th = (Math.random() - 0.5) * 0.1; thd = 0;
+            score = 0; alive = true;
+            scoreEl.textContent = "0";
+            rewEl.textContent = "+0";
+            statusEl.textContent = "READY";
+            statusEl.style.color = "var(--secondary)";
+            messageEl.style.display = "none";
+        }
+
+        function draw() {
+            const W = canvas.width = window.innerWidth;
+            const H = canvas.height = window.innerHeight * 0.7;
+            ctx.clearRect(0, 0, W, H);
+
+            // Track/Rail
+            ctx.strokeStyle = "rgba(148, 163, 184, 0.2)";
+            ctx.lineWidth = 10;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(100, H - 100); ctx.lineTo(W - 100, H - 100);
+            ctx.stroke();
+
+            const screenX = (x / (posLimit * 2) + 0.5) * (W - 200) + 100;
+
+            // Cart
+            ctx.fillStyle = "var(--primary)";
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = "rgba(255, 206, 0, 0.5)";
+            ctx.beginPath();
+            ctx.roundRect(screenX - 60, H - 130, 120, 50, 15);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            // Wheels
+            ctx.fillStyle = "#1e293b";
+            ctx.beginPath(); ctx.arc(screenX - 35, H - 85, 15, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(screenX + 35, H - 85, 15, 0, Math.PI * 2); ctx.fill();
+
+            // Pole
+            ctx.save();
+            ctx.translate(screenX, H - 130);
+            ctx.rotate(th);
+
+            // Pole Body
+            ctx.fillStyle = "var(--accent)";
+            ctx.beginPath();
+            ctx.roundRect(-8, -200, 16, 200, 8);
+            ctx.fill();
+
+            // Pole Tip
+            ctx.fillStyle = alive ? "var(--primary)" : "#64748b";
+            ctx.beginPath();
+            ctx.arc(0, -210, 12, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function loop() {
+            if (alive) updatePhysics();
+            draw();
+            requestAnimationFrame(loop);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight * 0.7;
+        });
+
+        reset();
+        loop();
+    </script>
+</body>
+
+</html>
