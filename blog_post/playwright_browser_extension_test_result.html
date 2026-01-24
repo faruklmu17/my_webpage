@@ -395,6 +395,16 @@
                 top: 0;
             }
         }
+
+        .blog-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+            display: block;
+        }
     </style>
 </head>
 
@@ -408,7 +418,7 @@
 
             <div class="article-meta">
                 <div class="meta-item">
-                    <img src="../assets/images/me.jpg" alt="Faruk Hasan" class="author-img">
+                    <img src="../me.jpg" alt="Faruk Hasan" class="author-img">
                     <span>By <strong>Faruk Hasan</strong></span>
                 </div>
                 <div class="meta-item">
@@ -430,7 +440,9 @@
                 The <strong>Playwright Test Results Badge</strong> is a lightweight Chrome extension designed to
                 eliminate that friction.
                 Instead of digging through 100MB logs, you get an instant visual summary of your test status directly in
-                your browser toolbar.
+                your browser toolbar. <strong>New in v1.4:</strong> Full AWS S3 support with comprehensive setup
+                instructions, alongside existing GitHub Pages support, giving you complete flexibility in where you
+                store your test results.
             </p>
 
             <div class="feature-grid">
@@ -477,7 +489,7 @@
                 <li style="padding-left: 2rem; position: relative; margin-bottom: 0.5rem;"><i class="fas fa-check"
                         style="position: absolute; left: 0; color: var(--accent);"></i> Verified Passed tests</li>
                 <li style="padding-left: 2rem; position: relative; margin-bottom: 0.5rem;"><i class="fas fa-times"
-                        style="position: absolute; left: 0; color: var(--danger);"></i> Failed and Flaky test counts
+                        style="position: absolute; left: 0; color: var(--danger);"></i> Failed test counts
                 </li>
                 <li style="padding-left: 2rem; position: relative; margin-bottom: 0.5rem;"><i class="fas fa-clock"
                         style="position: absolute; left: 0; color: var(--warning);"></i> Last updated timestamp and
@@ -486,12 +498,23 @@
         </section>
 
         <section class="section-card">
-            <h2><i class="fas fa-rocket"></i> Quick Setup Guide (4 Steps)</h2>
+            <h2><i class="fas fa-rocket"></i> Quick Setup Guide (6 Steps)</h2>
             <p>Follow these steps to integrate the badge with your Playwright project today.</p>
 
             <div class="setup-steps">
                 <div class="setup-step">
-                    <h3>Step 1: Create the Summary Reporter</h3>
+                    <h3>Step 1: Install Playwright</h3>
+                    <p>If you are starting a new project, run: <code>npm init playwright@latest</code></p>
+                    <ul style="list-style: disc; margin-left: 1.5rem; margin-bottom: 1rem;">
+                        <li>Choose <strong>TypeScript</strong> for the best experience.</li>
+                        <li>Choose <strong>true</strong> for "Add a GitHub Actions workflow".</li>
+                    </ul>
+                    <p>This will create example tests and a default <code>.yml</code> file that you will replace in Step
+                        4.</p>
+                </div>
+
+                <div class="setup-step">
+                    <h3>Step 2: Create the Summary Reporter</h3>
                     <p>Create <code>summary-reporter.js</code> in your project root. This converts heavy reports into a
                         lightweight 1KB JSON.</p>
                     <div class="code-container">
@@ -534,7 +557,7 @@ module.exports = SummaryReporter;</code></pre>
                 </div>
 
                 <div class="setup-step">
-                    <h3>Step 2: Configure Playwright</h3>
+                    <h3>Step 3: Configure Playwright</h3>
                     <p>Update your <code>playwright.config.ts</code> to include your new custom reporter.</p>
                     <div class="code-container">
                         <div class="code-label">playwright.config.ts</div>
@@ -548,7 +571,7 @@ reporters: [
                 </div>
 
                 <div class="setup-step">
-                    <h3>Step 3: Create GitHub Actions Workflow</h3>
+                    <h3>Step 4: Create GitHub Actions Workflow</h3>
                     <p>Automate the test run and summary update. Ensure <code>contents: write</code> permission is
                         enabled.</p>
                     <div class="code-container">
@@ -576,18 +599,255 @@ jobs:
         git diff --staged --quiet || git commit -m "chore: update results [skip ci]"
         git push</code></pre>
                     </div>
+                    <div class="callout info" style="margin-top: 1rem;">
+                        <i class="fas fa-lock"></i> <strong>Working with a Private Repo?</strong> See the <a
+                            href="#private-repo" style="color: var(--primary); font-weight: 600;">Private Repository
+                            Guide</a> below for the secure deployment method.
+                    </div>
                 </div>
 
                 <div class="setup-step">
-                    <h3>Step 4: Connect & Test</h3>
-                    <p>Push your changes, find the <code>test-summary.json</code> file in your repo, click
-                        <strong>"Raw"</strong>, and paste that URL into the extension settings.
+                    <h3>Step 5: Initialize Your Summary</h3>
+                    <p>Run your tests locally one time (<code>npx playwright test</code>) to create the
+                        <code>test-summary.json</code> file, then commit and push it to your repository.
+                        <strong>Tip:</strong> You can use the example tests that come with Playwright to verify the
+                        badge immediately!
+                    </p>
+                </div>
+
+                <div class="setup-step">
+                    <h3>Step 6: Connect & Test</h3>
+                    <p>Copy the "Raw" URL of your <code>test-summary.json</code> and paste it into the extension
+                        settings.
                     </p>
                     <div class="callout success">
                         <strong>Pro Tip:</strong> GitHub UI links are supported too! The extension automatically
                         converts them to raw links for you.
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <section class="section-card" id="private-repo">
+            <h2><i class="fas fa-lock"></i> Monitoring Private Repositories</h2>
+            <p>
+                By design, this extension does not request your GitHub Personal Access Tokens. This keeps your account
+                secure but means it cannot directly access private repository files.
+            </p>
+            <div class="callout success">
+                <strong>The Solution:</strong> Use <strong>GitHub Pages</strong> to host your summary file. GitHub Pages
+                can be enabled even on private repositories, allowing you to serve the 1KB summary file publicly while
+                keeping your source code and test results private.
+            </div>
+
+            <h3>Step-by-Step Configuration</h3>
+            <div class="setup-steps">
+                <div class="setup-step">
+                    <h4>1. Enable GitHub Pages</h4>
+                    <p>Go to your Repository <strong>Settings > Pages</strong>. Set the source to <strong>"Deploy from a
+                            branch"</strong> and select <strong>"main"</strong> as shown below.</p>
+                    <img src="./blog_images/github_pages_settings.png" alt="GitHub Pages Settings" class="blog-image">
+                </div>
+                <div class="setup-step">
+                    <h4>2. Use the Complete Workflow</h4>
+                    <p>Copy and paste this workflow into <code>.github/workflows/playwright.yml</code>. It handles
+                        testing, result commitment, and Pages deployment automatically.</p>
+                    <div class="code-container">
+                        <div class="code-label">playwright.yml</div>
+                        <pre><code>name: Deploy results.json to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: npx playwright test
+
+      - name: Commit and push updated results
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add test-summary.json
+          git commit -m "Update test summary [skip ci]" || echo "No changes"
+          git push
+
+      - name: Prepare Pages artifact (Summary and results)
+        if: always()
+        run: |
+          mkdir -p public
+          cp test-summary.json public/test-summary.json
+          cp test-summary.json public/results.json
+          touch public/.nojekyll
+
+      - name: Configure Pages
+        if: always()
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        if: always()
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - name: Deploy
+        id: deployment
+        if: always()
+        uses: actions/deploy-pages@v4</code></pre>
+                    </div>
+                </div>
+                <div class="setup-step">
+                    <h4>3. Initialize Your Summary</h4>
+                    <p>Run <code>npx playwright test</code> locally, then commit and push the generated
+                        <code>test-summary.json</code> file to GitHub.
+                    </p>
+                </div>
+
+                <div class="setup-step">
+                    <h4>4. Connect & Verify</h4>
+                    <p>Once the workflow finishes, your site will be live. Paste your Pages URL (e.g.,
+                        <code>https://username.github.io/repo/results.json</code>) into the extension settings.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-card">
+            <h2><i class="fab fa-aws"></i> Alternative: Deploy to AWS S3</h2>
+            <p>
+                If you prefer AWS over GitHub Pages, you can deploy your test results to an S3 bucket. This gives you
+                full control over your infrastructure and works great for teams already using AWS.
+            </p>
+
+            <h3>Step-by-Step AWS S3 Configuration</h3>
+            <div class="setup-steps">
+                <div class="setup-step">
+                    <h4>1. Create an S3 Bucket</h4>
+                    <p>Create a new S3 bucket (e.g., <code>my-test-results</code>) in your preferred AWS region.</p>
+                </div>
+
+                <div class="setup-step">
+                    <h4>2. Configure S3 Bucket Permissions</h4>
+                    <p><strong>a) Block Public Access:</strong> Go to your bucket → Permissions tab → Block public
+                        access → Edit → Uncheck all boxes → Save → Confirm</p>
+
+                    <p><strong>b) Bucket Policy:</strong> Go to Bucket policy → Edit → Paste this policy (replace
+                        YOUR-BUCKET-NAME):</p>
+                    <div class="code-container">
+                        <div class="code-label">S3 Bucket Policy</div>
+                        <pre><code>{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::YOUR-BUCKET-NAME/*"
+        }
+    ]
+}</code></pre>
+                    </div>
+
+                    <p><strong>c) CORS Configuration:</strong> Go to CORS configuration → Edit → Paste:</p>
+                    <div class="code-container">
+                        <div class="code-label">CORS Configuration</div>
+                        <pre><code>[
+    {
+        "AllowedHeaders": ["*"],
+        "AllowedMethods": ["GET", "HEAD"],
+        "AllowedOrigins": ["*"],
+        "ExposeHeaders": [],
+        "MaxAgeSeconds": 3000
+    }
+]</code></pre>
+                    </div>
+                </div>
+
+                <div class="setup-step">
+                    <h4>3. Set Up AWS Credentials in GitHub Secrets</h4>
+                    <p>Go to your repository → Settings → Secrets and variables → Actions → New repository secret</p>
+                    <p>Add these three secrets:</p>
+                    <ul style="list-style: disc; margin-left: 1.5rem; margin-bottom: 1rem;">
+                        <li><strong>AWS_ACCESS_KEY_ID</strong></li>
+                        <li><strong>AWS_SECRET_ACCESS_KEY</strong></li>
+                        <li><strong>AWS_DEFAULT_REGION</strong> (e.g., us-east-1)</li>
+                    </ul>
+                </div>
+
+                <div class="setup-step">
+                    <h4>4. Create AWS S3 Deployment Workflow</h4>
+                    <p>Create <code>.github/workflows/playwright.yml</code> with this content:</p>
+                    <div class="code-container">
+                        <div class="code-label">.github/workflows/playwright.yml</div>
+                        <pre><code>name: Deploy Test Results to AWS S3
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+      
+      - name: Run Playwright tests
+        run: npx playwright test
+      
+      - name: Upload results to AWS S3
+        if: always()
+        run: |
+          aws s3 cp test-summary.json s3://YOUR-BUCKET-NAME/results.json --acl public-read --content-type application/json
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}</code></pre>
+                    </div>
+                </div>
+
+                <div class="setup-step">
+                    <h4>5. Connect & Monitor</h4>
+                    <p>Your S3 URL will be: <code>https://YOUR-BUCKET-NAME.s3.REGION.amazonaws.com/results.json</code>
+                    </p>
+                    <p>Example: <code>https://my-test-results.s3.us-east-2.amazonaws.com/results.json</code></p>
+                    <p>Paste this URL into the extension popup and click Save!</p>
+                </div>
+            </div>
+
+            <div class="callout info">
+                <i class="fas fa-info-circle"></i> <strong>Note:</strong> The extension supports both GitHub Pages and
+                AWS S3 URLs. Choose whichever deployment method works best for your team's infrastructure.
             </div>
         </section>
 

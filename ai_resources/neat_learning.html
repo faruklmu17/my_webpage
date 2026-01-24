@@ -1,0 +1,1173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NEAT Config File Tutorial - Interactive 10-Minute Lesson for Kids</title>
+  <meta name="description" content="Learn how NEAT (NeuroEvolution of Augmenting Topologies) config files work through an interactive, kid-friendly lesson. Understand robots, fitness scores, mutations, and evolution in AI - no scary math required!" />
+  <meta name="keywords" content="NEAT tutorial, NEAT config file, AI for kids, machine learning tutorial, neuroevolution, genetic algorithm, interactive AI lesson, NEAT Python, evolutionary algorithms" />
+  <meta name="author" content="Faruk" />
+
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="NEAT Config File Tutorial - Interactive 10-Minute Lesson" />
+  <meta property="og:description" content="Learn how NEAT config files work through an interactive, kid-friendly lesson. Understand AI evolution, mutations, and fitness scores!" />
+  <meta property="og:url" content="https://farukalamai.com/ai_resources/neat_learning.html" />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NEAT Config File Tutorial - Interactive Lesson" />
+  <meta name="twitter:description" content="Learn how NEAT config files work through an interactive, kid-friendly lesson. Understand AI evolution, mutations, and fitness scores!" />
+
+  <!-- Friendly Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Fun & Bright Palette */
+      --bg: #E0F7FA;
+      --card-bg: #ffffff;
+      --text: #2c3e50;
+      --text-soft: #637b94;
+
+      --primary: #FF6B6B;
+      --primary-dark: #EE5253;
+      --secondary: #4ECDC4;
+      --secondary-dark: #22A6B3;
+      --accent: #FFE66D;
+      --accent-dark: #F7D744;
+
+      --success: #6AB04C;
+      --warn: #F9CA24;
+      --danger: #EB4D4B;
+
+      --radius: 24px;
+      --shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 15px 35px rgba(0, 0, 0, 0.12);
+
+      --font-head: 'Fredoka', sans-serif;
+      --font-body: 'Nunito', sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background: var(--bg);
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(78, 205, 196, 0.15) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(255, 107, 107, 0.15) 0%, transparent 20%);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+
+    /* Header */
+    header {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: var(--primary);
+      text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+      letter-spacing: 1px;
+    }
+
+    .sub {
+      margin: 10px auto 20px;
+      max-width: 800px;
+      font-size: 1.1rem;
+      color: var(--text-soft);
+      line-height: 1.6;
+    }
+
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .stat-pill {
+      background: white;
+      padding: 10px 20px;
+      border-radius: 50px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      font-weight: 700;
+      color: var(--secondary-dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .stat-pill.timer {
+      border-color: var(--primary);
+      color: var(--primary-dark);
+    }
+
+    /* Layout */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: grid;
+      gap: 24px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1.2fr .8fr;
+    }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      border: 2px solid rgba(0, 0, 0, 0.03);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-family: var(--font-head);
+      color: var(--text);
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .muted {
+      color: var(--text-soft);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Pills & Badges */
+    .pill {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 16px;
+      border-radius: 50px;
+      background: white;
+      border: 2px solid #e0e0e0;
+      font-size: 0.9rem;
+      font-weight: 700;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    /* Buttons */
+    button {
+      cursor: pointer;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 16px;
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 0 var(--primary-dark);
+    }
+
+    .primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 0 var(--primary-dark);
+    }
+
+    .primary:active {
+      transform: translateY(4px);
+      box-shadow: 0 0 0 var(--primary-dark);
+    }
+
+    .danger {
+      background: var(--danger);
+      color: white;
+      box-shadow: 0 4px 0 #c0392b;
+    }
+
+    .danger:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 0 #c0392b;
+    }
+
+    .danger:active {
+      transform: translateY(4px);
+      box-shadow: 0 0 0 #c0392b;
+    }
+
+    button:not(.primary):not(.danger) {
+      background: #f1f3f5;
+      color: var(--text-soft);
+      border: 2px solid #e0e0e0;
+    }
+
+    button:not(.primary):not(.danger):hover {
+      background: white;
+      border-color: var(--secondary);
+      color: var(--secondary);
+    }
+
+    .ok { color: var(--success); font-weight: 700; }
+    .warn { color: var(--warn); font-weight: 700; }
+    .bad { color: var(--danger); font-weight: 700; }
+
+    /* Stepper */
+    .stepper {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+
+    .step {
+      padding: 10px 16px;
+      border-radius: 16px;
+      border: 2px solid #e0e0e0;
+      background: white;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-soft);
+      transition: all 0.2s;
+    }
+
+    .step.active {
+      border-color: var(--secondary);
+      background: var(--secondary);
+      color: white;
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(78, 205, 196, 0.3);
+    }
+
+    .panel {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 2px dashed #e0e0e0;
+    }
+
+    /* Progress Bar */
+    .progress {
+      height: 12px;
+      background: #f1f3f5;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 2px solid #e0e0e0;
+      margin-top: 15px;
+    }
+
+    .bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+      transition: width 0.3s ease;
+    }
+
+    /* Code Box */
+    .codebox {
+      background: #2c3e50;
+      border: 2px solid #34495e;
+      border-radius: 16px;
+      padding: 16px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono";
+      font-size: 0.9rem;
+      overflow-x: auto;
+      color: #ecf0f1;
+      line-height: 1.6;
+    }
+
+    .codebox .hl { color: #3498db; font-weight: 700; }
+    .codebox .k { color: #e74c3c; font-weight: 700; }
+    .codebox .c { color: #95a5a6; font-style: italic; }
+
+    /* Quiz */
+    .quiz {
+      display: grid;
+      gap: 15px;
+    }
+
+    .q {
+      padding: 16px;
+      border-radius: 16px;
+      border: 2px solid #e0e0e0;
+      background: #f8f9fa;
+    }
+
+    .q h3 {
+      margin: 0 0 12px;
+      font-size: 1.1rem;
+      font-family: var(--font-head);
+      color: var(--text);
+    }
+
+    .choices {
+      display: grid;
+      gap: 10px;
+    }
+
+    label.choice {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 12px;
+      border-radius: 12px;
+      border: 2px solid #e0e0e0;
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    label.choice:hover {
+      background: rgba(78, 205, 196, 0.1);
+      border-color: var(--secondary);
+    }
+
+    input[type="radio"] {
+      margin-top: 3px;
+      cursor: pointer;
+    }
+
+    .feedback {
+      margin-top: 12px;
+      font-size: 0.95rem;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    /* Simulation */
+    .sim {
+      display: grid;
+      gap: 15px;
+    }
+
+    .simgrid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 680px) {
+      .simgrid { grid-template-columns: 1fr; }
+    }
+
+    .stat {
+      padding: 16px;
+      border-radius: 16px;
+      border: 2px solid #e0e0e0;
+      background: #f8f9fa;
+      text-align: center;
+    }
+
+    .stat .big {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-top: 8px;
+      font-family: var(--font-head);
+      color: var(--primary);
+    }
+
+    /* Sliders */
+    .slider {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 8px;
+      border-radius: 5px;
+      background: #e0e0e0;
+      outline: none;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--secondary);
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--secondary);
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      border: none;
+    }
+
+    /* Footer */
+    footer {
+      padding: 20px;
+      text-align: center;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      max-width: 1200px;
+      margin: 40px auto 0;
+    }
+
+    .tag {
+      font-weight: 700;
+      color: var(--secondary-dark);
+      background: rgba(78, 205, 196, 0.15);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>🤖 NEAT Config File — Interactive Lesson</h1>
+  <div class="sub">
+    Goal: Understand what the config does (robots, inputs/outputs, fitness, mutation, generations) — no scary math! 🎯
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-pill timer">
+      <span style="font-size:1.2rem">⏱️</span>
+      <span id="timer">10:00</span>
+    </div>
+    <div class="stat-pill">
+      <span>✅ Progress:</span>
+      <b id="progressText">0/5</b>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="card">
+    <div class="row" style="justify-content: space-between;">
+      <div class="row">
+        <button id="startBtn" class="primary">🚀 Start Lesson</button>
+        <button id="resetBtn" class="danger">🔄 Reset</button>
+      </div>
+    </div>
+
+    <div style="margin-top: 20px;">
+      <div class="stepper" id="stepper">
+        <div class="step active" data-step="0">🤖 Robots & Fitness</div>
+        <div class="step" data-step="1">👀 Inputs & Outputs</div>
+        <div class="step" data-step="2">🧬 Mutation</div>
+        <div class="step" data-step="3">🎯 Species & Stagnation</div>
+        <div class="step" data-step="4">📝 Quick Quiz</div>
+      </div>
+
+      <div class="progress" aria-label="Lesson progress">
+        <div class="bar" id="bar"></div>
+      </div>
+
+      <!-- STEP 1 -->
+      <section class="panel" id="step0">
+        <h2>🤖 Step 1: Robots & Fitness (Score)</h2>
+        <p class="muted">
+          NEAT makes a bunch of “robot players” (AI agents). Each robot plays the same level <b>one at a time</b>.
+          The robot earns a <span class="tag">fitness score</span> (like points). High score = better robot! 🏆
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h2>⚙️ Config Snippet</h2>
+            <div class="codebox">
+              <div><span class="k">[NEAT]</span></div>
+              <div><span class="hl">pop_size</span> = <b id="popSizeView">200</b> <span class="c"># robots per generation</span></div>
+              <div><span class="hl">fitness_threshold</span> = <b id="fitThreshView">600</b> <span class="c"># stop when reached</span></div>
+              <div><span class="hl">fitness_criterion</span> = max <span class="c"># higher is better</span></div>
+            </div>
+
+            <div class="slider">
+              <label class="muted"><b>pop_size</b> (robots in a generation): <span id="popSizeLabel">200</span></label>
+              <input id="popSize" type="range" min="20" max="400" step="10" value="200" />
+            </div>
+            <div class="slider">
+              <label class="muted"><b>fitness_threshold</b> (goal score): <span id="fitThreshLabel">600</span></label>
+              <input id="fitThresh" type="range" min="50" max="1000" step="50" value="600" />
+            </div>
+
+            <div class="row" style="margin-top: 10px;">
+              <button id="runGenBtn" class="primary">▶️ Run 1 Generation</button>
+              <button id="run5Btn">⏩ Run 5 Generations</button>
+            </div>
+            <p class="muted" style="margin-top:10px;">
+              You’re simulating: <b>robots play → scores saved → best survive → babies created</b> 🔄
+            </p>
+          </div>
+
+          <div class="card">
+            <h2>🎮 Mini Simulator</h2>
+            <div class="sim">
+              <div class="simgrid">
+                <div class="stat">
+                  <div class="muted">Generation</div>
+                  <div class="big" id="genView">0</div>
+                </div>
+                <div class="stat">
+                  <div class="muted">Best Fitness</div>
+                  <div class="big" id="bestView">0</div>
+                </div>
+                <div class="stat">
+                  <div class="muted">Status</div>
+                  <div class="big" id="statusView"><span class="warn">Waiting</span></div>
+                </div>
+              </div>
+
+              <div class="codebox" id="log" style="max-height: 160px; overflow:auto;">
+                <div class="c">Click “Run 1 Generation” to see what happens…</div>
+              </div>
+
+              <div class="row">
+                <button id="nextBtn0">Next Step →</button>
+                <span class="pill" id="complete0">Step complete: <b class="bad">No</b></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 2 -->
+      <section class="panel" id="step1" style="display:none;">
+        <h2>👀 Step 2: Inputs & Outputs (Eyes & Buttons)</h2>
+        <p class="muted">
+          The AI needs <b>inputs</b> (what it can see) and produces <b>outputs</b> (what buttons it presses).
+          Your config says the robot has <b>9 inputs</b> and <b>3 outputs</b>. 🎮
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h2>⚙️ Config Snippet</h2>
+            <div class="codebox">
+              <div><span class="k">[DefaultGenome]</span></div>
+              <div><span class="hl">num_inputs</span> = <b id="inView">9</b></div>
+              <div><span class="hl">num_outputs</span> = <b id="outView">3</b></div>
+            </div>
+
+            <div class="slider">
+              <label class="muted"><b>num_inputs</b>: <span id="inLabel">9</span></label>
+              <input id="inRange" type="range" min="3" max="20" step="1" value="9" />
+              <div class="muted">Examples: distance to enemy, is on ground?, speed, gap ahead…</div>
+            </div>
+
+            <div class="slider">
+              <label class="muted"><b>num_outputs</b>: <span id="outLabel">3</span></label>
+              <input id="outRange" type="range" min="2" max="6" step="1" value="3" />
+              <div class="muted">Examples: move left, move right, jump, shoot…</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>🎯 Try It: Map Outputs to Game Buttons</h2>
+            <p class="muted">Pick what the 3 outputs mean for your platform game:</p>
+            <div class="quiz">
+              <div class="q">
+                <h3>Output #1</h3>
+                <div class="choices">
+                  <label class="choice"><input type="radio" name="o1" value="left"> Move Left</label>
+                  <label class="choice"><input type="radio" name="o1" value="right"> Move Right</label>
+                  <label class="choice"><input type="radio" name="o1" value="jump"> Jump</label>
+                </div>
+              </div>
+              <div class="q">
+                <h3>Output #2</h3>
+                <div class="choices">
+                  <label class="choice"><input type="radio" name="o2" value="left"> Move Left</label>
+                  <label class="choice"><input type="radio" name="o2" value="right"> Move Right</label>
+                  <label class="choice"><input type="radio" name="o2" value="jump"> Jump</label>
+                </div>
+              </div>
+              <div class="q">
+                <h3>Output #3</h3>
+                <div class="choices">
+                  <label class="choice"><input type="radio" name="o3" value="left"> Move Left</label>
+                  <label class="choice"><input type="radio" name="o3" value="right"> Move Right</label>
+                  <label class="choice"><input type="radio" name="o3" value="jump"> Jump</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px;">
+              <button id="checkMappingBtn" class="primary">✅ Check Mapping</button>
+              <button id="nextBtn1">Next Step →</button>
+              <span class="pill" id="complete1">Step complete: <b class="bad">No</b></span>
+            </div>
+            <div class="feedback" id="mappingFeedback"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 3 -->
+      <section class="panel" id="step2" style="display:none;">
+        <h2>🧬 Step 3: Mutation (How Robots Change)</h2>
+        <p class="muted">
+          After one generation, NEAT keeps the better robots and makes new robots by copying them… then adds
+          small random changes called <span class="tag">mutations</span>. That’s how robots “evolve.”
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h2>⚙️ Config Snippet</h2>
+            <div class="codebox">
+              <div><span class="k">[DefaultGenome]</span></div>
+              <div><span class="hl">weight_mutate_rate</span> = <b id="wmView">0.55</b></div>
+              <div><span class="hl">node_add_prob</span> = <b id="naView">0.20</b></div>
+              <div><span class="hl">conn_add_prob</span> = <b id="caView">0.20</b></div>
+            </div>
+
+            <div class="slider">
+              <label class="muted"><b>weight_mutate_rate</b> (change brain numbers): <span id="wmLabel">0.55</span></label>
+              <input id="wmRange" type="range" min="0" max="1" step="0.01" value="0.55" />
+            </div>
+            <div class="slider">
+              <label class="muted"><b>node_add_prob</b> (add new neuron): <span id="naLabel">0.20</span></label>
+              <input id="naRange" type="range" min="0" max="0.5" step="0.01" value="0.20" />
+            </div>
+            <div class="slider">
+              <label class="muted"><b>conn_add_prob</b> (add new wire): <span id="caLabel">0.20</span></label>
+              <input id="caRange" type="range" min="0" max="0.5" step="0.01" value="0.20" />
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>🧪 Try It: Evolve a New Generation</h2>
+            <p class="muted">
+              Press the button to “make babies” from the best robot. We’ll show how mutation settings change results.
+            </p>
+            <div class="row">
+              <button id="evolveBtn" class="primary">🧬 Evolve 1 Gen With These Settings</button>
+              <button id="nextBtn2">Next Step →</button>
+              <span class="pill" id="complete2">Step complete: <b class="bad">No</b></span>
+            </div>
+            <div class="codebox" id="mutLog" style="margin-top:10px; max-height: 220px; overflow:auto;">
+              <div class="c">Tip: If mutation is too low, robots don’t change much. If too high, robots become random.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 4 -->
+      <section class="panel" id="step3" style="display:none;">
+        <h2>4) Species & Stagnation (Teams and “No Improvement”)</h2>
+        <p class="muted">
+          NEAT splits robots into <span class="tag">species</span> (teams of similar brains) so one strategy doesn’t dominate too early.
+          If a species stops improving, NEAT can remove it (stagnation).
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h2>Config Snippet</h2>
+            <div class="codebox">
+              <div><span class="k">[DefaultSpeciesSet]</span></div>
+              <div><span class="hl">compatibility_threshold</span> = <b id="ctView">1.485</b></div>
+              <div style="margin-top:10px;"><span class="k">[DefaultStagnation]</span></div>
+              <div><span class="hl">max_stagnation</span> = <b id="msView">5</b></div>
+              <div><span class="hl">species_elitism</span> = <b id="seView">2</b></div>
+            </div>
+
+            <p class="muted" style="margin-top:10px;">
+              • Lower compatibility threshold → more species (more teams)<br/>
+              • Higher threshold → fewer species (bigger teams)
+            </p>
+          </div>
+
+          <div class="card">
+            <h2>Mini Challenge: Keep Diversity</h2>
+            <p class="muted">
+              Choose the best explanation for why we use species.
+            </p>
+
+            <div class="q">
+              <div class="choices">
+                <label class="choice"><input type="radio" name="speciesQ" value="a"> So robots can play multiplayer together</label>
+                <label class="choice"><input type="radio" name="speciesQ" value="b"> So similar robots compete in teams and different ideas don’t disappear too fast</label>
+                <label class="choice"><input type="radio" name="speciesQ" value="c"> So the game runs faster</label>
+              </div>
+              <div class="feedback" id="speciesFeedback"></div>
+            </div>
+
+            <div class="row" style="margin-top:10px;">
+              <button id="checkSpeciesBtn" class="primary">Check Answer</button>
+              <button id="nextBtn3">Next →</button>
+              <span class="pill" id="complete3">Step complete: <b class="bad">No</b></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STEP 5 -->
+      <section class="panel" id="step4" style="display:none;">
+        <h2>5) Quick Quiz (2 minutes)</h2>
+        <p class="muted">Answer these 4 questions. If you score 3/4 or higher, you completed the lesson ✅</p>
+
+        <div class="quiz" id="finalQuiz">
+          <div class="q" data-answer="b">
+            <h3>1) What does <code>pop_size = 200</code> mean?</h3>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="q1" value="a"> 200 enemies spawn</label>
+              <label class="choice"><input type="radio" name="q1" value="b"> 200 robots are tested per generation</label>
+              <label class="choice"><input type="radio" name="q1" value="c"> 200 levels are loaded</label>
+            </div>
+            <div class="feedback"></div>
+          </div>
+
+          <div class="q" data-answer="c">
+            <h3>2) What are <code>num_inputs</code> and <code>num_outputs</code>?</h3>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="q2" value="a"> Player health and score</label>
+              <label class="choice"><input type="radio" name="q2" value="b"> Enemy speed settings</label>
+              <label class="choice"><input type="radio" name="q2" value="c"> The AI’s sensors (inputs) and action buttons (outputs)</label>
+            </div>
+            <div class="feedback"></div>
+          </div>
+
+          <div class="q" data-answer="a">
+            <h3>3) What does a “mutation” do?</h3>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="q3" value="a"> Randomly changes the robot brain a little so new ideas appear</label>
+              <label class="choice"><input type="radio" name="q3" value="b"> Deletes the game code</label>
+              <label class="choice"><input type="radio" name="q3" value="c"> Makes the robot cheat</label>
+            </div>
+            <div class="feedback"></div>
+          </div>
+
+          <div class="q" data-answer="b">
+            <h3>4) Why does NEAT use “species”?</h3>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="q4" value="a"> To make robots talk to each other</label>
+              <label class="choice"><input type="radio" name="q4" value="b"> To keep different strategies alive instead of one dominating too early</label>
+              <label class="choice"><input type="radio" name="q4" value="c"> To increase screen resolution</label>
+            </div>
+            <div class="feedback"></div>
+          </div>
+
+          <div class="row">
+            <button id="gradeBtn" class="primary">Grade Quiz</button>
+            <span class="pill">Score: <b id="scoreView">0/4</b></span>
+            <span class="pill" id="complete4">Lesson complete: <b class="bad">No</b></span>
+          </div>
+
+          <div class="card" style="margin-top: 12px;">
+            <h2>Takeaway (What the config really is)</h2>
+            <p class="muted">
+              This file is the <b>rulebook</b> for evolving robot brains:
+              how many robots, how scoring works, how robots mutate, and how diversity is kept.
+              It does <b>not</b> draw the game or change physics—only the AI evolution rules.
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <footer>
+    Tip for the student: If the AI isn’t learning, the #1 thing to check is the <b>fitness function</b> and whether the game resets properly between robots.
+  </footer>
+</main>
+
+<script>
+  // ---------------------------
+  // State
+  // ---------------------------
+  const state = {
+    step: 0,
+    completed: [false,false,false,false,false],
+    timerRunning: false,
+    secondsLeft: 600,
+    gen: 0,
+    bestFitness: 0,
+    popSize: 200,
+    fitnessThreshold: 600,
+    // mutation controls
+    weightMutateRate: 0.55,
+    nodeAddProb: 0.20,
+    connAddProb: 0.20,
+    // simple simulation knobs
+    baseSkill: 10,
+  };
+
+  // ---------------------------
+  // Helpers
+  // ---------------------------
+  const $ = (id) => document.getElementById(id);
+
+  function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+  function pad2(n){ return String(n).padStart(2,'0'); }
+
+  function setStep(step){
+    state.step = step;
+    // show/hide sections
+    for(let i=0;i<5;i++){
+      const sec = $('step'+i);
+      sec.style.display = (i===step) ? '' : 'none';
+    }
+    // stepper highlight
+    document.querySelectorAll('.step').forEach(el=>{
+      el.classList.toggle('active', Number(el.dataset.step) === step);
+    });
+    updateProgressUI();
+  }
+
+  function updateProgressUI(){
+    const done = state.completed.filter(Boolean).length;
+    $('progressText').textContent = `${done}/5`;
+    $('bar').style.width = `${(done/5)*100}%`;
+    // step complete pills
+    for(let i=0;i<5;i++){
+      const pill = $('complete'+i);
+      if(!pill) continue;
+      pill.innerHTML = `Step complete: <b class="${state.completed[i] ? 'ok':'bad'}">${state.completed[i] ? 'Yes' : 'No'}</b>`;
+    }
+  }
+
+  function markComplete(i){
+    state.completed[i] = true;
+    updateProgressUI();
+  }
+
+  function logLine(el, text, cls='c'){
+    const div = document.createElement('div');
+    div.className = cls;
+    div.textContent = text;
+    el.appendChild(div);
+    el.scrollTop = el.scrollHeight;
+  }
+
+  // ---------------------------
+  // Timer
+  // ---------------------------
+  let timerHandle = null;
+  function updateTimerUI(){
+    const m = Math.floor(state.secondsLeft / 60);
+    const s = state.secondsLeft % 60;
+    $('timer').textContent = `${pad2(m)}:${pad2(s)}`;
+  }
+
+  function startTimer(){
+    if(state.timerRunning) return;
+    state.timerRunning = true;
+    if(timerHandle) clearInterval(timerHandle);
+    timerHandle = setInterval(()=>{
+      state.secondsLeft = clamp(state.secondsLeft - 1, 0, 99999);
+      updateTimerUI();
+      if(state.secondsLeft === 0){
+        clearInterval(timerHandle);
+        state.timerRunning = false;
+      }
+    }, 1000);
+  }
+
+  function resetAll(){
+    state.step = 0;
+    state.completed = [false,false,false,false,false];
+    state.timerRunning = false;
+    state.secondsLeft = 600;
+
+    state.gen = 0;
+    state.bestFitness = 0;
+    state.popSize = 200;
+    state.fitnessThreshold = 600;
+    state.weightMutateRate = 0.55;
+    state.nodeAddProb = 0.20;
+    state.connAddProb = 0.20;
+    state.baseSkill = 10;
+
+    if(timerHandle) clearInterval(timerHandle);
+    updateTimerUI();
+    setStep(0);
+
+    // reset displays/logs
+    $('genView').textContent = '0';
+    $('bestView').textContent = '0';
+    $('statusView').innerHTML = '<span class="warn">Waiting</span>';
+    $('log').innerHTML = '<div class="c">Click “Run 1 Generation” to see what happens…</div>';
+    $('mutLog').innerHTML = '<div class="c">Tip: If mutation is too low, robots don’t change much. If too high, robots become random.</div>';
+    $('mappingFeedback').textContent = '';
+    $('speciesFeedback').textContent = '';
+    $('scoreView').textContent = '0/4';
+    $('complete4').innerHTML = 'Lesson complete: <b class="bad">No</b>';
+
+    // clear radios
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+  }
+
+  // ---------------------------
+  // Simulation (simple + kid-friendly)
+  // ---------------------------
+  function simulateGeneration(){
+    // A toy simulation:
+    // - bestFitness increases with "baseSkill"
+    // - mutation adds variance and sometimes bigger jumps
+    // - bigger pop_size slightly increases chance of a stronger best
+    // This is NOT NEAT math; it just demonstrates the concept.
+    state.gen += 1;
+
+    const popBoost = Math.log10(state.popSize);           // ~2.3 at 200
+    const mut = state.weightMutateRate;
+    const struct = state.nodeAddProb + state.connAddProb; // 0..1
+    const randomness = (Math.random() - 0.35) * (40 + mut*120); // sometimes negative
+
+    // "innovation chance" - structural mutation can make bigger improvements
+    const innovation = (Math.random() < (0.08 + struct*0.6)) ? (25 + Math.random()*60) : (Math.random()*10);
+
+    // improvement base
+    const improvement = (8 + popBoost*4) + innovation + randomness;
+    state.bestFitness = clamp(Math.round(state.bestFitness + improvement), 0, 99999);
+
+    $('genView').textContent = String(state.gen);
+    $('bestView').textContent = String(state.bestFitness);
+
+    if(state.bestFitness >= state.fitnessThreshold){
+      $('statusView').innerHTML = '<span class="ok">Goal reached 🎉</span>';
+    } else {
+      $('statusView').innerHTML = '<span class="warn">Training…</span>';
+    }
+
+    const lg = $('log');
+    logLine(lg, `Gen ${state.gen}: Best robot scored ${state.bestFitness}.`);
+    if(state.bestFitness >= state.fitnessThreshold){
+      logLine(lg, `✅ Training stops because fitness_threshold (${state.fitnessThreshold}) was reached!`, 'ok');
+      markComplete(0);
+    } else {
+      logLine(lg, `Keep best robots → make babies → mutate → next generation.`);
+      // Mark step 0 complete if they ran at least 2 generations (understanding loop)
+      if(state.gen >= 2) markComplete(0);
+    }
+  }
+
+  // ---------------------------
+  // Wire up Step 1 controls
+  // ---------------------------
+  $('popSize').addEventListener('input', (e)=>{
+    state.popSize = Number(e.target.value);
+    $('popSizeLabel').textContent = state.popSize;
+    $('popSizeView').textContent = state.popSize;
+  });
+
+  $('fitThresh').addEventListener('input', (e)=>{
+    state.fitnessThreshold = Number(e.target.value);
+    $('fitThreshLabel').textContent = state.fitnessThreshold;
+    $('fitThreshView').textContent = state.fitnessThreshold;
+  });
+
+  $('runGenBtn').addEventListener('click', ()=>{
+    simulateGeneration();
+  });
+
+  $('run5Btn').addEventListener('click', ()=>{
+    for(let i=0;i<5;i++){
+      if(state.bestFitness >= state.fitnessThreshold) break;
+      simulateGeneration();
+    }
+  });
+
+  $('nextBtn0').addEventListener('click', ()=> setStep(1));
+
+  // ---------------------------
+  // Step 2: Inputs/Outputs mapping
+  // ---------------------------
+  $('inRange').addEventListener('input', (e)=>{
+    const v = Number(e.target.value);
+    $('inLabel').textContent = v;
+    $('inView').textContent = v;
+  });
+
+  $('outRange').addEventListener('input', (e)=>{
+    const v = Number(e.target.value);
+    $('outLabel').textContent = v;
+    $('outView').textContent = v;
+  });
+
+  $('checkMappingBtn').addEventListener('click', ()=>{
+    const o1 = document.querySelector('input[name="o1"]:checked')?.value;
+    const o2 = document.querySelector('input[name="o2"]:checked')?.value;
+    const o3 = document.querySelector('input[name="o3"]:checked')?.value;
+
+    const feedback = $('mappingFeedback');
+    if(!o1 || !o2 || !o3){
+      feedback.innerHTML = '<span class="bad">Pick an action for all 3 outputs.</span>';
+      return;
+    }
+    const set = new Set([o1,o2,o3]);
+    if(set.size < 3){
+      feedback.innerHTML = '<span class="warn">You chose the same action more than once. That can be okay, but usually you want 3 different actions.</span>';
+      // Still allow completion: the kid understood mapping exists
+      markComplete(1);
+      return;
+    }
+    feedback.innerHTML = '<span class="ok">Nice! You mapped 3 different outputs to 3 different buttons.</span>';
+    markComplete(1);
+  });
+
+  $('nextBtn1').addEventListener('click', ()=> setStep(2));
+
+  // ---------------------------
+  // Step 3: Mutation settings
+  // ---------------------------
+  function refreshMutationViews(){
+    $('wmView').textContent = state.weightMutateRate.toFixed(2);
+    $('naView').textContent = state.nodeAddProb.toFixed(2);
+    $('caView').textContent = state.connAddProb.toFixed(2);
+    $('wmLabel').textContent = state.weightMutateRate.toFixed(2);
+    $('naLabel').textContent = state.nodeAddProb.toFixed(2);
+    $('caLabel').textContent = state.connAddProb.toFixed(2);
+  }
+
+  $('wmRange').addEventListener('input', (e)=>{
+    state.weightMutateRate = Number(e.target.value);
+    refreshMutationViews();
+  });
+  $('naRange').addEventListener('input', (e)=>{
+    state.nodeAddProb = Number(e.target.value);
+    refreshMutationViews();
+  });
+  $('caRange').addEventListener('input', (e)=>{
+    state.connAddProb = Number(e.target.value);
+    refreshMutationViews();
+  });
+
+  $('evolveBtn').addEventListener('click', ()=>{
+    const ml = $('mutLog');
+    logLine(ml, `Using settings: weight_mutate_rate=${state.weightMutateRate.toFixed(2)}, node_add_prob=${state.nodeAddProb.toFixed(2)}, conn_add_prob=${state.connAddProb.toFixed(2)}`);
+
+    const before = state.bestFitness;
+    // Encourage them to run at least one generation if they haven't
+    if(state.gen === 0){
+      logLine(ml, `You haven't run any generations yet. Let's run one now…`, 'warn');
+      simulateGeneration();
+    } else {
+      simulateGeneration();
+    }
+    const delta = state.bestFitness - before;
+
+    if(delta <= 0){
+      logLine(ml, `This round didn't improve (that can happen). Evolution tries again next generation.`, 'warn');
+    } else if(delta < 30){
+      logLine(ml, `Small improvement (+${delta}). Mutations made tiny changes.`, 'c');
+    } else {
+      logLine(ml, `Big improvement (+${delta})! A good mutation/innovation happened.`, 'ok');
+    }
+    // Complete when they try evolving at least once here
+    markComplete(2);
+  });
+
+  $('nextBtn2').addEventListener('click', ()=> setStep(3));
+
+  // ---------------------------
+  // Step 4: Species question
+  // ---------------------------
+  $('checkSpeciesBtn').addEventListener('click', ()=>{
+    const ans = document.querySelector('input[name="speciesQ"]:checked')?.value;
+    const fb = $('speciesFeedback');
+    if(!ans){
+      fb.innerHTML = '<span class="bad">Pick one answer.</span>';
+      return;
+    }
+    if(ans === 'b'){
+      fb.innerHTML = '<span class="ok">Correct ✅ Species keep different ideas alive so evolution doesn’t get stuck too early.</span>';
+      markComplete(3);
+    } else {
+      fb.innerHTML = '<span class="warn">Not quite. Species are mainly about keeping diversity (different strategies).</span>';
+    }
+  });
+
+  $('nextBtn3').addEventListener('click', ()=> setStep(4));
+
+  // ---------------------------
+  // Step 5: Grade final quiz
+  // ---------------------------
+  $('gradeBtn').addEventListener('click', ()=>{
+    let score = 0;
+    document.querySelectorAll('#finalQuiz .q').forEach((q, idx)=>{
+      const correct = q.dataset.answer;
+      const name = `q${idx+1}`;
+      const chosen = document.querySelector(`input[name="${name}"]:checked`)?.value;
+      const fb = q.querySelector('.feedback');
+      if(!chosen){
+        fb.innerHTML = '<span class="bad">No answer selected.</span>';
+        return;
+      }
+      if(chosen === correct){
+        score += 1;
+        fb.innerHTML = '<span class="ok">Correct ✅</span>';
+      } else {
+        fb.innerHTML = '<span class="warn">Close — try again by rereading the lesson above.</span>';
+      }
+    });
+
+    $('scoreView').textContent = `${score}/4`;
+    if(score >= 3){
+      $('complete4').innerHTML = 'Lesson complete: <b class="ok">Yes</b>';
+      markComplete(4);
+    } else {
+      $('complete4').innerHTML = 'Lesson complete: <b class="bad">No</b>';
+    }
+  });
+
+  // ---------------------------
+  // Top buttons
+  // ---------------------------
+  $('startBtn').addEventListener('click', ()=>{
+    startTimer();
+    // a small friendly nudge
+    const lg = $('log');
+    logLine(lg, `⏱️ Timer started. Run at least 2 generations to see evolution.`, 'warn');
+  });
+
+  $('resetBtn').addEventListener('click', resetAll);
+
+  // Initialize
+  updateTimerUI();
+  refreshMutationViews();
+  updateProgressUI();
+  setStep(0);
+</script>
+</body>
+</html>

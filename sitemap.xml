@@ -328,6 +328,20 @@
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://faruk-hasan.com/ai_resources/tf_idf.html</loc>
+    <lastmod>2026-01-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://faruk-hasan.com/ai_resources/neat_learning.html</loc>
+    <lastmod>2026-01-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Python Quizzes -->
   <url>
     <loc>https://faruk-hasan.com/quizzes/PYTHON/python_basic_escape_room_level_1.html</loc>
