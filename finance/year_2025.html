@@ -304,7 +304,106 @@
 
     @media (max-width: 768px) {
       .dashboard-container {
-        padding: 1.5rem 1rem;
+        padding: 1rem 0.75rem;
+      }
+
+      .page-header {
+        margin-bottom: 1.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .page-header h1 {
+        font-size: 1.8rem;
+      }
+
+      .card {
+        padding: 1.25rem;
+        border-radius: 20px;
+      }
+
+      .kpi-grid {
+        gap: 0.75rem;
+      }
+
+      .kpi {
+        padding: 1rem;
+      }
+
+      .kpi-value {
+        font-size: 1.2rem;
+      }
+
+      .kpi-bdt {
+        font-size: 0.8rem;
+      }
+
+      .canvas-wrapper {
+        height: 200px;
+      }
+
+      th,
+      td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.8rem;
+      }
+
+      .val-bdt {
+        font-size: 0.7rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .kpi {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 0.5rem;
+        padding: 0.85rem 1.15rem;
+      }
+
+      .kpi-label {
+        margin-bottom: 0;
+        width: auto;
+        border-bottom: none;
+        padding-bottom: 0;
+        font-size: 0.7rem;
+      }
+
+      .kpi-vals {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+
+      .kpi-value {
+        font-size: 1.1rem;
+        margin-bottom: 0;
+      }
+
+      .kpi-bdt {
+        font-size: 0.75rem;
+        margin-bottom: 0;
+      }
+
+      .kpi-change {
+        width: 100%;
+        text-align: right;
+        font-size: 0.65rem;
+        margin-top: 0.25rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        padding-top: 0.25rem;
+      }
+
+      th,
+      td {
+        padding: 0.6rem 0.4rem;
+        font-size: 0.75rem;
       }
     }
   </style>
@@ -337,38 +436,50 @@
           <div class="kpi-grid">
             <div class="kpi">
               <div class="kpi-label">Net Worth</div>
-              <div class="kpi-value" id="nw-usd">$0</div>
-              <div class="kpi-bdt" id="nw-bdt">৳ 0</div>
+              <div class="kpi-vals">
+                <div class="kpi-value" id="nw-usd">$0</div>
+                <div class="kpi-bdt" id="nw-bdt">৳ 0</div>
+              </div>
               <div class="kpi-change positive" id="nw-change">--</div>
             </div>
             <div class="kpi">
               <div class="kpi-label">Liquid Assets</div>
-              <div class="kpi-value" id="liq-usd">$0</div>
-              <div class="kpi-bdt" id="liq-bdt">৳ 0</div>
+              <div class="kpi-vals">
+                <div class="kpi-value" id="liq-usd">$0</div>
+                <div class="kpi-bdt" id="liq-bdt">৳ 0</div>
+              </div>
               <div class="kpi-change" style="color:var(--accent-blue)">Cash & Marketable</div>
             </div>
             <div class="kpi">
               <div class="kpi-label">Retirement</div>
-              <div class="kpi-value" id="ret-usd">$0</div>
-              <div class="kpi-bdt" id="ret-bdt">৳ 0</div>
+              <div class="kpi-vals">
+                <div class="kpi-value" id="ret-usd">$0</div>
+                <div class="kpi-bdt" id="ret-bdt">৳ 0</div>
+              </div>
               <div class="kpi-change" style="color:var(--accent-green)">Invested Accounts</div>
             </div>
             <div class="kpi">
               <div class="kpi-label">Property</div>
-              <div class="kpi-value" id="prop-usd">$0</div>
-              <div class="kpi-bdt" id="prop-bdt">৳ 0</div>
+              <div class="kpi-vals">
+                <div class="kpi-value" id="prop-usd">$0</div>
+                <div class="kpi-bdt" id="prop-bdt">৳ 0</div>
+              </div>
               <div class="kpi-change" style="color:var(--accent-yellow)">Appraised Value</div>
             </div>
             <div class="kpi">
               <div class="kpi-label">Total Debt</div>
-              <div class="kpi-value" id="debt-usd">$0</div>
-              <div class="kpi-bdt" id="debt-bdt">৳ 0</div>
+              <div class="kpi-vals">
+                <div class="kpi-value" id="debt-usd">$0</div>
+                <div class="kpi-bdt" id="debt-bdt">৳ 0</div>
+              </div>
               <div class="kpi-change negative">Outstanding Loans</div>
             </div>
             <div class="kpi">
               <div class="kpi-label">Asset Ratio</div>
-              <div class="kpi-value">55.7%</div>
-              <div class="kpi-bdt" style="opacity: 0;">--</div>
+              <div class="kpi-vals">
+                <div class="kpi-value">55.7%</div>
+                <div class="kpi-bdt" style="opacity: 0;">--</div>
+              </div>
               <div class="kpi-change">Debt / Asset Ratio</div>
             </div>
           </div>
