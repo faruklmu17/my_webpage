@@ -356,20 +356,23 @@
     @media (max-width: 480px) {
       .kpi-grid {
         grid-template-columns: 1fr;
+        gap: 0.75rem;
       }
 
       .kpi {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
+        /* Allowed wrapping to prevent breakage */
         gap: 0.5rem;
-        padding: 0.85rem 1.15rem;
+        padding: 1rem;
       }
 
       .kpi-label {
         margin-bottom: 0;
-        width: auto;
+        width: 100%;
+        /* Full width for label on mobile to stack if needed */
         border-bottom: none;
         padding-bottom: 0;
         font-size: 0.7rem;
@@ -378,32 +381,46 @@
       .kpi-vals {
         display: flex;
         flex-direction: column;
-        align-items: flex-end;
+        align-items: flex-start;
+        /* Align left */
+        width: 100%;
+        margin-top: 0.25rem;
       }
 
       .kpi-value {
-        font-size: 1.1rem;
+        font-size: 1.25rem;
+        /* Larger for readability */
         margin-bottom: 0;
       }
 
       .kpi-bdt {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         margin-bottom: 0;
       }
 
       .kpi-change {
         width: 100%;
-        text-align: right;
-        font-size: 0.65rem;
-        margin-top: 0.25rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-        padding-top: 0.25rem;
+        text-align: left;
+        /* Align left */
+        font-size: 0.7rem;
+        margin-top: 0.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 0.5rem;
       }
 
       th,
       td {
         padding: 0.6rem 0.4rem;
-        font-size: 0.75rem;
+        font-size: 0.7rem;
+      }
+
+      .year-select {
+        font-size: 1.5rem;
+        /* Smaller selector on mobile */
+      }
+
+      .page-header h1 {
+        font-size: 1.5rem;
       }
     }
 
@@ -463,6 +480,14 @@
     @media (max-width: 600px) {
       .projection-details {
         grid-template-columns: 1fr;
+      }
+
+      .kpi-vals {
+        align-items: flex-end;
+        /* Revert to end for aesthetic if preferred, but column layout handles space better */
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
       }
     }
 
