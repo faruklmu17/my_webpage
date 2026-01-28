@@ -1,4 +1,4 @@
-const { chromium } = require('playwright'); // Need to install playwright
+const { chromium } = require('playwright');
 const XLSX = require('xlsx');
 const path = require('path');
 const fs = require('fs');
@@ -11,13 +11,23 @@ async function scrapeYahooFinance() {
     const page = await browser.newPage();
 
     console.log("Navigating to Yahoo Finance...");
-    await page.goto('https://finance.yahoo.com/quote/TQQQ/history/', { waitUntil: 'domcontentloaded' });
+    // Use a user-agent to look more like a real browser
+    await page.setExtraHTTPHeaders({
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'
+    });
 
-    // Wait for table
+    await page.goto('https://finance.yahoo.com/quote/TQQQ/history/', { waitUntil: 'domcontentloaded', timeout: 60000 });
+
+    // Handle potential consent forms
     try {
-        await page.waitForSelector('table tbody tr', { timeout: 10000 });
+        const consentButton = await page.getByRole('button', { name: /accept|agree/i }).first();
+        if (await consentButton.isVisible()) {
+            console.log("Accepting cookies...");
+            await consentButton.click();
+            await page.waitForTimeout(2000);
+        }
     } catch (e) {
-        console.log("Cookie consent popup might be blocking. Trying to proceed anyway...");
+        // No consent popup found or already accepted
     }
 
     console.log("Extracting table data...");
@@ -25,28 +35,39 @@ async function scrapeYahooFinance() {
     // Scrape data from the table
     const scrapedData = await page.evaluate(() => {
         const rows = Array.from(document.querySelectorAll('table tbody tr'));
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Midnight today
+
         return rows.map(row => {
             const cells = row.querySelectorAll('td');
-            if (cells.length < 5) return null; // Skip dividend/split rows if format is different
+            if (cells.length < 5) return null;
+
+            const dateStr = cells[0].innerText.trim();
+            const date = new Date(dateStr);
+
+            // Skip if it's today (partial data)
+            if (date >= today) return null;
 
             return {
-                Date: cells[0].innerText.trim(),
+                DateStr: dateStr,
+                Date: date,
                 Close: parseFloat(cells[4].innerText.replace(/,/g, ''))
             };
-        }).filter(r => r !== null && !isNaN(r.Close)); // Filter out bad rows
+        }).filter(r => r !== null && !isNaN(r.Close));
     });
 
-    console.log(`Scraped ${scrapedData.length} rows.`);
+    console.log(`Scraped ${scrapedData.length} valid historical rows.`);
     await browser.close();
 
-    // Sort chronological (Oldest -> Newest) because Yahoo gives Newest first
-    return scrapedData.reverse();
+    // Sort chronological (Oldest -> Newest)
+    return scrapedData.sort((a, b) => new Date(a.Date) - new Date(b.Date));
 }
 
-// Helper: Excel Date Converter from String (MM/DD/YYYY)
-function dateStringToExcel(dateStr) {
-    const d = new Date(dateStr);
-    return (d.getTime() / (1000 * 60 * 60 * 24)) + 25569;
+// Helper: Excel Date Converter (Midnight)
+function dateToExcel(d) {
+    const date = new Date(d);
+    date.setHours(12, 0, 0, 0); // Center in the day to avoid timezone shifts
+    return Math.floor((date.getTime() / (1000 * 60 * 60 * 24)) + 25569);
 }
 
 // Helper: Get key case-insensitive
@@ -64,7 +85,7 @@ async function updateExcel() {
         // 1. Scrape New Data
         const rawNewData = await scrapeYahooFinance();
         if (rawNewData.length === 0) {
-            console.log("No data found.");
+            console.log("No new data retrieved from Yahoo Finance.");
             return;
         }
 
@@ -76,24 +97,21 @@ async function updateExcel() {
         let fileData = XLSX.utils.sheet_to_json(worksheet);
 
         // 3. Find latest date in existing file
-        // Excel dates are serial numbers. Need to check the last row.
         const lastRow = fileData[fileData.length - 1];
-        const lastSerialDate = parseFloat(getKey(lastRow, 'Date'));
+        const lastSerialDate = Math.floor(parseFloat(getKey(lastRow, 'Date')));
 
         // 4. Filter for NEW rows only
         const newRowsToAdd = rawNewData.filter(d => {
-            const serial = dateStringToExcel(d.Date);
-            // 25569 is 1970 epoch. Yahoo gives readable dates.
-            // Check if this date > lastSerialDate (+ small buffer for float precision)
-            return serial > (lastSerialDate + 0.001);
+            const serial = dateToExcel(d.Date);
+            return serial > lastSerialDate;
         });
 
         if (newRowsToAdd.length === 0) {
-            console.log("Excel is already up to date.");
+            console.log("Excel is already up to date with historical data.");
             return;
         }
 
-        console.log(`Found ${newRowsToAdd.length} new days to add.`);
+        console.log(`Adding ${newRowsToAdd.length} new days of data...`);
 
         // 5. Append Logic
         let lastEquity = parseFloat(getKey(lastRow, 'Equity', 'Strategy Equity'));
@@ -102,7 +120,7 @@ async function updateExcel() {
 
         newRowsToAdd.forEach(entry => {
             const currentClose = entry.Close;
-            const excelDate = dateStringToExcel(entry.Date);
+            const excelDate = dateToExcel(entry.Date);
 
             // Calc 200-Day MA
             const allCloses = fileData.map(r => parseFloat(getKey(r, 'Close')));
@@ -133,7 +151,6 @@ async function updateExcel() {
                 '200-Day MA': ma200,
                 'Signal': signal,
                 'Instruction': instruction,
-                // 'Position': signal, // Optional, file uses Signal
                 'Daily Return': (currentClose - lastClose) / lastClose,
                 'Strategy Return': lastSignal === 1 ? (currentClose - lastClose) / lastClose : 0,
                 'Equity': newEquity
@@ -154,10 +171,10 @@ async function updateExcel() {
         XLSX.utils.book_append_sheet(newWorkbook, newSheet, "Sheet1");
         XLSX.writeFile(newWorkbook, filePath);
 
-        console.log(`Updated. Added data up to: ${newRowsToAdd[newRowsToAdd.length - 1].Date}`);
+        console.log(`Success: Data updated up to ${newRowsToAdd[newRowsToAdd.length - 1].DateStr}`);
 
     } catch (e) {
-        console.error("Error:", e);
+        console.error("Critical Error during update:", e);
     }
 }
 
