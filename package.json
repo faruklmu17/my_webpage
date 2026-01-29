@@ -1,7 +1,45 @@
 {
   "dependencies": {
-    "@playwright/test": "^1.56.1",
     "playwright": "^1.57.0",
     "xlsx": "^0.18.5"
-  }
+  },
+  "name": "my_webpage",
+  "version": "1.0.0",
+  "description": "This is my personal website, built using HTML, CSS, and JavaScript. The site showcases various aspects of my life, including my career, the courses I offer, my travel experiences, and my investment strategies.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.0",
+    "@types/node": "^25.1.0",
+    "eslint": "^9.39.2",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:chromium": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "test:mobile": "playwright test --project='Mobile Chrome' --project='Mobile Safari'",
+    "test:report": "playwright show-report",
+    "test:install": "playwright install",
+    "serve": "python3 -m http.server 8000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faruklmu17/my_webpage.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/faruklmu17/my_webpage/issues"
+  },
+  "homepage": "https://github.com/faruklmu17/my_webpage#readme"
 }

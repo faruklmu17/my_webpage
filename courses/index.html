@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Premium Courses | Faruk Hasan</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Master advanced skills with our premium courses. Expert-led, project-based learning." />
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            --bg-dark: #020617;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --accent-primary: #38bdf8;
+            /* Blue */
+            --accent-secondary: #4ade80;
+            /* Green */
+            --accent-purple: #c084fc;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --glass: rgba(15, 23, 42, 0.8);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: radial-gradient(circle at top center, #1e1b4b, #020617) !important;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 5rem;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: var(--accent-primary);
+            filter: blur(120px);
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Course Grid */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .course-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            backdrop-filter: blur(20px);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Highlight badge for popular course */
+        .popular-badge {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--accent-secondary);
+            color: #020617;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .course-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+        }
+
+        .course-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-main);
+        }
+
+        .course-desc {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            flex-grow: 1;
+            font-size: 1rem;
+        }
+
+        .features {
+            list-style: none;
+            margin-bottom: 2.5rem;
+            border-top: 1px solid var(--card-border);
+            padding-top: 1.5rem;
+        }
+
+        .features li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.8rem;
+            color: #e2e8f0;
+            font-size: 0.95rem;
+        }
+
+        .features li i {
+            color: var(--accent-secondary);
+            font-size: 0.9rem;
+        }
+
+        .price-tag {
+            margin-bottom: 1.5rem;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-main);
+        }
+
+        .price-period {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        .btn-buy {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            border-radius: 12px;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        /* Styles for Primary Action */
+        .btn-primary {
+            background: var(--text-main);
+            color: #020617;
+            border: 1px solid var(--text-main);
+        }
+
+        .btn-primary:hover {
+            background: #e2e8f0;
+            transform: scale(1.02);
+        }
+
+        /* Styles for Secondary Action */
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-main);
+        }
+
+        .guarantee {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                margin-bottom: 3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <span class="tag">LEVEL UP YOUR CAREER</span>
+            <h1>Master The Future</h1>
+            <p class="subtitle">Premium, project-based courses designed to take you from beginner to expert in record
+                time.</p>
+        </header>
+
+        <div class="course-grid">
+            <!-- COURSE 1 -->
+            <article class="course-card">
+                <div class="course-icon" style="color: var(--accent-primary);">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h2 class="course-title">Python Masterclass</h2>
+                <p class="course-desc">From basic syntax to advanced AI agents. Build 10 real-world projects including a
+                    financial dashboard and an escape room game.</p>
+
+                <ul class="features">
+                    <li><i class="fas fa-check"></i> 40+ Hours of Video Content</li>
+                    <li><i class="fas fa-check"></i> Source Code & Project Files</li>
+                    <li><i class="fas fa-check"></i> Lifetime Access</li>
+                    <li><i class="fas fa-check"></i> Certificate of Completion</li>
+                </ul>
+
+                <div class="price-tag">
+                    <span class="price">$99</span>
+                    <span class="price-period">/ one-time</span>
+                </div>
+
+                <!-- STRIPE LINK GOES HERE -->
+                <a href="https://buy.stripe.com/PLACEHOLDER_LINK_1" target="_blank" class="btn-buy btn-secondary">
+                    Enroll Now
+                </a>
+                <div class="guarantee"><i class="fas fa-shield-alt"></i> 30-Day Money Back Guarantee</div>
+            </article>
+
+            <!-- COURSE 2 -->
+            <article class="course-card" style="border-color: rgba(74, 222, 128, 0.3);">
+                <div class="popular-badge">Most Popular</div>
+                <div class="course-icon" style="color: var(--accent-secondary);">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h2 class="course-title">Algorithmic Trading</h2>
+                <p class="course-desc">Learn to build automated trading bots. Connect to broker APIs, backtest
+                    strategies, and deploy your own hedge fund infrastructure.</p>
+
+                <ul class="features">
+                    <li><i class="fas fa-check"></i> Python for Finance Module</li>
+                    <li><i class="fas fa-check"></i> Live Trading Bot Project</li>
+                    <li><i class="fas fa-check"></i> Risk Management Frameworks</li>
+                    <li><i class="fas fa-check"></i> Private Discord Community</li>
+                </ul>
+
+                <div class="price-tag">
+                    <span class="price">$149</span>
+                    <span class="price-period">/ one-time</span>
+                </div>
+
+                <!-- STRIPE LINK GOES HERE -->
+                <a href="https://buy.stripe.com/PLACEHOLDER_LINK_2" target="_blank" class="btn-buy btn-primary">
+                    Get Instant Access
+                </a>
+                <div class="guarantee"><i class="fas fa-shield-alt"></i> 30-Day Money Back Guarantee</div>
+            </article>
+        </div>
+    </div>
+</body>
+
+</html>
