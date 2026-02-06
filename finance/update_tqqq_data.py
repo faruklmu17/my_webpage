@@ -61,8 +61,8 @@ def calculate_strategy(df, initial_capital=10000):
         lambda x: 'BUY TQQQ' if x == 1 else 'SELL TQQQ, HOLD CASH'
     )
     
-    # Calculate equity
-    df['Equity'] = initial_capital
+    # Calculate equity - initialize as float to avoid type errors
+    df['Equity'] = float(initial_capital)
     shares = 0
     cash = initial_capital
     
@@ -115,11 +115,15 @@ def save_to_excel(df, filename='TQQQ_signals_updated_with_new_data_formatted.xls
         
         # Auto-adjust column widths
         for idx, col in enumerate(df.columns):
-            max_length = max(
-                df[col].astype(str).apply(len).max(),
-                len(col)
-            ) + 2
-            worksheet.column_dimensions[chr(65 + idx)].width = max_length
+            try:
+                max_length = max(
+                    df[col].astype(str).str.len().max(),
+                    len(col)
+                ) + 2
+                worksheet.column_dimensions[chr(65 + idx)].width = max_length
+            except:
+                # Fallback to default width if calculation fails
+                worksheet.column_dimensions[chr(65 + idx)].width = 15
     
     print(f"✅ Data saved successfully!")
     print(f"📊 Total rows: {len(df)}")
