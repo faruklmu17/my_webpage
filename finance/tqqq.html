@@ -89,6 +89,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             max-width: 1200px;
             margin: 0 auto 2rem;
+            min-height: 400px;
         }
 
         .time-range-controls {
@@ -427,11 +428,33 @@
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     interaction: {
                         mode: 'index',
                         intersect: false,
                     },
                     scales: {
+                        x: {
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 45,
+                                autoSkip: true,
+                                maxTicksLimit: 20,
+                                // Force the last label to always show
+                                callback: function (value, index, ticks) {
+                                    const label = this.getLabelForValue(value);
+                                    // Always show the last tick (most recent date)
+                                    if (index === ticks.length - 1) {
+                                        return label;
+                                    }
+                                    // Show every Nth label for spacing
+                                    if (index % Math.ceil(ticks.length / 15) === 0) {
+                                        return label;
+                                    }
+                                    return null;
+                                }
+                            }
+                        },
                         y: {
                             type: 'linear',
                             display: true,
