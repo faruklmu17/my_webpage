@@ -81,6 +81,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             max-width: 1200px;
             margin: 0 auto 2rem;
+            min-height: 400px;
         }
 
         .table-container {
@@ -312,9 +313,16 @@
 
         function initChart(data) {
             const ctx = document.getElementById('strategyChart').getContext('2d');
-            const labels = data.map(d => d.date);
-            const prices = data.map(d => d.close);
-            const equity = data.map(d => d.equity);
+
+            // Show only the last 2 years of data (approximately 500 trading days)
+            // This makes the chart more readable and ensures recent dates are visible
+            const recentDataPoints = 500;
+            const startIndex = Math.max(0, data.length - recentDataPoints);
+            const recentData = data.slice(startIndex);
+
+            const labels = recentData.map(d => d.date);
+            const prices = recentData.map(d => d.close);
+            const equity = recentData.map(d => d.equity);
 
             new Chart(ctx, {
                 type: 'line',
@@ -344,11 +352,33 @@
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     interaction: {
                         mode: 'index',
                         intersect: false,
                     },
                     scales: {
+                        x: {
+                            ticks: {
+                                maxRotation: 45,
+                                minRotation: 45,
+                                autoSkip: true,
+                                maxTicksLimit: 20,
+                                // Force the last label to always show
+                                callback: function (value, index, ticks) {
+                                    const label = this.getLabelForValue(value);
+                                    // Always show the last tick (most recent date)
+                                    if (index === ticks.length - 1) {
+                                        return label;
+                                    }
+                                    // Show every Nth label for spacing
+                                    if (index % Math.ceil(ticks.length / 15) === 0) {
+                                        return label;
+                                    }
+                                    return null;
+                                }
+                            }
+                        },
                         y: {
                             type: 'linear',
                             display: true,
