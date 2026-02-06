@@ -84,11 +84,15 @@ def add_manual_entry(date_str, close_price, filename='TQQQ_signals_updated_with_
         # Auto-adjust column widths
         worksheet = writer.sheets['TQQQ Strategy']
         for idx, col in enumerate(df.columns):
-            max_length = max(
-                df[col].astype(str).apply(len).max(),
-                len(col)
-            ) + 2
-            worksheet.column_dimensions[chr(65 + idx)].width = max_length
+            try:
+                max_length = max(
+                    df[col].astype(str).str.len().max(),
+                    len(col)
+                ) + 2
+                worksheet.column_dimensions[chr(65 + idx)].width = max_length
+            except:
+                # Fallback to default width if calculation fails
+                worksheet.column_dimensions[chr(65 + idx)].width = 15
     
     print(f"✅ Successfully added entry for {date_str}")
     print(f"📊 Total rows: {len(df)}")
@@ -97,4 +101,4 @@ def add_manual_entry(date_str, close_price, filename='TQQQ_signals_updated_with_
 
 if __name__ == "__main__":
     # Add February 5, 2026 data
-    add_manual_entry('02/05/2026', 47.61)
+    add_manual_entry('02/05/2026', 47.64)
