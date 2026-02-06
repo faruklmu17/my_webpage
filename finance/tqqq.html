@@ -74,6 +74,14 @@
             color: #f59e0b;
         }
 
+        .signal-risky {
+            color: #f97316;
+            font-size: 0.8rem;
+            display: block;
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
         .chart-container {
             background: white;
             padding: 2rem;
@@ -81,6 +89,36 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             max-width: 1200px;
             margin: 0 auto 2rem;
+        }
+
+        .time-range-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .time-range-btn {
+            padding: 0.5rem 1.5rem;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .time-range-btn:hover {
+            border-color: #2563eb;
+            color: #2563eb;
+        }
+
+        .time-range-btn.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
         }
 
         .table-container {
@@ -179,6 +217,12 @@
 
         <!-- Chart -->
         <div class="chart-container">
+            <div class="time-range-controls">
+                <button class="time-range-btn" data-range="1">1Y</button>
+                <button class="time-range-btn" data-range="5">5Y</button>
+                <button class="time-range-btn" data-range="10">10Y</button>
+                <button class="time-range-btn active" data-range="max">MAX</button>
+            </div>
             <canvas id="strategyChart"></canvas>
         </div>
 
@@ -246,13 +290,22 @@
                     else if (rawSig == 0) signalText = 'CASH';
                     else signalText = rawSig;
 
+                    const close = parseFloat(getKey(row, 'Close', 'Price')) || 0;
+                    const ma200 = parseFloat(getKey(row, '200-Day MA', 'MA200', '200MA')) || 0;
+
+                    // Calculate risk: if price is within 5% of MA
+                    const percentDiff = ma200 > 0 ? Math.abs((close - ma200) / ma200) * 100 : 0;
+                    const isRisky = percentDiff <= 5;
+
                     return {
                         date: excelDateToJSDate(getKey(row, 'Date')),
-                        close: parseFloat(getKey(row, 'Close', 'Price')) || 0,
-                        ma200: parseFloat(getKey(row, '200-Day MA', 'MA200', '200MA')) || 0,
+                        close: close,
+                        ma200: ma200,
                         signal: signalText,
                         instruction: getKey(row, 'Instruction') || '',
-                        equity: parseFloat(getKey(row, 'Equity', 'Strategy Equity')) || 0
+                        equity: parseFloat(getKey(row, 'Equity', 'Strategy Equity')) || 0,
+                        isRisky: isRisky,
+                        percentDiff: percentDiff
                     };
                 }).filter(d => d.close > 0);
 
@@ -268,8 +321,12 @@
 
                     const signalEl = document.getElementById('current-signal');
 
-                    // Use Signal from Excel
-                    signalEl.textContent = latest.signal;
+                    // Use Signal from Excel with risk indicator
+                    if (latest.isRisky) {
+                        signalEl.innerHTML = `${latest.signal}<span class="signal-risky">⚠️ RISKY (${latest.percentDiff.toFixed(1)}% from MA)</span>`;
+                    } else {
+                        signalEl.textContent = latest.signal;
+                    }
 
                     // Color coding - Safe string conversion
                     const sigStr = String(latest.signal).toUpperCase();
@@ -290,19 +347,21 @@
                 const tableBody = document.getElementById('signalsTableBody');
                 processedData.slice(-10).reverse().forEach(row => {
                     const tr = document.createElement('tr');
+                    const signalDisplay = row.isRisky ? `${row.signal} ⚠️ RISKY` : row.signal;
                     tr.innerHTML = `
                     <td>${row.date}</td>
                     <td>$${row.close.toFixed(2)}</td>
                     <td>$${row.ma200.toFixed(2)}</td>
-                    <td style="font-weight:bold; color: ${row.signal === 'BUY' ? '#10b981' : (row.signal === 'CASH' ? '#f59e0b' : '#ef4444')}">${row.signal}</td>
+                    <td style="font-weight:bold; color: ${row.signal === 'BUY' ? '#10b981' : (row.signal === 'CASH' ? '#f59e0b' : '#ef4444')}">${signalDisplay}</td>
                     <td>${row.instruction}</td>
                     <td>$${row.equity.toLocaleString()}</td>
                 `;
                     tableBody.appendChild(tr);
                 });
 
-                // Initialize Chart
+                // Initialize Chart and controls
                 initChart(processedData);
+                setupTimeRangeControls();
 
             } catch (error) {
                 console.error(error);
@@ -310,13 +369,37 @@
             }
         }
 
-        function initChart(data) {
-            const ctx = document.getElementById('strategyChart').getContext('2d');
-            const labels = data.map(d => d.date);
-            const prices = data.map(d => d.close);
-            const equity = data.map(d => d.equity);
+        let chartInstance = null;
+        let allChartData = [];
 
-            new Chart(ctx, {
+        function filterDataByTimeRange(data, range) {
+            if (range === 'max') return data;
+
+            const yearsToShow = parseInt(range);
+            const cutoffDate = new Date();
+            cutoffDate.setFullYear(cutoffDate.getFullYear() - yearsToShow);
+
+            return data.filter(d => {
+                const dataDate = new Date(d.date);
+                return dataDate >= cutoffDate;
+            });
+        }
+
+        function initChart(data, range = 'max') {
+            allChartData = data;
+            const filteredData = filterDataByTimeRange(data, range);
+
+            const ctx = document.getElementById('strategyChart').getContext('2d');
+            const labels = filteredData.map(d => d.date);
+            const prices = filteredData.map(d => d.close);
+            const equity = filteredData.map(d => d.equity);
+
+            // Destroy existing chart if it exists
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: labels,
@@ -364,6 +447,21 @@
                         }
                     }
                 }
+            });
+        }
+
+        function setupTimeRangeControls() {
+            const buttons = document.querySelectorAll('.time-range-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active state
+                    buttons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    // Update chart
+                    const range = btn.getAttribute('data-range');
+                    initChart(allChartData, range);
+                });
             });
         }
 
