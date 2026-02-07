@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Space Typing Hero - Kids Typing Practice Game</title>
+    <meta name="description"
+        content="A fun, free space-themed typing game for kids. Help the rocket fly by typing letters correctly! Learn default keys A, B, C, D and Space effectively." />
+    <meta name="keywords"
+        content="typing game for kids, learn to type, space game, educational game, free typing practice, alphabet game" />
+    <meta property="og:title" content="Space Typing Hero - Learn to Type" />
+    <meta property="og:description"
+        content="Blast off into learning! A fun interactive game to practice keyboard skills." />
+    <meta property="og:type" content="website" />
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;800&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Nunito', sans-serif;
+            background: radial-gradient(circle at center, #1e1b4b 0%, #0f172a 100%);
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Animated Stars Background */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-image:
+                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0, 0, 0, 0)),
+                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
+                radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0, 0, 0, 0)),
+                radial-gradient(2px 2px at 90px 40px, #fff, rgba(0, 0, 0, 0)),
+                radial-gradient(2px 2px at 130px 80px, #fff, rgba(0, 0, 0, 0));
+            background-size: 200px 200px;
+            animation: starMove 100s linear infinite;
+        }
+
+        @keyframes starMove {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 0 1000px;
+            }
+        }
+
+        .game-container {
+            position: relative;
+            z-index: 10;
+            width: min(800px, 90%);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 30px;
+            padding: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 52px;
+            color: #fbbf24;
+            text-shadow: 0 6px 0 #b45309;
+            margin: 0 0 10px;
+            letter-spacing: 2px;
+        }
+
+        p.sub {
+            color: #cbd5e1;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stat-pill {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            color: #e2e8f0;
+        }
+
+        .stat-pill.highlight {
+            border-color: #fbbf24;
+            color: #fbbf24;
+        }
+
+        .icon {
+            font-size: 24px;
+        }
+
+        /* Typing Area */
+        .typing-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 24px;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+            position: relative;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4px;
+            min-height: 80px;
+        }
+
+        .char {
+            font-family: 'Fredoka One', monospace;
+            font-size: 48px;
+            width: 40px;
+            color: rgba(255, 255, 255, 0.3);
+            transition: all 0.1s;
+            position: relative;
+        }
+
+        .char.correct {
+            color: #4ade80;
+            text-shadow: 0 0 15px #4ade80;
+            transform: scale(1.2) translateY(-5px);
+        }
+
+        .char.wrong {
+            color: #f87171;
+            animation: shake 0.4s;
+        }
+
+        .char.current {
+            color: #fff;
+            border-bottom: 4px solid #fbbf24;
+        }
+
+        /* Space special styling */
+        .char.space {
+            width: 30px;
+        }
+
+        .char.space.current {
+            border-bottom: 4px solid #fbbf24;
+        }
+
+        .char.space.wrong {
+            background: rgba(248, 113, 113, 0.3);
+            border-radius: 4px;
+        }
+
+        /* Rocket Track */
+        .track-container {
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
+            height: 16px;
+            border-radius: 10px;
+            margin: 0 20px 40px;
+        }
+
+        .track-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .rocket {
+            position: absolute;
+            top: -30px;
+            left: 0%;
+            font-size: 40px;
+            transform: translateX(-50%) rotate(45deg);
+            transition: left 0.3s;
+            filter: drop-shadow(0 0 10px #f59e0b);
+        }
+
+        /* Controls */
+        button {
+            font-family: 'Fredoka One', cursive;
+            font-size: 28px;
+            padding: 18px 50px;
+            border: none;
+            border-radius: 20px;
+            background: linear-gradient(to bottom, #fbbf24, #d97706);
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0 8px 0 #92400e;
+            transition: all 0.1s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            filter: brightness(1.1);
+        }
+
+        button:active {
+            transform: translateY(8px);
+            box-shadow: 0 0 0 #92400e;
+        }
+
+        button:disabled {
+            background: #94a3b8;
+            box-shadow: 0 8px 0 #64748b;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        /* Feedback Overlay */
+        .feedback-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Fredoka One', cursive;
+            font-size: 80px;
+            color: #fff;
+            text-shadow: 0 10px 0 rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+            opacity: 0;
+            z-index: 100;
+        }
+
+        .feedback-overlay.show {
+            animation: popUpFade 1s forwards;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20% {
+                transform: translateX(-6px);
+            }
+
+            40% {
+                transform: translateX(6px);
+            }
+
+            60% {
+                transform: translateX(-6px);
+            }
+
+            80% {
+                transform: translateX(6px);
+            }
+        }
+
+        @keyframes popUpFade {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -30%) scale(0.5);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -60%) scale(1.2);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -80%) scale(1);
+            }
+        }
+
+        .key-hint {
+            margin-top: 20px;
+            color: #94a3b8;
+            font-size: 16px;
+        }
+
+        .key-badge {
+            display: inline-block;
+            background: #334155;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border-bottom: 2px solid #1e293b;
+            margin: 0 2px;
+            font-weight: bold;
+            color: #fbbf24;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="stars"></div>
+
+    <div class="game-container">
+        <h1>Space Typing Hero 🚀</h1>
+        <p class="sub">Help the rocket fly! Type the letters correctly.</p>
+
+        <div class="stats-bar">
+            <div class="stat-pill"><span class="icon">⭐</span> <span id="lvlDisplay">Level 1</span></div>
+            <div class="stat-pill highlight"><span class="icon">🎯</span> <span id="scoreDisplay">0</span></div>
+            <div class="stat-pill"><span class="icon">❤️</span> <span id="accDisplay">100%</span></div>
+        </div>
+
+        <!-- The typing words go here -->
+        <div class="typing-box" id="typingBox">
+            <div style="font-size:24px; color:rgba(255,255,255,0.5); margin-top:10px;">Press Start to Play!</div>
+        </div>
+
+        <!-- Progress Track -->
+        <div class="track-container">
+            <div class="track-fill" id="trackFill"></div>
+            <div class="rocket" id="rocket">🚀</div>
+        </div>
+
+        <button id="mainBtn">Start Mission</button>
+
+        <div class="key-hint">
+            Keys: <span class="key-badge">A</span> <span class="key-badge">B</span> <span class="key-badge">C</span>
+            <span class="key-badge">D</span> <span class="key-badge">Space</span>
+        </div>
+    </div>
+
+    <div class="feedback-overlay" id="feedback">Awesome!</div>
+
+    <script>
+        // Game Config
+        const LEVELS = [
+            { id: 1, chars: ['a', 'b', 'c', 'd', ' '], min: 6, max: 10 },
+            { id: 2, chars: ['a', 'b', 'c', 'd', 'e', 'f', ' '], min: 8, max: 14 },
+            { id: 3, chars: ['a', 's', 'd', 'f', 'j', 'k', 'l', ';', ' '], min: 10, max: 16 }
+        ];
+
+        // State
+        let currentLevel = 0;
+        let targetText = "";
+        let currentIndex = 0; // Where we are in the target string
+        let isPlaying = false;
+        let score = 0;
+        let totalKeys = 0;
+        let correctKeys = 0;
+
+        // Audio (Synthesized for kid friendliness without assets)
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            if (type === 'hit') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.1);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.1);
+            } else if (type === 'error') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.2);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.2);
+            } else if (type === 'win') {
+                osc.type = 'triangle';
+                // Arpeggio
+                [0, 0.1, 0.2].forEach((t, i) => {
+                    const o = audioCtx.createOscillator();
+                    const g = audioCtx.createGain();
+                    o.connect(g);
+                    g.connect(audioCtx.destination);
+                    o.frequency.value = 400 * (i + 1);
+                    g.gain.setValueAtTime(0.1, audioCtx.currentTime + t);
+                    g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + t + 0.3);
+                    o.start(audioCtx.currentTime + t);
+                    o.stop(audioCtx.currentTime + t + 0.3);
+                });
+            }
+        }
+
+        // Elements
+        const typingBox = document.getElementById('typingBox');
+        const rocket = document.getElementById('rocket');
+        const trackFill = document.getElementById('trackFill');
+        const mainBtn = document.getElementById('mainBtn');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const accDisplay = document.getElementById('accDisplay');
+        const lvlDisplay = document.getElementById('lvlDisplay');
+        const feedback = document.getElementById('feedback');
+
+        function randInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function generateText() {
+            const lvl = LEVELS[currentLevel];
+            const len = randInt(lvl.min, lvl.max);
+            let str = "";
+            // Generate random chars
+            for (let i = 0; i < len; i++) {
+                str += lvl.chars[randInt(0, lvl.chars.length - 1)];
+            }
+            // Clean up spaces (no double spaces, no start/end space)
+            str = str.replace(/\s+/g, ' ').trim();
+            if (str.length === 0) str = "abc"; // fallback
+            return str;
+        }
+
+        function renderText() {
+            typingBox.innerHTML = '';
+            targetText.split('').forEach((char, idx) => {
+                const span = document.createElement('div');
+                span.className = 'char ' + (char === ' ' ? 'space' : '');
+                span.textContent = char === ' ' ? '_' : char; // Visual space
+                // If space, show nothing or underscore? Let's show nothing but width
+                if (char === ' ') span.textContent = ' ';
+
+                if (idx < currentIndex) span.classList.add('correct');
+                if (idx === currentIndex) span.classList.add('current');
+
+                typingBox.appendChild(span);
+            });
+        }
+
+        function updateProgress() {
+            const pct = (currentIndex / targetText.length) * 100;
+            rocket.style.left = pct + '%';
+            trackFill.style.width = pct + '%';
+        }
+
+        function showFeedback(text) {
+            feedback.textContent = text;
+            feedback.classList.remove('show');
+            void feedback.offsetWidth; // trigger reflow
+            feedback.classList.add('show');
+            playSound('win');
+        }
+
+        function nextRound() {
+            targetText = generateText();
+            currentIndex = 0;
+            renderText();
+            updateProgress();
+            mainBtn.style.display = 'none'; // Hide button during play
+        }
+
+        function startGame() {
+            isPlaying = true;
+            score = 0;
+            totalKeys = 0;
+            correctKeys = 0;
+            currentLevel = 0;
+
+            scoreDisplay.textContent = score;
+            accDisplay.textContent = '100%';
+            lvlDisplay.textContent = 'Level ' + (currentLevel + 1);
+
+            // Focus listener
+            document.addEventListener('keydown', handleKey);
+
+            nextRound();
+        }
+
+        function handleKey(e) {
+            if (!isPlaying) return;
+
+            // Ignore meta keys
+            if (e.ctrlKey || e.altKey || e.metaKey) return;
+            if (e.key.length !== 1) return; // Only single chars (no Backspace for simplicity in this flow? Or maybe prevent moving back)
+
+            // Actually, kid games often don't require backspace, just ignore wrong keys
+            // Let's go with: You MUST type the correct key to advance.
+
+            const targetChar = targetText[currentIndex];
+
+            totalKeys++;
+
+            if (e.key.toLowerCase() === targetChar.toLowerCase()) {
+                // Correct
+                playSound('hit');
+                correctKeys++;
+                currentIndex++;
+                score += 10;
+
+                // Update specific DOM node for performance (or just re-render all for simplicity)
+                renderText();
+                updateProgress();
+
+                // Check win
+                if (currentIndex >= targetText.length) {
+                    score += 50; // Bonus for finishing word
+                    showFeedback(["Awesome!", "Super!", "Great Job!", "Rocket Power!"][randInt(0, 3)]);
+                    setTimeout(nextRound, 800);
+                }
+            } else {
+                // Wrong
+                playSound('error');
+                // Visual shake on current char
+                const spans = typingBox.children;
+                if (spans[currentIndex]) {
+                    spans[currentIndex].classList.add('wrong');
+                    setTimeout(() => spans[currentIndex].classList.remove('wrong'), 400);
+                }
+            }
+
+            // Update stats
+            scoreDisplay.textContent = score;
+            const acc = Math.round((correctKeys / totalKeys) * 100);
+            accDisplay.textContent = acc + '%';
+        }
+
+        mainBtn.addEventListener('click', () => {
+            if (!isPlaying) startGame();
+        });
+
+    </script>
+</body>
+
+</html>
