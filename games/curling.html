@@ -1,0 +1,1090 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Pro Curling 2026 - Free Online Winter Sports Game</title>
+    <meta name="description"
+        content="Play Pro Curling 2026, the best free online curling game. Master realistic physics, sweeping mechanics, and strategy in this 3D-style browser sports simulator. No download required." />
+    <meta name="keywords"
+        content="curling game, online curling, winter olympics game, browser game, free games, physics game, html5 curling, sweeping mechanic" />
+    <meta property="og:title" content="Pro Curling 2026 - Master the Ice" />
+    <meta property="og:description"
+        content="Slide, sweep, and score in this realistic curling simulation. Challenge yourself to land on the button!" />
+    <meta property="og:type" content="website" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+        :root {
+            --primary: #3b82f6;
+            /* Blue team */
+            --danger: #ef4444;
+            /* Red team */
+            --stone-body: #94a3b8;
+            --ice-bg: #eeffff;
+            --bg-dark: #0f172a;
+            --glass: rgba(15, 23, 42, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Outfit', system-ui, sans-serif;
+            background: #020617;
+            color: #f8fafc;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Layout */
+        .game-container {
+            display: flex;
+            flex: 1;
+            position: relative;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
+            overflow: hidden;
+        }
+
+        canvas {
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            /* Max size constraints */
+            max-height: 95vh;
+            max-width: 100vw;
+        }
+
+        /* HUD / UI Overlay */
+        .ui-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            /* Let clicks pass to canvas */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .scoreboard {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 12px 24px;
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            pointer-events: auto;
+        }
+
+        .team-score {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .team-score span {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+
+        .team-score strong {
+            font-size: 28px;
+            line-height: 1;
+            font-weight: 800;
+        }
+
+        .team-score.red strong {
+            color: var(--danger);
+            text-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+        }
+
+        .team-score.blue strong {
+            color: var(--primary);
+            text-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .end-info {
+            text-align: center;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0 24px;
+        }
+
+        .end-info h2 {
+            margin: 0;
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+
+        .end-info div {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* Controls Panel */
+        .controls-panel {
+            pointer-events: auto;
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            width: 320px;
+            align-self: flex-end;
+            /* right side */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .controls-panel h3 {
+            margin: 0 0 12px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .control-group {
+            margin-bottom: 16px;
+        }
+
+        .control-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 6px;
+        }
+
+        input[type=range] {
+            width: 100%;
+            accent-color: #f59e0b;
+            /* Amber for controls */
+            height: 4px;
+            border-radius: 2px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(1px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Sweep Button (Big, action-oriented) */
+        #sweepBtn {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.9);
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ef4444 0%, #b91c1c 100%);
+            color: white;
+            font-size: 24px;
+            font-weight: 800;
+            text-transform: uppercase;
+            box-shadow: 0 0 0 8px rgba(239, 68, 68, 0.2), 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            pointer-events: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        #sweepBtn.active {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+            animation: pulse 1s infinite;
+            cursor: pointer;
+        }
+
+        #sweepBtn:active {
+            transform: translateX(-50%) scale(0.95);
+            background: #991b1b;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0px rgba(239, 68, 68, 0.6);
+            }
+
+            100% {
+                box-shadow: 0 0 0 30px rgba(239, 68, 68, 0);
+            }
+        }
+
+        .turn-indicator {
+            position: absolute;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 16px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 99px;
+            font-size: 14px;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .tutorial-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+
+        .tutorial-card,
+        .info-modal {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 24px;
+            text-align: left;
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .info-modal {
+            display: none;
+        }
+
+        .tutorial-card h1,
+        .info-modal h1 {
+            margin-top: 0;
+            color: white;
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .tutorial-card h2,
+        .info-modal h2 {
+            font-size: 16px;
+            color: #f59e0b;
+            margin: 20px 0 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tutorial-card p,
+        .info-modal p {
+            color: #cbd5e1;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .tutorial-card ul,
+        .info-modal ul {
+            padding-left: 20px;
+            color: #cbd5e1;
+            margin-bottom: 15px;
+        }
+
+        .tutorial-card li,
+        .info-modal li {
+            margin-bottom: 6px;
+        }
+
+        .tutorial-card b,
+        .info-modal b {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .key-hint {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-family: monospace;
+            font-size: 13px;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="game-container">
+        <canvas id="gameCanvas" width="600" height="900"></canvas>
+
+        <div class="ui-layer">
+
+            <!-- Top Scoreboard -->
+            <div class="top-bar">
+                <div class="scoreboard">
+                    <div class="team-score red">
+                        <span>Red</span>
+                        <strong id="scoreRed">0</strong>
+                    </div>
+                    <div class="end-info">
+                        <h2>End</h2>
+                        <div id="endDisplay">1/1</div>
+                    </div>
+                    <div class="team-score blue">
+                        <span>Blue</span>
+                        <strong id="scoreBlue">0</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Turn Indicator -->
+            <div class="turn-indicator">
+                <div class="dot" id="turnDot" style="background:var(--danger)"></div>
+                <span id="turnText">Red's Turn</span>
+                <span id="shotsLeft" style="opacity:0.6; font-size:12px; margin-left:8px;">(Shot 1 / 8)</span>
+            </div>
+
+            <!-- Sweep Button -->
+            <div id="sweepBtn">
+                SWEEP!
+                <span>Hold to Glide Further</span>
+            </div>
+
+            <!-- Bottom Controls -->
+            <div style="display:flex; justify-content:flex-end;">
+                <div class="controls-panel">
+                    <h3>Shot Settings</h3>
+
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>Handle Turn (Curl)</span>
+                            <span id="curlVal">Right</span>
+                        </div>
+                        <input type="range" id="curlSlider" min="-1" max="1" step="0.1" value="0.2">
+                    </div>
+
+                    <div class="btn-row">
+                        <button class="btn-secondary" id="undoBtn">Undo</button>
+                        <button class="btn-primary" id="restartBtn">Reset Match</button>
+                    </div>
+                    <button class="btn-secondary" id="infoBtn" style="margin-top:10px; width:100%;">Tips & Info</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Tutorial/Start Screen -->
+    <div class="tutorial-overlay" id="startScreen">
+        <div class="tutorial-card">
+            <h1>Pro Curling 2026</h1>
+
+            <h2>How to Play</h2>
+            <ul>
+                <li><b>Aim & Shoot:</b> Drag anywhere on screen to set power and direction.</li>
+                <li><b>Set Curl:</b> Use the slider to rotate the handle left or right before shooting.</li>
+                <li><b>Sweep:</b> Hold <span class="key-hint">SPACE</span> while the stone is moving.</li>
+            </ul>
+
+            <h2>Sweeping Mechanics 101</h2>
+            <p>Sweeping warms the ice, creating a thin layer of water. This does two things:</p>
+            <ul>
+                <li><b>Reduces Friction:</b> The stone glides further.</li>
+                <li><b>Reduces Curl:</b> The stone travels straighter.</li>
+            </ul>
+
+            <h2>Pro Tips</h2>
+            <p style="font-size:14px; color:#94a3b8; font-style:italic;">
+                "If you see your stone curling too much or slowing down too early, <b>SWEEP!</b>
+                But be careful—if you're already going too fast, sweeping will make it worse!"
+            </p>
+
+            <button class="btn-primary" id="startBtn" style="width:100%; font-size:18px; margin-top:10px;">Start
+                Match</button>
+        </div>
+    </div>
+    <!-- Info Modal -->
+    <div class="tutorial-overlay" id="infoOverlay" style="display:none; z-index:101;">
+        <div class="info-modal" style="display:block;">
+            <h1>Game Info & Tips</h1>
+
+            <h2>About the Game</h2>
+            <p>
+                <b>Pro Curling 2026</b> is a strategy sports game where two teams slide stones on a sheet of ice towards
+                a target area.
+                The goal is to get your stones closer to the center (the "button") than the opponent's stones.
+            </p>
+
+            <h2>Winning Strategy</h2>
+            <ul>
+                <li><b>The Hammer:</b> The team that shoots last (has the "hammer") has a huge advantage. They can knock
+                    out opponent stones with the final shot.</li>
+                <li><b>Guards:</b> Place stones in front of the house to protect your scoring stones.</li>
+                <li><b>Takeouts:</b> Use high power to knock opponent stones out of play.</li>
+            </ul>
+
+            <h2>Advanced Sweeping Tips</h2>
+            <ul>
+                <li><b>Extend Distance:</b> If a shot is light (too slow), sweep immediately and keep sweeping!</li>
+                <li><b>Hold the Line:</b> If a stone is curling too much towards a guard, sweep to make it run
+                    straighter.</li>
+                <li><b>Don't Sweep</b> if the stone is too heavy (fast) or tracking incorrectly—let the ice slow it down
+                    or curl it away.</li>
+            </ul>
+
+            <button class="btn-primary" id="closeInfoBtn" style="width:100%; font-size:16px; margin-top:20px;">Return to
+                Game</button>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        /**
+         * AUDIO SYSTEM (Synthesized)
+         */
+        const AudioSys = {
+            ctx: null,
+            init() {
+                if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+            },
+            playTone(freq, type, duration, vol = 0.1) {
+                if (!this.ctx) return;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+                gain.gain.setValueAtTime(vol, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + duration);
+            },
+            playHit() {
+                this.playTone(150, 'square', 0.1, 0.2);
+                this.playTone(60, 'sawtooth', 0.2, 0.3);
+            },
+            playSlide() {
+                // Subtle start sound
+                this.playTone(200, 'sine', 0.5, 0.05);
+            }
+        };
+
+        /**
+         * GAME ENGINE
+         */
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // Constants
+        const W = canvas.width;
+        const H = canvas.height;
+        const TEAMS = {
+            RED: 0,
+            BLUE: 1
+        };
+        const CONFIG = {
+            friction: 0.992,       // Standard friction
+            sweptFriction: 0.997,  // Sweeping makes it glide much better
+            stoneRadius: 20,
+            maxPower: 22,
+            houseY: 200,           // Target area y-position
+            hackY: 800,            // Start area y-position
+            curlForce: 0.07        // Lateral force multiplier
+        };
+
+        // State
+        let state = {
+            stones: [],
+            currentTeam: TEAMS.RED, // 0 or 1
+            shotsTaken: 0,
+            totalShots: 8, // 4 stones per team
+            end: 1,
+            scores: [0, 0],
+            aiming: false,
+            aimStart: null,
+            aimCurrent: null,
+            sweeping: false,
+            stoneInMotion: false,
+            gameOver: false,
+            history: [] // For undo
+        };
+
+        // UI Elements
+        const UI = {
+            scoreRed: document.getElementById('scoreRed'),
+            scoreBlue: document.getElementById('scoreBlue'),
+            turnDot: document.getElementById('turnDot'),
+            turnText: document.getElementById('turnText'),
+            shotsLeft: document.getElementById('shotsLeft'),
+            sweepBtn: document.getElementById('sweepBtn'),
+            curlSlider: document.getElementById('curlSlider'),
+            endDisplay: document.getElementById('endDisplay'),
+            curlVal: document.getElementById('curlVal')
+        };
+
+        /**
+         * CORE FUNCTIONS
+         */
+
+        function initGame() {
+            state.stones = [];
+            state.currentTeam = TEAMS.RED;
+            state.shotsTaken = 0;
+            state.end = 1;
+            state.scores = [0, 0];
+            state.gameOver = false;
+            state.history = [];
+
+            // Clean start
+            spawnStone();
+            updateUI();
+            loop();
+        }
+
+        function spawnStone() {
+            // If we've taken all shots, don't spawn
+            if (state.shotsTaken >= state.totalShots) return;
+
+            state.stones.push({
+                x: W / 2,
+                y: CONFIG.hackY,
+                vx: 0,
+                vy: 0,
+                r: CONFIG.stoneRadius,
+                team: state.currentTeam,
+                moving: false,
+                active: true // The one being shot
+            });
+        }
+
+        function updateUI() {
+            UI.scoreRed.textContent = state.scores[0];
+            UI.scoreBlue.textContent = state.scores[1];
+
+            const teamName = state.currentTeam === TEAMS.RED ? "Red" : "Blue";
+            UI.turnText.textContent = `${teamName}'s Turn`;
+            UI.turnText.style.color = state.currentTeam === TEAMS.RED ? "var(--danger)" : "var(--primary)";
+            UI.turnDot.style.background = state.currentTeam === TEAMS.RED ? "var(--danger)" : "var(--primary)";
+
+            // Show remaining shots
+            const remaining = state.totalShots - state.shotsTaken;
+            if (state.gameOver) {
+                UI.shotsLeft.textContent = "(Match Over)";
+            } else {
+                UI.shotsLeft.textContent = `(Shot ${state.shotsTaken + 1} / ${state.totalShots})`;
+            }
+
+            // Slider text
+            const curl = parseFloat(UI.curlSlider.value);
+            if (Math.abs(curl) < 0.1) UI.curlVal.textContent = "Straight";
+            else if (curl < 0) UI.curlVal.textContent = `Left ${(Math.abs(curl) * 100).toFixed(0)}%`;
+            else UI.curlVal.textContent = `Right ${(Math.abs(curl) * 100).toFixed(0)}%`;
+        }
+
+        function saveHistory() {
+            // Deep copy relevant state
+            state.history.push({
+                stones: JSON.stringify(state.stones),
+                currentTeam: state.currentTeam,
+                shotsTaken: state.shotsTaken
+            });
+        }
+
+        function restoreHistory() {
+            if (state.history.length === 0) return;
+            const prev = state.history.pop();
+            state.stones = JSON.parse(prev.stones);
+            state.currentTeam = prev.currentTeam;
+            state.shotsTaken = prev.shotsTaken;
+            state.gameOver = false;
+            state.stoneInMotion = false;
+            state.stones.forEach(s => s.moving = false); // Ensure stop
+            updateUI();
+        }
+
+        /**
+         * PHYSICS
+         */
+        function physics() {
+            let movingCount = 0;
+
+            // Apply forces
+            state.stones.forEach(s => {
+                if (!s.moving) return;
+                movingCount++;
+
+                // 1. Friction
+                let f = CONFIG.friction;
+                if (state.sweeping) {
+                    f = CONFIG.sweptFriction; // Higher means less velocity loss
+                }
+                s.vx *= f;
+                s.vy *= f;
+
+                // 2. Curl Physics (Lateral drift)
+                // The stone curls perpendicular to its velocity.
+                // Direction depends on handle rotation (curlFactor).
+                // Magnitude depends on velocity (typically curls MORE as it slows down in real life, 
+                // but here we keep it proportional for predictability).
+
+                if (Math.abs(s.vy) > 0.1 || Math.abs(s.vx) > 0.1) {
+                    if (s.curlFactor === undefined) s.curlFactor = 0; // Should be set at shot time
+
+                    // Curl force
+                    let drift = s.curlFactor * CONFIG.curlForce;
+
+                    // Sweeping reduces curl amount (makes it run straighter)
+                    if (state.sweeping) drift *= 0.3;
+
+                    // Apply drift perpendicular to motion is complex without vector math,
+                    // simpler approximation: just add X velocity since we mostly shoot Y.
+                    // But let's try to be slightly smarter: Add force perpendicular to velocity vector.
+
+                    // Normalized velocity
+                    const speed = Math.hypot(s.vx, s.vy);
+                    if (speed > 0.1) {
+                        const nx = s.vx / speed;
+                        const ny = s.vy / speed;
+
+                        // Perpendicular vector (-ny, nx)
+                        const px = -ny;
+                        const py = nx;
+
+                        s.vx += px * drift;
+                        s.vy += py * drift;
+                    }
+                }
+
+                // 3. Position update
+                s.x += s.vx;
+                s.y += s.vy;
+
+                // 4. Boundary bounce
+                if (s.x < s.r) { s.x = s.r; s.vx *= -0.5; }
+                if (s.x > W - s.r) { s.x = W - s.r; s.vx *= -0.5; }
+                if (s.y < s.r) { s.y = s.r; s.vy *= -0.5; }
+                if (s.y > H + 100) s.moving = false; // Out of bounds bottom
+
+                // 5. Stop threshold
+                if (Math.hypot(s.vx, s.vy) < 0.05) {
+                    s.moving = false;
+                    s.vx = 0; s.vy = 0;
+
+                    // If the active stone stopped, turn is over
+                    if (s.active) {
+                        s.active = false;
+                        finishShot();
+                    }
+                }
+            });
+
+            // Collisions (Elastic)
+            for (let i = 0; i < state.stones.length; i++) {
+                for (let j = i + 1; j < state.stones.length; j++) {
+                    const a = state.stones[i];
+                    const b = state.stones[j];
+
+                    // Skip if both stopped (optimization)
+                    if (!a.moving && !b.moving) continue;
+
+                    const dx = b.x - a.x;
+                    const dy = b.y - a.y;
+                    const dist = Math.hypot(dx, dy);
+                    const minDist = a.r + b.r;
+
+                    if (dist < minDist) {
+                        AudioSys.playHit();
+
+                        // Resolve overlap
+                        const angle = Math.atan2(dy, dx);
+                        const overlap = minDist - dist;
+                        const moveX = (Math.cos(angle) * overlap) / 2;
+                        const moveY = (Math.sin(angle) * overlap) / 2;
+
+                        a.x -= moveX; a.y -= moveY;
+                        b.x += moveX; b.y += moveY;
+
+                        // Bounce
+                        const nx = Math.cos(angle);
+                        const ny = Math.sin(angle);
+
+                        // Dot products
+                        const dpTan1 = -a.vy * nx + a.vx * ny;
+                        const dpTan2 = -b.vy * nx + b.vx * ny;
+
+                        const dpNorm1 = a.vx * nx + a.vy * ny;
+                        const dpNorm2 = b.vx * nx + b.vy * ny;
+
+                        // Conservation of momentum (equal mass)
+                        const m1 = (dpNorm1 * (1 - 1) + 2 * 1 * dpNorm2) / 2; // simplified mass=1
+                        const m2 = (dpNorm2 * (1 - 1) + 2 * 1 * dpNorm1) / 2;
+
+                        a.vx = nx * m2 - ny * dpTan1;
+                        a.vy = ny * m2 + nx * dpTan1;
+                        b.vx = nx * m1 - ny * dpTan2;
+                        b.vy = ny * m1 + nx * dpTan2;
+
+                        a.moving = true;
+                        b.moving = true;
+                    }
+                }
+            }
+
+            // Update UI state
+            state.stoneInMotion = movingCount > 0;
+            if (state.stoneInMotion) {
+                UI.sweepBtn.classList.add('active');
+            } else {
+                UI.sweepBtn.classList.remove('active');
+            }
+        }
+
+        function finishShot() {
+            state.shotsTaken++;
+
+            if (state.shotsTaken >= state.totalShots) {
+                calculateScore();
+                state.gameOver = true;
+                updateUI();
+                return;
+            }
+
+            // Next turn
+            state.currentTeam = state.currentTeam === TEAMS.RED ? TEAMS.BLUE : TEAMS.RED;
+            spawnStone();
+            updateUI();
+        }
+
+        function calculateScore() {
+            const cx = W / 2, cy = CONFIG.houseY;
+
+            // Calculate distance for all stones
+            let stonesDist = state.stones.map(s => {
+                return {
+                    team: s.team,
+                    dist: Math.hypot(s.x - cx, s.y - cy),
+                    inHouse: Math.hypot(s.x - cx, s.y - cy) < 95 // Outer radius
+                };
+            });
+
+            // Filter only those in house
+            let inPlay = stonesDist.filter(s => s.inHouse).sort((a, b) => a.dist - b.dist);
+
+            if (inPlay.length === 0) {
+                setTimeout(() => alert("Blank End! No points scored."), 100);
+                return;
+            }
+
+            const winner = inPlay[0].team;
+            let points = 0;
+
+            // Count how many of winner's stones are closer than opponent's first stone
+            for (let s of inPlay) {
+                if (s.team === winner) points++;
+                else break;
+            }
+
+            state.scores[winner] += points;
+            setTimeout(() => {
+                alert(`${winner === TEAMS.RED ? "Red" : "Blue"} scores ${points} points!`);
+            }, 100);
+        }
+
+
+        /**
+         * RENDERER
+         */
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+
+            // 1. Ice Surface
+            const grad = ctx.createLinearGradient(0, 0, 0, H);
+            grad.addColorStop(0, '#e0f2fe');
+            grad.addColorStop(1, '#bae6fd');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, W, H);
+
+            // 2. House (Target)
+            const cy = CONFIG.houseY;
+            const cx = W / 2;
+
+            // Rings
+            const drawRing = (r, color) => {
+                ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fillStyle = color; ctx.fill();
+            };
+
+            drawRing(95, '#1d4ed8'); // 12ft
+            drawRing(65, '#ffffff'); // 8ft
+            drawRing(35, '#dc2626'); // 4ft
+            drawRing(10, '#ffffff'); // Button
+
+            // Lines
+            ctx.strokeStyle = "rgba(0,0,0,0.15)";
+            ctx.lineWidth = 2;
+
+            // Hog line
+            ctx.beginPath(); ctx.moveTo(0, cy + 300); ctx.lineTo(W, cy + 300); ctx.stroke();
+            ctx.fillStyle = "rgba(0,0,0,0.4)"; ctx.font = "12px sans-serif"; ctx.fillText("HOG LINE", 10, cy + 295);
+
+            // Tee & Center
+            ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(W, cy); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, H); ctx.stroke();
+
+
+            // 3. Stones
+            state.stones.forEach(s => {
+                // Shadow
+                ctx.beginPath(); ctx.arc(s.x, s.y + 4, s.r, 0, Math.PI * 2);
+                ctx.fillStyle = "rgba(0,0,0,0.2)"; ctx.fill();
+
+                // Body
+                const g = ctx.createRadialGradient(s.x - 5, s.y - 5, 2, s.x, s.y, s.r);
+                g.addColorStop(0, '#94a3b8'); g.addColorStop(1, '#475569');
+                ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                ctx.fillStyle = g; ctx.fill();
+
+                // Handle (Team Color)
+                ctx.fillStyle = s.team === TEAMS.RED ? '#ef4444' : '#3b82f6';
+                ctx.beginPath(); ctx.roundRect(s.x - 6, s.y - 10, 12, 20, 4); ctx.fill();
+
+                // Highlight active stone
+                if (s.active && state.aiming) {
+                    ctx.strokeStyle = "white"; ctx.lineWidth = 2;
+                    ctx.beginPath(); ctx.arc(s.x, s.y, s.r + 3, 0, Math.PI * 2); ctx.stroke();
+                }
+            });
+
+            // 4. Aim Line
+            if (state.aiming && state.aimStart && state.aimCurrent && !state.stoneInMotion) {
+                const s = state.stones.find(st => st.active);
+                if (s) {
+                    const dx = state.aimStart.x - state.aimCurrent.x;
+                    const dy = state.aimStart.y - state.aimCurrent.y;
+
+                    // Visual feedback
+                    const dist = Math.hypot(dx, dy);
+                    const power = Math.min(dist / 5, CONFIG.maxPower);
+                    const powerPerc = (power / CONFIG.maxPower);
+
+                    // Draw line extending from stone opposite to drag
+                    const aimX = s.x + dx * 2.5;
+                    const aimY = s.y + dy * 2.5;
+
+                    // Line
+                    ctx.save();
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${0.4 + powerPerc * 0.6})`;
+                    ctx.lineWidth = 3 + powerPerc * 3;
+                    ctx.setLineDash([10, 10]);
+                    ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(aimX, aimY); ctx.stroke();
+
+                    // Text
+                    ctx.fillStyle = "white"; ctx.font = "bold 16px sans-serif";
+                    ctx.fillText((powerPerc * 100).toFixed(0) + "%", s.x + 30, s.y);
+                    ctx.restore();
+                }
+            }
+        }
+
+        function loop() {
+            physics();
+            draw();
+            requestAnimationFrame(loop);
+        }
+
+
+        /**
+         * CONTROLS
+         */
+        function getPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const cX = e.touches ? e.touches[0].clientX : e.clientX;
+            const cY = e.touches ? e.touches[0].clientY : e.clientY;
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            return {
+                x: (cX - rect.left) * scaleX,
+                y: (cY - rect.top) * scaleY
+            };
+        }
+
+        const startAim = (e) => {
+            if (state.gameOver || state.stoneInMotion) return;
+
+            // Find active stone
+            const s = state.stones.find(st => st.active);
+            if (!s) return;
+
+            const pos = getPos(e);
+            // Allow clicking anywhere to start aim, for usability, or strictly on stone
+            // Let's allow strictly on/near stone
+            if (Math.hypot(pos.x - s.x, pos.y - s.y) < 100) {
+                state.aiming = true;
+                state.aimStart = pos;
+                state.aimCurrent = pos;
+            }
+        };
+
+        const moveAim = (e) => {
+            if (state.aiming) {
+                state.aimCurrent = getPos(e);
+                e.preventDefault(); // Prevent scroll on mobile
+            }
+        };
+
+        const endAim = (e) => {
+            if (!state.aiming) return;
+            state.aiming = false;
+
+            const dx = state.aimStart.x - state.aimCurrent.x;
+            const dy = state.aimStart.y - state.aimCurrent.y;
+            const dist = Math.hypot(dx, dy);
+
+            if (dist > 20) {
+                saveHistory(); // Save before shot
+
+                // Shoot
+                const s = state.stones.find(st => st.active);
+                const power = Math.min(dist / 5, CONFIG.maxPower);
+                const angle = Math.atan2(dy, dx);
+
+                s.vx = Math.cos(angle) * power;
+                s.vy = Math.sin(angle) * power;
+                s.curlFactor = parseFloat(UI.curlSlider.value);
+                s.moving = true;
+
+                AudioSys.playSlide();
+            }
+        };
+
+        // Events
+        canvas.addEventListener('mousedown', startAim);
+        window.addEventListener('mousemove', moveAim);
+        window.addEventListener('mouseup', endAim);
+
+        canvas.addEventListener('touchstart', (e) => { startAim(e); }, { passive: false });
+        window.addEventListener('touchmove', (e) => { moveAim(e); }, { passive: false });
+        window.addEventListener('touchend', (e) => { endAim(e); });
+
+        // Sweep Keys
+        const setSweep = (val) => { state.sweeping = val; };
+        document.body.addEventListener('keydown', (e) => { if (e.code === 'Space') setSweep(true); });
+        document.body.addEventListener('keyup', (e) => { if (e.code === 'Space') setSweep(false); });
+
+        UI.sweepBtn.addEventListener('mousedown', () => setSweep(true));
+        UI.sweepBtn.addEventListener('mouseup', () => setSweep(false));
+        UI.sweepBtn.addEventListener('touchstart', (e) => { e.preventDefault(); setSweep(true); });
+        UI.sweepBtn.addEventListener('touchend', (e) => { e.preventDefault(); setSweep(false); });
+
+        // Buttons
+        UI.curlSlider.addEventListener('input', updateUI);
+        document.getElementById('startBtn').addEventListener('click', () => {
+            document.getElementById('startScreen').style.display = 'none';
+            AudioSys.init();
+        });
+        document.getElementById('restartBtn').addEventListener('click', initGame);
+        document.getElementById('undoBtn').addEventListener('click', restoreHistory);
+
+        // Info Modal
+        const infoOverlay = document.getElementById('infoOverlay');
+        document.getElementById('infoBtn').addEventListener('click', () => {
+            infoOverlay.style.display = 'flex';
+        });
+        document.getElementById('closeInfoBtn').addEventListener('click', () => {
+            infoOverlay.style.display = 'none';
+        });
+
+
+        // Start
+        initGame();
+
+    </script>
+</body>
+
+</html>
