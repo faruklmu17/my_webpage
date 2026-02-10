@@ -75,13 +75,34 @@
     }
 
     #score,
-    #timer {
+    #timer,
+    #level {
       font-size: 20px;
       font-weight: 700;
       padding: 8px 16px;
       border-radius: 10px;
       background: rgba(255, 255, 255, 0.15);
       border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    #level.level-2 {
+      background: rgba(255, 215, 0, 0.3);
+      border: 2px solid rgba(255, 215, 0, 0.6);
+      color: #ffd700;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+    }
+
+    #level.level-3 {
+      background: rgba(138, 43, 226, 0.4);
+      border: 2px solid rgba(138, 43, 226, 0.8);
+      color: #da70d6;
+      text-shadow: 0 0 15px rgba(138, 43, 226, 1);
+      animation: level3Glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes level3Glow {
+      0% { box-shadow: 0 0 10px rgba(138, 43, 226, 0.5); }
+      100% { box-shadow: 0 0 20px rgba(138, 43, 226, 0.9); }
     }
 
     #legend {
@@ -427,7 +448,8 @@
 
       /* Smaller fonts and padding for mobile */
       #score,
-      #timer {
+      #timer,
+      #level {
         font-size: 16px;
         padding: 6px 12px;
         margin: 0;
@@ -511,7 +533,8 @@
       }
 
       #score,
-      #timer {
+      #timer,
+      #level {
         font-size: 14px;
         padding: 4px 8px;
       }
@@ -576,7 +599,8 @@
       }
 
       #score,
-      #timer {
+      #timer,
+      #level {
         font-size: 12px;
         padding: 3px 6px;
       }
@@ -620,6 +644,7 @@
   <div id="hud">
     <div id="score">🐟 Score: 0</div>
     <div id="timer">⏱️ Time: 45</div>
+    <div id="level">🎯 Level: 1</div>
     <div id="legend">
       <span class="pill big">Big = 1 pt</span>
       <span class="pill medium">Medium = 2 pts</span>
@@ -767,12 +792,17 @@
       const pond = document.getElementById('pond');
       const scoreBox = document.getElementById('score');
       const timerBox = document.getElementById('timer');
+      const levelBox = document.getElementById('level');
       const startBtn = document.getElementById('startBtn');
       const endBanner = document.getElementById('endBanner');
       const finalScore = document.getElementById('finalScore');
       const restartBtn = document.getElementById('restartBtn');
 
       let score = 0, gameActive = false, timeLeft = 45;
+      let currentLevel = 1;
+      const LEVEL_2_THRESHOLD = 28; // Points required to reach Level 2
+      const LEVEL_3_THRESHOLD = 35; // Points required to reach Level 3 (from Level 2)
+      let levelStartScore = 0; // Score when current level started
       let timerId = null, spawnTimer = null, rafId = null;
 
       /* Sounds */
@@ -795,6 +825,223 @@
         o.connect(g).connect(audioCtx.destination); o.start(t0); o.stop(t0 + 0.2);
       }
       function playTimesUp() { tone(880, 0.22, 'sine', 0.18, 0); tone(1318.5, 0.28, 'triangle', 0.16, 0.18); }
+      function playLevelUp() {
+        tone(523.25, 0.3, 'sine', 0.2, 0);
+        tone(659.25, 0.3, 'sine', 0.2, 0.15);
+        tone(783.99, 0.4, 'sine', 0.25, 0.3);
+      }
+
+      /* Level System */
+      function checkLevelProgression() {
+        if (currentLevel === 1 && score >= LEVEL_2_THRESHOLD) {
+          startLevel2();
+        } else if (currentLevel === 2 && (score - levelStartScore) >= LEVEL_3_THRESHOLD) {
+          startLevel3();
+        }
+      }
+
+      function startLevel2() {
+        // Pause the current game
+        gameActive = false;
+        clearInterval(timerId);
+        clearTimeout(spawnTimer);
+        cancelAnimationFrame(rafId);
+
+        // Disable fish interactions
+        fishes.forEach(f => f.el.style.pointerEvents = 'none');
+
+        currentLevel = 2;
+        levelStartScore = score; // Track score when Level 2 started
+        levelBox.textContent = '🎯 Level: 2';
+        levelBox.classList.remove('level-3');
+        levelBox.classList.add('level-2');
+
+        // Show level up notification and auto-start level 2
+        showLevelUpNotification('Level 2', 'Faster fish, deeper waters!', () => {
+          startLevel2Game();
+        });
+        playLevelUp();
+      }
+
+      function startLevel3() {
+        // Pause the current game
+        gameActive = false;
+        clearInterval(timerId);
+        clearTimeout(spawnTimer);
+        cancelAnimationFrame(rafId);
+
+        // Disable fish interactions
+        fishes.forEach(f => f.el.style.pointerEvents = 'none');
+
+        currentLevel = 3;
+        levelStartScore = score; // Track score when Level 3 started
+        levelBox.textContent = '🎯 Level: 3';
+        levelBox.classList.remove('level-2');
+        levelBox.classList.add('level-3');
+
+        // Show level up notification and auto-start level 3
+        showLevelUpNotification('Level 3', 'Abyss Zone! Lightning-fast fish!', () => {
+          startLevel3Game();
+        });
+        playLevelUp();
+      }
+
+      function startLevel2Game() {
+        // Reset for level 2 with increased difficulty
+        timeLeft = 45; // Fresh 45 seconds for level 2
+        gameActive = true;
+        last = 0;
+
+        // Update UI
+        timerBox.textContent = '⏱️ Time: 45';
+
+        // Change background to deeper water
+        pond.style.background = `
+          linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 8%),
+          radial-gradient(ellipse 150% 100% at 50% 0%, rgba(135, 206, 250, 0.4) 0%, transparent 50%),
+          linear-gradient(180deg, var(--waterMid) 0%, var(--waterDeep) 40%, #003366 100%)
+        `;
+
+        // Clear existing fish and effects
+        [...pond.querySelectorAll('.fish,.splash,.plus,.bubble')].forEach(n => n.remove());
+        fishes.splice(0, fishes.length);
+
+        // Increase difficulty for level 2
+        increaseDifficulty();
+
+        // Make HUD transparent during gameplay
+        document.getElementById('hud').classList.add('game-active');
+
+        // Start level 2 gameplay
+        spawnFish();
+        spawnBubble();
+        rafId = requestAnimationFrame(tick);
+
+        // Start level 2 timer
+        timerId = setInterval(() => {
+          timeLeft--;
+          timerBox.textContent = `⏱️ Time: ${timeLeft}`;
+          if (timeLeft <= 0) endGame();
+        }, 1000);
+      }
+
+      function startLevel3Game() {
+        // Reset for level 3 with maximum difficulty
+        timeLeft = 45; // Fresh 45 seconds for level 3
+        gameActive = true;
+        last = 0;
+
+        // Update UI
+        timerBox.textContent = '⏱️ Time: 45';
+
+        // Change background to abyss zone (very dark, deep ocean)
+        pond.style.background = `
+          linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 5%),
+          radial-gradient(ellipse 120% 80% at 50% 0%, rgba(75, 0, 130, 0.3) 0%, transparent 40%),
+          linear-gradient(180deg, var(--waterDeep) 0%, #003366 30%, #001122 70%, #000011 100%)
+        `;
+
+        // Add some purple/violet tint for abyss effect
+        pond.style.filter = 'hue-rotate(15deg) contrast(1.1)';
+
+        // Clear existing fish and effects
+        [...pond.querySelectorAll('.fish,.splash,.plus,.bubble')].forEach(n => n.remove());
+        fishes.splice(0, fishes.length);
+
+        // Maximum difficulty for level 3
+        increaseLevel3Difficulty();
+
+        // Make HUD transparent during gameplay
+        document.getElementById('hud').classList.add('game-active');
+
+        // Start level 3 gameplay
+        spawnFish();
+        spawnBubble();
+        rafId = requestAnimationFrame(tick);
+
+        // Start level 3 timer
+        timerId = setInterval(() => {
+          timeLeft--;
+          timerBox.textContent = `⏱️ Time: ${timeLeft}`;
+          if (timeLeft <= 0) endGame();
+        }, 1000);
+      }
+
+      function increaseDifficulty() {
+        // Increase spawn rate and fish speeds for level 2
+        TYPES.forEach(type => {
+          type.speed[0] *= 1.3; // Increase minimum speed by 30%
+          type.speed[1] *= 1.3; // Increase maximum speed by 30%
+        });
+      }
+
+      function increaseLevel3Difficulty() {
+        // Maximum difficulty for level 3 - very fast fish
+        TYPES[0].speed = [300, 400]; // big fish - much faster
+        TYPES[1].speed = [400, 550]; // medium fish - very fast
+        TYPES[2].speed = [550, 750]; // small fish - lightning fast
+
+        // Also increase small fish spawn rate (more valuable but harder to catch)
+        TYPES[2].weight = 0.35; // More small fish
+        TYPES[1].weight = 0.35; // More medium fish
+        TYPES[0].weight = 0.30; // Fewer big fish
+      }
+
+      function showLevelUpNotification(levelName, description, callback) {
+        const notification = document.createElement('div');
+
+        // Different colors for different levels
+        let bgGradient = 'linear-gradient(135deg, #ffd700, #ffb300)'; // Level 2 gold
+        let textColor = '#000';
+        let shadowColor = 'rgba(255, 215, 0, 0.5)';
+
+        if (levelName === 'Level 3') {
+          bgGradient = 'linear-gradient(135deg, #8a2be2, #9932cc)'; // Level 3 purple
+          textColor = '#fff';
+          shadowColor = 'rgba(138, 43, 226, 0.7)';
+        }
+
+        notification.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: ${bgGradient};
+          color: ${textColor};
+          padding: 20px 30px;
+          border-radius: 15px;
+          font-size: 24px;
+          font-weight: bold;
+          text-align: center;
+          z-index: 3000;
+          box-shadow: 0 10px 30px ${shadowColor};
+          animation: levelUpPop 3s ease-out forwards;
+        `;
+        notification.innerHTML = `
+          🎉 ${levelName.toUpperCase()} UNLOCKED! 🎉<br>
+          <small style="font-size: 16px;">${description}</small><br>
+          <small style="font-size: 14px; opacity: 0.8;">Starting ${levelName} in 3 seconds...</small>
+        `;
+
+        // Add animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+          @keyframes levelUpPop {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            10% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+            80% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+          }
+        `;
+        document.head.appendChild(style);
+
+        document.body.appendChild(notification);
+        setTimeout(() => {
+          notification.remove();
+          style.remove();
+          if (callback) callback();
+        }, 3000);
+      }
 
       /* Types (px/sec speeds) - FASTER SPEEDS */
       const TYPES = [
@@ -892,7 +1139,11 @@
           if (!gameActive || fish.caught) return;
           fish.caught = true;
           score += parseInt(el.dataset.points || '1', 10);
-          scoreBox.textContent = `Score: ${score}`;
+          scoreBox.textContent = `🐟 Score: ${score}`;
+
+          // Check for level progression
+          checkLevelProgression();
+
           splashAt(e.clientX, e.clientY);
           showPlus(parseInt(el.dataset.points || '1', 10), e.clientX, e.clientY);
           playSplash();
@@ -973,7 +1224,31 @@
         ensureAudio();
         if (gameActive) return;
         score = 0; timeLeft = 45; gameActive = true; last = 0;
-        scoreBox.textContent = 'Score: 0'; timerBox.textContent = 'Time: 45';
+        currentLevel = 1; // Reset level
+        levelStartScore = 0; // Reset level start score
+
+        // Reset UI
+        scoreBox.textContent = '🐟 Score: 0';
+        timerBox.textContent = '⏱️ Time: 45';
+        levelBox.textContent = '🎯 Level: 1';
+        levelBox.classList.remove('level-2', 'level-3');
+
+        // Reset background and filter
+        pond.style.background = `
+          linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 8%),
+          radial-gradient(ellipse 150% 100% at 50% 0%, rgba(135, 206, 250, 0.4) 0%, transparent 50%),
+          linear-gradient(180deg, var(--waterTop) 0%, var(--waterMid) 40%, var(--waterDeep) 100%)
+        `;
+        pond.style.filter = 'none'; // Remove any level 3 filters
+
+        // Reset fish speeds and weights to original values
+        TYPES[0].speed = [150, 200]; // big fish
+        TYPES[0].weight = 0.50;
+        TYPES[1].speed = [200, 280]; // medium fish
+        TYPES[1].weight = 0.30;
+        TYPES[2].speed = [280, 380]; // small fish
+        TYPES[2].weight = 0.20;
+
         startBtn.disabled = true; endBanner.style.display = 'none';
 
         // Make HUD transparent during gameplay
@@ -1002,7 +1277,18 @@
 
         clearInterval(timerId); clearTimeout(spawnTimer); cancelAnimationFrame(rafId);
         fishes.forEach(f => f.el.style.pointerEvents = 'none');
-        finalScore.textContent = `Total score: ${score} points`;
+
+        // Show different messages based on level reached
+        let message = `Total score: ${score} points`;
+        if (currentLevel === 3) {
+          message += `<br><small style="color: #da70d6;">👑 ABYSS MASTER! Level 3 Complete! 👑</small>`;
+        } else if (currentLevel === 2) {
+          message += `<br><small style="color: #ffd700;">🏆 Completed Level 2! Master Fisher! 🏆</small>`;
+        } else if (score >= LEVEL_2_THRESHOLD) {
+          message += `<br><small style="color: #90EE90;">🎯 Level 2 Reached!</small>`;
+        }
+
+        finalScore.innerHTML = message;
         endBanner.style.display = 'grid';
         playTimesUp();
       }
