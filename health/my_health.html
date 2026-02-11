@@ -130,10 +130,48 @@
     }
 
     .patient-meta {
-      font-size: 13px;
-      color: #ffffff !important;
+      font-size: 15px;
+      color: var(--text-secondary);
       margin-bottom: 0;
-      opacity: 1 !important;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .patient-meta .meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: rgba(88, 166, 255, 0.1);
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      border: 1px solid rgba(88, 166, 255, 0.2);
+    }
+
+    .patient-meta .meta-item .meta-label {
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    .patient-meta .meta-separator {
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    .patient-meta .meta-item.last-updated {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .patient-meta .meta-item.last-updated .meta-label {
+      color: var(--excellent);
     }
 
     /* Health Score */
@@ -867,7 +905,14 @@
     <div class="hero">
       <div class="hero-content">
         <h1 class="patient-name">Faruk Hasan</h1>
-        <div class="patient-meta">SDET • 37 years, 1 month • 5'5.5" • 164 lbs (74.3 kg)</div>
+        <div class="patient-meta">
+          <span class="meta-item"><span class="meta-label">Profession:</span> SDET</span>
+          <span class="meta-item">🎂 37 years, 1 month</span>
+          <span class="meta-item">📏 5'5.5" (166 cm)</span>
+          <span class="meta-item">⚖️ 164 lbs (74.3 kg)</span>
+          <span class="meta-item"><span class="meta-label">BMI:</span> 26.8</span>
+          <span class="meta-item last-updated"><span class="meta-label">📅 Last Updated:</span> 2/3/2026</span>
+        </div>
       </div>
 
       <div class="health-score-card">
