@@ -258,9 +258,9 @@
             stroke: #fbbf24;
         }
 
-        .finger.thumb {}
-
-        /* Just for selection */
+        .finger.thumb {
+            /* Thumb styling handled by base .finger class */
+        }
 
         /* Controls */
         .controls-area {
@@ -305,7 +305,8 @@
         }
 
         button.locked.unlocked {
-            /* Just a class to remove locked styles if we were toggling classes, but display:none handles it */
+            /* Unlocked button styling - currently handled by removing .locked class */
+            display: inline-block;
         }
 
         /* Feedback Overlay */
