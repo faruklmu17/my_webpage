@@ -712,14 +712,10 @@
             if (timeLeft <= 0) return;
 
             if (mainBtn.style.display !== 'none' && document.activeElement !== mainBtn) {
-                if (mainBtn.textContent.includes("Next Round") || mainBtn.textContent.includes("Retry")) {
+                if (mainBtn.textContent.includes("Next Round")) {
                     if (e.key === "Enter") {
-                        if (mainBtn.textContent.includes("Retry")) {
-                            retryRound();
-                        } else {
-                            round++;
-                            updateRoundUI();
-                        }
+                        round++;
+                        updateRoundUI();
                         return;
                     }
                     return;
@@ -777,16 +773,16 @@
             document.body.style.backgroundColor = "#7f1d1d";
             setTimeout(() => { document.body.style.backgroundColor = ""; }, 300);
 
+            // Auto-restart for all failure types
             if (reason === "Time's Up!") {
-                // Automatic reset as requested
-                infoMsg.innerText = "Time's Up! Resetting...";
-                setTimeout(() => {
-                    if (isPlaying) retryRound();
-                }, 1500);
+                infoMsg.innerText = "Time's Up! Restarting in 2 seconds...";
             } else {
-                mainBtn.textContent = "Retry Round " + round;
-                mainBtn.style.display = 'inline-block';
+                infoMsg.innerText = `${reason} Round Failed. Restarting in 2 seconds...`;
             }
+
+            setTimeout(() => {
+                if (isPlaying) retryRound();
+            }, 2000);
 
             totalKeysInRound = 0;
             correctKeysInRound = 0;
@@ -858,9 +854,10 @@
                     mainBtn.style.display = 'inline-block';
                 }
             } else {
-                infoMsg.innerHTML = `Level Finished. Mastery: ${finalPct}%`;
-                mainBtn.textContent = "Retry Level";
-                mainBtn.style.display = 'inline-block';
+                infoMsg.innerHTML = `Level Finished. Mastery: ${finalPct}% - Need 90%+<br>Restarting level in 3 seconds...`;
+                setTimeout(() => {
+                    startGame(); // Auto-restart the level
+                }, 3000);
             }
         }
 
@@ -868,8 +865,6 @@
             if (mainBtn.textContent.includes("Next Round")) {
                 round++;
                 updateRoundUI();
-            } else if (mainBtn.textContent.includes("Retry Round")) {
-                retryRound();
             } else {
                 startGame();
             }
