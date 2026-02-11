@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -130,8 +131,9 @@
 
     .patient-meta {
       font-size: 13px;
-      color: var(--text-secondary);
+      color: #ffffff !important;
       margin-bottom: 0;
+      opacity: 1 !important;
     }
 
     /* Health Score */
@@ -161,6 +163,27 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      cursor: help;
+      position: relative;
+    }
+
+    .tooltip-box {
+      display: none;
+      position: fixed;
+      background: var(--accent);
+      color: var(--bg-primary);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      z-index: 9999;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      pointer-events: none;
+    }
+
+    .tooltip-box.show {
+      display: block;
     }
 
     .score-info {
@@ -169,7 +192,7 @@
     }
 
     .score-rating {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -469,6 +492,10 @@
 
 
     @media (max-width: 768px) {
+      .container {
+        padding: 16px 12px;
+      }
+
       .hero {
         flex-direction: column;
         align-items: flex-start;
@@ -491,6 +518,7 @@
       .health-score-card {
         padding: 10px 16px;
         gap: 12px;
+        width: 100%;
       }
 
       .score-rating {
@@ -500,7 +528,280 @@
       .score-subtitle {
         font-size: 9px;
       }
+
+      .grid {
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+
+      .card {
+        padding: 16px;
+        border-radius: 12px;
+      }
+
+      .card-title {
+        font-size: 16px;
+        margin-bottom: 16px;
+      }
+
+      .status-grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 12px;
+      }
+
+      .status-card {
+        padding: 16px;
+      }
+
+      .status-value {
+        font-size: 32px;
+      }
+
+      .status-label {
+        font-size: 11px;
+      }
+
+      .status-reference {
+        font-size: 12px;
+      }
+
+      .risk-container {
+        gap: 12px;
+      }
+
+      .risk-item {
+        padding: 16px;
+        gap: 12px;
+      }
+
+      .risk-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+      }
+
+      .risk-title {
+        font-size: 14px;
+      }
+
+      .risk-description {
+        font-size: 12px;
+      }
+
+      .action-list {
+        gap: 10px;
+      }
+
+      .action-item {
+        padding: 12px;
+      }
+
+      .action-icon {
+        font-size: 18px;
+      }
+
+      .action-text {
+        font-size: 13px;
+      }
+
+      .action-text strong {
+        font-size: 14px;
+      }
+
+      .trend-item {
+        padding: 8px 0;
+      }
+
+      .trend-metric {
+        font-size: 13px;
+      }
+
+      .trend-change {
+        font-size: 12px;
+      }
+
+      .progress-label {
+        font-size: 11px;
+      }
     }
+
+    /* Extra small screens (< 480px) */
+    @media (max-width: 480px) {
+      .container {
+        padding: 12px 8px;
+      }
+
+      .hero {
+        padding: 10px 12px;
+        gap: 10px;
+      }
+
+      .patient-name {
+        font-size: 18px;
+      }
+
+      .patient-meta {
+        font-size: 11px;
+      }
+
+      .health-score-card {
+        padding: 8px 12px;
+        gap: 10px;
+      }
+
+      .score-value {
+        font-size: 24px;
+      }
+
+      .score-rating {
+        font-size: 10px;
+      }
+
+      .score-subtitle {
+        font-size: 8px;
+      }
+
+      .card {
+        padding: 12px;
+        border-radius: 10px;
+      }
+
+      .card-title {
+        font-size: 14px;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+
+      .card-title-icon {
+        font-size: 20px;
+      }
+
+      .status-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .status-card {
+        padding: 12px;
+      }
+
+      .status-value {
+        font-size: 28px;
+      }
+
+      .status-header {
+        margin-bottom: 10px;
+      }
+
+      .status-label {
+        font-size: 10px;
+      }
+
+      .status-reference {
+        font-size: 11px;
+      }
+
+      .status-badge {
+        padding: 4px 8px;
+        font-size: 10px;
+      }
+
+      .risk-item {
+        padding: 12px;
+        gap: 10px;
+      }
+
+      .risk-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+      }
+
+      .risk-title {
+        font-size: 13px;
+        margin-bottom: 4px;
+      }
+
+      .risk-description {
+        font-size: 11px;
+        line-height: 1.4;
+      }
+
+      .action-item {
+        padding: 10px;
+        gap: 10px;
+      }
+
+      .action-icon {
+        font-size: 16px;
+        margin-top: 1px;
+      }
+
+      .action-text {
+        font-size: 12px;
+      }
+
+      .action-text strong {
+        font-size: 13px;
+        margin-bottom: 2px;
+      }
+
+      .progress-section {
+        margin-top: 16px;
+        padding-top: 16px;
+      }
+
+      .progress-label {
+        font-size: 11px;
+        margin-bottom: 10px;
+      }
+
+      .trend-container {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 10px;
+      }
+
+      .trend-item {
+        padding: 10px;
+      }
+
+      .trend-metric {
+        font-size: 14px;
+      }
+
+      .trend-change {
+        font-size: 13px;
+      }
+    }
+
+    /* Extra small screens (< 480px) */
+    @media (max-width: 480px) {
+      .progress-section {
+        margin-top: 16px;
+        padding-top: 16px;
+      }
+
+      .progress-label {
+        font-size: 10px;
+        margin-bottom: 10px;
+      }
+
+      .trend-container {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .trend-item {
+        padding: 8px;
+      }
+
+      .trend-metric {
+        font-size: 13px;
+      }
+
+      .trend-change {
+        font-size: 12px;
+      }
 
     /* Progress Indicator */
     .progress-section {
@@ -514,29 +815,36 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--text-secondary);
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       font-weight: 600;
+    }
+
+    .trend-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+      width: 100%;
     }
 
     .trend-item {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(48, 54, 61, 0.3);
-    }
-
-    .trend-item:last-child {
-      border-bottom: none;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 12px;
+      background: var(--surface);
+      border-radius: 8px;
+      border-left: 3px solid var(--accent);
     }
 
     .trend-metric {
-      font-size: 14px;
+      font-size: 16px;
       color: var(--text-primary);
+      font-weight: 600;
+      margin-bottom: 8px;
     }
 
     .trend-change {
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 700;
       display: flex;
       align-items: center;
@@ -559,15 +867,16 @@
     <div class="hero">
       <div class="hero-content">
         <h1 class="patient-name">Faruk Hasan</h1>
-        <div class="patient-meta">SDET • 36 years old • Born 1988</div>
+        <div class="patient-meta">SDET • 37 years, 1 month • 5'5.5" • 164 lbs (74.3 kg)</div>
       </div>
 
       <div class="health-score-card">
         <div class="score-main">
-          <div class="score-value">62</div>
+          <div class="score-value" id="healthScore">71</div>
+          <div class="tooltip-box" id="scoreTooltip">Scale: 90+ Excellent, 80+ Good, 70+ Fair, 60+ Needs Attention, <60 Critical</div>
           <div class="score-info">
             <div class="score-rating" style="color: var(--warning);">⚠️ NEEDS ATTENTION</div>
-            <div class="score-subtitle">Metabolic health requires focus</div>
+            <div class="score-subtitle">Steady improvement in metabolic health</div>
           </div>
         </div>
       </div>
@@ -575,79 +884,30 @@
 
     <!-- Critical Metrics Grid -->
     <div class="grid">
+      <!-- Positive Health Indicators FIRST -->
       <div class="card span-12">
         <h2 class="card-title">
-          <span class="card-title-icon">🎯</span>
-          Critical Health Markers
+          <span class="card-title-icon">✨</span>
+          What's Going Well - Excellent Indicators
         </h2>
         <div class="status-grid">
-          <div class="status-card critical">
-            <div class="status-header">
-              <div class="status-label">A1c (Prediabetes)</div>
-              <div class="status-icon">⚠️</div>
-            </div>
-            <div class="status-value">6.0%</div>
-            <div class="status-reference">Goal: ≤ 5.6%</div>
-            <span class="status-badge badge-critical">HIGH RISK</span>
-          </div>
-
-          <div class="status-card critical">
-            <div class="status-header">
-              <div class="status-label">LDL Cholesterol</div>
-              <div class="status-icon">⚠️</div>
-            </div>
-            <div class="status-value">177</div>
-            <div class="status-reference">Goal: &lt; 130 mg/dL</div>
-            <span class="status-badge badge-critical">HIGH</span>
-          </div>
-
-          <div class="status-card critical">
-            <div class="status-header">
-              <div class="status-label">HDL Cholesterol</div>
-              <div class="status-icon">⚠️</div>
-            </div>
-            <div class="status-value">37</div>
-            <div class="status-reference">Goal: ≥ 40 mg/dL</div>
-            <span class="status-badge badge-critical">LOW</span>
-          </div>
-
-          <div class="status-card warning">
-            <div class="status-header">
-              <div class="status-label">Fasting Glucose</div>
-              <div class="status-icon">⚡</div>
-            </div>
-            <div class="status-value">123</div>
-            <div class="status-reference">Normal: 70-105 mg/dL</div>
-            <span class="status-badge badge-warning">ELEVATED</span>
-          </div>
-
-          <div class="status-card warning">
-            <div class="status-header">
-              <div class="status-label">Total Cholesterol</div>
-              <div class="status-icon">⚡</div>
-            </div>
-            <div class="status-value">235</div>
-            <div class="status-reference">Goal: &lt; 200 mg/dL</div>
-            <span class="status-badge badge-warning">HIGH</span>
-          </div>
-
-          <div class="status-card warning">
-            <div class="status-header">
-              <div class="status-label">Chol/HDL Ratio</div>
-              <div class="status-icon">⚡</div>
-            </div>
-            <div class="status-value">6.4</div>
-            <div class="status-reference">Goal: &lt; 4.5</div>
-            <span class="status-badge badge-warning">HIGH</span>
-          </div>
-
           <div class="status-card excellent">
             <div class="status-header">
               <div class="status-label">Kidney Function</div>
               <div class="status-icon">✅</div>
             </div>
-            <div class="status-value">>60</div>
+            <div class="status-value">117</div>
             <div class="status-reference">eGFR mL/min/1.73m²</div>
+            <span class="status-badge badge-success">EXCELLENT</span>
+          </div>
+
+          <div class="status-card excellent">
+            <div class="status-header">
+              <div class="status-label">Fasting Glucose</div>
+              <div class="status-icon">✅</div>
+            </div>
+            <div class="status-value">99</div>
+            <div class="status-reference">Normal: 70-105 mg/dL</div>
             <span class="status-badge badge-success">NORMAL</span>
           </div>
 
@@ -656,25 +916,175 @@
               <div class="status-label">Triglycerides</div>
               <div class="status-icon">✅</div>
             </div>
-            <div class="status-value">107</div>
+            <div class="status-value">98</div>
             <div class="status-reference">Goal: &lt; 150 mg/dL</div>
-            <span class="status-badge badge-success">GOOD</span>
+            <span class="status-badge badge-success">EXCELLENT</span>
+          </div>
+
+          <div class="status-card excellent">
+            <div class="status-header">
+              <div class="status-label">Vitamin B12</div>
+              <div class="status-icon">✅</div>
+            </div>
+            <div class="status-value">428</div>
+            <div class="status-reference">Reference: 200-1100 pg/mL</div>
+            <span class="status-badge badge-success">NORMAL</span>
+          </div>
+
+          <div class="status-card excellent">
+            <div class="status-header">
+              <div class="status-label">EKG / Cardiac</div>
+              <div class="status-icon">❤️</div>
+            </div>
+            <div class="status-value">Normal</div>
+            <div class="status-reference">HR 70-80 bpm, BP 108/82</div>
+            <span class="status-badge badge-success">EXCELLENT</span>
+          </div>
+
+          <div class="status-card excellent">
+            <div class="status-header">
+              <div class="status-label">Liver Function</div>
+              <div class="status-icon">✅</div>
+            </div>
+            <div class="status-value">Healthy</div>
+            <div class="status-reference">ALT 20, AST 14, ALP 56</div>
+            <span class="status-badge badge-success">NORMAL</span>
           </div>
         </div>
+      </div>
 
-        <div class="progress-section">
-          <div class="progress-label">Recent Improvements</div>
+      <!-- Areas of Improvement (Warnings) -->
+      <div class="card span-12">
+        <h2 class="card-title">
+          <span class="card-title-icon">⚡</span>
+          Areas Showing Improvement (But Still Need Attention)
+        </h2>
+        <div class="status-grid">
+          <div class="status-card warning">
+            <div class="status-header">
+              <div class="status-label">A1c (Prediabetes)</div>
+              <div class="status-icon">⚡</div>
+            </div>
+            <div class="status-value">5.8%</div>
+            <div class="status-reference">Goal: ≤ 5.6% (↓ 0.2% improvement ✅)</div>
+            <span class="status-badge badge-warning">IMPROVING</span>
+          </div>
+
+          <div class="status-card warning">
+            <div class="status-header">
+              <div class="status-label">Total Cholesterol</div>
+              <div class="status-icon">⚡</div>
+            </div>
+            <div class="status-value">232</div>
+            <div class="status-reference">Goal: &lt; 200 mg/dL (↓ 3 from 235)</div>
+            <span class="status-badge badge-warning">ELEVATED</span>
+          </div>
+
+          <div class="status-card warning">
+            <div class="status-header">
+              <div class="status-label">HDL Cholesterol</div>
+              <div class="status-icon">⚡</div>
+            </div>
+            <div class="status-value">44</div>
+            <div class="status-reference">Goal: ≥ 40 (↑ 7 major improvement ✅)</div>
+            <span class="status-badge badge-warning">BORDERLINE</span>
+          </div>
+
+          <div class="status-card warning">
+            <div class="status-header">
+              <div class="status-label">Chol/HDL Ratio</div>
+              <div class="status-icon">⚡</div>
+            </div>
+            <div class="status-value">5.3</div>
+            <div class="status-reference">Goal: &lt; 5.0 (↓ 1.1 improvement ✅)</div>
+            <span class="status-badge badge-warning">SLIGHTLY HIGH</span>
+          </div>
+
+          <div class="status-card warning">
+            <div class="status-header">
+              <div class="status-label">Vitamin D</div>
+              <div class="status-icon">☀️</div>
+            </div>
+            <div class="status-value">28</div>
+            <div class="status-reference">Goal: ≥ 30 ng/mL (NEW - Low)</div>
+            <span class="status-badge badge-warning">INSUFFICIENT</span>
+          </div>
+
+          <div class="status-card warning">
+            <div class="status-header">
+              <div class="status-label">T4 (Thyroxine)</div>
+              <div class="status-icon">⚙️</div>
+            </div>
+            <div class="status-value">10.7</div>
+            <div class="status-reference">Goal: 4.9-10.5 mcg/dL (Borderline)</div>
+            <span class="status-badge badge-warning">SLIGHTLY HIGH</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Critical Health Markers -->
+      <div class="card span-12">
+        <h2 class="card-title">
+          <span class="card-title-icon">🎯</span>
+          Areas Requiring Action (Critical Markers)
+        </h2>
+        <div class="status-grid">
+          <div class="status-card critical">
+            <div class="status-header">
+              <div class="status-label">LDL Cholesterol</div>
+              <div class="status-icon">⚠️</div>
+            </div>
+            <div class="status-value">167</div>
+            <div class="status-reference">Goal: &lt; 130 mg/dL (↓ 10 improvement ✅)</div>
+            <span class="status-badge badge-critical">ELEVATED</span>
+          </div>
+
+          <div class="status-card warning">
+            <div class="status-header">
+              <div class="status-label">RBC Microcytosis</div>
+              <div class="status-icon">🩸</div>
+            </div>
+            <div class="status-value">MCV 69.6</div>
+            <div class="status-reference">Goal: 81.4-101.7 fL (→ Persistent)</div>
+            <span class="status-badge badge-warning">NEEDS FOLLOWUP</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Section in a Card -->
+      <div class="card span-12">
+        <h2 class="card-title">
+          <span class="card-title-icon">📊</span>
+          Significant Progress (Jul 2025 → Feb 2026)
+        </h2>
+        <div class="trend-container">
           <div class="trend-item">
-            <span class="trend-metric">A1c Progress</span>
-            <span class="trend-change positive">↓ 0.3% (from 6.3% to 6.0%)</span>
+            <span class="trend-metric">A1c</span>
+            <span class="trend-change positive">↓ 0.2% (6.0% → 5.8%) ✅</span>
           </div>
           <div class="trend-item">
             <span class="trend-metric">Fasting Glucose</span>
-            <span class="trend-change positive">↓ 11 mg/dL (from 134 to 123)</span>
+            <span class="trend-change positive">↓ 24 mg/dL (123 → 99) ✅✅</span>
           </div>
           <div class="trend-item">
-            <span class="trend-metric">Time Period</span>
-            <span class="trend-change">Mar 2024 → Jul 2025</span>
+            <span class="trend-metric">LDL Cholesterol</span>
+            <span class="trend-change positive">↓ 10 mg/dL (177 → 167) ✅</span>
+          </div>
+          <div class="trend-item">
+            <span class="trend-metric">HDL Cholesterol</span>
+            <span class="trend-change positive">↑ 7 mg/dL (37 → 44) ✅✅</span>
+          </div>
+          <div class="trend-item">
+            <span class="trend-metric">Triglycerides</span>
+            <span class="trend-change positive">↓ 9 mg/dL (107 → 98) ✅</span>
+          </div>
+          <div class="trend-item">
+            <span class="trend-metric">Kidney Function</span>
+            <span class="trend-change positive">↑ eGFR >60 → 117 ✅✅</span>
+          </div>
+          <div class="trend-item">
+            <span class="trend-metric">Overall Trend</span>
+            <span class="trend-change positive">Consistent improvement ✅</span>
           </div>
         </div>
       </div>
@@ -690,26 +1100,39 @@
             <div class="risk-icon">🔴</div>
             <div class="risk-content">
               <div class="risk-title">Type 2 Diabetes Risk</div>
-              <div class="risk-description">A1c 6.0% indicates prediabetes. Fasting glucose also elevated at 123 mg/dL.
-                Immediate lifestyle intervention critical.</div>
+              <div class="risk-description">A1c 5.8% (↓ 0.2% from 6.0% - improving ✅). Fasting glucose 99 (↓ 24 from 123 - excellent progress ✅). Still prediabetic range but trending in right direction.</div>
             </div>
           </div>
 
           <div class="risk-item critical">
             <div class="risk-icon">❤️</div>
             <div class="risk-content">
-              <div class="risk-title">Cardiovascular Disease</div>
-              <div class="risk-description">High LDL (177), low HDL (37), elevated total cholesterol (235). Poor lipid
-                profile significantly increases CVD risk.</div>
+              <div class="risk-title">Cardiovascular Disease Risk</div>
+              <div class="risk-description">LDL 167 (↓ 10 from 177 - improving ✅), HDL 44 (↑ 7 from 37 - significant improvement ✅✅), Total Cholesterol 232 (↓ 3 from 235 - slight improvement). Chol/HDL Ratio 5.3 (↓ 1.1 from 6.4 - major improvement ✅). Still elevated but favorable trend.</div>
             </div>
           </div>
 
           <div class="risk-item warning">
             <div class="risk-icon">🩸</div>
             <div class="risk-content">
-              <div class="risk-title">Microcytosis</div>
-              <div class="risk-description">Low MCV (68.3), MCH (21.3), MCHC (31.1). Possible thalassemia trait or iron
-                deficiency. Requires hemoglobin electrophoresis.</div>
+              <div class="risk-title">Microcytosis Pattern</div>
+              <div class="risk-description">Low MCV (69.6 - → persistent, unchanged). Possible iron deficiency or thalassemia trait. No change from July 2025. Recommend iron studies and hemoglobin electrophoresis.</div>
+            </div>
+          </div>
+
+          <div class="risk-item warning">
+            <div class="risk-icon">☀️</div>
+            <div class="risk-content">
+              <div class="risk-title">Vitamin D Insufficiency</div>
+              <div class="risk-description">Vitamin D 28 ng/mL (NEW finding - below 30). Status: Insufficiency range. Requires supplementation for bone and immune health.</div>
+            </div>
+          </div>
+
+          <div class="risk-item warning">
+            <div class="risk-icon">⚙️</div>
+            <div class="risk-content">
+              <div class="risk-title">Thyroid - Borderline T4</div>
+              <div class="risk-description">T4 Total: 10.7 mcg/dL (slightly high, just above 10.5 limit). T3 Uptake and Free T4 Index normal. Recommend TSH testing if symptoms present.</div>
             </div>
           </div>
 
@@ -717,8 +1140,7 @@
             <div class="risk-icon">💎</div>
             <div class="risk-content">
               <div class="risk-title">Nephrolithiasis History</div>
-              <div class="risk-description">Past kidney stones. Current renal function normal. Continue hydration and
-                dietary modifications.</div>
+              <div class="risk-description">Kidney function excellent: eGFR 117 (↑ from >60 - significantly improved ✅✅). Albumin/Creatinine ratio 2 (normal - excellent ✅). No albuminuria detected. Continue hydration and dietary modifications.</div>
             </div>
           </div>
         </div>
@@ -784,16 +1206,16 @@
       <!-- What's Working -->
       <div class="card span-12">
         <h2 class="card-title">
-          <span class="card-title-icon">✨</span>
-          Positive Health Indicators
+          <span class="card-title-icon">📊</span>
+          Detailed Improvement Breakdown
         </h2>
-        <div class="status-grid">
+        <div class="action-list">
           <div class="action-item"
             style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
             <div class="action-icon">✅</div>
             <div class="action-text">
               <strong>Excellent Kidney Function</strong>
-              eGFR >60, creatinine 1.00 within normal range. No signs of kidney disease.
+              eGFR 117 (↑ improved from >60), creatinine 0.80, Albumin/Creatinine ratio 2. No signs of kidney disease or albuminuria. Significant improvement ✅✅
             </div>
           </div>
 
@@ -802,7 +1224,7 @@
             <div class="action-icon">✅</div>
             <div class="action-text">
               <strong>Perfect Liver Function</strong>
-              ALT 19, AST 17, alkaline phosphatase 49. All liver markers within healthy range.
+              ALT 20 (→ stable from 19), AST 14 (↓ improved from 17), alkaline phosphatase 56. All liver markers within healthy range. ✅
             </div>
           </div>
 
@@ -810,8 +1232,8 @@
             style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
             <div class="action-icon">✅</div>
             <div class="action-text">
-              <strong>Good Triglycerides</strong>
-              107 mg/dL, well below the 150 threshold. Reduced cardiovascular risk factor.
+              <strong>Excellent Triglycerides</strong>
+              98 mg/dL (↓ improved from 107), well below 150 threshold. Significantly reduced cardiovascular risk factor. ✅
             </div>
           </div>
 
@@ -819,8 +1241,26 @@
             style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
             <div class="action-icon">✅</div>
             <div class="action-text">
-              <strong>Consistent Activity</strong>
-              Walking 45 minutes most days. Strong foundation for metabolic health improvement.
+              <strong>Improved Fasting Glucose</strong>
+              99 mg/dL (↓ major improvement from 123). Now within normal range. Demonstrates effective metabolic control. ✅✅
+            </div>
+          </div>
+
+          <div class="action-item"
+            style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
+            <div class="action-icon">✅</div>
+            <div class="action-text">
+              <strong>Rising HDL Cholesterol</strong>
+              44 mg/dL (↑ significant improvement from 37). Moving in right direction. Continue activities that raise HDL. ✅
+            </div>
+          </div>
+
+          <div class="action-item"
+            style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
+            <div class="action-icon">✅</div>
+            <div class="action-text">
+              <strong>Normal Cardiac Function</strong>
+              EKG normal with HR 70-80 bpm, BP 108/82. No ischemic changes detected. Heart health excellent. ✅
             </div>
           </div>
 
@@ -829,7 +1269,16 @@
             <div class="action-icon">✅</div>
             <div class="action-text">
               <strong>A1c Improvement Trend</strong>
-              0.3% reduction achieved (6.3% → 6.0%). Lifestyle changes showing measurable results.
+              0.2% reduction achieved (6.0% → 5.8%). Consistent progress over 7 months. Lifestyle changes showing measurable results. ✅
+            </div>
+          </div>
+
+          <div class="action-item"
+            style="border-left: 3px solid var(--excellent); background: rgba(34, 197, 94, 0.05);">
+            <div class="action-icon">✅</div>
+            <div class="action-text">
+              <strong>B12 Levels Normal</strong>
+              Vitamin B12 428 pg/mL (normal, good reserve). No supplementation needed currently. ✅
             </div>
           </div>
         </div>
@@ -842,39 +1291,33 @@
     function calculateHealthScore() {
       let score = 100;
 
-      // A1c (6.0% - should be ≤5.6%)
-      if (6.0 > 5.6) score -= 15;
+      // A1c (5.8% - should be ≤5.6%)
+      if (5.8 > 5.6) score -= 10;
 
-      // LDL (177 - should be <130)
-      if (177 > 130) score -= 12;
+      // LDL (167 - should be <130)
+      if (167 > 130) score -= 10;
 
-      // HDL (37 - should be ≥40)
-      if (37 < 40) score -= 8;
+      // HDL (44 - should be ≥40)
+      if (44 < 50) score -= 3;
 
-      // Glucose (123 - should be <105)
-      if (123 > 105) score -= 8;
+      // Glucose (99 - should be <105)
+      if (99 > 105) score -= 0;
 
-      // Total Cholesterol (235 - should be <200)
-      if (235 > 200) score -= 7;
+      // Total Cholesterol (232 - should be <200)
+      if (232 > 200) score -= 5;
 
-      // Chol/HDL ratio (6.4 - should be <4.5)
-      if (6.4 > 4.5) score -= 5;
-
-      // WBC slightly elevated
-      score -= 3;
-
-      // Microcytosis
-      score -= 5;
+      // Chol/HDL ratio (5.3 - should be <4.5)
+      if (5.3 > 4.5) score -= 3;
 
       // Add points for good metrics
-      // Good triglycerides
+      // Good triglycerides (98)
       score += 5;
-      // Normal kidney function
-      score += 5;
+      // Excellent kidney function (117)
+      score += 6;
       // Normal liver function
       score += 5;
       // Improvement trend
-      score += 8;
+      score += 10;
 
       return Math.max(0, Math.min(100, score));
     }
@@ -893,7 +1336,33 @@
       console.log('Calculated Health Score:', score);
     });
   </script>
-  <script src="../shared/header-footer.js"></script>
+  <!-- Header disabled for health dashboard mobile view -->
+  <script>
+    // Hide header on load for better mobile experience
+    document.addEventListener('DOMContentLoaded', function() {
+      const header = document.querySelector('header');
+      if (header) header.style.display = 'none';
+      const nav = document.querySelector('nav');
+      if (nav) nav.style.display = 'none';
+      
+      // Tooltip functionality
+      const healthScore = document.getElementById('healthScore');
+      const tooltip = document.getElementById('scoreTooltip');
+      
+      if (healthScore && tooltip) {
+        healthScore.addEventListener('mouseenter', function() {
+          const rect = healthScore.getBoundingClientRect();
+          tooltip.style.left = (rect.left + rect.width / 2 - 140) + 'px';
+          tooltip.style.top = (rect.bottom + 15) + 'px';
+          tooltip.classList.add('show');
+        });
+        
+        healthScore.addEventListener('mouseleave', function() {
+          tooltip.classList.remove('show');
+        });
+      }
+    });
+  </script>
 </body>
 
 </html>
