@@ -6,3 +6,4 @@ inspect_*.py
 inspect_*.ps1
 run_tqqq_update.bat
 .DS_Store
+health/HEALTH_REPORTS_DATA.md
