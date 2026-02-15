@@ -154,6 +154,169 @@
             font-weight: 600;
             color: #475569;
         }
+
+        /* Portfolio Calculator Styles */
+        .portfolio-calculator {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+        }
+
+        .portfolio-calculator h3 {
+            margin-bottom: 1.5rem;
+            color: #1e293b;
+            font-size: 1.5rem;
+        }
+
+        .portfolio-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            margin-bottom: 0.5rem;
+            color: #475569;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .input-group input {
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .portfolio-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .portfolio-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-btn.save {
+            background: #2563eb;
+            color: white;
+        }
+
+        .portfolio-btn.save:hover {
+            background: #1d4ed8;
+        }
+
+        .portfolio-btn.clear {
+            background: #ef4444;
+            color: white;
+        }
+
+        .portfolio-btn.clear:hover {
+            background: #dc2626;
+        }
+
+        .portfolio-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .metric-box {
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid #94a3b8;
+        }
+
+        .metric-box.profit {
+            border-left-color: #10b981;
+        }
+
+        .metric-box.loss {
+            border-left-color: #ef4444;
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .metric-value.profit {
+            color: #10b981;
+        }
+
+        .metric-value.loss {
+            color: #ef4444;
+        }
+
+        .portfolio-recommendation {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            color: white;
+        }
+
+        .portfolio-recommendation h4 {
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .portfolio-recommendation p {
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-recommendation ul {
+            margin-top: 0.75rem;
+            padding-left: 1.5rem;
+        }
+
+        .portfolio-recommendation li {
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-inputs {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-metrics {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 
@@ -221,6 +384,57 @@
             </div>
         </div>
 
+        <!-- Portfolio Calculator -->
+        <div class="portfolio-calculator">
+            <h3><i class="fas fa-wallet"></i> My Portfolio Tracker</h3>
+
+            <div class="portfolio-inputs">
+                <div class="input-group">
+                    <label for="shares">Shares Owned</label>
+                    <input type="number" id="shares" placeholder="e.g., 12.28" step="0.01" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="purchasePrice">Purchase Price per Share ($)</label>
+                    <input type="number" id="purchasePrice" placeholder="e.g., 53.48" step="0.01" min="0">
+                </div>
+            </div>
+
+            <div class="portfolio-buttons">
+                <button class="portfolio-btn save" onclick="savePortfolio()">
+                    <i class="fas fa-save"></i> Save Portfolio
+                </button>
+                <button class="portfolio-btn clear" onclick="clearPortfolio()">
+                    <i class="fas fa-trash"></i> Clear Portfolio
+                </button>
+            </div>
+
+            <div id="portfolioResults" style="display: none;">
+                <div class="portfolio-metrics">
+                    <div class="metric-box">
+                        <div class="metric-label">Initial Investment</div>
+                        <div class="metric-value" id="initialInvestment">$0.00</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Current Value</div>
+                        <div class="metric-value" id="currentValue">$0.00</div>
+                    </div>
+                    <div class="metric-box" id="profitLossBox">
+                        <div class="metric-label">Profit/Loss</div>
+                        <div class="metric-value" id="profitLoss">$0.00</div>
+                    </div>
+                    <div class="metric-box" id="percentageBox">
+                        <div class="metric-label">Return %</div>
+                        <div class="metric-value" id="profitLossPercent">0.00%</div>
+                    </div>
+                </div>
+
+                <div class="portfolio-recommendation" id="recommendation">
+                    <h4><i class="fas fa-lightbulb"></i> Personalized Recommendation</h4>
+                    <p id="recommendationText">Enter your portfolio details to see recommendations.</p>
+                </div>
+            </div>
+        </div>
+
         <!-- Chart -->
         <div class="chart-container">
             <div class="time-range-controls">
@@ -261,6 +475,155 @@
     <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 
     <script>
+        // Portfolio Calculator Functions
+        let currentTQQQPrice = 0;
+        let currentSignal = '';
+        let current200DayMA = 0;
+        let isRiskyPosition = false;
+
+        function loadPortfolio() {
+            const shares = localStorage.getItem('tqqq_shares');
+            const purchasePrice = localStorage.getItem('tqqq_purchase_price');
+
+            if (shares && purchasePrice) {
+                document.getElementById('shares').value = shares;
+                document.getElementById('purchasePrice').value = purchasePrice;
+                calculatePortfolio();
+            }
+        }
+
+        function savePortfolio() {
+            const shares = parseFloat(document.getElementById('shares').value);
+            const purchasePrice = parseFloat(document.getElementById('purchasePrice').value);
+
+            if (isNaN(shares) || isNaN(purchasePrice) || shares <= 0 || purchasePrice <= 0) {
+                alert('Please enter valid positive numbers for shares and purchase price.');
+                return;
+            }
+
+            localStorage.setItem('tqqq_shares', shares);
+            localStorage.setItem('tqqq_purchase_price', purchasePrice);
+
+            calculatePortfolio();
+            alert('Portfolio saved successfully!');
+        }
+
+        function clearPortfolio() {
+            localStorage.removeItem('tqqq_shares');
+            localStorage.removeItem('tqqq_purchase_price');
+
+            document.getElementById('shares').value = '';
+            document.getElementById('purchasePrice').value = '';
+            document.getElementById('portfolioResults').style.display = 'none';
+
+            alert('Portfolio cleared!');
+        }
+
+        function calculatePortfolio() {
+            const shares = parseFloat(document.getElementById('shares').value);
+            const purchasePrice = parseFloat(document.getElementById('purchasePrice').value);
+
+            if (isNaN(shares) || isNaN(purchasePrice) || shares <= 0 || purchasePrice <= 0) {
+                document.getElementById('portfolioResults').style.display = 'none';
+                return;
+            }
+
+            if (currentTQQQPrice === 0) {
+                // Data not loaded yet
+                return;
+            }
+
+            const initialInvestment = shares * purchasePrice;
+            const currentValue = shares * currentTQQQPrice;
+            const profitLoss = currentValue - initialInvestment;
+            const profitLossPercent = (profitLoss / initialInvestment) * 100;
+
+            // Update display
+            document.getElementById('initialInvestment').textContent = '$' + initialInvestment.toFixed(2);
+            document.getElementById('currentValue').textContent = '$' + currentValue.toFixed(2);
+            document.getElementById('profitLoss').textContent = (profitLoss >= 0 ? '+' : '') + '$' + profitLoss.toFixed(2);
+            document.getElementById('profitLossPercent').textContent = (profitLoss >= 0 ? '+' : '') + profitLossPercent.toFixed(2) + '%';
+
+            // Color coding
+            const profitLossEl = document.getElementById('profitLoss');
+            const percentEl = document.getElementById('profitLossPercent');
+            const profitLossBox = document.getElementById('profitLossBox');
+            const percentageBox = document.getElementById('percentageBox');
+
+            if (profitLoss >= 0) {
+                profitLossEl.className = 'metric-value profit';
+                percentEl.className = 'metric-value profit';
+                profitLossBox.className = 'metric-box profit';
+                percentageBox.className = 'metric-box profit';
+            } else {
+                profitLossEl.className = 'metric-value loss';
+                percentEl.className = 'metric-value loss';
+                profitLossBox.className = 'metric-box loss';
+                percentageBox.className = 'metric-box loss';
+            }
+
+            // Generate recommendation
+            generateRecommendation(profitLoss, profitLossPercent, purchasePrice);
+
+            document.getElementById('portfolioResults').style.display = 'block';
+        }
+
+        function generateRecommendation(profitLoss, profitLossPercent, purchasePrice) {
+            const recommendationEl = document.getElementById('recommendationText');
+            let recommendation = '';
+
+            const isProfit = profitLoss >= 0;
+            const isBuySignal = currentSignal === 'BUY';
+
+            // Build recommendation based on signal and position
+            if (isBuySignal) {
+                if (isProfit) {
+                    recommendation = `<strong>✅ Strong Position:</strong> The strategy signal is <strong>BUY</strong> and you're currently up <strong>${profitLossPercent.toFixed(2)}%</strong>.<br><br>`;
+                    recommendation += `<strong>Recommendation:</strong><ul>`;
+                    recommendation += `<li><strong>HOLD</strong> your position - the uptrend is intact</li>`;
+                    recommendation += `<li>Consider taking partial profits if you're risk-averse</li>`;
+                    recommendation += `<li>Set a trailing stop-loss to protect gains</li>`;
+                    recommendation += `</ul>`;
+                } else {
+                    recommendation = `<strong>⚠️ Mixed Signals:</strong> The strategy signal is <strong>BUY</strong> but you're down <strong>${Math.abs(profitLossPercent).toFixed(2)}%</strong>.<br><br>`;
+                    recommendation += `<strong>Recommendation:</strong><ul>`;
+                    recommendation += `<li><strong>HOLD</strong> - Price is above 200-day MA ($${current200DayMA.toFixed(2)}), suggesting uptrend continuation</li>`;
+
+                    if (Math.abs(profitLossPercent) < 10) {
+                        recommendation += `<li>Consider <strong>averaging down</strong> if you believe in the strategy (risky)</li>`;
+                    } else {
+                        recommendation += `<li>Loss is significant - consider setting a stop-loss at -15% to limit further downside</li>`;
+                    }
+
+                    recommendation += `<li>Wait for price to recover to your purchase price ($${purchasePrice.toFixed(2)}) before selling</li>`;
+                    recommendation += `</ul>`;
+                }
+
+                if (isRiskyPosition) {
+                    recommendation += `<br><strong>⚠️ CAUTION:</strong> Price is within 5% of the 200-day MA. A drop below could trigger a SELL signal.`;
+                }
+            } else {
+                // CASH signal
+                if (isProfit) {
+                    recommendation = `<strong>🎯 Take Profits:</strong> The strategy signal is <strong>CASH</strong> and you're up <strong>${profitLossPercent.toFixed(2)}%</strong>.<br><br>`;
+                    recommendation += `<strong>Recommendation:</strong><ul>`;
+                    recommendation += `<li><strong>SELL NOW</strong> - Lock in your profits before the downtrend deepens</li>`;
+                    recommendation += `<li>Price has dropped below 200-day MA ($${current200DayMA.toFixed(2)})</li>`;
+                    recommendation += `<li>Wait for a new BUY signal before re-entering</li>`;
+                    recommendation += `</ul>`;
+                } else {
+                    recommendation = `<strong>🛑 Cut Losses:</strong> The strategy signal is <strong>CASH</strong> and you're down <strong>${Math.abs(profitLossPercent).toFixed(2)}%</strong>.<br><br>`;
+                    recommendation += `<strong>Recommendation:</strong><ul>`;
+                    recommendation += `<li><strong>SELL</strong> - Limit further losses as the trend has turned bearish</li>`;
+                    recommendation += `<li>Price is below 200-day MA ($${current200DayMA.toFixed(2)}), indicating downtrend</li>`;
+                    recommendation += `<li>Re-enter only when a new BUY signal appears</li>`;
+                    recommendation += `</ul>`;
+                }
+            }
+
+            recommendationEl.innerHTML = recommendation;
+        }
+
         async function loadStrategyData() {
             try {
                 const response = await fetch('TQQQ_signals_updated_with_new_data_formatted.xlsx');
@@ -320,6 +683,12 @@
                 // Update Dashboard with Latest Data (last row)
                 const latest = processedData[processedData.length - 1];
                 if (latest) {
+                    // Store values for portfolio calculator
+                    currentTQQQPrice = latest.close;
+                    currentSignal = latest.signal;
+                    current200DayMA = latest.ma200;
+                    isRiskyPosition = latest.isRisky;
+
                     // Display Last Updated Date
                     const dateEl = document.createElement('div');
                     dateEl.style.cssText = 'grid-column: 1 / -1; text-align: center; color: #64748b; margin-bottom: 1rem; font-style: italic;';
@@ -370,6 +739,9 @@
                 // Initialize Chart and controls
                 initChart(processedData);
                 setupTimeRangeControls();
+
+                // Load saved portfolio and calculate with current data
+                loadPortfolio();
 
             } catch (error) {
                 console.error(error);
