@@ -5,154 +5,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🐍 Python Functions & Decorators Quiz | Advanced Python</title>
-  <style>
-    :root {
-      --primary-color: #ffd43b;
-      --primary-dark: #ccaa2e;
-      --secondary-color: #f5f7fa;
-      --text-color: #333;
-      --border-color: #e0e0e0;
-      --success-color: #27ae60;
-      --error-color: #e74c3c;
-      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      --accent-blue: #3776ab;
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      background-color: var(--secondary-color);
-      color: var(--text-color);
-    }
-
-    h1 {
-      text-align: center;
-      color: var(--accent-blue);
-      margin-bottom: 30px;
-    }
-
-    .quiz-container {
-      max-width: 800px;
-      margin: 0 auto;
-      background: white;
-      border-radius: 10px;
-      padding: 25px;
-      box-shadow: var(--box-shadow);
-    }
-
-    .question {
-      background: #fff;
-      padding: 20px;
-      margin-bottom: 25px;
-      border-radius: 8px;
-      border-left: 4px solid var(--accent-blue);
-      background-color: #f9fbff;
-    }
-
-    .options label {
-      display: block;
-      padding: 10px;
-      margin-bottom: 5px;
-      background: white;
-      border: 1px solid var(--border-color);
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .options label:hover {
-      background-color: #e3f2fd;
-    }
-
-    #submitBtn {
-      display: block;
-      width: 100%;
-      padding: 15px;
-      background-color: var(--accent-blue);
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 1.1rem;
-      cursor: pointer;
-    }
-
-    #submitBtn:hover {
-      background-color: var(--primary-dark);
-    }
-
-    .progress-wrapper {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: white;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border-color);
-      margin-bottom: 20px;
-    }
-
-    .progress-container {
-      height: 10px;
-      background-color: #e0e0e0;
-      border-radius: 5px;
-      overflow: hidden;
-    }
-
-    #progress-fill {
-      height: 100%;
-      background-color: var(--accent-blue);
-      width: 0%;
-      transition: width 0.3s ease;
-    }
-
-    #progress-count {
-      text-align: center;
-      font-size: 0.9rem;
-      margin-top: 5px;
-      color: #666;
-    }
-
-    #results {
-      display: none;
-      margin-top: 30px;
-    }
-
-    .score-circle {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      background: var(--accent-blue);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      margin: 0 auto 10px;
-    }
-
-    .answer-item {
-      padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      border-left: 3px solid #ccc;
-    }
-
-    .answer-item.correct {
-      background-color: #e8f5e9;
-      border-left-color: var(--success-color);
-    }
-
-    .answer-item.incorrect {
-      background-color: #ffebee;
-      border-left-color: var(--error-color);
-    }
-  </style>
+  <meta name="description"
+    content="Test your knowledge of Python functions, closures, and decorators with this 15-question advanced quiz.">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../../shared/quiz-style.css">
 </head>
 
 <body>
 
-  <h1>🐍 Python Functions & Decorators Quiz</h1>
+  <h1>🐍 Python Functions & Decorators</h1>
 
   <div class="quiz-container">
+    <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Resources</a>
+    <div class="intro">
+      <p>Master the power of Python decorators and functional programming. This quiz covers higher-order functions,
+        wrapping, and the @decorator syntax.</p>
+    </div>
+
     <div class="progress-wrapper">
       <div class="progress-container">
         <div id="progress-fill"></div>
@@ -162,70 +31,77 @@
 
     <form id="quiz-form">
       <div id="quiz-area"></div>
-      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Answers</button>
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Results</button>
     </form>
 
     <div id="results">
-      <div class="score-circle">0</div>
-      <div id="answer-key"></div>
+      <div class="score-container">
+        <div class="score-circle">0</div>
+        <div class="score-label">Your Score</div>
+      </div>
+      <div class="feedback"></div>
+      <div class="action-buttons">
+        <a href="" class="secondary-btn" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
+          Quiz</a>
+        <a href="../../resources/resources.html" class="secondary-btn"><i class="fas fa-th-list"></i> More Quizzes</a>
+      </div>
+      <div id="answer-key" class="answer-key"></div>
     </div>
   </div>
 
   <script>
     const questions = [
-      { q: "1. What is a class in Python?", options: ["A) A blueprint for creating objects", "B) A built-in data type for storing multiple values", "C) A special kind of function", "D) A syntax for looping over items"], correct: "A" },
-      { q: "2. Which statement best describes a Python object?", options: ["A) An instance created from a class", "B) A collection of unrelated variables", "C) A keyword used to define functions", "D) A file containing Python code"], correct: "A" },
-      { q: "3. How would you define a function in Python?", options: ["A) A named block of reusable code", "B) A fixed value stored in memory", "C) A container for modules", "D) A loop that runs indefinitely"], correct: "A" },
-      { q: "4. When you assign a function to a variable without using parentheses, what are you storing in that variable?", options: ["A) The function object itself", "B) The result of calling the function", "C) An empty string", "D) A syntax error"], correct: "A" },
-      { q: "5. In a function definition, what do we call the placeholders listed inside the parentheses?", options: ["A) Parameters", "B) Arguments", "C) Returns", "D) Decorators"], correct: "A" },
-      { q: "6. When you provide actual values to a function call, what are those values called?", options: ["A) Arguments", "B) Parameters", "C) Variables", "D) Objects"], correct: "A" },
-      { q: "7. What does a return statement do inside a function?", options: ["A) Sends a value back to the caller", "B) Stops the entire program", "C) Prints text to the console", "D) Defines a new variable"], correct: "A" },
-      { q: "8. Which concept involves passing a function object to another function as an input?", options: ["A) Higher-order programming", "B) Polymorphism", "C) Recursion", "D) Multithreading"], correct: "A" },
-      { q: "9. What term describes a function defined inside another function?", options: ["A) Nested function", "B) Generator function", "C) Static method", "D) Abstract method"], correct: "A" },
-      { q: "10. What is a wrapper function?", options: ["A) A function that executes additional code before and/or after calling another function", "B) A function without any parameters", "C) A function that automatically handles exceptions", "D) A function that only accepts integers"], correct: "A" },
-      { q: "11. If you attempt to call an inner function before it is defined, which error are you most likely to encounter?", options: ["A) NameError", "B) TypeError", "C) ValueError", "D) ZeroDivisionError"], correct: "A" },
-      { q: "12. What happens when you print a function object without parentheses?", options: ["A) You see its representation (e.g., <function ...>)", "B) The function executes and prints its output", "C) Python concatenates it as a string", "D) It raises a SyntaxError"], correct: "A" },
-      { q: "13. Which built-in function confirms that everything in Python is an object by revealing its type?", options: ["A) type()", "B) instanceof()", "C) kind()", "D) objectof()"], correct: "A" },
-      { q: "14. Which example illustrates passing a function object as a parameter?", options: ["A) def apply(func, x): return func(x)", "B) def apply(x, y): return x + y", "C) def apply(): print(\"Hello\")", "D) def apply(func()): return x"], correct: "A" },
-      { q: "15. What does a decorator syntactically do in Python?", options: ["A) Wrap another function to modify its behavior", "B) Change the class of an object at runtime", "C) Inline C code into Python", "D) Automatically document functions"], correct: "A" }
+      { q: "1. What is a class in Python?", options: ["A) A blueprint for creating objects", "B) A built-in data type for storing multiple values", "C) A special kind of function", "D) A syntax for looping over items"], correct: "A", explanation: "Classes define the structure and behavior of objects." },
+      { q: "2. Which statement best describes a Python object?", options: ["A) An instance created from a class", "B) A collection of unrelated variables", "C) A keyword used to define functions", "D) A file containing Python code"], correct: "A", explanation: "Objects are data structures created based on class blueprints." },
+      { q: "3. How would you define a function in Python?", options: ["A) A named block of reusable code", "B) A fixed value stored in memory", "C) A container for modules", "D) A loop that runs indefinitely"], correct: "A", explanation: "Functions are modular blocks that perform specific tasks when called." },
+      { q: "4. When you assign a function to a variable without using parentheses, what are you storing?", options: ["A) The function object itself", "B) The result of calling the function", "C) An empty string", "D) A syntax error"], correct: "A", explanation: "Functions are first-class objects; you can pass them around like values." },
+      { q: "5. In a function definition, what do we call the placeholders listed inside the parentheses?", options: ["A) Parameters", "B) Arguments", "C) Returns", "D) Decorators"], correct: "A", explanation: "Parameters are variables in the definition; arguments are values passed in." },
+      { q: "6. When you provide actual values to a function call, what are those values called?", options: ["A) Arguments", "B) Parameters", "C) Variables", "D) Objects"], correct: "A", explanation: "Arguments are the context/data you supply to the function's parameters." },
+      { q: "7. What does a return statement do inside a function?", options: ["A) Sends a value back to the caller", "B) Stops the entire program", "C) Prints text to the console", "D) Defines a new variable"], correct: "A", explanation: "It exits the function and passes data back to the point where it was called." },
+      { q: "8. Which concept involves passing a function object to another function as an input?", options: ["A) Higher-order programming", "B) Polymorphism", "C) Recursion", "D) Multithreading"], correct: "A", explanation: "Higher-order functions take other functions as arguments or return them." },
+      { q: "9. What term describes a function defined inside another function?", options: ["A) Nested function", "B) Generator function", "C) Static method", "D) Abstract method"], correct: "A", explanation: "Nested (or inner) functions are defined within the scope of an outer function." },
+      { q: "10. What is a wrapper function?", options: ["A) A function that executes code before/after calling another function", "B) A function without any parameters", "C) A function that handles exceptions", "D) A function that only accepts integers"], correct: "A", explanation: "Wrappers extend or modify the behavior of the original function." },
+      { q: "11. If you attempt to call an inner function before it is defined, what error occurs?", options: ["A) NameError", "B) TypeError", "C) ValueError", "D) ZeroDivisionError"], correct: "A", explanation: "Python reads definitions sequentially; the name must exist before being used." },
+      { q: "12. What happens when you print a function object without parentheses?", options: ["A) You see its representation (e.g., <function ...>)", "B) It executes and prints output", "C) Python concatenates it", "D) SyntaxError"], correct: "A", explanation: "Printing the object itself shows its memory address and identity." },
+      { q: "13. Which built-in function confirms that everything in Python is an object?", options: ["A) type()", "B) instanceof()", "C) kind()", "D) objectof()"], correct: "A", explanation: "type() reveals the underlying class of any Python entity." },
+      { q: "14. Which example illustrates passing a function object as a parameter?", options: ["A) def apply(func, x): return func(x)", "B) def apply(x, y): return x + y", "C) def apply(): print('Hello')", "D) def apply(func()): return x"], correct: "A", explanation: "Here, 'func' is a placeholder for a function to be executed later." },
+      { q: "15. What does a decorator syntactically do in Python?", options: ["A) Wrap another function to modify its behavior", "B) Change the class of an object", "C) Inline C code", "D) Automatically document functions"], correct: "A", explanation: "Decorators provide a clean syntax (@) for higher-order function wrapping." }
     ];
 
-    const quizDiv = document.getElementById("quiz-area");
+    const quizArea = document.getElementById("quiz-area");
     questions.forEach((q, i) => {
-      const id = `q${i + 1}`;
       const div = document.createElement("div");
       div.className = "question";
       div.innerHTML = `<h3>${q.q}</h3><div class="options">` +
-        q.options.map(opt => `<label><input type="radio" name="${id}" value="${opt.charAt(0)}"> ${opt}</label>`).join("") +
+        q.options.map((opt, idx) => `<label><input type="radio" name="q${i + 1}" value="${opt.charAt(0)}"> ${opt}</label>`).join("") +
         `</div>`;
-      quizDiv.appendChild(div);
+      quizArea.appendChild(div);
     });
 
     document.querySelectorAll('input[type="radio"]').forEach(radio => {
       radio.addEventListener('change', () => {
         const answered = questions.filter((_, i) => document.querySelector(`input[name="q${i + 1}"]:checked`)).length;
-        document.getElementById('progress-fill').style.width = (answered / 15 * 100) + '%';
-        document.getElementById('progress-count').textContent = answered + '/15 answered';
+        document.getElementById('progress-fill').style.width = (answered / questions.length * 100) + '%';
+        document.getElementById('progress-count').textContent = answered + '/' + questions.length + ' answered';
       });
     });
 
     function submitQuiz() {
       let score = 0;
-      let html = '<h3>Answer Key</h3>';
-
+      let html = '<h2>Detailed Results</h2>';
       questions.forEach((q, i) => {
-        const id = `q${i + 1}`;
-        const selected = document.querySelector(`input[name="${id}"]:checked`);
+        const selected = document.querySelector(`input[name="q${i + 1}"]:checked`);
         const isCorrect = selected && selected.value === q.correct;
         if (isCorrect) score++;
-
         html += `<div class="answer-item ${isCorrect ? 'correct' : 'incorrect'}">
-          <strong>Question ${i + 1}:</strong> ${isCorrect ? '✅' : '❌'}<br>
-          Correct Answer: (${q.correct})
+          <strong>Question ${i + 1}:</strong> ${isCorrect ? 'Correct ✅' : 'Incorrect ❌'}<br>
+          <p>${q.q}</p>
+          <p>Your answer: ${selected ? selected.value : 'None'}</p>
+          <p>Correct Answer: (${q.correct})</p>
+          <p><em>${q.explanation}</em></p>
         </div>`;
       });
-
-      document.querySelector('.score-circle').textContent = score + '/15';
+      document.querySelector('.score-circle').textContent = score + '/' + questions.length;
       document.getElementById('answer-key').innerHTML = html;
       document.getElementById('quiz-form').style.display = 'none';
       document.getElementById('results').style.display = 'block';

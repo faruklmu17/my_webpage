@@ -668,6 +668,34 @@
                 opacity: 0;
             }
         }
+
+        /* Exit Button */
+        .exit-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-family: var(--font-main);
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            transition: all 0.2s;
+        }
+
+        .exit-btn:hover {
+            background: rgba(255, 42, 109, 0.2);
+            border-color: var(--error);
+            transform: translateX(5px);
+        }
     </style>
 </head>
 
@@ -675,6 +703,7 @@
 
     <!-- Dynamic Background -->
     <div class="star-field" id="starField"></div>
+    <a href="../resources/resources.html" class="exit-btn"><i class="fas fa-arrow-left"></i> Exit to Resources</a>
 
     <!-- Intro Screen -->
     <div class="overlay" id="introScreen">

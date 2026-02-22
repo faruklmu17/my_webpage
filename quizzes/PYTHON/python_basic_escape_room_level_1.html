@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +23,7 @@
         .prison-container {
             position: relative;
             min-height: 100vh;
-            background: 
+            background:
                 linear-gradient(90deg, #555 0px, #555 2px, transparent 2px, transparent 20px),
                 linear-gradient(0deg, #555 0px, #555 2px, transparent 2px, transparent 20px),
                 linear-gradient(135deg, #2c3e50, #34495e);
@@ -35,13 +36,11 @@
             left: 0;
             right: 0;
             height: 100vh;
-            background: repeating-linear-gradient(
-                90deg,
-                transparent 0px,
-                transparent 45px,
-                #7f8c8d 45px,
-                #7f8c8d 50px
-            );
+            background: repeating-linear-gradient(90deg,
+                    transparent 0px,
+                    transparent 45px,
+                    #7f8c8d 45px,
+                    #7f8c8d 50px);
             pointer-events: none;
             z-index: 1000;
             transition: opacity 0.5s ease;
@@ -114,13 +113,27 @@
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
         }
 
         @keyframes fastPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
         }
 
         .timer-label {
@@ -341,11 +354,11 @@
             .game-area {
                 flex-direction: column;
             }
-            
+
             .header h1 {
                 font-size: 2em;
             }
-            
+
             .stage-indicator {
                 flex-direction: column;
                 align-items: center;
@@ -367,25 +380,53 @@
             text-transform: uppercase;
             letter-spacing: 2px;
         }
+
+        .exit-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: rgba(0, 0, 0, 0.7);
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid #e74c3c;
+            transition: all 0.2s;
+        }
+
+        .exit-btn:hover {
+            background: #e74c3c;
+            color: white;
+            transform: translateX(5px);
+        }
     </style>
 </head>
+
 <body>
     <div class="prison-container">
         <div class="prison-bars" id="prisonBars"></div>
-        
+        <a href="../../resources/resources.html" class="exit-btn"><i class="fas fa-arrow-left"></i> Exit to
+            Resources</a>
+
         <div class="header">
             <h1>🔒 PYTHON PRISON ESCAPE 🔒</h1>
             <p>Level 1 - Basic Python Challenges</p>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
-            
+
             <div class="timer-section">
                 <div class="timer-label">Time Remaining</div>
                 <div class="timer-display" id="timerDisplay">01:00</div>
                 <div class="stage-time-info" id="stageTimeInfo">Prison Cell: 1 minute per stage</div>
             </div>
-            
+
             <div class="stage-indicator">
                 <div class="stage current" id="stage1">Prison Cell (0/3)</div>
                 <div class="stage" id="stage2">Corridor (0/3)</div>
@@ -455,7 +496,7 @@
 
         const stageTimeInfo = {
             1: "Prison Cell: 1 minute per stage",
-            2: "Corridor: 1.5 minutes per stage", 
+            2: "Corridor: 1.5 minutes per stage",
             3: "Main Door: 2 minutes per stage",
             4: "Prison Wall: 2.5 minutes per stage"
         };
@@ -565,7 +606,7 @@
 
         function updateDisplay() {
             const problem = problems[currentStage][currentProblem - 1];
-            
+
             document.getElementById('stageTitle').textContent = stageNames[currentStage];
             document.getElementById('problemCounter').textContent = `Problem ${currentProblem} of 3`;
             document.getElementById('problemTitle').textContent = problem.title;
@@ -575,7 +616,7 @@
             document.getElementById('output').className = 'output';
             document.getElementById('codeInput').value = '';
             document.getElementById('stageTimeInfo').textContent = stageTimeInfo[currentStage];
-            
+
             // Update stage indicators
             for (let i = 1; i <= 4; i++) {
                 const stageEl = document.getElementById(`stage${i}`);
@@ -584,13 +625,13 @@
                     stageEl.textContent = getStageText(i) + ' (3/3)';
                 } else if (i === currentStage) {
                     stageEl.className = 'stage current';
-                    stageEl.textContent = getStageText(i) + ` (${stageProgress[i-1]}/3)`;
+                    stageEl.textContent = getStageText(i) + ` (${stageProgress[i - 1]}/3)`;
                 } else {
                     stageEl.className = 'stage';
                     stageEl.textContent = getStageText(i) + ' (0/3)';
                 }
             }
-            
+
             // Update progress bar
             const totalProgress = (currentStage - 1) * 3 + stageProgress[currentStage - 1];
             document.getElementById('progressFill').style.width = `${(totalProgress / 12) * 100}%`;
@@ -600,21 +641,21 @@
             if (timerInterval) {
                 clearInterval(timerInterval);
             }
-            
+
             timeRemaining = stageTimeLimits[currentStage];
             gameActive = true;
-            
+
             timerInterval = setInterval(() => {
                 if (!gameActive) return;
-                
+
                 timeRemaining--;
                 updateTimerDisplay();
-                
+
                 if (timeRemaining <= 0) {
                     gameOver();
                 }
             }, 1000);
-            
+
             updateTimerDisplay();
         }
 
@@ -622,10 +663,10 @@
             const minutes = Math.floor(timeRemaining / 60);
             const seconds = timeRemaining % 60;
             const display = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            
+
             const timerEl = document.getElementById('timerDisplay');
             timerEl.textContent = display;
-            
+
             // Change timer color based on time remaining
             if (timeRemaining <= 10) {
                 timerEl.className = 'timer-display critical';
@@ -650,13 +691,13 @@
         function runCode() {
             const code = document.getElementById('codeInput').value;
             const outputEl = document.getElementById('output');
-            
+
             if (!code.trim()) {
                 outputEl.textContent = 'Please enter some code first!';
                 outputEl.className = 'output error';
                 return;
             }
-            
+
             try {
                 // Simple Python code execution simulation
                 const result = simulatePython(code);
@@ -672,24 +713,24 @@
             const code = document.getElementById('codeInput').value;
             const problem = problems[currentStage][currentProblem - 1];
             const outputEl = document.getElementById('output');
-            
+
             if (!code.trim()) {
                 outputEl.textContent = 'Please enter some code first!';
                 outputEl.className = 'output error';
                 return;
             }
-            
+
             try {
                 const result = simulatePython(code);
                 const expected = problem.expectedOutput;
-                
+
                 if (result.trim() === expected.trim()) {
                     outputEl.textContent = `✅ Correct! Output: ${result}`;
                     outputEl.className = 'output success';
-                    
+
                     // Progress to next problem
                     stageProgress[currentStage - 1]++;
-                    
+
                     setTimeout(() => {
                         if (currentProblem < 3) {
                             currentProblem++;
@@ -698,7 +739,7 @@
                             currentStage++;
                             currentProblem = 1;
                             updateDisplay();
-                            
+
                             // Remove prison bars gradually
                             if (currentStage === 2) {
                                 document.getElementById('prisonBars').style.opacity = '0.7';
@@ -713,7 +754,7 @@
                             document.getElementById('victoryScreen').style.display = 'flex';
                         }
                     }, 2000);
-                    
+
                 } else {
                     outputEl.textContent = `❌ Not quite right. Expected: "${expected}" but got: "${result}"`;
                     outputEl.className = 'output error';
@@ -746,11 +787,11 @@
             let output = [];
             let variables = {};
             let functions = {};
-            
+
             for (let line of lines) {
                 line = line.trim();
                 if (!line || line.startsWith('#')) continue;
-                
+
                 // Handle variable assignment
                 if (line.includes('=') && !line.includes('==')) {
                     const [varName, value] = line.split('=').map(s => s.trim());
@@ -764,7 +805,7 @@
                         variables[varName] = JSON.parse(value.replace(/'/g, '"'));
                     }
                 }
-                
+
                 // Handle print statements
                 if (line.startsWith('print(')) {
                     const content = line.slice(6, -1);
@@ -798,7 +839,7 @@
                         }
                     }
                 }
-                
+
                 // Handle simple loops and conditions (basic simulation)
                 if (line.includes('for') && line.includes('range')) {
                     const match = line.match(/for\s+(\w+)\s+in\s+range\((\d+),?\s*(\d+)?\)/);
@@ -810,7 +851,7 @@
                         }
                     }
                 }
-                
+
                 // Handle basic if statements
                 if (line.includes('if') && line.includes('==')) {
                     const parts = line.split('==');
@@ -823,7 +864,7 @@
                         }
                     }
                 }
-                
+
                 // Handle function calls
                 if (line.includes('()') && !line.includes('print') && !line.includes('range')) {
                     const funcName = line.replace('()', '');
@@ -831,7 +872,7 @@
                         output.push('Door is now open!');
                     }
                 }
-                
+
                 // Handle function calls with parameters
                 if (line.includes('greet(')) {
                     const param = line.match(/greet\('(.+)'\)/);
@@ -839,14 +880,14 @@
                         output.push(`Hello, ${param[1]}!`);
                     }
                 }
-                
+
                 // Handle while loops (simplified)
                 if (line.includes('while') && code.includes('Breaking wall...')) {
                     output.push('Breaking wall...');
                     output.push('Breaking wall...');
                     output.push('Breaking wall...');
                 }
-                
+
                 // Handle list comprehensions (simplified)
                 if (line.includes('[') && line.includes('for') && line.includes('in range')) {
                     if (line.includes('x**2')) {
@@ -854,7 +895,7 @@
                     }
                 }
             }
-            
+
             return output.join('\n');
         }
 
@@ -863,4 +904,5 @@
     </script>
     <script src="../../shared/header-footer.js"></script>
 </body>
+
 </html>

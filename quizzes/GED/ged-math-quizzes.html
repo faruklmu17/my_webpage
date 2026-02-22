@@ -195,6 +195,22 @@
       background-color: var(--primary-color);
     }
 
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 600;
+      margin: 10px 0 20px 0;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: var(--primary-dark);
+      transform: translateX(-5px);
+    }
+
     .practice-tests p {
       font-size: 17px;
       margin-bottom: 25px;
@@ -295,6 +311,7 @@
 
 <body>
   <div class="ged-container">
+    <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Resources</a>
     <div class="ged-intro">
       <h1>GED Math Practice Tests & Quizzes</h1>
       <p>Welcome to our comprehensive collection of GED Math practice tests and quizzes. These free resources are
@@ -415,7 +432,7 @@
   </div>
 
   <!-- Shared Header and Footer JavaScript -->
-  
+
   <script>
     // Add tracking for quiz selection
     document.addEventListener('DOMContentLoaded', function () {
@@ -434,6 +451,7 @@
       });
     });
   </script>
-    <script src="../../shared/header-footer.js"></script>
+  <script src="../../shared/header-footer.js"></script>
 </body>
+
 </html>

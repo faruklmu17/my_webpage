@@ -1,500 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript & Web Concepts Quiz</title>
+    <title>JavaScript Concepts & Web Interactions Quiz | Web Dev Project 4</title>
+    <meta name="description"
+        content="Test your understanding of JavaScript functionality and how it interacts with web elements. 20+ questions on events, DOM, and JS methods.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Shared Header/Footer CSS -->
-  <link rel="stylesheet" href="../../shared/header-footer.css"
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--light-bg);
-            margin: 0;
-            
-            color: var(--text-color);
-        }
-        
-        .quiz-container {
-            background: white;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .quiz-header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .quiz-header h1 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-        
-        .quiz-header p {
-            color: var(--light-text);
-            font-size: 1.1rem;
-        }
-        
-        .progress-container {
-            margin-bottom: 30px;
-            background: #f0f3f7;
-            height: 10px;
-            border-radius: 5px;
-            overflow: hidden;
-            position: sticky;
-            top: 0;
-            padding: 10px 0;
-            z-index: 100;
-            background-color: white;
-        }
-        
-        #progress-fill {
-            height: 100%;
-            background: var(--accent-color);
-            width: 0;
-            transition: width 0.3s ease;
-        }
-        
-        #progress-count {
-            text-align: right;
-            font-size: 0.9rem;
-            color: var(--light-text);
-            margin-top: 5px;
-            position: sticky;
-            top: 30px;
-            z-index: 100;
-            background-color: white;
-            padding-bottom: 10px;
-        }
-        
-        /* Category styling for questions */
-        .question {
-            margin-bottom: 25px;
-            padding: 20px;
-            background: #eef2f5;
-            border-left: 4px solid var(--primary-color);
-            border-radius: 5px;
-            transition: transform 0.2s ease, box-shadow 0.3s ease;
-        }
-
-        /* Different category colors */
-        .question.javascript {
-            border-left-color: #f7df1e; /* JavaScript yellow */
-        }
-
-        .question.dom {
-            border-left-color: #e44d26; /* HTML5 orange-red */
-        }
-
-        .question.events {
-            border-left-color: #2965f1; /* CSS3 blue */
-        }
-
-        .question.api {
-            border-left-color: #7248b6; /* Purple for API */
-        }
-
-        .question.data {
-            border-left-color: #27ae60; /* Green for data handling */
-        }
-
-        /* Category badges */
-        .category-badge {
-            display: inline-block;
-            font-size: 0.75rem;
-            padding: 3px 8px;
-            border-radius: 12px;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: white;
-        }
-
-        .category-badge.javascript {
-            background-color: #f7df1e;
-            color: #333;
-        }
-
-        .category-badge.dom {
-            background-color: #e44d26;
-        }
-
-        .category-badge.events {
-            background-color: #2965f1;
-        }
-
-        .category-badge.api {
-            background-color: #7248b6;
-        }
-
-        .category-badge.data {
-            background-color: #27ae60;
-        }
-        
-        .question:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-        }
-        
-        .question p {
-            font-weight: bold;
-            margin-top: 0;
-        }
-        
-        .options {
-            margin-top: 15px;
-        }
-        
-        .options label {
-            display: block;
-            margin-bottom: 10px;
-            padding: 10px 15px;
-            background: white;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: 1px solid var(--border-color);
-        }
-        
-        .options label:hover {
-            background: #f9f9f9;
-            border-color: var(--primary-color);
-        }
-        
-        input[type="radio"] {
-            margin-right: 10px;
-        }
-        
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            font-family: monospace;
-            resize: vertical;
-        }
-        
-        .controls {
-            margin-top: 30px;
-            text-align: center;
-        }
-        
-        #submit-quiz {
-            padding: 12px 25px;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        #submit-quiz:hover {
-            background: var(--secondary-color);
-        }
-        
-        #results {
-            display: none;
-            margin-top: 40px;
-            padding: 30px;
-            background: #f9f9f9;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-        }
-        
-        #score {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .score-circle {
-            width: 100px;
-            height: 100px;
-            background: var(--accent-color);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin: 0 auto;
-            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
-        }
-        
-        .result-feedback {
-            text-align: center;
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            padding: 15px;
-            background: #e0f7e9;
-            border-radius: 5px;
-            color: #2c7a51;
-        }
-        
-        .answer-key h3 {
-            color: var(--primary-color);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
-        }
-        
-        .answer-item {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: white;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        
-        .correct {
-            color: #27ae60;
-            font-weight: bold;
-        }
-        
-        .incorrect {
-            color: #e74c3c;
-            font-weight: bold;
-        }
-        
-        .explanation {
-            margin-top: 10px;
-            padding: 10px;
-            background: #f5f5f5;
-            border-left: 3px solid #ddd;
-            font-style: italic;
-        }
-        
-        .back-to-resources {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: #f0f3f7;
-            color: var(--primary-color);
-            text-decoration: none;
-            border-radius: 5px;
-            transition: all 0.2s ease;
-        }
-        
-        .back-to-resources:hover {
-            background: #e0e5eb;
-        }
-    </style>
+    <link rel="stylesheet" href="../../shared/quiz-style.css">
 </head>
+
 <body>
+
+    <h1>🎚️ JS & Web Interactions Quiz</h1>
+
     <div class="quiz-container">
-        <div class="quiz-header">
-            <h1>JavaScript Concepts & Web Interactions Quiz</h1>
-            <p>Test your understanding of JavaScript functionality and how it interacts with web elements.</p>
+        <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to
+            Resources</a>
+        <div class="intro">
+            <p>Test your understanding of JavaScript functionality and how it interacts with web elements (DOM, Events,
+                URL handling).</p>
         </div>
-        
-        <div class="progress-container">
-            <div id="progress-fill"></div>
+
+        <div class="progress-wrapper">
+            <div class="progress-container">
+                <div id="progress-fill"></div>
+            </div>
+            <div id="progress-count">0/21 answered</div>
         </div>
-        <div id="progress-count">0/21 answered</div>
-        
+
         <form id="quiz-form">
-            <!-- Questions will be dynamically inserted here -->
+            <div id="quiz-area"></div>
+            <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Results</button>
         </form>
-        
-        <div class="controls">
-            <button type="button" id="submit-quiz">
-                <i class="fas fa-check-circle"></i> Submit Quiz
-            </button>
-        </div>
-        
+
         <div id="results">
-            <div id="score">
+            <div class="score-container">
                 <div class="score-circle">0</div>
+                <div class="score-label">Your Score</div>
             </div>
-            <div class="result-feedback" id="result-feedback"></div>
-            <div class="answer-key">
-                <h3>Answer Key</h3>
-                <div id="answers"></div>
+            <div class="feedback"></div>
+            <div class="action-buttons">
+                <a href="" class="secondary-btn" onclick="location.reload(); return false;"><i class="fas fa-redo"></i>
+                    Retake Quiz</a>
+                <a href="../../resources/resources.html" class="secondary-btn"><i class="fas fa-th-list"></i> More
+                    Quizzes</a>
             </div>
-            <div style="text-align: center; margin-top: 30px;">
-                <a href="../../resources/resources.html" class="back-to-resources">
-                    <i class="fas fa-arrow-left"></i> Back to Learning Resources
-                </a>
-            </div>
+            <div id="answer-key" class="answer-key"></div>
         </div>
     </div>
 
     <script>
         const questions = [
-            { q: 'When you pick something from a dropdown menu, the onchange event happens.', type: 'tf', a: 'T', explain: 'The onchange event triggers when a user changes the selected option in a dropdown.' },
-            { q: 'You can change the text inside a paragraph using .value.', type: 'tf', a: 'F', explain: '.value is for form inputs. To change paragraph text, use textContent or innerHTML.' },
-            { q: 'The command parseFloat("2.00") gives you a number.', type: 'tf', a: 'T', explain: 'parseFloat converts a string like "2.00" to the number 2.0.' },
-            { q: 'We can get information from the URL using URLSearchParams.', type: 'tf', a: 'T', explain: 'URLSearchParams is used to extract query parameters from URLs.' },
-            { q: 'Using onclick in HTML is not allowed in HTML5.', type: 'tf', a: 'F', explain: 'onclick is still allowed in HTML5, though using addEventListener is more modern.' },
-            { q: 'Math.random() gives a number between 0 and 1, like 0.57.', type: 'tf', a: 'T', explain: 'Math.random() returns a number between 0 (inclusive) and 1 (exclusive).' },
-            { q: 'The data-* attribute lets you store extra info in HTML tags.', type: 'tf', a: 'T', explain: 'data-* attributes allow embedding custom data in HTML elements.' },
-            { q: 'You should use parseInt() to turn "3.14" into a float.', type: 'tf', a: 'F', explain: 'parseInt will return 3. Use parseFloat to keep the decimal.' },
-            { q: 'You can use textContent to change what shows up on a page.', type: 'tf', a: 'T', explain: 'textContent sets the text content of an element.' },
-            { q: 'window.location.href helps you move to another web page.', type: 'tf', a: 'T', explain: 'Setting window.location.href changes the current page.' },
-            { q: 'What does Math.floor(Math.random()*900)+100 do?', type: 'mc', a: 'b', options: ['a) A random decimal between 0 and 999', 'b) A random whole number between 100 and 999', 'c) Always gives 100', 'd) Gives an error'], explain: 'It generates a random number from 100 to 999.' },
-            { q: 'What does encodeURIComponent help with?', type: 'mc', a: 'c', options: ['a) Decode HTML', 'b) Remove styles', 'c) Make data safe for URLs', 'd) Encrypt data'], explain: 'It encodes special characters so they can be sent in a URL.' },
-            { q: 'Which HTML tag do we use to add JavaScript code?', type: 'mc', a: 'b', options: ['a) &lt;javascript&gt;', 'b) &lt;script&gt;', 'c) &lt;js&gt;', 'd) &lt;code&gt;'], explain: 'JavaScript code is written inside the &lt;script&gt; tag.' },
-            { q: 'What does the # symbol mean in document.querySelector("#id")?', type: 'mc', a: 'c', options: ['a) Tag name', 'b) Class name', 'c) ID name', 'd) Data attribute'], explain: '# means you’re selecting by ID.' },
-            { q: 'Why do we use parseFloat in the snack and drink project?', type: 'mc', a: 'c', options: ['a) Get whole numbers only', 'b) Round decimals', 'c) Change a text number to a decimal number', 'd) Add dollar signs'], explain: 'parseFloat turns strings into decimal numbers.' },
-            { q: 'What is the correct way to change the text inside a &lt;p&gt; element?', type: 'mc', a: 'b', options: ['a) p.value = ...', 'b) p.textContent = ...', 'c) p.input = ...', 'd) p.setText = ...'], explain: 'textContent is the standard way to update paragraph text.' },
-            { q: 'What does document.getElementById("price").textContent = "..." do?', type: 'mc', a: 'a', options: ['a) Changes what the user sees', 'b) Hides the price', 'c) Sends form data', 'd) Finds all &lt;p&gt; tags'], explain: 'It updates the visible content of that element.' },
-            { q: 'Which of these sends the user to a new page?', type: 'mc', a: 'c', options: ['a) document.reload()', 'b) location.go()', 'c) window.location.href = "checkout.html"', 'd) document.goto()'], explain: 'Setting window.location.href navigates to a new page.' },
-            { q: 'If the formattedPrice is missing from the link, what will show?', type: 'mc', a: 'd', options: ['a) 0.00', 'b) null', 'c) 1.00', 'd) UNABLE TO DISPLAY'], explain: 'The fallback in the script is to show "UNABLE TO DISPLAY".' },
-            { q: 'In HTML, what attribute lets you store extra custom data?', type: 'mc', a: 'a', options: ['a) data-*', 'b) custom-data', 'c) dataset', 'd) info'], explain: 'The data-* attribute stores custom information on HTML elements.' },
-            { q: 'Write a function that takes "formattedPrice=2.50" and returns 2.50 as a number.', type: 'code', a: 'function getFormattedPrice(q) { return parseFloat(q.split("=")[1]); }', explain: 'You split by = and convert the second part to a number.' }
+            { q: "1. The onchange event happens when you pick something from a dropdown menu.", options: ["A) True", "B) False"], correct: "A", explanation: "onchange triggers when a user changes the selection." },
+            { q: "2. You can change the text inside a paragraph using .value.", options: ["A) True", "B) False"], correct: "B", explanation: "Use textContent or innerHTML for paragraph text; .value is for inputs." },
+            { q: "3. The command parseFloat(\"2.00\") gives you a number.", options: ["A) True", "B) False"], correct: "A", explanation: "parseFloat converts a string to a decimal point number." },
+            { q: "4. We can get information from the URL using URLSearchParams.", options: ["A) True", "B) False"], correct: "A", explanation: "This API extracts query parameters from URLs." },
+            { q: "5. Using onclick in HTML is not allowed in HTML5.", options: ["A) True", "B) False"], correct: "B", explanation: "onclick is still valid HTML5, though addEventListener is more modern." },
+            { q: "6. Math.random() gives a number between 0 and 1, like 0.57.", options: ["A) True", "B) False"], correct: "A", explanation: "It returns a floating-point, pseudo-random number in the range [0, 1)." },
+            { q: "7. The data-* attribute lets you store extra info in HTML tags.", options: ["A) True", "B) False"], correct: "A", explanation: "data-* attributes are special storage for custom information." },
+            { q: "8. You should use parseInt() to turn '3.14' into a float.", options: ["A) True", "B) False"], correct: "B", explanation: "parseInt() returns an integer (3); parseFloat() returns the decimal." },
+            { q: "9. You can use textContent to change what shows up on a page.", options: ["A) True", "B) False"], correct: "A", explanation: "It sets the UI text of a node." },
+            { q: "10. window.location.href helps you move to another web page.", options: ["A) True", "B) False"], correct: "A", explanation: "Assigning to it navigates the browser to the new URL." },
+            { q: "11. What does Math.floor(Math.random()*900)+100 do?", options: ["a) Random decimal 0-999", "b) Random whole number 100-999", "c) Always gives 100", "d) Error"], correct: "B", explanation: "It generates a random integer within that specific range." },
+            { q: "12. What does encodeURIComponent help with?", options: ["a) Decode HTML", "b) Remove styles", "c) Make data safe for URLs", "d) Encrypt data"], correct: "C", explanation: "It encodes data so special characters don't break URL logic." },
+            { q: "13. Which HTML tag do we use to add JavaScript code?", options: ["a) <javascript>", "b) <script>", "c) <js>", "d) <code>"], correct: "B", explanation: "The <script> tag is the standard for JS inclusion." },
+            { q: "14. What does the # symbol mean in querySelector('#id')?", options: ["a) Tag name", "b) Class name", "c) ID name", "d) Data attribute"], correct: "C", explanation: "# indicates an ID selector." },
+            { q: "15. Why use parseFloat in a shopping cart project?", options: ["a) Get integers", "b) Round decimals", "c) Change text number to decimal number", "d) Add dollar signs"], correct: "C", explanation: "Ensures calculations work on numerical decimals rather than strings." },
+            { q: "16. Correct way to change text inside a <p> element?", options: ["a) p.value = ...", "b) p.textContent = ...", "c) p.input = ...", "d) p.setText = ..."], correct: "B", explanation: "textContent is the standard property for text nodes." },
+            { q: "17. What does .textContent = '...' do to an element?", options: ["a) Changes visible text", "b) Hides element", "c) Sends data", "d) Deletes element"], correct: "A", explanation: "It updates the UI for the user." },
+            { q: "18. Which sends the user to a new page?", options: ["a) document.reload()", "b) location.go()", "c) window.location.href = 'url'", "d) document.goto()"], correct: "C", explanation: "This is the primary way to redirect via JS." },
+            { q: "19. If a price value is missing in a dynamic link, what's a good fallback?", options: ["a) 0.00", "b) null", "c) Error message", "d) All of the above"], correct: "D", explanation: "Handling missing data gracefully prevents app crashes." },
+            { q: "20. In HTML, what attribute stores custom data?", options: ["a) data-*", "b) custom-data", "c) dataset", "d) info"], correct: "A", explanation: "data-* is the standard HTML5 way." },
+            { q: "21. Which method is used to parse a JSON string into an object?", options: ["a) JSON.stringify()", "b) JSON.parse()", "c) JSON.toObject()", "d) JSON.parseString()"], correct: "B", explanation: "JSON.parse() turns strings back into objects." }
         ];
 
-        // Feedback messages based on score
-        const feedbackMessages = [
-            {min: 0, max: 7, message: "Keep studying! Review JavaScript basics and web interactions to improve your understanding."},
-            {min: 8, max: 14, message: "Good effort! You have a basic understanding of JavaScript concepts, but there's room to grow."},
-            {min: 15, max: 20, message: "Great job! You have a solid understanding of JavaScript and how it interacts with web elements."},
-            {min: 21, max: 21, message: "Perfect score! You've mastered JavaScript concepts and web interactions!"}
-        ];
-
-        // Add categories to questions
-        const questionCategories = [
-            'javascript', 'dom', 'events', 'api', 'data', 'javascript',
-            'dom', 'events', 'api', 'data', 'javascript', 'dom',
-            'events', 'api', 'data', 'javascript', 'dom', 'events',
-            'api', 'data', 'javascript'
-        ];
-
-        // Generate questions in the form
-        const form = document.getElementById('quiz-form');
-        questions.forEach((q, idx) => {
-            const div = document.createElement('div');
-            div.className = `question ${questionCategories[idx] || 'javascript'}`;
-            
-            let labelNumber = `${idx + 1}`;
-            if (idx === questions.length - 1) {
-                labelNumber += ' (Bonus)';
-            }
-            
-            let html = `<p>${labelNumber}. ${q.q}</p><div class="options">`;
-            
-            if (q.type === 'tf') {
-                html += `
-                    <label><input type="radio" name="q${idx}" value="T"> True</label>
-                    <label><input type="radio" name="q${idx}" value="F"> False</label>`;
-            } else if (q.type === 'mc') {
-                q.options.forEach((opt, i) => {
-                    const val = 'abcd'[i];
-                    html += `<label><input type="radio" name="q${idx}" value="${val}"> ${opt}</label>`;
-                });
-            } else if (q.type === 'code') {
-                html += `<textarea name="q${idx}" rows="4" placeholder="Write your function here..."></textarea>`;
-            }
-            
-            html += '</div>';
-            div.innerHTML = html;
-            form.appendChild(div);
+        const quizArea = document.getElementById("quiz-area");
+        questions.forEach((q, i) => {
+            const div = document.createElement("div");
+            div.className = "question";
+            div.innerHTML = `<h3>${q.q}</h3><div class="options">` +
+                q.options.map((opt, idx) => `<label><input type="radio" name="q${i + 1}" value="${opt.charAt(0).toUpperCase()}"> ${opt}</label>`).join("") +
+                `</div>`;
+            quizArea.appendChild(div);
         });
 
-        // Track answered questions
-        let answeredQuestions = 0;
-        const totalQuestions = questions.length;
-        
-        // Update progress when an option is selected
-        const radioButtons = document.querySelectorAll('input[type="radio"]');
-        const textareas = document.querySelectorAll('textarea');
-        
-        radioButtons.forEach(radio => {
-            radio.addEventListener('change', updateProgress);
-        });
-        
-        textareas.forEach(textarea => {
-            textarea.addEventListener('input', function() {
-                if (this.value.trim() !== '') {
-                    updateProgress();
-                }
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', () => {
+                const answered = questions.filter((_, i) => document.querySelector(`input[name="q${i + 1}"]:checked`)).length;
+                document.getElementById('progress-fill').style.width = (answered / questions.length * 100) + '%';
+                document.getElementById('progress-count').textContent = answered + '/' + questions.length + ' answered';
             });
         });
-        
-        function updateProgress() {
-            // Count answered questions
-            answeredQuestions = 0;
-            
-            // Check radio buttons
-            for (let i = 0; i < questions.length; i++) {
-                if (questions[i].type !== 'code') {
-                    if (document.querySelector(`input[name="q${i}"]:checked`)) {
-                        answeredQuestions++;
-                    }
-                } else {
-                    // Check textareas
-                    const textarea = document.querySelector(`textarea[name="q${i}"]`);
-                    if (textarea && textarea.value.trim() !== '') {
-                        answeredQuestions++;
-                    }
-                }
-            }
-            
-            // Update progress text and bar
-            document.getElementById('progress-count').textContent = `${answeredQuestions}/${totalQuestions} answered`;
-            const progressPercentage = (answeredQuestions / totalQuestions) * 100;
-            document.getElementById('progress-fill').style.width = `${progressPercentage}%`;
-        }
 
-        // Handle quiz submission
-        document.getElementById('submit-quiz').addEventListener('click', function() {
+        function submitQuiz() {
             let score = 0;
-            let answersHTML = '';
-
+            let html = '<h2>Detailed Results</h2>';
             questions.forEach((q, i) => {
-                const name = 'q' + i;
-                let userAns;
-                
-                if (q.type === 'code') {
-                    userAns = document.querySelector(`[name=${name}]`).value.trim();
-                } else {
-                    userAns = document.querySelector(`input[name=${name}]:checked`)?.value;
-                }
-                
-                const isCorrect = userAns === q.a;
+                const selected = document.querySelector(`input[name="q${i + 1}"]:checked`);
+                const isCorrect = selected && selected.value === q.correct;
                 if (isCorrect) score++;
-
-                answersHTML += `
-                    <div class="answer-item">
-                        <p><strong>Question ${i + 1}${i === questions.length - 1 ? ' (Bonus)' : ''}:</strong></p>
-                        <p>${q.q}</p>
-                        <p class="${isCorrect ? 'correct' : 'incorrect'}">
-                            Your answer: ${userAns || 'No answer'} - ${isCorrect ? 'Correct' : 'Incorrect'}
-                        </p>
-                        <p><strong>Explanation:</strong> ${q.explain}</p>
-                    </div>`;
+                html += `<div class="answer-item ${isCorrect ? 'correct' : 'incorrect'}">
+          <strong>Question ${i + 1}:</strong> ${isCorrect ? 'Correct ✅' : 'Incorrect ❌'}<br>
+          <p>${q.q}</p>
+          <p>Your answer: ${selected ? selected.value : 'None'}</p>
+          <p>Correct Answer: (${q.correct})</p>
+          <p><em>${q.explanation}</em></p>
+        </div>`;
             });
-
-            // Determine feedback message
-            let feedbackMessage = '';
-            for (let i = 0; i < feedbackMessages.length; i++) {
-                if (score >= feedbackMessages[i].min && score <= feedbackMessages[i].max) {
-                    feedbackMessage = feedbackMessages[i].message;
-                    break;
-                }
-            }
-
-            // Display results
-            document.getElementById('score').innerHTML = `
-                <div class="score-circle">${score}</div>
-            `;
-            document.getElementById('result-feedback').textContent = feedbackMessage;
-            document.getElementById('answers').innerHTML = answersHTML;
+            document.querySelector('.score-circle').textContent = score + '/' + questions.length;
+            document.getElementById('answer-key').innerHTML = html;
+            document.getElementById('quiz-form').style.display = 'none';
             document.getElementById('results').style.display = 'block';
-            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
-        });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     </script>
-
-  <!-- Shared Header/Footer JavaScript -->
-    <script src="../../shared/header-footer.js"></script>
 </body>
+
 </html>

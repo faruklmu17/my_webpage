@@ -4,300 +4,126 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Python Basics Quiz | Free Learning</title>
+  <title>Python Mastery Quiz | Beginner to Intermediate</title>
+  <meta name="description"
+    content="Test your Python skills with 15 questions on input types, list slicing, dictionaries, map(), and lambda functions.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../../shared/quiz-style.css">
   <style>
-    :root {
-      --primary-color: #3776ab;
-      --primary-dark: #2b5b84;
-      --secondary-color: #f5f7fa;
-      --text-color: #333;
-      --border-color: #e0e0e0;
-      --success-color: #27ae60;
-      --error-color: #e74c3c;
-      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      background-color: var(--secondary-color);
-      color: var(--text-color);
-      margin: 0;
-      padding: 0;
-    }
-
-    h1 {
-      text-align: center;
-      color: var(--primary-color);
-      margin-top: 30px;
-      margin-bottom: 30px;
-    }
-
-    .quiz-container {
-      max-width: 800px;
-      margin: 0 auto 50px;
-      background: white;
-      border-radius: 12px;
-      padding: 30px;
-      box-shadow: var(--box-shadow);
-    }
-
-    .question {
-      background: #fff;
-      padding: 20px;
-      margin-bottom: 25px;
-      border-radius: 8px;
-      border-left: 4px solid var(--primary-color);
-      background-color: #f8fbff;
-    }
-
-    .question label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: #2c3e50;
-    }
-
     code {
-      background-color: #eef2f5;
-      padding: 2px 6px;
+      background-color: #f0f3f7;
+      padding: 2px 4px;
       border-radius: 4px;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 0.95em;
-      color: #c0392b;
+      font-family: 'Courier New', monospace;
+      color: #e74c3c;
     }
 
-    input[type="text"] {
-      width: 100%;
-      padding: 12px;
-      font-size: 1rem;
-      border: 2px solid var(--border-color);
-      border-radius: 6px;
-      box-sizing: border-box;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    input[type="text"]:focus {
-      border-color: var(--primary-color);
-      outline: none;
-      box-shadow: 0 0 8px rgba(55, 118, 171, 0.2);
-    }
-
-    #submitBtn {
-      display: block;
-      width: 100%;
-      padding: 16px;
-      background-color: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    #submitBtn:hover {
-      background-color: var(--primary-dark);
-    }
-
-    .progress-wrapper {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: white;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border-color);
-      margin-bottom: 30px;
-    }
-
-    .progress-container {
-      height: 10px;
-      background-color: #e0e0e0;
-      border-radius: 5px;
-      overflow: hidden;
-    }
-
-    #progress-fill {
-      height: 100%;
-      background-color: var(--primary-color);
-      width: 0%;
-      transition: width 0.3s ease;
-    }
-
-    #progress-count {
-      text-align: center;
-      font-size: 0.9rem;
-      margin-top: 5px;
-      color: #666;
-    }
-
-    #results {
-      display: none;
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 2px solid var(--border-color);
-    }
-
-    .answer-item {
+    .question-block {
+      background: #fff;
       padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 6px;
-      background-color: #f1f3f5;
-      border-left: 4px solid #ced4da;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--primary-color);
     }
   </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
 
-  <h1>Python Basics Quiz</h1>
+  <h1>🐍 Python Mastery Quiz</h1>
 
   <div class="quiz-container">
+    <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Resources</a>
+    <div class="intro">
+      <p>Challenge yourself with these 15 questions covering variable types, list structures, operations, and functional
+        programming concepts.</p>
+    </div>
+
     <div class="progress-wrapper">
       <div class="progress-container">
         <div id="progress-fill"></div>
       </div>
-      <div id="progress-count">0/15 questions answered</div>
+      <div id="progress-count">0/15 answered</div>
     </div>
 
-    <form id="quizForm">
-      <div class="question">
-        <label for="q1">1. What will be printed when the user enters <code>30</code> in:<br>
-          <code>age = input("How old are you? ")<br>print(type(age))</code>?</label>
-        <input type="text" id="q1" name="q1" placeholder="Type your answer here..." />
-      </div>
-
-      <div class="question">
-        <label for="q2">2. If the user types <code>7</code> and <code>5</code> in:<br>
-          <code>num1 = int(input("Enter first number: "))<br>num2 = int(input("Enter second number: "))<br>print(num1 + num2)</code><br>
-          what is the output? What happens if you omit <code>int()</code>?</label>
-        <input type="text" id="q2" name="q2" placeholder="Type your answer here..." />
-      </div>
-
-      <div class="question">
-        <label for="q3">3. What does this print?<br>
-          <code>fruits = ["apple", "banana", "cherry", "date", "elderberry"]<br>print(fruits[1:4])</code></label>
-        <input type="text" id="q3" name="q3" placeholder="Type your answer here..." />
-      </div>
-
-      <div class="question">
-        <label for="q4">4. Which element and value is accessed by:<br>
-          <code>nums = [10, 20, 30, 40, 50]<br>print(nums[-3])</code>?</label>
-        <input type="text" id="q4" name="q4" placeholder="Type your answer here..." />
-      </div>
-
-      <div class="question">
-        <label for="q5">5. What happens when you run:<br>
-          <code>t = (1, 2, 3)<br>t[0] = 10</code>?</label>
-        <input type="text" id="q5" name="q5" placeholder="Type your answer here..." />
-      </div>
-
-      <div class="question">
-        <label for="q6">6. After this code:<br>
-          <code>student = {"name": "Alice", "score": 85}<br>student["score"] += 5<br>print(student)</code><br>
-          what is the resulting dictionary?</label>
-        <input type="text" id="q6" name="q6" placeholder="Type your answer here..." />
-      </div>
-
-      <div class="question">
-        <label for="q7">7. What is the type and contents of <code>colors</code>?<br>
-          <code>text = "red,green,blue,yellow"<br>colors = text.split(",")</code></label>
-        <input type="text" id="q7" name="q7" placeholder="Type your answer here..." />
-      </div>
-
-      <div class="question">
-        <label for="q8">8. What is the value of <code>sentence</code>?<br>
-          <code>words = ["hello", "world"]<br>sentence = " ".join(words)</code></label>
-        <input type="text" id="q8" name="q8" placeholder="Type your answer here..." />
-      </div>
-
-      <div class="question">
-        <label for="q9">9. Show exactly what prints:<br>
-          <code>title = "Chapter 1"<br>print(title.center(20, "-"))</code></label>
-        <input type="text" id="q9" name="q9" placeholder="Type your answer here..." />
-      </div>
-
-      <div class="question">
-        <label for="q10">10. What substring is printed?<br>
-          <code>s = "abcdefghijklmnopqrstuvwxyz"<br>print(s[5:15:2])</code></label>
-        <input type="text" id="q10" name="q10" placeholder="Type your answer here..." />
-      </div>
-
-      <div class="question">
-        <label for="q11">11. What is the output and element types?<br>
-          <code>nums_str = ["1", "2", "3", "4"]<br>nums = list(map(int, nums_str))<br>print(nums)</code></label>
-        <input type="text" id="q11" name="q11" placeholder="Type your answer here..." />
-      </div>
-
-      <div class="question">
-        <label for="q12">12. What does <code>codes</code> contain?<br>
-          <code>letters = ['a', 'b', 'c']<br>codes = list(map(lambda x: ord(x), letters))</code></label>
-        <input type="text" id="q12" name="q12" placeholder="Type your answer here..." />
-      </div>
-
-      <div class="question">
-        <label for="q13">13. What is printed?<br>
-          <code>data = {"names": ["Alice", "Bob"], "scores": (90, 85)}<br>print(data["names"][1], data["scores"][0])</code></label>
-        <input type="text" id="q13" name="q13" placeholder="Type your answer here..." />
-      </div>
-
-      <div class="question">
-        <label for="q14">14. If the user types <code>pen paper eraser</code> in:<br>
-          <code>items = input("Enter items separated by space: ").split()<br>print(items)</code><br>
-          what does <code>items</code> become?</label>
-        <input type="text" id="q14" name="q14" placeholder="Type your answer here..." />
-      </div>
-
-      <div class="question">
-        <label for="q15">15. After running:<br>
-          <code>raw = "  apple;banana; cherry  "<br>cleaned = ";".join(raw.strip().split(";"))</code><br>
-          what is the exact value of <code>cleaned</code>?</label>
-        <input type="text" id="q15" name="q15" placeholder="Type your answer here..." />
-      </div>
-
-      <button type="submit" id="submitBtn">Submit Answers</button>
+    <form id="quiz-form">
+      <div id="quiz-area"></div>
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Results</button>
     </form>
 
     <div id="results">
-      <h2>Review Your Answers</h2>
-      <div id="answersList"></div>
+      <div class="score-container">
+        <div class="score-circle">0</div>
+        <div class="score-label">Your Score</div>
+      </div>
+      <div class="feedback"></div>
+      <div class="action-buttons">
+        <a href="" class="secondary-btn" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
+          Quiz</a>
+        <a href="../../resources/resources.html" class="secondary-btn"><i class="fas fa-th-list"></i> More Quizzes</a>
+      </div>
+      <div id="answer-key" class="answer-key"></div>
     </div>
   </div>
 
   <script>
-    const totalQ = 15;
+    const questions = [
+      { q: "1. What will be the type of 'age' if the user enters 30? <br><code>age = input('How old are you? ')</code>", options: ["A) <class 'int'>", "B) <class 'str'>", "C) <class 'float'>", "D) 30"], correct: "B", explanation: "The input() function always returns a string in Python 3." },
+      { q: "2. What is the output if you omit int() and try to add inputs '7' and '5'?", options: ["A) 12", "B) '75'", "C) Error", "D) None"], correct: "B", explanation: "Adding two strings results in concatenation: '7' + '5' = '75'." },
+      { q: "3. What does <code>fruits[1:4]</code> print for<br><code>fruits = ['apple', 'banana', 'cherry', 'date', 'elderberry']</code>?", options: ["A) ['apple', 'banana', 'cherry']", "B) ['banana', 'cherry', 'date']", "C) ['banana', 'cherry', 'date', 'elderberry']", "D) ['cherry', 'date', 'elderberry']"], correct: "B", explanation: "Slicing [1:4] starts at index 1 and goes up to (but excludes) index 4." },
+      { q: "4. What is the value of <code>nums[-3]</code> in <code>[10, 20, 30, 40, 50]</code>?", options: ["A) 10", "B) 20", "C) 30", "D) 40"], correct: "C", explanation: "Negative indexing starts from the end: -1 is 50, -2 is 40, -3 is 30." },
+      { q: "5. What happens when you run: <code>t = (1, 2); t[0] = 10</code>?", options: ["A) t becomes (10, 2)", "B) t becomes [10, 2]", "C) TypeError: 'tuple' object does not support item assignment", "D) SyntaxError"], correct: "C", explanation: "Tuples are immutable; their elements cannot be changed after creation." },
+      { q: "6. What is the score in <code>student</code> after <code>student['score'] += 5</code> if it started at 85?", options: ["A) 85", "B) 90", "C) 5", "D) Error"], correct: "B", explanation: "This correctly updates the value associated with the 'score' key." },
+      { q: "7. What does <code>'red,green,blue'.split(',')</code> return?", options: ["A) ('red', 'green', 'blue')", "B) ['red', 'green', 'blue']", "C) 'red green blue'", "D) {'red', 'green', 'blue'}"], correct: "B", explanation: "The split() method returns a list of strings." },
+      { q: "8. What is the value of <code>' '.join(['hello', 'world'])</code>?", options: ["A) ['hello', 'world']", "B) 'helloworld'", "C) 'hello world'", "D) 'hello-world'"], correct: "C", explanation: "join() uses the string as a separator between list elements." },
+      { q: "9. What does <code>'Hi'.center(10, '-')</code> look like?", options: ["A) ----Hi----", "B) ----Hi---", "C) ---Hi----", "D) HI--------"], correct: "A", explanation: "It centers the string within the total width, padding with the fill character." },
+      { q: "10. What is <code>s[5:15:2]</code> for the alphabet 'abcdefg...'?", options: ["A) f h j l n", "B) 'fhjln'", "C) 5 7 9 11 13", "D) 'fghij'"], correct: "B", explanation: "Starts at index 5 ('f'), stops before 15, stepping by 2." },
+      { q: "11. What is the result of <code>list(map(int, ['1', '2']))</code>?", options: ["A) ['1', '2']", "B) [1, 2]", "C) (1, 2)", "D) Error"], correct: "B", explanation: "map(int, ...) converts each element in the iterable to an integer." },
+      { q: "12. What does <code>list(map(lambda x: ord(x), ['a', 'b']))</code> give?", options: ["A) [97, 98]", "B) ['a', 'b']", "C) [1, 2]", "D) Error"], correct: "A", explanation: "ord() returns the Unicode code point (ASCII) for a character; 'a' is 97." },
+      { q: "13. What prints for result of <code>data['names'][1], data['scores'][0]</code> from<br><code>{'names': ['Alice', 'Bob'], 'scores': (90, 85)}</code>?", options: ["A) Alice 90", "B) Bob 90", "C) Bob 85", "D) Alice 85"], correct: "B", explanation: "Access index 1 of 'names' (Bob) and index 0 of 'scores' (90)." },
+      { q: "14. If you input 'pen paper' into <code>input().split()</code>, what is the result?", options: ["A) 'pen paper'", "B) ['pen', 'paper']", "C) ('pen', 'paper')", "D) ['p', 'e', 'n', ...]"], correct: "B", explanation: "split() without arguments splits by any whitespace into a list." },
+      { q: "15. Result of <code>';'.join(' a ; b '.strip().split(';'))</code>?", options: ["A) 'a;b'", "B) 'a; b'", "C) ' a ; b '", "D) 'a ; b'"], correct: "D", explanation: "strip() removes outer spaces, split(';') yields ['a ', ' b'], then join puts them back: 'a ; b'." }
+    ];
 
-    document.querySelectorAll('input[type="text"]').forEach(input => {
-      input.addEventListener('input', () => {
-        let answered = 0;
-        for (let i = 1; i <= totalQ; i++) {
-          if (document.getElementById('q' + i).value.trim() !== "") answered++;
-        }
-        document.getElementById('progress-fill').style.width = (answered / totalQ * 100) + '%';
-        document.getElementById('progress-count').textContent = answered + '/' + totalQ + ' questions answered';
+    const quizArea = document.getElementById("quiz-area");
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<h3>${q.q}</h3><div class="options">` +
+        q.options.map((opt, idx) => `<label><input type="radio" name="q${i + 1}" value="${opt.charAt(0)}"> ${opt}</label>`).join("") +
+        `</div>`;
+      quizArea.appendChild(div);
+    });
+
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        const answered = questions.filter((_, i) => document.querySelector(`input[name="q${i + 1}"]:checked`)).length;
+        document.getElementById('progress-fill').style.width = (answered / questions.length * 100) + '%';
+        document.getElementById('progress-count').textContent = answered + '/' + questions.length + ' answered';
       });
     });
 
-    document.getElementById('quizForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const resultsDiv = document.getElementById('results');
-      const answersList = document.getElementById('answersList');
-      answersList.innerHTML = '';
-
-      for (let i = 1; i <= totalQ; i++) {
-        const answer = document.getElementById('q' + i).value.trim();
-        const div = document.createElement('div');
-        div.className = 'answer-item';
-        div.innerHTML = `<strong>Question ${i}:</strong><br>${answer || '<em>(no answer provided)</em>'}`;
-        answersList.appendChild(div);
-      }
-
-      resultsDiv.style.display = 'block';
-      document.getElementById('quizForm').style.display = 'none';
+    function submitQuiz() {
+      let score = 0;
+      let html = '<h2>Detailed Results</h2>';
+      questions.forEach((q, i) => {
+        const selected = document.querySelector(`input[name="q${i + 1}"]:checked`);
+        const isCorrect = selected && selected.value === q.correct;
+        if (isCorrect) score++;
+        html += `<div class="answer-item ${isCorrect ? 'correct' : 'incorrect'}">
+          <strong>Question ${i + 1}:</strong> ${isCorrect ? 'Correct ✅' : 'Incorrect ❌'}<br>
+          <p>${q.q}</p>
+          <p>Your answer: ${selected ? selected.value : 'None'}</p>
+          <p>Correct Answer: (${q.correct})</p>
+          <p><em>${q.explanation}</em></p>
+        </div>`;
+      });
+      document.querySelector('.score-circle').textContent = score + '/' + questions.length;
+      document.getElementById('answer-key').innerHTML = html;
+      document.getElementById('quiz-form').style.display = 'none';
+      document.getElementById('results').style.display = 'block';
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    }
   </script>
 </body>
 
