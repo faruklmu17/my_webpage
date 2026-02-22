@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Python OOP Quiz 2 - Advanced Object-Oriented Programming | Faruk Hasan</title>
-  <meta name="description" content="Test your advanced Python OOP knowledge with this comprehensive quiz covering classes, inheritance, polymorphism, encapsulation, and more advanced concepts.">
-  <meta name="keywords" content="Python OOP quiz, object-oriented programming, Python classes, inheritance, polymorphism, encapsulation, Python advanced quiz">
+  <meta name="description"
+    content="Test your advanced Python OOP knowledge with this comprehensive quiz covering classes, inheritance, polymorphism, encapsulation, and more advanced concepts.">
+  <meta name="keywords"
+    content="Python OOP quiz, object-oriented programming, Python classes, inheritance, polymorphism, encapsulation, Python advanced quiz">
   <meta name="author" content="Faruk Hasan">
 
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="Python OOP Quiz 2 - Advanced Object-Oriented Programming">
-  <meta property="og:description" content="Test your advanced Python OOP knowledge with this comprehensive quiz covering classes, inheritance, polymorphism, encapsulation, and more.">
+  <meta property="og:description"
+    content="Test your advanced Python OOP knowledge with this comprehensive quiz covering classes, inheritance, polymorphism, encapsulation, and more.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://farukhasan.com/quizzes/PYTHON/python_oop_quiz_2.html">
   <meta property="og:image" content="https://farukhasan.com/assets/images/assets/images/me.jpg">
@@ -21,180 +25,47 @@
   <meta name="twitter:description" content="Test your advanced Python OOP knowledge with this comprehensive quiz.">
   <meta name="twitter:image" content="https://farukhasan.com/assets/images/assets/images/me.jpg">
 
-  <!-- Shared CSS and JavaScript -->
-  <link rel="stylesheet" href="../../shared/header-footer.css">
-  
-
   <!-- FontAwesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      color: #333;
-      line-height: 1.6;
-      
-      
-    }
-
-    .quiz-container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 2rem 2rem;
-    }
-
-    h1 {
-      text-align: center;
-      color: white;
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    .question {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border-radius: 15px;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .question:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    }
-
-    .question p {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #2c3e50;
-      margin-bottom: 1.5rem;
-      line-height: 1.4;
-    }
-
-    .question input[type="radio"] {
-      margin-right: 0.8rem;
-      transform: scale(1.2);
-      accent-color: #667eea;
-    }
-
-    .question label {
-      font-size: 1rem;
-      color: #34495e;
-      cursor: pointer;
-      display: block;
-      padding: 0.8rem 0;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      margin-bottom: 0.5rem;
-    }
-
-    .question label:hover {
-      background-color: rgba(102, 126, 234, 0.1);
-      padding-left: 1rem;
-    }
-
-    .question input[type="text"], .question textarea {
-      width: 100%;
-      padding: 1rem;
-      border: 2px solid #e0e6ed;
-      border-radius: 10px;
-      font-size: 1rem;
-      font-family: inherit;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-      background: rgba(255, 255, 255, 0.9);
-    }
-
-    .question input[type="text"]:focus, .question textarea:focus {
-      outline: none;
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    }
-
-    .question textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .submit-container {
-      text-align: center;
-      margin: 3rem 0;
-    }
-
-    .submit-btn {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border: none;
-      padding: 1rem 3rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .submit-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-    }
-
-    .submit-btn:active {
-      transform: translateY(-1px);
-    }
-
-    .result {
-      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-      color: white;
-      padding: 2rem;
-      border-radius: 15px;
-      text-align: center;
-      font-size: 1.3rem;
-      font-weight: 600;
-      margin-top: 2rem;
-      box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3);
-      display: none;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .quiz-container {
-        padding: 0 1rem 2rem;
-      }
-
-      h1 {
-        font-size: 2rem;
-      }
-
-      .question {
-        padding: 1.5rem;
-      }
-
-      .question p {
-        font-size: 1.1rem;
-      }
-
-      .submit-btn {
-        padding: 0.8rem 2rem;
-        font-size: 1rem;
-      }
-    }
-  </style>
+    font-family: 'Inter' , -apple-system, BlinkMacSystemFont, 'Segoe UI' , Roboto, sans-serif; background:
+    linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; color: #333; line-height: 1.6; }
+    .quiz-container { max-width: 900px; margin: 0 auto; padding: 0 2rem 2rem; } h1 { text-align: center; color: white;
+    font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); } .question {
+    background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 15px; padding: 2rem;
+    margin-bottom: 2rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; } .question:hover { transform: translateY(-5px); box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.15); } .question p { font-size: 1.2rem; font-weight: 600; color: #2c3e50; margin-bottom:
+    1.5rem; line-height: 1.4; } .question input[type="radio" ] { margin-right: 0.8rem; transform: scale(1.2);
+    accent-color: #667eea; } .question label { font-size: 1rem; color: #34495e; cursor: pointer; display: block;
+    padding: 0.8rem 0; border-radius: 8px; transition: all 0.3s ease; margin-bottom: 0.5rem; } .question label:hover {
+    background-color: rgba(102, 126, 234, 0.1); padding-left: 1rem; } .question input[type="text" ], .question textarea
+    { width: 100%; padding: 1rem; border: 2px solid #e0e6ed; border-radius: 10px; font-size: 1rem; font-family: inherit;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; background: rgba(255, 255, 255, 0.9); } .question
+    input[type="text" ]:focus, .question textarea:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px
+    rgba(102, 126, 234, 0.1); } .question textarea { min-height: 120px; resize: vertical; } .submit-container {
+    text-align: center; margin: 3rem 0; } .submit-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white; border: none; padding: 1rem 3rem; font-size: 1.1rem; font-weight: 600; border-radius: 50px; cursor:
+    pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); text-transform: uppercase;
+    letter-spacing: 1px; } .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(102, 126, 234,
+    0.4); } .submit-btn:active { transform: translateY(-1px); } .result { background: linear-gradient(135deg, #4CAF50
+    0%, #45a049 100%); color: white; padding: 2rem; border-radius: 15px; text-align: center; font-size: 1.3rem;
+    font-weight: 600; margin-top: 2rem; box-shadow: 0 8px 32px rgba(76, 175, 80, 0.3); display: none; } /* Responsive
+    Design */ @media (max-width: 768px) { .quiz-container { padding: 0 1rem 2rem; } h1 { font-size: 2rem; } .question {
+    padding: 1.5rem; } .question p { font-size: 1.1rem; } .submit-btn { padding: 0.8rem 2rem; font-size: 1rem; } }
+    </style>
 </head>
+
 <body>
   <!-- Header will be automatically injected by shared/header-footer.js -->
 
   <!-- Main Content -->
   <div class="quiz-container">
-    <h1 style="text-align: center; color: white; font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);">🐍 Python OOP Quiz 2</h1>
+    <h1
+      style="text-align: center; color: white; font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);">
+      🐍 Python OOP Quiz 2</h1>
 
     <form id="quizForm">
-    
+
       <!-- Multiple Choice Questions -->
       <div class="question">
         <p>1. What is the main purpose of OOP?</p>
@@ -255,7 +126,7 @@
       <div class="question">
         <p>9. A class method can be called without creating an object. (True/False)</p>
         <input type="text" name="q9" placeholder="Enter True or False">
-    </div>
+      </div>
 
       <div class="question">
         <p>10. @staticmethod allows access to the class variables. (True/False)</p>
@@ -265,7 +136,8 @@
       <!-- Code Questions -->
       <div class="question">
         <p>11. What will be the output of this code?</p>
-        <pre style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #667eea; margin: 1rem 0; font-family: 'Courier New', monospace;">class Animal:
+        <pre
+          style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #667eea; margin: 1rem 0; font-family: 'Courier New', monospace;">class Animal:
     def __init__(self, name):
         self.name = name
     def speak(self):
@@ -278,7 +150,8 @@ print(dog.speak())</pre>
 
       <div class="question">
         <p>12. What is the error in this code?</p>
-        <pre style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #e74c3c; margin: 1rem 0; font-family: 'Courier New', monospace;">class Car:
+        <pre
+          style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #e74c3c; margin: 1rem 0; font-family: 'Courier New', monospace;">class Car:
     def start_engine():
         print("Engine started")
 
@@ -289,7 +162,8 @@ my_car.start_engine()</pre>
 
       <div class="question">
         <p>13. Fill in the blank to complete this method:</p>
-        <pre style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #667eea; margin: 1rem 0; font-family: 'Courier New', monospace;">def ________:
+        <pre
+          style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #667eea; margin: 1rem 0; font-family: 'Courier New', monospace;">def ________:
     return self.first + " " + self.last</pre>
         <input type="text" name="q13" placeholder="Complete the method definition">
       </div>
@@ -297,12 +171,15 @@ my_car.start_engine()</pre>
       <!-- Short Answer Questions -->
       <div class="question">
         <p>14. What is the difference between a class variable and an instance variable?</p>
-        <textarea name="q14" placeholder="Explain the difference between class variables and instance variables..."></textarea>
+        <textarea name="q14"
+          placeholder="Explain the difference between class variables and instance variables..."></textarea>
       </div>
 
       <div class="question">
-        <p>15. You have a base class <code>Shape</code> and a subclass <code>Circle</code>. What would you do to ensure that <code>Circle</code> also has the <code>__init__</code> method from <code>Shape</code>?</p>
-        <textarea name="q15" placeholder="Explain how to inherit the __init__ method from the parent class..."></textarea>
+        <p>15. You have a base class <code>Shape</code> and a subclass <code>Circle</code>. What would you do to ensure
+          that <code>Circle</code> also has the <code>__init__</code> method from <code>Shape</code>?</p>
+        <textarea name="q15"
+          placeholder="Explain how to inherit the __init__ method from the parent class..."></textarea>
       </div>
 
       <div class="submit-container">
@@ -369,6 +246,6 @@ my_car.start_engine()</pre>
   </script>
 
   <!-- Footer will be automatically injected by shared/header-footer.js -->
-    <script src="../../shared/header-footer.js"></script>
 </body>
+
 </html>

@@ -1,178 +1,299 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
-      
-      max-width: 800px;
-      
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎯 Playwright + Python Concepts Quiz | Automation Testing</title>
+  <style>
+    :root {
+      --primary-color: #4CAF50;
+      --primary-dark: #388E3C;
+      --secondary-color: #f5f7fa;
+      --text-color: #333;
+      --border-color: #e0e0e0;
+      --success-color: #27ae60;
+      --error-color: #e74c3c;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+    }
+
     h1 {
       text-align: center;
+      color: var(--primary-color);
+      margin-bottom: 30px;
     }
+
+    .quiz-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: var(--box-shadow);
+    }
+
     .question {
       background: #fff;
-      padding: 15px;
-      margin-bottom: 20px;
+      padding: 20px;
+      margin-bottom: 25px;
       border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      border-left: 4px solid var(--primary-color);
+      background-color: #f9f9f9;
     }
-    .question h3 {
-      margin-top: 0;
-    }
-    .feedback {
-      font-weight: bold;
-    }
-    button {
+
+    .options label {
       display: block;
-      margin: 20px auto;
-      padding: 10px 20px;
-      font-size: 16px;
+      padding: 10px;
+      margin-bottom: 5px;
+      background: white;
+      border: 1px solid var(--border-color);
       border-radius: 5px;
-      border: none;
-      background-color: #4CAF50;
-      color: white;
       cursor: pointer;
     }
-    button:hover {
-      background-color: #45a049;
+
+    .options label:hover {
+      background-color: #e8f5e9;
+    }
+
+    #submitBtn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    #submitBtn:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .progress-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: white;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 20px;
+    }
+
+    .progress-container {
+      height: 10px;
+      background-color: #e0e0e0;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    #progress-fill {
+      height: 100%;
+      background-color: var(--primary-color);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    #progress-count {
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      color: #666;
+    }
+
+    #results {
+      display: none;
+      margin-top: 30px;
+    }
+
+    .score-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 10px;
+    }
+
+    .answer-item {
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border-left: 3px solid #ccc;
+    }
+
+    .answer-item.correct {
+      background-color: #e8f5e9;
+      border-left-color: var(--success-color);
+    }
+
+    .answer-item.incorrect {
+      background-color: #ffebee;
+      border-left-color: var(--error-color);
     }
   </style>
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Shared Header/Footer CSS -->
-  <link rel="stylesheet" href="../../shared/header-footer.css">
-
 </head>
+
 <body>
 
   <h1>🎯 Playwright + Python Concepts Quiz</h1>
 
-  <div class="question" id="q1">
-    <h3>1. What is the purpose of the <code>sync_playwright()</code> function?</h3>
-    <form>
-      <label><input type="radio" name="q1" value="C" /> C) Provides a synchronous context to run Playwright operations</label><br>
-      <label><input type="radio" name="q1" value="B" /> B) It launches the Playwright server</label><br>
-      <label><input type="radio" name="q1" value="A" /> A) It opens a web browser</label><br>
-      <label><input type="radio" name="q1" value="D" /> D) Installs Playwright dependencies</label>
-    </form>
-    <p class="feedback" id="feedback-q1"></p>
-  </div>
+  <div class="quiz-container">
+    <div class="progress-wrapper">
+      <div class="progress-container">
+        <div id="progress-fill"></div>
+      </div>
+      <div id="progress-count">0/8 answered</div>
+    </div>
 
-  <div class="question" id="q2">
-    <h3>2. What does <code>headless=False</code> do when launching the browser?</h3>
-    <form>
-      <label><input type="radio" name="q2" value="B" /> B) Displays the browser UI during execution</label><br>
-      <label><input type="radio" name="q2" value="A" /> A) Runs the browser in background without UI</label><br>
-      <label><input type="radio" name="q2" value="C" /> C) Disables incognito mode</label><br>
-      <label><input type="radio" name="q2" value="D" /> D) Randomizes browser settings</label>
-    </form>
-    <p class="feedback" id="feedback-q2"></p>
-  </div>
+    <form id="quiz-form">
+      <!-- Q1 -->
+      <div class="question">
+        <p>1. What is the purpose of the <code>sync_playwright()</code> function?</p>
+        <div class="options">
+          <label><input type="radio" name="q1" value="C"> (C) Provides a synchronous context to run Playwright
+            operations</label>
+          <label><input type="radio" name="q1" value="B"> (B) It launches the Playwright server</label>
+          <label><input type="radio" name="q1" value="A"> (A) It opens a web browser</label>
+          <label><input type="radio" name="q1" value="D"> (D) Installs Playwright dependencies</label>
+        </div>
+      </div>
 
-  <div class="question" id="q3">
-    <h3>3. What is the role of <code>slow_mo=random.randint(50, 150)</code>?</h3>
-    <form>
-      <label><input type="radio" name="q3" value="A" /> A) Adds delay between Playwright API calls</label><br>
-      <label><input type="radio" name="q3" value="B" /> B) Slows down browser loading time</label><br>
-      <label><input type="radio" name="q3" value="C" /> C) Limits browser CPU usage</label><br>
-      <label><input type="radio" name="q3" value="D" /> D) Delays system boot time</label>
-    </form>
-    <p class="feedback" id="feedback-q3"></p>
-  </div>
+      <!-- Q2 -->
+      <div class="question">
+        <p>2. What does <code>headless=False</code> do when launching the browser?</p>
+        <div class="options">
+          <label><input type="radio" name="q2" value="B"> (B) Displays the browser UI during execution</label>
+          <label><input type="radio" name="q2" value="A"> (A) Runs the browser in background without UI</label>
+          <label><input type="radio" name="q2" value="C"> (C) Disables incognito mode</label>
+          <label><input type="radio" name="q2" value="D"> (D) Randomizes browser settings</label>
+        </div>
+      </div>
 
-  <div class="question" id="q4">
-    <h3>4. What does the <code>random_sleep()</code> function do?</h3>
-    <form>
-      <label><input type="radio" name="q4" value="B" /> B) Pauses execution for a random duration between <code>min_time</code> and <code>max_time</code></label><br>
-      <label><input type="radio" name="q4" value="A" /> A) Pauses execution for a fixed time</label><br>
-      <label><input type="radio" name="q4" value="C" /> C) Pauses only if there's an error</label><br>
-      <label><input type="radio" name="q4" value="D" /> D) Pauses browser rendering</label>
-    </form>
-    <p class="feedback" id="feedback-q4"></p>
-  </div>
+      <!-- Q3 -->
+      <div class="question">
+        <p>3. What is the role of <code>slow_mo=random.randint(50, 150)</code>?</p>
+        <div class="options">
+          <label><input type="radio" name="q3" value="A"> (A) Adds delay between Playwright API calls</label>
+          <label><input type="radio" name="q3" value="B"> (B) Slows down browser loading time</label>
+          <label><input type="radio" name="q3" value="C"> (C) Limits browser CPU usage</label>
+          <label><input type="radio" name="q3" value="D"> (D) Delays system boot time</label>
+        </div>
+      </div>
 
-  <div class="question" id="q5">
-    <h3>5. Which module is used for generating random numbers in this script?</h3>
-    <form>
-      <label><input type="radio" name="q5" value="C" /> C) random</label><br>
-      <label><input type="radio" name="q5" value="A" /> A) time</label><br>
-      <label><input type="radio" name="q5" value="B" /> B) playwright</label><br>
-      <label><input type="radio" name="q5" value="D" /> D) math</label>
-    </form>
-    <p class="feedback" id="feedback-q5"></p>
-  </div>
+      <!-- Q4 -->
+      <div class="question">
+        <p>4. What does the <code>random_sleep()</code> function do?</p>
+        <div class="options">
+          <label><input type="radio" name="q4" value="B"> (B) Pauses execution for a random duration between
+            <code>min_time</code> and <code>max_time</code></label>
+          <label><input type="radio" name="q4" value="A"> (A) Pauses execution for a fixed time</label>
+          <label><input type="radio" name="q4" value="C"> (C) Pauses only if there's an error</label>
+          <label><input type="radio" name="q4" value="D"> (D) Pauses browser rendering</label>
+        </div>
+      </div>
 
-  <div class="question" id="q6">
-    <h3>6. What does <code>page.locator(selector)</code> do?</h3>
-    <form>
-      <label><input type="radio" name="q6" value="B" /> B) Finds and returns a reference to a DOM element</label><br>
-      <label><input type="radio" name="q6" value="A" /> A) Clicks on a web element</label><br>
-      <label><input type="radio" name="q6" value="C" /> C) Takes a screenshot</label><br>
-      <label><input type="radio" name="q6" value="D" /> D) Switches browser tabs</label>
-    </form>
-    <p class="feedback" id="feedback-q6"></p>
-  </div>
+      <!-- Q5 -->
+      <div class="question">
+        <p>5. Which module is used for generating random numbers in this script?</p>
+        <div class="options">
+          <label><input type="radio" name="q5" value="C"> (C) random</label>
+          <label><input type="radio" name="q5" value="A"> (A) time</label>
+          <label><input type="radio" name="q5" value="B"> (B) playwright</label>
+          <label><input type="radio" name="q5" value="D"> (D) math</label>
+        </div>
+      </div>
 
-  <div class="question" id="q7">
-    <h3>7. What happens when <code>from_field.fill("LAX")</code> is executed?</h3>
-    <form>
-      <label><input type="radio" name="q7" value="C" /> C) The input field is filled with the value "LAX"</label><br>
-      <label><input type="radio" name="q7" value="A" /> A) The input field is clicked</label><br>
-      <label><input type="radio" name="q7" value="B" /> B) The browser navigates to LAX</label><br>
-      <label><input type="radio" name="q7" value="D" /> D) A new tab is opened with a search result</label>
-    </form>
-    <p class="feedback" id="feedback-q7"></p>
-  </div>
+      <!-- Q6 -->
+      <div class="question">
+        <p>6. What does <code>page.locator(selector)</code> do?</p>
+        <div class="options">
+          <label><input type="radio" name="q6" value="B"> (B) Finds and returns a reference to a DOM element</label>
+          <label><input type="radio" name="q6" value="A"> (A) Clicks on a web element</label>
+          <label><input type="radio" name="q6" value="C"> (C) Takes a screenshot</label>
+          <label><input type="radio" name="q6" value="D"> (D) Switches browser tabs</label>
+        </div>
+      </div>
 
-  <div class="question" id="q8">
-    <h3>8. Why is the <code>with sync_playwright() as p:</code> pattern used?</h3>
-    <form>
-      <label><input type="radio" name="q8" value="C" /> C) Automatically manages resource cleanup after execution</label><br>
-      <label><input type="radio" name="q8" value="A" /> A) It's cleaner code style</label><br>
-      <label><input type="radio" name="q8" value="B" /> B) It avoids using a browser</label><br>
-      <label><input type="radio" name="q8" value="D" /> D) Allows launching multiple browsers</label>
-    </form>
-    <p class="feedback" id="feedback-q8"></p>
-  </div>
+      <!-- Q7 -->
+      <div class="question">
+        <p>7. What happens when <code>from_field.fill("LAX")</code> is executed?</p>
+        <div class="options">
+          <label><input type="radio" name="q7" value="C"> (C) The input field is filled with the value "LAX"</label>
+          <label><input type="radio" name="q7" value="A"> (A) The input field is clicked</label>
+          <label><input type="radio" name="q7" value="B"> (B) The browser navigates to LAX</label>
+          <label><input type="radio" name="q7" value="D"> (D) A new tab is opened with a search result</label>
+        </div>
+      </div>
 
-  <button onclick="checkAnswers()">Submit Answers</button>
+      <!-- Q8 -->
+      <div class="question">
+        <p>8. Why is the <code>with sync_playwright() as p:</code> pattern used?</p>
+        <div class="options">
+          <label><input type="radio" name="q8" value="C"> (C) Automatically manages resource cleanup after
+            execution</label>
+          <label><input type="radio" name="q8" value="A"> (A) It's cleaner code style</label>
+          <label><input type="radio" name="q8" value="B"> (B) It avoids using a browser</label>
+          <label><input type="radio" name="q8" value="D"> (D) Allows launching multiple browsers</label>
+        </div>
+      </div>
+
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Answers</button>
+    </form>
+
+    <div id="results">
+      <div class="score-circle">0</div>
+      <div id="answer-key"></div>
+    </div>
+  </div>
 
   <script>
-    const answers = {
-      q1: "C",
-      q2: "B",
-      q3: "A",
-      q4: "B",
-      q5: "C",
-      q6: "B",
-      q7: "C",
-      q8: "C"
-    };
+    const answers = { q1: "C", q2: "B", q3: "A", q4: "B", q5: "C", q6: "B", q7: "C", q8: "C" };
 
-    function checkAnswers() {
-      for (const [questionId, correct] of Object.entries(answers)) {
-        const radios = document.querySelectorAll(`input[name="${questionId}"]`);
-        let selected = null;
-        radios.forEach(r => {
-          if (r.checked) selected = r.value;
-        });
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        const answered = Object.keys(answers).filter(q => document.querySelector(`input[name="${q}"]:checked`)).length;
+        document.getElementById('progress-fill').style.width = (answered / 8 * 100) + '%';
+        document.getElementById('progress-count').textContent = answered + '/8 answered';
+      });
+    });
 
-        const feedback = document.getElementById(`feedback-${questionId}`);
-        if (selected === correct) {
-          feedback.textContent = "✅ Correct!";
-          feedback.style.color = "green";
-        } else {
-          feedback.textContent = `❌ Incorrect. Correct answer: ${correct}`;
-          feedback.style.color = "red";
-        }
+    function submitQuiz() {
+      let score = 0;
+      let html = '<h3>Answer Key</h3>';
+
+      for (const [q, correct] of Object.entries(answers)) {
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        const item = document.createElement('div');
+        const isCorrect = selected && selected.value === correct;
+        if (isCorrect) score++;
+
+        html += `<div class="answer-item ${isCorrect ? 'correct' : 'incorrect'}">
+          <strong>Question ${q.slice(1)}:</strong> ${isCorrect ? '✅' : '❌'}<br>
+          Correct Answer: (${correct})
+        </div>`;
       }
+
+      document.querySelector('.score-circle').textContent = score + '/8';
+      document.getElementById('answer-key').innerHTML = html;
+      document.getElementById('quiz-form').style.display = 'none';
+      document.getElementById('results').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
-
-  <!-- Shared Header and Footer JavaScript -->
-    <script src="../../shared/header-footer.js"></script>
 </body>
+
 </html>

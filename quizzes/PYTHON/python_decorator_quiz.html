@@ -1,262 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
-      
-      max-width: 800px;
-      
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐍 Python Functions & Decorators Quiz | Advanced Python</title>
+  <style>
+    :root {
+      --primary-color: #ffd43b;
+      --primary-dark: #ccaa2e;
+      --secondary-color: #f5f7fa;
+      --text-color: #333;
+      --border-color: #e0e0e0;
+      --success-color: #27ae60;
+      --error-color: #e74c3c;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --accent-blue: #3776ab;
     }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+    }
+
     h1 {
       text-align: center;
+      color: var(--accent-blue);
+      margin-bottom: 30px;
     }
+
+    .quiz-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: var(--box-shadow);
+    }
+
     .question {
       background: #fff;
-      padding: 15px;
-      margin-bottom: 20px;
+      padding: 20px;
+      margin-bottom: 25px;
       border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      border-left: 4px solid var(--accent-blue);
+      background-color: #f9fbff;
     }
-    .question h3 {
-      margin-top: 0;
-    }
-    .feedback {
-      font-weight: bold;
-    }
-    button {
+
+    .options label {
       display: block;
-      margin: 20px auto;
-      padding: 10px 20px;
-      font-size: 16px;
+      padding: 10px;
+      margin-bottom: 5px;
+      background: white;
+      border: 1px solid var(--border-color);
       border-radius: 5px;
-      border: none;
-      background-color: #4CAF50;
-      color: white;
       cursor: pointer;
     }
-    button:hover {
-      background-color: #45a049;
+
+    .options label:hover {
+      background-color: #e3f2fd;
+    }
+
+    #submitBtn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background-color: var(--accent-blue);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    #submitBtn:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .progress-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: white;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 20px;
+    }
+
+    .progress-container {
+      height: 10px;
+      background-color: #e0e0e0;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    #progress-fill {
+      height: 100%;
+      background-color: var(--accent-blue);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    #progress-count {
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      color: #666;
+    }
+
+    #results {
+      display: none;
+      margin-top: 30px;
+    }
+
+    .score-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--accent-blue);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 10px;
+    }
+
+    .answer-item {
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border-left: 3px solid #ccc;
+    }
+
+    .answer-item.correct {
+      background-color: #e8f5e9;
+      border-left-color: var(--success-color);
+    }
+
+    .answer-item.incorrect {
+      background-color: #ffebee;
+      border-left-color: var(--error-color);
     }
   </style>
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Shared Header/Footer CSS -->
-  <link rel="stylesheet" href="../../shared/header-footer.css">
-
 </head>
+
 <body>
 
   <h1>🐍 Python Functions & Decorators Quiz</h1>
 
-  <div class="question" id="q1">
-    <h3>1. What is a class in Python?</h3>
-    <form>
-      <label><input type="radio" name="q1" value="A" /> A) A blueprint for creating objects</label><br>
-      <label><input type="radio" name="q1" value="B" /> B) A built-in data type for storing multiple values</label><br>
-      <label><input type="radio" name="q1" value="C" /> C) A special kind of function</label><br>
-      <label><input type="radio" name="q1" value="D" /> D) A syntax for looping over items</label>
-    </form>
-    <p class="feedback" id="feedback-q1"></p>
-  </div>
+  <div class="quiz-container">
+    <div class="progress-wrapper">
+      <div class="progress-container">
+        <div id="progress-fill"></div>
+      </div>
+      <div id="progress-count">0/15 answered</div>
+    </div>
 
-  <div class="question" id="q2">
-    <h3>2. Which statement best describes a Python object?</h3>
-    <form>
-      <label><input type="radio" name="q2" value="A" /> A) An instance created from a class</label><br>
-      <label><input type="radio" name="q2" value="B" /> B) A collection of unrelated variables</label><br>
-      <label><input type="radio" name="q2" value="C" /> C) A keyword used to define functions</label><br>
-      <label><input type="radio" name="q2" value="D" /> D) A file containing Python code</label>
+    <form id="quiz-form">
+      <div id="quiz-area"></div>
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Answers</button>
     </form>
-    <p class="feedback" id="feedback-q2"></p>
-  </div>
 
-  <div class="question" id="q3">
-    <h3>3. How would you define a function in Python?</h3>
-    <form>
-      <label><input type="radio" name="q3" value="A" /> A) A named block of reusable code</label><br>
-      <label><input type="radio" name="q3" value="B" /> B) A fixed value stored in memory</label><br>
-      <label><input type="radio" name="q3" value="C" /> C) A container for modules</label><br>
-      <label><input type="radio" name="q3" value="D" /> D) A loop that runs indefinitely</label>
-    </form>
-    <p class="feedback" id="feedback-q3"></p>
+    <div id="results">
+      <div class="score-circle">0</div>
+      <div id="answer-key"></div>
+    </div>
   </div>
-
-  <div class="question" id="q4">
-    <h3>4. When you assign a function to a variable without using parentheses, what are you storing in that variable?</h3>
-    <form>
-      <label><input type="radio" name="q4" value="A" /> A) The function object itself</label><br>
-      <label><input type="radio" name="q4" value="B" /> B) The result of calling the function</label><br>
-      <label><input type="radio" name="q4" value="C" /> C) An empty string</label><br>
-      <label><input type="radio" name="q4" value="D" /> D) A syntax error</label>
-    </form>
-    <p class="feedback" id="feedback-q4"></p>
-  </div>
-
-  <div class="question" id="q5">
-    <h3>5. In a function definition, what do we call the placeholders listed inside the parentheses?</h3>
-    <form>
-      <label><input type="radio" name="q5" value="A" /> A) Parameters</label><br>
-      <label><input type="radio" name="q5" value="B" /> B) Arguments</label><br>
-      <label><input type="radio" name="q5" value="C" /> C) Returns</label><br>
-      <label><input type="radio" name="q5" value="D" /> D) Decorators</label>
-    </form>
-    <p class="feedback" id="feedback-q5"></p>
-  </div>
-
-  <div class="question" id="q6">
-    <h3>6. When you provide actual values to a function call, what are those values called?</h3>
-    <form>
-      <label><input type="radio" name="q6" value="A" /> A) Arguments</label><br>
-      <label><input type="radio" name="q6" value="B" /> B) Parameters</label><br>
-      <label><input type="radio" name="q6" value="C" /> C) Variables</label><br>
-      <label><input type="radio" name="q6" value="D" /> D) Objects</label>
-    </form>
-    <p class="feedback" id="feedback-q6"></p>
-  </div>
-
-  <div class="question" id="q7">
-    <h3>7. What does a return statement do inside a function?</h3>
-    <form>
-      <label><input type="radio" name="q7" value="A" /> A) Sends a value back to the caller</label><br>
-      <label><input type="radio" name="q7" value="B" /> B) Stops the entire program</label><br>
-      <label><input type="radio" name="q7" value="C" /> C) Prints text to the console</label><br>
-      <label><input type="radio" name="q7" value="D" /> D) Defines a new variable</label>
-    </form>
-    <p class="feedback" id="feedback-q7"></p>
-  </div>
-
-  <div class="question" id="q8">
-    <h3>8. Which concept involves passing a function object to another function as an input?</h3>
-    <form>
-      <label><input type="radio" name="q8" value="A" /> A) Higher-order programming</label><br>
-      <label><input type="radio" name="q8" value="B" /> B) Polymorphism</label><br>
-      <label><input type="radio" name="q8" value="C" /> C) Recursion</label><br>
-      <label><input type="radio" name="q8" value="D" /> D) Multithreading</label>
-    </form>
-    <p class="feedback" id="feedback-q8"></p>
-  </div>
-
-  <div class="question" id="q9">
-    <h3>9. What term describes a function defined inside another function?</h3>
-    <form>
-      <label><input type="radio" name="q9" value="A" /> A) Nested function</label><br>
-      <label><input type="radio" name="q9" value="B" /> B) Generator function</label><br>
-      <label><input type="radio" name="q9" value="C" /> C) Static method</label><br>
-      <label><input type="radio" name="q9" value="D" /> D) Abstract method</label>
-    </form>
-    <p class="feedback" id="feedback-q9"></p>
-  </div>
-
-  <div class="question" id="q10">
-    <h3>10. What is a wrapper function?</h3>
-    <form>
-      <label><input type="radio" name="q10" value="A" /> A) A function that executes additional code before and/or after calling another function</label><br>
-      <label><input type="radio" name="q10" value="B" /> B) A function without any parameters</label><br>
-      <label><input type="radio" name="q10" value="C" /> C) A function that automatically handles exceptions</label><br>
-      <label><input type="radio" name="q10" value="D" /> D) A function that only accepts integers</label>
-    </form>
-    <p class="feedback" id="feedback-q10"></p>
-  </div>
-
-  <div class="question" id="q11">
-    <h3>11. If you attempt to call an inner function before it is defined, which error are you most likely to encounter?</h3>
-    <form>
-      <label><input type="radio" name="q11" value="A" /> A) NameError</label><br>
-      <label><input type="radio" name="q11" value="B" /> B) TypeError</label><br>
-      <label><input type="radio" name="q11" value="C" /> C) ValueError</label><br>
-      <label><input type="radio" name="q11" value="D" /> D) ZeroDivisionError</label>
-    </form>
-    <p class="feedback" id="feedback-q11"></p>
-  </div>
-
-  <div class="question" id="q12">
-    <h3>12. What happens when you print a function object without parentheses?</h3>
-    <form>
-      <label><input type="radio" name="q12" value="A" /> A) You see its representation (e.g., `<function ...>`)</label><br>
-      <label><input type="radio" name="q12" value="B" /> B) The function executes and prints its output</label><br>
-      <label><input type="radio" name="q12" value="C" /> C) Python concatenates it as a string</label><br>
-      <label><input type="radio" name="q12" value="D" /> D) It raises a SyntaxError</label>
-    </form>
-    <p class="feedback" id="feedback-q12"></p>
-  </div>
-
-  <div class="question" id="q13">
-    <h3>13. Which built-in function confirms that everything in Python is an object by revealing its type?</h3>
-    <form>
-      <label><input type="radio" name="q13" value="A" /> A) type()</label><br>
-      <label><input type="radio" name="q13" value="B" /> B) instanceof()</label><br>
-      <label><input type="radio" name="q13" value="C" /> C) kind()</label><br>
-      <label><input type="radio" name="q13" value="D" /> D) objectof()</label>
-    </form>
-    <p class="feedback" id="feedback-q13"></p>
-  </div>
-
-  <div class="question" id="q14">
-    <h3>14. Which example illustrates passing a function object as a parameter?</h3>
-    <form>
-      <label><input type="radio" name="q14" value="A" /> A) def apply(func, x): return func(x)</label><br>
-      <label><input type="radio" name="q14" value="B" /> B) def apply(x, y): return x + y</label><br>
-      <label><input type="radio" name="q14" value="C" /> C) def apply(): print("Hello")</label><br>
-      <label><input type="radio" name="q14" value="D" /> D) def apply(func()): return x</label>
-    </form>
-    <p class="feedback" id="feedback-q14"></p>
-  </div>
-
-  <div class="question" id="q15">
-    <h3>15. What does a decorator syntactically do in Python?</h3>
-    <form>
-      <label><input type="radio" name="q15" value="A" /> A) Wrap another function to modify its behavior</label><br>
-      <label><input type="radio" name="q15" value="B" /> B) Change the class of an object at runtime</label><br>
-      <label><input type="radio" name="q15" value="C" /> C) Inline C code into Python</label><br>
-      <label><input type="radio" name="q15" value="D" /> D) Automatically document functions</label>
-    </form>
-    <p class="feedback" id="feedback-q15"></p>
-  </div>
-
-  <button onclick="checkAnswers()">Submit Answers</button>
 
   <script>
-    const answers = {
-      q1: "A",
-      q2: "A",
-      q3: "A",
-      q4: "A",
-      q5: "A",
-      q6: "A",
-      q7: "A",
-      q8: "A",
-      q9: "A",
-      q10: "A",
-      q11: "A",
-      q12: "A",
-      q13: "A",
-      q14: "A",
-      q15: "A"
-    };
+    const questions = [
+      { q: "1. What is a class in Python?", options: ["A) A blueprint for creating objects", "B) A built-in data type for storing multiple values", "C) A special kind of function", "D) A syntax for looping over items"], correct: "A" },
+      { q: "2. Which statement best describes a Python object?", options: ["A) An instance created from a class", "B) A collection of unrelated variables", "C) A keyword used to define functions", "D) A file containing Python code"], correct: "A" },
+      { q: "3. How would you define a function in Python?", options: ["A) A named block of reusable code", "B) A fixed value stored in memory", "C) A container for modules", "D) A loop that runs indefinitely"], correct: "A" },
+      { q: "4. When you assign a function to a variable without using parentheses, what are you storing in that variable?", options: ["A) The function object itself", "B) The result of calling the function", "C) An empty string", "D) A syntax error"], correct: "A" },
+      { q: "5. In a function definition, what do we call the placeholders listed inside the parentheses?", options: ["A) Parameters", "B) Arguments", "C) Returns", "D) Decorators"], correct: "A" },
+      { q: "6. When you provide actual values to a function call, what are those values called?", options: ["A) Arguments", "B) Parameters", "C) Variables", "D) Objects"], correct: "A" },
+      { q: "7. What does a return statement do inside a function?", options: ["A) Sends a value back to the caller", "B) Stops the entire program", "C) Prints text to the console", "D) Defines a new variable"], correct: "A" },
+      { q: "8. Which concept involves passing a function object to another function as an input?", options: ["A) Higher-order programming", "B) Polymorphism", "C) Recursion", "D) Multithreading"], correct: "A" },
+      { q: "9. What term describes a function defined inside another function?", options: ["A) Nested function", "B) Generator function", "C) Static method", "D) Abstract method"], correct: "A" },
+      { q: "10. What is a wrapper function?", options: ["A) A function that executes additional code before and/or after calling another function", "B) A function without any parameters", "C) A function that automatically handles exceptions", "D) A function that only accepts integers"], correct: "A" },
+      { q: "11. If you attempt to call an inner function before it is defined, which error are you most likely to encounter?", options: ["A) NameError", "B) TypeError", "C) ValueError", "D) ZeroDivisionError"], correct: "A" },
+      { q: "12. What happens when you print a function object without parentheses?", options: ["A) You see its representation (e.g., <function ...>)", "B) The function executes and prints its output", "C) Python concatenates it as a string", "D) It raises a SyntaxError"], correct: "A" },
+      { q: "13. Which built-in function confirms that everything in Python is an object by revealing its type?", options: ["A) type()", "B) instanceof()", "C) kind()", "D) objectof()"], correct: "A" },
+      { q: "14. Which example illustrates passing a function object as a parameter?", options: ["A) def apply(func, x): return func(x)", "B) def apply(x, y): return x + y", "C) def apply(): print(\"Hello\")", "D) def apply(func()): return x"], correct: "A" },
+      { q: "15. What does a decorator syntactically do in Python?", options: ["A) Wrap another function to modify its behavior", "B) Change the class of an object at runtime", "C) Inline C code into Python", "D) Automatically document functions"], correct: "A" }
+    ];
 
-    function checkAnswers() {
-      for (const [questionId, correct] of Object.entries(answers)) {
-        const radios = document.querySelectorAll(`input[name="${questionId}"]`);
-        let selected = null;
-        radios.forEach(r => {
-          if (r.checked) selected = r.value;
-        });
+    const quizDiv = document.getElementById("quiz-area");
+    questions.forEach((q, i) => {
+      const id = `q${i + 1}`;
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<h3>${q.q}</h3><div class="options">` +
+        q.options.map(opt => `<label><input type="radio" name="${id}" value="${opt.charAt(0)}"> ${opt}</label>`).join("") +
+        `</div>`;
+      quizDiv.appendChild(div);
+    });
 
-        const feedback = document.getElementById(`feedback-${questionId}`);
-        if (selected === correct) {
-          feedback.textContent = "✅ Correct!";
-          feedback.style.color = "green";
-        } else {
-          feedback.textContent = `❌ Incorrect. Correct answer: ${correct}`;
-          feedback.style.color = "red";
-        }
-      }
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        const answered = questions.filter((_, i) => document.querySelector(`input[name="q${i + 1}"]:checked`)).length;
+        document.getElementById('progress-fill').style.width = (answered / 15 * 100) + '%';
+        document.getElementById('progress-count').textContent = answered + '/15 answered';
+      });
+    });
+
+    function submitQuiz() {
+      let score = 0;
+      let html = '<h3>Answer Key</h3>';
+
+      questions.forEach((q, i) => {
+        const id = `q${i + 1}`;
+        const selected = document.querySelector(`input[name="${id}"]:checked`);
+        const isCorrect = selected && selected.value === q.correct;
+        if (isCorrect) score++;
+
+        html += `<div class="answer-item ${isCorrect ? 'correct' : 'incorrect'}">
+          <strong>Question ${i + 1}:</strong> ${isCorrect ? '✅' : '❌'}<br>
+          Correct Answer: (${q.correct})
+        </div>`;
+      });
+
+      document.querySelector('.score-circle').textContent = score + '/15';
+      document.getElementById('answer-key').innerHTML = html;
+      document.getElementById('quiz-form').style.display = 'none';
+      document.getElementById('results').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
-
-  <!-- Shared Header and Footer JavaScript -->
-    <script src="../../shared/header-footer.js"></script>
 </body>
+
 </html>

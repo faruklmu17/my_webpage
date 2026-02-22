@@ -1,310 +1,461 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fraction Addition Quiz</title>
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fraction Addition Quiz | GED Math Prep</title>
   <!-- MathJax for rendering LaTeX fractions -->
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-      font-family: Arial, sans-serif;
-      background: #f4f7f8;
-      
-      
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --primary-accent: #2980b9;
+      --secondary-color: #f4f7f8;
+      --text-color: #333;
+      --border-color: #e0e0e0;
+      --success-color: #27ae60;
+      --error-color: #e74c3c;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-    .container {
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      max-width: 800px;
-      width: 100%;
-      margin: 2rem;
-      padding: 2rem;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: #333;
-    }
-    .question {
-      margin-bottom: 1.5rem;
-    }
-    .question > label:first-of-type {
-      font-weight: bold;
-      color: #555;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-    label.option {
-      display: block;
-      margin-left: 1.5rem;
-      margin-bottom: 0.5rem;
-      font-weight: normal;
-    }
-    input[type="radio"] {
-      margin-right: 0.5rem;
-    }
-    button {
-      background: #28a745;
-      color: white;
-      border: none;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-      display: block;
-      margin: 1rem auto;
-      transition: background 0.2s;
-    }
-    button:hover {
-      background: #218838;
-    }
-    #results {
-      margin-top: 2rem;
-      padding: 1rem;
-      background: #e9ecef;
-      border-radius: 4px;
-      display: none;
-    }
-    #results h2 {
-      margin-top: 0;
-      color: #333;
-    }
-    #results ul {
-      list-style: none;
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+      margin: 0;
       padding: 0;
     }
-    #results li {
-      padding: 0.5rem 0;
-      border-bottom: 1px solid #ddd;
+
+    h1 {
+      text-align: center;
+      color: var(--primary-color);
+      margin-top: 30px;
+      margin-bottom: 20px;
     }
-    #results li:last-child {
-      border-bottom: none;
+
+    .quiz-container {
+      max-width: 800px;
+      margin: 20px auto;
+      background: white;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: var(--box-shadow);
+    }
+
+    .question {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-accent);
+      background-color: #fbfcff;
+    }
+
+    .question label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .options label {
+      display: block;
+      padding: 12px;
+      margin-bottom: 8px;
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: normal;
+      transition: background 0.2s;
+    }
+
+    .options label:hover {
+      background-color: #ebf5fb;
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    #submitBtn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background-color: var(--primary-accent);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    #submitBtn:hover {
+      background-color: var(--primary-color);
+    }
+
+    .progress-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: white;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 20px;
+    }
+
+    .progress-container {
+      height: 10px;
+      background-color: #e0e0e0;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    #progress-fill {
+      height: 100%;
+      background-color: var(--primary-accent);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    #progress-count {
+      text-align: center;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      color: #666;
+    }
+
+    #results {
+      display: none;
+      margin-top: 30px;
+    }
+
+    .score-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--primary-accent);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin: 0 auto 20px;
+    }
+
+    .answer-item {
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border-left: 4px solid #ccc;
+    }
+
+    .answer-item.correct {
+      background-color: #e8f5e9;
+      border-left-color: var(--success-color);
+    }
+
+    .answer-item.incorrect {
+      background-color: #ffebee;
+      border-left-color: var(--error-color);
     }
   </style>
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Shared Header/Footer CSS -->
-  <link rel="stylesheet" href="../../shared/header-footer.css">
-
 </head>
-<body>
-  <div class="container">
-    <h1>Fraction Addition Quiz</h1>
-    <form id="quizForm">
 
+<body>
+
+  <h1>Fraction Addition Quiz</h1>
+
+  <div class="quiz-container">
+    <div class="progress-wrapper">
+      <div class="progress-container">
+        <div id="progress-fill"></div>
+      </div>
+      <div id="progress-count">0/20 answered</div>
+    </div>
+
+    <form id="quiz-form">
       <!-- 1 -->
       <div class="question">
         <label>1. What is \( \tfrac{1}{4} + \tfrac{1}{4} \)?</label>
-        <label class="option"><input type="radio" name="q1" value="A"> A. \( \tfrac{1}{8} \)</label>
-        <label class="option"><input type="radio" name="q1" value="B"> B. \( \tfrac{1}{2} \)</label>
-        <label class="option"><input type="radio" name="q1" value="C"> C. \( \tfrac{2}{4} \)</label>
-        <label class="option"><input type="radio" name="q1" value="D"> D. Both B and C</label>
+        <div class="options">
+          <label><input type="radio" name="q1" value="A"> A. \( \tfrac{1}{8} \)</label>
+          <label><input type="radio" name="q1" value="B"> B. \( \tfrac{1}{2} \)</label>
+          <label><input type="radio" name="q1" value="C"> C. \( \tfrac{2}{4} \)</label>
+          <label><input type="radio" name="q1" value="D"> D. Both B and C</label>
+        </div>
       </div>
 
       <!-- 2 -->
       <div class="question">
         <label>2. What is \( \tfrac{1}{2} + \tfrac{1}{2} \)?</label>
-        <label class="option"><input type="radio" name="q2" value="A"> A. \( \tfrac{2}{4} \)</label>
-        <label class="option"><input type="radio" name="q2" value="B"> B. \( \tfrac{1}{1} \)</label>
-        <label class="option"><input type="radio" name="q2" value="C"> C. 1</label>
-        <label class="option"><input type="radio" name="q2" value="D"> D. \( \tfrac{3}{4} \)</label>
+        <div class="options">
+          <label><input type="radio" name="q2" value="A"> A. \( \tfrac{2}{4} \)</label>
+          <label><input type="radio" name="q2" value="B"> B. \( \tfrac{1}{1} \)</label>
+          <label><input type="radio" name="q2" value="C"> C. 1</label>
+          <label><input type="radio" name="q2" value="D"> D. \( \tfrac{3}{4} \)</label>
+        </div>
       </div>
 
       <!-- 3 -->
       <div class="question">
         <label>3. Add: \( \tfrac{1}{3} + \tfrac{1}{6} \)</label>
-        <label class="option"><input type="radio" name="q3" value="A"> A. \( \tfrac{1}{2} \)</label>
-        <label class="option"><input type="radio" name="q3" value="B"> B. \( \tfrac{2}{6} \)</label>
-        <label class="option"><input type="radio" name="q3" value="C"> C. \( \tfrac{3}{6} \)</label>
-        <label class="option"><input type="radio" name="q3" value="D"> D. \( \tfrac{1}{9} \)</label>
+        <div class="options">
+          <label><input type="radio" name="q3" value="A"> A. \( \tfrac{1}{2} \)</label>
+          <label><input type="radio" name="q3" value="B"> B. \( \tfrac{2}{6} \)</label>
+          <label><input type="radio" name="q3" value="C"> C. \( \tfrac{3}{6} \)</label>
+          <label><input type="radio" name="q3" value="D"> D. \( \tfrac{1}{9} \)</label>
+        </div>
       </div>
 
       <!-- 4 -->
       <div class="question">
         <label>4. What is the least common denominator of \( \tfrac{1}{2} \) and \( \tfrac{1}{3} \)?</label>
-        <label class="option"><input type="radio" name="q4" value="A"> A. 2</label>
-        <label class="option"><input type="radio" name="q4" value="B"> B. 6</label>
-        <label class="option"><input type="radio" name="q4" value="C"> C. 3</label>
-        <label class="option"><input type="radio" name="q4" value="D"> D. 12</label>
+        <div class="options">
+          <label><input type="radio" name="q4" value="A"> A. 2</label>
+          <label><input type="radio" name="q4" value="B"> B. 6</label>
+          <label><input type="radio" name="q4" value="C"> C. 3</label>
+          <label><input type="radio" name="q4" value="D"> D. 12</label>
+        </div>
       </div>
 
       <!-- 5 -->
       <div class="question">
         <label>5. Add: \( \tfrac{2}{5} + \tfrac{1}{5} \)</label>
-        <label class="option"><input type="radio" name="q5" value="A"> A. \( \tfrac{3}{10} \)</label>
-        <label class="option"><input type="radio" name="q5" value="B"> B. \( \tfrac{3}{5} \)</label>
-        <label class="option"><input type="radio" name="q5" value="C"> C. \( \tfrac{2}{6} \)</label>
-        <label class="option"><input type="radio" name="q5" value="D"> D. \( \tfrac{1}{2} \)</label>
+        <div class="options">
+          <label><input type="radio" name="q5" value="A"> A. \( \tfrac{3}{10} \)</label>
+          <label><input type="radio" name="q5" value="B"> B. \( \tfrac{3}{5} \)</label>
+          <label><input type="radio" name="q5" value="C"> C. \( \tfrac{2}{6} \)</label>
+          <label><input type="radio" name="q5" value="D"> D. \( \tfrac{1}{2} \)</label>
+        </div>
       </div>
 
       <!-- 6 -->
       <div class="question">
         <label>6. Which of the following sums is equal to 1?</label>
-        <label class="option"><input type="radio" name="q6" value="A"> A. \( \tfrac{3}{4} + \tfrac{1}{2} \)</label>
-        <label class="option"><input type="radio" name="q6" value="B"> B. \( \tfrac{1}{3} + \tfrac{2}{3} \)</label>
-        <label class="option"><input type="radio" name="q6" value="C"> C. \( \tfrac{1}{5} + \tfrac{3}{5} \)</label>
-        <label class="option"><input type="radio" name="q6" value="D"> D. \( \tfrac{2}{3} + \tfrac{1}{4} \)</label>
+        <div class="options">
+          <label><input type="radio" name="q6" value="A"> A. \( \tfrac{3}{4} + \tfrac{1}{2} \)</label>
+          <label><input type="radio" name="q6" value="B"> B. \( \tfrac{1}{3} + \tfrac{2}{3} \)</label>
+          <label><input type="radio" name="q6" value="C"> C. \( \tfrac{1}{5} + \tfrac{3}{5} \)</label>
+          <label><input type="radio" name="q6" value="D"> D. \( \tfrac{2}{3} + \tfrac{1}{4} \)</label>
+        </div>
       </div>
 
       <!-- 7 -->
       <div class="question">
         <label>7. Add: \( \tfrac{1}{6} + \tfrac{1}{3} \)</label>
-        <label class="option"><input type="radio" name="q7" value="A"> A. \( \tfrac{2}{6} \)</label>
-        <label class="option"><input type="radio" name="q7" value="B"> B. \( \tfrac{3}{6} \)</label>
-        <label class="option"><input type="radio" name="q7" value="C"> C. \( \tfrac{1}{9} \)</label>
-        <label class="option"><input type="radio" name="q7" value="D"> D. \( \tfrac{1}{2} \)</label>
+        <div class="options">
+          <label><input type="radio" name="q7" value="A"> A. \( \tfrac{2}{6} \)</label>
+          <label><input type="radio" name="q7" value="B"> B. \( \tfrac{3}{6} \)</label>
+          <label><input type="radio" name="q7" value="C"> C. \( \tfrac{1}{9} \)</label>
+          <label><input type="radio" name="q7" value="D"> D. \( \tfrac{1}{2} \)</label>
+        </div>
       </div>
 
       <!-- 8 -->
       <div class="question">
         <label>8. Add: \( \tfrac{2}{3} + \tfrac{3}{4} \)</label>
-        <label class="option"><input type="radio" name="q8" value="A"> A. \( \tfrac{17}{12} \)</label>
-        <label class="option"><input type="radio" name="q8" value="B"> B. \( \tfrac{5}{7} \)</label>
-        <label class="option"><input type="radio" name="q8" value="C"> C. \( \tfrac{1}{6} \)</label>
-        <label class="option"><input type="radio" name="q8" value="D"> D. \( \tfrac{1}{2} \)</label>
+        <div class="options">
+          <label><input type="radio" name="q8" value="A"> A. \( \tfrac{17}{12} \)</label>
+          <label><input type="radio" name="q8" value="B"> B. \( \tfrac{5}{7} \)</label>
+          <label><input type="radio" name="q8" value="C"> C. \( \tfrac{1}{6} \)</label>
+          <label><input type="radio" name="q8" value="D"> D. \( \tfrac{1}{2} \)</label>
+        </div>
       </div>
 
       <!-- 9 -->
       <div class="question">
         <label>9. Add and simplify: \( \tfrac{5}{8} + \tfrac{1}{4} \)</label>
-        <label class="option"><input type="radio" name="q9" value="A"> A. \( \tfrac{7}{8} \)</label>
-        <label class="option"><input type="radio" name="q9" value="B"> B. \( \tfrac{6}{8} \)</label>
-        <label class="option"><input type="radio" name="q9" value="C"> C. \( \tfrac{3}{4} \)</label>
-        <label class="option"><input type="radio" name="q9" value="D"> D. \( \tfrac{9}{8} \)</label>
+        <div class="options">
+          <label><input type="radio" name="q9" value="A"> A. \( \tfrac{7}{8} \)</label>
+          <label><input type="radio" name="q9" value="B"> B. \( \tfrac{6}{8} \)</label>
+          <label><input type="radio" name="q9" value="C"> C. \( \tfrac{3}{4} \)</label>
+          <label><input type="radio" name="q9" value="D"> D. \( \tfrac{9}{8} \)</label>
+        </div>
       </div>
 
       <!-- 10 -->
       <div class="question">
         <label>10. \( \tfrac{2}{5} + \tfrac{3}{10} = \)</label>
-        <label class="option"><input type="radio" name="q10" value="A"> A. \( \tfrac{5}{10} \)</label>
-        <label class="option"><input type="radio" name="q10" value="B"> B. \( \tfrac{7}{10} \)</label>
-        <label class="option"><input type="radio" name="q10" value="C"> C. \( \tfrac{6}{15} \)</label>
-        <label class="option"><input type="radio" name="q10" value="D"> D. \( \tfrac{1}{2} \)</label>
+        <div class="options">
+          <label><input type="radio" name="q10" value="A"> A. \( \tfrac{5}{10} \)</label>
+          <label><input type="radio" name="q10" value="B"> B. \( \tfrac{7}{10} \)</label>
+          <label><input type="radio" name="q10" value="C"> C. \( \tfrac{6}{15} \)</label>
+          <label><input type="radio" name="q10" value="D"> D. \( \tfrac{1}{2} \)</label>
+        </div>
       </div>
 
       <!-- 11 -->
       <div class="question">
         <label>11. \( \tfrac{1}{2} + \tfrac{3}{8} = \)</label>
-        <label class="option"><input type="radio" name="q11" value="A"> A. \( \tfrac{4}{10} \)</label>
-        <label class="option"><input type="radio" name="q11" value="B"> B. \( \tfrac{7}{8} \)</label>
-        <label class="option"><input type="radio" name="q11" value="C"> C. \( \tfrac{3}{4} \)</label>
-        <label class="option"><input type="radio" name="q11" value="D"> D. \( \tfrac{5}{8} \)</label>
+        <div class="options">
+          <label><input type="radio" name="q11" value="A"> A. \( \tfrac{4}{10} \)</label>
+          <label><input type="radio" name="q11" value="B"> B. \( \tfrac{7}{8} \)</label>
+          <label><input type="radio" name="q11" value="C"> C. \( \tfrac{3}{4} \)</label>
+          <label><input type="radio" name="q11" value="D"> D. \( \tfrac{5}{8} \)</label>
+        </div>
       </div>
 
       <!-- 12 -->
       <div class="question">
         <label>12. Which of the following is correct?</label>
-        <label class="option"><input type="radio" name="q12" value="A"> A. \( \tfrac{5}{6} + \tfrac{2}{3} = \tfrac{7}{6} \)</label>
-        <label class="option"><input type="radio" name="q12" value="B"> B. \( \tfrac{1}{4} + \tfrac{2}{8} = \tfrac{1}{2} \)</label>
-        <label class="option"><input type="radio" name="q12" value="C"> C. \( \tfrac{1}{3} + \tfrac{1}{2} = \tfrac{2}{5} \)</label>
-        <label class="option"><input type="radio" name="q12" value="D"> D. \( \tfrac{2}{5} + \tfrac{2}{10} = \tfrac{4}{10} \)</label>
+        <div class="options">
+          <label><input type="radio" name="q12" value="A"> A. \( \tfrac{5}{6} + \tfrac{2}{3} = \tfrac{7}{6} \)</label>
+          <label><input type="radio" name="q12" value="B"> B. \( \tfrac{1}{4} + \tfrac{2}{8} = \tfrac{1}{2} \)</label>
+          <label><input type="radio" name="q12" value="C"> C. \( \tfrac{1}{3} + \tfrac{1}{2} = \tfrac{2}{5} \)</label>
+          <label><input type="radio" name="q12" value="D"> D. \( \tfrac{2}{5} + \tfrac{2}{10} = \tfrac{4}{10} \)</label>
+        </div>
       </div>
 
       <!-- 13 -->
       <div class="question">
         <label>13. Add: \( \tfrac{1}{9} + \tfrac{4}{27} \)</label>
-        <label class="option"><input type="radio" name="q13" value="A"> A. \( \tfrac{7}{27} \)</label>
-        <label class="option"><input type="radio" name="q13" value="B"> B. \( \tfrac{5}{18} \)</label>
-        <label class="option"><input type="radio" name="q13" value="C"> C. \( \tfrac{1}{3} \)</label>
-        <label class="option"><input type="radio" name="q13" value="D"> D. \( \tfrac{6}{27} \)</label>
+        <div class="options">
+          <label><input type="radio" name="q13" value="A"> A. \( \tfrac{7}{27} \)</label>
+          <label><input type="radio" name="q13" value="B"> B. \( \tfrac{5}{18} \)</label>
+          <label><input type="radio" name="q13" value="C"> C. \( \tfrac{1}{3} \)</label>
+          <label><input type="radio" name="q13" value="D"> D. \( \tfrac{6}{27} \)</label>
+        </div>
       </div>
 
       <!-- 14 -->
       <div class="question">
         <label>14. What is \( \tfrac{3}{4} + \tfrac{2}{5} \) in simplest form?</label>
-        <label class="option"><input type="radio" name="q14" value="A"> A. \( \tfrac{29}{20} \)</label>
-        <label class="option"><input type="radio" name="q14" value="B"> B. \( \tfrac{23}{20} \)</label>
-        <label class="option"><input type="radio" name="q14" value="C"> C. \( \tfrac{13}{9} \)</label>
-        <label class="option"><input type="radio" name="q14" value="D"> D. \( \tfrac{1}{2} \)</label>
+        <div class="options">
+          <label><input type="radio" name="q14" value="A"> A. \( \tfrac{29}{20} \)</label>
+          <label><input type="radio" name="q14" value="B"> B. \( \tfrac{23}{20} \)</label>
+          <label><input type="radio" name="q14" value="C"> C. \( \tfrac{13}{9} \)</label>
+          <label><input type="radio" name="q14" value="D"> D. \( \tfrac{1}{2} \)</label>
+        </div>
       </div>
 
-      <!-- 15 (corrected) -->
+      <!-- 15 -->
       <div class="question">
         <label>15. Add and simplify: \( \tfrac{7}{10} + \tfrac{5}{6} \)</label>
-        <label class="option"><input type="radio" name="q15" value="A"> A. \( \tfrac{23}{15} \)</label>
-        <label class="option"><input type="radio" name="q15" value="B"> B. \( \tfrac{12}{16} \)</label>
-        <label class="option"><input type="radio" name="q15" value="C"> C. 1</label>
-        <label class="option"><input type="radio" name="q15" value="D"> D. \( \tfrac{13}{15} \)</label>
+        <div class="options">
+          <label><input type="radio" name="q15" value="A"> A. \( \tfrac{23}{15} \)</label>
+          <label><input type="radio" name="q15" value="B"> B. \( \tfrac{12}{16} \)</label>
+          <label><input type="radio" name="q15" value="C"> C. 1</label>
+          <label><input type="radio" name="q15" value="D"> D. \( \tfrac{13}{15} \)</label>
+        </div>
       </div>
 
       <!-- 16 -->
       <div class="question">
         <label>16. \( \tfrac{5}{12} + \tfrac{7}{18} = \)</label>
-        <label class="option"><input type="radio" name="q16" value="A"> A. \( \tfrac{29}{36} \)</label>
-        <label class="option"><input type="radio" name="q16" value="B"> B. \( \tfrac{12}{20} \)</label>
-        <label class="option"><input type="radio" name="q16" value="C"> C. 1</label>
-        <label class="option"><input type="radio" name="q16" value="D"> D. \( \tfrac{28}{36} \)</label>
+        <div class="options">
+          <label><input type="radio" name="q16" value="A"> A. \( \tfrac{29}{36} \)</label>
+          <label><input type="radio" name="q16" value="B"> B. \( \tfrac{12}{20} \)</label>
+          <label><input type="radio" name="q16" value="C"> C. 1</label>
+          <label><input type="radio" name="q16" value="D"> D. \( \tfrac{28}{36} \)</label>
+        </div>
       </div>
 
       <!-- 17 -->
       <div class="question">
-        <label>17. A recipe uses \( \tfrac{3}{4} \) cup of milk and \( \tfrac{2}{3} \) cup of cream. How much liquid is used in total?</label>
-        <label class="option"><input type="radio" name="q17" value="A"> A. \( \tfrac{17}{12} \) cups</label>
-        <label class="option"><input type="radio" name="q17" value="B"> B. \( \tfrac{5}{6} \) cups</label>
-        <label class="option"><input type="radio" name="q17" value="C"> C. 1 cup</label>
-        <label class="option"><input type="radio" name="q17" value="D"> D. 1 ½ cups</label>
+        <label>17. A recipe uses \( \tfrac{3}{4} \) cup of milk and \( \tfrac{2}{3} \) cup of cream. How much liquid is
+          used in total?</label>
+        <div class="options">
+          <label><input type="radio" name="q17" value="A"> A. \( \tfrac{17}{12} \) cups</label>
+          <label><input type="radio" name="q17" value="B"> B. \( \tfrac{5}{6} \) cups</label>
+          <label><input type="radio" name="q17" value="C"> C. 1 cup</label>
+          <label><input type="radio" name="q17" value="D"> D. 1 ½ cups</label>
+        </div>
       </div>
 
-      <!-- 18 (corrected) -->
+      <!-- 18 -->
       <div class="question">
         <label>18. \( \tfrac{11}{20} + \tfrac{13}{15} = \)</label>
-        <label class="option"><input type="radio" name="q18" value="A"> A. \( \tfrac{85}{60} \)</label>
-        <label class="option"><input type="radio" name="q18" value="B"> B. \( \tfrac{110}{300} \)</label>
-        <label class="option"><input type="radio" name="q18" value="C"> C. \( \tfrac{18}{35} \)</label>
-        <label class="option"><input type="radio" name="q18" value="D"> D. \( \tfrac{24}{25} \)</label>
+        <div class="options">
+          <label><input type="radio" name="q18" value="A"> A. \( \tfrac{85}{60} \)</label>
+          <label><input type="radio" name="q18" value="B"> B. \( \tfrac{110}{300} \)</label>
+          <label><input type="radio" name="q18" value="C"> C. \( \tfrac{18}{35} \)</label>
+          <label><input type="radio" name="q18" value="D"> D. \( \tfrac{24}{25} \)</label>
+        </div>
       </div>
 
-      <!-- 19 (corrected) -->
+      <!-- 19 -->
       <div class="question">
         <label>19. Add and simplify: \( \tfrac{7}{8} + \tfrac{9}{10} \)</label>
-        <label class="option"><input type="radio" name="q19" value="A"> A. \( \tfrac{71}{40} \)</label>
-        <label class="option"><input type="radio" name="q19" value="B"> B. \( \tfrac{143}{80} \)</label>
-        <label class="option"><input type="radio" name="q19" value="C"> C. \( \tfrac{13}{10} \)</label>
-        <label class="option"><input type="radio" name="q19" value="D"> D. \( \tfrac{17}{16} \)</label>
+        <div class="options">
+          <label><input type="radio" name="q19" value="A"> A. \( \tfrac{71}{40} \)</label>
+          <label><input type="radio" name="q19" value="B"> B. \( \tfrac{143}{80} \)</label>
+          <label><input type="radio" name="q19" value="C"> C. \( \tfrac{13}{10} \)</label>
+          <label><input type="radio" name="q19" value="D"> D. \( \tfrac{17}{16} \)</label>
+        </div>
       </div>
 
       <!-- 20 -->
       <div class="question">
-        <label>20. A student spent \( \tfrac{2}{5} \) of their day studying, \( \tfrac{1}{3} \) helping at home, and \( \tfrac{1}{4} \) playing. How much of their day was used?</label>
-        <label class="option"><input type="radio" name="q20" value="A"> A. \( \tfrac{59}{60} \)</label>
-        <label class="option"><input type="radio" name="q20" value="B"> B. \( \tfrac{13}{15} \)</label>
-        <label class="option"><input type="radio" name="q20" value="C"> C. 1</label>
-        <label class="option"><input type="radio" name="q20" value="D"> D. 1 ⅕</label>
+        <label>20. A student spent \( \tfrac{2}{5} \) of their day studying, \( \tfrac{1}{3} \) helping at home, and \(
+          \tfrac{1}{4} \) playing. How much of their day was used?</label>
+        <div class="options">
+          <label><input type="radio" name="q20" value="A"> A. \( \tfrac{59}{60} \)</label>
+          <label><input type="radio" name="q20" value="B"> B. \( \tfrac{13}{15} \)</label>
+          <label><input type="radio" name="q20" value="C"> C. 1</label>
+          <label><input type="radio" name="q20" value="D"> D. 1 ⅕</label>
+        </div>
       </div>
 
-      <button type="submit">Submit Answers</button>
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Answers</button>
     </form>
 
     <div id="results">
-      <h2>Your Answers</h2>
-      <ul id="answersList"></ul>
+      <div class="score-circle">0</div>
+      <div id="answer-key-details"></div>
     </div>
   </div>
 
   <script>
-    document.getElementById('quizForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const resultsDiv = document.getElementById('results');
-      const answersList = document.getElementById('answersList');
-      answersList.innerHTML = '';
-      for (let i = 1; i <= 20; i++) {
-        const sel = document.querySelector(`input[name="q${i}"]:checked`);
-        const answer = sel ? sel.value : '(no answer provided)';
-        const li = document.createElement('li');
-        li.textContent = `Q${i}: ${answer}`;
-        answersList.appendChild(li);
-      }
-      resultsDiv.style.display = 'block';
-      resultsDiv.scrollIntoView({ behavior: 'smooth' });
+    const correctAnswers = {
+      q1: "D", q2: "C", q3: "A", q4: "B", q5: "B", q6: "B", q7: "D", q8: "A", q9: "A", q10: "B",
+      q11: "B", q12: "B", q13: "A", q14: "B", q15: "A", q16: "A", q17: "A", q18: "A", q19: "A", q20: "A"
+    };
+
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        const answered = Object.keys(correctAnswers).filter(q => document.querySelector(`input[name="${q}"]:checked`)).length;
+        document.getElementById('progress-fill').style.width = (answered / 20 * 100) + '%';
+        document.getElementById('progress-count').textContent = answered + '/20 answered';
+      });
     });
+
+    function submitQuiz() {
+      let score = 0;
+      let html = '<h3>Detailed Results</h3>';
+
+      for (let i = 1; i <= 20; i++) {
+        const q = 'q' + i;
+        const selected = document.querySelector(`input[name="${q}"]:checked`);
+        const correct = correctAnswers[q];
+        const isCorrect = selected && selected.value === correct;
+        if (isCorrect) score++;
+
+        html += `<div class="answer-item ${isCorrect ? 'correct' : 'incorrect'}">
+          <strong>Question ${i}:</strong> ${isCorrect ? '✅ Correct' : '❌ Incorrect'}<br>
+          Correct Answer: (${correct})
+        </div>`;
+      }
+
+      document.querySelector('.score-circle').textContent = score + '/20';
+      document.getElementById('answer-key-details').innerHTML = html;
+      document.getElementById('quiz-form').style.display = 'none';
+      document.getElementById('results').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Trigger MathJax to re-render the results if needed (though usually not necessary for standard HTML)
+      if (window.MathJax) {
+        MathJax.typesetPromise();
+      }
+    }
   </script>
-  <!-- Shared Header and Footer JavaScript -->
-    <script src="../../shared/header-footer.js"></script>
 </body>
+
 </html>
