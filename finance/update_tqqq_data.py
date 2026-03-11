@@ -17,7 +17,7 @@ def fetch_tqqq_data(start_date='2020-01-01'):
     
     try:
         # Use yf.download instead of Ticker for more reliable data fetching
-        end_date = datetime.now().strftime('%Y-%m-%d')
+        end_date = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
         df = yf.download('TQQQ', start=start_date, end=end_date, progress=False)
         
         if df.empty:
