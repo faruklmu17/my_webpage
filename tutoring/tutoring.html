@@ -6,10 +6,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tutoring - Faruk Hasan | STEM Education & Coding for Kids</title>
   <link rel="canonical" href="https://faruk-hasan.com/tutoring/tutoring.html" />
+  <!-- Standard SEO Meta Tags -->
   <meta name="description"
     content="Professional STEM tutoring and coding education for ages 9-18. Python, Web Development, AI/ML, Arduino, and Computer Fundamentals with experienced educator Faruk Hasan.">
   <meta name="keywords"
-    content="coding tutoring, STEM education, Python for kids, web development tutoring, AI education, Arduino tutoring, programming lessons">
+    content="coding tutoring, STEM education, Python for kids, web development tutoring, AI education, Arduino tutoring, programming lessons, Faruk Hasan">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://faruk-hasan.com/tutoring/tutoring.html">
+  <meta property="og:title" content="Tutoring - Faruk Hasan | STEM Education & Coding for Kids">
+  <meta property="og:description" content="Professional STEM tutoring and coding education for ages 9-18. Join 2,000+ happy learners exploring Python, Web Dev, AI, and more.">
+  <meta property="og:image" content="https://faruk-hasan.com/assets/images/me.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://faruk-hasan.com/tutoring/tutoring.html">
+  <meta property="twitter:title" content="Tutoring - Faruk Hasan | STEM Education & Coding for Kids">
+  <meta property="twitter:description" content="Professional STEM tutoring and coding education for ages 9-18. Join 2,000+ happy learners exploring Python, Web Dev, AI, and more.">
+  <meta property="twitter:image" content="https://faruk-hasan.com/assets/images/me.jpg">
+
+  <!-- JSON-LD Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "Faruk Hasan STEM Tutoring",
+    "url": "https://faruk-hasan.com/tutoring/tutoring.html",
+    "logo": "https://faruk-hasan.com/assets/images/me.jpg",
+    "description": "Professional STEM tutoring and coding education for ages 9-18. Python, Web Development, AI/ML, Arduino, and Computer Fundamentals.",
+    "founder": {
+      "@type": "Person",
+      "name": "Faruk Hasan",
+      "jobTitle": "STEM Educator & Senior QA Engineer"
+    },
+    "knowsAbout": ["Python", "Web Development", "Artificial Intelligence", "Arduino", "Computer Fundamentals"],
+    "offers": {
+      "@type": "Offer",
+      "price": "55.00",
+      "priceCurrency": "USD",
+      "description": "1-on-1 Hourly Tutoring Session"
+    }
+  }
+  </script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="../styles.css">
@@ -145,14 +184,19 @@
     }
 
     .btn--ghost {
-      background: transparent;
-      color: #fff;
-      border-color: #ffffff33
+      background: rgba(245, 158, 11, 0.1);
+      color: var(--accent);
+      border-color: rgba(245, 158, 11, 0.5);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
     }
 
     .btn--ghost:hover {
-      background: #ffffff12;
-      border-color: #ffffff66
+      background: var(--accent);
+      color: #0f172a; /* Dark surface color for contrast */
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
     }
 
     .hero__media {
@@ -284,20 +328,57 @@
     }
 
     /* ====== SUBJECTS ====== */
+    #subjects {
+      /* Added solid base color to prevent white bleed-through from styles.css */
+      background-color: #0f172a;
+      background-image: linear-gradient(135deg, rgb(30, 41, 59), rgb(11, 18, 32));
+      border-top: 1px solid rgba(99, 102, 241, 0.15);
+      border-bottom: 1px solid rgba(236, 72, 153, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    #subjects h2 {
+      color: #ffffff;
+    }
+    
+    #subjects > .container > p.sub {
+      color: var(--text);
+    }
+
+    #subjects::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.08), transparent 50%),
+                  radial-gradient(circle at bottom left, rgba(236, 72, 153, 0.05), transparent 50%);
+      pointer-events: none;
+    }
     .grid {
       display: grid;
       gap: 1.25rem;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr))
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     }
 
     .card {
       position: relative;
       border-radius: var(--radius);
       padding: 1.25rem;
-      background: var(--card);
-      border: 1px solid #ffffff12;
-      box-shadow: var(--shadow);
-      transition: .25s
+      background: rgba(30, 41, 59, 0.7); /* Slightly translucent dark slate */
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      transition: .25s;
+    }
+
+    .card h3 {
+      color: #ffffff;
+      margin-top: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      color: var(--text);
+      font-size: 0.95rem;
     }
 
     .card:hover {
@@ -306,13 +387,17 @@
     }
 
     .card .icon {
-      width: 44px;
-      height: 44px;
+      width: 48px;
+      height: 48px;
       border-radius: 12px;
       display: grid;
       place-items: center;
-      margin-bottom: .6rem;
-      background: linear-gradient(120deg, #4755ff33, #06b6d433)
+      margin-bottom: 0.8rem;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(6, 182, 212, 0.25));
+      color: #38bdf8; /* Bright visible cyan/blue */
+      font-size: 1.4rem; /* Make the icon slightly bigger */
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      box-shadow: 0 4px 10px rgba(6, 182, 212, 0.15);
     }
 
     .pill-row {
@@ -640,14 +725,16 @@
       }
 
       .hero h1 {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+      }
+      
+      .hero .lead {
+        font-size: 1rem;
       }
 
       .two-col {
         grid-template-columns: 1fr;
       }
-
-
 
       .cta-row {
         justify-content: center;
@@ -656,7 +743,21 @@
       .courses-grid {
         grid-template-columns: 1fr;
       }
-
+      
+      .tutoring-modal {
+        padding: 1.5rem;
+        width: 95%;
+        margin-top: -5vh; /* Lift slightly on smaller screens */
+      }
+      
+      .tutoring-banner {
+        font-size: 0.85rem;
+        padding: 0.6rem 0.5rem;
+      }
+      
+      .tutoring-banner .highlight-price {
+        font-size: 1rem;
+      }
     }
 
     /* ====== BANNER ====== */
