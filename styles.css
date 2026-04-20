@@ -325,15 +325,17 @@ header nav ul li a:hover::after {
     align-items: center;
     justify-content: space-between;
     padding: 0;
-    height: 60px;
-    /* Fixed height for consistency */
+    min-height: 60px;
+    height: auto;
+    /* Flexible height for consistency */
   }
 
   .header-left {
     flex: 1;
     justify-content: flex-start;
-    gap: 10px;
+    gap: 8px;
     padding: 0;
+    max-width: 85%; /* Give more room since menu is fixed */
   }
 
   /* Small Profile Image in Navbar */
@@ -342,6 +344,7 @@ header nav ul li a:hover::after {
     height: 40px;
     margin: 0;
     border-width: 2px;
+    flex-shrink: 0;
   }
 
   .headline {
@@ -349,23 +352,23 @@ header nav ul li a:hover::after {
     text-align: left;
     margin: 0;
     padding: 0;
-    padding-left: 0.5rem;
+    padding-left: 0.2rem;
     width: auto;
     margin-top: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     overflow: visible;
-    /* Prevent clipping of cursive font */
   }
 
   .headline h1 {
-    font-size: 1.4rem;
-    /* Slightly reduced for safety */
+    font-size: clamp(1.1rem, 4.5vw, 1.4rem);
+    /* Safely scale to screen size */
     margin: 0;
     line-height: 1.2;
     white-space: nowrap;
-    /* FORCE single line */
+    /* Keep single line but scaled down automatically */
+    text-overflow: ellipsis;
   }
 
   /* Hide subtitle on sticky mobile header to save space */
