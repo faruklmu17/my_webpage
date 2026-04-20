@@ -762,17 +762,20 @@
 
     /* ====== BANNER ====== */
     .tutoring-banner {
-      background: linear-gradient(90deg, rgba(99, 102, 241, 0.15), rgba(236, 72, 153, 0.15));
+      background: linear-gradient(90deg, rgba(99, 102, 241, 0.35), rgba(236, 72, 153, 0.35));
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      color: #e5e7eb;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
       text-align: center;
-      padding: 0.8rem 1rem;
-      font-size: 0.95rem;
+      padding: 0.9rem 1rem;
+      font-size: 1rem;
+      font-weight: 600;
       position: relative;
       z-index: 10;
       animation: bannerSlideIn 0.8s ease-out forwards;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
     
     @keyframes bannerSlideIn {
@@ -784,8 +787,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.6rem;
+      gap: 0.8rem;
       flex-wrap: wrap;
+    }
+    
+    .tutoring-banner .banner-content span {
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5); /* Prevents the text from bleeding into the background */
     }
     
     .tutoring-banner .highlight-price {
