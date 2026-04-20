@@ -657,9 +657,57 @@
         grid-template-columns: 1fr;
       }
 
-      .course-image {
-        height: 100px;
-      }
+    }
+
+    /* ====== BANNER ====== */
+    .tutoring-banner {
+      background: linear-gradient(90deg, rgba(99, 102, 241, 0.15), rgba(236, 72, 153, 0.15));
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      color: #e5e7eb;
+      text-align: center;
+      padding: 0.8rem 1rem;
+      font-size: 0.95rem;
+      position: relative;
+      z-index: 10;
+      animation: bannerSlideIn 0.8s ease-out forwards;
+    }
+    
+    @keyframes bannerSlideIn {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .tutoring-banner .banner-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    
+    .tutoring-banner .highlight-price {
+      background: linear-gradient(90deg, var(--accent), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+      font-size: 1.1rem;
+      display: inline-block;
+    }
+    
+    .tutoring-banner a {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px dashed var(--primary);
+      transition: all 0.2s ease;
+      margin-left: 0.2rem;
+    }
+    
+    .tutoring-banner a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
     }
 
     /* ====== UTIL ====== */
@@ -692,6 +740,113 @@
       .row {
         grid-template-columns: 1fr
       }
+    }
+    
+    /* ====== MODAL ====== */
+    .tutoring-modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(11, 18, 32, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .tutoring-modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+    
+    .tutoring-modal {
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      position: relative;
+      transform: translateY(20px) scale(0.95);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .tutoring-modal-overlay.active .tutoring-modal {
+      transform: translateY(0) scale(1);
+    }
+    
+    .tutoring-modal h2 {
+      margin-top: 0;
+      font-size: 1.8rem;
+      text-align: center;
+    }
+    
+    .tutoring-modal .close-btn {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--sub);
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    
+    .tutoring-modal .close-btn:hover {
+      color: #fff;
+    }
+    
+    .tutoring-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+    
+    .tutoring-form input,
+    .tutoring-form textarea {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+    
+    .tutoring-form input:focus,
+    .tutoring-form textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: rgba(0, 0, 0, 0.4);
+    }
+    
+    .tutoring-form button {
+      background: linear-gradient(90deg, var(--primary-600), var(--primary-700));
+      color: #fff;
+      border: none;
+      padding: 1rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+    
+    .tutoring-form button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
     }
   </style>
 </head>
@@ -733,6 +888,15 @@
     </div>
   </header>
 
+  <!-- ===== Tutoring Banner ===== -->
+  <div class="tutoring-banner">
+    <div class="container banner-content">
+      <i class="fa-solid fa-bolt" style="color: var(--accent);"></i>
+      <span>Unlock your potential with premium 1-on-1 tutoring sessions at just <span class="highlight-price">$55 / hour</span>.</span>
+      <a href="#" onclick="openTutoringModal(event)">Book your session today!</a>
+    </div>
+  </div>
+
   <!-- ===== Tutoring Page Sections ===== -->
 
   <section id="hero" class="section hero" aria-labelledby="hero-title">
@@ -745,9 +909,9 @@
         </p>
         <div class="cta-row">
           <a class="btn btn--primary" href="#subjects"><i class="fa-solid fa-rocket"></i> View Courses</a>
-          <a class="btn btn--ghost"
-            href="mailto:faruqmul@gmail.com?subject=Free%20Tutoring%20Consultation&body=Hi%20Faruk,%0A%0AI'm%20interested%20in%20learning%20more%20about%20your%20tutoring%20services.%0A%0AStudent%20Details:%0A-%20Age:%20%0A-%20Experience%20Level:%20%0A-%20Subjects%20of%20Interest:%20%0A-%20Goals:%20%0A%0APlease%20let%20me%20know%20your%20availability%20for%20a%20free%20consultation.%0A%0AThank%20you!"><i
-              class="fa-solid fa-calendar-check"></i> Book Free Consult</a>
+          <a class="btn btn--ghost" href="#" onclick="openTutoringModal(event)">
+            <i class="fa-solid fa-calendar-check"></i> Book Free Consult
+          </a>
         </div>
       </div>
       <div class="hero__media">
@@ -991,6 +1155,29 @@
 
 
 
+  <!-- ===== Tutoring Contact Modal ===== -->
+  <div class="tutoring-modal-overlay" id="tutoringModalOverlay" onclick="closeTutoringModal(event)">
+    <div class="tutoring-modal" onclick="event.stopPropagation()">
+      <button class="close-btn" onclick="closeTutoringModal()">&times;</button>
+      <h2>Book a Session</h2>
+      <p class="sub">Fill out your details and I'll get back to you shortly to schedule our session.</p>
+      
+      <!-- Using Formspree for email processing -->
+      <form action="https://formspree.io/f/xqewdkny" method="POST" class="tutoring-form">
+        <input type="hidden" name="_subject" value="New Tutoring Request from Faruk-Hasan.com">
+        <!-- Redirects the user back to your site after they click submit -->
+        <input type="hidden" name="_next" value="https://faruk-hasan.com/tutoring/tutoring.html">
+        
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email Address" required>
+        <input type="tel" name="phone" placeholder="Phone Number (Optional)">
+        <textarea name="message" rows="4" placeholder="How can I help? (e.g. Grade level, subjects of interest, goals...)" required></textarea>
+        
+        <button type="submit">Send Request <i class="fa-solid fa-paper-plane" style="margin-left: 5px;"></i></button>
+      </form>
+    </div>
+  </div>
+
   <footer>
     <div class="footer-content">
       <p>&copy; 2024 Faruk Hasan. All rights reserved.</p>
@@ -1001,6 +1188,16 @@
 
   <!-- Animated Counter Script -->
   <script>
+    // Modal Logic
+    function openTutoringModal(e) {
+      if (e) e.preventDefault();
+      document.getElementById('tutoringModalOverlay').classList.add('active');
+    }
+    
+    function closeTutoringModal(e) {
+      document.getElementById('tutoringModalOverlay').classList.remove('active');
+    }
+
     // Animate counters when they come into view
     function animateCounter(element, target, duration = 2000) {
       const start = 0;
