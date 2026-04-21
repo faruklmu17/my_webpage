@@ -342,6 +342,4 @@ Visitors can contact me or book sessions through the following dedicated links:
 
 - **Tutoring & General Inquiries:** [Book a Session / Contact Me](https://faruk-hasan.com/tutoring/tutoring.html#book)
   - This link automatically opens the booking form on the tutoring page.
-- **Career Applications:** [Join the Team](https://faruk-hasan.com/apply.html)
-  - For those interested in working with me or applying for shared roles.
 

@@ -154,18 +154,20 @@
       line-height: 1.15;
       font-weight: 900;
       letter-spacing: -.03em;
-      background: linear-gradient(135deg, #0f172a 30%, #4338ca 75%, #38bdf8 100%);
+      background: linear-gradient(135deg, #ffffff 10%, #7c8cff 60%, #38bdf8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 0.5rem;
+      text-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
 
     .hero .lead {
       margin-top: 1rem;
       font-size: 1.15rem;
-      color: var(--sub);
+      color: #e2e8f0; /* Lighter color for better readability on dark bg */
       max-width: 48ch;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
 
     .cta-row {
@@ -1037,13 +1039,13 @@
       <div class="hero__media" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
         <style>
           .glass-panel {
-            background: rgba(255, 255, 255, 0.45);
+            background: rgba(15, 23, 42, 0.3); /* Darker translucent background to match hero */
             backdrop-filter: blur(24px) saturate(180%);
             -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 32px;
             padding: 3rem 2.5rem;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.05);
             width: 100%;
           }
           
@@ -1051,11 +1053,11 @@
             display: flex;
             align-items: center;
             gap: 1.2rem;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.05);
             padding: 1.2rem;
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             cursor: default;
@@ -1074,7 +1076,7 @@
           }
           
           .subject-tag h3 {
-            color: #0f172a !important; /* Forces dark slate text for light mode */
+            color: #ffffff !important; /* White text for dark mode */
           }
           
           .sleek-pill {
@@ -1095,12 +1097,12 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.7);
-            color: #475569;
+            background: rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
             font-size: 1.2rem;
             text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 1);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
           }
           
@@ -1127,7 +1129,7 @@
         </style>
         <div class="glass-panel">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
-            <h2 style="margin: 0; font-size: 1.8rem; color: #0f172a;">What I Teach</h2>
+            <h2 style="margin: 0; font-size: 1.8rem; color: #ffffff;">What I Teach</h2>
             <div style="display: flex; gap: 0.8rem; align-items: center;">
               <span style="font-size: 0.85rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 0.5rem;" class="hide-mobile">Find Me On Social Media:</span>
               <a href="https://outschool.com/teachers/Faruk-Hasan" class="social-glass" target="_blank" title="Outschool"><img src="../assets/images/outschool-icon.svg" alt="Outschool" style="width: 1.25rem; height: 1.25rem; object-fit: contain;"></a>
