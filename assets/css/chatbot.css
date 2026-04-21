@@ -154,7 +154,7 @@
     width: 100%;
     height: calc(100% - 68px);
     border: none;
-    background: #f8f9fa;
+    background: #0b1220;
 }
 
 /* Loading State */
@@ -163,7 +163,7 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    background: #f8f9fa;
+    background: #0b1220;
     flex-direction: column;
     gap: 16px;
 }

@@ -224,143 +224,77 @@ def chat_with_ollama_cached(history, user_message):
 # --- UI REDESIGN (KEPT ORIGINAL) ---
 
 custom_css = """
-/* Main Background - Deep Slate/Navy Gradient to match tutoring site */
+/* Main Background - Deep Slate/Navy Gradient */
 .gradio-container {
-    background: linear-gradient(135deg, #0b1220 0%, #0f172a 100%) !important;
+    background: #0b1220 !important;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
     padding: 0 !important;
-    gap: 0 !important;
     color: #f8fafc !important;
 }
 
 /* Header & Typography */
 .header-container {
     text-align: center;
-    padding: 12px 0 8px 0;
+    padding: 16px 0 12px 0;
     margin: 0 !important;
-    background: rgba(255, 255, 255, 0.03);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.avatar-group {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 6px;
-}
-.avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 2px solid rgba(56, 189, 248, 0.5);
-    margin: 0 -6px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    background: #1e293b;
-}
-.avatar.main {
-    width: 42px;
-    height: 42px;
-    z-index: 10;
-    border: 2px solid #38bdf8;
+    background: #0f172a !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .main-title {
-    font-size: 18px; 
+    font-size: 19px; 
     font-weight: 800;
-    color: #38bdf8;
+    color: #38bdf8 !important; /* Bold Blue for visibility */
     margin: 0;
-    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 .subtitle {
     font-size: 13px; 
     font-weight: 500;
-    color: #94a3b8;
-    margin: 4px 0 0 0;
+    color: #94a3b8 !important;
+    margin: 6px 0 0 0;
 }
 
-/* Chatbot Area */
+/* Chatbot Area - Fix Black Box Issue */
 #chatbot {
-    background: transparent !important;
+    background: #0b1220 !important;
     border: none !important;
-    height: 320px !important;
-    margin-bottom: 10px !important;
+    height: 340px !important;
 }
 
-/* Glassmorphism for Messages */
-.message {
+/* Ensure messages have contrast */
+.message-wrap .message {
     border-radius: 18px !important;
-    padding: 12px 16px !important;
     font-size: 14.5px !important;
-    line-height: 1.5 !important;
-    max-width: 85% !important;
 }
 
 .user.message {
-    background: rgba(56, 189, 248, 0.15) !important;
-    border: 1px solid rgba(56, 189, 248, 0.2) !important;
-    color: #f0f9ff !important;
+    background: #38bdf8 !important;
+    color: #0f172a !important;
 }
 
 .bot.message {
-    background: rgba(255, 255, 255, 0.05) !important;
+    background: #1e293b !important;
+    color: #f1f5f9 !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    color: #e2e8f0 !important;
 }
 
 /* Input Area */
 .input-container {
-    background: rgba(15, 23, 42, 0.8) !important;
+    background: #0f172a !important;
     border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-    padding: 10px !important;
-}
-
-#msg-input textarea {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    color: #fff !important;
-    border-radius: 12px !important;
     padding: 12px !important;
 }
 
-#msg-input textarea::placeholder {
-    color: #64748b !important;
+#msg-input textarea {
+    background: #1e293b !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
 }
 
-/* Send Button */
 #send-btn {
     background: #38bdf8 !important;
     color: #0f172a !important;
-    border: none !important;
-    border-radius: 12px !important;
-    font-weight: 700 !important;
-    transition: all 0.2s ease !important;
-}
-
-#send-btn:hover {
-    background: #0ea5e9 !important;
-    transform: scale(1.02);
-}
-
-/* Chips / Suggestions */
-.chips-row {
-    padding: 10px !important;
-    gap: 8px !important;
-}
-
-.chip-btn {
-    font-size: 12px !important;
-    padding: 8px 16px !important;
-    border-radius: 99px !important;
-    background: rgba(56, 189, 248, 0.08) !important;
-    border: 1px solid rgba(56, 189, 248, 0.2) !important;
-    color: #38bdf8 !important;
-    transition: all 0.2s ease !important;
-}
-
-.chip-btn:hover {
-    background: rgba(56, 189, 248, 0.15) !important;
-    border-color: #38bdf8 !important;
-    color: #fff !important;
 }
 """
 
