@@ -172,6 +172,8 @@ header {
   align-items: center;
   gap: 1.5rem;
   transition: all 0.3s ease-in-out;
+  flex: 1;
+  justify-content: flex-end;
 }
 
 /* Menu Toggle Button (Hidden on Desktop) */
@@ -238,7 +240,7 @@ header nav ul li a:hover::after {
 .social-icons {
   display: flex;
   gap: 1rem;
-  margin-left: 1rem;
+  margin-left: auto; /* Push to far right */
 }
 
 .social-icon {

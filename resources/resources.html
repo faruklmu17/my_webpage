@@ -649,14 +649,19 @@
           <p><span class="highlight">Software QA Engineer | Automation & AI-Driven Testing Specialist</span></p>
         </div>
       </div>
+      <button class="menu-toggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
       <div class="nav-social-container">
         <nav>
           <ul>
+            <li><a href="../index.html">Home</a></li>
             <li><a href="../index.html#about">About Me</a></li>
             <li><a href="../index.html#courses">Courses</a></li>
             <li><a href="../index.html#projects">Projects</a></li>
             <li><a href="../blog.html">Blog</a></li>
             <li><a href="../tutoring/tutoring.html">Tutoring</a></li>
+            <li><a href="../apply.html">Careers</a></li>
             <!-- <li><a href="../index.html#dividend-income">Dividends</a></li> -->
             <li><a href="../resources/resources.html" class="active">Resources</a></li>
           </ul>
@@ -990,6 +995,26 @@
   <!-- Cosmic Galaxy Background Art -->
   <script src="../ai_resources/art.js"></script>
   <script src="../shared/header-footer.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navContainer = document.querySelector('.nav-social-container');
+
+      if (menuToggle && navContainer) {
+        menuToggle.addEventListener('click', () => {
+          navContainer.classList.toggle('active');
+          const icon = menuToggle.querySelector('i');
+          if (navContainer.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+          } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+          }
+        });
+      }
+    });
+  </script>
 </body>
 
 </html>

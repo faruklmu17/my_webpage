@@ -38,36 +38,58 @@ function injectHeader() {
             <p><span class="highlight">Software QA Engineer | Automation & AI-Driven Testing Specialist</span></p>
           </div>
         </div>
-        <div class="nav-social-container">
-          <nav>
-            <ul>
-              <li><a href="${root}index.html#about">About Me</a></li>
-              <li><a href="${root}index.html#courses">Courses</a></li>
-              <li><a href="${root}index.html#projects">Projects</a></li>
-              <li><a href="${root}blog.html">Blog</a></li>
-              <li><a href="${root}tutoring/tutoring.html">Tutoring</a></li>
-              <!-- <li><a href="${root}index.html#dividend-income">Dividends</a></li> -->
-              <li><a href="${root}resources/resources.html">Resources</a></li>
-            </ul>
-          </nav>
-          <div class="social-icons">
-            <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-            <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-          </div>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="nav-social-container" id="nav-social-container">
+        <nav>
+          <ul>
+            <li><a href="${root}index.html">Home</a></li>
+            <li><a href="${root}index.html#about">About Me</a></li>
+            <li><a href="${root}index.html#courses">Courses</a></li>
+            <li><a href="${root}index.html#projects">Projects</a></li>
+            <li><a href="${root}blog.html">Blog</a></li>
+            <li><a href="${root}tutoring/tutoring.html">Tutoring</a></li>
+            <li><a href="${root}apply.html">Careers</a></li>
+            <!-- <li><a href="${root}index.html#dividend-income">Dividends</a></li> -->
+            <li><a href="${root}resources/resources.html">Resources</a></li>
+          </ul>
+        </nav>
+        <div class="social-icons">
+          <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
         </div>
       </div>
-    </header>
-  `;
+    </div>
+  </header>
+`;
 
-  // Check if header already exists to avoid double injection
-  if (document.querySelector('.header-content') || document.querySelector('header')) {
-    console.log('Header already exists, skipping injection.');
-    return;
-  }
-
+// Check if header already exists to avoid double injection
+if (document.querySelector('.header-content') || document.querySelector('header')) {
+  console.log('Header already exists, skipping injection.');
+} else {
   // Insert header at the beginning of body
   document.body.insertAdjacentHTML('afterbegin', headerHTML);
+}
+
+// Add Mobile Menu Toggle Logic
+const menuToggle = document.getElementById('menu-toggle');
+const navContainer = document.getElementById('nav-social-container');
+
+if (menuToggle && navContainer) {
+  menuToggle.addEventListener('click', () => {
+    navContainer.classList.toggle('active');
+    const icon = menuToggle.querySelector('i');
+    if (navContainer.classList.contains('active')) {
+      icon.classList.remove('fa-bars');
+      icon.classList.add('fa-times');
+    } else {
+      icon.classList.remove('fa-times');
+      icon.classList.add('fa-bars');
+    }
+  });
+}
 }
 
 // Inject Footer HTML (matching the site footer structure)

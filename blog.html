@@ -300,6 +300,9 @@
           <p><span class="highlight">Software QA Engineer | Automation & AI-Driven Testing Specialist</span></p>
         </div>
       </div>
+      <button class="menu-toggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
       <div class="nav-social-container">
         <nav aria-label="Main navigation">
           <ul>
@@ -309,13 +312,14 @@
             <li><a href="index.html#projects">Projects</a></li>
             <li><a href="blog.html" class="active">Blog</a></li>
             <li><a href="tutoring/tutoring.html">Tutoring</a></li>
+            <li><a href="apply.html">Careers</a></li>
             <!-- <li><a href="index.html#dividend-income">Dividends</a></li> -->
             <li><a href="resources/resources.html">Resources</a></li>
           </ul>
         </nav>
 
         <div class="social-icons">
-          <a href="https://www.linkedin.com/in/faruklmu17/" target="_blank" aria-label="LinkedIn"><i
+          <a href="https://www.linkedin.com/in/md-faruk-hasan/" target="_blank" aria-label="LinkedIn"><i
               class="fab fa-linkedin"></i></a>
           <a href="https://www.youtube.com/@faruklmu17" target="_blank" aria-label="YouTube"><i
               class="fab fa-youtube"></i></a>
@@ -701,7 +705,7 @@
       <div class="footer-social">
         <h4>Connect With Me</h4>
         <div class="social-icons-footer">
-          <a href="https://www.linkedin.com/in/faruklmu17/" target="_blank" aria-label="LinkedIn"><i
+          <a href="https://www.linkedin.com/in/md-faruk-hasan/" target="_blank" aria-label="LinkedIn"><i
               class="fab fa-linkedin"></i></a>
           <a href="https://www.youtube.com/@faruklmu17" target="_blank" aria-label="YouTube"><i
               class="fab fa-youtube"></i></a>
@@ -727,6 +731,25 @@
   </footer>
 
   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navContainer = document.querySelector('.nav-social-container');
+
+      if (menuToggle && navContainer) {
+        menuToggle.addEventListener('click', () => {
+          navContainer.classList.toggle('active');
+          const icon = menuToggle.querySelector('i');
+          if (navContainer.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+          } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+          }
+        });
+      }
+    });
+
     // Blog filter functionality
     document.addEventListener('DOMContentLoaded', function () {
       const filterBtns = document.querySelectorAll('.filter-btn');
