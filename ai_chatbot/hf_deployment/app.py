@@ -301,8 +301,8 @@ custom_css = """
 
 header_html = """
 <div class="header-container">
-    <div class="main-title">Hello, I'm Faruk's Assistant</div>
-    <div class="subtitle">How can I help you today?</div>
+    <div class="main-title" style="color: #38bdf8 !important;">Hello, I'm Faruk's Assistant</div>
+    <div class="subtitle" style="color: #94a3b8 !important;">How can I help you today?</div>
 </div>
 """
 
