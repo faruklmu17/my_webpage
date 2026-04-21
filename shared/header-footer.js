@@ -57,7 +57,7 @@ function injectHeader() {
         </nav>
         <div class="social-icons">
           <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-          <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.youtube.com/@kidzcodeai" class="social-icon youtube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
           <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
         </div>
       </div>
@@ -108,7 +108,7 @@ function injectFooter() {
           <h4>Connect With Me</h4>
           <div class="social-icons-footer">
             <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://www.youtube.com/@kidz_code" class="social-icon youtube" aria-label="YouTube" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.youtube.com/@kidzcodeai" class="social-icon youtube" aria-label="YouTube" target="_blank"><i class="fab fa-youtube"></i></a>
             <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
             <a href="https://github.com/faruklmu17" class="social-icon github" aria-label="GitHub" target="_blank"><i class="fab fa-github"></i></a>
           </div>

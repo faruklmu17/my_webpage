@@ -168,7 +168,7 @@ I teach live, interactive classes where students write real code, build real pro
     - Coding, testing, basic AI, and hardware (Arduino/Wokwi)
 
 - **Other Platforms & Channels**
-  - **YouTube** – `@kidz_code`  
+  - **YouTube** – `@kidzcodeai`  
     - Coding tutorials, walkthroughs, and STEM content  
   - **Udemy** – Python fundamentals course for beginners  
   - **GitHub** – Code samples, open source projects, and class project repositories  
