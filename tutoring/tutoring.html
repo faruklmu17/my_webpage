@@ -140,7 +140,7 @@
     }
 
     .hero h1 {
-      font-size: clamp(2.1rem, 3vw + 1.2rem, 3.2rem);
+      font-size: clamp(1.8rem, 2.5vw + 1rem, 2.4rem); /* Reduced size per request */
       line-height: 1.15;
       font-weight: 800;
       letter-spacing: -.02em;
@@ -1022,10 +1022,10 @@
           </a>
         </div>
         
-        <!-- Stats seamlessly integrated below CTAs -->
+        <!-- Stats seamlessly integrated below CTAs with floating animation -->
         <div class="hero-stats" style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2.5rem;">
-          <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 600;"><span id="rating-count">4.82/5</span> ⭐ Rating</div>
-          <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 600;"><span id="learners-count">2,000</span>+ Learners</div>
+          <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.2); animation: float 6s ease-in-out infinite;"><span id="rating-count">4.82/5</span> ⭐ Rating</div>
+          <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.2); animation: float 6s ease-in-out infinite; animation-delay: 3s;"><span id="learners-count">2,000</span>+ Learners</div>
         </div>
       </div>
       
