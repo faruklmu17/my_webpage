@@ -155,22 +155,24 @@
 
     .cta-row {
       display: flex;
-      gap: .85rem;
+      gap: .6rem;
       flex-wrap: wrap;
-      margin-top: 1.5rem
+      margin-top: 1.5rem;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: .6rem;
-      padding: .9rem 1.25rem;
+      gap: .5rem;
+      padding: .75rem 1rem; /* tighter padding to fit inline */
+      font-size: 0.95rem; /* slightly smaller text */
       border-radius: 999px;
       text-decoration: none;
       font-weight: 700;
       border: 1px solid transparent;
       transition: .25s;
       will-change: transform, box-shadow;
+      white-space: nowrap;
     }
 
     .btn--primary {
