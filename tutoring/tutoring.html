@@ -134,9 +134,9 @@
 
     .hero__grid {
       display: grid;
-      gap: 2.5rem;
+      gap: 3.5rem;
       align-items: center;
-      grid-template-columns: 1.2fr .8fr;
+      grid-template-columns: 1fr 1fr;
     }
 
     .hero h1 {
@@ -1016,17 +1016,59 @@
           I teach Python, Web Dev, AI/ML, Arduino, and Computer Fundamentals for ages 9–18.
         </p>
         <div class="cta-row">
-          <a class="btn btn--primary" href="#subjects"><i class="fa-solid fa-rocket"></i> View Courses</a>
+          <a class="btn btn--primary" href="#about"><i class="fa-solid fa-rocket"></i> Why Me?</a>
           <a class="btn btn--ghost" href="#" onclick="openTutoringModal(event)">
             <i class="fa-solid fa-calendar-check"></i> Book Free Consult
           </a>
         </div>
+        
+        <!-- Stats seamlessly integrated below CTAs -->
+        <div class="hero-stats" style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2.5rem;">
+          <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 600;"><span id="rating-count">4.82/5</span> ⭐ Rating</div>
+          <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 600;"><span id="learners-count">2,000</span>+ Learners</div>
+        </div>
       </div>
+      
+      <!-- Right Column: What I Teach Compact Layout -->
       <div class="hero__media">
-        <div class="avatar-blob" aria-hidden="true">
-          <div class="stats-hero">
-            <div class="stat-bubble">4.82/5 ⭐ Rating</div>
-            <div class="stat-bubble">2,000+ Learners</div>
+        <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: 20px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); width: 100%;">
+          <h2 style="text-align: left; margin-bottom: 1.5rem; font-size: 1.6rem; color: #fff;">What I Teach</h2>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            
+            <div style="display: flex; align-items: center; gap: 0.8rem; background: rgba(30, 41, 59, 0.8); padding: 0.8rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+              <i class="fa-brands fa-python" style="color: #38bdf8; font-size: 1.5rem; width: 30px; text-align: center;"></i>
+              <h3 style="font-size: 1rem; margin: 0; color: #fff;">Python</h3>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 0.8rem; background: rgba(30, 41, 59, 0.8); padding: 0.8rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+              <i class="fa-solid fa-globe" style="color: #38bdf8; font-size: 1.5rem; width: 30px; text-align: center;"></i>
+              <h3 style="font-size: 1rem; margin: 0; color: #fff;">Web Dev</h3>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 0.8rem; background: rgba(30, 41, 59, 0.8); padding: 0.8rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+              <i class="fa-solid fa-robot" style="color: #38bdf8; font-size: 1.5rem; width: 30px; text-align: center;"></i>
+              <h3 style="font-size: 1rem; margin: 0; color: #fff;">AI & ML</h3>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 0.8rem; background: rgba(30, 41, 59, 0.8); padding: 0.8rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+              <i class="fa-solid fa-microchip" style="color: #38bdf8; font-size: 1.5rem; width: 30px; text-align: center;"></i>
+              <h3 style="font-size: 1rem; margin: 0; color: #fff;">Arduino</h3>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 0.8rem; background: rgba(30, 41, 59, 0.8); padding: 0.8rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+              <i class="fa-solid fa-vial" style="color: #38bdf8; font-size: 1.5rem; width: 30px; text-align: center;"></i>
+              <h3 style="font-size: 1rem; margin: 0; color: #fff;">QA Testing</h3>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 0.8rem; background: rgba(30, 41, 59, 0.8); padding: 0.8rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+              <i class="fa-solid fa-laptop-code" style="color: #38bdf8; font-size: 1.5rem; width: 30px; text-align: center;"></i>
+              <h3 style="font-size: 1rem; margin: 0; color: #fff;">AP CS</h3>
+            </div>
+
+          </div>
+          <div class="pill-row" style="margin-top: 1.5rem; justify-content: flex-start; gap: 0.5rem;">
+            <span class="pill" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Grades 4–12</span>
+            <span class="pill" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">1:1 & Groups</span>
           </div>
         </div>
       </div>
@@ -1065,64 +1107,7 @@
     </div>
   </section>
 
-  <section id="subjects" class="section section--tight">
-    <div class="container">
-      <h2>What I Teach</h2>
-      <p class="sub">Practical, engaging STEM topics tailored for ages 9–18 — from coding fundamentals to AI and
-        hardware.</p>
 
-      <div class="grid" role="list">
-        <article class="card" role="listitem">
-          <div class="icon"><i class="fa-brands fa-python"></i></div>
-          <h3>Python Programming</h3>
-          <p>From fundamentals to mini-apps: loops, functions, data, OOP, and beginner ML.</p>
-        </article>
-
-        <article class="card" role="listitem">
-          <div class="icon"><i class="fa-solid fa-globe"></i></div>
-          <h3>Web Development</h3>
-          <p>HTML, CSS, JS. Build responsive sites, interactive apps, and deploy to GitHub Pages.</p>
-        </article>
-
-        <article class="card" role="listitem">
-          <div class="icon"><i class="fa-solid fa-robot"></i></div>
-          <h3>AI & Machine Learning</h3>
-          <p>Kid-friendly AI: BoW, Naive Bayes, simple chatbots, ethics & safety.</p>
-        </article>
-
-        <article class="card" role="listitem">
-          <div class="icon"><i class="fa-solid fa-microchip"></i></div>
-          <h3>Arduino & Electronics</h3>
-          <p>Hands-on circuits, sensors, LEDs, and simple automation (with Wokwi sims).</p>
-        </article>
-
-        <article class="card" role="listitem">
-          <div class="icon"><i class="fa-solid fa-vial"></i></div>
-          <h3>QA Testing (Beginner)</h3>
-          <p>Testing mindset, Playwright/Selenium basics, and intro to automation.</p>
-        </article>
-
-        <article class="card" role="listitem">
-          <div class="icon"><i class="fa-solid fa-computer"></i></div>
-          <h3>Computer Fundamentals</h3>
-          <p>OS basics, files, browsers & DevTools, safe internet habits, CLI intro.</p>
-        </article>
-        <article class="card" role="listitem">
-          <div class="icon"><i class="fa-solid fa-laptop-code"></i></div>
-          <h3>AP Computer Science (CSA & CSP)</h3>
-          <p>Java programming, algorithms, OOP concepts, data principles, and targeted exam prep.</p>
-        </article>
-      </div>
-
-      <div class="pill-row" aria-label="Who I teach">
-        <span class="pill">Grades 4–5</span>
-        <span class="pill">Grades 6–8</span>
-        <span class="pill">Grades 9–12</span>
-        <span class="pill">1:1 & Small Groups</span>
-        <span class="pill">Project-Based</span>
-      </div>
-    </div>
-  </section>
 
 
   <section id="platforms" class="section section--tight">
