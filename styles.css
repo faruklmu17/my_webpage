@@ -100,6 +100,7 @@ header {
   font-size: 3.2rem;
   color: #0077b5;
   margin-bottom: 0.5rem;
+  white-space: nowrap;
 }
 
 .nav-social-container {

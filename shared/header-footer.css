@@ -73,6 +73,7 @@ header {
   font-family: 'Dancing Script', cursive;
   font-size: 3.2rem;
   color: #0077b5;
+  white-space: nowrap;
   margin: 0;
   margin-bottom: 0.5rem;
   font-weight: 700;
