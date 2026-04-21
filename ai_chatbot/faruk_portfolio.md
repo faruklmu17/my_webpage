@@ -334,3 +334,14 @@ Outside of work, I enjoy:
 
 The curiosity and love for exploration that began in my childhood still guide my decisions, whether I’m building a new class, designing an AI assistant, or helping a student ship their first project.
 
+---
+
+## Contact & Booking
+
+Visitors can contact me or book sessions through the following dedicated links:
+
+- **Tutoring & General Inquiries:** [Book a Session / Contact Me](https://faruk-hasan.com/tutoring/tutoring.html#book)
+  - This link automatically opens the booking form on the tutoring page.
+- **Career Applications:** [Join the Team](https://faruk-hasan.com/apply.html)
+  - For those interested in working with me or applying for shared roles.
+

@@ -1431,10 +1431,18 @@
     function openTutoringModal(e) {
       if (e) e.preventDefault();
       document.getElementById('tutoringModalOverlay').classList.add('active');
+      // Update URL hash so the link can be copied and shared
+      if (window.location.hash !== '#book') {
+        history.pushState(null, null, '#book');
+      }
     }
     
     function closeTutoringModal(e) {
       document.getElementById('tutoringModalOverlay').classList.remove('active');
+      // Remove hash when closing
+      if (window.location.hash === '#book') {
+        history.pushState(null, null, window.location.pathname + window.location.search);
+      }
     }
 
     // Animate counters when they come into view
@@ -1498,6 +1506,10 @@
         const el = document.getElementById(id);
         if (el) observer.observe(el);
       });
+    // Auto-open tutoring modal if requested via URL
+    if (window.location.search.includes('book=open') || window.location.hash === '#book') {
+      setTimeout(() => openTutoringModal(), 800);
+    }
     });
   </script>
   <script>
