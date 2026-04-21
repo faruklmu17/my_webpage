@@ -224,157 +224,143 @@ def chat_with_ollama_cached(history, user_message):
 # --- UI REDESIGN (KEPT ORIGINAL) ---
 
 custom_css = """
-/* Main Background - Warm Sunrise Gradient */
+/* Main Background - Deep Slate/Navy Gradient to match tutoring site */
 .gradio-container {
-    background: linear-gradient(135deg, #FFF5E1 0%, #FFD1A9 50%, #FF9E68 100%) !important;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
-    padding: 0 !important; /* Remove main container padding */
+    background: linear-gradient(135deg, #0b1220 0%, #0f172a 100%) !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    padding: 0 !important;
     gap: 0 !important;
-}
-
-/* Remove default Gradio spacing on blocks */
-.gradio-container > .main, .gradio-container > .main > .wrap {
-    gap: 0 !important;
+    color: #f8fafc !important;
 }
 
 /* Header & Typography */
 .header-container {
     text-align: center;
-    padding: 5px 0 2px 0; /* Minimal padding */
+    padding: 12px 0 8px 0;
     margin: 0 !important;
-}
-/* Ensure the HTML block itself has no margin */
-.prose {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-}
-.gradio-container .prose {
-    margin: 0 !important;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .avatar-group {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 2px; /* Minimal margin */
+    margin-bottom: 6px;
 }
 .avatar {
-    width: 28px; /* Compact */
-    height: 28px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    border: 2px solid white;
-    margin: 0 -4px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    background: #FFD1A9;
-    object-fit: cover;
+    border: 2px solid rgba(56, 189, 248, 0.5);
+    margin: 0 -6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    background: #1e293b;
 }
 .avatar.main {
-    width: 36px; /* Compact */
-    height: 36px;
+    width: 42px;
+    height: 42px;
     z-index: 10;
-    margin: 0 -4px;
-    border: 2px solid white;
+    border: 2px solid #38bdf8;
 }
+
 .main-title {
-    font-size: 16px; 
+    font-size: 18px; 
     font-weight: 800;
-    color: #1a1a1a;
+    color: #38bdf8;
     margin: 0;
-    line-height: 1.1; 
-    letter-spacing: -0.3px;
+    line-height: 1.2;
 }
 .subtitle {
     font-size: 13px; 
-    font-weight: 600;
-    color: #1a1a1a;
-    margin: 0;
-    line-height: 1.1;
-    letter-spacing: -0.2px;
-    opacity: 0.7;
+    font-weight: 500;
+    color: #94a3b8;
+    margin: 4px 0 0 0;
 }
 
 /* Chatbot Area */
 #chatbot {
     background: transparent !important;
     border: none !important;
-    box-shadow: none !important;
-    height: 280px !important; /* Adjusted for compact view */
-    margin-top: 0px !important; 
-    margin-bottom: 5px !important;
-    padding-top: 0 !important;
-    overflow-y: auto;
-}
-/* Remove gaps between gradio rows */
-.row {
-    margin: 0 !important;
-    padding: 0 !important;
-    gap: 0 !important;
+    height: 320px !important;
+    margin-bottom: 10px !important;
 }
 
-/* Fix Input Interactivity */
-#msg-input {
-    border: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-    flex-grow: 1;
+/* Glassmorphism for Messages */
+.message {
+    border-radius: 18px !important;
+    padding: 12px 16px !important;
+    font-size: 14.5px !important;
+    line-height: 1.5 !important;
+    max-width: 85% !important;
 }
+
+.user.message {
+    background: rgba(56, 189, 248, 0.15) !important;
+    border: 1px solid rgba(56, 189, 248, 0.2) !important;
+    color: #f0f9ff !important;
+}
+
+.bot.message {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #e2e8f0 !important;
+}
+
+/* Input Area */
+.input-container {
+    background: rgba(15, 23, 42, 0.8) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 10px !important;
+}
+
 #msg-input textarea {
-    border: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-    font-size: 16px !important;
-    padding: 8px !important;
-    min-height: 40px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    border-radius: 12px !important;
+    padding: 12px !important;
 }
-/* Hide the label container but keep the input interactive */
-#msg-input .label-wrap { display: none !important; }
-#msg-input .form { border: none !important; background: transparent !important; }
 
+#msg-input textarea::placeholder {
+    color: #64748b !important;
+}
 
 /* Send Button */
 #send-btn {
-    background: #FF6B00 !important;
-    color: white !important;
+    background: #38bdf8 !important;
+    color: #0f172a !important;
     border: none !important;
-    border-radius: 50% !important;
-    width: 40px !important;
-    height: 40px !important;
-    min-width: 40px !important;
-    font-size: 20px !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 10px rgba(255, 107, 0, 0.3) !important;
-    transition: transform 0.2s ease;
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    transition: all 0.2s ease !important;
 }
+
 #send-btn:hover {
-    transform: scale(1.05);
+    background: #0ea5e9 !important;
+    transform: scale(1.02);
 }
 
 /* Chips / Suggestions */
 .chips-row {
-    margin-bottom: 5px !important;
+    padding: 10px !important;
     gap: 8px !important;
-    overflow-x: auto !important;
-    padding: 2px 10px !important;
-    justify-content: center !important;
-    flex-wrap: wrap !important;
 }
+
 .chip-btn {
     font-size: 12px !important;
-    padding: 6px 14px !important;
-    border-radius: 20px !important;
-    background: rgba(255, 255, 255, 0.4) !important;
-    border: 1px solid rgba(255, 255, 255, 0.6) !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05) !important;
-    color: #333 !important;
+    padding: 8px 16px !important;
+    border-radius: 99px !important;
+    background: rgba(56, 189, 248, 0.08) !important;
+    border: 1px solid rgba(56, 189, 248, 0.2) !important;
+    color: #38bdf8 !important;
     transition: all 0.2s ease !important;
-    white-space: nowrap !important;
 }
+
 .chip-btn:hover {
-    background: white !important;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+    background: rgba(56, 189, 248, 0.15) !important;
+    border-color: #38bdf8 !important;
+    color: #fff !important;
 }
 """
 

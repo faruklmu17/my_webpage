@@ -13,14 +13,14 @@
 .chatbot-toggle {
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
     border: none;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 4px 20px rgba(56, 189, 248, 0.4);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -28,7 +28,7 @@
 
 .chatbot-toggle:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+    box-shadow: 0 8px 25px rgba(56, 189, 248, 0.6);
 }
 
 .chatbot-toggle:active {
@@ -54,14 +54,14 @@
     right: -2px;
     width: 20px;
     height: 20px;
-    background: #ff4757;
+    background: #f59e0b;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 12px;
     font-weight: bold;
-    color: white;
+    color: #0f172a;
     border: 2px solid white;
     animation: pulse 2s infinite;
 }
@@ -78,16 +78,16 @@
     bottom: 80px;
     right: 0;
     width: 350px;
-    height: 500px;
-    background: white;
+    height: 520px;
+    background: #0f172a;
     border-radius: 16px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
     overflow: hidden;
     transform: scale(0.8) translateY(20px);
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .chatbot-window.active {
@@ -98,20 +98,22 @@
 
 /* Chatbot Header */
 .chatbot-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #0f172a;
     color: white;
     padding: 16px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .chatbot-title {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 16px;
+    color: #38bdf8;
 }
 
 .chatbot-avatar {
