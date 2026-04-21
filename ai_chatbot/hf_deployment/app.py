@@ -242,11 +242,12 @@ custom_css = """
 }
 
 .main-title {
-    font-size: 19px; 
+    font-size: 20px; 
     font-weight: 800;
-    color: #38bdf8 !important; /* Bold Blue for visibility */
+    color: #38bdf8 !important; /* Vibrant blue for high visibility */
     margin: 0;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 .subtitle {
     font-size: 13px; 
@@ -300,13 +301,8 @@ custom_css = """
 
 header_html = """
 <div class="header-container">
-    <div class="avatar-group">
-        <img src="https://ui-avatars.com/api/?name=Assistant&background=FF9E68&color=fff&rounded=true" class="avatar" />
-        <img src="https://ui-avatars.com/api/?name=Faruk&background=1a1a1a&color=fff&rounded=true&font-size=0.5" class="avatar main" />
-        <img src="https://ui-avatars.com/api/?name=AI&background=FFD1A9&color=fff&rounded=true" class="avatar" />
-    </div>
-    <div class="main-title">Hello, Guest.</div>
-    <div class="subtitle">We're here to help.</div>
+    <div class="main-title">Hello, I'm Faruk's Assistant</div>
+    <div class="subtitle">How can I help you today?</div>
 </div>
 """
 
