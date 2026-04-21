@@ -127,9 +127,17 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(400px 200px at 80% 20%, rgba(245, 158, 11, .12), transparent 60%),
-        radial-gradient(600px 260px at 0% 100%, rgba(99, 102, 241, .20), transparent 60%);
+        radial-gradient(800px 500px at 20% 120%, rgba(99, 102, 241, 0.25), transparent 70%),
+        radial-gradient(600px 400px at 80% -10%, rgba(56, 189, 248, 0.2), transparent 60%),
+        radial-gradient(500px 300px at 50% 50%, rgba(245, 158, 11, 0.08), transparent 50%);
       z-index: -1;
+      animation: hero-aura 10s ease-in-out infinite alternate;
+      filter: blur(20px);
+    }
+    
+    @keyframes hero-aura {
+      0% { transform: scale(1) translateY(0); opacity: 0.8; }
+      100% { transform: scale(1.05) translateY(-2%); opacity: 1; filter: blur(30px); }
     }
 
     .hero__grid {
@@ -140,10 +148,15 @@
     }
 
     .hero h1 {
-      font-size: clamp(1.4rem, 2vw + 0.8rem, 1.8rem); /* Made significantly smaller */
+      font-size: clamp(1.6rem, 2.5vw + 1rem, 2.8rem);
       line-height: 1.15;
-      font-weight: 800;
-      letter-spacing: -.02em;
+      font-weight: 900;
+      letter-spacing: -.03em;
+      background: linear-gradient(135deg, #0f172a 30%, #4338ca 75%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
     }
 
     .hero .lead {
