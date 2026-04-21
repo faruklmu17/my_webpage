@@ -1375,14 +1375,14 @@ section {
 /* Social Media Icons */
 .nav-social-container {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
 }
 
 .social-icons {
   display: flex;
   gap: 1rem;
-  margin-top: 0.75rem;
 }
 
 .social-icon {
