@@ -3171,8 +3171,8 @@ a[href*="huggingface"].category-link-inline:hover {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(0, 0, 0, 0.05);
   display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: 0.05rem;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 1.2rem;
 }
 
 .education-header h2 {
@@ -3405,6 +3405,63 @@ a[href*="huggingface"].category-link-inline:hover {
 .course-btn-small:hover {
   background: linear-gradient(135deg, #2980b9, #1f5f8b);
   transform: translateY(-1px);
+}
+
+/* Tutoring Promo */
+.tutoring-promo {
+  background: rgba(52, 152, 219, 0.05);
+  border: 1px dashed rgba(52, 152, 219, 0.3);
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.tutoring-promo p {
+  margin: 0;
+  font-size: 1rem;
+  color: #2c3e50;
+  line-height: 1.4;
+}
+
+.tutoring-promo .promo-price {
+  color: #e74c3c;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.tutoring-promo .promo-cta {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-top: 5px;
+}
+
+.tutoring-promo .promo-cta a {
+  text-decoration: none;
+  color: #3498db;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: rgba(52, 152, 219, 0.1);
+  border: 1px solid rgba(52, 152, 219, 0.2);
+  transition: all 0.3s ease;
+  animation: attention-pulse 2.5s infinite ease-in-out;
+}
+
+.tutoring-promo .promo-cta a:hover {
+  background: #3498db;
+  color: white !important;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+}
+
+@keyframes attention-pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4); }
+  50% { transform: scale(1.03); color: #e74c3c; box-shadow: 0 0 15px 5px rgba(52, 152, 219, 0.1); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4); }
 }
 
 /* Education Links */
