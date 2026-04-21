@@ -63,9 +63,8 @@ header {
 }
 
 .profile-image {
-  width: 90px;
-  /* Large but not too large */
-  height: 90px;
+  width: 65px;
+  height: 65px;
   /* Keep it square before border-radius */
   border-radius: 50%;
   /* Make it round */
@@ -97,7 +96,7 @@ header {
 
 .headline h1 {
   font-family: 'Dancing Script', cursive;
-  font-size: 3.2rem;
+  font-size: 2.2rem;
   color: #0077b5;
   margin-bottom: 0.5rem;
   white-space: nowrap;
@@ -143,7 +142,7 @@ header {
   background-clip: text;
   color: transparent;
   font-weight: 600;
-  font-size: 1.02rem;
+  font-size: 0.9rem;
   position: relative;
   display: inline-block;
   animation: gradientShift 4s ease-in-out infinite;
@@ -171,9 +170,8 @@ header {
 .nav-social-container {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
   transition: all 0.3s ease-in-out;
-  flex: 1;
   justify-content: flex-end;
 }
 
@@ -202,7 +200,7 @@ header nav {
 header nav ul {
   display: flex;
   list-style: none;
-  gap: 1rem;
+  gap: 0.5rem;
   flex-wrap: nowrap;
 }
 
