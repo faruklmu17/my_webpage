@@ -1256,15 +1256,15 @@
         
         <div class="stats-modern">
           <div class="stat-modern">
-            <h3 id="rating-count">4.82/5</h3>
+            <h3 id="rating-count-about">4.82/5</h3>
             <p>Average Rating</p>
           </div>
           <div class="stat-modern">
-            <h3 id="followers-count">1,945</h3>
+            <h3 id="followers-count-about">1,945</h3>
             <p>Followers</p>
           </div>
           <div class="stat-modern">
-            <h3 id="learners-count">2,000</h3>
+            <h3 id="learners-count-about">2,000</h3>
             <p>Learners Taught</p>
           </div>
         </div>
@@ -1446,11 +1446,11 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const element = entry.target;
-          if (element.id === 'rating-count') {
+          if (element.id === 'rating-count' || element.id === 'rating-count-about') {
             animateRating(element, 4.82);
-          } else if (element.id === 'followers-count') {
+          } else if (element.id === 'followers-count' || element.id === 'followers-count-about') {
             animateCounter(element, 1945);
-          } else if (element.id === 'learners-count') {
+          } else if (element.id === 'learners-count' || element.id === 'learners-count-about') {
             animateCounter(element, 2000);
           }
           observer.unobserve(element);
@@ -1460,13 +1460,16 @@
 
     // Start observing when DOM is loaded
     document.addEventListener('DOMContentLoaded', () => {
-      const ratingElement = document.getElementById('rating-count');
-      const followersElement = document.getElementById('followers-count');
-      const learnersElement = document.getElementById('learners-count');
-
-      if (ratingElement) observer.observe(ratingElement);
-      if (followersElement) observer.observe(followersElement);
-      if (learnersElement) observer.observe(learnersElement);
+      const targets = [
+        'rating-count', 'rating-count-about',
+        'followers-count', 'followers-count-about',
+        'learners-count', 'learners-count-about'
+      ];
+      
+      targets.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
     });
   </script>
   <script src="../shared/header-footer.js"></script>
