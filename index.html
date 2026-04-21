@@ -1601,6 +1601,11 @@
 
     // Initialize
     initializeChatbot();
+    
+    // Auto-open chatbot if requested via URL
+    if (window.location.search.includes('chat=open')) {
+      setTimeout(openChatbot, 500);
+    }
 
     // Add some interactive feedback
     chatbotToggle.addEventListener('mouseenter', function () {

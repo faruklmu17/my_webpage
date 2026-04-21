@@ -198,6 +198,22 @@
       transform: translateY(-2px);
       box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
     }
+    
+    .btn--chatbot {
+      background: rgba(99, 102, 241, 0.1);
+      color: #6366f1; /* Indigo color for AI */
+      border-color: rgba(99, 102, 241, 0.5);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    
+    .btn--chatbot:hover {
+      background: #6366f1;
+      color: #fff;
+      border-color: #6366f1;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    }
 
     .hero__media {
       display: grid;
@@ -1019,6 +1035,9 @@
           <a class="btn btn--primary" href="#about"><i class="fa-solid fa-rocket"></i> Why Me?</a>
           <a class="btn btn--ghost" href="#" onclick="openTutoringModal(event)">
             <i class="fa-solid fa-calendar-check"></i> Book Free Consult
+          </a>
+          <a class="btn btn--chatbot" href="../index.html?chat=open">
+            <i class="fa-solid fa-robot"></i> Ask AI Assistant
           </a>
         </div>
         <!-- Stats seamlessly integrated below CTAs with floating animation -->
