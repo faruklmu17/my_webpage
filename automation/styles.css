@@ -434,3 +434,123 @@ footer {
         flex-direction: column;
     }
 }
+
+/* Mission 13 - Wizard Styles */
+.wizard-container {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.wizard-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.wizard-step-indicator {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ddd;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.wizard-step-indicator.active {
+    background: #4a6bff;
+    color: white;
+}
+
+.wizard-step-line {
+    height: 2px;
+    background: #ddd;
+    flex: 1;
+    max-width: 50px;
+    margin: 0 -5px;
+}
+
+.wizard-panel {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.wizard-panel.active {
+    display: block;
+}
+
+.wizard-panel h3 {
+    margin-bottom: 15px;
+    color: #2541b2;
+}
+
+.wizard-options {
+    display: flex;
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.wizard-opt {
+    flex: 1;
+    padding: 15px;
+    background: white;
+    border: 2px solid #eee;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.wizard-opt:hover {
+    border-color: #4a6bff;
+    background: #f0f4ff;
+}
+
+.wizard-opt.selected {
+    border-color: #4a6bff;
+    background: #4a6bff;
+    color: white;
+}
+
+.wizard-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.secondary-button {
+    background: #6c757d;
+    color: white;
+}
+
+.secondary-button:hover {
+    background: #5a6268;
+}
+
+/* Spinner for loading state */
+.spinner {
+    width: 30px;
+    height: 30px;
+    border: 4px solid rgba(0,0,0,0.1);
+    border-top: 4px solid #4a6bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 10px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

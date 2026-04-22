@@ -85,6 +85,7 @@
             <li><a href="#tooltip">Tooltip Hover</a></li>
             <li><a href="#table-test">Table Data</a></li>
             <li><a href="#column-drag">Column Drag</a></li>
+            <li><a href="#wizard-mission">Form Wizard</a></li>
 
         </ul>
     </nav>
@@ -289,6 +290,65 @@
                 <p id="column-drag-result"></p>
             </div>
         </section>
+
+        <section id="wizard-mission">
+            <h2>Mission 13: Secure Order Wizard</h2>
+            <p>Complete the 3-step checkout process. This mission tests multi-step flows and dynamic elements.</p>
+            <div class="mission-content">
+                <div class="wizard-container">
+                    <div class="wizard-steps">
+                        <div class="wizard-step-indicator active" id="step1-indicator">1</div>
+                        <div class="wizard-step-line"></div>
+                        <div class="wizard-step-indicator" id="step2-indicator">2</div>
+                        <div class="wizard-step-line"></div>
+                        <div class="wizard-step-indicator" id="step3-indicator">3</div>
+                    </div>
+
+                    <!-- Step 1: Identity -->
+                    <div class="wizard-panel active" id="wizard-step-1">
+                        <h3>Step 1: Your Identity</h3>
+                        <div class="form-group">
+                            <label for="wizard-name">Full Name</label>
+                            <input type="text" id="wizard-name" placeholder="Enter 'Faruk'">
+                        </div>
+                        <div class="form-group">
+                            <label for="wizard-email">Email Address</label>
+                            <input type="email" id="wizard-email" placeholder="Enter 'faruk@hasan.com'">
+                        </div>
+                        <button onclick="wizardNext(1)" class="primary-button">Next: Preferences</button>
+                    </div>
+
+                    <!-- Step 2: Preferences -->
+                    <div class="wizard-panel" id="wizard-step-2">
+                        <h3>Step 2: Order Type</h3>
+                        <p>Select your pizza preference:</p>
+                        <div class="wizard-options">
+                            <div class="wizard-opt" onclick="selectWizardOpt(this)" data-value="standard">Standard Order</div>
+                            <div class="wizard-opt" onclick="selectWizardOpt(this)" data-value="premium">Premium Order</div>
+                        </div>
+                        <div class="wizard-buttons">
+                            <button onclick="wizardNext(0)" class="secondary-button">Back</button>
+                            <button onclick="wizardNext(2)" class="primary-button">Next: Finalize</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Finalize -->
+                    <div class="wizard-panel" id="wizard-step-3">
+                        <h3>Step 3: Final Confirmation</h3>
+                        <div id="wizard-loading" style="display:none;">
+                            <div class="spinner"></div>
+                            <p>Verifying with server...</p>
+                        </div>
+                        <div id="wizard-final-action" style="display:none;">
+                            <p>Everything looks good! Click submit to finalize.</p>
+                            <button onclick="completeWizard()" class="primary-button">Submit Order</button>
+                        </div>
+                        <button id="wizard-begin-check" onclick="startWizardCheck()" class="primary-button">Prepare Order</button>
+                    </div>
+                </div>
+                <p id="wizard-result"></p>
+            </div>
+        </section>
     </main>
 
     <footer>
@@ -334,8 +394,8 @@
             const progress = document.getElementById('progress');
             const stickyProgress = document.getElementById('sticky-progress');
 
-            // Calculate progress: 66% for login + up to 34% for missions (12 missions total)
-            const missionProgress = Math.min(completedMissions * (34 / 12), 34);
+            // Calculate progress: 66% for login + up to 34% for missions (13 missions total)
+            const missionProgress = Math.min(completedMissions * (34 / 13), 34);
             const totalProgress = 66 + missionProgress;
 
             if (progress) {
