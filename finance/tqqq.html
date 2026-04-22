@@ -4,7 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TQQQ Strategy | Faruk Hasan</title>
+    <title>TQQQ Strategy Dashboard | 200-Day & 50-Day SMA | Faruk Hasan</title>
+    <meta name="description" content="Advanced TQQQ investment strategy dashboard tracking 200-day and 50-day moving averages. Live BUY/SELL signals, portfolio profit tracker, and Golden Cross monitoring.">
+    <meta name="keywords" content="TQQQ, 200-day moving average, 50-day moving average, Golden Cross, Stock Strategy, Investment Dashboard, Faruk Hasan, Finance Tools">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://faruk-hasan.com/finance/tqqq.html">
+    <meta property="og:title" content="TQQQ Intelligence Dashboard | Strategy & Analytics">
+    <meta property="og:description" content="Live TQQQ trading signals based on advanced moving average strategies. Track your portfolio and market trends in real-time.">
+    <meta property="og:image" content="https://faruk-hasan.com/images/tqqq-preview.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://faruk-hasan.com/finance/tqqq.html">
+    <meta property="twitter:title" content="TQQQ Intelligence Dashboard | Strategy & Analytics">
+    <meta property="twitter:description" content="Live TQQQ trading signals based on advanced moving average strategies. Track your portfolio and market trends in real-time.">
+    <meta property="twitter:image" content="https://faruk-hasan.com/images/tqqq-preview.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FinancialProduct",
+      "name": "TQQQ Strategy Dashboard",
+      "description": "A real-time financial dashboard for TQQQ investors using moving average strategies.",
+      "url": "https://faruk-hasan.com/finance/tqqq.html",
+      "brand": {
+        "@type": "Brand",
+        "name": "Faruk Hasan"
+      }
+    }
+    </script>
+
     <link rel="canonical" href="https://faruk-hasan.com/finance/tqqq.html" />
 
     <link rel="stylesheet" href="../styles.css">
@@ -13,309 +45,331 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Page Specific Styles */
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --slate-50: #f8fafc;
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-700: #334155;
+            --slate-800: #1e293b;
+            --slate-900: #0f172a;
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
         body {
-            background-color: #f8f9fa;
+            background-color: #f1f5f9;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--slate-800);
+            margin: 0;
+            padding: 0;
+        }
+
+        .main-content {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
         }
 
         .section-title {
             text-align: center;
-            margin: 2rem 0;
             font-size: 2.5rem;
-            color: #1e293b;
+            font-weight: 800;
+            color: var(--slate-900);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
         }
 
+        .section-subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Controls Bar */
+        .controls-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+            background: white;
+            padding: 1.25rem 2rem;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 2rem;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .control-label {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--slate-700);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        select {
+            padding: 0.6rem 1.2rem;
+            border-radius: 12px;
+            border: 2px solid var(--slate-200);
+            background: var(--slate-50);
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        select:hover {
+            border-color: var(--primary);
+        }
+
+        /* Dashboard Grid */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto 2rem;
-            padding: 0 1rem;
+            margin-bottom: 2.5rem;
         }
 
         .stat-card {
             background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            padding: 1.75rem;
+            border-radius: 24px;
+            box-shadow: var(--card-shadow);
             text-align: center;
-            transition: transform 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.8);
         }
 
         .stat-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
         .stat-value {
             display: block;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #2563eb;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
             margin-bottom: 0.5rem;
         }
 
         .stat-label {
             color: #64748b;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .signal-buy {
-            color: #10b981;
-        }
-
-        .signal-sell {
-            color: #ef4444;
-        }
-
-        .signal-cash {
-            color: #f59e0b;
-        }
-
-        .signal-risky {
-            color: #f97316;
             font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Signal Colors */
+        .signal-buy { color: var(--success); }
+        .signal-cash { color: var(--warning); }
+        .signal-risky {
+            font-size: 0.75rem;
             display: block;
-            margin-top: 0.5rem;
-            font-weight: 600;
+            margin-top: 0.4rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            background: #fff7ed;
+            border-radius: 6px;
+            color: #ea580c;
         }
 
-        .chart-container {
+        /* Main Grid for Chart & Calculator */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 1100px) {
+            .main-grid { grid-template-columns: 1fr; }
+        }
+
+        .glass-card {
             background: white;
             padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            max-width: 1200px;
-            margin: 0 auto 2rem;
-            height: 500px;
+            border-radius: 24px;
+            box-shadow: var(--card-shadow);
         }
 
-        .chart-wrapper {
-            position: relative;
-            height: 400px;
-        }
-
-        .time-range-controls {
+        .card-header {
             display: flex;
-            justify-content: center;
-            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 1.5rem;
-            flex-wrap: wrap;
         }
 
-        .time-range-btn {
-            padding: 0.5rem 1.5rem;
-            border: 2px solid #e2e8f0;
-            background: white;
-            border-radius: 8px;
-            font-weight: 600;
-            color: #64748b;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--slate-900);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
-        .time-range-btn:hover {
-            border-color: #2563eb;
-            color: #2563eb;
-        }
-
-        .time-range-btn.active {
-            background: #2563eb;
-            color: white;
-            border-color: #2563eb;
-        }
-
-        .table-container {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            max-width: 1200px;
-            margin: 0 auto 4rem;
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        th {
-            background-color: #f8fafc;
-            font-weight: 600;
-            color: #475569;
-        }
-
-        /* Portfolio Calculator Styles */
-        .portfolio-calculator {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            max-width: 1200px;
-            margin: 0 auto 2rem;
-        }
-
-        .portfolio-calculator h3 {
-            margin-bottom: 1.5rem;
-            color: #1e293b;
-            font-size: 1.5rem;
-        }
-
+        /* Portfolio Calculator */
         .portfolio-inputs {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
+            gap: 1.25rem;
             margin-bottom: 1.5rem;
         }
 
         .input-group {
             display: flex;
             flex-direction: column;
+            gap: 0.5rem;
         }
 
         .input-group label {
-            margin-bottom: 0.5rem;
-            color: #475569;
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--slate-700);
         }
 
         .input-group input {
-            padding: 0.75rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            border: 2px solid var(--slate-200);
+            font-family: inherit;
             font-size: 1rem;
-            transition: border-color 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         .input-group input:focus {
             outline: none;
-            border-color: #2563eb;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
         }
 
         .portfolio-buttons {
             display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
         }
 
-        .portfolio-btn {
-            padding: 0.75rem 1.5rem;
+        .btn {
+            flex: 1;
+            padding: 0.8rem;
             border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .portfolio-btn.save {
-            background: #2563eb;
-            color: white;
-        }
-
-        .portfolio-btn.save:hover {
-            background: #1d4ed8;
-        }
-
-        .portfolio-btn.clear {
-            background: #ef4444;
-            color: white;
-        }
-
-        .portfolio-btn.clear:hover {
-            background: #dc2626;
-        }
-
-        .portfolio-metrics {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .metric-box {
-            padding: 1rem;
-            background: #f8fafc;
-            border-radius: 8px;
-            border-left: 4px solid #94a3b8;
-        }
-
-        .metric-box.profit {
-            border-left-color: #10b981;
-        }
-
-        .metric-box.loss {
-            border-left-color: #ef4444;
-        }
-
-        .metric-label {
-            font-size: 0.85rem;
-            color: #64748b;
-            margin-bottom: 0.25rem;
-        }
-
-        .metric-value {
-            font-size: 1.5rem;
+            border-radius: 12px;
             font-weight: 700;
-            color: #1e293b;
-        }
-
-        .metric-value.profit {
-            color: #10b981;
-        }
-
-        .metric-value.loss {
-            color: #ef4444;
-        }
-
-        .portfolio-recommendation {
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
-            color: white;
-        }
-
-        .portfolio-recommendation h4 {
-            margin-bottom: 0.75rem;
-            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
         }
 
-        .portfolio-recommendation p {
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); }
+        
+        .btn-danger { background: #fee2e2; color: var(--danger); }
+        .btn-danger:hover { background: #fecaca; }
+
+        .metric-mini-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mini-metric {
+            padding: 1.25rem;
+            background: var(--slate-50);
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .mini-val { font-size: 1.2rem; font-weight: 800; margin-top: 0.25rem; }
+
+        .recommendation-box {
+            padding: 1.5rem;
+            border-radius: 16px;
+            color: white;
+            font-size: 0.95rem;
             line-height: 1.6;
-            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
         }
 
-        .portfolio-recommendation ul {
-            margin-top: 0.75rem;
-            padding-left: 1.5rem;
+        /* Table Design */
+        .table-card {
+            margin-top: 3rem;
+            overflow: hidden;
         }
 
-        .portfolio-recommendation li {
-            margin-bottom: 0.5rem;
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        th {
+            background: var(--slate-50);
+            padding: 1.25rem;
+            text-align: left;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-bottom: 2px solid var(--slate-200);
+        }
+
+        td {
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--slate-100);
+            font-size: 0.95rem;
+            color: var(--slate-800);
+        }
+
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: var(--slate-50); }
+
+        /* Chart Range Buttons */
+        .range-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .range-btn {
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--slate-200);
+            background: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .range-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
         }
 
         @media (max-width: 768px) {
-            .portfolio-inputs {
-                grid-template-columns: 1fr;
-            }
-
-            .portfolio-metrics {
-                grid-template-columns: 1fr;
-            }
+            .section-title { font-size: 1.8rem; }
+            .dashboard-grid { grid-template-columns: 1fr 1fr; }
+            .controls-bar { flex-direction: column; align-items: stretch; }
         }
     </style>
 </head>
@@ -325,10 +379,24 @@
 
     <!-- Main Content -->
     <div class="main-content">
+        <h1 class="section-title">TQQQ Intelligence</h1>
+        <p class="section-subtitle">Advanced 200-Day & 50-Day SMA Strategy Dashboard</p>
 
-        <h1 class="section-title">TQQQ 200-Day SMA Strategy</h1>
+        <!-- Command Center: Strategy Controls -->
+        <div class="controls-bar">
+            <div class="control-group">
+                <span class="control-label"><i class="fas fa-sliders-h"></i> Strategy Period</span>
+                <select id="period-selector" onchange="toggleMAPeriod()">
+                    <option value="200" selected>200-Day SMA (Conservative)</option>
+                    <option value="50">50-Day SMA (Aggressive)</option>
+                </select>
+            </div>
+            <div id="last-updated-date" style="color: #64748b; font-size: 0.9rem; font-weight: 600;">
+                <!-- Populated by JS -->
+            </div>
+        </div>
 
-        <!-- Stats Dashboard -->
+        <!-- Key Metrics -->
         <div class="dashboard-grid">
             <div class="stat-card">
                 <span class="stat-value" id="current-signal">-</span>
@@ -336,101 +404,116 @@
             </div>
             <div class="stat-card">
                 <span class="stat-value" id="current-price">-</span>
-                <span class="stat-label">TQQQ Price</span>
+                <span class="stat-label">Live Price</span>
             </div>
             <div class="stat-card">
                 <span class="stat-value" id="ma-value">-</span>
-                <span class="stat-label" id="ma-label">200-Day MA</span>
+                <span class="stat-label" id="ma-label">MA Value</span>
             </div>
             <div class="stat-card">
                 <span class="stat-value" id="current-equity">-</span>
                 <span class="stat-label">Strategy Equity</span>
             </div>
-        </div>
-
-        <!-- Portfolio Calculator -->
-        <div class="portfolio-calculator">
-            <h3><i class="fas fa-wallet"></i> My Portfolio Tracker</h3>
-
-            <div class="portfolio-inputs">
-                <div class="input-group">
-                    <label for="shares">Shares Owned</label>
-                    <input type="number" id="shares" placeholder="e.g., 12.28" step="0.01" min="0">
-                </div>
-                <div class="input-group">
-                    <label for="purchasePrice">Purchase Price per Share ($)</label>
-                    <input type="number" id="purchasePrice" placeholder="e.g., 53.48" step="0.01" min="0">
-                </div>
-            </div>
-
-            <div class="portfolio-buttons">
-                <button class="portfolio-btn save" onclick="savePortfolio()">
-                    <i class="fas fa-save"></i> Save Portfolio
-                </button>
-                <button class="portfolio-btn clear" onclick="clearPortfolio()">
-                    <i class="fas fa-trash"></i> Clear Portfolio
-                </button>
-            </div>
-
-            <div id="portfolioResults" style="display: none;">
-                <div class="portfolio-metrics">
-                    <div class="metric-box">
-                        <div class="metric-label">Initial Investment</div>
-                        <div class="metric-value" id="initialInvestment">$0.00</div>
-                    </div>
-                    <div class="metric-box">
-                        <div class="metric-label">Current Value</div>
-                        <div class="metric-value" id="currentValue">$0.00</div>
-                    </div>
-                    <div class="metric-box" id="profitLossBox">
-                        <div class="metric-label">Profit/Loss</div>
-                        <div class="metric-value" id="profitLoss">$0.00</div>
-                    </div>
-                    <div class="metric-box" id="percentageBox">
-                        <div class="metric-label">Return %</div>
-                        <div class="metric-value" id="profitLossPercent">0.00%</div>
-                    </div>
-                </div>
-
-                <div class="portfolio-recommendation" id="recommendation">
-                    <h4><i class="fas fa-lightbulb"></i> Personalized Recommendation</h4>
-                    <p id="recommendationText">Enter your portfolio details to see recommendations.</p>
-                </div>
+            <div class="stat-card">
+                <span class="stat-value" id="gc-status">-</span>
+                <span class="stat-label">Golden Cross Tracker</span>
             </div>
         </div>
 
-        <!-- Chart -->
-        <div class="chart-container">
-            <div class="time-range-controls">
-                <button class="time-range-btn" data-range="1">1Y</button>
-                <button class="time-range-btn" data-range="5">5Y</button>
-                <button class="time-range-btn" data-range="10">10Y</button>
-                <button class="time-range-btn active" data-range="max">MAX</button>
+        <div class="main-grid">
+            <!-- Analytics Chart -->
+            <div class="glass-card">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-chart-line"></i> Performance Analytics</h3>
+                    <div class="range-buttons time-range-controls">
+                        <button class="range-btn" data-range="6m">6M</button>
+                        <button class="range-btn" data-range="ytd">YTD</button>
+                        <button class="range-btn" data-range="1">1Y</button>
+                        <button class="range-btn" data-range="5">5Y</button>
+                        <button class="range-btn active" data-range="max">MAX</button>
+                    </div>
+                </div>
+                <div style="height: 400px;">
+                    <canvas id="strategyChart"></canvas>
+                </div>
             </div>
-            <div class="chart-wrapper">
-                <canvas id="strategyChart"></canvas>
+
+            <!-- Portfolio Tracker -->
+            <div class="glass-card">
+                <h3 class="card-title"><i class="fas fa-wallet"></i> My Portfolio</h3>
+                <div class="portfolio-inputs">
+                    <div class="input-group">
+                        <label for="shares">Shares Owned</label>
+                        <input type="number" id="shares" placeholder="0.00" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label for="purchasePrice">Avg. Purchase Price ($)</label>
+                        <input type="number" id="purchasePrice" placeholder="0.00" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label for="profitTarget">Profit Target (%)</label>
+                        <input type="number" id="profitTarget" placeholder="10" step="1">
+                    </div>
+                </div>
+
+                <div class="portfolio-buttons">
+                    <button class="btn btn-primary" onclick="savePortfolio()">
+                        <i class="fas fa-save"></i> Save
+                    </button>
+                    <button class="btn btn-danger" onclick="clearPortfolio()">
+                        <i class="fas fa-trash-alt"></i> Clear
+                    </button>
+                </div>
+
+                <div id="portfolioResults" style="display: none;">
+                    <div class="metric-mini-grid">
+                        <div class="mini-metric">
+                            <span class="stat-label">Investment</span>
+                            <div class="mini-val" id="initialInvestment">$0</div>
+                        </div>
+                        <div class="mini-metric">
+                            <span class="stat-label">Current</span>
+                            <div class="mini-val" id="currentValue">$0</div>
+                        </div>
+                        <div class="mini-metric" id="profitLossBox">
+                            <span class="stat-label">Profit/Loss</span>
+                            <div class="mini-val" id="profitLoss">$0</div>
+                        </div>
+                        <div class="mini-metric" id="percentageBox">
+                            <span class="stat-label">Return</span>
+                            <div class="mini-val" id="profitLossPercent">0%</div>
+                        </div>
+                    </div>
+
+                    <div class="recommendation-box" id="recommendation">
+                        <div id="recommendationText">Enter details to see insights.</div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Recent Signals Table -->
-        <div class="table-container">
-            <h3>Recent History</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Close Price</th>
-                        <th>200-Day MA</th>
-                        <th>Signal</th>
-                        <th>Instruction</th>
-                        <th>Equity</th>
-                    </tr>
-                </thead>
-                <tbody id="signalsTableBody">
-                    <!-- Populated by JS -->
-                </tbody>
-            </table>
+        <!-- History Table -->
+        <div class="glass-card table-card">
+            <h3 class="card-title" style="margin-bottom: 1.5rem;"><i class="fas fa-history"></i> Recent Strategy History</h3>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Close Price</th>
+                            <th id="table-ma-label">Moving Average</th>
+                            <th>Signal</th>
+                            <th>Action</th>
+                            <th>Equity</th>
+                        </tr>
+                    </thead>
+                    <tbody id="signalsTableBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
         </div>
+    </div>
 
     </div>
 
@@ -440,18 +523,23 @@
 
     <script>
         // Portfolio Calculator Functions
+        // Strategy State
         let currentTQQQPrice = 0;
         let currentSignal = '';
-        let current200DayMA = 0;
+        let currentMAValue = 0;
         let isRiskyPosition = false;
+        let selectedPeriod = 200; // Default
+        let globalProcessedData = [];
 
         function loadPortfolio() {
             const shares = localStorage.getItem('tqqq_shares');
             const purchasePrice = localStorage.getItem('tqqq_purchase_price');
+            const profitTarget = localStorage.getItem('tqqq_profit_target') || 10;
 
             if (shares && purchasePrice) {
                 document.getElementById('shares').value = shares;
                 document.getElementById('purchasePrice').value = purchasePrice;
+                document.getElementById('profitTarget').value = profitTarget;
                 calculatePortfolio();
             }
         }
@@ -459,6 +547,7 @@
         function savePortfolio() {
             const shares = parseFloat(document.getElementById('shares').value);
             const purchasePrice = parseFloat(document.getElementById('purchasePrice').value);
+            const profitTarget = parseFloat(document.getElementById('profitTarget').value);
 
             if (isNaN(shares) || isNaN(purchasePrice) || shares <= 0 || purchasePrice <= 0) {
                 alert('Please enter valid positive numbers for shares and purchase price.');
@@ -467,6 +556,7 @@
 
             localStorage.setItem('tqqq_shares', shares);
             localStorage.setItem('tqqq_purchase_price', purchasePrice);
+            localStorage.setItem('tqqq_profit_target', profitTarget || 10);
 
             calculatePortfolio();
             alert('Portfolio saved successfully!');
@@ -475,9 +565,11 @@
         function clearPortfolio() {
             localStorage.removeItem('tqqq_shares');
             localStorage.removeItem('tqqq_purchase_price');
+            localStorage.removeItem('tqqq_profit_target');
 
             document.getElementById('shares').value = '';
             document.getElementById('purchasePrice').value = '';
+            document.getElementById('profitTarget').value = '';
             document.getElementById('portfolioResults').style.display = 'none';
 
             alert('Portfolio cleared!');
@@ -527,65 +619,160 @@
             }
 
             // Generate recommendation
-            generateRecommendation(profitLoss, profitLossPercent, purchasePrice);
+            const profitTarget = parseFloat(document.getElementById('profitTarget').value) || 10;
+            generateRecommendation(profitLoss, profitLossPercent, purchasePrice, profitTarget);
 
             document.getElementById('portfolioResults').style.display = 'block';
         }
 
-        function generateRecommendation(profitLoss, profitLossPercent, purchasePrice) {
+        function generateRecommendation(profitLoss, profitLossPercent, purchasePrice, profitTarget) {
             const recommendationEl = document.getElementById('recommendationText');
+            const recommendationBox = document.getElementById('recommendation');
             let recommendation = '';
 
             const isProfit = profitLoss >= 0;
             const isBuySignal = currentSignal === 'BUY';
+            const hitTarget = profitLossPercent >= profitTarget;
+            const targetPrice = purchasePrice * (1 + (profitTarget / 100));
+
+            // Set background color based on target status
+            if (hitTarget) {
+                recommendationBox.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)'; // Solid Green
+            } else if (isBuySignal) {
+                recommendationBox.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'; // Normal Purple
+            } else {
+                recommendationBox.style.background = 'linear-gradient(135deg, #ef4444 0%, #b91c1c 100%)'; // Warning Red
+            }
 
             // Build recommendation based on signal and position
             if (isBuySignal) {
-                if (isProfit) {
-                    recommendation = `<strong>✅ Strong Position:</strong> The strategy signal is <strong>BUY</strong> and you're currently up <strong>${profitLossPercent.toFixed(2)}%</strong>.<br><br>`;
+                if (hitTarget) {
+                    recommendation = `<strong>🎯 TARGET REACHED:</strong> You've hit your <strong>${profitTarget}%</strong> profit goal! (Target was $${targetPrice.toFixed(2)})<br><br>`;
                     recommendation += `<strong>Recommendation:</strong><ul>`;
-                    recommendation += `<li><strong>HOLD</strong> your position - the uptrend is intact</li>`;
-                    recommendation += `<li>Consider taking partial profits if you're risk-averse</li>`;
-                    recommendation += `<li>Set a trailing stop-loss to protect gains</li>`;
+                    recommendation += `<li><strong>SELL PARTIAL</strong> - Consider selling 50% to lock in gains</li>`;
+                    recommendation += `<li><strong>LET THE REST RUN</strong> - The strategy signal is still <strong>BUY</strong></li>`;
+                    recommendation += `<li>Move your stop-loss up to $${(currentTQQQPrice * 0.95).toFixed(2)} (-5% from here)</li>`;
+                    recommendation += `</ul>`;
+                } else if (isProfit) {
+                    recommendation = `<strong>✅ Strong Position:</strong> The ${selectedPeriod}-day strategy signal is <strong>BUY</strong> and you're up <strong>${profitLossPercent.toFixed(2)}%</strong>.<br><br>`;
+                    recommendation += `<strong>Recommendation:</strong><ul>`;
+                    recommendation += `<li><strong>HOLD</strong> - Still below your <strong>${profitTarget}%</strong> target ($${targetPrice.toFixed(2)})</li>`;
+                    recommendation += `<li>Uptrend remains intact</li>`;
+                    recommendation += `<li>Set a trailing stop-loss to protect your current gains</li>`;
                     recommendation += `</ul>`;
                 } else {
-                    recommendation = `<strong>⚠️ Mixed Signals:</strong> The strategy signal is <strong>BUY</strong> but you're down <strong>${Math.abs(profitLossPercent).toFixed(2)}%</strong>.<br><br>`;
+                    recommendation = `<strong>⚠️ Mixed Signals:</strong> The ${selectedPeriod}-day strategy signal is <strong>BUY</strong> but you're down <strong>${Math.abs(profitLossPercent).toFixed(2)}%</strong>.<br><br>`;
                     recommendation += `<strong>Recommendation:</strong><ul>`;
-                    recommendation += `<li><strong>HOLD</strong> - Price is above 200-day MA ($${current200DayMA.toFixed(2)}), suggesting uptrend continuation</li>`;
-
-                    if (Math.abs(profitLossPercent) < 10) {
-                        recommendation += `<li>Consider <strong>averaging down</strong> if you believe in the strategy (risky)</li>`;
-                    } else {
-                        recommendation += `<li>Loss is significant - consider setting a stop-loss at -15% to limit further downside</li>`;
-                    }
-
-                    recommendation += `<li>Wait for price to recover to your purchase price ($${purchasePrice.toFixed(2)}) before selling</li>`;
+                    recommendation += `<li><strong>HOLD</strong> - Price is above ${selectedPeriod}-day MA ($${currentMAValue.toFixed(2)}), suggesting recovery</li>`;
+                    recommendation += `<li>Wait for price to reach your break-even ($${purchasePrice.toFixed(2)})</li>`;
                     recommendation += `</ul>`;
                 }
 
                 if (isRiskyPosition) {
-                    recommendation += `<br><strong>⚠️ CAUTION:</strong> Price is within 5% of the 200-day MA. A drop below could trigger a SELL signal.`;
+                    recommendation += `<br><strong>⚠️ CAUTION:</strong> Price is within 5% of the ${selectedPeriod}-day MA. A drop below could trigger a SELL signal.`;
                 }
             } else {
                 // CASH signal
                 if (isProfit) {
-                    recommendation = `<strong>🎯 Take Profits:</strong> The strategy signal is <strong>CASH</strong> and you're up <strong>${profitLossPercent.toFixed(2)}%</strong>.<br><br>`;
+                    recommendation = `<strong>🎯 Take Profits:</strong> The ${selectedPeriod}-day strategy signal is <strong>CASH</strong> and you're up <strong>${profitLossPercent.toFixed(2)}%</strong>.<br><br>`;
                     recommendation += `<strong>Recommendation:</strong><ul>`;
                     recommendation += `<li><strong>SELL NOW</strong> - Lock in your profits before the downtrend deepens</li>`;
-                    recommendation += `<li>Price has dropped below 200-day MA ($${current200DayMA.toFixed(2)})</li>`;
+                    recommendation += `<li>Price has dropped below ${selectedPeriod}-day MA ($${currentMAValue.toFixed(2)})</li>`;
                     recommendation += `<li>Wait for a new BUY signal before re-entering</li>`;
                     recommendation += `</ul>`;
                 } else {
-                    recommendation = `<strong>🛑 Cut Losses:</strong> The strategy signal is <strong>CASH</strong> and you're down <strong>${Math.abs(profitLossPercent).toFixed(2)}%</strong>.<br><br>`;
+                    recommendation = `<strong>🛑 Cut Losses:</strong> The ${selectedPeriod}-day strategy signal is <strong>CASH</strong> and you're down <strong>${Math.abs(profitLossPercent).toFixed(2)}%</strong>.<br><br>`;
                     recommendation += `<strong>Recommendation:</strong><ul>`;
                     recommendation += `<li><strong>SELL</strong> - Limit further losses as the trend has turned bearish</li>`;
-                    recommendation += `<li>Price is below 200-day MA ($${current200DayMA.toFixed(2)}), indicating downtrend</li>`;
+                    recommendation += `<li>Price is below ${selectedPeriod}-day MA ($${currentMAValue.toFixed(2)}), indicating downtrend</li>`;
                     recommendation += `<li>Re-enter only when a new BUY signal appears</li>`;
                     recommendation += `</ul>`;
                 }
             }
 
             recommendationEl.innerHTML = recommendation;
+        }
+
+        function toggleMAPeriod() {
+            selectedPeriod = parseInt(document.getElementById('period-selector').value);
+            updateDashboardWithPeriodData();
+            calculatePortfolio(); // Refresh recommendations
+        }
+
+        function updateDashboardWithPeriodData() {
+            if (!globalProcessedData.length) return;
+
+            const latest = globalProcessedData[globalProcessedData.length - 1];
+            const maField = selectedPeriod === 50 ? 'ma50' : 'ma200';
+            const sigField = selectedPeriod === 50 ? 'signal50' : 'signal200';
+
+            currentMAValue = latest[maField];
+            currentSignal = latest[sigField];
+
+            // Re-calculate risk for the new period
+            const percentDiff = currentMAValue > 0 ? Math.abs((latest.close - currentMAValue) / currentMAValue) * 100 : 0;
+            isRiskyPosition = percentDiff <= 5;
+
+            // Update Stats
+            const signalEl = document.getElementById('current-signal');
+            if (isRiskyPosition) {
+                signalEl.innerHTML = `${currentSignal}<span class="signal-risky">⚠️ RISKY (${percentDiff.toFixed(1)}% from MA)</span>`;
+            } else {
+                signalEl.textContent = currentSignal;
+            }
+
+            // Color coding
+            if (currentSignal === 'BUY') signalEl.className = 'stat-value signal-buy';
+            else signalEl.className = 'stat-value signal-cash';
+
+            document.getElementById('ma-label').textContent = `${selectedPeriod}-Day MA`;
+            document.getElementById('ma-value').textContent = '$' + currentMAValue.toFixed(2);
+            document.getElementById('table-ma-label').textContent = `${selectedPeriod}-Day MA`;
+
+            // Update Price and Equity Cards
+            currentTQQQPrice = latest.close;
+            document.getElementById('current-price').textContent = '$' + latest.close.toFixed(2);
+            
+            const currentEquityValue = selectedPeriod === 50 ? latest.equity50 : (latest.equity200 || latest.equity);
+            document.getElementById('current-equity').textContent = '$' + Math.round(currentEquityValue).toLocaleString();
+
+            // Update Golden Cross Status
+            const ma50 = latest.ma50;
+            const ma200 = latest.ma200;
+            const gcStatusEl = document.getElementById('gc-status');
+            
+            if (ma50 > ma200) {
+                gcStatusEl.innerHTML = '<span style="color: #10b981;">ACTIVE ✅</span>';
+                gcStatusEl.style.fontSize = '1.8rem';
+            } else {
+                const diff = ((ma200 - ma50) / ma50) * 100;
+                gcStatusEl.innerHTML = `<span style="color: #f59e0b;">${diff.toFixed(1)}% AWAY</span>`;
+                gcStatusEl.style.fontSize = '1.8rem';
+            }
+
+            // Update Table
+            const tableBody = document.getElementById('signalsTableBody');
+            tableBody.innerHTML = '';
+            globalProcessedData.slice(-10).reverse().forEach(row => {
+                const tr = document.createElement('tr');
+                const rowMA = row[maField];
+                const rowSig = row[sigField];
+                const rowRisk = rowMA > 0 ? (Math.abs((row.close - rowMA) / rowMA) * 100 <= 5) : false;
+                const signalDisplay = rowRisk ? `${rowSig} ⚠️ RISKY` : rowSig;
+
+                tr.innerHTML = `
+                    <td>${row.date}</td>
+                    <td>$${row.close.toFixed(2)}</td>
+                    <td>$${rowMA.toFixed(2)}</td>
+                    <td style="font-weight:bold; color: ${rowSig === 'BUY' ? '#10b981' : '#f59e0b'}">${signalDisplay}</td>
+                    <td>${rowSig === 'BUY' ? 'Stay Invested' : 'Move to Cash'}</td>
+                    <td>$${row.equity.toLocaleString()}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+
+            // Update Chart
+            initChart(globalProcessedData);
         }
 
         async function loadStrategyData() {
@@ -617,94 +804,95 @@
                     return date_info.toLocaleDateString();
                 };
 
-                const processedData = rawData.map(row => {
-                    const rawSig = getKey(row, 'Signal');
-                    // Translate 1 -> BUY, 0 -> CASH
-                    let signalText = 'N/A';
-                    if (rawSig == 1) signalText = 'BUY';
-                    else if (rawSig == 0) signalText = 'CASH';
-                    else signalText = rawSig;
-
+                let processedData = rawData.map(row => {
                     const close = parseFloat(getKey(row, 'Close', 'Price')) || 0;
                     const ma200 = parseFloat(getKey(row, '200-Day MA', 'MA200', '200MA')) || 0;
-
-                    // Calculate risk: if price is within 5% of MA
-                    const percentDiff = ma200 > 0 ? Math.abs((close - ma200) / ma200) * 100 : 0;
-                    const isRisky = percentDiff <= 5;
 
                     return {
                         date: excelDateToJSDate(getKey(row, 'Date')),
                         close: close,
                         ma200: ma200,
-                        signal: signalText,
                         instruction: getKey(row, 'Instruction') || '',
-                        equity: parseFloat(getKey(row, 'Equity', 'Strategy Equity')) || 0,
-                        isRisky: isRisky,
-                        percentDiff: percentDiff
+                        equity: parseFloat(getKey(row, 'Equity', 'Strategy Equity')) || 0
                     };
                 }).filter(d => d.close > 0);
 
-                // Update Dashboard with Latest Data (last row)
-                const latest = processedData[processedData.length - 1];
-                if (latest) {
-                    // Store values for portfolio calculator
-                    currentTQQQPrice = latest.close;
-                    currentSignal = latest.signal;
-                    current200DayMA = latest.ma200;
-                    isRiskyPosition = latest.isRisky;
+                // Append Supplemental Data (April 20-22)
+                const supplemental = [
+                    { date: '4/20/2026', close: 58.08 },
+                    { date: '4/21/2026', close: 57.40 },
+                    { date: '4/22/2026 (Intraday)', close: 59.12 }
+                ];
 
-                    // Display Last Updated Date
-                    const dateEl = document.createElement('div');
-                    dateEl.style.cssText = 'grid-column: 1 / -1; text-align: center; color: #64748b; margin-bottom: 1rem; font-style: italic;';
-                    dateEl.innerHTML = `Last Updated: <strong>${latest.date}</strong>`;
-                    const grid = document.querySelector('.dashboard-grid');
-                    grid.insertBefore(dateEl, grid.firstChild);
-
-                    const signalEl = document.getElementById('current-signal');
-
-                    // Use Signal from Excel with risk indicator
-                    if (latest.isRisky) {
-                        signalEl.innerHTML = `${latest.signal}<span class="signal-risky">⚠️ RISKY (${latest.percentDiff.toFixed(1)}% from MA)</span>`;
-                    } else {
-                        signalEl.textContent = latest.signal;
+                // Only add if not already present in the Excel
+                supplemental.forEach(s => {
+                    if (!processedData.some(p => p.date === s.date)) {
+                        processedData.push({
+                            ...s,
+                            ma200: 0, // Will be calculated below
+                            instruction: '',
+                            equity: processedData[processedData.length - 1].equity
+                        });
                     }
-
-                    // Color coding - Safe string conversion
-                    const sigStr = String(latest.signal).toUpperCase();
-                    if (sigStr.includes('BUY')) signalEl.className = 'stat-value signal-buy';
-                    else if (sigStr.includes('SELL')) signalEl.className = 'stat-value signal-sell'; // fallback
-                    else signalEl.className = 'stat-value signal-cash'; // CASH is default yellow
-
-                    document.getElementById('current-price').textContent = '$' + latest.close.toFixed(2);
-
-                    // Revert labels for 200-Day MA
-                    document.getElementById('ma-label').textContent = '200-Day MA';
-                    document.getElementById('ma-value').textContent = '$' + latest.ma200.toFixed(2);
-
-                    document.getElementById('current-equity').textContent = '$' + latest.equity.toLocaleString(undefined, { maximumFractionDigits: 0 });
-                }
-
-                // Update Table (Last 10 entries, reversed)
-                const tableBody = document.getElementById('signalsTableBody');
-                processedData.slice(-10).reverse().forEach(row => {
-                    const tr = document.createElement('tr');
-                    const signalDisplay = row.isRisky ? `${row.signal} ⚠️ RISKY` : row.signal;
-                    tr.innerHTML = `
-                    <td>${row.date}</td>
-                    <td>$${row.close.toFixed(2)}</td>
-                    <td>$${row.ma200.toFixed(2)}</td>
-                    <td style="font-weight:bold; color: ${row.signal === 'BUY' ? '#10b981' : (row.signal === 'CASH' ? '#f59e0b' : '#ef4444')}">${signalDisplay}</td>
-                    <td>${row.instruction}</td>
-                    <td>$${row.equity.toLocaleString()}</td>
-                `;
-                    tableBody.appendChild(tr);
                 });
 
-                // Initialize Chart and controls
-                initChart(processedData);
-                setupTimeRangeControls();
+                // Calculate Moving Averages and Signals for both
+                let equity50 = processedData[0].equity || 10000;
+                let equity200 = processedData[0].equity || 10000;
 
-                // Load saved portfolio and calculate with current data
+                for (let i = 0; i < processedData.length; i++) {
+                    // Calculate 50-day SMA
+                    if (i >= 49) {
+                        let sum = 0;
+                        for (let j = 0; j < 50; j++) sum += processedData[i - j].close;
+                        processedData[i].ma50 = sum / 50;
+                    } else {
+                        processedData[i].ma50 = processedData[i].close; // Fallback
+                    }
+
+                    // Ensure 200-day SMA is calculated if Excel missing some
+                    if (!processedData[i].ma200 && i >= 199) {
+                        let sum = 0;
+                        for (let j = 0; j < 200; j++) sum += processedData[i - j].close;
+                        processedData[i].ma200 = sum / 200;
+                    } else if (!processedData[i].ma200) {
+                        processedData[i].ma200 = processedData[i].close;
+                    }
+
+                    // Generate Signals
+                    processedData[i].signal50 = processedData[i].close > processedData[i].ma50 ? 'BUY' : 'CASH';
+                    processedData[i].signal200 = processedData[i].close > processedData[i].ma200 ? 'BUY' : 'CASH';
+
+                    // Dynamic Equity Calculation (Backtest)
+                    if (i > 0) {
+                        const priceChange = processedData[i].close / processedData[i - 1].close;
+                        
+                        // 50-day Strategy
+                        if (processedData[i - 1].signal50 === 'BUY') equity50 *= priceChange;
+                        
+                        // 200-day Strategy
+                        if (processedData[i - 1].signal200 === 'BUY') equity200 *= priceChange;
+                    }
+                    processedData[i].equity50 = equity50;
+                    processedData[i].equity200 = equity200;
+                    
+                    // Use calculated equity as the main equity if none provided
+                    if (!processedData[i].equity) processedData[i].equity = processedData[i].equity200;
+                }
+
+                globalProcessedData = processedData;
+
+                // Initial UI Render
+                updateDashboardWithPeriodData();
+
+                // Initialize Dashboard Date
+                const latest = globalProcessedData[globalProcessedData.length - 1];
+                if (latest) {
+                    const dateEl = document.getElementById('last-updated-date');
+                    dateEl.innerHTML = `Last Updated: <span style="color: var(--slate-900)">${latest.date}</span>`;
+                }
+
+                setupTimeRangeControls();
                 loadPortfolio();
 
             } catch (error) {
@@ -719,9 +907,17 @@
         function filterDataByTimeRange(data, range) {
             if (range === 'max') return data;
 
-            const yearsToShow = parseInt(range);
             const cutoffDate = new Date();
-            cutoffDate.setFullYear(cutoffDate.getFullYear() - yearsToShow);
+            
+            if (range === '6m') {
+                cutoffDate.setMonth(cutoffDate.getMonth() - 6);
+            } else if (range === 'ytd') {
+                cutoffDate.setMonth(0); // January
+                cutoffDate.setDate(1);  // 1st
+            } else {
+                const yearsToShow = parseInt(range);
+                cutoffDate.setFullYear(cutoffDate.getFullYear() - yearsToShow);
+            }
 
             return data.filter(d => {
                 const dataDate = new Date(d.date);
@@ -736,7 +932,8 @@
             const ctx = document.getElementById('strategyChart').getContext('2d');
             const labels = filteredData.map(d => d.date);
             const prices = filteredData.map(d => d.close);
-            const equity = filteredData.map(d => d.equity);
+            const equity = filteredData.map(d => selectedPeriod === 50 ? d.equity50 : d.equity200);
+            const maValues = filteredData.map(d => selectedPeriod === 50 ? d.ma50 : d.ma200);
 
             // Destroy existing chart if it exists
             if (chartInstance) {
@@ -751,21 +948,33 @@
                         {
                             label: 'Strategy Equity',
                             data: equity,
-                            borderColor: '#2563eb',
-                            backgroundColor: 'rgba(37, 99, 235, 0.1)',
-                            borderWidth: 2,
+                            borderColor: '#4f46e5',
+                            backgroundColor: 'rgba(79, 70, 229, 0.05)',
+                            borderWidth: 3,
                             yAxisID: 'y',
                             fill: true,
-                            pointRadius: 0 // Clean look
+                            pointRadius: 0,
+                            tension: 0.4 // Smooth lines
+                        },
+                        {
+                            label: `${selectedPeriod}-Day MA`,
+                            data: maValues,
+                            borderColor: '#10b981',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            yAxisID: 'y1',
+                            pointRadius: 0,
+                            tension: 0.4
                         },
                         {
                             label: 'TQQQ Price',
                             data: prices,
                             borderColor: '#94a3b8',
                             borderWidth: 1,
-                            borderDash: [5, 5],
+                            borderDash: [2, 2],
                             yAxisID: 'y1',
-                            pointRadius: 0
+                            pointRadius: 0,
+                            tension: 0.4
                         }
                     ]
                 },
@@ -817,7 +1026,7 @@
         }
 
         function setupTimeRangeControls() {
-            const buttons = document.querySelectorAll('.time-range-btn');
+            const buttons = document.querySelectorAll('.range-btn');
             buttons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     // Update active state
