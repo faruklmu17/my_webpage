@@ -1,6 +1,6 @@
 // Track completed missions
 let completedMissions = 0;
-const totalMissions = 12;
+const totalMissions = 13;
 
 // Update progress bar
 function updateProgress() {
@@ -201,6 +201,75 @@ function dropToColumn(event) {
             document.getElementById('column-drag-result').innerHTML = `Moved <strong>${draggedElement.textContent}</strong> back to To Do.`;
         }
     }
+}
+
+// Secure Order Wizard (Mission 13)
+let selectedWizardValue = '';
+
+function wizardNext(step) {
+    const res = document.getElementById('wizard-result');
+    
+    if (step === 1) {
+        // From Step 1 to 2
+        const name = document.getElementById('wizard-name').value.trim();
+        const email = document.getElementById('wizard-email').value.trim();
+        
+        if (name === 'Faruk' && email === 'faruk@hasan.com') {
+            showWizardStep(2);
+            res.innerHTML = '';
+        } else {
+            res.innerHTML = '<strong style="color:red;">Error:</strong> Please enter the required identity information exactly as prompted.';
+        }
+    } else if (step === 2) {
+        // From Step 2 to 3
+        if (selectedWizardValue) {
+            showWizardStep(3);
+            res.innerHTML = '';
+        } else {
+            res.innerHTML = '<strong style="color:red;">Error:</strong> Please select an order type.';
+        }
+    } else if (step === 0) {
+        // Back to Step 1
+        showWizardStep(1);
+    }
+}
+
+function showWizardStep(stepNum) {
+    // Hide all panels
+    document.querySelectorAll('.wizard-panel').forEach(p => p.classList.remove('active'));
+    // Show target panel
+    document.getElementById(`wizard-step-${stepNum}`).classList.add('active');
+    
+    // Update indicators
+    document.querySelectorAll('.wizard-step-indicator').forEach((ind, idx) => {
+        if (idx < stepNum) {
+            ind.classList.add('active');
+        } else {
+            ind.classList.remove('active');
+        }
+    });
+}
+
+function selectWizardOpt(el) {
+    document.querySelectorAll('.wizard-opt').forEach(opt => opt.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedWizardValue = el.getAttribute('data-value');
+}
+
+function startWizardCheck() {
+    document.getElementById('wizard-begin-check').style.display = 'none';
+    document.getElementById('wizard-loading').style.display = 'block';
+    
+    // Simulate server delay
+    setTimeout(() => {
+        document.getElementById('wizard-loading').style.display = 'none';
+        document.getElementById('wizard-final-action').style.display = 'block';
+    }, 2000);
+}
+
+function completeWizard() {
+    document.getElementById('wizard-result').innerHTML = '<strong>Success!</strong> Secure Order Wizard completed. Order submitted!';
+    markMissionComplete('wizard-mission');
 }
 
 // Hide Mission 7 (Temporary - Mission 8)
