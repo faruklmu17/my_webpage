@@ -83,6 +83,8 @@
             <li><a href="#hide-element">Hide Element</a></li>
             <li><a href="#persistent-hide">Persistent Hide</a></li>
             <li><a href="#tooltip">Tooltip Hover</a></li>
+            <li><a href="#table-test">Table Data</a></li>
+            <li><a href="#column-drag">Column Drag</a></li>
 
         </ul>
     </nav>
@@ -218,9 +220,75 @@
                 </div>
               </div>
           
-              <p id="tooltip-result"></p>
+            <p id="tooltip-result"></p>
             </div>
           </section>
+
+        <section id="table-test">
+            <h2>Mission 11: Table Data Testing</h2>
+            <p>Find the <strong>Medium Veggie</strong> pizza in the table and click its <strong>Process</strong> button to complete this mission.</p>
+            <div class="mission-content">
+                <table class="practice-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Pizza Type</th>
+                            <th>Size</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#1001</td>
+                            <td>Pepperoni</td>
+                            <td>Large</td>
+                            <td><span class="status pending">Pending</span></td>
+                            <td><button onclick="processOrder('#1001', 'Pepperoni')">Process</button></td>
+                        </tr>
+                        <tr>
+                            <td>#1002</td>
+                            <td>Veggie</td>
+                            <td>Medium</td>
+                            <td><span class="status pending">Pending</span></td>
+                            <td><button onclick="processOrder('#1002', 'Veggie')">Process</button></td>
+                        </tr>
+                        <tr>
+                            <td>#1003</td>
+                            <td>Margherita</td>
+                            <td>Small</td>
+                            <td><span class="status pending">Pending</span></td>
+                            <td><button onclick="processOrder('#1003', 'Margherita')">Process</button></td>
+                        </tr>
+                        <tr>
+                            <td>#1004</td>
+                            <td>BBQ Chicken</td>
+                            <td>Extra Large</td>
+                            <td><span class="status pending">Pending</span></td>
+                            <td><button onclick="processOrder('#1004', 'BBQ Chicken')">Process</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p id="table-result"></p>
+            </div>
+        <section id="column-drag">
+            <h2>Mission 12: Column Drag & Drop</h2>
+            <p>Move the items from the <strong>To Do</strong> column to the <strong>Done</strong> column to complete this mission.</p>
+            <div class="mission-content">
+                <div class="drag-columns-container">
+                    <div class="drag-column" id="todo-column" ondrop="dropToColumn(event)" ondragover="allowDrop(event)">
+                        <h3>To Do</h3>
+                        <div class="drag-item" id="item1" draggable="true" ondragstart="dragStart(event)">🍕 Order Pizza</div>
+                        <div class="drag-item" id="item2" draggable="true" ondragstart="dragStart(event)">🥤 Pick up Soda</div>
+                        <div class="drag-item" id="item3" draggable="true" ondragstart="dragStart(event)">🥗 Prepare Salad</div>
+                    </div>
+                    <div class="drag-column" id="done-column" ondrop="dropToColumn(event)" ondragover="allowDrop(event)">
+                        <h3>Done</h3>
+                    </div>
+                </div>
+                <p id="column-drag-result"></p>
+            </div>
+        </section>
     </main>
 
     <footer>
@@ -266,8 +334,8 @@
             const progress = document.getElementById('progress');
             const stickyProgress = document.getElementById('sticky-progress');
 
-            // Calculate progress: 66% for login + up to 34% for missions (9 missions total)
-            const missionProgress = Math.min(completedMissions * (34 / 9), 34);
+            // Calculate progress: 66% for login + up to 34% for missions (12 missions total)
+            const missionProgress = Math.min(completedMissions * (34 / 12), 34);
             const totalProgress = 66 + missionProgress;
 
             if (progress) {

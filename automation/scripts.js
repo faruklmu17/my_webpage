@@ -1,6 +1,6 @@
 // Track completed missions
 let completedMissions = 0;
-const totalMissions = 9;
+const totalMissions = 12;
 
 // Update progress bar
 function updateProgress() {
@@ -144,6 +144,62 @@ function searchFunction() {
         markMissionComplete('search');
     } else {
         document.getElementById('search-result').innerHTML = 'Please enter a search term';
+    }
+}
+
+// Table Data (Mission 11)
+function processOrder(orderId, pizzaType) {
+    const tableResult = document.getElementById('table-result');
+    
+    // Find the row containing this order
+    const table = document.querySelector('.practice-table');
+    const rows = table.querySelectorAll('tbody tr');
+    let targetRow = null;
+    
+    rows.forEach(row => {
+        if (row.cells[0].textContent === orderId) {
+            targetRow = row;
+        }
+    });
+
+    if (targetRow) {
+        // Update status in the table
+        const statusSpan = targetRow.querySelector('.status');
+        statusSpan.textContent = 'Processed';
+        statusSpan.className = 'status processed';
+        
+        // Disable the button
+        const btn = targetRow.querySelector('button');
+        btn.disabled = true;
+        btn.textContent = 'Done';
+        btn.style.opacity = '0.5';
+        btn.style.cursor = 'not-allowed';
+
+        if (orderId === '#1002' && pizzaType === 'Veggie') {
+            tableResult.innerHTML = `<strong>Success!</strong> Mission 11 complete. You processed the correct order (${orderId} - ${pizzaType}).`;
+            markMissionComplete('table-test');
+        } else {
+            tableResult.innerHTML = `Processed ${pizzaType} (${orderId}), but that wasn't the target order. Keep looking!`;
+        }
+    }
+}
+
+// Column Drag & Drop (Mission 12)
+function dropToColumn(event) {
+    event.preventDefault();
+    const data = event.dataTransfer.getData("text");
+    const draggedElement = document.getElementById(data);
+    const dropColumn = event.target.closest('.drag-column');
+    
+    if (dropColumn && draggedElement) {
+        dropColumn.appendChild(draggedElement);
+        
+        if (dropColumn.id === 'done-column') {
+            document.getElementById('column-drag-result').innerHTML = `<strong>Great!</strong> You moved <strong>${draggedElement.textContent}</strong> to Done!`;
+            markMissionComplete('column-drag');
+        } else {
+            document.getElementById('column-drag-result').innerHTML = `Moved <strong>${draggedElement.textContent}</strong> back to To Do.`;
+        }
     }
 }
 
