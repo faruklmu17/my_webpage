@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Master the Playwright Screencast API (v1.59+). Learn how to record custom test videos with visual action annotations for better debugging and documentation." />
+  <meta name="keywords"
+    content="Playwright Screencast API, Playwright video recording, Playwright 1.59 features, automation testing, Playwright debugging, SDET tutorial, QA automation" />
+  <meta name="author" content="Faruk Hasan" />
+  <meta property="og:title" content="Playwright Screencast API Tutorial: Record Videos with Action Annotations" />
+  <meta property="og:description"
+    content="A step-by-step guide to the new Screencast API in Playwright 1.59+. Record specific test segments with visual highlights." />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://faruk-hasan.com/blog_images/playwright_screencast_thumb.png" />
+  <meta property="og:url" content="https://faruk-hasan.com/blog_post/playwright_screencast_api_basics.html" />
+  <link rel="canonical" href="https://faruk-hasan.com/blog_post/playwright_screencast_api_basics.html" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Playwright Screencast API Tutorial: Record Videos with Action Annotations",
+    "description": "Learn how to use the Playwright Screencast API (v1.59+) to record test videos with action annotations for better debugging.",
+    "image": "https://faruk-hasan.com/blog_images/playwright_screencast_thumb.png",
+    "author": {
+      "@type": "Person",
+      "name": "Faruk Hasan",
+      "url": "https://faruk-hasan.com"
+    },
+    "datePublished": "2024-04-25",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://faruk-hasan.com/blog_post/playwright_screencast_api_basics.html"
+    },
+    "keywords": ["Playwright", "Automation Testing", "Screencast API", "SDET", "QA"]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://faruk-hasan.com/"
+    },{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://faruk-hasan.com/blog.html"
+    },{
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Playwright Screencast API Tutorial",
+      "item": "https://faruk-hasan.com/blog_post/playwright_screencast_api_basics.html"
+    }]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "What is the Playwright Screencast API?",
+      "body": "The Screencast API is a feature in Playwright 1.59+ that allows testers to record custom video segments of their tests with visual action annotations."
+    }, {
+      "@type": "Question",
+      "name": "How do I show action annotations in Playwright videos?",
+      "body": "You can use page.screencast.showActions() to display visual highlights of clicks and other interactions in your recorded videos."
+    }, {
+      "@type": "Question",
+      "name": "What is the 'disposable' object in Playwright Screencast?",
+      "body": "The disposable object represents the active annotation session. Calling disposable.dispose() stops the annotations and cleans up resources."
+    }]
+  }
+  </script>
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Playwright Screencast API Tutorial | Faruk Hasan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #4f46e5;
+      --accent: #06b6d4;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --text-main: #1e293b;
+      --text-light: #64748b;
+      --bg-body: #f8fafc;
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --code-bg: #0f172a;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header Styling */
+    .header {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1rem 0;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.025em;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-menu a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-menu a:hover {
+      color: var(--primary);
+    }
+
+    /* Main Content */
+    .blog-container {
+      max-width: 850px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--primary);
+    }
+
+    .blog-header {
+      margin-bottom: 3rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: #dbeafe;
+      color: var(--primary);
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .blog-title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.04em;
+      color: #0f172a;
+    }
+
+    .blog-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      color: var(--text-light);
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Video Section */
+    .video-card {
+      background: #000;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+      margin: 2.5rem 0;
+      aspect-ratio: 16 / 9;
+      position: relative;
+    }
+
+    .video-card iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Content Styling */
+    .article-content h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin: 3rem 0 1.5rem;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+    }
+
+    .article-content p {
+      margin-bottom: 1.5rem;
+      font-size: 1.125rem;
+      color: #334155;
+    }
+
+    .article-content strong {
+      color: #0f172a;
+    }
+
+    .highlight-box {
+      background: white;
+      border-left: 4px solid var(--primary);
+      padding: 1.5rem 2rem;
+      border-radius: 0 12px 12px 0;
+      margin: 2.5rem 0;
+      box-shadow: var(--shadow-md);
+    }
+
+    .highlight-box h3 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .highlight-box ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .highlight-box li {
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 1rem;
+    }
+
+    .highlight-box li::before {
+      content: '→';
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    /* Comparison Table */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 2.5rem 0;
+    }
+
+    .comparison-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .comparison-card.old { border-top: 4px solid var(--danger); }
+    .comparison-card.new { border-top: 4px solid var(--success); }
+
+    .comparison-card h4 {
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .comparison-card ul {
+      list-style: none;
+      font-size: 0.95rem;
+    }
+
+    .comparison-card li {
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Code Block */
+    .code-wrapper {
+      margin: 2.5rem 0;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--code-bg);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .code-header {
+      background: #1e293b;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #334155;
+    }
+
+    .code-lang {
+      color: #94a3b8;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .code-block {
+      padding: 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      overflow-x: auto;
+      line-height: 1.6;
+      white-space: pre;
+    }
+
+    .line {
+      display: block;
+      min-height: 1.6rem;
+    }
+
+    .line::before {
+      content: attr(data-line-number);
+      display: inline-block;
+      width: 2rem;
+      margin-right: 1rem;
+      color: #64748b;
+      text-align: right;
+      user-select: none;
+    }
+
+    .keyword { color: #f472b6; }
+    .function { color: #38bdf8; }
+    .string { color: #4ade80; }
+    .comment { color: #64748b; font-style: italic; }
+
+    /* List styling */
+    .feature-list {
+      list-style: none;
+      margin: 2rem 0;
+    }
+
+    .feature-list li {
+      background: white;
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      margin-bottom: 0.75rem;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: transform 0.2s;
+    }
+
+    .feature-list li:hover {
+      transform: translateX(8px);
+      border-color: var(--primary);
+    }
+
+    .feature-list i {
+      color: var(--primary);
+      background: #eff6ff;
+      padding: 0.5rem;
+      border-radius: 8px;
+    }
+
+    /* Footer */
+    .footer {
+      background: #0f172a;
+      color: white;
+      padding: 5rem 1.5rem 3rem;
+      margin-top: 5rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .social-btn {
+      width: 45px;
+      height: 45px;
+      background: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.25rem;
+      transition: all 0.2s;
+    }
+
+    .social-btn:hover {
+      background: var(--primary);
+      transform: translateY(-4px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #1e293b;
+      padding-top: 2rem;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+      .blog-title {
+        font-size: 2.5rem;
+      }
+      .nav-menu {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <a href="../index.html" class="logo">Faruk Hasan</a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../about/about_me.html">About</a></li>
+          <li><a href="../index.html#blog">Blog</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="blog-container">
+    <a href="../index.html#blog" class="back-link">
+      <i class="fas fa-arrow-left"></i> Back to Blog
+    </a>
+
+    <article>
+      <header class="blog-header">
+        <span class="badge">New Release</span>
+        <h1 class="blog-title">Playwright Screencast API Tutorial (v1.59+): Record Test Videos with Action Annotations</h1>
+        <div class="blog-meta">
+          <div class="meta-item">
+            <i class="fas fa-user"></i>
+            <span>Faruk Hasan</span>
+          </div>
+          <div class="meta-item">
+            <i class="fas fa-calendar"></i>
+            <span>April 25, 2026</span>
+          </div>
+          <div class="meta-item">
+            <i class="fas fa-clock"></i>
+            <span>6 min read</span>
+          </div>
+          <div class="meta-item">
+            <i class="fas fa-tag"></i>
+            <span>Playwright 1.59</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="article-content">
+        <p>If you’re using <strong>Playwright</strong> for automation testing, there’s a new feature you should definitely know about. Released in version 1.59, the <strong>Screencast API</strong> is a game-changer for debugging and documentation.</p>
+
+        <div class="highlight-box" style="background: #f1f5f9; border-left: 4px solid var(--secondary); padding: 1rem 1.5rem;">
+          <h3 style="color: var(--text-main); font-size: 1rem; margin-bottom: 0.5rem;"><i class="fas fa-list-ol"></i> Table of Contents</h3>
+          <ul style="list-style: none; padding: 0; font-size: 0.95rem;">
+            <li><a href="#what-is-screencast" style="color: var(--primary); text-decoration: none;">1. What is the Screencast API?</a></li>
+            <li><a href="#example-script" style="color: var(--primary); text-decoration: none;">2. Complete Example Script</a></li>
+            <li><a href="#explanation" style="color: var(--primary); text-decoration: none;">3. Step-by-Step Breakdown</a></li>
+            <li><a href="#use-cases" style="color: var(--primary); text-decoration: none;">4. Real-World Use Cases</a></li>
+            <li><a href="#documentation" style="color: var(--primary); text-decoration: none;">5. Official API Documentation</a></li>
+          </ul>
+        </div>
+
+        <p>👉 Playwright 1.59+ introduced the Screencast API, which allows you to record custom videos of your tests—with <strong>action annotations</strong>. In this guide, I’ll walk you through what's new, how to use it, and real use cases.</p>
+
+        <div class="video-card">
+          <!-- Placeholder for YouTube Video -->
+          <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+            title="Playwright Screencast API Tutorial" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen></iframe>
+        </div>
+
+        <h2 id="what-is-screencast">🧠 What is the Screencast API?</h2>
+        <p>The Screencast API is a powerful new feature that gives you granular control over video recording during your automated tests. Unlike the older video recording options, the Screencast API lets you:</p>
+        
+        <ul class="feature-list">
+          <li><i class="fas fa-play"></i> <span>Start and stop recording anytime during a test</span></li>
+          <li><i class="fas fa-crop"></i> <span>Record only specific parts or segments of your test</span></li>
+          <li><i class="fas fa-mouse-pointer"></i> <span>Show visual action annotations (clicks, navigation, etc.)</span></li>
+        </ul>
+
+        <div class="comparison-grid">
+          <div class="comparison-card old">
+            <h4>❌ Before (Old Way)</h4>
+            <ul>
+              <li><li><i class="fas fa-times-circle" style="color: var(--danger)"></i> Record entire test only</li></li>
+              <li><li><i class="fas fa-times-circle" style="color: var(--danger)"></i> No control over timing</li></li>
+              <li><li><i class="fas fa-times-circle" style="color: var(--danger)"></i> Harder to debug specific steps</li></li>
+            </ul>
+          </div>
+          <div class="comparison-card new">
+            <h4>✅ Now (Screencast API)</h4>
+            <ul>
+              <li><li><i class="fas fa-check-circle" style="color: var(--success)"></i> Start/stop anytime</li></li>
+              <li><li><i class="fas fa-check-circle" style="color: var(--success)"></i> Record multiple segments</li></li>
+              <li><li><i class="fas fa-check-circle" style="color: var(--success)"></i> Highlight actions visually</li></li>
+            </ul>
+          </div>
+        </div>
+
+        <h2 id="example-script">💻 Example: Playwright Screencast Script</h2>
+        <p>Here’s a simple working example to get you started with the Screencast API in your own tests:</p>
+
+        <div class="code-wrapper">
+          <div class="code-header">
+            <span class="code-lang">playwright-test.ts</span>
+            <span class="meta-item" style="font-size: 0.7rem; color: #94a3b8;"><i class="fas fa-copy"></i> Copy</span>
+          </div>
+          <pre class="code-block"><code><span class="line" data-line-number="1"><span class="keyword">import</span> { test, expect } <span class="keyword">from</span> <span class="string">'@playwright/test'</span>;</span>
+<span class="line" data-line-number="2"></span>
+<span class="line" data-line-number="3">test(<span class="string">'screencast demo'</span>, <span class="keyword">async</span> ({ page }) => {</span>
+<span class="line" data-line-number="4"></span>
+<span class="line" data-line-number="5">  <span class="comment">// Start recording</span></span>
+<span class="line" data-line-number="6">  <span class="keyword">await</span> page.<span class="function">screencast.start</span>({</span>
+<span class="line" data-line-number="7">    path: <span class="string">'screencast-demo.webm'</span></span>
+<span class="line" data-line-number="8">  });</span>
+<span class="line" data-line-number="9"></span>
+<span class="line" data-line-number="10">  <span class="comment">// Show action annotations</span></span>
+<span class="line" data-line-number="11">  <span class="keyword">const</span> disposable = <span class="keyword">await</span> page.<span class="function">screencast.showActions</span>({</span>
+<span class="line" data-line-number="12">    position: <span class="string">'top-right'</span>,</span>
+<span class="line" data-line-number="13">    duration: <span class="string">1000</span>,</span>
+<span class="line" data-line-number="14">    fontSize: <span class="string">18</span></span>
+<span class="line" data-line-number="15">  });</span>
+<span class="line" data-line-number="16"></span>
+<span class="line" data-line-number="17">  <span class="comment">// Perform actions</span></span>
+<span class="line" data-line-number="18">  <span class="keyword">await</span> page.<span class="function">goto</span>(<span class="string">'https://playwright.dev'</span>);</span>
+<span class="line" data-line-number="19">  <span class="keyword">await</span> page.<span class="function">getByRole</span>(<span class="string">'link'</span>, { name: <span class="string">'Testing documentation'</span> }).<span class="function">click</span>();</span>
+<span class="line" data-line-number="20"></span>
+<span class="line" data-line-number="21">  <span class="comment">// Stop annotations</span></span>
+<span class="line" data-line-number="22">  <span class="keyword">await</span> disposable.<span class="function">dispose</span>();</span>
+<span class="line" data-line-number="23"></span>
+<span class="line" data-line-number="24">  <span class="comment">// Assertion</span></span>
+<span class="line" data-line-number="25">  <span class="keyword">await</span> <span class="function">expect</span>(page).<span class="function">toHaveTitle</span>(<span class="string">'Installation | Playwright'</span>);</span>
+<span class="line" data-line-number="26"></span>
+<span class="line" data-line-number="27">  <span class="comment">// Optional delay for video visibility</span></span>
+<span class="line" data-line-number="28">  <span class="keyword">await</span> page.<span class="function">waitForTimeout</span>(<span class="string">3000</span>);</span>
+<span class="line" data-line-number="29"></span>
+<span class="line" data-line-number="30">  <span class="comment">// Stop recording</span></span>
+<span class="line" data-line-number="31">  <span class="keyword">await</span> page.<span class="function">screencast.stop</span>();</span>
+<span class="line" data-line-number="32">});</span></code></pre>
+        </div>
+
+        <h2 id="explanation">🔍 Step-by-Step Explanation</h2>
+        <ol style="padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li style="margin-bottom: 1rem;"><strong>Start Recording:</strong> <code>await page.screencast.start({ path: 'file.webm' });</code> Begins recording and saves it as a high-quality .webm file.</li>
+          <li style="margin-bottom: 1rem;"><strong>Show Action Annotations:</strong> <code>const disposable = await page.screencast.showActions({...});</code> Displays clicks and interactions visually on screen.</li>
+          <li style="margin-bottom: 1rem;"><strong>Perform Test Steps:</strong> Run your normal Playwright actions as you usually would.</li>
+          <li style="margin-bottom: 1rem;"><strong>Stop Annotations:</strong> <code>await disposable.dispose();</code> Turns off the visual highlights (cleanup step).</li>
+          <li style="margin-bottom: 1rem;"><strong>Stop Recording:</strong> <code>await page.screencast.stop();</code> Ends the session and finalizes the video file.</li>
+        </ol>
+
+        <div class="highlight-box">
+          <h3>💡 What is "disposable"?</h3>
+          <p>The variable <code>disposable</code> represents a temporary object. You call <code>.dispose()</code> to stop annotations and clean up resources. Think of it like turning a feature ON, then turning it OFF when you're done.</p>
+        </div>
+
+        <h2 id="use-cases">🧪 Real Use Cases</h2>
+        <p>Why should you switch to the Screencast API? Here are a few professional scenarios:</p>
+        <ul class="feature-list">
+          <li><i class="fas fa-bug"></i> <span><strong>Precision Debugging:</strong> See exactly what happened during specific test failures without watching a 5-minute video.</span></li>
+          <li><i class="fas fa-book"></i> <span><strong>Dynamic Documentation:</strong> Create perfect video walkthroughs of your test flows for internal wikis.</span></li>
+          <li><i class="fas fa-users"></i> <span><strong>Team Collaboration:</strong> Share visual demos of new features instead of messy log files.</span></li>
+          <li><i class="fas fa-shield-alt"></i> <span><strong>Bug Reporting:</strong> Attach focused videos to Jira tickets that clearly highlight the issue.</span></li>
+        </ul>
+
+        <h2 id="pro-tips">⚠️ Pro Tips</h2>
+        <p>To get the most out of this new API, keep these tips in mind:</p>
+        <ul style="padding-left: 1.5rem; margin-bottom: 2rem;">
+          <li>Add small <code>waitForTimeout</code> calls after key actions to make them easier to see in the recording.</li>
+          <li>Use annotations only when needed to keep the video clean and professional.</li>
+          <li>Integrate the output path with your CI pipeline artifacts for easy access.</li>
+        </ul>
+
+        <h2 id="documentation">📚 Official Documentation</h2>
+        <p>For a complete list of options and more technical details, be sure to check out the official Playwright documentation:</p>
+        <ul class="feature-list">
+          <li><i class="fas fa-external-link-alt"></i> <span><a href="https://playwright.dev/docs/api/class-screencast" target="_blank" style="color: var(--primary); font-weight: 600;">Playwright Screencast API Reference</a></span></li>
+        </ul>
+
+        <div style="margin-top: 4rem; padding: 2rem; background: #eff6ff; border-radius: 16px; text-align: center;">
+          <h3 style="margin-bottom: 1rem;">🚀 Ready to try it?</h3>
+          <p>The Screencast API in Playwright 1.59+ gives you more control, better debugging, and cleaner recordings. For more info and details, visit the <a href="https://playwright.dev/docs/api/class-screencast" target="_blank" style="color: var(--primary); font-weight: 600;">official API docs</a>.</p>
+          <a href="https://youtube.com/@kidzcodeai" class="back-link" style="color: var(--primary); font-size: 1.1rem; margin-top: 1rem;">
+            Watch more Playwright tutorials on YouTube <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="../index.html">Home</a>
+        <a href="../about/about_me.html">About Me</a>
+        <a href="../index.html#blog">Blog</a>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+
+      <div class="social-links">
+        <a href="https://linkedin.com/in/md-faruk-hasan" class="social-btn" target="_blank" aria-label="LinkedIn">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="https://github.com/faruklmu17" class="social-btn" target="_blank" aria-label="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://youtube.com/@kidzcodeai" class="social-btn" target="_blank" aria-label="YouTube">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="mailto:faruqmul@gmail.com" class="social-btn" aria-label="Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Faruk Hasan. All rights reserved. Created with 💙 for the QA Community.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
