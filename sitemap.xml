@@ -47,6 +47,13 @@
   
   <!-- Blog Posts -->
   <url>
+    <loc>https://faruk-hasan.com/blog_post/playwright_screencast_api_basics.html</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>https://faruk-hasan.com/blog_post/local_storage_testing_with_playwright.html</loc>
     <lastmod>2024-11-28</lastmod>
     <changefreq>yearly</changefreq>
