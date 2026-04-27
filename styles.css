@@ -4010,8 +4010,10 @@ a[href*="huggingface"].category-link-inline:hover {
 }
 
 .blog-image {
-  height: 200px;
+  aspect-ratio: 3 / 2;
+  height: auto;
   overflow: hidden;
+  background-color: #0f172a;
 }
 
 .blog-image a {
@@ -4023,12 +4025,13 @@ a[href*="huggingface"].category-link-inline:hover {
 .blog-image a img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  display: block;
   transition: transform 0.5s ease;
 }
 
 .blog-card:hover .blog-image a img {
-  transform: scale(1.05);
+  opacity: 0.9;
 }
 
 .blog-content {
