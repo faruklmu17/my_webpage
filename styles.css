@@ -30,9 +30,7 @@ body {
 
 /* Enhanced Header Styling with larger round profile image */
 header {
-  background-color: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background-color: #ffffff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 0;
@@ -40,6 +38,17 @@ header {
   padding: 0.5rem 0;
   /* Small padding to give some space */
   transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 0.5rem 1rem;
+    padding-top: max(0.5rem, env(safe-area-inset-top));
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #ffffff;
+  }
 }
 
 .header-content {
