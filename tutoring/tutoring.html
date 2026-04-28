@@ -562,21 +562,18 @@
 
     /* Reviews */
     .review-scroller {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2rem;
-      overflow-x: auto;
       padding: 2rem 0;
-      scroll-snap-type: x mandatory;
     }
 
     .review {
-      min-width: 300px;
       background: var(--card);
       border: 1px solid #ffffff12;
       padding: 1.5rem;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      scroll-snap-align: start;
     }
 
     .review blockquote {
@@ -1365,6 +1362,24 @@
     <div class="container">
       <h2>What Parents & Students Say</h2>
       <div class="review-scroller" tabindex="0">
+        <figure class="review">
+          <blockquote>
+            "Very good class, very patient instructor and highly organized content. Highly recommended!"
+          </blockquote>
+          <figcaption>★★★★★ — An Outschool parent • Apr 13, 2026</figcaption>
+        </figure>
+        <figure class="review">
+          <blockquote>
+            "Faruk was so helpful! He helped my son with a coding project for school that he was struggling with. We are so grateful for his kindness and assistance."
+          </blockquote>
+          <figcaption>★★★★★ — Tonya A. • Jan 25, 2026</figcaption>
+        </figure>
+        <figure class="review">
+          <blockquote>
+            "My child has been learning Python with Mr Hasan and is now planning an AI project. The lessons are well paced and thoughtfully structured. Mr Hasan is very professional, supportive and great at guiding students, which has really helped build my child's confidence. My child truly enjoys the class."
+          </blockquote>
+          <figcaption>★★★★★ — Lyric H. • Mar 10, 2026</figcaption>
+        </figure>
         <figure class="review">
           <blockquote>
             "This is an excellent class. My daughter has been taking it for more than a year, and she doesn't want to
