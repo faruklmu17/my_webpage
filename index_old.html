@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Faruk Hasan - Portfolio</title>
+  <meta name="description"
+    content="Portfolio of Faruk Hasan, a QA Engineer specializing in automation testing, CI/CD, and AI-driven testing strategies.">
+  <link rel="canonical" href="https://faruk-hasan.com/" />
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="https://faruk-hasan.com/sitemap.xml" />
+
+  <link rel="stylesheet" href="assets/css/chatbot.css">
+
+
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="Faruk Hasan - QA Engineer & Automation Specialist">
+  <meta property="og:description"
+    content="Portfolio of Faruk Hasan, a QA Engineer specializing in automation testing, CI/CD, and AI-driven testing strategies.">
+  <meta property="og:image" content="https://faruk-hasan.com/og-image.jpg">
+  <meta property="og:url" content="https://faruk-hasan.com">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Faruk Hasan - QA Engineer & Automation Specialist">
+  <meta name="twitter:description"
+    content="Portfolio of Faruk Hasan, a QA Engineer specializing in automation testing, CI/CD, and AI-driven testing strategies.">
+  <meta name="twitter:image" content="https://faruk-hasan.com/og-image.jpg">
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="shared/header-footer.css">
+  <script src="shared/header-footer.js" defer></script>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+  <!-- Add Font Awesome for social media icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Add Google Fonts for signature style font -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <!-- Add Montserrat font for professional styling -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Faruk Hasan",
+    "jobTitle": "Software QA Engineer",
+    "description": "Automation & AI-Driven Testing Specialist with expertise in Playwright, Selenium, and CI/CD pipelines",
+    "url": "https://faruk-hasan.com",
+    "image": "https://faruk-hasan.com/assets/images/me.jpg",
+    "sameAs": [
+      "https://www.linkedin.com/in/md-faruk-hasan/",
+      "https://github.com/faruklmu17",
+      "https://www.youtube.com/@kidzcodeai",
+      "https://www.facebook.com/HasanMd2020/"
+    ],
+    "knowsAbout": [
+      "Test Automation",
+      "Playwright",
+      "Selenium",
+      "Cypress",
+      "CI/CD",
+      "Quality Assurance",
+      "Python",
+      "JavaScript",
+      "AI-Driven Testing"
+    ],
+    "alumniOf": {
+      "@type": "Organization",
+      "name": "Lincoln Memorial University"
+    }
+  }
+  </script>
+
+  <style>
+    /* Chatbot Styles Unified */
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      }
+
+      70% {
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+      }
+    }
+
+    .elegant-chatbot-header .chatbot-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #38bdf8;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .elegant-chatbot-header .chatbot-title i {
+      font-size: 1.2rem;
+      animation: rotate 4s linear infinite;
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .chatbot-frame-container {
+      position: relative;
+      height: 600px;
+      background: #f8f9fa;
+    }
+
+    .chatbot-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: white;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .elegant-chatbot-header {
+        padding: 0.8rem 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+      }
+
+      .chatbot-frame-container {
+        height: 500px;
+      }
+
+      .elegant-chatbot-header .chatbot-title {
+        font-size: 1rem;
+      }
+
+      .chatbot-status {
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .chatbot-frame-container {
+        height: 450px;
+      }
+    }
+
+    /* Chatbot Window and Controls */
+    .chatbot-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .chatbot-toggle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+      border: none;
+      color: #0f172a;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chatbot-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .chatbot-toggle svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+
+    /* Dancing Icon Animation */
+    .chatbot-toggle .chat-icon {
+      animation: dance 3s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    @keyframes dance {
+
+      0%,
+      100% {
+        transform: scale(1) rotate(0deg) translateY(0);
+      }
+
+      20% {
+        transform: scale(1.1) rotate(-10deg) translateY(-5px);
+      }
+
+      40% {
+        transform: scale(1.1) rotate(10deg) translateY(-5px);
+      }
+
+      60% {
+        transform: scale(1.1) rotate(-10deg) translateY(-5px);
+      }
+
+      80% {
+        transform: scale(1.1) rotate(10deg) translateY(-5px);
+      }
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #e74c3c;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .chatbot-window {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      width: 400px;
+      height: 550px;
+      background: #0f172a !important;
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      transform: translateY(20px) scale(0.95);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chatbot-window.active {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .chatbot-header {
+      background: #0f172a !important;
+      color: #38bdf8 !important;
+      padding: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .chatbot-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.1), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    .chatbot-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-weight: 700;
+      color: #38bdf8 !important;
+    }
+
+    .chatbot-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: #94a3b8 !important;
+    }
+
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      background-color: #10b981;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      }
+
+      70% {
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+      }
+    }
+
+    .chatbot-name {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .chatbot-icon {
+      font-size: 1.1rem;
+      animation: rotate 4s linear infinite;
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .chatbot-avatar {
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .minimize-btn {
+      background: none;
+      border: none;
+      color: #38bdf8;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .minimize-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .minimize-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .chatbot-content {
+      flex: 1;
+      position: relative;
+      background: #0b1220;
+      min-height: 0;
+      /* Important for flex child */
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chatbot-frame {
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+      /* Ensure minimum height */
+      border: none;
+      background: white;
+      flex: 1;
+    }
+
+    .chatbot-loading {
+      position: absolute;
+      top: 60px;
+      /* Below header */
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
+      color: #6c757d;
+      font-weight: 500;
+      z-index: 10;
+      transition: opacity 0.3s ease;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #e9ecef;
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .chatbot-window {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+      }
+
+      .chatbot-container {
+        bottom: 15px;
+        right: 15px;
+      }
+
+      .chatbot-toggle {
+        width: 55px;
+        height: 55px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header will be injected by shared/header-footer.js -->
+
+  <!-- Skills & Education section -->
+  <section class="skills-education-section">
+    <div class="skills-education-container">
+      <!-- Left Column: Skills Grid -->
+      <div class="skills-column">
+        <div class="skills-header">
+          <h2>Technical Skills</h2>
+        </div>
+        <div class="skills-categories">
+          <!-- QE & DevOps Tools -->
+          <div class="skill-category">
+            <div class="category-header">
+              <div class="category-icon">
+                <i class="fas fa-tools"></i>
+              </div>
+              <h3>QE & DevOps Tools</h3>
+            </div>
+            <p class="category-description">
+              Browser extension for Playwright test results with enhanced visualization
+              <a href="https://chromewebstore.google.com/detail/playwright-test-results/cnbifhpjofgeaobfppnfnngfkkjniodh?authuser=0&hl=en"
+                target="_blank" class="category-link-inline">
+                <i class="fab fa-chrome"></i>
+              </a>
+            </p>
+          </div>
+
+          <!-- AI and ML Experience -->
+          <div class="skill-category">
+            <div class="category-header">
+              <div class="category-icon">
+                <i class="fas fa-robot"></i>
+              </div>
+              <h3>AI & ML</h3>
+            </div>
+            <p class="category-description">
+              Deployed my own personalized chatbot using Ollama and Hugging Face Spaces.
+              <a href="https://hasanfaruk25-faruk-assistant.hf.space/gradio/" target="_blank"
+                class="category-link-inline">
+                <i class="fas fa-brain"></i>
+              </a>
+            </p>
+          </div>
+
+          <!-- AI-Driven Grading System -->
+          <div class="skill-category">
+            <div class="category-header">
+              <div class="category-icon">
+                <i class="fas fa-magic"></i>
+              </div>
+              <h3>AI-Driven Grading</h3>
+            </div>
+            <p class="category-description">
+              Automated student grading system with RAG-based personalized feedback.
+              <a href="https://github.com/faruklmu17/student_grader" target="_blank" class="category-link-inline">
+                <i class="fab fa-github"></i>
+              </a>
+            </p>
+          </div>
+
+          <!-- Open Source Contributions Entry -->
+          <div class="skill-category os-contrib-category">
+            <div class="category-header">
+              <div class="category-icon">
+                <i class="fab fa-github-alt"></i>
+              </div>
+              <div
+                style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding-right: 35px;">
+                <h3>Open Source Contributions</h3>
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                  <span class="os-badge-header">200+ Contributions</span>
+                  <a href="https://github.com/faruklmu17" target="_blank" class="category-link-inline">
+                    <i class="fab fa-github"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="os-contrib-content">
+              <div class="os-lang-stats">
+                <div class="os-lang-item">
+                  <div class="os-lang-info">
+                    <span>Python</span>
+                    <span>45%</span>
+                  </div>
+                  <div class="os-progress">
+                    <div class="os-bar python" style="width: 45%;"></div>
+                  </div>
+                </div>
+                <div class="os-lang-item">
+                  <div class="os-lang-info">
+                    <span>TypeScript</span>
+                    <span>25%</span>
+                  </div>
+                  <div class="os-progress">
+                    <div class="os-bar typescript" style="width: 25%;"></div>
+                  </div>
+                </div>
+                <div class="os-lang-item">
+                  <div class="os-lang-info">
+                    <span>HTML/CSS</span>
+                    <span>20%</span>
+                  </div>
+                  <div class="os-progress">
+                    <div class="os-bar html" style="width: 20%;"></div>
+                  </div>
+                </div>
+                <div class="os-lang-item">
+                  <div class="os-lang-info">
+                    <span>JavaScript</span>
+                    <span>10%</span>
+                  </div>
+                  <div class="os-progress">
+                    <div class="os-bar javascript" style="width: 10%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <!-- Automation Frameworks -->
+          <div class="skill-category">
+            <div class="category-header">
+              <div class="category-icon">
+                <i class="fas fa-microchip"></i>
+              </div>
+              <h3>Automation Frameworks</h3>
+            </div>
+            <p class="category-description">
+              Expertise in <strong>Playwright</strong>, <strong>Selenium</strong>, and <strong>Cypress</strong> for robust cross-browser testing.
+            </p>
+          </div>
+
+          <!-- Core Technologies -->
+          <div class="skill-category">
+            <div class="category-header">
+              <div class="category-icon">
+                <i class="fas fa-code-branch"></i>
+              </div>
+              <h3>Core Technologies</h3>
+            </div>
+            <div class="tech-stack-badges" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
+              <span class="tech-badge" style="background: #f1f5f9; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: #475569;"><i class="fab fa-python" style="color: #3776ab;"></i> Python</span>
+              <span class="tech-badge" style="background: #f1f5f9; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: #475569;"><i class="fab fa-js" style="color: #f7df1e;"></i> JavaScript</span>
+              <span class="tech-badge" style="background: #f1f5f9; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: #475569;"><i class="fas fa-file-code" style="color: #3178c6;"></i> TypeScript</span>
+              <span class="tech-badge" style="background: #f1f5f9; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: #475569;"><i class="fab fa-git-alt" style="color: #f05032;"></i> Git</span>
+              <span class="tech-badge" style="background: #f1f5f9; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: #475569;"><i class="fab fa-docker" style="color: #2496ed;"></i> Docker</span>
+              <span class="tech-badge" style="background: #f1f5f9; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; color: #475569;"><i class="fas fa-terminal" style="color: #4d4d4d;"></i> CI/CD</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!-- Right Column: Teaching & Courses -->
+      <div class="education-column">
+        <div class="education-header">
+          <div class="edu-header-wrapper">
+            <div class="edu-title-group">
+              <div class="title-with-badge">
+                <h2>Teaching Experiences</h2>
+                <a href="https://www.udemy.com/user/mohammadfarukhasan/" target="_blank" class="udemy-badge-sleek"
+                  title="View Udemy Profile">
+                  <svg class="udemy-svg-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M12 18.72c-4.32 0-7.44-2.88-7.44-6.96V1.2h4.56v10.32c0 1.92 1.2 3.12 2.88 3.12s2.88-1.2 2.88-3.12V1.2h4.56v10.56c0 4.08-3.12 6.96-7.44 6.96zM12 22.8l-5.04-3.6h10.08L12 22.8z"
+                      fill="currentColor" />
+                  </svg>
+                  <span>Udemy Profile</span>
+                </a>
+              </div>
+              <p>Empowering the next generation of young learners!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Combined Content -->
+        <div class="education-content">
+          <!-- Tutoring Stats -->
+          <div class="tutoring-stats">
+            <h3><i class="fas fa-chalkboard-teacher"></i> Impact</h3>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <div class="stat-number">2000+</div>
+                <div class="stat-label">Students</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">12+</div>
+                <div class="stat-label">Years</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">4.82/5</div>
+                <div class="stat-label">Rating</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Courses</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course Cards -->
+          <div class="course-cards">
+            <h3><i class="fas fa-graduation-cap"></i> Highlighted Courses</h3>
+            <div class="course-list">
+              <div class="course-item">
+                <div class="course-info">
+                  <h4>Python Fundamentals</h4>
+                  <div class="course-platform-small">Udemy</div>
+                </div>
+                <div class="course-rating-small">
+                  <a href="https://www.udemy.com/share/10bHxx/" target="_blank" class="course-btn-small">
+                    View
+                  </a>
+                </div>
+              </div>
+
+              <div class="course-item">
+                <div class="course-info">
+                  <h4>AI & Machine Learning for Beginners</h4>
+                  <div class="course-platform-small">Udemy</div>
+                </div>
+                <div class="course-rating-small">
+                  <a href="https://www.udemy.com/share/10epAN3@05VLbZS6cyYWeanWr7aYYXJ9vYtzQ3pKj91dOS0vuGMtSk-q1ALWSAWO_Lam1fvX/"
+                    target="_blank" class="course-btn-small">
+                    View
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tutoring Promo -->
+        <div class="tutoring-promo">
+          <p>Unlock your potential with premium 1-on-1 tutoring sessions at just <span class="promo-price">$55 / hour</span>.</p>
+          <p class="promo-cta"><a href="tutoring/tutoring.html#book">Book your session today!</a></p>
+        </div>
+
+
+        <!-- Quick Links -->
+        <div class="education-links">
+          <a href="tutoring/tutoring.html" class="education-link">
+            <i class="fas fa-user-graduate"></i>
+            <span>Interested in Tutoring?</span>
+            <i class="fas fa-arrow-right"></i>
+          </a>
+          <a href="#courses" class="education-link">
+            <i class="fas fa-book-open"></i>
+            <span>Course Details</span>
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog section moved to appear after Skills section -->
+  <section id="blog" class="blog-section">
+    <div class="container">
+      <h2 class="section-title">Latest Blog Posts</h2>
+      <div class="blog-grid">
+        <!-- Blog Post: Screencast API (April 25, 2026) -->
+        <div class="blog-card">
+          <div class="blog-image">
+            <a href="blog_post/playwright_screencast_api_basics.html">
+              <img src="blog_images/playwright_screencast_thumb.png" alt="Playwright Screencast API Tutorial" loading="lazy">
+            </a>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta">
+              <div class="blog-date">
+                <i class="far fa-calendar-alt"></i>
+                <span>April 25, 2026</span>
+              </div>
+              <div class="blog-read-time">
+                <i class="far fa-clock"></i>
+                <span>6 min read</span>
+              </div>
+            </div>
+            <h3 class="blog-title">Playwright Screencast API Tutorial (v1.59+): Record Test Videos with Action Annotations</h3>
+            <p class="blog-excerpt">Master the new Screencast API. Learn how to record custom test videos with visual action annotations for 
+              better debugging and documentation.</p>
+
+            <a href="blog_post/playwright_screencast_api_basics.html" class="read-more-link">Read More <i
+                class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Blog Post: Soft Assertions (Jan 11, 2026) -->
+        <div class="blog-card">
+          <div class="blog-image">
+            <a href="blog_post/playwright_soft_assertion.html">
+              <img src="blog_images/soft_assertion_cover.png" alt="Playwright Soft Assertions Tutorial" loading="lazy">
+            </a>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta">
+              <div class="blog-date">
+                <i class="far fa-calendar-alt"></i>
+                <span>January 11, 2026</span>
+              </div>
+              <div class="blog-read-time">
+                <i class="far fa-clock"></i>
+                <span>5 min read</span>
+              </div>
+            </div>
+            <h3 class="blog-title">Mastering Playwright Soft Assertions: The Guide to expect.soft()</h3>
+            <p class="blog-excerpt">Stop debugging blindly. Learn how Playwright soft assertions (expect.soft) let you
+              catch multiple UI failures in
+              a single test run.</p>
+
+            <a href="blog_post/playwright_soft_assertion.html" class="read-more-link">Read More <i
+                class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Blog Post: Playwright Extension (Dec 20, 2025) -->
+        <div class="blog-card">
+          <div class="blog-image">
+            <a href="blog_post/playwright_browser_extension_test_result.html">
+              <img src="blog_images/playwright_extension_thumb.png" alt="Playwright Test Results Extension tutorial"
+                loading="lazy">
+            </a>
+          </div>
+          <div class="blog-content">
+            <div class="blog-meta">
+              <div class="blog-date">
+                <i class="far fa-calendar-alt"></i>
+                <span>December 20, 2025</span>
+              </div>
+              <div class="blog-read-time">
+                <i class="far fa-clock"></i>
+                <span>7 min read</span>
+              </div>
+            </div>
+            <h3 class="blog-title">Context-Switching is Dead: Monitoring Playwright Results via Chrome Extension</h3>
+            <p class="blog-excerpt">Stop digging through CI logs. Learn how to monitor your Playwright test results
+              directly from your Chrome toolbar using a live status badge and GitHub Actions.</p>
+
+            <a href="blog_post/playwright_browser_extension_test_result.html" class="read-more-link">Read More <i
+                class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+
+
+
+
+
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="about-container two-column">
+      <!-- Bio Column -->
+      <div class="about-bio">
+        <div class="section-title-wrapper">
+          <h2 class="section-title">About Me</h2>
+          <div class="title-underline"></div>
+        </div>
+        <div class="about-content">
+          <div class="about-text">
+            <p class="about-intro">Hi, I'm <span class="name-highlight">Faruk Hasan</span> — a catalyst for quality and
+              a passionate educator.</p>
+
+            <div class="role-badges">
+              <span class="role-badge"><i class="fas fa-microchip"></i> QA Architect</span>
+              <span class="role-badge"><i class="fas fa-graduation-cap"></i> Tech Mentor</span>
+              <span class="role-badge"><i class="fas fa-brain"></i> AI Pioneer</span>
+            </div>
+
+            <p>With over <span class="text-highlight">6+ years of specialized experience</span> in automation
+              engineering, I bridge the gap between complex code and flawless user experiences. My expertise lies in
+              architecting scalable testing frameworks that integrate seamlessly with modern CI/CD ecosystems.</p>
+
+            <p>Beyond the terminal, I'm committed to democratizing tech education. I design and lead curriculum for the
+              next generation of engineers, transforming abstract concepts into hands-on innovation.</p>
+
+            <div class="interest-tags">
+              <span class="tag">#Playwright</span>
+              <span class="tag">#DevOps</span>
+              <span class="tag">#EdTech</span>
+              <span class="tag">#AIAutomation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Career Highlights Column -->
+      <div class="career-highlights">
+        <div class="section-title-wrapper">
+          <h2 class="section-title">Career Milestones</h2>
+          <div class="title-underline"></div>
+        </div>
+
+        <div class="career-card compact premium">
+          <div class="career-header">
+            <div class="job-title-row">
+              <h3>Senior Software QA Engineer</h3>
+              <span class="company-badge">Digital.ai</span>
+            </div>
+            <div class="duration-location">
+              <span class="duration"><i class="far fa-calendar-alt"></i> 2022 – Present</span>
+            </div>
+          </div>
+          <div class="tech-stack-row">
+            <span class="tech-tag">Playwright</span>
+            <span class="tech-tag">GitHub Actions</span>
+            <span class="tech-tag">TypeScript</span>
+          </div>
+          <ul class="achievements">
+            <li><i class="fas fa-bolt"></i> <span>Architected Playwright frameworks that reduced regression testing time
+                by <strong>50%</strong>.</span></li>
+            <li><i class="fas fa-sync"></i> <span>Integrated comprehensive end-to-end CI/CD pipelines to support
+                high-velocity software releases.</span></li>
+            <li><i class="fas fa-users"></i> <span>Spearheaded quality assurance strategies for enterprise-grade cloud
+                platforms and applications.</span></li>
+          </ul>
+        </div>
+
+        <div class="career-card compact premium">
+          <div class="career-header">
+            <div class="job-title-row">
+              <h3>Software Test Engineer</h3>
+              <span class="company-badge grey">M.M.Hayes Co</span>
+            </div>
+            <div class="duration-location">
+              <span class="duration"><i class="far fa-calendar-alt"></i> 2020 – 2022</span>
+            </div>
+          </div>
+          <div class="tech-stack-row">
+            <span class="tech-tag">Selenium</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Azure DevOps</span>
+          </div>
+          <ul class="achievements">
+            <li><i class="fas fa-chart-line"></i> <span>Optimized legacy automation suites, boosting overall execution
+                efficiency by <strong>30%</strong>.</span></li>
+            <li><i class="fas fa-chalkboard"></i> <span>Mentored and upskilled junior engineers on modern automation
+                paradigms and best practices.</span></li>
+            <li><i class="fas fa-check-circle"></i> <span>Implemented robust cross-browser stability protocols to ensure
+                seamless user experiences.</span></li>
+          </ul>
+        </div>
+
+        <div class="career-footer">
+          <a href="javascript:void(0)" onclick="openResume()" class="view-more-link premium-btn">
+            Full Portfolio <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Remove the entire Career section -->
+  <!-- <section id="career">
+    <div class="career-wrapper">
+      <h2>Career</h2>
+      
+      <div class="career-grid">
+        <div class="career-card">
+          <div class="career-header">
+            <h3>Senior Software QA Engineer</h3>
+            <div class="company-details">
+              <span class="company-name">Digital.ai</span>
+              <span class="duration">2022 – Present</span>
+            </div>
+          </div>
+          <ul class="achievements">
+            <li>Design and implement Playwright test scripts, increasing test coverage and reducing manual efforts.</li>
+            <li>Streamline regression testing, reducing cycle time by 50%.</li>
+            <li>Integrate GitHub Actions for automated test execution, improving defect identification speed.</li>
+          </ul>
+        </div>
+
+        <div class="career-card">
+          <div class="career-header">
+            <h3>Software Test Engineer</h3>
+            <div class="company-details">
+              <span class="company-name">M.M.Hayes Co</span>
+              <span class="duration">2020 – 2022</span>
+            </div>
+          </div>
+          <ul class="achievements">
+            <li>Developed Selenium-based frameworks, boosting test efficiency by 30%.</li>
+            <li>Reduced regression cycle time by implementing cross-browser testing strategies.</li>
+            <li>Trained junior QA engineers, improving team automation proficiency.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+  <section id="courses">
+    <div class="courses-wrapper">
+      <h2>Courses</h2>
+      <div class="courses-grid">
+        <div class="course-card">
+          <div class="course-image">
+            <img src="assets/images/udemy_course_image.jpg" alt="Python Fundamentals Course" loading="lazy">
+          </div>
+          <div class="course-badge">Udemy</div>
+          <a href="https://www.udemy.com/share/10bHxx/" target="_blank" class="course-link">
+            <h3>Python Fundamentals: Fun and Practical Projects for Beginners</h3>
+          </a>
+          <div class="course-year">2024</div>
+          <p class="course-description">An interactive course focusing on Python basics through real-world projects.</p>
+
+          <!-- Reviews Section for first course -->
+          <div class="course-reviews">
+            <h4>Student Reviews</h4>
+            <div class="review-container">
+              <div class="review">
+                <div class="stars">
+                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Great course. This is actually fun. Never learned Python but it looks so easy
+                  now. Thank You Instructor Mr. Faruk Hasan."</p>
+                <p class="reviewer">- Habibus Sobhan S.</p>
+              </div>
+              <div class="review">
+                <div class="stars">
+                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Really easy to follow and learn!"</p>
+                <p class="reviewer">- Syed M.</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="https://www.udemy.com/share/10bHxx/" target="_blank" class="course-button">View Course</a>
+        </div>
+
+        <div class="course-card">
+          <div class="course-image">
+            <img src="blog_images/ai.jpg" alt="AI & Machine Learning for Beginners Course" loading="lazy">
+          </div>
+          <div class="course-badge">Udemy</div>
+          <a href="https://www.udemy.com/share/10epAN3@05VLbZS6cyYWeanWr7aYYXJ9vYtzQ3pKj91dOS0vuGMtSk-q1ALWSAWO_Lam1fvX/"
+            target="_blank" class="course-link">
+            <h3>AI & Machine Learning for Beginners</h3>
+          </a>
+          <div class="course-year">2024</div>
+          <p class="course-description">An accessible introduction to AI and machine learning concepts with hands-on
+            projects for beginners.</p>
+          <a href="https://www.udemy.com/share/10epAN3@05VLbZS6cyYWeanWr7aYYXJ9vYtzQ3pKj91dOS0vuGMtSk-q1ALWSAWO_Lam1fvX/"
+            target="_blank" class="course-button">View Course</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog section removed -->
+
+  <section id="projects">
+    <div class="projects-wrapper">
+      <h2 class="section-title">Projects & GitHub Activity</h2>
+
+      <div class="projects-grid">
+        <!-- Project: AI-Driven Student Grader (New) -->
+        <div class="project-card">
+          <div class="project-image-wrapper">
+            <img src="assets/images/student_grader_mockup.png" alt="AI-Driven Student Grader mockup" loading="lazy">
+            <div class="project-overlay">
+              <span class="project-tag">AI-Driven</span>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-header">
+              <h3>AI-Driven Student Grader</h3>
+              <div class="project-tags">
+                <span class="project-tag">Python</span>
+                <span class="project-tag">RAG / OpenAI</span>
+                <span class="project-tag">EdTech</span>
+              </div>
+            </div>
+            <p class="project-description">An intelligent grading system that leverages Retrieval-Augmented Generation
+              (RAG) to provide students with deeply personalized feedback and evidence-based scoring based on specific
+              rubrics.</p>
+            <div class="project-links">
+              <a href="https://github.com/faruklmu17/student_grader" class="project-link github-btn" target="_blank">
+                <i class="fab fa-github"></i> GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 1 -->
+        <div class="project-card">
+          <div class="project-image-wrapper">
+            <img src="assets/images/playwright_extension.png" alt="Playwright Browser Extension Mockup" loading="lazy">
+            <div class="project-overlay">
+              <span class="project-tag">Open Source</span>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-header">
+              <h3>Playwright Browser Extension</h3>
+              <div class="project-tags">
+                <span class="project-tag">TypeScript</span>
+                <span class="project-tag">Chrome Extension</span>
+                <span class="project-tag">QA</span>
+              </div>
+            </div>
+            <p class="project-description">A high-performance Chrome extension that integrates with Playwright to
+              deliver real-time test execution results directly in your browser. Features live status updates and
+              detailed failure logs.</p>
+            <div class="project-links">
+              <a href="https://github.com/faruklmu17/playwright_test_result" class="project-link github-btn"
+                target="_blank">
+                <i class="fab fa-github"></i> GitHub
+              </a>
+              <a href="projects/playwright_test_result_chrome_extension.html" class="project-link demo-btn"
+                target="_blank">
+                <i class="fas fa-external-link-alt"></i> Demo
+              </a>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Project: Robo-Balance RL Game -->
+        <div class="project-card">
+          <div class="project-image-wrapper">
+            <img src="assets/images/mascot.png" alt="Robo-Balance: RL Game Mockup" loading="lazy"
+              style="background: white; object-fit: contain; padding: 20px;">
+            <div class="project-overlay">
+              <span class="project-tag">Interactive AI</span>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-header">
+              <h3>Robo-Balance: RL Game</h3>
+              <div class="project-tags">
+                <span class="project-tag">JavaScript</span>
+                <span class="project-tag">Reinforcement Learning</span>
+                <span class="project-tag">CartPole</span>
+              </div>
+            </div>
+            <p class="project-description">An interactive web application that teaches Reinforcement Learning basics
+              through a gamified CartPole simulation. Help the robot learn to balance using AI dynamics!</p>
+            <div class="project-links">
+              <a href="games/cartpole_balance.html" class="project-link demo-btn">
+                <i class="fas fa-play"></i> Play Now
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GitHub Activity Widget -->
+      <div class="github-activity">
+        <div class="github-header">
+          <div class="github-header-left">
+            <h3><i class="fab fa-github"></i> Open Source Contributions</h3>
+            <p class="github-subtitle">Building & sharing software with the global community</p>
+          </div>
+          <div class="github-badges">
+            <span class="github-badge active-tag">
+              <i class="fas fa-bolt"></i> 200+ Contributions
+            </span>
+            <span class="github-badge star-tag">
+              <i class="fas fa-star"></i> Prototyping
+            </span>
+          </div>
+        </div>
+
+        <div class="github-content-wrapper">
+          <div class="github-main-card">
+            <div class="card-label">Contribution Timeline</div>
+            <div class="github-calendar">
+              <img src="https://ghchart.rshah.org/faruklmu17" alt="Faruk Hasan's GitHub Contribution Chart"
+                class="github-chart">
+            </div>
+            <div class="github-legend">
+              <span>Less</span>
+              <div class="legend-squares">
+                <span style="background: #ebedf0"></span>
+                <span style="background: #9be9a8"></span>
+                <span style="background: #40c463"></span>
+                <span style="background: #30a14e"></span>
+                <span style="background: #216e39"></span>
+              </div>
+              <span>More</span>
+            </div>
+          </div>
+
+          <div class="github-stats-column">
+            <!-- Professional GitHub Summary Card -->
+            <div class="stats-card modern-stats">
+              <div class="card-label">GitHub Summary</div>
+              <div class="stats-grid">
+                <div class="stat-row">
+                  <span class="stat-name"><i class="fas fa-code-branch"></i> Repositories</span>
+                  <span class="stat-value">113</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-name"><i class="fas fa-users"></i> Followers</span>
+                  <span class="stat-value">2</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-name"><i class="fas fa-history"></i> Contributions</span>
+                  <span class="stat-value">500+</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Top Languages Local Card -->
+            <div class="stats-card lang-stats">
+              <div class="card-label">Top Technologies</div>
+              <div class="lang-bars">
+                <div class="lang-bar-item">
+                  <div class="lang-name">Python</div>
+                  <div class="progress-container">
+                    <div class="progress-bar python" style="width: 45%;"></div>
+                  </div>
+                </div>
+                <div class="lang-bar-item">
+                  <div class="lang-name">TypeScript</div>
+                  <div class="progress-container">
+                    <div class="progress-bar typescript" style="width: 25%;"></div>
+                  </div>
+                </div>
+                <div class="lang-bar-item">
+                  <div class="lang-name">HTML/CSS</div>
+                  <div class="progress-container">
+                    <div class="progress-bar html" style="width: 20%;"></div>
+                  </div>
+                </div>
+                <div class="lang-bar-item">
+                  <div class="lang-name">JavaScript</div>
+                  <div class="progress-container">
+                    <div class="progress-bar javascript" style="width: 10%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="github-footer">
+          <a href="https://github.com/faruklmu17" class="github-profile-link" target="_blank">
+            <span>Explore my repositories</span>
+            <div class="link-circle">
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-info">
+        <div class="footer-logo">Faruk Hasan</div>
+        <p>QA Engineer | Automation & AI-Driven Testing Specialist</p>
+      </div>
+
+      <div class="footer-social">
+        <h4>Connect With Me</h4>
+        <div class="social-icons-footer">
+          <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn"
+            target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/@kidzcodeai" class="social-icon youtube" aria-label="YouTube"
+            target="_blank"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook"
+            target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://github.com/faruklmu17" class="social-icon github" aria-label="GitHub" target="_blank"><i
+              class="fab fa-github"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-share">
+        <h4>Share This Page</h4>
+        <div class="share-buttons">
+          <a href="javascript:void(0)" onclick="shareOnFacebook()" class="share-btn facebook"
+            aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="javascript:void(0)" onclick="shareOnTwitter()" class="share-btn twitter"
+            aria-label="Share on Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="javascript:void(0)" onclick="shareOnLinkedIn()" class="share-btn linkedin"
+            aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="javascript:void(0)" onclick="shareByEmail()" class="share-btn email" aria-label="Share by Email"><i
+              class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Faruk Hasan. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Enhanced Chatbot Interface -->
+  <div class="chatbot-container">
+    <!-- Minimized Chatbot Button -->
+    <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open Chat Assistant">
+      <i class="fas fa-robot chat-icon" style="font-size: 24px;"></i>
+      <div class="notification-badge" id="notification-badge">1</div>
+    </button>
+
+    <!-- Expanded Chatbot Window -->
+    <div class="chatbot-window" id="chatbot-window">
+      <div class="chatbot-header">
+        <div class="chatbot-title" style="color: #38bdf8 !important;">
+          <div class="chatbot-status">
+            <div class="status-indicator"></div>
+            <span class="status-text" style="color: #94a3b8 !important;">Online</span>
+          </div>
+          <div class="chatbot-name">
+            <i class="fas fa-robot chatbot-icon" style="color: #38bdf8 !important;"></i>
+            <span style="color: #38bdf8 !important;">AI Bot v1.0</span>
+          </div>
+        </div>
+        <button class="minimize-btn" id="minimize-btn" aria-label="Minimize Chat">
+          <svg class="minimize-icon" viewBox="0 0 24 24">
+            <path d="M19 13H5v-2h14v2z" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="chatbot-loading" id="chatbot-loading">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading AI Assistant...</div>
+      </div>
+
+      <div class="chatbot-content">
+        <iframe class="chatbot-frame" id="chatbot-frame" src="" title="AI Chat Assistant" loading="lazy">
+        </iframe>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+
+  <script>
+    // Social sharing functions
+    function shareOnFacebook() {
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent("Check out Faruk Hasan's portfolio - QA Engineer & Automation Testing Specialist");
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
+    }
+
+    function shareOnTwitter() {
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent("Check out Faruk Hasan's portfolio - QA Engineer & Automation Testing Specialist #QA #Testing #Automation");
+      window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+    }
+
+    function shareOnLinkedIn() {
+      const url = encodeURIComponent(window.location.href);
+      const title = encodeURIComponent("Faruk Hasan - QA Engineer & Automation Specialist");
+      const summary = encodeURIComponent("Portfolio of Faruk Hasan, a QA Engineer specializing in automation testing, CI/CD, and AI-driven testing strategies.");
+      window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}&summary=${summary}`, '_blank');
+    }
+
+    function shareByEmail() {
+      const subject = encodeURIComponent("Check out Faruk Hasan's Portfolio");
+      const body = encodeURIComponent(`I thought you might be interested in Faruk Hasan's portfolio: ${window.location.href}`);
+      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    }
+  </script>
+</body>
+
+</html>
+
+<script>
+  function openResume() {
+    // Try multiple possible locations
+    const possiblePaths = [
+      'assets/resume.pdf',
+      'Resume.pdf',
+      'assets/resume.pdf',
+      '/Resume.pdf',
+      'assets/resume.pdf',
+      'assets/resume.pdf',
+      'assets/resume.pdf'
+    ];
+
+    // Try to fetch each path to see if the file exists
+    Promise.all(possiblePaths.map(path =>
+      fetch(path, { method: 'HEAD' })
+        .then(response => ({ path, exists: response.ok }))
+        .catch(() => ({ path, exists: false }))
+    )).then(results => {
+      // Find the first path that exists
+      const foundPath = results.find(result => result.exists);
+
+      if (foundPath) {
+        // Open the PDF in a new tab
+        window.open(foundPath.path, '_blank');
+      } else {
+        // Alert the user if no PDF is found
+        alert('Resume PDF not found. Please upload your resume file to the website root directory.');
+      }
+    });
+  }
+
+
+</script>
+
+<!-- Enhanced Chatbot JavaScript -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const chatbotToggle = document.getElementById('chatbot-toggle');
+    const chatbotWindow = document.getElementById('chatbot-window');
+    const minimizeBtn = document.getElementById('minimize-btn');
+    const chatbotFrame = document.getElementById('chatbot-frame');
+    const chatbotLoading = document.getElementById('chatbot-loading');
+    const notificationBadge = document.getElementById('notification-badge');
+
+    let isOpen = false;
+    let isLoaded = false;
+
+    // Chatbot URLs
+    //const chatbotUrl = 'https://hasanfaruk25-personal-chatbot.hf.space/?__theme=light';
+    // Chatbot URL – NEW Live Version (Direct Embed)
+    const chatbotUrl = 'https://hasanfaruk25-faruk-assistant.hf.space/gradio/';
+
+    // Auto-open chatbot disabled - will now only open when clicked
+    /*
+    setTimeout(() => {
+      openChatbot();
+    }, 2000); // Wait 2 seconds after page load for smooth experience
+    */
+
+    // Initialize chatbot state
+    function initializeChatbot() {
+      // Keep notification badge visible until interaction
+      /*
+      if (notificationBadge) {
+        setTimeout(() => {
+          notificationBadge.style.display = 'none';
+        }, 3000);
+      }
+      */
+
+      // Add welcome animation to toggle button
+      setTimeout(() => {
+        chatbotToggle.style.animation = 'pulse 2s ease-in-out 3';
+      }, 2000);
+    }
+
+    // Load chatbot iframe
+    function loadChatbot() {
+      if (!isLoaded) {
+        chatbotFrame.src = chatbotUrl;
+        isLoaded = true;
+
+        // Handle iframe load with elegant transition
+        chatbotFrame.onload = function () {
+          setTimeout(() => {
+            chatbotLoading.style.opacity = '0';
+            setTimeout(() => {
+              chatbotLoading.style.display = 'none';
+              chatbotFrame.style.opacity = '1';
+            }, 300);
+          }, 1500);
+        };
+
+        // Fallback in case onload doesn't fire
+        setTimeout(() => {
+          chatbotLoading.style.opacity = '0';
+          setTimeout(() => {
+            chatbotLoading.style.display = 'none';
+            chatbotFrame.style.opacity = '1';
+          }, 300);
+        }, 4000);
+      } else {
+        chatbotLoading.style.display = 'none';
+        chatbotFrame.style.display = 'block';
+      }
+    }
+
+    // Open chatbot
+    function openChatbot() {
+      if (!isOpen) {
+        isOpen = true;
+        chatbotWindow.classList.add('active');
+        chatbotToggle.style.transform = 'scale(0.9)';
+
+        // Hide notification badge
+        if (notificationBadge) {
+          notificationBadge.style.display = 'none';
+        }
+
+        // Load chatbot content
+        loadChatbot();
+
+        // Add body class to prevent scrolling on mobile
+        document.body.style.overflow = window.innerWidth <= 768 ? 'hidden' : 'auto';
+      }
+    }
+
+    // Close chatbot
+    function closeChatbot() {
+      if (isOpen) {
+        isOpen = false;
+        chatbotWindow.classList.remove('active');
+        chatbotToggle.style.transform = 'scale(1)';
+
+        // Reset loading state for next open
+        if (isLoaded) {
+          chatbotLoading.style.display = 'none';
+          chatbotFrame.style.display = 'block';
+        } else {
+          chatbotLoading.style.display = 'flex';
+          chatbotFrame.style.display = 'none';
+        }
+
+        // Restore body scrolling
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    // Toggle chatbot
+    function toggleChatbot() {
+      if (isOpen) {
+        closeChatbot();
+      } else {
+        openChatbot();
+      }
+    }
+
+    // Event listeners
+    chatbotToggle.addEventListener('click', toggleChatbot);
+    minimizeBtn.addEventListener('click', closeChatbot);
+
+    // Close chatbot when clicking outside (optional)
+    document.addEventListener('click', function (event) {
+      if (isOpen && !chatbotWindow.contains(event.target) && !chatbotToggle.contains(event.target)) {
+        // Uncomment the line below if you want to close on outside click
+        // closeChatbot();
+      }
+    });
+
+    // Handle escape key
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && isOpen) {
+        closeChatbot();
+      }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function () {
+      if (isOpen && window.innerWidth <= 768) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // Initialize
+    initializeChatbot();
+    
+    // Auto-open chatbot if requested via URL
+    if (window.location.search.includes('chat=open')) {
+      setTimeout(openChatbot, 500);
+    }
+
+    // Add some interactive feedback
+    chatbotToggle.addEventListener('mouseenter', function () {
+      if (!isOpen) {
+        this.style.transform = 'translateY(-4px)';
+      }
+    });
+
+    chatbotToggle.addEventListener('mouseleave', function () {
+      if (!isOpen) {
+        this.style.transform = 'translateY(0)';
+      }
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navContainer = document.querySelector('.nav-social-container');
+
+    if (menuToggle && navContainer) {
+      menuToggle.addEventListener('click', () => {
+        navContainer.classList.toggle('active');
+        const icon = menuToggle.querySelector('i');
+        if (navContainer.classList.contains('active')) {
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-times');
+        } else {
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        }
+      });
+    }
+  });
+</script>
+</body>
+
+</html>
