@@ -8,6 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description"
         content="A Chrome extension that reads Playwright JSON reports from GitHub (or any public URL) and shows pass/fail status directly in your browser toolbar." />
+    <!-- Global fonts & icons for header/footer -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #050714;
@@ -60,7 +64,7 @@
             padding: 24px 20px 64px;
         }
 
-        header {
+        .ext-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -671,7 +675,7 @@
             font-size: 11px;
         }
 
-        footer {
+        .ext-footer {
             margin-top: 40px;
             padding-top: 20px;
             border-top: 1px solid rgba(31, 41, 55, 0.9);
@@ -684,11 +688,11 @@
             align-items: center;
         }
 
-        footer a {
+        .ext-footer a {
             color: var(--text-muted);
         }
 
-        footer a:hover {
+        .ext-footer a:hover {
             color: #e5e7eb;
         }
 
@@ -701,7 +705,7 @@
                 grid-template-columns: 1fr;
             }
 
-            header {
+            .ext-header {
                 flex-direction: column;
                 align-items: flex-start;
             }
@@ -736,7 +740,7 @@
 <body>
     <div class="page">
         <div class="wrapper">
-            <header>
+            <div class="ext-header">
                 <div class="logo-wrap">
                     <div class="logo-mark">T</div>
                     <div>
@@ -750,7 +754,7 @@
                     <a href="#how-it-works">How it works</a>
                     <span class="pill">Playwright • JSON • GitHub</span>
                 </nav>
-            </header>
+            </div>
 
             <main>
                 <!-- HERO -->
@@ -1027,14 +1031,14 @@
             </section>
         </div>
 
-        <footer>
+        <div class="ext-footer">
             <div>
                 Created by
                 <a href="https://github.com/faruklmu17" target="_blank" rel="noopener noreferrer">Faruk
                     Hasan</a> · MIT Licensed
             </div>
             <div>Powered by Playwright · Built for QA &amp; automation engineers</div>
-        </footer>
+        </div>
         </main>
     </div>
     </div>
