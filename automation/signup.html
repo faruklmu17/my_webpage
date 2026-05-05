@@ -31,11 +31,19 @@
       background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
       min-height: 100vh;
       margin: 0;
       color: var(--text-color);
+    }
+
+    .main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 40px 20px;
     }
 
     .progress-container {
@@ -218,45 +226,47 @@
 </head>
 
 <body>
-  <!-- Progress bar container -->
-  <div class="progress-container">
-    <h3>Your Progress</h3>
-    <div class="progress-bar">
-      <div class="progress-bar-fill" id="progressBarFill" style="width: 0% !important;"></div>
+  <div class="main-wrapper">
+    <!-- Progress bar container -->
+    <div class="progress-container">
+      <h3>Your Progress</h3>
+      <div class="progress-bar">
+        <div class="progress-bar-fill" id="progressBarFill" style="width: 0% !important;"></div>
+      </div>
+      <div class="progress-text">Step 1 of 3: Sign Up (0%)</div>
     </div>
-    <div class="progress-text">Step 1 of 3: Sign Up (0%)</div>
-  </div>
 
-  <div class="container">
-    <h2>Create Account</h2>
-    <form id="signupForm">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" placeholder="Choose a username" required />
-      </div>
+    <div class="container">
+      <h2>Create Account</h2>
+      <form id="signupForm">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" placeholder="Choose a username" required />
+        </div>
 
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email" required />
-      </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required />
+        </div>
 
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Create a password" required />
-      </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Create a password" required />
+        </div>
 
-      <div class="form-group">
-        <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password"
-          required />
-      </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password"
+            required />
+        </div>
 
-      <button type="submit">Sign Up</button>
+        <button type="submit">Sign Up</button>
 
-      <div class="toggle">
-        Already have an account? <a href="../automation/login.html">Login</a>
-      </div>
-    </form>
+        <div class="toggle">
+          Already have an account? <a href="../automation/login.html">Login</a>
+        </div>
+      </form>
+    </div>
   </div>
 
   <script>
