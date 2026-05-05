@@ -150,6 +150,14 @@ function injectStyles() {
   link.rel = 'stylesheet';
   link.href = `${root}shared/header-footer.css`;
   document.head.appendChild(link);
+
+  // Add FontAwesome if not already present
+  if (!document.querySelector('link[href*="font-awesome"]')) {
+    const faLink = document.createElement('link');
+    faLink.rel = 'stylesheet';
+    faLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+    document.head.appendChild(faLink);
+  }
 }
 
 // Initialize header and footer on page load
