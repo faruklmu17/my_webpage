@@ -31,11 +31,19 @@
       background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
       min-height: 100vh;
       margin: 0;
       color: var(--text-color);
+    }
+
+    .main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 40px 20px;
     }
 
     .progress-container {
@@ -187,38 +195,40 @@
 </head>
 
 <body>
-  <!-- Progress bar container -->
-  <div class="progress-container">
-    <h3>Your Progress</h3>
-    <div class="progress-bar">
-      <div class="progress-bar-fill" id="progressBarFill"></div>
+  <div class="main-wrapper">
+    <!-- Progress bar container -->
+    <div class="progress-container">
+      <h3>Your Progress</h3>
+      <div class="progress-bar">
+        <div class="progress-bar-fill" id="progressBarFill"></div>
+      </div>
+      <div class="progress-text">Step 2 of 3: Login (33%)</div>
     </div>
-    <div class="progress-text">Step 2 of 3: Login (33%)</div>
-  </div>
 
-  <div class="container">
-    <h2>Login</h2>
-    <form id="loginForm">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" placeholder="Enter your username" required />
-      </div>
+    <div class="container">
+      <h2>Login</h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" placeholder="Enter your username" required />
+        </div>
 
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Enter your password" required />
-      </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter your password" required />
+        </div>
 
-      <div class="actions">
-        <a href="#" id="forgotPassword">Forgot Password?</a>
-      </div>
+        <div class="actions">
+          <a href="#" id="forgotPassword">Forgot Password?</a>
+        </div>
 
-      <button type="submit">Login</button>
+        <button type="submit">Login</button>
 
-      <div class="toggle">
-        Don't have an account? <a href="../automation/signup.html">Sign up</a>
-      </div>
-    </form>
+        <div class="toggle">
+          Don't have an account? <a href="../automation/signup.html">Sign up</a>
+        </div>
+      </form>
+    </div>
   </div>
 
   <script>
