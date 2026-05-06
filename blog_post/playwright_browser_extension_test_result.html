@@ -18,8 +18,16 @@
     <meta property="og:title" content="Monitor Playwright Results Like a Pro: The Live Chrome Status Badge" />
     <meta property="og:description"
         content="Stop digging through CI logs. Get an instant visual summary of your Playwright tests directly in your browser toolbar." />
+    <meta property="og:image" content="https://faruk-hasan.com/blog_images/playwright_extension_thumb.png" />
     <meta property="og:url" content="https://faruk-hasan.com/blog_post/playwright_browser_extension_test_result.html" />
     <meta property="og:site_name" content="Faruk Hasan Portfolio" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://faruk-hasan.com/blog_post/playwright_browser_extension_test_result.html" />
+    <meta name="twitter:title" content="Monitor Playwright Results Like a Pro: The Live Chrome Status Badge" />
+    <meta name="twitter:description" content="Stop digging through CI logs. Get an instant visual summary of your Playwright tests directly in your browser toolbar." />
+    <meta name="twitter:image" content="https://faruk-hasan.com/blog_images/playwright_extension_thumb.png" />
 
     <!-- SEO: Canonical & Structured Data -->
     <link rel="canonical" href="https://faruk-hasan.com/blog_post/playwright_browser_extension_test_result.html" />
@@ -38,7 +46,7 @@
         "@type": "Person",
         "name": "Faruk Hasan"
       },
-      "datePublished": "2025-12-20",
+      "datePublished": "2026-05-06",
       "image": "https://faruk-hasan.com/blog_images/playwright_extension_thumb.png"
     }
     </script>
@@ -66,6 +74,10 @@
             --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
             --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
             --radius: 12px;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         * {
@@ -156,9 +168,15 @@
             background: var(--bg-card);
             border-radius: var(--radius);
             padding: 2.5rem;
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-md);
             border: 1px solid var(--border);
             margin-bottom: 2.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
         h2 {
@@ -323,12 +341,14 @@
         }
 
         .cta-box {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            color: white;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            color: var(--text-main);
             padding: 3rem;
             border-radius: var(--radius);
             text-align: center;
             margin: 4rem 0;
+            border: 1px solid #bfdbfe;
+            box-shadow: var(--shadow-sm);
         }
 
         .btn-primary {
@@ -418,12 +438,12 @@
 
             <div class="article-meta">
                 <div class="meta-item">
-                    <img src="../me.jpg" alt="Faruk Hasan" class="author-img">
+                    <img src="../assets/images/me.jpg" alt="Faruk Hasan" class="author-img">
                     <span>By <strong>Faruk Hasan</strong></span>
                 </div>
                 <div class="meta-item">
                     <i class="far fa-calendar"></i>
-                    <time datetime="2025-12-21">Dec 21, 2025</time>
+                    <time datetime="2026-05-06">May 06, 2026</time>
                 </div>
                 <div class="meta-item">
                     <i class="far fa-clock"></i>
@@ -440,9 +460,7 @@
                 The <strong>Playwright Test Results Badge</strong> is a lightweight Chrome extension designed to
                 eliminate that friction.
                 Instead of digging through 100MB logs, you get an instant visual summary of your test status directly in
-                your browser toolbar. <strong>New in v1.4:</strong> Full AWS S3 support with comprehensive setup
-                instructions, alongside existing GitHub Pages support, giving you complete flexibility in where you
-                store your test results.
+                your browser toolbar. <strong>New in v1.7:</strong> Failed test names displayed right in the popup, and automatic Dark/Light mode, alongside existing AWS S3 and GitHub Pages support.
             </p>
 
             <div class="feature-grid">
@@ -481,7 +499,18 @@
             </div>
 
             <h3>Detailed Popup View</h3>
-            <p>Click the extension to see a comprehensive breakdown:</p>
+            <p>Click the extension icon in your browser toolbar to see a comprehensive breakdown:</p>
+
+            <div style="display: flex; justify-content: center; margin: 2.5rem 0;">
+                <a href="../blog_images/extension_popup_dark_mode.png" target="_blank" style="text-decoration: none; display: inline-block; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 1.5rem; border-radius: 16px; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; border: 1px solid #334155; cursor: zoom-in;">
+                        <!-- Decorative glow -->
+                        <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 60%); pointer-events: none;"></div>
+                        <img src="../blog_images/extension_popup_dark_mode.png" alt="Playwright Test Results Extension Popup in Dark Mode" style="max-width: 320px; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); display: block; border: 1px solid #1e293b; position: relative; z-index: 1;">
+                    </div>
+                </a>
+            </div>
+
             <ul style="list-style: none; margin-left: 0;">
                 <li style="padding-left: 2rem; position: relative; margin-bottom: 0.5rem;"><i class="fas fa-chart-pie"
                         style="position: absolute; left: 0; color: var(--primary);"></i> Total number of tests executed
@@ -491,6 +520,10 @@
                 <li style="padding-left: 2rem; position: relative; margin-bottom: 0.5rem;"><i class="fas fa-times"
                         style="position: absolute; left: 0; color: var(--danger);"></i> Failed test counts
                 </li>
+                <li style="padding-left: 2rem; position: relative; margin-bottom: 0.5rem;"><i class="fas fa-list-ul"
+                        style="position: absolute; left: 0; color: var(--primary);"></i> Names of failing tests displayed</li>
+                <li style="padding-left: 2rem; position: relative; margin-bottom: 0.5rem;"><i class="fas fa-moon"
+                        style="position: absolute; left: 0; color: var(--text-muted);"></i> Dark/Light mode support</li>
                 <li style="padding-left: 2rem; position: relative; margin-bottom: 0.5rem;"><i class="fas fa-clock"
                         style="position: absolute; left: 0; color: var(--warning);"></i> Last updated timestamp and
                     Manual Refresh button</li>
@@ -534,21 +567,25 @@ class SummaryReporter {
       flaky: 0,
       total: 0,
       startTime: new Date().toISOString(),
-      isSummary: true
+      isSummary: true,
+      failedTests: [] // 👈 NEW: Added array to hold names
     };
 
     if (this.rootSuite) {
       for (const test of this.rootSuite.allTests()) {
         const status = test.outcome();
         if (status === 'expected') summary.passed++;
-        if (status === 'unexpected') summary.failed++;
+        if (status === 'unexpected') {
+          summary.failed++;
+          summary.failedTests.push(test.title); // 👈 NEW: Push failing test name
+        }
         if (status === 'flaky') summary.flaky++;
       }
     }
 
     summary.total = summary.passed + summary.failed + summary.flaky;
     fs.writeFileSync('test-summary.json', JSON.stringify(summary, null, 2));
-    console.log('✅ Test summary created: test-summary.json');
+    console.log('✅ Automatic summary created: test-summary.json');
   }
 }
 
@@ -646,7 +683,7 @@ jobs:
                     <h4>1. Enable GitHub Pages</h4>
                     <p>Go to your Repository <strong>Settings > Pages</strong>. Set the source to <strong>"Deploy from a
                             branch"</strong> and select <strong>"main"</strong> as shown below.</p>
-                    <img src="./blog_images/github_pages_settings.png" alt="GitHub Pages Settings" class="blog-image">
+                    <img src="../blog_images/github_pages_settings.png" alt="GitHub Pages Settings" class="blog-image">
                 </div>
                 <div class="setup-step">
                     <h4>2. Use the Complete Workflow</h4>
@@ -907,7 +944,7 @@ jobs:
         </div>
 
         <footer>
-            <p>&copy; 2025 Faruk Hasan. Built for the QA community.</p>
+            <p>&copy; 2026 Faruk Hasan. Built for the QA community.</p>
             <div style="margin-top: 1rem; font-size: 1.2rem; display: flex; justify-content: center; gap: 1.5rem;">
                 <a href="https://linkedin.com/in/md-faruk-hasan/" target="_blank"><i class="fab fa-linkedin"></i></a>
                 <a href="https://github.com/faruklmu17" target="_blank"><i class="fab fa-github"></i></a>
