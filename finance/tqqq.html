@@ -870,22 +870,9 @@
                     };
                 }).filter(d => d.close > 0);
 
-                // Append Supplemental Data (April 20 - May 6)
-                const supplemental = [
-                    { date: '4/20/2026', close: 58.08 },
-                    { date: '4/21/2026', close: 57.40 },
-                    { date: '4/22/2026', close: 59.12 },
-                    { date: '4/23/2026', close: 59.22 },
-                    { date: '4/24/2026', close: 62.56 },
-                    { date: '4/27/2026', close: 62.64 },
-                    { date: '4/28/2026', close: 60.74 },
-                    { date: '4/29/2026', close: 61.86 },
-                    { date: '4/30/2026', close: 63.54 },
-                    { date: '5/1/2026', close: 65.30 },
-                    { date: '5/4/2026', close: 64.91 },
-                    { date: '5/5/2026', close: 67.39 },
-                    { date: '5/6/2026 (Intraday)', close: 67.77 }
-                ];
+                // Append Supplemental Data
+                // Empty for now since update_tqqq_data.py has updated the Excel file up to May 6
+                const supplemental = [];
 
                 // Only add if not already present in the Excel
                 supplemental.forEach(s => {
