@@ -4237,8 +4237,8 @@ a[href*="huggingface"].category-link-inline:hover {
 /* Featured Product Section */
 .featured-product-section {
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  padding: 4rem 0 5rem;
-  margin: 2rem auto;
+  padding: 2rem 0 3rem;
+  margin: 1rem auto;
   border-radius: 24px;
   width: 90%;
   max-width: 1300px;
