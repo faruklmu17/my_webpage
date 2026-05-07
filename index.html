@@ -468,6 +468,19 @@
   <!-- Skills & Education section -->
   <section class="skills-education-section">
     <div class="skills-education-container">
+      <!-- Top Announcement Banner -->
+      <!-- Top Announcement Banner -->
+      <div class="skills-top-banner">
+        <div class="banner-content">
+          <span class="banner-badge"><i class="fas fa-hammer"></i> My Latest Creation</span>
+          <strong>Playwright Extension (v1.7)</strong> — I built this tool to help QA engineers monitor tests directly in the browser! 
+          <div class="banner-cta-group">
+            <a href="https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh?utm_source=item-share-cb" target="_blank" class="banner-store-btn"><i class="fab fa-chrome" style="color: #4ade80;"></i> Get it from Chrome Store</a>
+            <a href="#featured-product" class="banner-details-btn">View Details <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
       <!-- Left Column: Skills Grid -->
       <div class="skills-column">
         <div class="skills-header">
@@ -733,6 +746,150 @@
             <i class="fas fa-arrow-right"></i>
           </a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Product Section -->
+  <section id="featured-product" class="featured-product-section">
+    <div class="featured-product-container">
+      <div class="featured-product-content">
+        <span class="featured-badge">v1.7 Release (100% Free)</span>
+        <h2 class="featured-title">Playwright Test Results Badge <br><span style="color: #38bdf8;">Monitor Tests in Browser</span></h2>
+        
+        <div style="display: flex; align-items: center; gap: 0.5rem; color: #94a3b8; font-size: 0.95rem; margin-top: -0.5rem; margin-bottom: 0.5rem;">
+          <i class="fas fa-code" style="color: #38bdf8;"></i> <span>Designed & Developed by <strong>Faruk Hasan</strong></span>
+        </div>
+
+        <p class="featured-description">
+          I built this Chrome extension to solve my own context-switching pain. It integrates seamlessly with Playwright to deliver real-time test execution results directly to your browser toolbar. Now featuring Dark Mode and Detailed Failed Test Logs.
+        </p>
+        
+        <ul class="featured-features">
+          <li><i class="fas fa-check-circle"></i> Live Status Badge & Test Summaries</li>
+          <li><i class="fas fa-check-circle"></i> Beautiful Dark & Light Mode</li>
+          <li><i class="fas fa-check-circle"></i> Detailed Failure Logs & Stack Traces</li>
+          <li><i class="fas fa-check-circle"></i> Works with GitHub (Public, Private, Org) & AWS</li>
+        </ul>
+
+        <div class="featured-actions">
+          <a href="https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh?utm_source=item-share-cb" target="_blank" class="featured-btn primary">
+            <i class="fab fa-chrome"></i> Get Extension
+          </a>
+          <a href="projects/playwright_test_result_chrome_extension.html" class="featured-btn secondary">
+            Learn More
+          </a>
+        </div>
+      </div>
+      <div class="featured-product-visual interactive-mockup-section">
+        <!-- Mockup Toolbar / Browser Chrome -->
+        <div class="browser-mockup-header">
+          <div class="browser-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="browser-address-bar">
+            <i class="fas fa-lock"></i> github.com/pulls
+          </div>
+          <div class="browser-extensions">
+            <div class="ext-icon badge-container" id="mockup-ext-badge">
+              <i class="fas fa-flask" style="color: white; font-size: 14px;"></i>
+              <span class="ext-badge fail" id="mockup-badge-count">2</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Extension Popup Mockup -->
+        <div class="ext-popup-mockup fail-state" id="ext-popup">
+          <div class="ext-header">
+            <div class="ext-title">
+              <span class="ext-logo">🎭</span> Test Results
+            </div>
+            <i class="far fa-moon ext-theme-icon"></i>
+          </div>
+          
+          <div class="ext-url-section">
+            <label>Results JSON URL (GitHub, AWS, etc)</label>
+            <div class="ext-input-group">
+              <input type="text" value="https://raw.githubusercontent.com/faruklmu17..." readonly>
+              <i class="far fa-clone"></i>
+            </div>
+            <div class="ext-url-actions">
+              <button class="ext-btn save-btn">Save URL</button>
+              <button class="ext-btn refresh-btn"><i class="fas fa-sync-alt"></i> Refresh</button>
+            </div>
+          </div>
+
+          <div class="ext-summary-section">
+            <label>SUMMARY</label>
+            <div class="ext-summary-cards">
+              <div class="ext-card pass-card">
+                <div class="ext-card-count" id="mockup-pass-count"><i class="far fa-check-circle"></i> 13</div>
+                <div class="ext-card-label">PASSED</div>
+              </div>
+              <div class="ext-card fail-card" id="mockup-fail-card">
+                <div class="ext-card-count" id="mockup-fail-count"><i class="far fa-times-circle"></i> 2</div>
+                <div class="ext-card-label">FAILED</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ext-failures-section" id="mockup-failures-list">
+            <label>FAILING TESTS</label>
+            <div class="ext-fail-item">
+              <i class="fas fa-times"></i> page has proper language attribute
+            </div>
+            <div class="ext-fail-item">
+              <i class="fas fa-times"></i> footer is present
+            </div>
+          </div>
+
+          <div class="ext-footer">
+            <div class="ext-total">15 Total Tests</div>
+            <div class="ext-time"><i class="far fa-clock"></i> Last updated: 1 day ago</div>
+          </div>
+        </div>
+
+        <!-- Simulation Toggles -->
+        <div class="mockup-controls">
+          <button class="mockup-toggle-btn pass" onclick="simulateExtension('pass')">
+            <i class="fas fa-check"></i> Simulate Test Pass
+          </button>
+          <button class="mockup-toggle-btn fail active" onclick="simulateExtension('fail')">
+            <i class="fas fa-times"></i> Simulate Test Fail
+          </button>
+        </div>
+
+        <script>
+          function simulateExtension(state) {
+            const badge = document.getElementById('mockup-badge-count');
+            const passCount = document.getElementById('mockup-pass-count');
+            const failCount = document.getElementById('mockup-fail-count');
+            const failCard = document.getElementById('mockup-fail-card');
+            const failuresList = document.getElementById('mockup-failures-list');
+            const passBtn = document.querySelector('.mockup-toggle-btn.pass');
+            const failBtn = document.querySelector('.mockup-toggle-btn.fail');
+            
+            if (state === 'pass') {
+              badge.className = 'ext-badge pass';
+              badge.textContent = 'OK';
+              passCount.innerHTML = '<i class="far fa-check-circle"></i> 15';
+              failCount.innerHTML = '<i class="far fa-times-circle"></i> 0';
+              failCard.style.opacity = '0.4';
+              failuresList.style.display = 'none';
+              passBtn.classList.add('active');
+              failBtn.classList.remove('active');
+            } else {
+              badge.className = 'ext-badge fail';
+              badge.textContent = '2';
+              passCount.innerHTML = '<i class="far fa-check-circle"></i> 13';
+              failCount.innerHTML = '<i class="far fa-times-circle"></i> 2';
+              failCard.style.opacity = '1';
+              failuresList.style.display = 'block';
+              failBtn.classList.add('active');
+              passBtn.classList.remove('active');
+            }
+          }
+        </script>
       </div>
     </div>
   </section>
