@@ -2850,7 +2850,7 @@ footer {
 /* New Skills & Education Section */
 .skills-education-section {
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  padding: 1.5rem 0;
+  padding: 2.5rem 0;
   margin: 0.1rem 0;
 }
 
@@ -2860,7 +2860,7 @@ footer {
   padding: 0 2rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  gap: 2.5rem;
   align-items: stretch;
 }
 
@@ -2868,12 +2868,12 @@ footer {
 .skills-column {
   background: white;
   border-radius: 15px;
-  padding: 1.2rem;
+  padding: 1.8rem;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(0, 0, 0, 0.05);
   display: grid;
   grid-template-rows: auto 1fr;
-  gap: 0.1rem;
+  gap: 0.3rem;
 }
 
 .skills-header h2 {
@@ -3176,12 +3176,12 @@ a[href*="huggingface"].category-link-inline:hover {
 .education-column {
   background: white;
   border-radius: 15px;
-  padding: 1rem 1.2rem;
+  padding: 1.2rem 1.8rem 1.1rem 1.8rem;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(0, 0, 0, 0.05);
   display: grid;
   grid-template-rows: auto auto 1fr auto;
-  gap: 0.8rem;
+  gap: 1.2rem;
 }
 
 .education-header h2 {
@@ -3602,33 +3602,7 @@ a[href*="huggingface"].category-link-inline:hover {
   }
 }
 
-@media (max-width: 480px) {
 
-  .skills-header h2,
-  .education-header h2 {
-    font-size: 1.6rem;
-  }
-
-  .skills-categories {
-    gap: 0.8rem;
-  }
-
-  .skill-category {
-    padding: 1rem;
-  }
-
-  .category-header h3 {
-    font-size: 1rem;
-  }
-
-  .category-skills {
-    font-size: 0.85rem;
-  }
-
-  .course-card-mini {
-    padding: 1.2rem;
-  }
-}
 
 /* Dividend Income Section */
 #dividend-income {
@@ -4837,7 +4811,7 @@ a[href*="huggingface"].category-link-inline:hover {
 .skills-top-banner {
   grid-column: 1 / -1; /* Make it span both columns in the grid */
   display: flex;
-  margin-bottom: 0; /* No extra space added to layout */
+  margin-bottom: 0; /* Let grid gap handle spacing */
   background: linear-gradient(90deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
   background-size: 200% 200%;
   animation: bannerGlow 6s ease infinite;
