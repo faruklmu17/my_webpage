@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Playwright Test Result Viewer – Chrome Extension</title>
+    <title>Playwright Browser Extension – Chrome Extension</title>
     <link rel="canonical" href="https://faruk-hasan.com/projects/playwright_test_result_chrome_extension.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description"
@@ -12,6 +12,42 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Playwright Browser Extension – Professional Test Monitoring" />
+    <meta property="og:description" content="Monitor your Playwright test results directly in your browser toolbar. 100% free, v1.8 out now with detailed failed test logs." />
+    <meta property="og:image" content="https://faruk-hasan.com/blog_images/playwright_extension_thumb.png" />
+    <meta property="og:url" content="https://faruk-hasan.com/projects/playwright_test_result_chrome_extension.html" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Playwright Browser Extension – v1.8 Out Now" />
+    <meta name="twitter:description" content="Monitor Playwright tests from your browser toolbar. Free v1.8 release with failed test details." />
+    <meta name="twitter:image" content="https://faruk-hasan.com/blog_images/playwright_extension_thumb.png" />
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Playwright Browser Extension",
+      "operatingSystem": "Chrome, Edge, Brave",
+      "applicationCategory": "DeveloperApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Faruk Hasan",
+        "url": "https://faruk-hasan.com"
+      },
+      "description": "A free Chrome extension to monitor Playwright test results directly in your browser toolbar with live badges and failed test details.",
+      "softwareVersion": "1.8"
+    }
+    </script>
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;700;800&display=swap');
 
@@ -862,14 +898,24 @@
 </head>
 
 <body>
-    <div class="page">
+    <main class="main-content">
+        <div class="main-container">
+            <nav class="breadcrumb" style="margin-bottom: 2rem; font-size: 0.9rem; color: #94a3b8;">
+                <a href="../index.html" style="color: #38bdf8; text-decoration: none;">Home</a> 
+                <span style="margin: 0 0.5rem;">/</span> 
+                <a href="../index.html#projects" style="color: #38bdf8; text-decoration: none;">Projects</a> 
+                <span style="margin: 0 0.5rem;">/</span> 
+                <span style="color: #fff;">Playwright Browser Extension</span>
+            </nav>
+
+            <div class="page">
         <div class="wrapper">
             <div class="ext-header">
                 <div class="logo-wrap">
                     <div class="logo-mark">T</div>
                     <div>
-                        <div class="logo-text-main">Playwright Test Results</div>
-                        <div class="logo-text-sub">Chrome Extension • QA tooling</div>
+                        <div class="logo-text-main">Playwright Browser Extension</div>
+                        <div class="logo-text-sub">Formerly Playwright Test Result Viewer</div>
                     </div>
                 </div>
                 <nav>
@@ -884,15 +930,12 @@
                 <!-- HERO -->
                 <section class="hero" aria-label="Playwright Test Result Viewer overview">
                     <div>
-                        <div class="badge-pill">v1.7 • Dark Mode & Failed Test Details</div>
+                        <div class="badge-pill">v1.8 • Dark Mode & Failed Test Details</div>
                         <h1 class="hero-heading">
-                            See your <span class="hero-highlight">Playwright test results</span>
-                            right in Chrome.
+                            <span class="hero-highlight">The Professional Choice.</span>
                         </h1>
                         <p class="hero-sub">
-                            This extension reads your Playwright test summary JSON directly from GitHub, AWS S3, or GitHub Pages
-                            and shows a pass/fail summary in a clean popup, with a live badge that shows
-                            <strong>pass/fail counts</strong> (e.g. 42/1).
+                            The Playwright Browser Extension (v1.8) is a powerful, 100% free tool that eliminates context switching. Monitor your tests directly from your toolbar with live status badges, failed test details, and dark mode support.
                         </p>
 
                         <div class="hero-badge-row">
@@ -938,7 +981,7 @@
                                 </div>
                                 <div class="toolbar-ext">
                                     <span>🧩</span>
-                                    <span>Playwright Test Results</span>
+                                    <span>Playwright Browser Extension</span>
                                 </div>
                             </div>
 
@@ -1081,7 +1124,8 @@
                     </li>
                 </ol>
 
-                <p class="subtle">
+                <p class="subtle">Latest Update: <strong>Version 1.8</strong> — Removed license requirements. Added detailed failed test names in popup and automated HTML dashboard support.</p>
+                <p>
                     For a complete step-by-step guide on setting up the summary reporter and configuring GitHub Actions, check out our <a href="/blog_post/playwright_browser_extension_test_result.html" style="color: #4ade80; text-decoration: underline;">detailed blog post</a>.
                 </p>
             </section>
