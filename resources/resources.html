@@ -634,6 +634,82 @@
     .quiz-category .quiz-dropdown {
       min-width: 280px;
     }
+
+    /* Highlighted Sandbox Section */
+    .sandbox-hero {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 20px auto 30px;
+      text-align: center;
+      border: 2px solid rgba(56, 189, 248, 0.4);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+      max-width: 900px;
+      animation: pulse-border 2s infinite alternate;
+    }
+
+    @keyframes pulse-border {
+      from { border-color: rgba(56, 189, 248, 0.4); box-shadow: 0 10px 25px rgba(56, 189, 248, 0.2); }
+      to { border-color: rgba(129, 140, 248, 0.8); box-shadow: 0 15px 35px rgba(129, 140, 248, 0.4); }
+    }
+
+    .sandbox-hero h3 {
+      color: #38bdf8;
+      font-size: 28px;
+      margin-top: 0;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .sandbox-hero p {
+      color: #e2e8f0;
+      font-size: 17px;
+      margin-bottom: 25px;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+    }
+
+    .sandbox-cta-button {
+      display: inline-block;
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      color: white !important;
+      text-decoration: none;
+      padding: 15px 40px;
+      font-size: 20px;
+      font-weight: 700;
+      border-radius: 50px;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .sandbox-cta-button:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(56, 189, 248, 0.6);
+      filter: brightness(1.1);
+    }
+
+    .sandbox-hero .badge {
+      position: absolute;
+      top: 15px;
+      right: -30px;
+      background: #ef4444;
+      color: white;
+      padding: 5px 40px;
+      transform: rotate(45deg);
+      font-size: 12px;
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
   </style>
 </head>
 
@@ -650,9 +726,24 @@
         knowledge.</p>
     </div>
 
+    <!-- Highlighted Python Sandbox Hero Section -->
+    <div class="sandbox-hero">
+      <div class="badge">NEW</div>
+      <h3><i class="fab fa-python"></i> Interactive Python Sandbox 🚀</h3>
+      <p>Master Python by coding in real-time! Our interactive sandbox lets you write, run, and experiment with code
+        instantly—no installation required. Perfect for beginners and advanced learners alike.</p>
+      <a href="../sandbox/index.html" class="sandbox-cta-button">Launch Sandbox Now</a>
+    </div>
+
     <!-- Quiz navigation moved above the ad -->
     <div class="quiz-section">
       <div class="quiz-nav">
+        <!-- Python Sandbox Highlighted Button -->
+        <div class="quiz-category">
+          <a href="../sandbox/index.html" class="category-button python"
+            style="background: linear-gradient(135deg, #38bdf8, #818cf8); border: none; display: inline-block; text-decoration: none; font-weight: 700; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);">Python Sandbox 💻</a>
+        </div>
+
         <div class="quiz-category">
           <button class="category-button python">Python Quizzes</button>
           <div class="quiz-dropdown">
