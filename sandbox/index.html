@@ -206,12 +206,130 @@
         @media (max-width: 900px) {
             .editor-grid {
                 grid-template-columns: 1fr;
+                gap: 1rem;
             }
 
             .examples-select {
                 margin-left: 0;
                 width: 100%;
             }
+
+            .CodeMirror, .output, .input-area {
+                height: 350px !important;
+                min-height: 350px;
+                max-height: 350px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .main-wrapper {
+                padding: 1rem 1rem 3rem;
+            }
+
+            .page-header {
+                margin-bottom: 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .subtitle {
+                font-size: 0.95rem;
+            }
+
+            .toolbar {
+                gap: 0.5rem;
+            }
+
+            .btn {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.85rem;
+                flex: 1 1 calc(50% - 0.25rem);
+                justify-content: center;
+            }
+
+            .btn-run {
+                flex: 1 1 100%;
+                font-size: 1.05rem;
+                padding: 0.8rem;
+                order: -1; /* Keep Run button at the top */
+            }
+
+            .examples-select {
+                order: 2;
+                margin-top: 0.25rem;
+            }
+
+            .CodeMirror, .output, .input-area {
+                height: 300px !important;
+                min-height: 300px;
+                max-height: 300px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .panel-header {
+                padding: 0.6rem 0.8rem;
+            }
+
+            .panel-header span:last-child {
+                display: none; /* Hide 'Python 3' / 'stdout' labels to save space */
+            }
+
+            .modal {
+                padding: 1.5rem 1rem;
+                max-height: 95vh;
+            }
+
+            .back-link {
+                margin-bottom: 1rem;
+                font-size: 0.85rem;
+            }
+
+            /* Mobile Tabs Styling */
+            .mobile-tabs-nav {
+                display: flex;
+                background: #e2e8f0;
+                border-radius: 8px;
+                padding: 4px;
+                margin-bottom: 1rem;
+                gap: 4px;
+            }
+
+            .tab-link {
+                flex: 1;
+                border: none;
+                background: transparent;
+                padding: 0.6rem;
+                font-weight: 600;
+                font-size: 0.9rem;
+                color: #64748b;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+
+            .tab-link.active {
+                background: white;
+                color: var(--primary);
+                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            }
+
+            #editor-panel, #output-panel, #input-panel {
+                display: none;
+            }
+
+            #editor-panel.active-tab, #output-panel.active-tab, #input-panel.active-tab {
+                display: flex;
+            }
+        }
+
+        /* Default for desktop: hide tabs, show both panels */
+        .mobile-tabs-nav {
+            display: none;
         }
 
         .panel {
@@ -224,6 +342,12 @@
             flex-direction: column;
         }
 
+        .panel-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
         .panel-header {
             display: flex;
             align-items: center;
@@ -233,7 +357,22 @@
             color: #f1f5f9;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem;
+            font-size: 0.85rem;
             font-weight: 500;
+        }
+
+        .btn-icon {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            padding: 2px 8px;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .btn-icon:hover {
+            color: #ef4444;
         }
 
         .panel-header .dots {
@@ -409,6 +548,23 @@
             font-style: italic;
         }
 
+        .input-area {
+            flex: 1;
+            background: #1e293b;
+            color: #f1f5f9;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            border: none;
+            resize: none;
+            outline: none;
+            min-height: 200px;
+        }
+
+        .input-area::placeholder {
+            color: #64748b;
+        }
+
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -479,6 +635,103 @@
 
         .modal-backdrop.show {
             display: flex;
+        }
+
+        /* Input Dialog Modal */
+        .input-dialog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 11000;
+        }
+
+        .input-dialog.show {
+            display: flex;
+        }
+
+        .dialog-content {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            animation: modalIn 0.3s ease;
+        }
+
+        .dialog-header {
+            padding: 1.25rem;
+            background: #0f172a;
+            color: #e2e8f0;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 1px solid #334155;
+        }
+
+        .dialog-body {
+            padding: 1.5rem;
+        }
+
+        #inputDialogField {
+            width: 100%;
+            background: #0f172a;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        #inputDialogField:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+        }
+
+        .dialog-footer {
+            padding: 1rem 1.5rem;
+            background: #0f172a;
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+        }
+
+        /* Terminal Input Styles */
+        .terminal-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .terminal-field {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--primary);
+            color: #10b981; /* Emeral color for input */
+            font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+            width: 200px;
+            padding: 2px 5px;
+        }
+
+        .terminal-hint {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-style: italic;
         }
 
         .modal {
@@ -614,10 +867,10 @@
                 <i class="fas fa-play"></i> Run
             </button>
             <button class="btn btn-secondary" id="clearOutputBtn">
-                <i class="fas fa-eraser"></i> Clear Output
+                <i class="fas fa-eraser"></i> Clear
             </button>
             <button class="btn btn-secondary" id="resetBtn">
-                <i class="fas fa-rotate-left"></i> Reset Code
+                <i class="fas fa-rotate-left"></i> Reset
             </button>
             <button class="btn btn-secondary" id="copyBtn">
                 <i class="fas fa-copy"></i> Copy
@@ -638,8 +891,13 @@
             </select>
         </div>
 
+        <div class="mobile-tabs-nav">
+            <button class="tab-link active" data-target="editor-panel">Code</button>
+            <button class="tab-link" data-target="output-panel">Output</button>
+        </div>
+
         <div class="editor-grid">
-            <div class="panel">
+            <div class="panel" id="editor-panel">
                 <div class="panel-header">
                     <span class="panel-title">
                         <span class="dots"><span></span><span></span><span></span></span>
@@ -650,13 +908,13 @@
                 <textarea id="codeEditor"></textarea>
             </div>
 
-            <div class="panel">
+            <div class="panel" id="output-panel">
                 <div class="panel-header">
                     <span class="panel-title">
                         <span class="dots"><span></span><span></span><span></span></span>
-                        Output
+                        stdout (Output)
                     </span>
-                    <span><i class="fas fa-terminal"></i> stdout</span>
+                    <span><i class="fas fa-terminal"></i> output</span>
                 </div>
                 <div class="output" id="output"><span class="muted">Output will appear here after you click Run...</span></div>
             </div>
@@ -669,7 +927,7 @@
                 <div class="desc">All code executes locally on your computer. Nothing is sent to any server.</div>
             </div>
             <div class="info-card">
-                <div class="icon"><i class="fas fa-keyboard"></i></div>
+                <div class="icon"><i class="fas fa-laptop-code"></i></div>
                 <div class="title">Keyboard Shortcut</div>
                 <div class="desc">Press <strong>Ctrl + Enter</strong> (or <strong>Cmd + Enter</strong> on Mac) to run
                     your code.</div>
@@ -679,6 +937,11 @@
                 <div class="title">Built for Students</div>
                 <div class="desc">Try the example programs in the dropdown to learn Python step by step.</div>
             </div>
+            <div class="info-card">
+                <div class="icon"><i class="fas fa-keyboard"></i></div>
+                <div class="title">Standard Input (stdin)</div>
+                <div class="desc">For programs requiring input, use the <strong>Input</strong> panel to pre-fill values (one per line) before running.</div>
+            </div>
         </div>
 
         <footer>
@@ -686,6 +949,22 @@
                     rel="noopener" style="color: var(--primary);">Pyodide</a></p>
         </footer>
     </main>
+
+    <!-- Input Dialog Modal -->
+    <div class="input-dialog" id="inputDialog">
+        <div class="dialog-content">
+            <div class="dialog-header">
+                <i class="fas fa-keyboard"></i> <span id="inputDialogPrompt">Input required:</span>
+            </div>
+            <div class="dialog-body">
+                <input type="text" id="inputDialogField" placeholder="Type here..." autocomplete="off">
+            </div>
+            <div class="dialog-footer">
+                <button class="btn btn-secondary" id="inputDialogCancel">Cancel</button>
+                <button class="btn btn-run" id="inputDialogSubmit">Submit</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Help Modal -->
     <div class="modal-backdrop" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">

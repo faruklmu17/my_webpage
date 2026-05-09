@@ -29,8 +29,9 @@ print("Height:", height, "feet")
 years_until_18 = 18 - age
 print(f"{name} will be 18 in {years_until_18} years.")
 `,
-    input: `# input() lets you ask the user a question
-# (A prompt box will pop up)
+    input: {
+        code: `# input() lets you ask the user a question
+# I've pre-filled the 'Input' panel below for you!
 
 name = input("What is your name? ")
 print(f"Nice to meet you, {name}!")
@@ -38,18 +39,28 @@ print(f"Nice to meet you, {name}!")
 color = input("What is your favorite color? ")
 print(f"{color} is a great color!")
 `,
-    ifelse: `# if / else lets your program make decisions
-age = 16
+        input: "John\nBlue"
+    },
+    ifelse: {
+        code: `# Let's compare three numbers!
+print("--- Compare three numbers ---")
+a = int(input("Enter first number: "))
+b = int(input("Enter second number: "))
+c = int(input("Enter third number: "))
 
-if age >= 18:
-    print("You can vote!")
-elif age >= 13:
-    print("You're a teenager.")
+print(f"You entered: {a}, {b}, {c}")
+
+if a > b and a > c:
+    print(f"The largest number is: {a}")
+elif b > a and b > c:
+    print(f"The largest number is: {b}")
+elif c > a and c > b:
+    print(f"The largest number is: {c}")
 else:
-    print("You're still a kid.")
-
-# Try changing the age and run again!
+    print("Some numbers are equal!")
 `,
+        input: "10\n20\n30"
+    },
     loops: `# Loops repeat code many times
 
 # Print numbers 1 through 5
@@ -115,6 +126,7 @@ for i in range(1, 21):
 
 let editor = null;
 let pyodide = null;
+let inputBuffer = []; // Global buffer for stdin inputs
 
 const statusDot = document.getElementById("statusDot");
 const statusText = document.getElementById("statusText");
@@ -307,75 +319,66 @@ async function initPyodide() {
             batched: (msg) => appendOutput(msg + "\n", "err")
         });
 
-        // Map Python's input() to JS prompt()
-        // Also install helpers used for signatures, docstrings, and linting.
+        // Map Python's input() to our custom input handler
         pyodide.runPython(`
-import builtins, json, inspect
-from js import prompt as _js_prompt
+import builtins, json, sys
+from js import getSandboxInput
 
 def _input(prompt_text=""):
-    result = _js_prompt(str(prompt_text))
-    if result is None:
-        raise KeyboardInterrupt("Input cancelled")
-    return result
+    # Attempt to get input from our persistent buffer
+    val = getSandboxInput()
+    if val is not None:
+        # We have a value! Echo it and continue.
+        sys.stdout.write(f"{prompt_text}{val}\\n")
+        return str(val)
+    
+    # No value in buffer! Stop execution and trigger the UI to ask the user.
+    # We use a special print that the JS will recognize to show the input field.
+    sys.stdout.write(f"{prompt_text}")
+    # The string below is a 'magic token' for the JS to handle
+    print("___WAITING_FOR_INPUT___")
+    # Stop the program immediately
+    raise SystemExit(0)
 
 builtins.input = _input
 
 def _sandbox_lookup(name):
-    """Resolve a dotted name from globals/builtins. Auto-imports unknown
-    top-level modules so hints/docs work without running the code first."""
-    if not name:
-        return None
+    if not name: return None
     parts = name.split('.')
-    obj = None
     g = globals()
     head = parts[0]
-    if head in g:
-        obj = g[head]
-    elif hasattr(builtins, head):
-        obj = getattr(builtins, head)
+    if head in g: obj = g[head]
+    elif hasattr(builtins, head): obj = getattr(builtins, head)
     else:
         try:
             obj = __import__(head)
             g[head] = obj
-        except Exception:
-            return None
+        except: return None
     for p in parts[1:]:
         obj = getattr(obj, p, None)
-        if obj is None:
-            return None
+        if obj is None: return None
     return obj
 
 def _sandbox_dir(name):
     obj = _sandbox_lookup(name)
-    if obj is None:
-        return json.dumps([])
-    try:
-        return json.dumps([a for a in dir(obj) if not a.startswith('_')])
-    except Exception:
-        return json.dumps([])
+    if obj is None: return json.dumps([])
+    try: return json.dumps([a for a in dir(obj) if not a.startswith('_')])
+    except: return json.dumps([])
 
 def _sandbox_signature(name):
     obj = _sandbox_lookup(name)
-    if obj is None or not callable(obj):
-        return json.dumps(None)
-    try:
-        sig = str(inspect.signature(obj))
-    except (TypeError, ValueError):
-        sig = "(...)"
+    if obj is None or not callable(obj): return json.dumps(None)
+    try: sig = str(inspect.signature(obj))
+    except: sig = "(...)"
     return json.dumps({"name": name, "sig": sig})
 
 def _sandbox_doc(name):
     obj = _sandbox_lookup(name)
-    if obj is None:
-        return json.dumps(None)
-    try:
-        sig = str(inspect.signature(obj)) if callable(obj) else ""
-    except (TypeError, ValueError):
-        sig = ""
+    if obj is None: return json.dumps(None)
+    try: sig = str(inspect.signature(obj)) if callable(obj) else ""
+    except: sig = ""
     doc = inspect.getdoc(obj) or ""
-    if len(doc) > 600:
-        doc = doc[:600].rstrip() + "..."
+    if len(doc) > 600: doc = doc[:600].rstrip() + "..."
     return json.dumps({"name": name, "sig": sig, "doc": doc})
 
 def _sandbox_lint(code):
@@ -383,16 +386,12 @@ def _sandbox_lint(code):
         compile(code, '<sandbox>', 'exec')
         return json.dumps([])
     except SyntaxError as e:
-        line = (e.lineno or 1) - 1
-        col = (e.offset or 1) - 1
         return json.dumps([{
-            "line": line,
-            "col": max(col, 0),
-            "endCol": max(col, 0) + 1,
+            "line": (e.lineno or 1) - 1,
+            "col": max((e.offset or 1) - 1, 0),
             "message": e.msg or "Syntax error"
         }])
-    except Exception as e:
-        return json.dumps([])
+    except: return json.dumps([])
 `);
 
         setStatus("ready", "Python is ready! Click Run to execute your code.");
@@ -411,17 +410,147 @@ async function runCode() {
     appendOutput("▶ Running...\n\n", "muted");
     runBtn.disabled = true;
 
+    // Mobile UX: Automatically switch to output tab if on mobile
+    const outputTabBtn = document.querySelector('.tab-link[data-target="output-panel"]');
+    if (window.innerWidth <= 900 && outputTabBtn) {
+        outputTabBtn.click();
+    }
+
+    // Get inputs from the stdin panel
+    const stdinText = document.getElementById("stdinInput").value;
+    let inputs = [];
+    
+    // Only populate if there's actual non-whitespace content, 
+    // or if the user explicitly provided multiple lines.
+    if (stdinText.trim() !== "") {
+        inputs = stdinText.split('\n');
+        // Remove trailing empty line if it exists (common when pressing Enter at the end)
+        if (inputs.length > 0 && inputs[inputs.length - 1] === "") {
+            inputs.pop();
+        }
+    }
+    
+    // Populate the global input buffer
+    inputBuffer = [...inputs];
+    
+    // Proactive warning: check if number of inputs matches expected input calls
+    const inputCalls = (code.match(/\binput\s*\(/g) || []).length;
+    if (inputs.length < inputCalls && inputs.length > 0) {
+        appendOutput(`[Note: Code has ${inputCalls} input() calls, but Input panel only has ${inputs.length} lines. Interactive prompts will appear for the rest.]\n\n`, "muted");
+    } else if (inputs.length === 0 && inputCalls > 0) {
+        appendOutput(`[Note: Use the 'Input' panel to pre-fill answers and avoid browser prompts.]\n\n`, "muted");
+    }
+    
     try {
+        // We run the code as-is (synchronously)
         await pyodide.runPythonAsync(code);
-        appendOutput("\n✓ Finished.\n", "ok");
+        
+        // If we finished without being stopped by our 'magic token', clear the interactive state
+        if (!output.innerHTML.includes("___WAITING_FOR_INPUT___")) {
+            appendOutput("\n✓ Finished.\n", "ok");
+            // Clear buffer for next fresh run
+            if (inputBuffer.length === 0) {
+                // Keep pre-filled inputs but clear temporary ones? 
+                // For now, just leave it.
+            }
+        } else {
+            // Handle the interactive input field
+            handleInteractiveInput();
+        }
     } catch (err) {
-        appendOutput("\n" + err.toString() + "\n", "err");
+        // SystemExit(0) is used to stop the code for input
+        if (err.message && err.message.includes("SystemExit: 0")) {
+             handleInteractiveInput();
+        } else {
+             appendOutput("\n" + err.toString() + "\n", "err");
+        }
     } finally {
         runBtn.disabled = false;
     }
 }
 
-// ----- Docstring tooltip (shown beside the autocomplete dropdown) -----
+function handleInteractiveInput() {
+    // Remove the magic token from the output
+    const content = output.innerHTML;
+    output.innerHTML = content.replace("___WAITING_FOR_INPUT___", "");
+    
+    // Create an inline input field
+    const inputWrapper = document.createElement("div");
+    inputWrapper.className = "terminal-input-wrapper";
+    inputWrapper.innerHTML = `
+        <input type="text" id="terminal-field" class="terminal-field" autocomplete="off">
+        <span class="terminal-hint">[Press Enter]</span>
+    `;
+    output.appendChild(inputWrapper);
+    
+    const field = document.getElementById("terminal-field");
+    field.focus();
+    
+    field.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            const val = field.value;
+            // Add to our buffer
+            inputBuffer.push(val);
+            // Re-run the code!
+            runCode(true); // pass true to indicate it's a resume
+        }
+    });
+}
+
+// Update runCode to handle "resume" (not clearing output)
+async function runCode(isResume = false) {
+    // Crucial: If called from an event listener, the first arg is an Event object.
+    // We must ensure isResume is explicitly true only when we mean it.
+    if (isResume instanceof Event) isResume = false;
+    
+    if (!pyodide) return;
+    const code = editor.getValue();
+    
+    // Always clear output on every run/re-run to avoid duplication.
+    // We capture the value from the UI field before clearing.
+    if (isResume) {
+        const oldInput = document.querySelector(".terminal-input-wrapper");
+        if (oldInput) {
+            const val = oldInput.querySelector("input").value;
+            persistentBuffer.push(val);
+        }
+    } else {
+        persistentBuffer = [];
+    }
+
+    clearOutput();
+    appendOutput("▶ Running...\n\n", "muted");
+
+    currentRunBuffer = [...persistentBuffer];
+    runBtn.disabled = true;
+
+    try {
+        setStatus("running", "Program is running...");
+        // We run the code as-is (synchronously)
+        await pyodide.runPythonAsync(code);
+        
+        // If we finished without being stopped by our 'magic token', clear the interactive state
+        if (!output.innerHTML.includes("___WAITING_FOR_INPUT___")) {
+            appendOutput("\n✓ Program finished successfully.\n", "ok");
+            setStatus("ready", "Execution complete.");
+        } else {
+            // Handle the interactive input field
+            setStatus("waiting", "Waiting for your input...");
+            handleInteractiveInput();
+        }
+    } catch (err) {
+        // SystemExit(0) is used to stop the code for input
+        if (err.message && err.message.includes("SystemExit: 0")) {
+             setStatus("waiting", "Waiting for your input...");
+             handleInteractiveInput();
+        } else {
+             appendOutput("\n" + err.toString() + "\n", "err");
+             setStatus("error", "An error occurred during execution.");
+        }
+    } finally {
+        runBtn.disabled = false;
+    }
+}
 let docTooltipEl = null;
 
 function getDocTooltip() {
@@ -572,7 +701,13 @@ function wireUI() {
         if (!key) return;
         const example = EXAMPLES[key];
         if (example) {
-            editor.setValue(example);
+            if (typeof example === 'string') {
+                editor.setValue(example);
+                persistentBuffer = [];
+            } else {
+                editor.setValue(example.code);
+                persistentBuffer = example.input ? example.input.split('\n').filter(l => l !== "") : [];
+            }
             editor.focus();
         }
         e.target.value = "";
@@ -600,7 +735,53 @@ function wireUI() {
             localStorage.setItem("sandbox.helpSeen", "1");
         }
     } catch (e) { /* localStorage may be blocked in private mode */ }
+
+    // Mobile Tabs Switching Logic
+    const tabs = document.querySelectorAll('.tab-link');
+    const panels = document.querySelectorAll('.panel');
+
+    function switchTab(targetId) {
+        tabs.forEach(t => {
+            t.classList.toggle('active', t.getAttribute('data-target') === targetId);
+        });
+        panels.forEach(p => {
+            p.classList.toggle('active-tab', p.id === targetId);
+        });
+        
+        // Refresh CodeMirror when tab becomes visible
+        if (targetId === 'editor-panel' && editor) {
+            setTimeout(() => editor.refresh(), 10);
+        }
+    }
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            switchTab(tab.getAttribute('data-target'));
+        });
+    });
+
+    // Initialize first tab as active on mobile
+    if (window.innerWidth <= 900) {
+        switchTab('editor-panel');
+    }
 }
+
+// Global bridge for Python to get inputs
+let persistentBuffer = [];
+let currentRunBuffer = [];
+
+window.getSandboxInput = function() {
+    if (currentRunBuffer.length > 0) {
+        return currentRunBuffer.shift();
+    }
+    return null;
+};
+
+// JS Modal Implementation for Python Input
+window.showInputDialog = function(promptText) {
+    // This is now deprecated by the Terminal Re-run logic, but keeping as a fallback
+    return new Promise((resolve) => resolve(null));
+};
 
 // Boot
 window.addEventListener("DOMContentLoaded", () => {
