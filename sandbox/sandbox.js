@@ -275,6 +275,35 @@ function initEditor() {
         }
     });
 
+    // Restore code: prioritize Shared Link (#code=) then LocalStorage (auto-save)
+    const hash = window.location.hash;
+    let restored = false;
+
+    if (hash && hash.startsWith("#code=")) {
+        try {
+            const encoded = hash.substring(6);
+            const decoded = decodeURIComponent(escape(atob(encoded)));
+            if (decoded) {
+                editor.setValue(decoded);
+                restored = true;
+                // Clear hash to keep URL clean
+                history.replaceState(null, null, ' ');
+            }
+        } catch (e) { console.error("Failed to decode share link", e); }
+    }
+
+    if (!restored) {
+        const saved = localStorage.getItem("sandbox.lastCode");
+        if (saved) {
+            editor.setValue(saved);
+        }
+    }
+
+    // Auto-save on every change
+    editor.on("change", () => {
+        localStorage.setItem("sandbox.lastCode", editor.getValue());
+    });
+
     // Show signature tooltip when cursor sits inside a function call
     editor.on("cursorActivity", maybeShowSignature);
     editor.on("blur", hideSignature);
@@ -693,6 +722,29 @@ function wireUI() {
             setTimeout(() => { btn.innerHTML = original; }, 1500);
         } catch (e) {
             alert("Could not copy. Please select the code manually.");
+        }
+    });
+
+    document.getElementById("shareBtn").addEventListener("click", async () => {
+        try {
+            const code = editor.getValue();
+            // Base64 encode the code for the URL
+            // We use btoa(unescape(encodeURIComponent(str))) for robust Unicode support
+            const encoded = btoa(unescape(encodeURIComponent(code)));
+            const shareUrl = window.location.origin + window.location.pathname + "#code=" + encoded;
+            
+            await navigator.clipboard.writeText(shareUrl);
+            
+            const btn = document.getElementById("shareBtn");
+            const original = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-link"></i> Link Copied!';
+            btn.classList.add("btn-success");
+            setTimeout(() => { 
+                btn.innerHTML = original; 
+                btn.classList.remove("btn-success");
+            }, 2000);
+        } catch (e) {
+            alert("Could not generate share link.");
         }
     });
 
