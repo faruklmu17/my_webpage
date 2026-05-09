@@ -221,6 +221,15 @@
             }
         }
 
+        /* Syntax Highlighting Tweaks for Dracula */
+        .cm-s-dracula .cm-builtin { color: #8be9fd !important; }   /* Cyan for input, print, int, etc. */
+        .cm-s-dracula .cm-keyword { color: #ff79c6 !important; }   /* Pink for if, elif, else, for */
+        .cm-s-dracula .cm-variable { color: #f8f8f2 !important; }  /* White for variables */
+        .cm-s-dracula .cm-def { color: #50fa7b !important; }       /* Green for function definitions */
+        .cm-s-dracula .cm-comment { color: #6272a4 !important; }   /* Muted blue for comments */
+        .cm-s-dracula .cm-string { color: #f1fa8c !important; }    /* Yellow for "strings" */
+        .cm-s-dracula .cm-number { color: #bd93f9 !important; }    /* Purple for 123 numbers */
+
         @media (max-width: 600px) {
             .main-wrapper {
                 padding: 1rem 1rem 3rem;
@@ -231,7 +240,7 @@
             }
 
             h1 {
-                font-size: 1.8rem;
+                font-size: 1.75rem;
             }
 
             .subtitle {
@@ -261,7 +270,7 @@
                 margin-top: 0.25rem;
             }
 
-            .CodeMirror, .output, .input-area {
+            .CodeMirror, .output {
                 height: 300px !important;
                 min-height: 300px;
                 max-height: 300px;
@@ -318,11 +327,11 @@
                 box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             }
 
-            #editor-panel, #output-panel, #input-panel {
+            #editor-panel, #output-panel {
                 display: none;
             }
 
-            #editor-panel.active-tab, #output-panel.active-tab, #input-panel.active-tab {
+            #editor-panel.active-tab, #output-panel.active-tab {
                 display: flex;
             }
         }
@@ -874,6 +883,9 @@
             </button>
             <button class="btn btn-secondary" id="copyBtn">
                 <i class="fas fa-copy"></i> Copy
+            </button>
+            <button class="btn btn-secondary" id="shareBtn" title="Get shareable link">
+                <i class="fas fa-share-nodes"></i> Share
             </button>
             <button class="btn btn-secondary" id="helpBtn" title="Show editor features">
                 <i class="fas fa-circle-question"></i> Help
