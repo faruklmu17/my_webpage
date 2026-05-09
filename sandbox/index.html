@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO -->
+    <title>Python Sandbox | Write & Run Python in Your Browser - Faruk Hasan</title>
+    <meta name="description"
+        content="Free in-browser Python sandbox for students. Write Python code and run it instantly with no installation required. Powered by Pyodide." />
+    <meta name="keywords"
+        content="Python Sandbox, Online Python, Python for Students, Learn Python, Browser Python, Pyodide, Coding Practice" />
+    <meta name="author" content="Faruk Hasan" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Python Sandbox | Run Python in Your Browser" />
+    <meta property="og:description"
+        content="A free Python playground for students. No installs, no signups - just write code and click Run." />
+    <meta property="og:url" content="https://faruk-hasan.com/sandbox/" />
+
+    <link rel="canonical" href="https://faruk-hasan.com/sandbox/" />
+
+    <!-- Fonts & Icons -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CodeMirror for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/lint/lint.min.css">
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --accent: #10b981;
+            --accent-soft: rgba(16, 185, 129, 0.1);
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .main-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 0.35rem 1rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.25rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4.5vw, 2.75rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: #111827;
+            margin-bottom: 0.75rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .status-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            margin-top: 1.25rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--warning);
+            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.18);
+            transition: all 0.3s ease;
+        }
+
+        .status-dot.ready {
+            background: var(--accent);
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.18);
+        }
+
+        .status-dot.error {
+            background: var(--danger);
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.18);
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.25rem;
+            border: none;
+            border-radius: 8px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-run {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-run:hover:not(:disabled) {
+            background: #059669;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: #f1f5f9;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .examples-select {
+            margin-left: auto;
+            padding: 0.65rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-card);
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .editor-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        @media (max-width: 900px) {
+            .editor-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .examples-select {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+
+        .panel {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            background: #0f172a;
+            color: #f1f5f9;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .panel-header .dots {
+            display: inline-flex;
+            gap: 6px;
+            margin-right: 0.5rem;
+        }
+
+        .panel-header .dots span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #475569;
+        }
+
+        .panel-header .dots span:nth-child(1) {
+            background: #ef4444;
+        }
+
+        .panel-header .dots span:nth-child(2) {
+            background: #f59e0b;
+        }
+
+        .panel-header .dots span:nth-child(3) {
+            background: #10b981;
+        }
+
+        .panel-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .CodeMirror {
+            height: 480px !important;
+            font-family: 'JetBrains Mono', monospace !important;
+            font-size: 0.95rem;
+        }
+
+        /* Autocomplete dropdown */
+        .CodeMirror-hints {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            padding: 4px 0;
+            max-height: 240px;
+            z-index: 9999;
+        }
+
+        .CodeMirror-hint {
+            color: #e2e8f0;
+            padding: 0.35rem 0.85rem;
+            border-radius: 4px;
+            margin: 0 4px;
+        }
+
+        li.CodeMirror-hint-active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Docstring panel that appears next to autocomplete */
+        .doc-tooltip {
+            position: absolute;
+            background: #0f172a;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 0.6rem 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            line-height: 1.5;
+            max-width: 360px;
+            max-height: 220px;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            white-space: pre-wrap;
+            pointer-events: none;
+        }
+
+        .doc-tooltip .doc-name {
+            color: #6ee7b7;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.35rem;
+        }
+
+        .doc-tooltip .doc-sig {
+            color: #93c5fd;
+            margin-bottom: 0.4rem;
+        }
+
+        .doc-tooltip .doc-body {
+            color: #cbd5e1;
+        }
+
+        /* Signature hint shown while typing inside function parens */
+        .sig-tooltip {
+            position: absolute;
+            background: #0f172a;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 0.45rem 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+            z-index: 9998;
+            pointer-events: none;
+            max-width: 520px;
+        }
+
+        .sig-tooltip .sig-name {
+            color: #93c5fd;
+            font-weight: 700;
+        }
+
+        /* Lint marker styles - red squiggle under errors */
+        .CodeMirror-lint-tooltip {
+            background: #0f172a;
+            color: #fca5a5;
+            border: 1px solid #ef4444;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            padding: 0.45rem 0.75rem;
+            z-index: 10001;
+        }
+
+        .CodeMirror-lint-mark-error {
+            background-image: linear-gradient(45deg, transparent 65%, #ef4444 80%, transparent 90%),
+                linear-gradient(135deg, transparent 5%, #ef4444 15%, transparent 25%),
+                linear-gradient(135deg, transparent 45%, #ef4444 55%, transparent 65%),
+                linear-gradient(45deg, transparent 25%, #ef4444 35%, transparent 50%);
+            background-repeat: repeat-x;
+            background-size: 8px 3px;
+            background-position: 0 100%;
+        }
+
+        .CodeMirror-lint-marker-error {
+            color: #ef4444;
+        }
+
+        .output {
+            flex: 1;
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 1rem 1.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.92rem;
+            line-height: 1.55;
+            white-space: pre-wrap;
+            word-break: break-word;
+            min-height: 480px;
+            max-height: 480px;
+            overflow-y: auto;
+        }
+
+        .output .err {
+            color: #fca5a5;
+        }
+
+        .output .ok {
+            color: #6ee7b7;
+        }
+
+        .output .muted {
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .info-card {
+            background: var(--bg-card);
+            padding: 1.25rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        .info-card .icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.6rem;
+        }
+
+        .info-card .title {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: #111827;
+        }
+
+        .info-card .desc {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 0 0;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Help modal */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.65);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10002;
+            padding: 1rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-backdrop.show {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            max-width: 640px;
+            width: 100%;
+            max-height: 88vh;
+            overflow-y: auto;
+            padding: 2rem;
+            position: relative;
+            animation: modalIn 0.2s ease;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+            margin: 0 0 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .modal .modal-sub {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal .feature-row {
+            display: flex;
+            gap: 0.85rem;
+            padding: 0.9rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal .feature-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .modal .feature-row .ico {
+            flex: 0 0 36px;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+        }
+
+        .modal .feature-row .text strong {
+            display: block;
+            color: #111827;
+            font-size: 0.98rem;
+            margin-bottom: 0.15rem;
+        }
+
+        .modal .feature-row .text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .modal kbd {
+            display: inline-block;
+            padding: 0.1rem 0.45rem;
+            background: #f1f5f9;
+            border: 1px solid var(--border);
+            border-bottom-width: 2px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--text-main);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 0.85rem;
+            right: 0.85rem;
+            background: transparent;
+            border: none;
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: #f1f5f9;
+            color: var(--text-main);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="main-wrapper">
+        <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
+        <header class="page-header">
+            <span class="category-badge"><i class="fab fa-python"></i> Python Sandbox</span>
+            <h1>Write &amp; Run Python in Your Browser</h1>
+            <p class="subtitle">No installs, no sign-ups. Type your code on the left, click <strong>Run</strong>, and
+                see the output on the right. Powered by Pyodide.</p>
+            <div class="status-bar">
+                <span class="status-dot" id="statusDot"></span>
+                <span id="statusText">Loading Python environment...</span>
+            </div>
+        </header>
+
+        <div class="toolbar">
+            <button class="btn btn-run" id="runBtn" disabled>
+                <i class="fas fa-play"></i> Run
+            </button>
+            <button class="btn btn-secondary" id="clearOutputBtn">
+                <i class="fas fa-eraser"></i> Clear Output
+            </button>
+            <button class="btn btn-secondary" id="resetBtn">
+                <i class="fas fa-rotate-left"></i> Reset Code
+            </button>
+            <button class="btn btn-secondary" id="copyBtn">
+                <i class="fas fa-copy"></i> Copy
+            </button>
+            <button class="btn btn-secondary" id="helpBtn" title="Show editor features">
+                <i class="fas fa-circle-question"></i> Help
+            </button>
+            <select class="examples-select" id="examplesSelect">
+                <option value="">📚 Load Example...</option>
+                <option value="hello">Hello, World!</option>
+                <option value="variables">Variables &amp; Math</option>
+                <option value="input">Using input()</option>
+                <option value="ifelse">If / Else</option>
+                <option value="loops">For Loops</option>
+                <option value="lists">Lists</option>
+                <option value="functions">Functions</option>
+                <option value="turtle">FizzBuzz</option>
+            </select>
+        </div>
+
+        <div class="editor-grid">
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="panel-title">
+                        <span class="dots"><span></span><span></span><span></span></span>
+                        main.py
+                    </span>
+                    <span><i class="fab fa-python"></i> Python 3</span>
+                </div>
+                <textarea id="codeEditor"></textarea>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="panel-title">
+                        <span class="dots"><span></span><span></span><span></span></span>
+                        Output
+                    </span>
+                    <span><i class="fas fa-terminal"></i> stdout</span>
+                </div>
+                <div class="output" id="output"><span class="muted">Output will appear here after you click Run...</span></div>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="icon"><i class="fas fa-bolt"></i></div>
+                <div class="title">Runs in Your Browser</div>
+                <div class="desc">All code executes locally on your computer. Nothing is sent to any server.</div>
+            </div>
+            <div class="info-card">
+                <div class="icon"><i class="fas fa-keyboard"></i></div>
+                <div class="title">Keyboard Shortcut</div>
+                <div class="desc">Press <strong>Ctrl + Enter</strong> (or <strong>Cmd + Enter</strong> on Mac) to run
+                    your code.</div>
+            </div>
+            <div class="info-card">
+                <div class="icon"><i class="fas fa-graduation-cap"></i></div>
+                <div class="title">Built for Students</div>
+                <div class="desc">Try the example programs in the dropdown to learn Python step by step.</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Faruk Hasan · Python Sandbox powered by <a href="https://pyodide.org" target="_blank"
+                    rel="noopener" style="color: var(--primary);">Pyodide</a></p>
+        </footer>
+    </main>
+
+    <!-- Help Modal -->
+    <div class="modal-backdrop" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+        <div class="modal">
+            <button class="modal-close" id="helpCloseBtn" aria-label="Close">&times;</button>
+            <h2 id="helpTitle"><i class="fas fa-circle-question" style="color: var(--primary);"></i> Welcome to the
+                Python Sandbox</h2>
+            <p class="modal-sub">A few features that will make your life easier while coding:</p>
+
+            <div class="feature-row">
+                <div class="ico"><i class="fas fa-play"></i></div>
+                <div class="text"><strong>Run your code</strong>
+                    Click the green Run button or press <kbd>Ctrl</kbd> + <kbd>Enter</kbd>
+                    (<kbd>Cmd</kbd> + <kbd>Enter</kbd> on Mac).
+                </div>
+            </div>
+
+            <div class="feature-row">
+                <div class="ico"><i class="fas fa-wand-magic-sparkles"></i></div>
+                <div class="text"><strong>Smart autocomplete</strong>
+                    As you type, suggestions pop up automatically. Press <kbd>Ctrl</kbd> + <kbd>Space</kbd> to force
+                    them. Use arrow keys + <kbd>Enter</kbd> to accept.
+                </div>
+            </div>
+
+            <div class="feature-row">
+                <div class="ico"><i class="fas fa-book-open"></i></div>
+                <div class="text"><strong>Live documentation</strong>
+                    Highlight any suggestion (like <code>random.choice</code>) and a panel shows what the function does
+                    and what arguments it takes.
+                </div>
+            </div>
+
+            <div class="feature-row">
+                <div class="ico"><i class="fas fa-circle-info"></i></div>
+                <div class="text"><strong>Function signatures</strong>
+                    Type an open paren — like <code>print(</code> — and a tooltip shows what arguments the function
+                    expects.
+                </div>
+            </div>
+
+            <div class="feature-row">
+                <div class="ico"><i class="fas fa-triangle-exclamation"></i></div>
+                <div class="text"><strong>Error checking as you type</strong>
+                    A red squiggle appears under syntax mistakes before you even click Run.
+                </div>
+            </div>
+
+            <div class="feature-row">
+                <div class="ico"><i class="fas fa-graduation-cap"></i></div>
+                <div class="text"><strong>Learning examples</strong>
+                    Use the <strong>📚 Load Example</strong> dropdown to start with ready-made beginner programs.
+                </div>
+            </div>
+
+            <div class="feature-row">
+                <div class="ico"><i class="fas fa-lock"></i></div>
+                <div class="text"><strong>Your code stays private</strong>
+                    Everything runs in your own browser. Nothing is sent to any server.
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-run" id="helpGotItBtn"><i class="fas fa-check"></i> Got it</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CodeMirror -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/lint/lint.min.js"></script>
+
+    <!-- Pyodide -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"></script>
+
+    <script src="sandbox.js"></script>
+</body>
+
+</html>
