@@ -4008,7 +4008,7 @@ a[href*="huggingface"].category-link-inline:hover {
 .blog-image a img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   display: block;
   transition: transform 0.5s ease;
 }
