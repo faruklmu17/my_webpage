@@ -2,160 +2,527 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Understand Python Decorators in 5 Easy Steps - Faruk Hasan</title>
-  <link rel="canonical" href="https://faruk-hasan.com/blog_post/python_decorator_tutorial.html" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO: Optimized Meta Tags -->
+    <title>Mastering Python Decorators: The Ultimate 5-Step Guide (2026)</title>
+    <meta name="description"
+        content="Master Python decorators in minutes! Our 5-step tutorial covers function objects, nested functions, and @decorator syntax with simple, real-world examples. Perfect for beginners." />
+    <meta name="keywords"
+        content="Python Decorators, Python Tutorial, Decorators Explained, Python Programming, Functional Programming, Python Wrapper, Nested Functions, Python for Beginners, Advanced Python Concepts" />
+    <meta name="author" content="Faruk Hasan" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Python Decorators Explained: A Simple 5-Step Visual Guide" />
+    <meta property="og:description"
+        content="Stop being confused by Python decorators. Learn how they work behind the scenes using our unique 'recipe' analogy and 5 clear steps." />
+    <meta property="og:image" content="https://faruk-hasan.com/blog_images/python_decorator_cover.png" />
+    <meta property="og:url" content="https://faruk-hasan.com/blog_post/python_decorator_tutorial.html" />
+    <meta property="og:site_name" content="Faruk Hasan Portfolio" />
+    <meta property="article:published_time" content="2026-05-11T17:29:47Z" />
+    <meta property="article:author" content="Faruk Hasan" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Mastering Python Decorators: 5 Simple Steps" />
+    <meta name="twitter:description" content="Learn Python decorators from scratch with this comprehensive 5-step guide. Includes code examples and analogies." />
+    <meta name="twitter:image" content="https://faruk-hasan.com/blog_images/python_decorator_cover.png" />
+
+    <!-- Canonical & Robots -->
+    <link rel="canonical" href="https://faruk-hasan.com/blog_post/python_decorator_tutorial.html" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Structured Data: BlogPosting -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Mastering Python Decorators: A 5-Step Guide for Beginners",
+      "image": "https://faruk-hasan.com/blog_images/python_decorator_cover.png",
+      "author": {
+        "@type": "Person",
+        "name": "Faruk Hasan",
+        "url": "https://linkedin.com/in/md-faruk-hasan/"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Faruk Hasan",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://faruk-hasan.com/assets/images/logo.png"
+        }
+      },
+      "datePublished": "2026-05-11",
+      "dateModified": "2026-05-12",
+      "description": "A comprehensive 5-step guide to understanding Python decorators, from function objects to syntactic sugar.",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://faruk-hasan.com/blog_post/python_decorator_tutorial.html"
+      }
+    }
+    </script>
+
+    <!-- Structured Data: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is a decorator in Python?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A decorator in Python is a function that takes another function and extends its behavior without explicitly modifying it. It is essentially a wrapper around a function."
+        }
+      }, {
+        "@type": "Question",
+        "name": "How does the @ symbol work in Python?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The @ symbol is syntactic sugar for passing a function into a decorator. For example, @my_decorator above a function named 'my_func' is equivalent to writing 'my_func = my_decorator(my_func)'."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Why are functions called first-class objects in Python?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Functions are first-class objects in Python because they can be handled like any other object. They can be assigned to variables, passed as arguments to other functions, and returned from functions."
+        }
+      }]
+    }
+    </script>
+
+    <!-- Typography & Icons -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --accent: #8b5cf6;
+            --accent-soft: rgba(139, 92, 246, 0.1);
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius: 16px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            z-index: 1000;
+        }
+
+        .main-wrapper {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 5rem;
+        }
+
+        .article-header {
+            margin-bottom: 3.5rem;
+            text-align: center;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 0.35rem 1rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: #111827;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-container {
+            margin: 2.5rem 0;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            height: 400px; /* Limit height to prevent text from being pushed too far */
+            width: 100%;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Maintain aspect ratio while filling the container */
+            object-position: center;
+            display: block;
+        }
+@media (max-width: 768px) {
+            .hero-container {
+                height: 250px; /* Smaller height for mobile devices */
+            }
+        }
+
+        .section-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            margin-bottom: 2.5rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            font-size: 1.1rem;
+            color: #374151;
+        }
+
+        .code-container {
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #1e293b;
+        }
+
+        .code-header {
+            background: #1e293b;
+            color: #94a3b8;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .step-badge {
+            background: var(--primary);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        .callout {
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            border-left: 4px solid var(--primary);
+            background: #eff6ff;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .section-card {
+                padding: 1.5rem;
+            }
+            .article-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
 </head>
 
-<body style="font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: #fff; color: #333;">
-  <main style="max-width: 900px; margin: 0 auto; padding: 2rem; line-height: 1.7;">
-    <article>
-      <div style="text-align: center; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid #eee;">
-        <h1 style="font-size: 2.5rem; margin-bottom: 1rem; line-height: 1.3; color: #3a6ea5;">Python Decorators in 5
-          Easy Steps (With Simple Code Examples)</h1>
-        <div
-          style="display: flex; justify-content: center; align-items: center; gap: 2rem; color: #666; font-size: 0.95rem;">
-          <div><i class="far fa-calendar-alt"></i> June 18, 2025</div>
-          <div><i class="far fa-clock"></i> 7 min read</div>
-          <div><i class="fas fa-tag"></i> Python, Decorators, Beginners</div>
-        </div>
-      </div>
+<body>
+    <div class="scroll-progress" id="progressBar"></div>
 
-      <div>
-        <p>In Python, a decorator is like a wrapper around a function. You add it on top of a function using
-          <code>@</code> syntax, and it lets you do something extra every time that function runs—without changing the
-          original code. Sounds confusing? Let’s break it down in 5 simple steps so it clicks.</p>
+    <div class="main-wrapper">
+        <nav style="margin-bottom: 2rem; font-size: 0.9rem;">
+            <a href="../index.html" style="color: var(--primary); text-decoration: none;">Home</a>
+            <span style="margin: 0 0.5rem; color: var(--text-muted);">/</span>
+            <a href="../index.html#blog" style="color: var(--primary); text-decoration: none;">Blog</a>
+            <span style="margin: 0 0.5rem; color: var(--text-muted);">/</span>
+            <span style="color: var(--text-muted);">Python Decorators Guide</span>
+        </nav>
+
+        <header class="article-header">
+            <span class="category-badge">Python Development</span>
+            <h1>Mastering Python Decorators: A 5-Step Journey</h1>
+            <div class="article-meta">
+                <div class="meta-item">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>May 11, 2026</span>
+                </div>
+                <div class="meta-item">
+                    <i class="far fa-clock"></i>
+                    <span>8 min read</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-tag"></i>
+                    <span>Python, Advanced Concepts</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="hero-container">
+            <img src="../blog_images/python_decorator_cover.png" alt="Python Decorators Illustration" class="hero-image">
+        </div>
+
+        <section class="section-card">
+            <h2><i class="fas fa-info-circle"></i> What is a Decorator?</h2>
+            <p>
+                In Python, a <strong>decorator</strong> is like a little wrapper you put around a function. It allows you to execute extra code before or after the main function runs—without changing the function's original source code.
+            </p>
+            <p>
+                To truly master decorators, we need to understand five core Python concepts. Let's break them down step-by-step.
+            </p>
+        </section>
 
         <!-- Step 1 -->
-        <h2
-          style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">
-          🧠 Step 1: Functions Are Objects</h2>
-        <p>Functions in Python can be treated like variables. You can assign a function to another variable and call it
-          from there.</p>
-        <pre style="background-color: #1e1e1e; padding: 1rem; border-radius: 5px; overflow-x: auto; color: #f8f8f8;"><code>def recipe():
-    print("this is my recipe")
+        <section class="section-card" id="step1">
+            <h2><span class="step-badge">Step 1</span> Functions are Objects</h2>
+            <p>
+                In Python, functions are "first-class objects." This means they can be stored in variables and passed around just like any other piece of data.
+            </p>
+            <div class="code-container">
+                <div class="code-header"><span>recipe.py</span></div>
+                <pre><code>def recipe():
+    print("This is my recipe")
 
-my_recipe = recipe
+# Calling the function normally
+recipe() 
+
+# Function Object: Notice the missing parenthesis!
+# This holds the code but doesn't execute it yet.
+my_recipe = recipe 
+
+# Now we execute the object
 my_recipe()</code></pre>
-        <p><strong>Explanation:</strong> <code>my_recipe = recipe</code> copies the function (not its result), and
-          <code>my_recipe()</code> executes it. This is the foundation for decorators.</p>
+            </div>
+            <div class="callout">
+                <strong>The "Recipe" Analogy:</strong> Think of a function object as the physical recipe card. It contains the instructions, but you haven't started cooking yet. Putting the parenthesis <code>()</code> is like actually starting the stove.
+            </div>
+        </section>
 
         <!-- Step 2 -->
-        <h2
-          style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">
-          🧁 Step 2: Functions Inside Functions</h2>
-        <p>You can define one function inside another. This lets you group logic and control scope.</p>
-        <pre style="background-color: #1e1e1e; padding: 1rem; border-radius: 5px; overflow-x: auto; color: #f8f8f8;"><code>def outer():
+        <section class="section-card" id="step2">
+            <h2><span class="step-badge">Step 2</span> Functions Inside Functions</h2>
+            <p>
+                You can define a function inside another function. We call these <strong>inner functions</strong> or <strong>nested functions</strong>.
+            </p>
+            <div class="code-container">
+                <div class="code-header"><span>nested.py</span></div>
+                <pre><code>def outer():
+    print("I am the outer function")
+    
     def inner():
-        print("I'm the inner function!")
-    inner()
+        print("I am the inner function")
+    
+    inner() # Calling inner from inside outer
 
-my_outer = outer
-my_outer()</code></pre>
-        <p><strong>Explanation:</strong> <code>inner()</code> exists only within <code>outer()</code>. When you call
-          <code>outer()</code>, it runs <code>inner()</code>. In this example, we assign <code>outer</code> to
-          <code>my_outer</code> (as a function object), and then call it with <code>my_outer()</code>. This shows how
-          nested functions can be executed from outside their definition block, and this nesting is key to how
-          decorators work.</p>
+outer()</code></pre>
+            </div>
+            <p>
+                Remember: The scope of <code>inner()</code> is restricted. You cannot call it directly from outside the <code>outer()</code> function. This is where the wrapping behavior begins to take shape.
+            </p>
+        </section>
 
         <!-- Step 3 -->
-        <h2
-          style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">
-          🧁 Step 3: Functions Returning Functions</h2>
-        <p>Functions can return other functions—this lets us customize behavior dynamically.</p>
-        <pre style="background-color: #1e1e1e; padding: 1rem; border-radius: 5px; overflow-x: auto; color: #f8f8f8;"><code>def outer():
-    def inner():
-        print("Hello from inner!")
-    return inner
+        <section class="section-card" id="step3">
+            <h2><span class="step-badge">Step 3</span> Functions Returning Functions</h2>
+            <p>
+                Since functions are objects, a function can return another function object as its result.
+            </p>
+            <div class="code-container">
+                <div class="code-header"><span>return_func.py</span></div>
+                <pre><code>def outside():
+    def inside():
+        print("Hello from the inside!")
+    
+    return inside # Returning the function object, NOT inside()
 
-my_func = outer()
-my_func()</code></pre>
-        <p><strong>Explanation:</strong> <code>outer()</code> returns <code>inner</code> (not executed), and
-          <code>my_func()</code> then executes it. This lets us create decorators that return a new function that wraps
-          the original.</p>
+my_func = outside() # my_func now holds the 'inside' function
+my_func() # Now we execute it</code></pre>
+            </div>
+        </section>
 
         <!-- Step 4 -->
-        <h2
-          style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">
-          🧁 Step 4: Passing Functions to Functions</h2>
-        <p>Functions can take other functions as arguments. These are often called callbacks.</p>
-        <pre style="background-color: #1e1e1e; padding: 1rem; border-radius: 5px; overflow-x: auto; color: #f8f8f8;"><code>def greet(func):
-    print("Doing something first...")
-    func()
+        <section class="section-card" id="step4">
+            <h2><span class="step-badge">Step 4</span> Passing Functions as Arguments</h2>
+            <p>
+                Functions can also take other functions as input. This is commonly referred to as a <strong>callback</strong>.
+            </p>
+            <div class="code-container">
+                <div class="code-header"><span>callback.py</span></div>
+                <pre><code>def greetings(func):
+    print("Starting the first task...")
+    func() # Executing the passed function object
 
-def say_hi():
-    print("Hi!")
+def task():
+    print("Executing the main task")
 
-greet(say_hi)</code></pre>
-        <p><strong>Explanation:</strong> We pass <code>say_hi</code> into <code>greet</code>, which then calls it. This
-          is another essential idea behind decorators—they accept a function, modify its behavior, and return a new
-          version.</p>
+greetings(task)</code></pre>
+            </div>
+            <p>
+                This pattern allows us to "wrap" the <code>task()</code> function with extra logic (like the first print statement) without modifying the <code>task()</code> function itself.
+            </p>
+        </section>
 
         <!-- Step 5 -->
-        <h2
-          style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">
-          🧁 Step 5: Making Your First Decorator!</h2>
-        <p>This is the real deal. Here's your first decorator in action:</p>
-        <pre style="background-color: #1e1e1e; padding: 1rem; border-radius: 5px; overflow-x: auto; color: #f8f8f8;"><code>def my_decorator(func):
+        <section class="section-card" id="step5">
+            <h2><span class="step-badge">Step 5</span> Making Your First Decorator</h2>
+            <p>
+                Now, let's put it all together. A decorator is a function that takes another function, wraps it in an inner function, and returns that wrapper.
+            </p>
+            <div class="code-container">
+                <div class="code-header"><span>decorator.py</span></div>
+                <pre><code>def my_decorator(func):
     def wrapper():
-        print("Before the function runs")
+        print("Before the function runs: Logging in...")
         func()
-        print("After the function runs")
+        print("After the function runs: Logging out...")
     return wrapper
 
 @my_decorator
-def say_hello():
-    print("Hello!")
+def main_objective():
+    print("Running the main objective!")
 
-say_hello()</code></pre>
-        <p><strong>Explanation:</strong> The <code>@my_decorator</code> line means Python runs
-          <code>say_hello = my_decorator(say_hello)</code> behind the scenes. This replaces <code>say_hello</code> with
-          the <code>wrapper</code> function that calls the original one, with extra steps before and after.</p>
-        <pre style="background-color: #1e1e1e; padding: 1rem; border-radius: 5px; overflow-x: auto; color: #f8f8f8;"><code>say_hello = my_decorator(say_hello)
-say_hello()</code></pre>
+main_objective()</code></pre>
+            </div>
+            <div class="callout" style="border-color: var(--accent); background: var(--accent-soft);">
+                <strong>What does @ do?</strong> The <code>@my_decorator</code> syntax is just "syntactic sugar" for: <br>
+                <code>main_objective = my_decorator(main_objective)</code>
+            </div>
+        </section>
 
-        <!-- Summary -->
-        <h2
-          style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">
-          ✨ Why Use Decorators?</h2>
-        <ul>
-          <li>Logging</li>
-          <li>Timing</li>
-          <li>Authentication</li>
-          <li>Validation</li>
-          <li>Keeping code DRY (Don’t Repeat Yourself)</li>
-        </ul>
+        <section class="section-card">
+            <h2><i class="fas fa-question-circle"></i> Frequently Asked Questions</h2>
+            <div style="margin-top: 1.5rem;">
+                <h3 style="font-size: 1.2rem; color: #111827; margin-bottom: 0.5rem;">What is a decorator in Python?</h3>
+                <p>A decorator is a function that wraps another function to add extra functionality (like logging or authentication) without changing the original code.</p>
+                
+                <h3 style="font-size: 1.2rem; color: #111827; margin-bottom: 0.5rem; margin-top: 1.5rem;">How does the @ symbol work?</h3>
+                <p>The <code>@</code> symbol is a shortcut. Putting <code>@my_decorator</code> above a function is the same as saying <code>my_func = my_decorator(my_func)</code>.</p>
+                
+                <h3 style="font-size: 1.2rem; color: #111827; margin-bottom: 0.5rem; margin-top: 1.5rem;">Can a decorator take arguments?</h3>
+                <p>Yes! By adding another layer of nested functions, you can create decorators that accept their own configuration arguments.</p>
+            </div>
+        </section>
 
-        <blockquote style="border-left: 4px solid #3a6ea5; padding-left: 1rem; font-style: italic; color: #555;">
-          Decorators are powerful tools for enhancing functions without modifying their internals.
-        </blockquote>
+        <section class="section-card">
+            <h2><i class="fas fa-rocket"></i> Why use Decorators?</h2>
+            <p>Decorators are incredibly powerful for keeping your code <strong>DRY (Don't Repeat Yourself)</strong>. Common use cases include:</p>
+            <ul style="list-style: none; padding-left: 0;">
+                <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle" style="color: var(--primary); margin-right: 0.5rem;"></i> <strong>Logging:</strong> Track when functions are called.</li>
+                <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle" style="color: var(--primary); margin-right: 0.5rem;"></i> <strong>Timing:</strong> Measure how long a function takes to execute.</li>
+                <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle" style="color: var(--primary); margin-right: 0.5rem;"></i> <strong>Authentication:</strong> Check user permissions before running a task.</li>
+            </ul>
+        </section>
 
-        <h2
-          style="margin-top: 2.5rem; margin-bottom: 1.5rem; font-size: 1.8rem; color: #3a6ea5; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem;">
-          🎥 Watch the Full Tutorial</h2>
-        <p>Prefer to learn by watching? Check out the full step-by-step video tutorial on my YouTube channel:</p>
-        <p><a href="https://youtu.be/oFFZWT-SMTs" target="_blank"
-            style="color: #3a6ea5; text-decoration: none; border-bottom: 1px solid #3a6ea5;">Watch on YouTube →</a></p>
-
-        <hr style="border: none; height: 1px; background-color: #eee; margin: 2rem 0;">
-
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-          <span
-            style="background-color: rgba(58, 110, 165, 0.1); color: #3a6ea5; padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.85rem;">#Python</span>
-          <span
-            style="background-color: rgba(58, 110, 165, 0.1); color: #3a6ea5; padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.85rem;">#Decorators</span>
-          <span
-            style="background-color: rgba(58, 110, 165, 0.1); color: #3a6ea5; padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.85rem;">#Beginners</span>
-          <span
-            style="background-color: rgba(58, 110, 165, 0.1); color: #3a6ea5; padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.85rem;">#Tutorial</span>
+        <div class="footer-nav">
+            <a href="../index.html#blog" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Blog
+            </a>
+            <div style="color: var(--text-muted); font-size: 0.9rem;">
+                © 2026 Faruk Hasan
+            </div>
         </div>
-      </div>
-    </article>
-    <a href="../index.html#blog"
-      style="display: inline-flex; align-items: center; margin-top: 2rem; color: #3a6ea5; text-decoration: none; font-weight: 600;"><i
-        class="fas fa-arrow-left" style="margin-right: 0.5rem;"></i> Back to Blog</a>
-  </main>
+    </div>
+
+    <script>
+        // Progress Bar Logic
+        window.onscroll = function () {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+    </script>
 </body>
 
 </html>
