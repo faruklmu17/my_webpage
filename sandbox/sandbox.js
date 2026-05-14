@@ -127,6 +127,7 @@ for i in range(1, 21):
 let editor = null;
 let pyodide = null;
 let inputBuffer = []; // Global buffer for stdin inputs
+let currentLevel = 1; // Tracks the student's current learning level (1-7)
 
 const statusDot = document.getElementById("statusDot");
 const statusText = document.getElementById("statusText");
@@ -763,6 +764,12 @@ function wireUI() {
             editor.focus();
         }
         e.target.value = "";
+    });
+
+    document.getElementById("levelSelect").addEventListener("change", (e) => {
+        currentLevel = parseInt(e.target.value);
+        console.log(`Student level changed to: ${currentLevel}`);
+        // In the future, we can trigger a notification or update the AI system prompt here
     });
 
     // Help modal: button, close, backdrop click, ESC key, and first-visit auto-show
