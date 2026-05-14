@@ -184,8 +184,7 @@
             cursor: not-allowed;
         }
 
-        .examples-select {
-            margin-left: auto;
+        .examples-select, .level-select {
             padding: 0.65rem 1rem;
             border: 1px solid var(--border);
             border-radius: 8px;
@@ -197,10 +196,28 @@
             cursor: pointer;
         }
 
+        .level-select {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-color: var(--accent);
+            font-weight: 700;
+        }
+
+        .examples-select {
+            margin-left: auto;
+        }
+
         .editor-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.25rem;
+            grid-template-columns: 1.4fr 0.6fr; /* Give more space to the editor */
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .editor-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
         }
 
         @media (max-width: 900px) {
@@ -343,12 +360,17 @@
 
         .panel {
             background: var(--bg-card);
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-md);
+            border-radius: 16px; /* Extra rounded for kids */
+            border: 2px solid var(--border); /* Thicker borders */
+            box-shadow: var(--shadow-lg);
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            transition: border-color 0.3s ease;
+        }
+
+        .panel:focus-within {
+            border-color: var(--primary);
         }
 
         .panel-column {
@@ -416,9 +438,11 @@
         }
 
         .CodeMirror {
-            height: 480px !important;
+            height: 550px !important; /* Larger editor height */
             font-family: 'JetBrains Mono', monospace !important;
-            font-size: 0.95rem;
+            font-size: 1.15rem; /* Larger font for kids */
+            border-bottom-left-radius: var(--radius);
+            border-bottom-right-radius: var(--radius);
         }
 
         /* Autocomplete dropdown */
@@ -533,14 +557,14 @@
             flex: 1;
             background: #0f172a;
             color: #e2e8f0;
-            padding: 1rem 1.25rem;
+            padding: 1.25rem 1.5rem;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.92rem;
-            line-height: 1.55;
+            font-size: 1.05rem; /* Larger output text */
+            line-height: 1.6;
             white-space: pre-wrap;
             word-break: break-word;
-            min-height: 480px;
-            max-height: 480px;
+            min-height: 550px;
+            max-height: 550px;
             overflow-y: auto;
         }
 
@@ -861,13 +885,11 @@
         <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
 
         <header class="page-header">
-            <span class="category-badge"><i class="fab fa-python"></i> Python Sandbox</span>
             <h1>Write &amp; Run Python in Your Browser</h1>
-            <p class="subtitle">No installs, no sign-ups. Type your code on the left, click <strong>Run</strong>, and
-                see the output on the right. Powered by Pyodide.</p>
+            <p class="subtitle">No installs, no sign-ups. Type your code on the left, click <strong>Run</strong>, and see the output on the right. Powered by Pyodide.</p>
             <div class="status-bar">
                 <span class="status-dot" id="statusDot"></span>
-                <span id="statusText">Loading Python environment...</span>
+                <span id="statusText">Loading...</span>
             </div>
         </header>
 
@@ -890,6 +912,15 @@
             <button class="btn btn-secondary" id="helpBtn" title="Show editor features">
                 <i class="fas fa-circle-question"></i> Help
             </button>
+            <select class="level-select" id="levelSelect" title="Select your Python learning level">
+                <option value="1">Level 1: Python Fundamentals</option>
+                <option value="2">Level 2: Functions &amp; Nested Loops</option>
+                <option value="3">Level 3: Games &amp; Algorithm Basics</option>
+                <option value="4">Level 4: Tkinter GUI</option>
+                <option value="5">Level 5: Object Oriented Programming</option>
+                <option value="6">Level 6: Intro to AI &amp; Chatbots</option>
+                <option value="7">Level 7: Improved AI &amp; Deployment</option>
+            </select>
             <select class="examples-select" id="examplesSelect">
                 <option value="">📚 Load Example...</option>
                 <option value="hello">Hello, World!</option>
@@ -932,29 +963,6 @@
             </div>
         </div>
 
-        <div class="info-grid">
-            <div class="info-card">
-                <div class="icon"><i class="fas fa-bolt"></i></div>
-                <div class="title">Runs in Your Browser</div>
-                <div class="desc">All code executes locally on your computer. Nothing is sent to any server.</div>
-            </div>
-            <div class="info-card">
-                <div class="icon"><i class="fas fa-laptop-code"></i></div>
-                <div class="title">Keyboard Shortcut</div>
-                <div class="desc">Press <strong>Ctrl + Enter</strong> (or <strong>Cmd + Enter</strong> on Mac) to run
-                    your code.</div>
-            </div>
-            <div class="info-card">
-                <div class="icon"><i class="fas fa-graduation-cap"></i></div>
-                <div class="title">Built for Students</div>
-                <div class="desc">Try the example programs in the dropdown to learn Python step by step.</div>
-            </div>
-            <div class="info-card">
-                <div class="icon"><i class="fas fa-keyboard"></i></div>
-                <div class="title">Standard Input (stdin)</div>
-                <div class="desc">For programs requiring input, use the <strong>Input</strong> panel to pre-fill values (one per line) before running.</div>
-            </div>
-        </div>
 
         <footer>
             <p>&copy; 2026 Faruk Hasan · Python Sandbox powered by <a href="https://pyodide.org" target="_blank"
