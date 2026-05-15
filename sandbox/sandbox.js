@@ -121,18 +121,101 @@ for i in range(1, 21):
         print("Buzz")
     else:
         print(i)
-`
+`,
+    html_hello: `<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { 
+      font-family: 'Inter', sans-serif; 
+      text-align: center; 
+      background: #f0f4f8; 
+      margin: 0; 
+      padding: 40px 20px;
+    }
+    h1 { color: #2563eb; margin-bottom: 10px; }
+    p { color: #64748b; margin-bottom: 25px; }
+    .card { 
+      background: white; 
+      padding: 30px; 
+      border-radius: 16px; 
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+      display: inline-block;
+      max-width: 400px;
+    }
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover { background: #1d4ed8; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Hello Web! 🌐</h1>
+    <p>You just built your very first website.</p>
+    <button onclick="alert('You are a coding superstar! 🌟')">Click for a Surprise!</button>
+  </div>
+</body>
+</html>`,
+    html_shapes: `<!DOCTYPE html>
+<html>
+<style>
+  .container { display: flex; gap: 20px; justify-content: center; padding: 50px; }
+  .box { width: 100px; height: 100px; transition: transform 0.3s; }
+  .red { background: #ef4444; border-radius: 10px; }
+  .blue { background: #3b82f6; border-radius: 50%; }
+  .green { background: #10b981; clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+  .box:hover { transform: scale(1.2) rotate(10deg); }
+</style>
+<body>
+  <div class="container">
+    <div class="box red"></div>
+    <div class="box blue"></div>
+    <div class="box green"></div>
+  </div>
+  <h2 style="text-align:center">Hover over the shapes!</h2>
+</body>
+</html>`
 };
 
 let editor = null;
 let pyodide = null;
 let inputBuffer = []; // Global buffer for stdin inputs
 let currentLevel = 1; // Tracks the student's current learning level (1-7)
+let currentLanguage = 'python'; // Tracks the current coding language ('python' or 'html')
 
-const statusDot = document.getElementById("statusDot");
-const statusText = document.getElementById("statusText");
-const runBtn = document.getElementById("runBtn");
-const output = document.getElementById("output");
+// Global bridge for Python to get inputs
+let persistentBuffer = [];
+let currentRunBuffer = [];
+
+// "Memory" to keep Python and HTML code separate
+let lastPythonCode = DEFAULT_CODE;
+let lastHTMLCode = EXAMPLES.html_hello;
+
+let statusDot, statusText, runBtn, output;
+
+// Layout cycling: Balanced -> Wide Editor -> Wide Preview
+let currentLayoutMode = 0; // 0: Balanced, 1: Wide Editor, 2: Wide Preview
+const layoutModes = [
+    { grid: "1fr 1fr", label: "Balanced" },
+    { grid: "1.6fr 0.4fr", label: "Wide Editor" },
+    { grid: "0.4fr 1.6fr", label: "Wide Preview" }
+];
+
+// Global bridge for Python to get inputs
+window.getSandboxInput = function() {
+    if (currentRunBuffer.length > 0) {
+        return currentRunBuffer.shift();
+    }
+    return null;
+};
 
 // Python keywords and common builtins for autocomplete
 const PY_KEYWORDS = ["and", "as", "assert", "async", "await", "break", "class",
@@ -152,6 +235,7 @@ const PY_BUILTINS = ["print", "input", "len", "range", "int", "float", "str",
 
 // Custom Python hint function
 function pythonHint(cm) {
+    if (currentLanguage !== 'python') return null;
     const cursor = cm.getCursor();
     const line = cm.getLine(cursor.line);
     const beforeCursor = line.slice(0, cursor.ch);
@@ -219,7 +303,7 @@ function pythonHint(cm) {
 
 // Async linter: runs Python's compile() on the source and returns SyntaxErrors
 function pythonLinter(text, callback) {
-    if (!pyodide) { callback([]); return; }
+    if (!pyodide || currentLanguage !== 'python') { callback([]); return; }
     try {
         pyodide.globals.set("_sandbox_src", text);
         const json = pyodide.runPython("_sandbox_lint(_sandbox_src)");
@@ -293,16 +377,48 @@ function initEditor() {
         } catch (e) { console.error("Failed to decode share link", e); }
     }
 
+    // Restore language mode
+    const savedLang = localStorage.getItem("sandbox.lastLanguage") || 'python';
+    
     if (!restored) {
-        const saved = localStorage.getItem("sandbox.lastCode");
-        if (saved) {
-            editor.setValue(saved);
+        // We need to know which code to restore based on the saved language
+        const savedPython = localStorage.getItem("sandbox.lastPythonCode");
+        const savedHTML = localStorage.getItem("sandbox.lastHTMLCode");
+        
+        if (savedPython) lastPythonCode = savedPython;
+        if (savedHTML) lastHTMLCode = savedHTML;
+        
+        // If we have a general "lastCode" from older versions, use it for Python
+        const legacySaved = localStorage.getItem("sandbox.lastCode");
+        if (legacySaved && !savedPython) lastPythonCode = legacySaved;
+
+        // Safety Check: If the "Python" code we just restored looks like HTML, 
+        // it's probably from a legacy session. Reset it to default Python.
+        if (lastPythonCode.trim().toLowerCase().startsWith("<!doctype") || 
+            lastPythonCode.trim().toLowerCase().startsWith("<html")) {
+            console.log("Legacy HTML found in Python slot, resetting to default Python.");
+            lastPythonCode = DEFAULT_CODE;
+        }
+
+        // Apply the saved language and its corresponding code
+        if (savedLang === 'html') {
+            switchLanguageTo('html');
+        } else {
+            currentLanguage = 'python';
+            editor.setValue(lastPythonCode);
         }
     }
 
     // Auto-save on every change
     editor.on("change", () => {
-        localStorage.setItem("sandbox.lastCode", editor.getValue());
+        if (currentLanguage === 'python') {
+            lastPythonCode = editor.getValue();
+            localStorage.setItem("sandbox.lastPythonCode", lastPythonCode);
+        } else {
+            lastHTMLCode = editor.getValue();
+            localStorage.setItem("sandbox.lastHTMLCode", lastHTMLCode);
+        }
+        localStorage.setItem("sandbox.lastLanguage", currentLanguage);
     });
 
     // Show signature tooltip when cursor sits inside a function call
@@ -433,11 +549,18 @@ def _sandbox_lint(code):
 }
 
 // Run the code currently in the editor
-async function runCode() {
+async function runCode(isResume = false) {
+    if (isResume instanceof Event) isResume = false;
+    
+    if (currentLanguage === 'html') {
+        runHTML();
+        return;
+    }
+
     if (!pyodide) return;
     const code = editor.getValue();
     clearOutput();
-    appendOutput("▶ Running...\n\n", "muted");
+    appendOutput("▶ Running Python...\n\n", "muted");
     runBtn.disabled = true;
 
     // Mobile UX: Automatically switch to output tab if on mobile
@@ -445,54 +568,38 @@ async function runCode() {
     if (window.innerWidth <= 900 && outputTabBtn) {
         outputTabBtn.click();
     }
-
-    // Get inputs from the stdin panel
-    const stdinText = document.getElementById("stdinInput").value;
-    let inputs = [];
     
-    // Only populate if there's actual non-whitespace content, 
-    // or if the user explicitly provided multiple lines.
-    if (stdinText.trim() !== "") {
-        inputs = stdinText.split('\n');
-        // Remove trailing empty line if it exists (common when pressing Enter at the end)
-        if (inputs.length > 0 && inputs[inputs.length - 1] === "") {
-            inputs.pop();
+    // Always clear output on every run/re-run to avoid duplication.
+    if (isResume) {
+        const oldInput = document.querySelector(".terminal-input-wrapper");
+        if (oldInput) {
+            const val = oldInput.querySelector("input").value;
+            persistentBuffer.push(val);
         }
+    } else {
+        persistentBuffer = [];
     }
-    
-    // Populate the global input buffer
-    inputBuffer = [...inputs];
-    
-    // Proactive warning: check if number of inputs matches expected input calls
-    const inputCalls = (code.match(/\binput\s*\(/g) || []).length;
-    if (inputs.length < inputCalls && inputs.length > 0) {
-        appendOutput(`[Note: Code has ${inputCalls} input() calls, but Input panel only has ${inputs.length} lines. Interactive prompts will appear for the rest.]\n\n`, "muted");
-    } else if (inputs.length === 0 && inputCalls > 0) {
-        appendOutput(`[Note: Use the 'Input' panel to pre-fill answers and avoid browser prompts.]\n\n`, "muted");
-    }
-    
+
+    currentRunBuffer = [...persistentBuffer];
+
     try {
-        // We run the code as-is (synchronously)
+        setStatus("running", "Program is running...");
         await pyodide.runPythonAsync(code);
         
-        // If we finished without being stopped by our 'magic token', clear the interactive state
         if (!output.innerHTML.includes("___WAITING_FOR_INPUT___")) {
-            appendOutput("\n✓ Finished.\n", "ok");
-            // Clear buffer for next fresh run
-            if (inputBuffer.length === 0) {
-                // Keep pre-filled inputs but clear temporary ones? 
-                // For now, just leave it.
-            }
+            appendOutput("\n✓ Program finished successfully.\n", "ok");
+            setStatus("ready", "Execution complete.");
         } else {
-            // Handle the interactive input field
+            setStatus("waiting", "Waiting for your input...");
             handleInteractiveInput();
         }
     } catch (err) {
-        // SystemExit(0) is used to stop the code for input
         if (err.message && err.message.includes("SystemExit: 0")) {
+             setStatus("waiting", "Waiting for your input...");
              handleInteractiveInput();
         } else {
              appendOutput("\n" + err.toString() + "\n", "err");
+             setStatus("error", "An error occurred during execution.");
         }
     } finally {
         runBtn.disabled = false;
@@ -527,59 +634,11 @@ function handleInteractiveInput() {
     });
 }
 
-// Update runCode to handle "resume" (not clearing output)
-async function runCode(isResume = false) {
-    // Crucial: If called from an event listener, the first arg is an Event object.
-    // We must ensure isResume is explicitly true only when we mean it.
-    if (isResume instanceof Event) isResume = false;
-    
-    if (!pyodide) return;
+function runHTML() {
     const code = editor.getValue();
-    
-    // Always clear output on every run/re-run to avoid duplication.
-    // We capture the value from the UI field before clearing.
-    if (isResume) {
-        const oldInput = document.querySelector(".terminal-input-wrapper");
-        if (oldInput) {
-            const val = oldInput.querySelector("input").value;
-            persistentBuffer.push(val);
-        }
-    } else {
-        persistentBuffer = [];
-    }
-
-    clearOutput();
-    appendOutput("▶ Running...\n\n", "muted");
-
-    currentRunBuffer = [...persistentBuffer];
-    runBtn.disabled = true;
-
-    try {
-        setStatus("running", "Program is running...");
-        // We run the code as-is (synchronously)
-        await pyodide.runPythonAsync(code);
-        
-        // If we finished without being stopped by our 'magic token', clear the interactive state
-        if (!output.innerHTML.includes("___WAITING_FOR_INPUT___")) {
-            appendOutput("\n✓ Program finished successfully.\n", "ok");
-            setStatus("ready", "Execution complete.");
-        } else {
-            // Handle the interactive input field
-            setStatus("waiting", "Waiting for your input...");
-            handleInteractiveInput();
-        }
-    } catch (err) {
-        // SystemExit(0) is used to stop the code for input
-        if (err.message && err.message.includes("SystemExit: 0")) {
-             setStatus("waiting", "Waiting for your input...");
-             handleInteractiveInput();
-        } else {
-             appendOutput("\n" + err.toString() + "\n", "err");
-             setStatus("error", "An error occurred during execution.");
-        }
-    } finally {
-        runBtn.disabled = false;
-    }
+    const preview = document.getElementById("previewFrame");
+    preview.srcdoc = code;
+    setStatus("ready", "Website preview updated!");
 }
 let docTooltipEl = null;
 
@@ -702,6 +761,11 @@ function maybeShowSignature() {
 
 // Wire up toolbar buttons
 function wireUI() {
+    statusDot = document.getElementById("statusDot");
+    statusText = document.getElementById("statusText");
+    runBtn = document.getElementById("runBtn");
+    output = document.getElementById("output");
+
     runBtn.addEventListener("click", runCode);
 
     document.getElementById("clearOutputBtn").addEventListener("click", () => {
@@ -714,6 +778,29 @@ function wireUI() {
         }
     });
 
+    document.getElementById("launchBtn").addEventListener("click", () => {
+        if (currentLanguage === 'html') {
+            const code = editor.getValue();
+            const newWindow = window.open();
+            newWindow.document.write(code);
+            newWindow.document.close();
+        }
+    });
+
+    // Layout cycling: Balanced -> Wide Editor -> Wide Preview
+    let currentLayoutMode = 0; // 0: Balanced, 1: Wide Editor, 2: Wide Preview
+    const layoutModes = [
+        { grid: "1fr 1fr", label: "Balanced" },
+        { grid: "1.6fr 0.4fr", label: "Wide Editor" },
+        { grid: "0.4fr 1.6fr", label: "Wide Preview" }
+    ];
+
+    document.getElementById("layoutBtn").addEventListener("click", () => {
+        currentLayoutMode = (currentLayoutMode + 1) % layoutModes.length;
+        const mode = layoutModes[currentLayoutMode];
+        document.querySelector(".editor-grid").style.gridTemplateColumns = mode.grid;
+        setStatus("ready", `Layout changed to ${mode.label}`);
+    });
     document.getElementById("copyBtn").addEventListener("click", async () => {
         try {
             await navigator.clipboard.writeText(editor.getValue());
@@ -769,7 +856,10 @@ function wireUI() {
     document.getElementById("levelSelect").addEventListener("change", (e) => {
         currentLevel = parseInt(e.target.value);
         console.log(`Student level changed to: ${currentLevel}`);
-        // In the future, we can trigger a notification or update the AI system prompt here
+    });
+
+    document.getElementById("languageSelect").addEventListener("change", (e) => {
+        switchLanguageTo(e.target.value);
     });
 
     // Help modal: button, close, backdrop click, ESC key, and first-visit auto-show
@@ -825,16 +915,76 @@ function wireUI() {
     }
 }
 
-// Global bridge for Python to get inputs
-let persistentBuffer = [];
-let currentRunBuffer = [];
 
-window.getSandboxInput = function() {
-    if (currentRunBuffer.length > 0) {
-        return currentRunBuffer.shift();
+function switchLanguageTo(newLanguage) {
+    const oldLanguage = currentLanguage;
+    
+    // Save current code
+    if (oldLanguage === 'python') lastPythonCode = editor.getValue();
+    else lastHTMLCode = editor.getValue();
+    
+    currentLanguage = newLanguage;
+    
+    // Sync dropdown if called programmatically
+    const langSelect = document.getElementById("languageSelect");
+    if (langSelect) langSelect.value = newLanguage;
+    
+    const outputDiv = document.getElementById("output");
+    const previewFrame = document.getElementById("previewFrame");
+    const examplesSelect = document.getElementById("examplesSelect");
+    const editorGrid = document.querySelector(".editor-grid");
+    const launchBtn = document.getElementById("launchBtn");
+    const outputTitle = document.getElementById("outputTitle");
+    const editorFileName = document.getElementById("editorFileName");
+    const editorLangBadge = document.getElementById("editorLangBadge");
+    const levelSelect = document.getElementById("levelSelect");
+    
+    if (newLanguage === 'html') {
+        editor.setOption("mode", "htmlmixed");
+        outputDiv.style.display = "none";
+        previewFrame.style.display = "block";
+        launchBtn.style.display = "flex";
+        levelSelect.style.display = "none";
+        outputTitle.textContent = "Website Preview";
+        editorFileName.textContent = "index.html";
+        editorLangBadge.innerHTML = '<i class="fas fa-code"></i> HTML / Web';
+        editorGrid.style.gridTemplateColumns = "1fr 1fr";
+        currentLayoutMode = 0;
+        examplesSelect.innerHTML = `
+            <option value="">📚 Load Web Example...</option>
+            <option value="html_hello">Hello Website</option>
+            <option value="html_shapes">CSS Shapes & Hover</option>
+        `;
+        editor.setValue(lastHTMLCode);
+        setTimeout(() => editor.refresh(), 50);
+        setStatus("ready", "Switched to HTML Mode.");
+    } else {
+        editor.setOption("mode", "python");
+        outputDiv.style.display = "block";
+        previewFrame.style.display = "none";
+        launchBtn.style.display = "none";
+        levelSelect.style.display = "inline-block";
+        outputTitle.textContent = "stdout (Output)";
+        editorFileName.textContent = "main.py";
+        editorLangBadge.innerHTML = '<i class="fab fa-python"></i> Python 3';
+        editorGrid.style.gridTemplateColumns = "1.4fr 0.6fr";
+        currentLayoutMode = 1;
+        examplesSelect.innerHTML = `
+            <option value="">📚 Load Example...</option>
+            <option value="hello">Hello, World!</option>
+            <option value="variables">Variables & Math</option>
+            <option value="input">Using input()</option>
+            <option value="ifelse">If / Else</option>
+            <option value="loops">For Loops</option>
+            <option value="lists">Lists</option>
+            <option value="functions">Functions</option>
+            <option value="turtle">FizzBuzz</option>
+        `;
+        editor.setValue(lastPythonCode);
+        setTimeout(() => editor.refresh(), 50);
+        setStatus("ready", "Switched to Python Mode.");
     }
-    return null;
-};
+}
 
 // JS Modal Implementation for Python Input
 window.showInputDialog = function(promptText) {
@@ -844,7 +994,7 @@ window.showInputDialog = function(promptText) {
 
 // Boot
 window.addEventListener("DOMContentLoaded", () => {
-    initEditor();
     wireUI();
+    initEditor();
     initPyodide();
 });
