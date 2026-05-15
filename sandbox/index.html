@@ -912,6 +912,10 @@
             <button class="btn btn-secondary" id="helpBtn" title="Show editor features">
                 <i class="fas fa-circle-question"></i> Help
             </button>
+            <select class="level-select" id="languageSelect" style="background: #6366f1; color: white; border-color: #6366f1;">
+                <option value="python">🐍 Python</option>
+                <option value="html">🌐 HTML / Web</option>
+            </select>
             <select class="level-select" id="levelSelect" title="Select your Python learning level">
                 <option value="1">Level 1: Python Fundamentals</option>
                 <option value="2">Level 2: Functions &amp; Nested Loops</option>
@@ -944,9 +948,9 @@
                 <div class="panel-header">
                     <span class="panel-title">
                         <span class="dots"><span></span><span></span><span></span></span>
-                        main.py
+                        <span id="editorFileName">main.py</span>
                     </span>
-                    <span><i class="fab fa-python"></i> Python 3</span>
+                    <span id="editorLangBadge"><i class="fab fa-python"></i> Python 3</span>
                 </div>
                 <textarea id="codeEditor"></textarea>
             </div>
@@ -955,11 +959,20 @@
                 <div class="panel-header">
                     <span class="panel-title">
                         <span class="dots"><span></span><span></span><span></span></span>
-                        stdout (Output)
+                        <span id="outputTitle">stdout (Output)</span>
                     </span>
-                    <span><i class="fas fa-terminal"></i> output</span>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <button id="launchBtn" class="btn-icon" title="Open in full screen / new tab" style="display: none; color: #60a5fa;">
+                            <i class="fas fa-external-link-alt"></i> Launch
+                        </button>
+                        <button id="layoutBtn" class="btn-icon" title="Change Layout (Split View)">
+                            <i class="fas fa-columns"></i>
+                        </button>
+                        <span><i class="fas fa-terminal" id="outputIcon"></i></span>
+                    </div>
                 </div>
                 <div class="output" id="output"><span class="muted">Output will appear here after you click Run...</span></div>
+                <iframe id="previewFrame" style="display:none; width:100%; height:550px; border:none; background:white;"></iframe>
             </div>
         </div>
 
@@ -1056,6 +1069,10 @@
     <!-- CodeMirror -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
