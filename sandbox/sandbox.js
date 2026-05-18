@@ -190,6 +190,7 @@ let pyodide = null;
 let inputBuffer = []; // Global buffer for stdin inputs
 let currentLevel = 1; // Tracks the student's current learning level (1-7)
 let currentLanguage = 'python'; // Tracks the current coding language ('python' or 'html')
+let isNewStudentDemo = false; // Tracks if the user is currently doing the new student demo
 
 // Global bridge for Python to get inputs
 let persistentBuffer = [];
@@ -589,6 +590,19 @@ async function runCode(isResume = false) {
         if (!output.innerHTML.includes("___WAITING_FOR_INPUT___")) {
             appendOutput("\n✓ Program finished successfully.\n", "ok");
             setStatus("ready", "Execution complete.");
+            
+            if (isNewStudentDemo && currentLanguage === 'python') {
+                const line5 = editor.getLine(4) || "";
+                if (line5.trim().startsWith("print(") && (line5.trim().includes("\"") || line5.trim().includes("'")) && line5.trim().endsWith(")")) {
+                    appendOutput("\n🎉 INCREDIBLE JOB! You just wrote your first Python code! 🎉\n", "ok");
+                    appendOutput("You told the computer what to do, and it listened. You're officially a programmer now!\n", "ok");
+                    appendOutput("\n👉 NEXT CHALLENGE: Try writing a couple more print statements on lines 6 and 7 to practice!\n", "ok");
+                    appendOutput("Print your favorite color, or a message to a friend. Run it again when you're done!\n", "ok");
+                    isNewStudentDemo = false;
+                } else if (line5.trim() !== "") {
+                    appendOutput("\nHint: Your code on line 5 looks close, but make sure it is formatted exactly like: print(\"Your Name\")\n", "muted");
+                }
+            }
         } else {
             setStatus("waiting", "Waiting for your input...");
             handleInteractiveInput();
@@ -600,6 +614,14 @@ async function runCode(isResume = false) {
         } else {
              appendOutput("\n" + err.toString() + "\n", "err");
              setStatus("error", "An error occurred during execution.");
+             if (isNewStudentDemo && currentLanguage === 'python') {
+                 const line5 = editor.getLine(4) || "";
+                 if (line5.trim().startsWith("Print") || line5.trim().startsWith("PRINT")) {
+                     appendOutput("\nOops! Python is case-sensitive. Make sure to use a lowercase 'print' (with a small 'p')!\n", "err");
+                 } else {
+                     appendOutput("\nOops! Don't worry, errors are completely normal when learning. Double-check your parentheses () and quotation marks \"\" on line 5!\n", "err");
+                 }
+             }
         }
     } finally {
         runBtn.disabled = false;
@@ -640,6 +662,56 @@ function runHTML() {
     preview.srcdoc = code;
     setStatus("ready", "Website preview updated!");
 }
+
+async function startNewStudentDemo() {
+    isNewStudentDemo = true;
+    editor.setValue("");
+    clearOutput();
+    appendOutput("🌟 Welcome to Python! 🌟\n\n", "ok");
+    appendOutput("Let's learn how to make the computer talk. Watch the code appear on the left...\n\n");
+    
+    const part1 = "# 1. This tells the computer to print a message on the right screen:\nprint(\"Hello world\")\n";
+    const part2 = "# 2. Now it's your turn! Print your name on line 5.\n# (Remember to use parentheses and quotation marks!)\n";
+    
+    let currentCode = "";
+    
+    // Disable run button during typing
+    runBtn.disabled = true;
+    
+    // Type the first part
+    for (let i = 0; i < part1.length; i++) {
+        currentCode += part1[i];
+        editor.setValue(currentCode);
+        editor.setCursor(editor.lineCount(), 0);
+        await new Promise(r => setTimeout(r, 50)); // typing speed
+    }
+    
+    // Pause to let them absorb the first example
+    await new Promise(r => setTimeout(r, 1200));
+    
+    // Type the prompt for them to write their own code
+    for (let i = 0; i < part2.length; i++) {
+        currentCode += part2[i];
+        editor.setValue(currentCode);
+        editor.setCursor(editor.lineCount(), 0);
+        await new Promise(r => setTimeout(r, 50)); // typing speed
+    }
+    
+    appendOutput("Your turn! Write your code on line 5 and click the green 'Run' button above. 👆\n", "ok");
+    runBtn.disabled = false;
+    editor.focus();
+}
+
+function updateNewStudentBtnVisibility() {
+    const btn = document.getElementById("newStudentBtn");
+    if (!btn) return;
+    if (currentLanguage === 'python' && currentLevel === 1) {
+        btn.style.display = "inline-block";
+    } else {
+        btn.style.display = "none";
+    }
+}
+
 let docTooltipEl = null;
 
 function getDocTooltip() {
@@ -778,6 +850,11 @@ function wireUI() {
         }
     });
 
+    const newStudentBtn = document.getElementById("newStudentBtn");
+    if (newStudentBtn) {
+        newStudentBtn.addEventListener("click", startNewStudentDemo);
+    }
+
     document.getElementById("launchBtn").addEventListener("click", () => {
         if (currentLanguage === 'html') {
             const code = editor.getValue();
@@ -856,6 +933,7 @@ function wireUI() {
     document.getElementById("levelSelect").addEventListener("change", (e) => {
         currentLevel = parseInt(e.target.value);
         console.log(`Student level changed to: ${currentLevel}`);
+        updateNewStudentBtnVisibility();
     });
 
     document.getElementById("languageSelect").addEventListener("change", (e) => {
@@ -913,6 +991,8 @@ function wireUI() {
     if (window.innerWidth <= 900) {
         switchTab('editor-panel');
     }
+    
+    updateNewStudentBtnVisibility();
 }
 
 
@@ -964,6 +1044,8 @@ function switchLanguageTo(newLanguage) {
         previewFrame.style.display = "none";
         launchBtn.style.display = "none";
         levelSelect.style.display = "inline-block";
+        levelSelect.value = "1";
+        currentLevel = 1;
         outputTitle.textContent = "stdout (Output)";
         editorFileName.textContent = "main.py";
         editorLangBadge.innerHTML = '<i class="fab fa-python"></i> Python 3';
@@ -984,6 +1066,7 @@ function switchLanguageTo(newLanguage) {
         setTimeout(() => editor.refresh(), 50);
         setStatus("ready", "Switched to Python Mode.");
     }
+    updateNewStudentBtnVisibility();
 }
 
 // JS Modal Implementation for Python Input
