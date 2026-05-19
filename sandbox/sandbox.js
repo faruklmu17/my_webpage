@@ -560,6 +560,17 @@ async function runCode(isResume = false) {
 
     if (!pyodide) return;
     const code = editor.getValue();
+    
+    // Always grab the previous input before clearing the output panel!
+    if (isResume) {
+        const oldInput = document.querySelector(".terminal-input-wrapper input");
+        if (oldInput) {
+            persistentBuffer.push(oldInput.value);
+        }
+    } else {
+        persistentBuffer = [];
+    }
+
     clearOutput();
     appendOutput("▶ Running Python...\n\n", "muted");
     runBtn.disabled = true;
@@ -568,17 +579,6 @@ async function runCode(isResume = false) {
     const outputTabBtn = document.querySelector('.tab-link[data-target="output-panel"]');
     if (window.innerWidth <= 900 && outputTabBtn) {
         outputTabBtn.click();
-    }
-    
-    // Always clear output on every run/re-run to avoid duplication.
-    if (isResume) {
-        const oldInput = document.querySelector(".terminal-input-wrapper");
-        if (oldInput) {
-            const val = oldInput.querySelector("input").value;
-            persistentBuffer.push(val);
-        }
-    } else {
-        persistentBuffer = [];
     }
 
     currentRunBuffer = [...persistentBuffer];
