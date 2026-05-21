@@ -51,6 +51,7 @@
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
+            --flare: #fbbf24;
             --slate-50: #f8fafc;
             --slate-100: #f1f5f9;
             --slate-200: #e2e8f0;
@@ -58,14 +59,40 @@
             --slate-800: #1e293b;
             --slate-900: #0f172a;
             --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.8);
         }
 
         body {
-            background-color: #f1f5f9;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            background-attachment: fixed;
             font-family: 'Montserrat', sans-serif;
             color: var(--slate-800);
             margin: 0;
             padding: 0;
+        }
+
+        @keyframes pulse-flare {
+            0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(251, 191, 36, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
+        }
+        @keyframes pulse-danger {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        .flare-active {
+            animation: pulse-flare 2s infinite;
+            border: 2px solid var(--flare) !important;
+            background: rgba(251, 191, 36, 0.15) !important;
+        }
+
+        .danger-active {
+            animation: pulse-danger 2s infinite;
+            border: 2px solid var(--danger) !important;
+            background: rgba(239, 68, 68, 0.1) !important;
         }
 
         .main-content {
@@ -136,21 +163,26 @@
         /* Dashboard Grid */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
             margin-bottom: 2.5rem;
         }
 
         .stat-card {
-            background: white;
-            padding: 1.75rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1.5rem;
             border-radius: 24px;
             box-shadow: var(--card-shadow);
             text-align: center;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.8);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .stat-card:hover {
@@ -201,10 +233,13 @@
         }
 
         .glass-card {
-            background: white;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 2rem;
             border-radius: 24px;
             box-shadow: var(--card-shadow);
+            border: 1px solid var(--glass-border);
         }
 
         .card-header {
@@ -443,6 +478,9 @@
                     <option value="200" selected>200-Day SMA (Conservative)</option>
                     <option value="50">50-Day SMA (Aggressive)</option>
                 </select>
+                <button id="live-update-btn" onclick="fetchLivePrice()" style="padding: 0.6rem 1.2rem; border-radius: 12px; border: none; background: var(--success); color: white; font-weight: 700; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-sync-alt"></i> Live Price Check
+                </button>
             </div>
             <div id="last-updated-date" style="color: #64748b; font-size: 0.9rem; font-weight: 600;">
                 <!-- Populated by JS -->
@@ -451,25 +489,43 @@
 
         <!-- Key Metrics -->
         <div class="dashboard-grid">
-            <div class="stat-card">
+            <div class="stat-card" title="The primary algorithmic signal (BUY or CASH) based on the selected moving average period.">
                 <span class="stat-value" id="current-signal">-</span>
-                <span class="stat-label">Current Signal</span>
+                <span class="stat-label">Current Signal <i class="fas fa-info-circle" style="color:#cbd5e1; margin-left:4px;"></i></span>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" title="The latest available trading price for TQQQ.">
                 <span class="stat-value" id="current-price">-</span>
-                <span class="stat-label">Live Price</span>
+                <span class="stat-label">Live Price <i class="fas fa-info-circle" style="color:#cbd5e1; margin-left:4px;"></i></span>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" title="The current price level of the selected Moving Average (used as the trend baseline).">
                 <span class="stat-value" id="ma-value">-</span>
-                <span class="stat-label" id="ma-label">MA Value</span>
+                <span class="stat-label" id="ma-label">MA Value <i class="fas fa-info-circle" style="color:#cbd5e1; margin-left:4px;"></i></span>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" title="The hypothetical portfolio value if $10,000 was invested using this strategy from the beginning.">
                 <span class="stat-value" id="current-equity">-</span>
-                <span class="stat-label">Strategy Equity</span>
+                <span class="stat-label">Strategy Equity <i class="fas fa-info-circle" style="color:#cbd5e1; margin-left:4px;"></i></span>
             </div>
-            <div class="stat-card">
+            <div class="stat-card" title="Tracks the relationship between the 50-Day and 200-Day MAs. A Golden Cross is bullish; a Death Cross is highly bearish.">
                 <span class="stat-value" id="gc-status">-</span>
-                <span class="stat-label">Golden Cross Tracker</span>
+                <span class="stat-label">Golden Cross <i class="fas fa-info-circle" style="color:#cbd5e1; margin-left:4px;"></i></span>
+            </div>
+            <!-- Advanced Indicators -->
+            <div class="stat-card" id="drawdown-card" title="Measures how far the current price has dropped from its highest point over the last year. Deeper drawdowns often present better buying opportunities.">
+                <span class="stat-value" id="drawdown-value" style="display: flex; align-items: center; justify-content: center; min-height: 40px; margin-bottom: 0.5rem;">-</span>
+                <span class="stat-label">52-Week Drawdown <i class="fas fa-info-circle" style="color:#cbd5e1; margin-left:4px;"></i></span>
+            </div>
+            <div class="stat-card" id="streak-card" title="Counts the number of consecutive days the price has closed green or red. Long streaks indicate extreme momentum that may reverse.">
+                <span class="stat-value" id="streak-value" style="display: flex; align-items: center; justify-content: center; min-height: 40px; margin-bottom: 0.5rem;">-</span>
+                <span class="stat-label">Momentum Streak <i class="fas fa-info-circle" style="color:#cbd5e1; margin-left:4px;"></i></span>
+            </div>
+            <div class="stat-card" id="rubber-band-card" title="Calculates how far the price has stretched away from the moving average. Extreme stretches signal a high probability of a snap-back.">
+                <span class="stat-value" id="rubber-band-value" style="display: flex; align-items: center; justify-content: center; min-height: 40px; margin-bottom: 0.5rem;">-</span>
+                <span class="stat-label">Rubber Band Stretch <i class="fas fa-info-circle" style="color:#cbd5e1; margin-left:4px;"></i></span>
+                <div id="rubber-band-stats" style="font-size: 0.65rem; font-weight: 600; color: #64748b; margin-top: 0.75rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 0.5rem; display: none;"></div>
+            </div>
+            <div class="stat-card" id="buying-flare-card" title="A rare signal that activates only when the price crashes to or below the major 200-Day Moving Average, indicating a generational buying opportunity.">
+                <span class="stat-value" id="buying-flare-status" style="display: flex; align-items: center; justify-content: center; min-height: 40px; margin-bottom: 0.5rem;">-</span>
+                <span class="stat-label">Ultimate Buying Flare <i class="fas fa-info-circle" style="color:#cbd5e1; margin-left:4px;"></i></span>
             </div>
         </div>
 
@@ -573,6 +629,7 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+    <script src="config.js"></script>
 
     <script>
         // Portfolio Calculator Functions
@@ -583,6 +640,112 @@
         let isRiskyPosition = false;
         let selectedPeriod = 200; // Default
         let globalProcessedData = [];
+
+        let apiCallsThisMinute = 0;
+        let lastApiCallReset = Date.now();
+
+        function updateApiButtonColor(btn) {
+            if (Date.now() - lastApiCallReset > 60000) {
+                apiCallsThisMinute = 0;
+                lastApiCallReset = Date.now();
+            }
+            if (apiCallsThisMinute >= 45) {
+                btn.style.background = 'var(--danger)'; // Red
+                btn.style.color = 'white';
+            } else if (apiCallsThisMinute >= 20) {
+                btn.style.background = 'var(--warning)'; // Yellow
+                btn.style.color = '#1e293b';
+            } else {
+                btn.style.background = 'var(--success)'; // Green
+                btn.style.color = 'white';
+            }
+        }
+
+        async function fetchLivePrice() {
+            if (typeof CONFIG === 'undefined' || !CONFIG.FINNHUB_API_KEY) {
+                alert("Finnhub API Key is missing! Make sure config.js is loaded.");
+                return;
+            }
+            
+            const btn = document.getElementById('live-update-btn');
+            
+            // Rate limit tracker
+            if (Date.now() - lastApiCallReset > 60000) {
+                apiCallsThisMinute = 0;
+                lastApiCallReset = Date.now();
+            }
+            
+            if (apiCallsThisMinute >= 60) {
+                alert("API Limit Reached (60 calls per minute). Please wait a few seconds.");
+                return;
+            }
+            
+            apiCallsThisMinute++;
+            updateApiButtonColor(btn);
+
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Fetching...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=TQQQ&token=${CONFIG.FINNHUB_API_KEY}`);
+                const data = await response.json();
+                
+                if (data && data.c) {
+                    const livePrice = data.c;
+                    const todayDateStr = new Date().toLocaleDateString();
+                    
+                    // Check if last row is already today/live
+                    let lastRow = globalProcessedData[globalProcessedData.length - 1];
+                    if (lastRow.date.includes(todayDateStr) || lastRow.isLive) {
+                        lastRow.close = livePrice;
+                        lastRow.date = todayDateStr + " (LIVE)";
+                        lastRow.isLive = true;
+                    } else {
+                        // Push a new row
+                        globalProcessedData.push({
+                            date: todayDateStr + " (LIVE)",
+                            close: livePrice,
+                            isLive: true,
+                            instruction: '',
+                            equity: lastRow.equity,
+                            equity50: lastRow.equity50,
+                            equity200: lastRow.equity200
+                        });
+                        lastRow = globalProcessedData[globalProcessedData.length - 1];
+                    }
+
+                    // Recalculate MA50 and MA200 for this new live row
+                    let sum50 = 0, sum200 = 0;
+                    for (let j = 0; j < 50; j++) {
+                        if (globalProcessedData[globalProcessedData.length - 1 - j]) sum50 += globalProcessedData[globalProcessedData.length - 1 - j].close;
+                    }
+                    for (let j = 0; j < 200; j++) {
+                        if (globalProcessedData[globalProcessedData.length - 1 - j]) sum200 += globalProcessedData[globalProcessedData.length - 1 - j].close;
+                    }
+                    
+                    lastRow.ma50 = sum50 / Math.min(50, globalProcessedData.length);
+                    lastRow.ma200 = sum200 / Math.min(200, globalProcessedData.length);
+                    lastRow.signal50 = lastRow.close > lastRow.ma50 ? 'BUY' : 'CASH';
+                    lastRow.signal200 = lastRow.close > lastRow.ma200 ? 'BUY' : 'CASH';
+
+                    // Update UI
+                    updateDashboardWithPeriodData();
+                    if (typeof calculatePortfolio === 'function') calculatePortfolio();
+                    
+                    const dateEl = document.getElementById('last-updated-date');
+                    if (dateEl) dateEl.innerHTML = `Live Updated: <span style="color: var(--success)">${new Date().toLocaleTimeString()}</span>`;
+                } else {
+                    alert("Failed to fetch live price data.");
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Error fetching live price. Check your API key or network connection.");
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
 
         function loadPortfolio() {
             const shares = localStorage.getItem('tqqq_shares');
@@ -763,13 +926,68 @@
             currentSignal = latest[sigField];
 
             // Re-calculate risk for the new period
-            const percentDiff = currentMAValue > 0 ? Math.abs((latest.close - currentMAValue) / currentMAValue) * 100 : 0;
-            isRiskyPosition = percentDiff <= 5;
+            const rawPercentDiff = currentMAValue > 0 ? ((latest.close - currentMAValue) / currentMAValue) * 100 : 0;
+            isRiskyPosition = Math.abs(rawPercentDiff) <= 5; // within 5% of MA
+
+            // Rubber Band Logic
+            const rbCard = document.getElementById('rubber-band-card');
+            const rbValueEl = document.getElementById('rubber-band-value');
+            const rbStatsEl = document.getElementById('rubber-band-stats');
+            rbCard.classList.remove('danger-active');
+
+            // Calculate historical stats
+            let maxStretch = -100;
+            let maxStretchDate = '';
+            let timesExceeded = 0;
+            const threshold = rawPercentDiff > 15 ? rawPercentDiff : 15; // Only compare extreme stretches
+            
+            globalProcessedData.forEach(row => {
+                const rowMA = row[maField];
+                if (rowMA > 0) {
+                    const rowStretch = ((row.close - rowMA) / rowMA) * 100;
+                    if (rowStretch > maxStretch) {
+                        maxStretch = rowStretch;
+                        maxStretchDate = row.date;
+                    }
+                    if (rowStretch >= threshold) {
+                        timesExceeded++;
+                    }
+                }
+            });
+
+            if (rbStatsEl) {
+                rbStatsEl.style.display = 'block';
+                // Only show "times exceeded" if it's actually overextended right now
+                let exceedText = rawPercentDiff > 15 ? `Past days &ge; ${threshold.toFixed(1)}%: <strong style="color:var(--slate-800)">${Math.max(0, timesExceeded - 1)}</strong>` : ``;
+                rbStatsEl.innerHTML = `All-Time Max: <span style="color:var(--danger)">+${maxStretch.toFixed(1)}%</span><br/>${exceedText}`;
+            }
+
+            if (rawPercentDiff > 15) {
+                rbValueEl.innerHTML = `<span style="color: var(--danger); font-size: 1.2rem; line-height: 1.2;">+${rawPercentDiff.toFixed(1)}% <br><span style="font-size: 0.75rem; font-weight: 700;">DANGER (OVEREXTENDED)</span></span>`;
+                rbCard.classList.add('danger-active');
+            } else if (rawPercentDiff < -15) {
+                rbValueEl.innerHTML = `<span style="color: var(--success); font-size: 1.2rem; line-height: 1.2;">${rawPercentDiff.toFixed(1)}% <br><span style="font-size: 0.75rem; font-weight: 700;">OVERSOLD (VALUE)</span></span>`;
+            } else {
+                rbValueEl.innerHTML = `<span style="color: var(--slate-700); font-size: 1.2rem; line-height: 1.2;">${rawPercentDiff > 0 ? '+' : ''}${rawPercentDiff.toFixed(1)}% <br><span style="font-size: 0.75rem; font-weight: 700;">NORMAL</span></span>`;
+            }
+
+            // Ultimate Buying Flare Logic
+            const flareCard = document.getElementById('buying-flare-card');
+            const flareStatusEl = document.getElementById('buying-flare-status');
+            const ma200Value = latest.ma200;
+            flareCard.classList.remove('flare-active');
+            
+            if (ma200Value > 0 && latest.close <= ma200Value * 1.02) { // 2% margin or below 200MA
+                flareStatusEl.innerHTML = `<span style="color: var(--flare); font-size: 1.2rem; font-weight: 900;"><i class="fas fa-rocket"></i> ACTIVE</span>`;
+                flareCard.classList.add('flare-active');
+            } else {
+                flareStatusEl.innerHTML = `<span style="color: #64748b; font-size: 1.1rem; font-weight: 700;">INACTIVE</span>`;
+            }
 
             // Update Stats
             const signalEl = document.getElementById('current-signal');
             if (isRiskyPosition) {
-                signalEl.innerHTML = `${currentSignal}<span class="signal-risky">⚠️ RISKY (${percentDiff.toFixed(1)}% from MA)</span>`;
+                signalEl.innerHTML = `${currentSignal}<span class="signal-risky">⚠️ NEAR MA (${Math.abs(rawPercentDiff).toFixed(1)}%)</span>`;
             } else {
                 signalEl.textContent = currentSignal;
             }
@@ -793,14 +1011,69 @@
             const ma50 = latest.ma50;
             const ma200 = latest.ma200;
             const gcStatusEl = document.getElementById('gc-status');
+            const gcCard = gcStatusEl.parentElement;
+            gcCard.classList.remove('danger-active');
             
             if (ma50 > ma200) {
-                gcStatusEl.innerHTML = '<span style="color: #10b981;">ACTIVE ✅</span>';
-                gcStatusEl.style.fontSize = '1.8rem';
+                gcStatusEl.innerHTML = '<span style="color: #10b981; font-size: 1.2rem; font-weight: 800;">GOLDEN CROSS ✅</span>';
             } else {
                 const diff = ((ma200 - ma50) / ma50) * 100;
-                gcStatusEl.innerHTML = `<span style="color: #f59e0b;">${diff.toFixed(1)}% AWAY</span>`;
-                gcStatusEl.style.fontSize = '1.8rem';
+                if (diff < 3) {
+                    gcStatusEl.innerHTML = `<span style="color: var(--danger); font-size: 1.1rem; line-height: 1.2;">DEATH CROSS <br><span style="font-size: 0.75rem; font-weight: 700;">IMMINENT WARNING</span></span>`;
+                    gcCard.classList.add('danger-active');
+                } else {
+                    gcStatusEl.innerHTML = `<span style="color: var(--danger); font-size: 1.1rem; line-height: 1.2;">DEATH CROSS <br><span style="font-size: 0.75rem; font-weight: 700;">ACTIVE (${diff.toFixed(1)}% BELOW)</span></span>`;
+                }
+            }
+
+            // 52-Week Drawdown Calculation
+            const tradingDays = Math.min(252, globalProcessedData.length);
+            let highestClose52W = 0;
+            for (let i = globalProcessedData.length - tradingDays; i < globalProcessedData.length; i++) {
+                if (globalProcessedData[i].close > highestClose52W) {
+                    highestClose52W = globalProcessedData[i].close;
+                }
+            }
+            const drawdownPercent = ((latest.close - highestClose52W) / highestClose52W) * 100;
+            
+            const ddValueEl = document.getElementById('drawdown-value');
+            if (drawdownPercent < -30) {
+                ddValueEl.innerHTML = `<span style="color: var(--success); font-size: 1.2rem; line-height: 1.2;">${drawdownPercent.toFixed(1)}% <br><span style="font-size: 0.75rem; font-weight: 700;">DEEP DISCOUNT</span></span>`;
+            } else {
+                ddValueEl.innerHTML = `<span style="color: var(--slate-700); font-size: 1.3rem;">${drawdownPercent.toFixed(1)}%</span>`;
+            }
+
+            // Momentum Streak
+            let streakCount = 0;
+            let streakDirection = 0; // 1 for UP, -1 for DOWN
+            
+            for (let i = globalProcessedData.length - 1; i > 0; i--) {
+                const currentDayClose = globalProcessedData[i].close;
+                const prevDayClose = globalProcessedData[i-1].close;
+                
+                if (streakDirection === 0) {
+                    streakDirection = currentDayClose > prevDayClose ? 1 : (currentDayClose < prevDayClose ? -1 : 0);
+                    if (streakDirection !== 0) streakCount = 1;
+                    else break; // flat day
+                } else if ((streakDirection === 1 && currentDayClose > prevDayClose) || 
+                           (streakDirection === -1 && currentDayClose < prevDayClose)) {
+                    streakCount++;
+                } else {
+                    break;
+                }
+            }
+            
+            const streakValueEl = document.getElementById('streak-value');
+            if (streakDirection === 1) {
+                streakValueEl.innerHTML = `<span style="color: var(--success); font-size: 1.2rem; line-height: 1.2;">${streakCount} Days <br><span style="font-size: 0.75rem; font-weight: 700;">GREEN STREAK</span></span>`;
+            } else if (streakDirection === -1) {
+                if (streakCount >= 4) {
+                    streakValueEl.innerHTML = `<span style="color: var(--danger); font-size: 1.2rem; line-height: 1.2;">${streakCount} Days <br><span style="font-size: 0.75rem; font-weight: 700;">BOUNCE LIKELY</span></span>`;
+                } else {
+                    streakValueEl.innerHTML = `<span style="color: var(--danger); font-size: 1.2rem; line-height: 1.2;">${streakCount} Days <br><span style="font-size: 0.75rem; font-weight: 700;">RED STREAK</span></span>`;
+                }
+            } else {
+                 streakValueEl.innerHTML = `<span style="color: var(--slate-700); font-size: 1.3rem;">-</span>`;
             }
 
             // Update Table
