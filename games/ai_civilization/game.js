@@ -115,14 +115,183 @@ class Particle {
   }
 }
 
+// --- LocalStorage Save & Load System ---
+const SAVE_KEY = 'ai_planet_builder_save';
+
+function saveGame() {
+  if (State.isGameOver) return;
+  const saveData = {
+    compute: State.compute,
+    hardware: { ...State.hardware },
+    climate: { ...State.climate },
+    cooling: { ...State.cooling },
+    research: { ...State.research },
+    heat: State.heat,
+    green: State.green,
+    day: State.day,
+    hour: State.hour,
+    minute: State.minute,
+    season: State.season,
+    tickCount: State.tickCount,
+    savedAt: Date.now() // Save real-world timestamp
+  };
+  try {
+    localStorage.setItem(SAVE_KEY, JSON.stringify(saveData));
+  } catch (e) {
+    console.error("Failed to save game state to LocalStorage:", e);
+  }
+}
+window.saveGame = saveGame;
+
+function loadGame() {
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    if (!raw) return false;
+    const data = JSON.parse(raw);
+    if (!data) return false;
+
+    // Safely copy values
+    if (typeof data.compute === 'number') State.compute = data.compute;
+    if (data.hardware) State.hardware = { ...State.hardware, ...data.hardware };
+    if (data.climate) State.climate = { ...State.climate, ...data.climate };
+    if (data.cooling) State.cooling = { ...State.cooling, ...data.cooling };
+    if (data.research) State.research = { ...State.research, ...data.research };
+    if (typeof data.heat === 'number') State.heat = data.heat;
+    if (typeof data.green === 'number') State.green = data.green;
+    if (typeof data.day === 'number') State.day = data.day;
+    if (typeof data.hour === 'number') State.hour = data.hour;
+    if (typeof data.minute === 'number') State.minute = data.minute;
+    if (typeof data.season === 'string') State.season = data.season;
+    if (typeof data.tickCount === 'number') State.tickCount = data.tickCount;
+
+    // Offline Standby calculations
+    if (typeof data.savedAt === 'number') {
+      const elapsedMs = Date.now() - data.savedAt;
+      if (elapsedMs > 5000) { // Off for more than 5 seconds
+        const maxOfflineMs = 7 * 24 * 60 * 60 * 1000; // 1 week cap
+        const offlineMs = Math.min(elapsedMs, maxOfflineMs);
+        const offlineSeconds = offlineMs / 1000;
+
+        // Calculate rate under current setup
+        const rates = calculateRates();
+        const offlineRate = rates.netComputeRate * 0.5; // 50% efficiency rate
+        const offlineComputeEarned = offlineRate * offlineSeconds;
+
+        if (offlineComputeEarned > 0) {
+          State.compute += offlineComputeEarned;
+          
+          // 1 second of real-world time translates to 1 virtual day
+          const daysToAdvance = Math.floor(offlineSeconds);
+          State.day += daysToAdvance;
+          State.tickCount += daysToAdvance * 60;
+
+          State.offlineReport = {
+            durationSeconds: offlineSeconds,
+            daysAdvanced: daysToAdvance,
+            computeEarned: offlineComputeEarned
+          };
+        }
+      }
+    }
+
+    return true;
+  } catch (e) {
+    console.error("Failed to load game state from LocalStorage:", e);
+    return false;
+  }
+}
+window.loadGame = loadGame;
+
+function resetGame() {
+  try {
+    localStorage.removeItem(SAVE_KEY);
+  } catch (e) {
+    console.error("Failed to wipe local storage:", e);
+  }
+}
+window.resetGame = resetGame;
+
+function resetAndReboot() {
+  resetGame();
+  location.reload();
+}
+window.resetAndReboot = resetAndReboot;
+
+function showOfflineReportModal() {
+  if (!State.offlineReport) return;
+  const report = State.offlineReport;
+  
+  const hrs = Math.floor(report.durationSeconds / 3600);
+  const mins = Math.floor((report.durationSeconds % 3600) / 60);
+  const secs = Math.floor(report.durationSeconds % 60);
+  let timeStr = "";
+  if (hrs > 0) timeStr += `${hrs}h `;
+  if (mins > 0 || hrs > 0) timeStr += `${mins}m `;
+  timeStr += `${secs}s`;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'welcome-overlay';
+  overlay.id = 'offline-report-overlay';
+  overlay.style.zIndex = '9998';
+  overlay.innerHTML = `
+    <div class="welcome-modal" style="border: 2px solid var(--color-cyan); box-shadow: 0 0 30px rgba(56,189,248,0.3);">
+      <div class="welcome-header">
+        <h2>🤖 <span class="accent-glow">CORE-9 Mainframe Standby Report</span></h2>
+        <p class="welcome-subtitle">Energy Grid Standby Mode Activated during your absence.</p>
+      </div>
+      <div style="margin: 25px 0; font-family: var(--font-display); line-height: 1.7; text-align: center;">
+        <div style="display: flex; justify-content: space-around; gap: 15px; margin-bottom: 20px;">
+          <div style="background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.2); padding: 15px; border-radius: var(--radius-sm); flex: 1;">
+            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 5px;">TIME OFFLINE</div>
+            <strong style="color: var(--color-cyan); font-size: 1.2rem;">${timeStr}</strong>
+          </div>
+          <div style="background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.2); padding: 15px; border-radius: var(--radius-sm); flex: 1;">
+            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 5px;">DAYS PROCESSED</div>
+            <strong style="color: var(--color-cyan); font-size: 1.2rem;">${report.daysAdvanced} Days</strong>
+          </div>
+        </div>
+        <p>While the tab was closed, your high-performance compute arrays operated in low-power standby mode, harvesting compute power safely at a **50% yield efficiency** to protect environmental scores from carbon surges.</p>
+        <div style="background: rgba(16, 185, 129, 0.1); border: 1px dashed var(--color-emerald); padding: 15px; border-radius: var(--radius-sm); margin-top: 20px;">
+          <span style="font-size: 0.9rem; color: var(--text-secondary);">Standby Yield Harvested:</span><br/>
+          <strong style="color: var(--color-emerald); font-size: 1.5rem; text-shadow: 0 0 10px rgba(16,185,129,0.3);">+${Math.floor(report.computeEarned).toLocaleString()} Pflops ⚡</strong>
+        </div>
+      </div>
+      <div class="welcome-actions" style="justify-content: center;">
+        <button class="start-game-btn" id="btn-claim-offline" style="background: linear-gradient(135deg, var(--color-cyan) 0%, var(--color-violet) 100%); width: 100%; max-width: 300px;">
+          <i class="fas fa-check-circle"></i> Synthesize Standby Yield
+        </button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  document.getElementById('btn-claim-offline').addEventListener('click', () => {
+    overlay.remove();
+    State.offlineReport = null;
+    printLog(`SUCCESS: Standby yield of +${Math.floor(report.computeEarned).toLocaleString()} Pflops successfully merged into compute core.`, "success");
+    updateUI();
+  });
+}
+window.showOfflineReportModal = showOfflineReportModal;
+
 // ==========================================================================
 // Initialization & Bindings
 // ==========================================================================
 
 window.addEventListener('DOMContentLoaded', () => {
+  const loaded = loadGame();
+  
   setupUI();
   setupPlanetCanvas();
   setupEventBindings();
+  
+  if (loaded) {
+    const startBtn = document.getElementById('btn-start-game');
+    if (startBtn) {
+      startBtn.innerHTML = '<i class="fas fa-play"></i> Resume Mainframe';
+    }
+    printLog("SYSTEM ONLINE: Local mainframe backup restored successfully.", "success");
+  }
   
   // Start simulation loop
   requestAnimationFrame(gameLoop);
@@ -175,6 +344,11 @@ function setupEventBindings() {
       State.speed = 1;
       printLog("SYSTEM ONLINE: Cybernetic Neural Planet Mainframe activated. Standby for compute injection.", "success");
       updateUI();
+      
+      // If there is offline progress harvested, trigger the Standby Report modal
+      if (State.offlineReport) {
+        showOfflineReportModal();
+      }
     });
   }
 
@@ -319,6 +493,11 @@ function gameTick() {
     printLog("⚠️ [ECOLOGICAL CRISIS] Atmospheric carbon levels toxic! Solar energy generation diminished.", "danger");
   }
 
+  // Save game state once every virtual day (60 ticks)
+  if (State.tickCount % 60 === 0) {
+    saveGame();
+  }
+
   // Update UI telemetry and buttons availability
   updateUI();
 }
@@ -439,7 +618,7 @@ function triggerGameOver() {
           </div>
         </div>
         <div class="welcome-actions">
-          <button class="start-game-btn" onclick="location.reload()" style="background: linear-gradient(135deg, var(--color-pink) 0%, var(--color-violet) 100%);">
+          <button class="start-game-btn" onclick="window.resetAndReboot()" style="background: linear-gradient(135deg, var(--color-pink) 0%, var(--color-violet) 100%);">
             <i class="fas fa-redo"></i> Reboot Mainframe
           </button>
         </div>
@@ -726,6 +905,7 @@ function buyHardware(type) {
     State.hardware[type]++;
     printLog(`[Hardware Core] Purchased ${info.name}. Passive compute elevated +${info.compute} Pflop/s. Power load +${info.power} GW.`, "success");
     updateUI();
+    saveGame();
   }
 }
 window.buyHardware = buyHardware;
@@ -747,6 +927,7 @@ function buyClimate(type) {
     
     printLog(`[Climate Control] Installed ${info.name}. ${desc}`, "success");
     updateUI();
+    saveGame();
   }
 }
 window.buyClimate = buyClimate;
@@ -763,6 +944,7 @@ function buyCooling(type) {
     State.cooling[type]++;
     printLog(`[Cooling Grid] Installed ${info.name}. Mainframe thermal dissipation increased by -${info.heatDiss}°C/s.`, "success");
     updateUI();
+    saveGame();
   }
 }
 window.buyCooling = buyCooling;
@@ -789,6 +971,7 @@ function researchTech(type) {
     
     printLog(`🔬 [RESEARCH BREAKTHROUGH] Research completed: "${info.name}". ${effectDesc}`, "success");
     updateUI();
+    saveGame();
   }
 }
 window.researchTech = researchTech;

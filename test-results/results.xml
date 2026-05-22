@@ -1,16 +1,20 @@
-<testsuites id="" name="" tests="6" failures="0" skipped="0" errors="0" time="32.350003">
-<testsuite name="ai_civilization.spec.ts" timestamp="2026-05-22T12:33:26.530Z" hostname="chromium" tests="6" failures="0" skipped="0" time="101.719" errors="0">
-<testcase name="Page header and elements are fully rendered" classname="ai_civilization.spec.ts" time="22.893">
+<testsuites id="" name="" tests="8" failures="0" skipped="0" errors="0" time="23.030762">
+<testsuite name="ai_civilization.spec.ts" timestamp="2026-05-22T15:18:53.950Z" hostname="chromium" tests="8" failures="0" skipped="0" time="73.947" errors="0">
+<testcase name="Page header and elements are fully rendered" classname="ai_civilization.spec.ts" time="12.689">
 </testcase>
-<testcase name="Planet canvas click increments Compute Power successfully" classname="ai_civilization.spec.ts" time="21.816">
+<testcase name="Planet canvas click increments Compute Power successfully" classname="ai_civilization.spec.ts" time="12.71">
 </testcase>
-<testcase name="Sidebar tabs navigation updates content active classes correctly" classname="ai_civilization.spec.ts" time="19.843">
+<testcase name="Sidebar tabs navigation updates content active classes correctly" classname="ai_civilization.spec.ts" time="12.911">
 </testcase>
-<testcase name="Injecting compute and buying basic CPU elevates hardware count &amp; power demand" classname="ai_civilization.spec.ts" time="19.985">
+<testcase name="Injecting compute and buying basic CPU elevates hardware count &amp; power demand" classname="ai_civilization.spec.ts" time="15.663">
 </testcase>
-<testcase name="Deploys solar array &amp; wind turbine and increases green power grid supply" classname="ai_civilization.spec.ts" time="8.424">
+<testcase name="Deploys solar array &amp; wind turbine and increases green power grid supply" classname="ai_civilization.spec.ts" time="5.677">
 </testcase>
-<testcase name="High core temperature triggers warning class and throttling status, cooling fan reduces core heat" classname="ai_civilization.spec.ts" time="8.758">
+<testcase name="High core temperature triggers warning class and throttling status, cooling fan reduces core heat" classname="ai_civilization.spec.ts" time="5.089">
+</testcase>
+<testcase name="Resuming game from local storage loads state correctly" classname="ai_civilization.spec.ts" time="5.523">
+</testcase>
+<testcase name="Offline Standby progression calculates and harvests compute correctly on resuming" classname="ai_civilization.spec.ts" time="3.685">
 </testcase>
 </testsuite>
 </testsuites>
