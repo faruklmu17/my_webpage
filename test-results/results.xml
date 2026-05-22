@@ -1,6 +1,16 @@
-<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="2.686689">
-<testsuite name="example.spec.ts" timestamp="2026-01-29T20:03:11.905Z" hostname="chromium" tests="1" failures="0" skipped="0" time="1.149" errors="0">
-<testcase name="Website Basic Tests › homepage loads successfully" classname="example.spec.ts" time="1.149">
+<testsuites id="" name="" tests="6" failures="0" skipped="0" errors="0" time="32.350003">
+<testsuite name="ai_civilization.spec.ts" timestamp="2026-05-22T12:33:26.530Z" hostname="chromium" tests="6" failures="0" skipped="0" time="101.719" errors="0">
+<testcase name="Page header and elements are fully rendered" classname="ai_civilization.spec.ts" time="22.893">
+</testcase>
+<testcase name="Planet canvas click increments Compute Power successfully" classname="ai_civilization.spec.ts" time="21.816">
+</testcase>
+<testcase name="Sidebar tabs navigation updates content active classes correctly" classname="ai_civilization.spec.ts" time="19.843">
+</testcase>
+<testcase name="Injecting compute and buying basic CPU elevates hardware count &amp; power demand" classname="ai_civilization.spec.ts" time="19.985">
+</testcase>
+<testcase name="Deploys solar array &amp; wind turbine and increases green power grid supply" classname="ai_civilization.spec.ts" time="8.424">
+</testcase>
+<testcase name="High core temperature triggers warning class and throttling status, cooling fan reduces core heat" classname="ai_civilization.spec.ts" time="8.758">
 </testcase>
 </testsuite>
 </testsuites>

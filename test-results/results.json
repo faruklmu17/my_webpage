@@ -1,30 +1,30 @@
 {
   "config": {
-    "configFile": "/Users/farukhasan/Desktop/python/python_projects/my_website/my_webpage/playwright.config.ts",
-    "rootDir": "/Users/farukhasan/Desktop/python/python_projects/my_website/my_webpage/e2e",
+    "configFile": "/Users/farukhasan/Desktop/Projects/my_webpage/playwright.config.ts",
+    "rootDir": "/Users/farukhasan/Desktop/Projects/my_webpage/e2e",
     "forbidOnly": false,
     "fullyParallel": true,
-    "globalSetup": "/Users/farukhasan/Desktop/python/python_projects/my_website/my_webpage/e2e/global.setup.ts",
-    "globalTeardown": "/Users/farukhasan/Desktop/python/python_projects/my_website/my_webpage/e2e/global.teardown.ts",
+    "globalSetup": "/Users/farukhasan/Desktop/Projects/my_webpage/e2e/global.setup.ts",
+    "globalTeardown": "/Users/farukhasan/Desktop/Projects/my_webpage/e2e/global.teardown.ts",
     "globalTimeout": 0,
     "grep": {},
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 1
+      "actualWorkers": 4
     },
     "preserveOutput": "always",
     "projects": [
       {
-        "outputDir": "/Users/farukhasan/Desktop/python/python_projects/my_website/my_webpage/test-results",
+        "outputDir": "/Users/farukhasan/Desktop/Projects/my_webpage/test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 1
+          "actualWorkers": 4
         },
         "id": "chromium",
         "name": "chromium",
-        "testDir": "/Users/farukhasan/Desktop/python/python_projects/my_website/my_webpage/e2e",
+        "testDir": "/Users/farukhasan/Desktop/Projects/my_webpage/e2e",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -32,15 +32,15 @@
         "timeout": 30000
       },
       {
-        "outputDir": "/Users/farukhasan/Desktop/python/python_projects/my_website/my_webpage/test-results",
+        "outputDir": "/Users/farukhasan/Desktop/Projects/my_webpage/test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 1
+          "actualWorkers": 4
         },
         "id": "firefox",
         "name": "firefox",
-        "testDir": "/Users/farukhasan/Desktop/python/python_projects/my_website/my_webpage/e2e",
+        "testDir": "/Users/farukhasan/Desktop/Projects/my_webpage/e2e",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -48,15 +48,15 @@
         "timeout": 30000
       },
       {
-        "outputDir": "/Users/farukhasan/Desktop/python/python_projects/my_website/my_webpage/test-results",
+        "outputDir": "/Users/farukhasan/Desktop/Projects/my_webpage/test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 1
+          "actualWorkers": 4
         },
         "id": "webkit",
         "name": "webkit",
-        "testDir": "/Users/farukhasan/Desktop/python/python_projects/my_website/my_webpage/e2e",
+        "testDir": "/Users/farukhasan/Desktop/Projects/my_webpage/e2e",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -64,15 +64,15 @@
         "timeout": 30000
       },
       {
-        "outputDir": "/Users/farukhasan/Desktop/python/python_projects/my_website/my_webpage/test-results",
+        "outputDir": "/Users/farukhasan/Desktop/Projects/my_webpage/test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 1
+          "actualWorkers": 4
         },
         "id": "Mobile Chrome",
         "name": "Mobile Chrome",
-        "testDir": "/Users/farukhasan/Desktop/python/python_projects/my_website/my_webpage/e2e",
+        "testDir": "/Users/farukhasan/Desktop/Projects/my_webpage/e2e",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -80,15 +80,15 @@
         "timeout": 30000
       },
       {
-        "outputDir": "/Users/farukhasan/Desktop/python/python_projects/my_website/my_webpage/test-results",
+        "outputDir": "/Users/farukhasan/Desktop/Projects/my_webpage/test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
-          "actualWorkers": 1
+          "actualWorkers": 4
         },
         "id": "Mobile Safari",
         "name": "Mobile Safari",
-        "testDir": "/Users/farukhasan/Desktop/python/python_projects/my_website/my_webpage/e2e",
+        "testDir": "/Users/farukhasan/Desktop/Projects/my_webpage/e2e",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -135,62 +135,223 @@
   },
   "suites": [
     {
-      "title": "example.spec.ts",
-      "file": "example.spec.ts",
+      "title": "ai_civilization.spec.ts",
+      "file": "ai_civilization.spec.ts",
       "column": 0,
       "line": 0,
-      "specs": [],
-      "suites": [
+      "specs": [
         {
-          "title": "Website Basic Tests",
-          "file": "example.spec.ts",
-          "line": 3,
-          "column": 6,
-          "specs": [
+          "title": "Page header and elements are fully rendered",
+          "ok": true,
+          "tags": [],
+          "tests": [
             {
-              "title": "homepage loads successfully",
-              "ok": true,
-              "tags": [],
-              "tests": [
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
                 {
-                  "timeout": 30000,
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 22893,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-05-22T12:33:27.894Z",
                   "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 1149,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-01-29T20:03:12.813Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "attachments": []
                 }
               ],
-              "id": "a30a6eba6312f6b87ea5-a61ea1d39a3039129075",
-              "file": "example.spec.ts",
-              "line": 4,
-              "column": 7
+              "status": "expected"
             }
-          ]
+          ],
+          "id": "7bc49b524edf9d15c061-485de314b4f12283f713",
+          "file": "ai_civilization.spec.ts",
+          "line": 19,
+          "column": 5
+        },
+        {
+          "title": "Planet canvas click increments Compute Power successfully",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 21816,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-05-22T12:33:27.877Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-2141e63edb23e719d136",
+          "file": "ai_civilization.spec.ts",
+          "line": 38,
+          "column": 5
+        },
+        {
+          "title": "Sidebar tabs navigation updates content active classes correctly",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 19843,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-05-22T12:33:27.890Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-e769c124ac86c43ea840",
+          "file": "ai_civilization.spec.ts",
+          "line": 63,
+          "column": 5
+        },
+        {
+          "title": "Injecting compute and buying basic CPU elevates hardware count & power demand",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 19985,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-05-22T12:33:27.888Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-545ad25438c427ddd536",
+          "file": "ai_civilization.spec.ts",
+          "line": 82,
+          "column": 5
+        },
+        {
+          "title": "Deploys solar array & wind turbine and increases green power grid supply",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 8424,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-05-22T12:33:49.099Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-5790d589d0ecaed1cac2",
+          "file": "ai_civilization.spec.ts",
+          "line": 107,
+          "column": 5
+        },
+        {
+          "title": "High core temperature triggers warning class and throttling status, cooling fan reduces core heat",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 8758,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-05-22T12:33:49.262Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-b0d28b416c87a9f2078f",
+          "file": "ai_civilization.spec.ts",
+          "line": 129,
+          "column": 5
         }
       ]
     }
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-01-29T20:03:11.869Z",
-    "duration": 2686.689,
-    "expected": 1,
+    "startTime": "2026-05-22T12:33:25.884Z",
+    "duration": 32350.003,
+    "expected": 6,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0
