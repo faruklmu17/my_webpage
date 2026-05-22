@@ -156,12 +156,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 22893,
+                  "duration": 12689,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-05-22T12:33:27.894Z",
+                  "startTime": "2026-05-22T15:18:55.303Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -190,12 +190,12 @@
                   "workerIndex": 1,
                   "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 21816,
+                  "duration": 12710,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-05-22T12:33:27.877Z",
+                  "startTime": "2026-05-22T15:18:55.255Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -224,12 +224,12 @@
                   "workerIndex": 2,
                   "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 19843,
+                  "duration": 12911,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-05-22T12:33:27.890Z",
+                  "startTime": "2026-05-22T15:18:55.273Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -258,12 +258,12 @@
                   "workerIndex": 3,
                   "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 19985,
+                  "duration": 15663,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-05-22T12:33:27.888Z",
+                  "startTime": "2026-05-22T15:18:55.266Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -289,15 +289,15 @@
               "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 2,
-                  "parallelIndex": 2,
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 8424,
+                  "duration": 5677,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-05-22T12:33:49.099Z",
+                  "startTime": "2026-05-22T15:19:08.731Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -323,15 +323,15 @@
               "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 3,
-                  "parallelIndex": 3,
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
                   "status": "passed",
-                  "duration": 8758,
+                  "duration": 5089,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-05-22T12:33:49.262Z",
+                  "startTime": "2026-05-22T15:19:08.854Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -343,15 +343,83 @@
           "file": "ai_civilization.spec.ts",
           "line": 129,
           "column": 5
+        },
+        {
+          "title": "Resuming game from local storage loads state correctly",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 5523,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-05-22T15:19:09.190Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-9f911135e3480af54686",
+          "file": "ai_civilization.spec.ts",
+          "line": 158,
+          "column": 5
+        },
+        {
+          "title": "Offline Standby progression calculates and harvests compute correctly on resuming",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 3685,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-05-22T15:19:11.992Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-7fab1a2a722ae08e5cc8",
+          "file": "ai_civilization.spec.ts",
+          "line": 199,
+          "column": 5
         }
       ]
     }
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-05-22T12:33:25.884Z",
-    "duration": 32350.003,
-    "expected": 6,
+    "startTime": "2026-05-22T15:18:53.195Z",
+    "duration": 23030.762,
+    "expected": 8,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

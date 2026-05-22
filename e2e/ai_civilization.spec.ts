@@ -154,3 +154,102 @@ test('High core temperature triggers warning class and throttling status, coolin
   const tempNum = parseFloat(tempVal);
   expect(tempNum).toBeLessThan(105.0);
 });
+
+test('Resuming game from local storage loads state correctly', async ({ page }) => {
+  // 1. Go to page and set some state in local storage
+  await page.evaluate(() => {
+    const saveData = {
+      compute: 1234,
+      hardware: { cpu: 2, ram: 0, gpu: 0, server: 0, datacenter: 0, neuralcore: 0 },
+      climate: { solar: 1, wind: 0, carbon: 0 },
+      cooling: { fan: 0, liquid: 0, cryo: 0 },
+      research: { neural: true, superconductor: false, ecorouting: false, geocool: false, agi: false },
+      heat: 45.5,
+      green: 85.0,
+      day: 5,
+      hour: 12,
+      minute: 0,
+      season: "Fall",
+      tickCount: 240
+    };
+    localStorage.setItem('ai_planet_builder_save', JSON.stringify(saveData));
+  });
+
+  // Reload page to trigger loading from local storage
+  await page.reload();
+
+  // Onboarding screen button should have resume text
+  const startBtn = page.locator('#btn-start-game');
+  await expect(startBtn).toContainText('Resume Mainframe');
+
+  // Verify loaded telemetry values BEFORE dismissing the overlay while simulation is paused
+  await expect(page.locator('#stockpile-compute')).toContainText('1,234');
+  await expect(page.locator('#stockpile-temp')).toContainText('45.5°C');
+  await expect(page.locator('#stockpile-green')).toContainText('85%');
+  await expect(page.locator('#day-counter')).toContainText('Day 5');
+
+  // Dismiss overlay
+  await startBtn.click();
+
+  // Verify elements are visible and we can see CPU/Solar counts
+  await expect(page.locator('#qty-cpu')).toContainText('2');
+  await expect(page.locator('#qty-solar')).toContainText('1');
+});
+
+test('Offline Standby progression calculates and harvests compute correctly on resuming', async ({ page }) => {
+  // Go to page and set a save state from 1 hour (3600 seconds) ago
+  const oneHourAgo = Date.now() - 3600 * 1000;
+  
+  await page.evaluate((savedAtTime) => {
+    const saveData = {
+      compute: 500,
+      hardware: { cpu: 5, ram: 0, gpu: 0, server: 0, datacenter: 0, neuralcore: 0 }, // 5 CPUs generate 5 Pflop/s
+      climate: { solar: 10, wind: 0, carbon: 0 }, // 10 Solar arrays cover grid perfectly (no brownouts)
+      cooling: { fan: 5, liquid: 0, cryo: 0 },
+      research: { neural: false, superconductor: false, ecorouting: false, geocool: false, agi: false },
+      heat: 40.0,
+      green: 100.0,
+      day: 1,
+      hour: 8,
+      minute: 0,
+      season: "Summer",
+      tickCount: 0,
+      savedAt: savedAtTime
+    };
+    localStorage.setItem('ai_planet_builder_save', JSON.stringify(saveData));
+  }, oneHourAgo);
+
+  // Reload page to trigger loading from local storage
+  await page.reload();
+
+  // Onboarding screen button should have resume text
+  const startBtn = page.locator('#btn-start-game');
+  await expect(startBtn).toContainText('Resume Mainframe');
+  await startBtn.click();
+
+  // Verify that the CORE-9 Standby Report overlay is visible
+  const reportOverlay = page.locator('#offline-report-overlay');
+  await expect(reportOverlay).toBeVisible();
+
+  // Verify duration metrics in standby report (approx 1h)
+  await expect(reportOverlay).toContainText('1h 0m');
+  
+  // 5 CPUs generate 5 Pflops/s. Offline rate is 50% = 2.5 Pflops/s.
+  // 3600 seconds offline * 2.5 Pflops/s = 9000 Pflops earned.
+  // Verify standby yield reported matches with a regex buffer for ms execution time
+  await expect(reportOverlay).toContainText(/\+9,00[0-9] Pflops/);
+
+  // Click Claim button
+  const claimBtn = page.locator('#btn-claim-offline');
+  await claimBtn.click();
+
+  // Verify overlay is closed
+  await expect(reportOverlay).not.toBeVisible();
+
+  // Total compute should now be 500 (initial) + ~9000 (offline) = ~9500
+  const finalComputeVal = await page.locator('#stockpile-compute').innerText();
+  expect(Number(finalComputeVal.replace(/,/g, ''))).toBeGreaterThanOrEqual(9500);
+});
+
+
+
