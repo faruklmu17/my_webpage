@@ -878,8 +878,14 @@
           body: JSON.stringify(formData)
         });
 
+        let responseBody;
+        try { responseBody = await response.json(); } catch(e) { responseBody = {}; }
+
+        console.log('Formspree status:', response.status, 'body:', JSON.stringify(responseBody));
+
         if (!response.ok) {
-          throw new Error(`Formspree returned ${response.status}`);
+          const reason = responseBody?.error || responseBody?.errors?.[0]?.message || `HTTP ${response.status}`;
+          throw new Error(reason);
         }
 
         // Success — show confirmation and confetti
@@ -888,10 +894,10 @@
         triggerConfetti();
 
       } catch (err) {
-        console.error('RSVP submission error:', err);
+        console.error('RSVP submission error:', err.message);
         btnSubmit.disabled = false;
         btnSubmit.innerHTML = `Submit RSVP Response`;
-        alert('Something went wrong sending your RSVP. Please check your connection and try again.');
+        alert(`Submission failed: ${err.message}\n\nPlease open the browser console (F12 → Console) and share the error with the host.`);
       }
     }
 
