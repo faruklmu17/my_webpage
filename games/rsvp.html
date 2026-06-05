@@ -594,10 +594,6 @@
             <label class="form-label" for="guest-name-input">Your Full Name</label>
             <input type="text" class="form-control" id="guest-name-input" placeholder="e.g. Alice Miller">
           </div>
-          <div class="form-group">
-            <label class="form-label" for="guest-email-input">Your Email Address</label>
-            <input type="email" class="form-control" id="guest-email-input" placeholder="e.g. alice@example.com">
-          </div>
         </div>
 
         <!-- Attending Option cards -->
@@ -721,7 +717,6 @@
         document.querySelector('.form-desc').innerText = `Please enter your details and submit your RSVP below.`;
         document.getElementById('generic-guest-fields').style.display = 'block';
         document.getElementById('guest-name-input').required = true;
-        document.getElementById('guest-email-input').required = true;
       }
     }
 
@@ -807,11 +802,10 @@
       const message = document.getElementById('guest-dietary').value;
       
       let guestName = inviteData.guest;
-      let guestEmail = inviteData.guest_email;
+      let guestEmail = inviteData.guest_email || 'Not Provided';
       
       if (!guestName) {
         guestName = document.getElementById('guest-name-input').value.trim();
-        guestEmail = document.getElementById('guest-email-input').value.trim();
       }
 
       if (!guestName || guestName === '') {
