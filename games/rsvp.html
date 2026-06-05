@@ -75,7 +75,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 380px;
+      min-height: 500px;
       position: relative;
     }
 
@@ -84,15 +84,17 @@
       width: 440px;
       height: 330px;
       perspective: 1000px;
+      margin-top: 140px; /* Space for the card to slide up into */
     }
 
     @media (max-width: 480px) {
       .envelope-wrapper {
         width: 320px;
         height: 240px;
+        margin-top: 90px; /* Mobile space for card slide up */
       }
       .envelope-container {
-        min-height: 290px;
+        min-height: 360px;
       }
     }
 
@@ -530,16 +532,20 @@
           <div class="envelope-flap"></div>
           <div class="envelope-pocket">
             <svg class="pocket-overlay" viewBox="0 0 440 330" preserveAspectRatio="none">
-              <polygon points="0,0 220,165 440,0 440,330 0,330" fill="#cbd5e1" opacity="0.3"/>
-              <polygon points="0,330 220,150 440,330" fill="#cbd5e1" stroke="#b8c2cc" stroke-width="2"/>
-              <polygon points="0,0 180,165 0,330" fill="#cbd5e1" opacity="0.9" stroke="#b8c2cc" stroke-width="1.5"/>
-              <polygon points="440,0 260,165 440,330" fill="#cbd5e1" opacity="0.9" stroke="#b8c2cc" stroke-width="1.5"/>
+              <!-- Inner lining shadow (opaque to hide card completely when closed) -->
+              <rect width="440" height="330" fill="#b0bac6"/>
+              <polygon points="0,0 220,165 440,0" fill="#9ba8b6"/>
+              <!-- Bottom diagonal folds -->
+              <polygon points="0,330 220,150 440,330" fill="#d9e2ec" stroke="#b8c2cc" stroke-width="2"/>
+              <!-- Side folds overlay (fully opaque) -->
+              <polygon points="0,0 180,165 0,330" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.5"/>
+              <polygon points="440,0 260,165 440,330" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.5"/>
             </svg>
           </div>
           
           <!-- Miniature card content inside envelope -->
           <div class="envelope-card-holder" id="envelope-card-holder">
-            <div class="invitation-card" id="card-inner-view">
+            <div class="invitation-card" id="card-inner-view" style="transform: scale(0.85); transform-origin: top center; pointer-events: none;">
               
               <!-- Sparkles background overlay -->
               <svg class="card-decorations" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" preserveAspectRatio="none">
