@@ -1094,17 +1094,17 @@
 
             <div class="form-group">
               <label for="event-title">Event Title</label>
-              <input type="text" class="form-control" id="event-title" value="Aariz and Aahil's Birthday!">
+              <input type="text" class="form-control" id="event-title" value="" placeholder="e.g. Aariz & Aahil's Birthday!">
             </div>
 
             <div class="form-row">
               <div class="form-group">
                 <label for="event-date">Event Date</label>
-                <input type="text" class="form-control" id="event-date" value="06/20/2026">
+                <input type="text" class="form-control" id="event-date" value="" placeholder="MM/DD/YYYY">
               </div>
               <div class="form-group">
                 <label for="event-time">Time</label>
-                <input type="text" class="form-control" id="event-time" value="5pm">
+                <input type="text" class="form-control" id="event-time" value="" placeholder="e.g. 5pm">
               </div>
             </div>
             
@@ -1122,18 +1122,18 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="host-name">Host Name</label>
-                <input type="text" class="form-control" id="host-name" value="Sohana">
+                <input type="text" class="form-control" id="host-name" value="" placeholder="Your name">
               </div>
               <div class="form-group">
                 <label for="host-email">Host Email <span class="label-desc">(for RSVP notifications)</span></label>
-                <input type="email" class="form-control" id="host-email" value="sohana@example.com">
+                <input type="email" class="form-control" id="host-email" value="" placeholder="your@email.com">
               </div>
             </div>
 
             <div class="form-row" style="margin-top: 12px;">
               <div class="form-group">
                 <label for="host-phone">Phone</label>
-                <input type="text" class="form-control" id="host-phone" value="9173855477">
+                <input type="text" class="form-control" id="host-phone" value="" placeholder="e.g. 555-123-4567">
               </div>
               <div class="form-group">
                 <label for="formspree-id">Formspree Form ID <span class="label-desc"><a href="https://formspree.io" target="_blank" style="color: #3182ce; text-decoration: underline;">Get free ID</a></span></label>
@@ -1154,27 +1154,27 @@
             <div id="physical-location-fields">
               <div class="form-group">
                 <label for="location-name">Location Name <span class="label-desc">e.g., Our House</span></label>
-                <input type="text" class="form-control" id="location-name" value="Our House" placeholder="e.g., Our House">
+                <input type="text" class="form-control" id="location-name" value="" placeholder="e.g., Our House">
               </div>
 
               <div class="form-group">
                 <label for="location-address">Address</label>
-                <input type="text" class="form-control" id="location-address" value="162 Riverview Dr">
+                <input type="text" class="form-control" id="location-address" value="" placeholder="Street address">
               </div>
 
               <div class="form-row">
                 <div class="form-group">
                   <label for="location-city">City</label>
-                  <input type="text" class="form-control" id="location-city" value="Fishkill">
+                  <input type="text" class="form-control" id="location-city" value="" placeholder="City">
                 </div>
                 <div class="form-row">
                   <div class="form-group">
                     <label for="location-state">State</label>
-                    <input type="text" class="form-control" id="location-state" value="NY">
+                    <input type="text" class="form-control" id="location-state" value="" placeholder="State">
                   </div>
                   <div class="form-group">
                     <label for="location-zip">ZIP</label>
-                    <input type="text" class="form-control" id="location-zip" value="12524">
+                    <input type="text" class="form-control" id="location-zip" value="" placeholder="ZIP">
                   </div>
                 </div>
               </div>
@@ -1411,19 +1411,19 @@
 
     // Default parameters for restoration
     const defaultEventData = {
-      title: "Aariz and Aahil's Birthday!",
-      date: "06/20/2026",
-      time: "5pm",
-      host: "Sohana",
-      hostEmail: "sohana@example.com",
+      title: "Event Title",
+      date: "",
+      time: "",
+      host: "",
+      hostEmail: "",
       formspreeId: "xrevbnob",
-      phone: "9173855477",
-      locName: "Our House",
-      address: "162 Riverview Dr",
-      city: "Fishkill",
-      state: "NY",
-      zip: "12524",
-      info: "Please join us in celebrating Aariz and Aahil's birthday at our home on Saturday, June 20th, at 5:00 PM. We would love to celebrate this special day with you!"
+      phone: "",
+      locName: "",
+      address: "",
+      city: "",
+      state: "",
+      zip: "",
+      info: "We would love to celebrate this special day with you!"
     };
 
     // Card background confetti canvas generation (adds modern sparkliness!)

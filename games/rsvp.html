@@ -598,7 +598,7 @@
 
     <!-- RSVP FORM SECTION -->
     <div class="rsvp-form-container" id="rsvp-form-panel">
-      <h2 class="form-title" id="rsvp-form-title">Will you join Sohana?</h2>
+      <h2 class="form-title" id="rsvp-form-title">RSVP to this Event</h2>
       <p class="form-desc" style="margin-bottom: 16px;">Please complete the form below to register your RSVP details.</p>
 
       <!-- Event Details Summary Box -->
@@ -641,7 +641,7 @@
           </div>
         </div>
 
-        <div class="form-group" id="guests-count-group">
+        <div class="form-group" id="guests-count-group" style="display: none;">
           <label class="form-label" for="guests-count">Number of Attendees</label>
           <select class="form-control" id="guests-count">
             <option value="1" selected>1 Guest</option>
@@ -861,7 +861,8 @@
       let guestName = typedName || inviteData.guest || '';
 
       if (!guestName || guestName === '') {
-        alert("Please enter your name to submit your RSVP.");
+        alert("Please enter your full name to submit your RSVP.");
+        // Re-enable button so guest can retry
         btnSubmit.disabled = false;
         btnSubmit.innerHTML = `Submit RSVP Response`;
         return;
@@ -943,9 +944,7 @@
       
       const trigger = document.getElementById('btn-mailto-trigger');
       trigger.setAttribute('href', mailtoUrl);
-      
-      // Auto open mail client too
-      window.location.href = mailtoUrl;
+      // Guest must click the button — do NOT auto-fire the mail client
     }
 
     // Confetti animation on success
