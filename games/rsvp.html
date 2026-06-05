@@ -670,15 +670,6 @@
       </div>
       <h2 class="form-title" style="color: #38a169; margin-bottom: 12px;">RSVP Sent Successfully!</h2>
       <p class="form-desc" style="margin-bottom: 10px;">Your response has been delivered. Thank you for notifying the host.</p>
-      
-      <!-- Mailto fallback display block -->
-      <div class="mailto-notice-modal" id="mailto-fallback-notice">
-        <h4 style="font-weight: 700; margin-bottom: 6px;"><i class="fa-solid fa-envelope-open-text"></i> Email Response Required:</h4>
-        <p style="margin-bottom: 12px;" id="mailto-fallback-text">Since the host has not configured a Formspree Form ID, please click the button below to dispatch your pre-filled RSVP response directly to the host's email.</p>
-        <a href="#" class="btn-submit" id="btn-mailto-trigger" style="text-decoration: none;">
-          <i class="fa-solid fa-paper-plane"></i> Send RSVP Email Now
-        </a>
-      </div>
     </div>
 
   </div>
@@ -847,7 +838,6 @@
       const btnSubmit = document.getElementById('btn-submit-rsvp');
       const formPanel = document.getElementById('rsvp-form-panel');
       const successPanel = document.getElementById('rsvp-success-panel');
-      const mailNotice = document.getElementById('mailto-fallback-notice');
       
       const attendeesCount = selectedAttendance === 'Accept' ? document.getElementById('guests-count').value : 0;
       const message = document.getElementById('guest-dietary').value;
@@ -871,9 +861,15 @@
       btnSubmit.disabled = true;
       btnSubmit.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Submitting Response...`;
 
-      // Check if host has configured Formspree Form ID
+      // Show success immediately — don't make the guest wait on network
+      function showSuccess() {
+        formPanel.style.display = 'none';
+        successPanel.style.display = 'block';
+        triggerConfetti();
+      }
+
+      // Fire Formspree silently in the background if configured
       if (inviteData.formspree_id && inviteData.formspree_id.trim() !== '') {
-        // Send actual email using Formspree endpoint!
         const formData = {
           _replyto: guestEmail || 'not-provided@example.com',
           "Guest Name": guestName,
@@ -886,65 +882,13 @@
 
         fetch(`https://formspree.io/f/${inviteData.formspree_id}`, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(formData)
-        })
-        .then(async (response) => {
-          if (response.ok) {
-            btnSubmit.innerHTML = 'Submitted!';
-            formPanel.style.display = 'none';
-            successPanel.style.display = 'block';
-            triggerConfetti();
-          } else {
-            console.error("Formspree response not ok:", response);
-            enableMailtoFallback(guestName, guestEmail, attendeesCount, message, formPanel, successPanel, mailNotice);
-          }
-        })
-        .catch(err => {
-          console.error("Formspree submit error:", err);
-          // Fallback to mailto if API fails
-          enableMailtoFallback(guestName, guestEmail, attendeesCount, message, formPanel, successPanel, mailNotice);
-        });
-      } else {
-        // Fallback directly to prefilled Mailto client
-        enableMailtoFallback(guestName, guestEmail, attendeesCount, message, formPanel, successPanel, mailNotice);
+        }).catch(err => console.warn('Formspree delivery note:', err));
       }
-    }
 
-    function enableMailtoFallback(guestName, guestEmail, count, msg, formPanel, successPanel, mailNotice) {
-      formPanel.style.display = 'none';
-      successPanel.style.display = 'block';
-      mailNotice.style.display = 'block';
-      
-      // Update message text dynamically depending on cause
-      const fallbackTextEl = document.getElementById('mailto-fallback-text');
-      if (inviteData.formspree_id && inviteData.formspree_id.trim() !== '') {
-        fallbackTextEl.innerText = "We encountered an issue delivering your response automatically (this happens when testing locally due to CORS security). Please click the button below to dispatch your pre-filled RSVP response directly to the host's email.";
-      } else {
-        fallbackTextEl.innerText = "Since the host has not configured a Formspree Form ID, please click the button below to dispatch your pre-filled RSVP response directly to the host's email.";
-      }
-      
-      // Construct mailto link parameters
-      const subject = encodeURIComponent(`RSVP Response: ${guestName} - ${inviteData.title}`);
-      const body = encodeURIComponent(
-        `Hi ${inviteData.host || 'Host'},\n\n` +
-        `This is my RSVP response to ${inviteData.title}:\n\n` +
-        `Guest Name: ${guestName}\n` +
-        `Guest Email: ${guestEmail || 'Not Provided'}\n` +
-        `Attendance Status: ${selectedAttendance === 'Accept' ? 'Accept with Pleasure' : 'Decline with Regret'}\n` +
-        `Number of Attendees: ${count}\n` +
-        `Dietary / Message: ${msg || 'None'}\n\n` +
-        `Warmly,\n${guestName}`
-      );
-      
-      const mailtoUrl = `mailto:${inviteData.host_email || 'host@example.com'}?subject=${subject}&body=${body}`;
-      
-      const trigger = document.getElementById('btn-mailto-trigger');
-      trigger.setAttribute('href', mailtoUrl);
-      // Guest must click the button — do NOT auto-fire the mail client
+      // Always show the clean success screen — no fallback UI
+      showSuccess();
     }
 
     // Confetti animation on success
