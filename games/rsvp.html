@@ -827,7 +827,7 @@
     }
 
     // Submit RSVP Response
-    function submitRsvpResponse(e) {
+    async function submitRsvpResponse(e) {
       e.preventDefault();
       
       if (!selectedAttendance) {
@@ -861,34 +861,38 @@
       btnSubmit.disabled = true;
       btnSubmit.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Submitting Response...`;
 
-      // Show success immediately — don't make the guest wait on network
-      function showSuccess() {
-        formPanel.style.display = 'none';
-        successPanel.style.display = 'block';
-        triggerConfetti();
-      }
+      const formData = {
+        _replyto: guestEmail || 'not-provided@example.com',
+        "Guest Name": guestName,
+        "Guest Email": guestEmail || 'Not Provided',
+        "Event": inviteData.title,
+        "Attendance": selectedAttendance,
+        "Attendees Count": attendeesCount,
+        "Message or Dietary": message || 'None'
+      };
 
-      // Fire Formspree silently in the background if configured
-      if (inviteData.formspree_id && inviteData.formspree_id.trim() !== '') {
-        const formData = {
-          _replyto: guestEmail || 'not-provided@example.com',
-          "Guest Name": guestName,
-          "Guest Email": guestEmail || 'Not Provided',
-          "Event": inviteData.title,
-          "Attendance": selectedAttendance,
-          "Attendees Count": attendeesCount,
-          "Message or Dietary": message || 'None'
-        };
-
-        fetch(`https://formspree.io/f/${inviteData.formspree_id}`, {
+      try {
+        const response = await fetch(`https://formspree.io/f/${inviteData.formspree_id}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(formData)
-        }).catch(err => console.warn('Formspree delivery note:', err));
-      }
+        });
 
-      // Always show the clean success screen — no fallback UI
-      showSuccess();
+        if (!response.ok) {
+          throw new Error(`Formspree returned ${response.status}`);
+        }
+
+        // Success — show confirmation and confetti
+        formPanel.style.display = 'none';
+        successPanel.style.display = 'block';
+        triggerConfetti();
+
+      } catch (err) {
+        console.error('RSVP submission error:', err);
+        btnSubmit.disabled = false;
+        btnSubmit.innerHTML = `Submit RSVP Response`;
+        alert('Something went wrong sending your RSVP. Please check your connection and try again.');
+      }
     }
 
     // Confetti animation on success
