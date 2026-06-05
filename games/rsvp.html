@@ -655,7 +655,7 @@
       <!-- Mailto fallback display block -->
       <div class="mailto-notice-modal" id="mailto-fallback-notice">
         <h4 style="font-weight: 700; margin-bottom: 6px;"><i class="fa-solid fa-envelope-open-text"></i> Email Response Required:</h4>
-        <p style="margin-bottom: 12px;">Since the host has not configured a Formspree Form ID, please click the button below to dispatch your pre-filled RSVP response directly to the host's email.</p>
+        <p style="margin-bottom: 12px;" id="mailto-fallback-text">Since the host has not configured a Formspree Form ID, please click the button below to dispatch your pre-filled RSVP response directly to the host's email.</p>
         <a href="#" class="btn-submit" id="btn-mailto-trigger" style="text-decoration: none;">
           <i class="fa-solid fa-paper-plane"></i> Send RSVP Email Now
         </a>
@@ -881,6 +881,14 @@
       formPanel.style.display = 'none';
       successPanel.style.display = 'block';
       mailNotice.style.display = 'block';
+      
+      // Update message text dynamically depending on cause
+      const fallbackTextEl = document.getElementById('mailto-fallback-text');
+      if (inviteData.formspree_id && inviteData.formspree_id.trim() !== '') {
+        fallbackTextEl.innerText = "We encountered an issue delivering your response automatically (this happens when testing locally due to CORS security). Please click the button below to dispatch your pre-filled RSVP response directly to the host's email.";
+      } else {
+        fallbackTextEl.innerText = "Since the host has not configured a Formspree Form ID, please click the button below to dispatch your pre-filled RSVP response directly to the host's email.";
+      }
       
       // Construct mailto link parameters
       const subject = encodeURIComponent(`RSVP Response: ${guestName} - ${inviteData.title}`);
