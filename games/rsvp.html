@@ -167,7 +167,7 @@
       width: 350px;
       height: 290px;
       z-index: 3;
-      transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.8s;
+      transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.8s, height 0.8s ease-in-out;
       transform: translateY(10px) scale(0.95);
       opacity: 0.8;
       overflow: hidden;
@@ -191,22 +191,30 @@
       opacity: 1;
       box-shadow: 0 15px 30px rgba(0,0,0,0.3);
       pointer-events: auto;
+      height: 450px;
+      overflow: visible;
     }
 
     @media (max-width: 480px) {
       .envelope.open .envelope-card-holder {
         transform: translateY(-110px) scale(1.05);
+        height: 450px;
+        overflow: visible;
       }
     }
 
     .envelope.open.card-maximized .envelope-card-holder {
       transform: translateY(-190px) scale(1.18);
       box-shadow: 0 20px 45px rgba(0,0,0,0.35);
+      height: 450px;
+      overflow: visible;
     }
 
     @media (max-width: 480px) {
       .envelope.open.card-maximized .envelope-card-holder {
         transform: translateY(-130px) scale(1.15);
+        height: 450px;
+        overflow: visible;
       }
     }
 
@@ -698,6 +706,8 @@
       if (!inviteData) return;
 
       // Card Face
+      document.getElementById('card-sub-header').innerText = inviteData.prefix || "Join Us To Celebrate";
+      document.getElementById('card-script-title').innerText = inviteData.cursive || "Birthday Party!";
       document.getElementById('card-main-title').innerText = inviteData.title || "EVENT TITLE";
       document.getElementById('card-date').innerText = inviteData.date || "";
       document.getElementById('card-time').innerText = inviteData.time || "";
