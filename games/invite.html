@@ -801,7 +801,7 @@
       width: 350px;
       height: 290px;
       z-index: 3;
-      transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.8s;
+      transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.8s, height 0.8s ease-in-out;
       transform: translateY(10px) scale(0.95);
       opacity: 0.8;
       overflow: hidden;
@@ -818,12 +818,16 @@
       box-shadow: 0 15px 30px rgba(0,0,0,0.3);
       cursor: pointer;
       pointer-events: auto;
+      height: 450px;
+      overflow: visible;
     }
 
     /* Extra state where card is fully popped up and details displayed */
     .envelope.open.card-maximized .envelope-card-holder {
       transform: translateY(-220px) scale(1.2) rotate(-2deg);
       box-shadow: 0 20px 45px rgba(0,0,0,0.4);
+      height: 450px;
+      overflow: visible;
     }
 
     .envelope-tip {
@@ -1856,6 +1860,9 @@
       const virtualLink = document.getElementById('virtual-link').value;
       const addInfo = document.getElementById('additional-info-editor').innerHTML;
 
+      const prefixText = document.getElementById('card-text-prefix').innerText;
+      const cursiveText = document.getElementById('card-text-cursive').innerText;
+
       const eventData = {
         title: eventTitle,
         date: eventDate,
@@ -1870,7 +1877,9 @@
         zip: locZip,
         isVirtual: isVirtual,
         virtualLink: virtualLink,
-        info: addInfo
+        info: addInfo,
+        prefix: prefixText,
+        cursive: cursiveText
       };
 
       // Safe base64 encoding supporting unicode
