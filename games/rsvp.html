@@ -852,12 +852,13 @@
       const attendeesCount = selectedAttendance === 'Accept' ? document.getElementById('guests-count').value : 0;
       const message = document.getElementById('guest-dietary').value;
       
-      let guestName = inviteData.guest;
       let guestEmail = inviteData.guest_email || 'Not Provided';
-      
-      if (!guestName) {
-        guestName = document.getElementById('guest-name-input').value.trim();
-      }
+
+      // Always prefer what the guest actually typed in the name field (if visible),
+      // otherwise fall back to the name embedded in the invite URL.
+      const nameInputEl = document.getElementById('guest-name-input');
+      const typedName = nameInputEl ? nameInputEl.value.trim() : '';
+      let guestName = typedName || inviteData.guest || '';
 
       if (!guestName || guestName === '') {
         alert("Please enter your name to submit your RSVP.");
