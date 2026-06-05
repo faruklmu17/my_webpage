@@ -142,7 +142,7 @@
       "specs": [
         {
           "title": "Page header and elements are fully rendered",
-          "ok": true,
+          "ok": false,
           "tags": [],
           "tests": [
             {
@@ -155,28 +155,42 @@
                 {
                   "workerIndex": 0,
                   "parallelIndex": 0,
-                  "status": "passed",
-                  "duration": 12689,
-                  "errors": [],
+                  "status": "timedOut",
+                  "duration": 55261,
+                  "error": {
+                    "message": "\u001b[31mTearing down \"context\" exceeded the test timeout of 30000ms.\u001b[39m",
+                    "stack": "\u001b[31mTearing down \"context\" exceeded the test timeout of 30000ms.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTearing down \"context\" exceeded the test timeout of 30000ms.\u001b[39m"
+                    }
+                  ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-05-22T15:18:55.303Z",
+                  "startTime": "2026-06-02T04:08:53.024Z",
                   "annotations": [],
-                  "attachments": []
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/farukhasan/Desktop/Projects/my_webpage/test-results/ai_civilization-Page-header-and-elements-are-fully-rendered-chromium/test-failed-1.png"
+                    }
+                  ]
                 }
               ],
-              "status": "expected"
+              "status": "unexpected"
             }
           ],
           "id": "7bc49b524edf9d15c061-485de314b4f12283f713",
           "file": "ai_civilization.spec.ts",
-          "line": 19,
-          "column": 5
+          "line": 20,
+          "column": 16
         },
         {
           "title": "Planet canvas click increments Compute Power successfully",
-          "ok": true,
+          "ok": false,
           "tags": [],
           "tests": [
             {
@@ -189,28 +203,45 @@
                 {
                   "workerIndex": 1,
                   "parallelIndex": 1,
-                  "status": "passed",
-                  "duration": 12710,
-                  "errors": [],
+                  "status": "timedOut",
+                  "duration": 64271,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "message": "\u001b[31mTearing down \"context\" exceeded the test timeout of 30000ms.\u001b[39m"
+                    }
+                  ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-05-22T15:18:55.255Z",
+                  "startTime": "2026-06-02T04:08:53.065Z",
                   "annotations": [],
-                  "attachments": []
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/farukhasan/Desktop/Projects/my_webpage/test-results/ai_civilization-Planet-can-532d2--Compute-Power-successfully-chromium/error-context.md"
+                    }
+                  ]
                 }
               ],
-              "status": "expected"
+              "status": "unexpected"
             }
           ],
           "id": "7bc49b524edf9d15c061-2141e63edb23e719d136",
           "file": "ai_civilization.spec.ts",
-          "line": 38,
-          "column": 5
+          "line": 40,
+          "column": 16
         },
         {
           "title": "Sidebar tabs navigation updates content active classes correctly",
-          "ok": true,
+          "ok": false,
           "tags": [],
           "tests": [
             {
@@ -223,28 +254,53 @@
                 {
                   "workerIndex": 2,
                   "parallelIndex": 2,
-                  "status": "passed",
-                  "duration": 12911,
-                  "errors": [],
+                  "status": "timedOut",
+                  "duration": 62736,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "/Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts",
+                        "column": 14,
+                        "line": 78
+                      },
+                      "message": "Error: page.click: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#tab-cooling')\u001b[22m\n\u001b[2m    - locator resolved to <button class=\"tab-btn\" id=\"tab-cooling\" onclick=\"switchTab('cooling')\">…</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\n\n  76 |\n  77 |   // Switch to Algorithmic Research\n> 78 |   await page.click('#tab-research');\n     |              ^\n  79 |   await expect(page.locator('#content-research')).toHaveClass(/active/);\n  80 | });\n  81 |\n    at /Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts:78:14"
+                    },
+                    {
+                      "message": "\u001b[31mTearing down \"context\" exceeded the test timeout of 30000ms.\u001b[39m"
+                    }
+                  ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-05-22T15:18:55.273Z",
+                  "startTime": "2026-06-02T04:08:53.017Z",
                   "annotations": [],
-                  "attachments": []
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/farukhasan/Desktop/Projects/my_webpage/test-results/ai_civilization-Sidebar-ta-44658-nt-active-classes-correctly-chromium/error-context.md"
+                    }
+                  ]
                 }
               ],
-              "status": "expected"
+              "status": "unexpected"
             }
           ],
           "id": "7bc49b524edf9d15c061-e769c124ac86c43ea840",
           "file": "ai_civilization.spec.ts",
-          "line": 63,
-          "column": 5
+          "line": 65,
+          "column": 16
         },
         {
           "title": "Injecting compute and buying basic CPU elevates hardware count & power demand",
-          "ok": true,
+          "ok": false,
           "tags": [],
           "tests": [
             {
@@ -257,24 +313,46 @@
                 {
                   "workerIndex": 3,
                   "parallelIndex": 3,
-                  "status": "passed",
-                  "duration": 15663,
-                  "errors": [],
+                  "status": "timedOut",
+                  "duration": 61694,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "message": "\u001b[31mTearing down \"context\" exceeded the test timeout of 30000ms.\u001b[39m"
+                    }
+                  ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-05-22T15:18:55.266Z",
+                  "startTime": "2026-06-02T04:08:53.023Z",
                   "annotations": [],
-                  "attachments": []
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/farukhasan/Desktop/Projects/my_webpage/test-results/ai_civilization-Injecting--8f01d-hardware-count-power-demand-chromium/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/farukhasan/Desktop/Projects/my_webpage/test-results/ai_civilization-Injecting--8f01d-hardware-count-power-demand-chromium/error-context.md"
+                    }
+                  ]
                 }
               ],
-              "status": "expected"
+              "status": "unexpected"
             }
           ],
           "id": "7bc49b524edf9d15c061-545ad25438c427ddd536",
           "file": "ai_civilization.spec.ts",
-          "line": 82,
-          "column": 5
+          "line": 85,
+          "column": 16
         },
         {
           "title": "Deploys solar array & wind turbine and increases green power grid supply",
@@ -289,15 +367,15 @@
               "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 0,
+                  "workerIndex": 4,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 5677,
+                  "duration": 4269,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-05-22T15:19:08.731Z",
+                  "startTime": "2026-06-02T04:09:55.400Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -307,8 +385,8 @@
           ],
           "id": "7bc49b524edf9d15c061-5790d589d0ecaed1cac2",
           "file": "ai_civilization.spec.ts",
-          "line": 107,
-          "column": 5
+          "line": 111,
+          "column": 16
         },
         {
           "title": "High core temperature triggers warning class and throttling status, cooling fan reduces core heat",
@@ -323,15 +401,15 @@
               "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 1,
-                  "parallelIndex": 1,
+                  "workerIndex": 5,
+                  "parallelIndex": 2,
                   "status": "passed",
-                  "duration": 5089,
+                  "duration": 6425,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-05-22T15:19:08.854Z",
+                  "startTime": "2026-06-02T04:10:03.429Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -341,8 +419,8 @@
           ],
           "id": "7bc49b524edf9d15c061-b0d28b416c87a9f2078f",
           "file": "ai_civilization.spec.ts",
-          "line": 129,
-          "column": 5
+          "line": 134,
+          "column": 16
         },
         {
           "title": "Resuming game from local storage loads state correctly",
@@ -357,15 +435,15 @@
               "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 2,
-                  "parallelIndex": 2,
+                  "workerIndex": 6,
+                  "parallelIndex": 3,
                   "status": "passed",
-                  "duration": 5523,
+                  "duration": 6374,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-05-22T15:19:09.190Z",
+                  "startTime": "2026-06-02T04:10:03.392Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -375,8 +453,8 @@
           ],
           "id": "7bc49b524edf9d15c061-9f911135e3480af54686",
           "file": "ai_civilization.spec.ts",
-          "line": 158,
-          "column": 5
+          "line": 164,
+          "column": 16
         },
         {
           "title": "Offline Standby progression calculates and harvests compute correctly on resuming",
@@ -391,15 +469,15 @@
               "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 3,
-                  "parallelIndex": 3,
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 3685,
+                  "duration": 2456,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-05-22T15:19:11.992Z",
+                  "startTime": "2026-06-02T04:10:00.641Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -409,19 +487,1227 @@
           ],
           "id": "7bc49b524edf9d15c061-7fab1a2a722ae08e5cc8",
           "file": "ai_civilization.spec.ts",
-          "line": 199,
-          "column": 5
+          "line": 227,
+          "column": 16
+        },
+        {
+          "title": "Page header and elements are fully rendered",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 13799,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:10:04.233Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-17a8cfd873bc2f99fc3f",
+          "file": "ai_civilization.spec.ts",
+          "line": 20,
+          "column": 16
+        },
+        {
+          "title": "Planet canvas click increments Compute Power successfully",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 17895,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:10:10.930Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-26fbc0fe9e803a6e2f5d",
+          "file": "ai_civilization.spec.ts",
+          "line": 40,
+          "column": 16
+        },
+        {
+          "title": "Sidebar tabs navigation updates content active classes correctly",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 21525,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:10:12.155Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-da55e759a9cdd8352dc5",
+          "file": "ai_civilization.spec.ts",
+          "line": 65,
+          "column": 16
+        },
+        {
+          "title": "Injecting compute and buying basic CPU elevates hardware count & power demand",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 17306,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:10:12.150Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-a9d80a752f055d250478",
+          "file": "ai_civilization.spec.ts",
+          "line": 85,
+          "column": 16
+        },
+        {
+          "title": "Deploys solar array & wind turbine and increases green power grid supply",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 12215,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:10:26.047Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-ef5ff21a8e2063f4a000",
+          "file": "ai_civilization.spec.ts",
+          "line": 111,
+          "column": 16
+        },
+        {
+          "title": "High core temperature triggers warning class and throttling status, cooling fan reduces core heat",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8578,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:10:31.158Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-542e4326f88d589e4016",
+          "file": "ai_civilization.spec.ts",
+          "line": 134,
+          "column": 16
+        },
+        {
+          "title": "Resuming game from local storage loads state correctly",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 10,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 4966,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:10:36.525Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-c302609867969cb07160",
+          "file": "ai_civilization.spec.ts",
+          "line": 164,
+          "column": 16
+        },
+        {
+          "title": "Offline Standby progression calculates and harvests compute correctly on resuming",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 9,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 6064,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:10:36.544Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-ecadc950ea7d86ebeecb",
+          "file": "ai_civilization.spec.ts",
+          "line": 227,
+          "column": 16
+        },
+        {
+          "title": "Page header and elements are fully rendered",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 10347,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:10:42.399Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-7944fea528a78fe7cf08",
+          "file": "ai_civilization.spec.ts",
+          "line": 20,
+          "column": 16
+        },
+        {
+          "title": "Planet canvas click increments Compute Power successfully",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 12,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 9712,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m3\u001b[39m\nReceived:    \u001b[31m2\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m3\u001b[39m\nReceived:    \u001b[31m2\u001b[39m\n    at /Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts:62:61",
+                    "location": {
+                      "file": "/Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts",
+                      "column": 61,
+                      "line": 62
+                    },
+                    "snippet": "  60 |   }\n  61 | });\n> 62 |\n     | ^\n  63 | test('Sidebar tabs navigation updates content active classes correctly', async ({ page }) => {\n  64 |   // Default active tab should be hardware\n  65 |   await expect(page.locator('#content-hardware')).toHaveClass(/active/);"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts",
+                        "column": 61,
+                        "line": 62
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m3\u001b[39m\nReceived:    \u001b[31m2\u001b[39m\n\n  60 |   }\n  61 | });\n> 62 |\n     | ^\n  63 | test('Sidebar tabs navigation updates content active classes correctly', async ({ page }) => {\n  64 |   // Default active tab should be hardware\n  65 |   await expect(page.locator('#content-hardware')).toHaveClass(/active/);\n    at /Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts:62:61"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:10:43.335Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/farukhasan/Desktop/Projects/my_webpage/test-results/ai_civilization-Planet-can-532d2--Compute-Power-successfully-webkit/test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/Users/farukhasan/Desktop/Projects/my_webpage/test-results/ai_civilization-Planet-can-532d2--Compute-Power-successfully-webkit/video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/farukhasan/Desktop/Projects/my_webpage/test-results/ai_civilization-Planet-can-532d2--Compute-Power-successfully-webkit/error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts",
+                    "column": 61,
+                    "line": 62
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-fb060d771ab930547ee3",
+          "file": "ai_civilization.spec.ts",
+          "line": 40,
+          "column": 16
+        },
+        {
+          "title": "Sidebar tabs navigation updates content active classes correctly",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 13,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 6973,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:10:46.481Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-3dc94736ca301fa0e817",
+          "file": "ai_civilization.spec.ts",
+          "line": 65,
+          "column": 16
+        },
+        {
+          "title": "Injecting compute and buying basic CPU elevates hardware count & power demand",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 14,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 6845,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:10:53.707Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-85b08e2a279d92b92ace",
+          "file": "ai_civilization.spec.ts",
+          "line": 85,
+          "column": 16
+        },
+        {
+          "title": "Deploys solar array & wind turbine and increases green power grid supply",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 6628,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:10:53.691Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-07600d3a4a5b85be363d",
+          "file": "ai_civilization.spec.ts",
+          "line": 111,
+          "column": 16
+        },
+        {
+          "title": "High core temperature triggers warning class and throttling status, cooling fan reduces core heat",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 15,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5121,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:11:03.046Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-154d1bf74335007d6c5d",
+          "file": "ai_civilization.spec.ts",
+          "line": 134,
+          "column": 16
+        },
+        {
+          "title": "Resuming game from local storage loads state correctly",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 13,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 6777,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:10:54.384Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-c59544a31899cd2875ec",
+          "file": "ai_civilization.spec.ts",
+          "line": 164,
+          "column": 16
+        },
+        {
+          "title": "Offline Standby progression calculates and harvests compute correctly on resuming",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 11,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3019,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:11:00.368Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-d05838fe61fea2d26d67",
+          "file": "ai_civilization.spec.ts",
+          "line": 227,
+          "column": 16
+        },
+        {
+          "title": "Page header and elements are fully rendered",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Chrome",
+              "projectName": "Mobile Chrome",
+              "results": [
+                {
+                  "workerIndex": 16,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 3654,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:11:04.230Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-a9adf1bbc2d7c561fa99",
+          "file": "ai_civilization.spec.ts",
+          "line": 20,
+          "column": 16
+        },
+        {
+          "title": "Planet canvas click increments Compute Power successfully",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Chrome",
+              "projectName": "Mobile Chrome",
+              "results": [
+                {
+                  "workerIndex": 17,
+                  "parallelIndex": 3,
+                  "status": "failed",
+                  "duration": 3886,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m3\u001b[39m\nReceived:    \u001b[31m0\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m3\u001b[39m\nReceived:    \u001b[31m0\u001b[39m\n    at /Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts:62:61",
+                    "location": {
+                      "file": "/Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts",
+                      "column": 61,
+                      "line": 62
+                    },
+                    "snippet": "  60 |   }\n  61 | });\n> 62 |\n     | ^\n  63 | test('Sidebar tabs navigation updates content active classes correctly', async ({ page }) => {\n  64 |   // Default active tab should be hardware\n  65 |   await expect(page.locator('#content-hardware')).toHaveClass(/active/);"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts",
+                        "column": 61,
+                        "line": 62
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m3\u001b[39m\nReceived:    \u001b[31m0\u001b[39m\n\n  60 |   }\n  61 | });\n> 62 |\n     | ^\n  63 | test('Sidebar tabs navigation updates content active classes correctly', async ({ page }) => {\n  64 |   // Default active tab should be hardware\n  65 |   await expect(page.locator('#content-hardware')).toHaveClass(/active/);\n    at /Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts:62:61"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:11:04.281Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/farukhasan/Desktop/Projects/my_webpage/test-results/ai_civilization-Planet-can-532d2--Compute-Power-successfully-Mobile-Chrome/test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/Users/farukhasan/Desktop/Projects/my_webpage/test-results/ai_civilization-Planet-can-532d2--Compute-Power-successfully-Mobile-Chrome/video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/farukhasan/Desktop/Projects/my_webpage/test-results/ai_civilization-Planet-can-532d2--Compute-Power-successfully-Mobile-Chrome/error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts",
+                    "column": 61,
+                    "line": 62
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-ac613385fa2b50359292",
+          "file": "ai_civilization.spec.ts",
+          "line": 40,
+          "column": 16
+        },
+        {
+          "title": "Sidebar tabs navigation updates content active classes correctly",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Chrome",
+              "projectName": "Mobile Chrome",
+              "results": [
+                {
+                  "workerIndex": 18,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3237,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:11:08.998Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-5a094def0a44bcc5c608",
+          "file": "ai_civilization.spec.ts",
+          "line": 65,
+          "column": 16
+        },
+        {
+          "title": "Injecting compute and buying basic CPU elevates hardware count & power demand",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Chrome",
+              "projectName": "Mobile Chrome",
+              "results": [
+                {
+                  "workerIndex": 19,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2708,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:11:14.711Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-2c2a7d8486a5a3509aa2",
+          "file": "ai_civilization.spec.ts",
+          "line": 85,
+          "column": 16
+        },
+        {
+          "title": "Deploys solar array & wind turbine and increases green power grid supply",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Chrome",
+              "projectName": "Mobile Chrome",
+              "results": [
+                {
+                  "workerIndex": 16,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 2526,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:11:08.926Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-83b9ac5939f7b6a42dca",
+          "file": "ai_civilization.spec.ts",
+          "line": 111,
+          "column": 16
+        },
+        {
+          "title": "High core temperature triggers warning class and throttling status, cooling fan reduces core heat",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Chrome",
+              "projectName": "Mobile Chrome",
+              "results": [
+                {
+                  "workerIndex": 20,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 2768,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:11:14.933Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-9e6ae6b87608d31e4206",
+          "file": "ai_civilization.spec.ts",
+          "line": 134,
+          "column": 16
+        },
+        {
+          "title": "Resuming game from local storage loads state correctly",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Chrome",
+              "projectName": "Mobile Chrome",
+              "results": [
+                {
+                  "workerIndex": 16,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 2425,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:11:11.475Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-77883d8848f8ab81ef51",
+          "file": "ai_civilization.spec.ts",
+          "line": 164,
+          "column": 16
+        },
+        {
+          "title": "Offline Standby progression calculates and harvests compute correctly on resuming",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Chrome",
+              "projectName": "Mobile Chrome",
+              "results": [
+                {
+                  "workerIndex": 18,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2466,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:11:12.582Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-37d161a541fa713f5ad3",
+          "file": "ai_civilization.spec.ts",
+          "line": 227,
+          "column": 16
+        },
+        {
+          "title": "Page header and elements are fully rendered",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Safari",
+              "projectName": "Mobile Safari",
+              "results": [
+                {
+                  "workerIndex": 21,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 2741,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:11:18.274Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-40eda31a697f90842896",
+          "file": "ai_civilization.spec.ts",
+          "line": 20,
+          "column": 16
+        },
+        {
+          "title": "Planet canvas click increments Compute Power successfully",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Safari",
+              "projectName": "Mobile Safari",
+              "results": [
+                {
+                  "workerIndex": 22,
+                  "parallelIndex": 1,
+                  "status": "failed",
+                  "duration": 6558,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m3\u001b[39m\nReceived:    \u001b[31m0\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m3\u001b[39m\nReceived:    \u001b[31m0\u001b[39m\n    at /Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts:62:61",
+                    "location": {
+                      "file": "/Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts",
+                      "column": 61,
+                      "line": 62
+                    },
+                    "snippet": "  60 |   }\n  61 | });\n> 62 |\n     | ^\n  63 | test('Sidebar tabs navigation updates content active classes correctly', async ({ page }) => {\n  64 |   // Default active tab should be hardware\n  65 |   await expect(page.locator('#content-hardware')).toHaveClass(/active/);"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts",
+                        "column": 61,
+                        "line": 62
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: >= \u001b[32m3\u001b[39m\nReceived:    \u001b[31m0\u001b[39m\n\n  60 |   }\n  61 | });\n> 62 |\n     | ^\n  63 | test('Sidebar tabs navigation updates content active classes correctly', async ({ page }) => {\n  64 |   // Default active tab should be hardware\n  65 |   await expect(page.locator('#content-hardware')).toHaveClass(/active/);\n    at /Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts:62:61"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:11:19.448Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/farukhasan/Desktop/Projects/my_webpage/test-results/ai_civilization-Planet-can-532d2--Compute-Power-successfully-Mobile-Safari/test-failed-1.png"
+                    },
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/Users/farukhasan/Desktop/Projects/my_webpage/test-results/ai_civilization-Planet-can-532d2--Compute-Power-successfully-Mobile-Safari/video.webm"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/farukhasan/Desktop/Projects/my_webpage/test-results/ai_civilization-Planet-can-532d2--Compute-Power-successfully-Mobile-Safari/error-context.md"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts",
+                    "column": 61,
+                    "line": 62
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-7adefc00458659f5d048",
+          "file": "ai_civilization.spec.ts",
+          "line": 40,
+          "column": 16
+        },
+        {
+          "title": "Sidebar tabs navigation updates content active classes correctly",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Safari",
+              "projectName": "Mobile Safari",
+              "results": [
+                {
+                  "workerIndex": 23,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9624,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:11:20.892Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-9ff71974b3e7e2c8d7a1",
+          "file": "ai_civilization.spec.ts",
+          "line": 65,
+          "column": 16
+        },
+        {
+          "title": "Injecting compute and buying basic CPU elevates hardware count & power demand",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Safari",
+              "projectName": "Mobile Safari",
+              "results": [
+                {
+                  "workerIndex": 24,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 7811,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:11:22.532Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-ce8f8fab87854d505546",
+          "file": "ai_civilization.spec.ts",
+          "line": 85,
+          "column": 16
+        },
+        {
+          "title": "Deploys solar array & wind turbine and increases green power grid supply",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Safari",
+              "projectName": "Mobile Safari",
+              "results": [
+                {
+                  "workerIndex": 21,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 9409,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:11:21.432Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-beb7ecf5e3ed08aa39d3",
+          "file": "ai_civilization.spec.ts",
+          "line": 111,
+          "column": 16
+        },
+        {
+          "title": "High core temperature triggers warning class and throttling status, cooling fan reduces core heat",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Safari",
+              "projectName": "Mobile Safari",
+              "results": [
+                {
+                  "workerIndex": 25,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1717,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:11:34.141Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-4b5696a19b013955d3d8",
+          "file": "ai_civilization.spec.ts",
+          "line": 134,
+          "column": 16
+        },
+        {
+          "title": "Resuming game from local storage loads state correctly",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Safari",
+              "projectName": "Mobile Safari",
+              "results": [
+                {
+                  "workerIndex": 21,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 2661,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:11:31.123Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-841bce6193789a4a6b6a",
+          "file": "ai_civilization.spec.ts",
+          "line": 164,
+          "column": 16
+        },
+        {
+          "title": "Offline Standby progression calculates and harvests compute correctly on resuming",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "Mobile Safari",
+              "projectName": "Mobile Safari",
+              "results": [
+                {
+                  "workerIndex": 23,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2565,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-06-02T04:11:31.528Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "7bc49b524edf9d15c061-a81eb2275afe10838a31",
+          "file": "ai_civilization.spec.ts",
+          "line": 227,
+          "column": 16
         }
       ]
     }
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-05-22T15:18:53.195Z",
-    "duration": 23030.762,
-    "expected": 8,
+    "startTime": "2026-06-02T04:08:50.686Z",
+    "duration": 165513.997,
+    "expected": 33,
     "skipped": 0,
-    "unexpected": 0,
+    "unexpected": 7,
     "flaky": 0
   }
 }

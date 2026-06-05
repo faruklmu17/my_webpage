@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Invitation RSVP Portal</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playball&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons for UI -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-color: #2ecc71;
+      --primary-hover: #27ae60;
+      --btn-green: #32a852;
+      --btn-green-hover: #268c3e;
+      --bg-light: #f4f7f6;
+      --border-light: #e0e0e0;
+      --text-main: #333333;
+      --text-muted: #64748b;
+      
+      /* Card specific styling */
+      --card-navy: #0e1a2f;
+      --gold-light: #ffe082;
+      --gold-mid: #ffd54f;
+      --gold-dark: #b8860b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* PORTAL WRAPPER */
+    .rsvp-wrapper {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .portal-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+    }
+
+    /* 3D ENVELOPE SECTION */
+    .envelope-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 380px;
+      position: relative;
+    }
+
+    .envelope-wrapper {
+      position: relative;
+      width: 440px;
+      height: 330px;
+      perspective: 1000px;
+    }
+
+    @media (max-width: 480px) {
+      .envelope-wrapper {
+        width: 320px;
+        height: 240px;
+      }
+      .envelope-container {
+        min-height: 290px;
+      }
+    }
+
+    .envelope {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #e2e8f0;
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease;
+      cursor: pointer;
+    }
+
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 220px solid transparent;
+      border-right: 220px solid transparent;
+      border-top: 165px solid #cbd5e1;
+      transform-origin: top;
+      z-index: 5;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    @media (max-width: 480px) {
+      .envelope-flap {
+        border-left-width: 160px;
+        border-right-width: 160px;
+        border-top-width: 120px;
+      }
+    }
+
+    .envelope.open .envelope-flap {
+      transform: rotateX(180deg);
+      z-index: 1;
+      border-top-color: #b8c2cc;
+    }
+
+    .envelope-pocket {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      z-index: 4;
+      pointer-events: none;
+      overflow: hidden;
+      border-radius: 0 0 12px 12px;
+    }
+
+    .pocket-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Card holder inside envelope */
+    .envelope-card-holder {
+      position: absolute;
+      top: 20px;
+      left: 45px;
+      width: 350px;
+      height: 290px;
+      z-index: 3;
+      transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.8s;
+      transform: translateY(10px) scale(0.95);
+      opacity: 0.8;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      pointer-events: none;
+    }
+
+    @media (max-width: 480px) {
+      .envelope-card-holder {
+        left: 30px;
+        width: 260px;
+        height: 210px;
+        top: 15px;
+      }
+    }
+
+    .envelope.open .envelope-card-holder {
+      transform: translateY(-160px) scale(1.05);
+      z-index: 6;
+      opacity: 1;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      pointer-events: auto;
+    }
+
+    @media (max-width: 480px) {
+      .envelope.open .envelope-card-holder {
+        transform: translateY(-110px) scale(1.05);
+      }
+    }
+
+    .envelope.open.card-maximized .envelope-card-holder {
+      transform: translateY(-190px) scale(1.18);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.35);
+    }
+
+    @media (max-width: 480px) {
+      .envelope.open.card-maximized .envelope-card-holder {
+        transform: translateY(-130px) scale(1.15);
+      }
+    }
+
+    .envelope-tip {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 15px;
+      font-style: italic;
+      text-align: center;
+      transition: opacity 0.3s;
+    }
+
+    /* INVITATION CARD LOOK (identical to builder) */
+    .invitation-card {
+      width: 100%;
+      height: 100%;
+      min-height: 450px;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      background-color: var(--card-navy);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px;
+      text-align: center;
+      color: #ffffff;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .card-decorations {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .card-content-area {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-sub-header {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 8px;
+      letter-spacing: 2px;
+      color: var(--gold-mid);
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .card-script-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 40px;
+      color: var(--gold-light);
+      margin: 5px 0;
+      line-height: 1;
+    }
+
+    .card-main-title {
+      font-family: 'Cinzel', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.8px;
+      line-height: 1.4;
+      text-transform: uppercase;
+      margin: 10px 0;
+    }
+
+    .card-divider {
+      width: 30px;
+      height: 1px;
+      background-color: var(--gold-mid);
+      margin: 10px 0;
+      opacity: 0.6;
+    }
+
+    .card-details-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.8px;
+    }
+
+    .card-date {
+      font-weight: 600;
+      color: var(--gold-light);
+      text-transform: uppercase;
+    }
+
+    .card-time {
+      color: #ffffff;
+    }
+
+    .card-location {
+      color: #ffffff;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .card-address {
+      font-size: 8px;
+      opacity: 0.8;
+    }
+
+    /* RSVP FORM CONTAINER */
+    .rsvp-form-container {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 24px;
+      margin-top: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+      pointer-events: none;
+    }
+
+    .rsvp-form-container.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .form-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .form-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #4a5568;
+      margin-bottom: 8px;
+    }
+
+    /* Custom Response Cards */
+    .response-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .response-card {
+      border: 2px solid var(--border-light);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      color: #4a5568;
+    }
+
+    .response-card i {
+      font-size: 24px;
+    }
+
+    .response-card.accept {
+      border-color: var(--border-light);
+    }
+    .response-card.accept:hover, .response-card.accept.selected {
+      border-color: #38a169;
+      background-color: #f0fff4;
+      color: #276749;
+    }
+
+    .response-card.decline {
+      border-color: var(--border-light);
+    }
+    .response-card.decline:hover, .response-card.decline.selected {
+      border-color: #e53e3e;
+      background-color: #fff5f5;
+      color: #9b2c2c;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 14px;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+      transition: border 0.2s;
+    }
+
+    .form-control:focus {
+      border-color: #4a90e2;
+      box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      background-color: var(--btn-green);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--btn-green-hover);
+    }
+
+    .btn-submit:disabled {
+      background-color: #a0aec0;
+      cursor: not-allowed;
+    }
+
+    /* MOCK SUCCESS STATE */
+    .rsvp-success-state {
+      display: none;
+      text-align: center;
+      animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 40px 24px;
+      margin-top: 30px;
+      width: 100%;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    }
+
+    @keyframes scaleIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .success-checkmark {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #c6f6d5;
+      color: #38a169;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      margin: 0 auto 20px;
+    }
+
+    /* Fallback mailto notice */
+    .mailto-notice-modal {
+      display: none;
+      background: #ebf8ff;
+      border: 1px solid #bee3f8;
+      border-radius: 6px;
+      padding: 16px;
+      margin-top: 20px;
+      font-size: 13px;
+      color: #2b6cb0;
+      line-height: 1.5;
+      text-align: left;
+    }
+
+    .confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="rsvp-wrapper">
+    <div class="portal-logo">EVENTY RSVP PORTAL</div>
+
+    <!-- 3D Envelope and Card slide out container -->
+    <div class="envelope-container">
+      <div class="envelope-wrapper">
+        <div class="envelope" id="3d-envelope" onclick="openEnvelope()">
+          <div class="envelope-flap"></div>
+          <div class="envelope-pocket">
+            <svg class="pocket-overlay" viewBox="0 0 440 330" preserveAspectRatio="none">
+              <polygon points="0,0 220,165 440,0 440,330 0,330" fill="#cbd5e1" opacity="0.3"/>
+              <polygon points="0,330 220,150 440,330" fill="#cbd5e1" stroke="#b8c2cc" stroke-width="2"/>
+              <polygon points="0,0 180,165 0,330" fill="#cbd5e1" opacity="0.9" stroke="#b8c2cc" stroke-width="1.5"/>
+              <polygon points="440,0 260,165 440,330" fill="#cbd5e1" opacity="0.9" stroke="#b8c2cc" stroke-width="1.5"/>
+            </svg>
+          </div>
+          
+          <!-- Miniature card content inside envelope -->
+          <div class="envelope-card-holder" id="envelope-card-holder">
+            <div class="invitation-card" id="card-inner-view">
+              
+              <!-- Sparkles background overlay -->
+              <svg class="card-decorations" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" preserveAspectRatio="none">
+                <defs>
+                  <radialGradient id="glitterGrad" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#ffe699" />
+                    <stop offset="60%" stop-color="#d4af37" />
+                    <stop offset="100%" stop-color="#aa7c11" />
+                  </radialGradient>
+                  <filter id="linenNoise" x="0%" y="0%" width="100%" height="100%">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" result="noise" />
+                    <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.12 0" />
+                    <feComposite operator="in" in2="SourceGraphic" />
+                  </filter>
+                </defs>
+                <rect width="100%" height="100%" fill="#ffffff" opacity="0.03" filter="url(#linenNoise)" />
+                <g id="sparkle-particles">
+                  <!-- Generated via Javascript -->
+                </g>
+              </svg>
+
+              <!-- Card Content Area -->
+              <div class="card-content-area">
+                <div class="card-sub-header" id="card-sub-header">Join Us To Celebrate</div>
+                <div class="card-script-title" id="card-script-title">Birthday Party!</div>
+                <div class="card-main-title" id="card-main-title">EVENT TITLE</div>
+                <div class="card-divider"></div>
+                <div class="card-details-group">
+                  <div class="card-date" id="card-date">Saturday, June 20th</div>
+                  <div class="card-time" id="card-time">5pm</div>
+                  <div class="card-location" id="card-location">Location Name</div>
+                  <div class="card-address" id="card-address">Address, City, State</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="envelope-tip" id="envelope-tip">Click the envelope to open your invitation</p>
+    </div>
+
+    <!-- RSVP FORM SECTION -->
+    <div class="rsvp-form-container" id="rsvp-form-panel">
+      <h2 class="form-title" id="rsvp-form-title">Will you join Sohana?</h2>
+      <p class="form-desc">Please complete the form below to register your RSVP details.</p>
+
+      <form id="rsvp-submission-form" onsubmit="submitRsvpResponse(event)">
+        <!-- Guest Details input (only shown if not in URL) -->
+        <div id="generic-guest-fields" style="display: none; margin-bottom: 20px; border-bottom: 1px dashed var(--border-light); padding-bottom: 16px;">
+          <div class="form-group">
+            <label class="form-label" for="guest-name-input">Your Full Name</label>
+            <input type="text" class="form-control" id="guest-name-input" placeholder="e.g. Alice Miller">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="guest-email-input">Your Email Address</label>
+            <input type="email" class="form-control" id="guest-email-input" placeholder="e.g. alice@example.com">
+          </div>
+        </div>
+
+        <!-- Attending Option cards -->
+        <div class="response-cards">
+          <div class="response-card accept" id="card-resp-accept" onclick="selectResponse('Accept')">
+            <i class="fa-regular fa-circle-check" style="color: #38a169;"></i>
+            Accepts with Pleasure
+          </div>
+          <div class="response-card decline" id="card-resp-decline" onclick="selectResponse('Decline')">
+            <i class="fa-regular fa-circle-xmark" style="color: #e53e3e;"></i>
+            Declines with Regret
+          </div>
+        </div>
+
+        <div class="form-group" id="guests-count-group">
+          <label class="form-label" for="guests-count">Number of Attendees</label>
+          <select class="form-control" id="guests-count">
+            <option value="1" selected>1 Guest</option>
+            <option value="2">2 Guests</option>
+            <option value="3">3 Guests</option>
+            <option value="4">4 Guests</option>
+            <option value="5">5+ Guests</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="guest-dietary">Message to Host & Dietary Restrictions</label>
+          <textarea class="form-control" id="guest-dietary" rows="3" placeholder="e.g. Vegetarian diet, allergies, or a congratulatory message..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btn-submit-rsvp">
+          Submit RSVP Response
+        </button>
+      </form>
+    </div>
+
+    <!-- SUCCESS SCREEN -->
+    <div class="rsvp-success-state" id="rsvp-success-panel">
+      <div class="success-checkmark">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <h2 class="form-title" style="color: #38a169; margin-bottom: 12px;">RSVP Sent Successfully!</h2>
+      <p class="form-desc" style="margin-bottom: 10px;">Your response has been delivered. Thank you for notifying the host.</p>
+      
+      <!-- Mailto fallback display block -->
+      <div class="mailto-notice-modal" id="mailto-fallback-notice">
+        <h4 style="font-weight: 700; margin-bottom: 6px;"><i class="fa-solid fa-envelope-open-text"></i> Email Response Required:</h4>
+        <p style="margin-bottom: 12px;">Since the host has not configured a Formspree Form ID, please click the button below to dispatch your pre-filled RSVP response directly to the host's email.</p>
+        <a href="#" class="btn-submit" id="btn-mailto-trigger" style="text-decoration: none;">
+          <i class="fa-solid fa-paper-plane"></i> Send RSVP Email Now
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <canvas class="confetti-canvas" id="canvas-confetti"></canvas>
+
+  <script>
+    let inviteData = null;
+    let selectedAttendance = null;
+    let envelopeOpened = false;
+
+    // Decode URL parameters
+    function parseInvitationUrl() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const inviteParam = urlParams.get('invite');
+      
+      if (!inviteParam) {
+        document.body.innerHTML = `<div style="padding:40px; text-align:center;">
+          <h2 style="color:#e53e3e; margin-bottom: 10px;">Invitation Not Found</h2>
+          <p>Please check the URL link you received and try again.</p>
+        </div>`;
+        return;
+      }
+
+      try {
+        // Safe base64 decoding supporting unicode
+        const rawJson = decodeURIComponent(atob(inviteParam).split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        
+        inviteData = JSON.parse(rawJson);
+        populateInvitationCard();
+      } catch (err) {
+        console.error("Failed to parse invite data:", err);
+        document.body.innerHTML = `<div style="padding:40px; text-align:center;">
+          <h2 style="color:#e53e3e; margin-bottom: 10px;">Invalid Invitation Link</h2>
+          <p>The link might be malformed or corrupted. Please verify the URL.</p>
+        </div>`;
+      }
+    }
+
+    // Populate decoded details into HTML card elements
+    function populateInvitationCard() {
+      if (!inviteData) return;
+
+      // Card Face
+      document.getElementById('card-main-title').innerText = inviteData.title || "EVENT TITLE";
+      document.getElementById('card-date').innerText = inviteData.date || "";
+      document.getElementById('card-time').innerText = inviteData.time || "";
+      
+      if (inviteData.isVirtual) {
+        document.getElementById('card-location').innerText = "Virtual Event";
+        document.getElementById('card-address').innerText = inviteData.virtualLink || "Link details provided in email";
+      } else {
+        document.getElementById('card-location').innerText = inviteData.locName || "Location";
+        const addr = inviteData.address || "";
+        const cityStateZip = [inviteData.city, inviteData.state, inviteData.zip].filter(Boolean).join(', ');
+        document.getElementById('card-address').innerText = [addr, cityStateZip].filter(Boolean).join(', ');
+      }
+
+      // RSVP Form Title pre-fill
+      document.getElementById('rsvp-form-title').innerText = `Will you join ${inviteData.host || 'the host'}?`;
+      
+      // Customize prompt text details if present
+      if (inviteData.guest) {
+        document.querySelector('.form-desc').innerText = `Hi ${inviteData.guest}, please complete the form below to register your RSVP details.`;
+        document.getElementById('generic-guest-fields').style.display = 'none';
+      } else {
+        document.querySelector('.form-desc').innerText = `Please enter your details and submit your RSVP below.`;
+        document.getElementById('generic-guest-fields').style.display = 'block';
+        document.getElementById('guest-name-input').required = true;
+        document.getElementById('guest-email-input').required = true;
+      }
+    }
+
+    // Generate Card Glitter
+    function generateGlitter() {
+      const g = document.getElementById('sparkle-particles');
+      g.innerHTML = '';
+      
+      // Top and bottom scatter layers
+      for (let i = 0; i < 70; i++) {
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        let cx = Math.random() * 400;
+        let cy = (Math.random() < 0.5) ? Math.random() * 80 : 440 + Math.random() * 80;
+        let r = 2 + Math.random() * 7;
+        
+        circle.setAttribute('cx', cx);
+        circle.setAttribute('cy', cy);
+        circle.setAttribute('r', r);
+        circle.setAttribute('fill', 'url(#glitterGrad)');
+        circle.setAttribute('opacity', 0.45 + Math.random() * 0.5);
+        g.appendChild(circle);
+      }
+    }
+
+    // Open Envelope handler
+    function openEnvelope() {
+      if (envelopeOpened) return;
+      
+      const envelope = document.getElementById('3d-envelope');
+      const formPanel = document.getElementById('rsvp-form-panel');
+      const tipText = document.getElementById('envelope-tip');
+      
+      envelope.classList.add('open');
+      tipText.style.opacity = '0';
+      envelopeOpened = true;
+      
+      // 3D slide up transitions
+      setTimeout(() => {
+        envelope.classList.add('card-maximized');
+        
+        // Fade in the RSVP Form below
+        setTimeout(() => {
+          formPanel.classList.add('visible');
+          formPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 600);
+      }, 1000);
+    }
+
+    // Select Attendance Response
+    function selectResponse(resp) {
+      selectedAttendance = resp;
+      
+      const cardAccept = document.getElementById('card-resp-accept');
+      const cardDecline = document.getElementById('card-resp-decline');
+      const countGroup = document.getElementById('guests-count-group');
+      
+      if (resp === 'Accept') {
+        cardAccept.classList.add('selected');
+        cardDecline.classList.remove('selected');
+        countGroup.style.display = 'block';
+      } else {
+        cardAccept.classList.remove('selected');
+        cardDecline.classList.add('selected');
+        countGroup.style.display = 'none'; // Hide guest count if declining
+      }
+    }
+
+    // Submit RSVP Response
+    function submitRsvpResponse(e) {
+      e.preventDefault();
+      
+      if (!selectedAttendance) {
+        alert("Please select whether you accept or decline the invitation.");
+        return;
+      }
+
+      const btnSubmit = document.getElementById('btn-submit-rsvp');
+      const formPanel = document.getElementById('rsvp-form-panel');
+      const successPanel = document.getElementById('rsvp-success-panel');
+      const mailNotice = document.getElementById('mailto-fallback-notice');
+      
+      const attendeesCount = selectedAttendance === 'Accept' ? document.getElementById('guests-count').value : 0;
+      const message = document.getElementById('guest-dietary').value;
+      
+      let guestName = inviteData.guest;
+      let guestEmail = inviteData.guest_email;
+      
+      if (!guestName) {
+        guestName = document.getElementById('guest-name-input').value.trim();
+        guestEmail = document.getElementById('guest-email-input').value.trim();
+      }
+
+      if (!guestName || guestName === '') {
+        alert("Please enter your name to submit your RSVP.");
+        btnSubmit.disabled = false;
+        btnSubmit.innerHTML = `Submit RSVP Response`;
+        return;
+      }
+
+      btnSubmit.disabled = true;
+      btnSubmit.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Submitting Response...`;
+
+      // Check if host has configured Formspree Form ID
+      if (inviteData.formspree_id && inviteData.formspree_id.trim() !== '') {
+        // Send actual email using Formspree endpoint!
+        const formData = {
+          _replyto: guestEmail || 'not-provided@example.com',
+          "Guest Name": guestName,
+          "Guest Email": guestEmail || 'Not Provided',
+          "Event": inviteData.title,
+          "Attendance": selectedAttendance,
+          "Attendees Count": attendeesCount,
+          "Message or Dietary": message || 'None'
+        };
+
+        fetch(`https://formspree.io/f/${inviteData.formspree_id}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        })
+        .then(async (response) => {
+          if (response.ok) {
+            btnSubmit.innerHTML = 'Submitted!';
+            formPanel.style.display = 'none';
+            successPanel.style.display = 'block';
+            triggerConfetti();
+          } else {
+            console.error("Formspree response not ok:", response);
+            enableMailtoFallback(guestName, guestEmail, attendeesCount, message, formPanel, successPanel, mailNotice);
+          }
+        })
+        .catch(err => {
+          console.error("Formspree submit error:", err);
+          // Fallback to mailto if API fails
+          enableMailtoFallback(guestName, guestEmail, attendeesCount, message, formPanel, successPanel, mailNotice);
+        });
+      } else {
+        // Fallback directly to prefilled Mailto client
+        enableMailtoFallback(guestName, guestEmail, attendeesCount, message, formPanel, successPanel, mailNotice);
+      }
+    }
+
+    function enableMailtoFallback(guestName, guestEmail, count, msg, formPanel, successPanel, mailNotice) {
+      formPanel.style.display = 'none';
+      successPanel.style.display = 'block';
+      mailNotice.style.display = 'block';
+      
+      // Construct mailto link parameters
+      const subject = encodeURIComponent(`RSVP Response: ${guestName} - ${inviteData.title}`);
+      const body = encodeURIComponent(
+        `Hi ${inviteData.host || 'Host'},\n\n` +
+        `This is my RSVP response to ${inviteData.title}:\n\n` +
+        `Guest Name: ${guestName}\n` +
+        `Guest Email: ${guestEmail || 'Not Provided'}\n` +
+        `Attendance Status: ${selectedAttendance === 'Accept' ? 'Accept with Pleasure' : 'Decline with Regret'}\n` +
+        `Number of Attendees: ${count}\n` +
+        `Dietary / Message: ${msg || 'None'}\n\n` +
+        `Warmly,\n${guestName}`
+      );
+      
+      const mailtoUrl = `mailto:${inviteData.host_email || 'host@example.com'}?subject=${subject}&body=${body}`;
+      
+      const trigger = document.getElementById('btn-mailto-trigger');
+      trigger.setAttribute('href', mailtoUrl);
+      
+      // Auto open mail client too
+      window.location.href = mailtoUrl;
+    }
+
+    // Confetti animation on success
+    function triggerConfetti() {
+      const canvas = document.getElementById('canvas-confetti');
+      const ctx = canvas.getContext('2d');
+      
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+      
+      const colors = ['#ffe699', '#ffd54f', '#f1c40f', '#2ecc71', '#3498db', '#e74c3c'];
+      const particles = [];
+      
+      class ConfettiParticle {
+        constructor() {
+          this.x = Math.random() * width;
+          this.y = Math.random() * -height - 20;
+          this.r = 5 + Math.random() * 8;
+          this.color = colors[Math.floor(Math.random() * colors.length)];
+          this.tilt = Math.random() * 10 - 5;
+          this.tiltAngleIncremental = Math.random() * 0.08 + 0.02;
+          this.tiltAngle = 0;
+          this.speedY = 3 + Math.random() * 4;
+        }
+        
+        update() {
+          this.tiltAngle += this.tiltAngleIncremental;
+          this.y += this.speedY;
+          this.x += Math.sin(this.tiltAngle) * 0.6;
+          this.tilt = Math.sin(this.tiltAngle) * 12;
+        }
+        
+        draw() {
+          ctx.beginPath();
+          ctx.lineWidth = this.r / 2;
+          ctx.strokeStyle = this.color;
+          ctx.moveTo(this.x + this.tilt + this.r / 4, this.y);
+          ctx.lineTo(this.x + this.tilt, this.y + this.tilt + this.r / 4);
+          ctx.stroke();
+        }
+      }
+      
+      for (let i = 0; i < 120; i++) {
+        particles.push(new ConfettiParticle());
+      }
+      
+      let animationFrameId;
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        let active = 0;
+        particles.forEach(p => {
+          if (p.y < height + 20) {
+            p.update();
+            p.draw();
+            active++;
+          }
+        });
+        if (active > 0) {
+          animationFrameId = requestAnimationFrame(animate);
+        } else {
+          ctx.clearRect(0, 0, width, height);
+        }
+      }
+      animate();
+    }
+
+    // App Initialization
+    window.addEventListener('DOMContentLoaded', () => {
+      generateGlitter();
+      parseInvitationUrl();
+    });
+  </script>
+</body>
+</html>
