@@ -874,7 +874,8 @@
       let submissionOk = false;
 
       try {
-        const response = await fetch(`https://formspree.io/f/${inviteData.formspree_id}`, {
+        const formspreeId = inviteData.formspree_id || 'xrevbnob';
+        const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(formData)
