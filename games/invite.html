@@ -1,0 +1,2077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Event Invitation Builder</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playball&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons for UI -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-color: #2ecc71; /* Green */
+      --primary-hover: #27ae60;
+      --btn-green: #32a852;
+      --btn-green-hover: #268c3e;
+      --bg-light: #fbfbfb;
+      --border-light: #e0e0e0;
+      --border-focus: #4a90e2;
+      --text-main: #333333;
+      --text-muted: #7f8c8d;
+      --text-light: #95a5a6;
+      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      
+      /* Card specific styling */
+      --card-navy: #0e1a2f;
+      --gold-light: #ffe082;
+      --gold-mid: #ffd54f;
+      --gold-dark: #b8860b;
+      --rose-gold: #b76e79;
+      --silver: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* TOP HEADER WIZARD BAR */
+    header.wizard-header {
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border-light);
+      height: 70px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .btn-header {
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      border: 1px solid #cccccc;
+      color: #555555;
+    }
+
+    .btn-outline:hover {
+      background: #f5f5f5;
+      border-color: #bbbbbb;
+    }
+
+    .btn-solid-green {
+      background-color: var(--btn-green);
+      color: #ffffff;
+      border: none;
+      font-weight: 600;
+    }
+
+    .btn-solid-green:hover {
+      background-color: var(--btn-green-hover);
+    }
+
+    /* Progress step indicator */
+    .steps-container {
+      display: flex;
+      align-items: center;
+      gap: 0px;
+      position: relative;
+    }
+
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .step-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      border: 2px solid #b2bec3;
+      transition: all 0.3s ease;
+    }
+
+    .step-item.active .step-dot {
+      background-color: #2d3436;
+      border-color: #2d3436;
+      transform: scale(1.2);
+    }
+
+    .step-item.completed .step-dot {
+      background-color: var(--btn-green);
+      border-color: var(--btn-green);
+    }
+
+    .step-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-light);
+      margin-top: 6px;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .step-item.active .step-label {
+      color: #2d3436;
+    }
+
+    .step-item.completed .step-label {
+      color: var(--btn-green);
+    }
+
+    .steps-line {
+      position: absolute;
+      top: 5px;
+      left: 50px;
+      right: 50px;
+      height: 2px;
+      background-color: #dfe6e9;
+      z-index: 1;
+    }
+
+    .steps-line-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--btn-green);
+      transition: width 0.3s ease;
+    }
+
+    /* MAIN CONTAINER */
+    .app-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* TABS */
+    .tabs-nav {
+      display: flex;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 24px;
+      background: #ffffff;
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .tab-btn {
+      padding: 16px 24px;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-main);
+      background-color: #fafafa;
+    }
+
+    .tab-btn.active {
+      color: var(--text-main);
+      border-bottom-color: var(--text-main);
+      font-weight: 600;
+      background: #ffffff;
+    }
+
+    /* LAYOUT: SPLIT VIEW */
+    .split-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .split-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* LEFT FORM PANEL */
+    .form-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .form-section {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 6px;
+    }
+
+    .section-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #4a5568;
+    }
+
+    .label-desc {
+      font-weight: normal;
+      color: var(--text-light);
+      font-size: 11px;
+      margin-left: 4px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 14px;
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      outline: none;
+      transition: all 0.2s ease;
+      font-family: 'Inter', sans-serif;
+      color: var(--text-main);
+    }
+
+    .form-control:focus {
+      border-color: #4a90e2;
+      box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+    }
+
+    select.form-control {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2724%27%20height%3D%2724%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%234a5568%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpolyline%20points%3D%276%209%2012%2015%2018%209%27%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 16px;
+      padding-right: 32px;
+    }
+
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      color: #4a5568;
+    }
+
+    .header-with-checkbox {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .header-with-checkbox .section-title {
+      margin-bottom: 0;
+    }
+
+    .link-btn {
+      color: #3182ce;
+      background: none;
+      border: none;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      text-decoration: none;
+      align-self: flex-start;
+      margin-top: -8px;
+      margin-bottom: 12px;
+      transition: color 0.2s;
+    }
+
+    .link-btn:hover {
+      color: #2b6cb0;
+      text-decoration: underline;
+    }
+
+    /* Rich Text Toolbar styling */
+    .editor-container {
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .editor-toolbar {
+      background: #f8fafc;
+      border-bottom: 1px solid #cbd5e0;
+      padding: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .toolbar-btn {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      color: #4a5568;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+
+    .toolbar-btn:hover {
+      background: #edf2f7;
+      color: #2d3748;
+    }
+
+    .toolbar-btn.active {
+      background: #e2e8f0;
+      color: #1a202c;
+    }
+
+    .editor-content {
+      padding: 12px 14px;
+      min-height: 120px;
+      outline: none;
+      font-size: 14px;
+      line-height: 1.5;
+      background: #ffffff;
+    }
+
+    /* PREVIEW CARD PANEL (RIGHT COLUMN) */
+    .preview-panel {
+      position: sticky;
+      top: 94px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .card-outer-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      aspect-ratio: 4 / 5.2;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card-outer-wrapper:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.22);
+    }
+
+    .invitation-card {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      background-color: var(--card-navy);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 30px;
+      text-align: center;
+      color: #ffffff;
+      user-select: none;
+    }
+
+    /* Confetti SVG Overlay background */
+    .card-decorations {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .card-content-area {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Card Typography Styles */
+    .card-element {
+      position: relative;
+      outline: none;
+      transition: all 0.2s ease;
+      cursor: default;
+    }
+
+    .editable-active .card-element {
+      cursor: pointer;
+      border: 1px dashed rgba(255, 255, 255, 0.3);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .editable-active .card-element:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--gold-mid);
+    }
+
+    .card-element.editing-focus {
+      border: 1px solid var(--gold-mid) !important;
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 10px rgba(255, 213, 79, 0.3);
+    }
+
+    /* Specific Typography classes */
+    .card-sub-header {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--gold-mid);
+      font-weight: 500;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .card-script-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 50px;
+      color: var(--gold-light);
+      margin: 10px 0;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      line-height: 1;
+    }
+
+    .card-main-title {
+      font-family: 'Cinzel', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 1px;
+      line-height: 1.4;
+      text-transform: uppercase;
+      margin: 15px 0;
+      max-width: 90%;
+    }
+
+    .card-divider {
+      width: 40px;
+      height: 1px;
+      background-color: var(--gold-mid);
+      margin: 15px 0;
+      opacity: 0.7;
+    }
+
+    .card-details-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      letter-spacing: 1px;
+      font-weight: 400;
+    }
+
+    .card-date {
+      font-weight: 600;
+      color: var(--gold-light);
+      text-transform: uppercase;
+    }
+
+    .card-time {
+      color: #ffffff;
+    }
+
+    .card-location {
+      color: #ffffff;
+      font-weight: 500;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .card-address {
+      font-size: 10px;
+      opacity: 0.8;
+      margin-top: 2px;
+    }
+
+    /* Floating Circle Badge */
+    .floating-badge {
+      position: absolute;
+      right: -25px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 70px;
+      height: 70px;
+      background-color: #333333;
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.2;
+      padding: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      cursor: pointer;
+      z-index: 10;
+      border: 2px solid var(--gold-mid);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .floating-badge:hover {
+      transform: translateY(-50%) scale(1.1);
+      background-color: #222222;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+
+    /* Buttons row below Card Preview */
+    .preview-actions {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .btn-preview {
+      flex: 1;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      border: 1px solid var(--border-light);
+      background: #ffffff;
+      color: #555555;
+    }
+
+    .btn-preview:hover {
+      background: #f8fafc;
+      color: var(--text-main);
+    }
+
+    .btn-preview.active {
+      background: #2d3748;
+      color: #ffffff;
+      border-color: #2d3748;
+    }
+
+    /* STYLE CUSTOMIZER POPUP TOOLBAR */
+    .style-popover {
+      position: absolute;
+      background: #2d3748;
+      color: #ffffff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      z-index: 1000;
+      font-size: 12px;
+      pointer-events: auto;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transform: translate(-50%, -120%);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+    }
+
+    .style-popover.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .style-popover::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 6px 6px 0;
+      border-style: solid;
+      border-color: #2d3748 transparent;
+      display: block;
+      width: 0;
+    }
+
+    .popover-select {
+      background: #1a202c;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 11px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .popover-colors {
+      display: flex;
+      gap: 4px;
+    }
+
+    .color-swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: transform 0.1s;
+    }
+
+    .color-swatch:hover {
+      transform: scale(1.15);
+    }
+
+    .popover-sizes {
+      display: flex;
+      gap: 2px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .size-btn {
+      background: #1a202c;
+      border: none;
+      color: #ffffff;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-size: 11px;
+    }
+
+    .size-btn:hover {
+      background: #4a5568;
+    }
+
+    /* 3D ENVELOPE STYLING */
+    .envelope-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 0;
+      background: #f8fafc;
+      border: 1px dashed var(--border-light);
+      border-radius: 8px;
+      min-height: 500px;
+    }
+
+    .envelope-wrapper {
+      position: relative;
+      width: 440px;
+      height: 330px;
+      perspective: 1000px;
+      margin-top: 50px;
+    }
+
+    .envelope {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #e2e8f0;
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease;
+    }
+
+    /* Flap at top of envelope */
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 220px solid transparent;
+      border-right: 220px solid transparent;
+      border-top: 165px solid #cbd5e1;
+      transform-origin: top;
+      z-index: 5;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .envelope.open .envelope-flap {
+      transform: rotateX(180deg);
+      z-index: 1; /* Slide behind when open */
+      border-top-color: #b8c2cc;
+    }
+
+    /* Left and right fold visual components */
+    .envelope-pocket {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      z-index: 4;
+      pointer-events: none;
+      overflow: hidden;
+      border-radius: 0 0 12px 12px;
+    }
+
+    /* Drawing diagonals of envelope pocket using SVG overlays */
+    .pocket-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Small card wrapper inside envelope */
+    .envelope-card-holder {
+      position: absolute;
+      top: 20px;
+      left: 45px;
+      width: 350px;
+      height: 290px;
+      z-index: 3;
+      transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.8s;
+      transform: translateY(10px) scale(0.95);
+      opacity: 0.8;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      pointer-events: none;
+    }
+
+    /* Pull the card out animation classes */
+    .envelope.open .envelope-card-holder {
+      transform: translateY(-160px) scale(1.05);
+      z-index: 6;
+      opacity: 1;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      cursor: pointer;
+      pointer-events: auto;
+    }
+
+    /* Extra state where card is fully popped up and details displayed */
+    .envelope.open.card-maximized .envelope-card-holder {
+      transform: translateY(-220px) scale(1.2) rotate(-2deg);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.4);
+    }
+
+    .envelope-tip {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 32px;
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* GUEST LIST CONTAINER - STEP 2 */
+    .step-content {
+      display: none;
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    .step-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .guest-list-layout {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 32px;
+    }
+
+    @media (max-width: 800px) {
+      .guest-list-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guest-list-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      text-align: left;
+    }
+
+    .guest-list-table th, .guest-list-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .guest-list-table th {
+      background: #f8fafc;
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    .guest-list-table td {
+      font-size: 14px;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 12px;
+      text-transform: uppercase;
+    }
+
+    .status-badge.sent {
+      background-color: #e6fffa;
+      color: #319795;
+    }
+
+    .status-badge.pending {
+      background-color: #fefcbf;
+      color: #b7791f;
+    }
+
+    .btn-delete {
+      background: none;
+      border: none;
+      color: #e53e3e;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .btn-delete:hover {
+      background: #fff5f5;
+    }
+
+    /* SEND CONTAINER - STEP 3 */
+    .send-layout {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 32px;
+      box-shadow: var(--card-shadow);
+      text-align: center;
+    }
+
+    .email-envelope-icon {
+      font-size: 60px;
+      color: var(--btn-green);
+      margin-bottom: 24px;
+      animation: floatIcon 3s ease-in-out infinite;
+    }
+
+    @keyframes floatIcon {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .send-summary-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 12px;
+    }
+
+    .send-summary-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+
+    .email-preview-box {
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      text-align: left;
+      margin-bottom: 30px;
+      background: #f8fafc;
+      overflow: hidden;
+    }
+
+    .email-preview-header {
+      background: #edf2f7;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 13px;
+      color: #4a5568;
+    }
+
+    .email-preview-row {
+      margin-bottom: 6px;
+    }
+
+    .email-preview-row strong {
+      color: #2d3748;
+    }
+
+    .email-preview-body {
+      padding: 20px;
+      font-size: 14px;
+      color: #4a5568;
+      background: #ffffff;
+      line-height: 1.5;
+    }
+
+    /* Success animation screen */
+    .success-screen {
+      display: none;
+      animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    @keyframes scaleIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .success-checkmark {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #c6f6d5;
+      color: #38a169;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      margin: 0 auto 24px;
+    }
+
+    .confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top navigation and progress steps -->
+  <header class="wizard-header">
+    <button class="btn-header btn-outline" id="btn-change-design">
+      Change design
+    </button>
+
+    <div class="steps-container">
+      <div class="steps-line">
+        <div class="steps-line-fill" id="steps-line-fill"></div>
+      </div>
+      <div class="step-item active" id="step-node-1">
+        <div class="step-dot"></div>
+        <div class="step-label">DESIGN</div>
+      </div>
+      <div class="step-item" id="step-node-2">
+        <div class="step-dot"></div>
+        <div class="step-label">SEND & SHARE</div>
+      </div>
+    </div>
+
+    <button class="btn-header btn-solid-green" id="btn-save-continue">
+      Save and continue
+    </button>
+  </header>
+
+  <main class="app-container">
+    
+    <!-- STEP 1: DESIGN & BUILD DETAILS -->
+    <div class="step-content active" id="step-content-1">
+      
+      <!-- Sub-navigation tabs -->
+      <nav class="tabs-nav">
+        <button class="tab-btn active" id="tab-btn-details" onclick="switchTab('details')">
+          <i class="fa-regular fa-file-lines"></i> Design & Details
+        </button>
+        <button class="tab-btn" id="tab-btn-envelope" onclick="switchTab('envelope')">
+          <i class="fa-regular fa-envelope"></i> Envelope
+        </button>
+      </nav>
+
+      <!-- Panel layouts for Details view -->
+      <div class="split-layout" id="tab-view-details">
+        
+        <!-- Forms panel (left) -->
+        <div class="form-panel">
+          
+          <!-- Event Details -->
+          <section class="form-section">
+            <h2 class="section-title">Event Details</h2>
+            <p class="section-desc">Select text on the invitation to customize the font, size, and color.</p>
+            
+            <div class="form-group">
+              <label for="event-type">Event Type</label>
+              <select class="form-control" id="event-type">
+                <option value="rsvp" selected>Invitation (with RSVP)</option>
+                <option value="save-date">Save the Date</option>
+                <option value="announcement">Announcement</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="event-title">Event Title</label>
+              <input type="text" class="form-control" id="event-title" value="Aariz and Aahil's Birthday!">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="event-date">Event Date</label>
+                <input type="text" class="form-control" id="event-date" value="06/20/2026">
+              </div>
+              <div class="form-group">
+                <label for="event-time">Time</label>
+                <input type="text" class="form-control" id="event-time" value="5pm">
+              </div>
+            </div>
+            
+            <button class="link-btn" id="btn-add-end-date" onclick="toggleEndDate()">Add end date</button>
+            <div class="form-group" id="end-date-wrapper" style="display: none;">
+              <label for="event-end-date">End Date / Time</label>
+              <input type="text" class="form-control" id="event-end-date" placeholder="e.g. 8pm">
+            </div>
+          </section>
+
+          <!-- Host Information -->
+          <section class="form-section">
+            <h2 class="section-title">Host Information</h2>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="host-name">Host Name</label>
+                <input type="text" class="form-control" id="host-name" value="Sohana">
+              </div>
+              <div class="form-group">
+                <label for="host-email">Host Email <span class="label-desc">(for RSVP notifications)</span></label>
+                <input type="email" class="form-control" id="host-email" value="sohana@example.com">
+              </div>
+            </div>
+
+            <div class="form-row" style="margin-top: 12px;">
+              <div class="form-group">
+                <label for="host-phone">Phone</label>
+                <input type="text" class="form-control" id="host-phone" value="9173855477">
+              </div>
+              <div class="form-group">
+                <label for="formspree-id">Formspree Form ID <span class="label-desc"><a href="https://formspree.io" target="_blank" style="color: #3182ce; text-decoration: underline;">Get free ID</a></span></label>
+                <input type="text" class="form-control" id="formspree-id" placeholder="e.g. xqewdkny (Paste ID for auto-emails)" value="xrevbnob">
+              </div>
+            </div>
+          </section>
+
+          <!-- Location -->
+          <section class="form-section">
+            <div class="header-with-checkbox">
+              <h2 class="section-title">Location</h2>
+              <label class="checkbox-container">
+                <input type="checkbox" id="checkbox-virtual" onchange="toggleVirtualEvent()"> Virtual Event
+              </label>
+            </div>
+            
+            <div id="physical-location-fields">
+              <div class="form-group">
+                <label for="location-name">Location Name <span class="label-desc">e.g., Our House</span></label>
+                <input type="text" class="form-control" id="location-name" value="Our House" placeholder="e.g., Our House">
+              </div>
+
+              <div class="form-group">
+                <label for="location-address">Address</label>
+                <input type="text" class="form-control" id="location-address" value="162 Riverview Dr">
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="location-city">City</label>
+                  <input type="text" class="form-control" id="location-city" value="Fishkill">
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="location-state">State</label>
+                    <input type="text" class="form-control" id="location-state" value="NY">
+                  </div>
+                  <div class="form-group">
+                    <label for="location-zip">ZIP</label>
+                    <input type="text" class="form-control" id="location-zip" value="12524">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="virtual-location-fields" style="display: none;">
+              <div class="form-group">
+                <label for="virtual-link">Meeting Link</label>
+                <input type="text" class="form-control" id="virtual-link" placeholder="e.g. Zoom or Google Meet Link">
+              </div>
+              <div class="form-group">
+                <label for="virtual-instructions">Dial-in / Access Instructions</label>
+                <input type="text" class="form-control" id="virtual-instructions" placeholder="e.g. Password or passcode">
+              </div>
+            </div>
+          </section>
+
+          <!-- Additional Information -->
+          <section class="form-section">
+            <h2 class="section-title">Additional Information</h2>
+            <p class="section-desc">Provide additional details about your event. The message will appear next to your invitation.</p>
+            
+            <div class="editor-container">
+              <div class="editor-toolbar">
+                <button class="toolbar-btn" onclick="execCmd('bold')"><i class="fa-solid fa-bold"></i></button>
+                <button class="toolbar-btn" onclick="execCmd('italic')"><i class="fa-solid fa-italic"></i></button>
+                <button class="toolbar-btn" onclick="execCmd('underline')"><i class="fa-solid fa-underline"></i></button>
+                <button class="toolbar-btn" onclick="execCmd('strikeThrough')"><i class="fa-solid fa-strikethrough"></i></button>
+                <button class="toolbar-btn" onclick="execCmd('insertUnorderedList')"><i class="fa-solid fa-list-ul"></i></button>
+                <button class="toolbar-btn" onclick="execCmd('insertOrderedList')"><i class="fa-solid fa-list-ol"></i></button>
+                <button class="toolbar-btn" onclick="execCmd('justifyLeft')"><i class="fa-solid fa-align-left"></i></button>
+                <button class="toolbar-btn" onclick="execCmd('createLink')"><i class="fa-solid fa-link"></i></button>
+              </div>
+              <div class="editor-content" id="additional-info-editor" contenteditable="true">Please join us in celebrating Aariz and Aahil's birthday at our home on Saturday, June 20th, at 5:00 PM. We would love to celebrate this special day with you!</div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Sticky Preview panel (right) -->
+        <div class="preview-panel">
+          <div class="card-outer-wrapper" id="card-outer-wrapper">
+            <div class="invitation-card" id="card-preview">
+              <!-- Glitter background confetti circles dynamic overlay -->
+              <svg class="card-decorations" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" preserveAspectRatio="none">
+                <defs>
+                  <radialGradient id="glitterGrad" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#ffe699" />
+                    <stop offset="60%" stop-color="#d4af37" />
+                    <stop offset="100%" stop-color="#aa7c11" />
+                  </radialGradient>
+                  <radialGradient id="sparkleGrad" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#ffffff" />
+                    <stop offset="30%" stop-color="#ffe699" />
+                    <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+                  </radialGradient>
+                  <!-- Noise filter for background texture -->
+                  <filter id="linenNoise" x="0%" y="0%" width="100%" height="100%">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" result="noise" />
+                    <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.15 0" />
+                    <feComposite operator="in" in2="SourceGraphic" />
+                  </filter>
+                </defs>
+                
+                <!-- Background visual noise overlay -->
+                <rect width="100%" height="100%" fill="#ffffff" opacity="0.03" filter="url(#linenNoise)" />
+                
+                <!-- Confetti groups -->
+                <g id="confetti-particles">
+                  <!-- Generated via Javascript, fallbacks below in case JS is slow -->
+                  <circle cx="40" cy="50" r="10" fill="url(#glitterGrad)" opacity="0.7"/>
+                  <circle cx="80" cy="20" r="6" fill="url(#glitterGrad)" opacity="0.8"/>
+                  <circle cx="120" cy="45" r="4" fill="url(#glitterGrad)" opacity="0.9"/>
+                  <circle cx="150" cy="25" r="9" fill="url(#glitterGrad)" opacity="0.65"/>
+                  <circle cx="200" cy="40" r="12" fill="url(#glitterGrad)" opacity="0.85"/>
+                  <circle cx="250" cy="20" r="5" fill="url(#glitterGrad)" opacity="0.75"/>
+                  <circle cx="310" cy="50" r="8" fill="url(#glitterGrad)" opacity="0.9"/>
+                  <circle cx="360" cy="30" r="11" fill="url(#glitterGrad)" opacity="0.8"/>
+                  <!-- Dense scatter bottom -->
+                  <circle cx="30" cy="480" r="9" fill="url(#glitterGrad)" opacity="0.8"/>
+                  <circle cx="70" cy="500" r="5" fill="url(#glitterGrad)" opacity="0.7"/>
+                  <circle cx="110" cy="475" r="10" fill="url(#glitterGrad)" opacity="0.9"/>
+                  <circle cx="160" cy="495" r="7" fill="url(#glitterGrad)" opacity="0.75"/>
+                  <circle cx="210" cy="465" r="11" fill="url(#glitterGrad)" opacity="0.85"/>
+                  <circle cx="270" cy="490" r="6" fill="url(#glitterGrad)" opacity="0.9"/>
+                  <circle cx="320" cy="470" r="8" fill="url(#glitterGrad)" opacity="0.8"/>
+                  <circle cx="370" cy="495" r="10" fill="url(#glitterGrad)" opacity="0.7"/>
+                </g>
+              </svg>
+
+              <!-- Card Content Overlay -->
+              <div class="card-content-area">
+                <div class="card-element card-sub-header" id="card-text-prefix">Join Us To Celebrate</div>
+                
+                <div class="card-element card-script-title" id="card-text-cursive">Birthday Party!</div>
+                
+                <div class="card-element card-main-title" id="card-text-title">Aariz and Aahil's Birthday!</div>
+                
+                <div class="card-divider"></div>
+                
+                <div class="card-details-group">
+                  <div class="card-element card-date" id="card-text-date">Saturday, June 20th</div>
+                  <div class="card-element card-time" id="card-text-time">5pm</div>
+                  <div class="card-element card-location" id="card-text-locname">Our House</div>
+                  <div class="card-element card-address" id="card-text-address">162 Riverview Dr, Fishkill, NY</div>
+                </div>
+              </div>
+
+              <!-- Floating badge on card -->
+              <div class="floating-badge" id="floating-edit-badge">
+                Edit Message
+              </div>
+            </div>
+          </div>
+
+          <!-- Buttons under preview card -->
+          <div class="preview-actions">
+            <button class="btn-preview" id="btn-reset" onclick="resetFormToDefault()">
+              <i class="fa-solid fa-rotate-left"></i> Reset
+            </button>
+            <button class="btn-preview" id="btn-toggle-edit" onclick="toggleCardEditable()">
+              <i class="fa-solid fa-pen-to-square"></i> Edit Inline
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Envelope Tab view -->
+      <div class="envelope-container" id="tab-view-envelope" style="display: none;">
+        <div class="envelope-wrapper">
+          <div class="envelope" id="3d-envelope" onclick="toggleEnvelopeOpen()">
+            <div class="envelope-flap"></div>
+            <div class="envelope-pocket">
+              <svg class="pocket-overlay" viewBox="0 0 440 330" preserveAspectRatio="none">
+                <!-- Inner lining shadow -->
+                <polygon points="0,0 220,165 440,0 440,330 0,330" fill="#cbd5e1" opacity="0.3"/>
+                <!-- Bottom diagonal folds -->
+                <polygon points="0,330 220,150 440,330" fill="#cbd5e1" stroke="#b8c2cc" stroke-width="2"/>
+                <!-- Side folds overlay -->
+                <polygon points="0,0 180,165 0,330" fill="#cbd5e1" opacity="0.9" stroke="#b8c2cc" stroke-width="1.5"/>
+                <polygon points="440,0 260,165 440,330" fill="#cbd5e1" opacity="0.9" stroke="#b8c2cc" stroke-width="1.5"/>
+              </svg>
+            </div>
+            
+            <!-- Sliding mini card inside envelope -->
+            <div class="envelope-card-holder" id="envelope-card-holder">
+              <!-- Replicated miniature card preview -->
+              <div class="invitation-card" id="envelope-card-preview" style="transform: scale(0.85); transform-origin: top center; pointer-events: none;">
+                <!-- Content injected dynamically -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="envelope-tip" id="envelope-tip-text">Click the envelope to slide out your invitation!</p>
+      </div>
+
+    </div>
+
+    <!-- STEP 2: SEND & SHARE PANEL -->
+    <div class="step-content" id="step-content-2">
+      <div class="send-layout" id="send-main-panel">
+        <i class="fa-regular fa-paper-plane email-envelope-icon"></i>
+        <h2 class="send-summary-title">Your RSVP Link is Ready!</h2>
+        <p class="send-summary-desc">Send this link to all your guests. When they open it, they will see your custom envelope and RSVP card, and their responses will be emailed directly to you via Formspree.</p>
+        
+        <div style="margin-bottom: 30px; display: inline-block; padding: 20px; background: #ffffff; border: 1px solid var(--border-light); border-radius: 8px; text-align: left; width: 100%; max-width: 500px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+          <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-link" style="color: var(--btn-green);"></i> Shareable RSVP Link:</h4>
+          <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+            <input type="text" class="form-control" id="generic-rsvp-url-input" style="font-size: 12px; font-family: monospace; background: #f8fafc;" readonly value="">
+            <button class="btn-header btn-outline" style="padding: 10px 16px; font-size: 13px;" onclick="copyGenericRsvpLink(this)">Copy Link</button>
+          </div>
+
+          <div id="shorten-link-container" style="margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; background: #f1f5f9; padding: 10px 14px; border-radius: 6px; border: 1px dashed #cbd5e1;">
+            <span style="font-size: 11px; color: #475569; font-weight: 500;"><i class="fa-solid fa-wand-magic-sparkles" style="color: #6366f1;"></i> Hide your domain name?</span>
+            <button class="btn-header btn-solid-green" style="padding: 6px 10px; font-size: 11px; margin: 0; background-color: #6366f1;" id="btn-shorten-api" onclick="shortenInvitationLink()">
+              Create TinyURL
+            </button>
+          </div>
+          
+          <div style="display: flex; gap: 12px;">
+            <a href="#" id="btn-share-email-generic" class="btn-header btn-solid-green" style="flex: 1; text-decoration: none; justify-content: center; align-items: center; display: inline-flex; gap: 6px;">
+              <i class="fa-regular fa-envelope"></i> Share via Email
+            </a>
+            <a href="#" id="btn-share-whatsapp-generic" target="_blank" class="btn-header btn-outline" style="flex: 1; text-decoration: none; justify-content: center; align-items: center; display: inline-flex; gap: 6px; border-color: #25D366; color: #25D366; background: #ffffff;">
+              <i class="fa-brands fa-whatsapp"></i> WhatsApp Share
+            </a>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 16px; justify-content: center;">
+          <button class="btn-header btn-outline" onclick="prevStep()">
+            <i class="fa-solid fa-arrow-left"></i> Back to Design
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Style customizer popup floating toolbar -->
+  <div class="style-popover" id="text-style-popover">
+    <select class="popover-select" id="popover-font-select" onchange="applySelectedStyle('fontFamily', this.value)">
+      <option value="'Montserrat', sans-serif">Sans-Serif</option>
+      <option value="'Cinzel', serif">Serif (Cinzel)</option>
+      <option value="'Great Vibes', cursive">Script (Fancy)</option>
+      <option value="'Playball', cursive">Script (Modern)</option>
+      <option value="'Playfair Display', serif">Serif (Playfair)</option>
+    </select>
+    
+    <div class="popover-colors">
+      <div class="color-swatch" style="background: #ffe699;" title="Gold" onclick="applySelectedStyle('color', '#ffe699')"></div>
+      <div class="color-swatch" style="background: #ffffff;" title="White" onclick="applySelectedStyle('color', '#ffffff')"></div>
+      <div class="color-swatch" style="background: #b76e79;" title="Rose Gold" onclick="applySelectedStyle('color', '#b76e79')"></div>
+      <div class="color-swatch" style="background: #cbd5e1;" title="Silver" onclick="applySelectedStyle('color', '#cbd5e1')"></div>
+    </div>
+
+    <div class="popover-sizes">
+      <button class="size-btn" onclick="adjustSelectedFontSize(-2)" title="Smaller"><i class="fa-solid fa-minus"></i></button>
+      <button class="size-btn" onclick="adjustSelectedFontSize(2)" title="Larger"><i class="fa-solid fa-plus"></i></button>
+    </div>
+  </div>
+
+  <canvas class="confetti-canvas" id="canvas-confetti"></canvas>
+
+  <!-- JavaScript logic implementation -->
+  <script>
+    // App States
+    let currentStep = 1;
+    let activeTab = 'details';
+    let isEditingCardInline = false;
+    let focusedCardElement = null;
+    let endEventDateEnabled = false;
+
+    // Default parameters for restoration
+    const defaultEventData = {
+      title: "Aariz and Aahil's Birthday!",
+      date: "06/20/2026",
+      time: "5pm",
+      host: "Sohana",
+      hostEmail: "sohana@example.com",
+      formspreeId: "xrevbnob",
+      phone: "9173855477",
+      locName: "Our House",
+      address: "162 Riverview Dr",
+      city: "Fishkill",
+      state: "NY",
+      zip: "12524",
+      info: "Please join us in celebrating Aariz and Aahil's birthday at our home on Saturday, June 20th, at 5:00 PM. We would love to celebrate this special day with you!"
+    };
+
+    // Card background confetti canvas generation (adds modern sparkliness!)
+    function generateGlitterParticles() {
+      const g = document.getElementById('confetti-particles');
+      g.innerHTML = ''; // clear initial list
+      
+      // Let's generate a dense top layer and bottom layer
+      const particlesCount = 80;
+      for (let i = 0; i < particlesCount; i++) {
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        
+        // Random placement
+        let cx = Math.random() * 400;
+        let cy;
+        
+        // Denser at top and bottom
+        if (Math.random() < 0.5) {
+          // Top layer (0 to 80px)
+          cy = Math.random() * 80;
+        } else {
+          // Bottom layer (440 to 520px)
+          cy = 440 + Math.random() * 80;
+        }
+        
+        // Random sizes (2 to 12px)
+        let r = 2 + Math.random() * 8;
+        if (Math.random() < 0.15) r += 3; // a few larger sparks
+        
+        // Gradient fill and randomized opacity
+        circle.setAttribute('cx', cx);
+        circle.setAttribute('cy', cy);
+        circle.setAttribute('r', r);
+        circle.setAttribute('fill', 'url(#glitterGrad)');
+        circle.setAttribute('opacity', 0.4 + Math.random() * 0.55);
+        
+        // Add random slight gold reflection blur or shadow
+        if (Math.random() < 0.3) {
+          circle.setAttribute('filter', 'drop-shadow(0px 0px 2px rgba(255, 230, 153, 0.4))');
+        }
+        
+        g.appendChild(circle);
+      }
+    }
+
+    // Initialize Card Sync Event Listeners
+    function setupFormCardSync() {
+      const eventTitle = document.getElementById('event-title');
+      const eventDate = document.getElementById('event-date');
+      const eventTime = document.getElementById('event-time');
+      const locName = document.getElementById('location-name');
+      const locAddress = document.getElementById('location-address');
+      const locCity = document.getElementById('location-city');
+      const locState = document.getElementById('location-state');
+      const locZip = document.getElementById('location-zip');
+      const checkboxVirtual = document.getElementById('checkbox-virtual');
+      const virtualLink = document.getElementById('virtual-link');
+      const additionalInfo = document.getElementById('additional-info-editor');
+
+      // Update previews
+      const updateCardPreview = () => {
+        // Event title
+        document.getElementById('card-text-title').innerText = eventTitle.value || "EVENT TITLE";
+        
+        // Date & Time
+        document.getElementById('card-text-date').innerText = eventDate.value || "Date";
+        document.getElementById('card-text-time').innerText = eventTime.value || "Time";
+        
+        // Location text
+        if (checkboxVirtual.checked) {
+          document.getElementById('card-text-locname').innerText = "Virtual Event";
+          document.getElementById('card-text-address').innerText = virtualLink.value || "Join link provided on RSVP";
+        } else {
+          document.getElementById('card-text-locname').innerText = locName.value || "Location Name";
+          const addr = locAddress.value || "";
+          const cityStateZip = [locCity.value, locState.value, locZip.value].filter(Boolean).join(', ');
+          document.getElementById('card-text-address').innerText = [addr, cityStateZip].filter(Boolean).join(', ');
+        }
+      };
+
+      // Wire input events
+      const inputs = [eventTitle, eventDate, eventTime, locName, locAddress, locCity, locState, locZip, virtualLink];
+      inputs.forEach(input => {
+        input.addEventListener('input', updateCardPreview);
+      });
+      checkboxVirtual.addEventListener('change', updateCardPreview);
+
+      // Card-to-Form Sync (dual binding when editing card directly!)
+      const cardTitle = document.getElementById('card-text-title');
+      const cardDate = document.getElementById('card-text-date');
+      const cardTime = document.getElementById('card-text-time');
+      const cardLocName = document.getElementById('card-text-locname');
+      
+      cardTitle.addEventListener('input', () => { eventTitle.value = cardTitle.innerText; });
+      cardDate.addEventListener('input', () => { eventDate.value = cardDate.innerText; });
+      cardTime.addEventListener('input', () => { eventTime.value = cardTime.innerText; });
+      cardLocName.addEventListener('input', () => { 
+        if (!checkboxVirtual.checked) {
+          locName.value = cardLocName.innerText; 
+        }
+      });
+
+      // Synchronize additional information editor and card floating badge behavior
+      document.getElementById('floating-edit-badge').addEventListener('click', () => {
+        // scroll/focus on editor
+        additionalInfo.focus();
+        additionalInfo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // highlight editor container briefly
+        const container = additionalInfo.parentElement;
+        container.style.boxShadow = '0 0 10px rgba(74, 144, 226, 0.4)';
+        setTimeout(() => { container.style.boxShadow = 'none'; }, 1500);
+      });
+
+      // Initialize
+      updateCardPreview();
+    }
+
+    // Switch between Design Details and Envelope views
+    function switchTab(tab) {
+      activeTab = tab;
+      
+      const btnDetails = document.getElementById('tab-btn-details');
+      const btnEnvelope = document.getElementById('tab-btn-envelope');
+      const viewDetails = document.getElementById('tab-view-details');
+      const viewEnvelope = document.getElementById('tab-view-envelope');
+      
+      if (tab === 'details') {
+        btnDetails.classList.add('active');
+        btnEnvelope.classList.remove('active');
+        viewDetails.style.display = 'grid';
+        viewEnvelope.style.display = 'none';
+      } else {
+        btnDetails.classList.remove('active');
+        btnEnvelope.classList.add('active');
+        viewDetails.style.display = 'none';
+        viewEnvelope.style.display = 'flex';
+        
+        // Sync card content to miniature card within envelope
+        const cardPreviewInner = document.getElementById('card-preview').cloneNode(true);
+        // Remove interactive class details/popups to make clean mini-render
+        cardPreviewInner.id = 'envelope-card-clone';
+        cardPreviewInner.querySelector('.floating-badge').remove();
+        
+        const holder = document.getElementById('envelope-card-holder');
+        holder.innerHTML = '';
+        holder.appendChild(cardPreviewInner);
+      }
+    }
+
+    // Toggle 3D Envelope Open/Close animations
+    function toggleEnvelopeOpen() {
+      const envelope = document.getElementById('3d-envelope');
+      const tipText = document.getElementById('envelope-tip-text');
+      
+      if (envelope.classList.contains('open')) {
+        if (envelope.classList.contains('card-maximized')) {
+          envelope.classList.remove('card-maximized');
+          tipText.innerText = "Click to inspect the invitation card.";
+        } else {
+          envelope.classList.remove('open');
+          tipText.innerText = "Click the envelope to slide out your invitation!";
+        }
+      } else {
+        envelope.classList.add('open');
+        tipText.innerText = "Click again to view the invitation in detail.";
+        
+        // Delay slightly, then allow zooming card detail
+        setTimeout(() => {
+          if (envelope.classList.contains('open')) {
+            envelope.classList.add('card-maximized');
+          }
+        }, 1200);
+      }
+    }
+
+    // Toggle showing inline card text editing
+    function toggleCardEditable() {
+      const card = document.getElementById('card-preview');
+      const btn = document.getElementById('btn-toggle-edit');
+      const elements = card.querySelectorAll('.card-element');
+      
+      isEditingCardInline = !isEditingCardInline;
+      
+      if (isEditingCardInline) {
+        card.classList.add('editable-active');
+        btn.classList.add('active');
+        btn.innerHTML = `<i class="fa-solid fa-check"></i> Done Editing`;
+        
+        // Set editable attributes
+        elements.forEach(el => {
+          el.setAttribute('contenteditable', 'true');
+          
+          // Selection / click event listener to show styling bar
+          el.addEventListener('click', handleCardElementFocus);
+        });
+      } else {
+        card.classList.remove('editable-active');
+        btn.classList.remove('active');
+        btn.innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Edit Inline`;
+        
+        elements.forEach(el => {
+          el.removeAttribute('contenteditable');
+          el.classList.remove('editing-focus');
+          el.removeEventListener('click', handleCardElementFocus);
+        });
+        
+        hideStylePopover();
+      }
+    }
+
+    // Manage card elements selection/focus styling toolbar
+    function handleCardElementFocus(e) {
+      e.stopPropagation();
+      
+      // Clear previous focused styles
+      const elements = document.querySelectorAll('.card-element');
+      elements.forEach(el => el.classList.remove('editing-focus'));
+      
+      focusedCardElement = e.currentTarget;
+      focusedCardElement.classList.add('editing-focus');
+      
+      // Position style popover
+      const popover = document.getElementById('text-style-popover');
+      const rect = focusedCardElement.getBoundingClientRect();
+      const parentRect = document.getElementById('card-preview').getBoundingClientRect();
+      
+      // Offset from card preview
+      const topOffset = rect.top - parentRect.top;
+      const leftOffset = rect.left - parentRect.left + (rect.width / 2);
+      
+      popover.style.top = `${topOffset}px`;
+      popover.style.left = `${leftOffset}px`;
+      popover.classList.add('visible');
+      
+      // Preset current style values in dropdowns if applicable
+      const currentFont = window.getComputedStyle(focusedCardElement).fontFamily;
+      const select = document.getElementById('popover-font-select');
+      
+      // Try to match font selections
+      if (currentFont.includes('Cinzel')) select.value = "'Cinzel', serif";
+      else if (currentFont.includes('Great Vibes')) select.value = "'Great Vibes', cursive";
+      else if (currentFont.includes('Playball')) select.value = "'Playball', cursive";
+      else if (currentFont.includes('Playfair')) select.value = "'Playfair Display', serif";
+      else select.value = "'Montserrat', sans-serif";
+    }
+
+    // Apply inline style to clicked preview element
+    function applySelectedStyle(property, value) {
+      if (focusedCardElement) {
+        focusedCardElement.style[property] = value;
+      }
+    }
+
+    function adjustSelectedFontSize(offset) {
+      if (focusedCardElement) {
+        const style = window.getComputedStyle(focusedCardElement);
+        const currentSize = parseFloat(style.fontSize);
+        focusedCardElement.style.fontSize = `${currentSize + offset}px`;
+      }
+    }
+
+    function hideStylePopover() {
+      document.getElementById('text-style-popover').classList.remove('visible');
+      if (focusedCardElement) {
+        focusedCardElement.classList.remove('editing-focus');
+      }
+      focusedCardElement = null;
+    }
+
+    // Click outside handler to close style selection popover
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('#text-style-popover') && !e.target.closest('.card-element')) {
+        hideStylePopover();
+      }
+    });
+
+    // Rich Text Editor command dispatcher
+    function execCmd(command) {
+      if (command === 'createLink') {
+        const url = prompt("Enter the URL:");
+        if (url) document.execCommand(command, false, url);
+      } else {
+        document.execCommand(command, false, null);
+      }
+      document.getElementById('additional-info-editor').focus();
+    }
+
+    // Reset Form Fields to standard settings
+    function resetFormToDefault() {
+      if (confirm("Are you sure you want to reset all form entries to default?")) {
+        document.getElementById('event-title').value = defaultEventData.title;
+        document.getElementById('event-date').value = defaultEventData.date;
+        document.getElementById('event-time').value = defaultEventData.time;
+        document.getElementById('host-name').value = defaultEventData.host;
+        document.getElementById('host-email').value = defaultEventData.hostEmail;
+        document.getElementById('formspree-id').value = defaultEventData.formspreeId;
+        document.getElementById('host-phone').value = defaultEventData.phone;
+        
+        document.getElementById('checkbox-virtual').checked = false;
+        document.getElementById('physical-location-fields').style.display = 'block';
+        document.getElementById('virtual-location-fields').style.display = 'none';
+        
+        document.getElementById('location-name').value = defaultEventData.locName;
+        document.getElementById('location-address').value = defaultEventData.address;
+        document.getElementById('location-city').value = defaultEventData.city;
+        document.getElementById('location-state').value = defaultEventData.state;
+        document.getElementById('location-zip').value = defaultEventData.zip;
+        
+        document.getElementById('additional-info-editor').innerHTML = defaultEventData.info;
+        
+        // Turn off inline edits if active
+        if (isEditingCardInline) {
+          toggleCardEditable();
+        }
+        
+        // Trigger visual card sync updates
+        setupFormCardSync();
+      }
+    }
+
+    // Toggle end date inputs visibility
+    function toggleEndDate() {
+      const link = document.getElementById('btn-add-end-date');
+      const wrapper = document.getElementById('end-date-wrapper');
+      
+      endEventDateEnabled = !endEventDateEnabled;
+      if (endEventDateEnabled) {
+        wrapper.style.display = 'block';
+        link.innerText = "Remove end date";
+      } else {
+        wrapper.style.display = 'none';
+        link.innerText = "Add end date";
+        document.getElementById('event-end-date').value = '';
+      }
+    }
+
+    // Toggle virtual meeting link details panel visibility
+    function toggleVirtualEvent() {
+      const isVirtual = document.getElementById('checkbox-virtual').checked;
+      const physicalFields = document.getElementById('physical-location-fields');
+      const virtualFields = document.getElementById('virtual-location-fields');
+      
+      if (isVirtual) {
+        physicalFields.style.display = 'none';
+        virtualFields.style.display = 'block';
+      } else {
+        physicalFields.style.display = 'block';
+        virtualFields.style.display = 'none';
+      }
+    }
+
+    // Multi-Step Navigation Rules
+    function renderStep() {
+      // Hide all panels
+      document.querySelectorAll('.step-content').forEach(p => p.classList.remove('active'));
+      
+      // Show correct step panel
+      document.getElementById(`step-content-${currentStep}`).classList.add('active');
+      
+      // Update header dots classes
+      for (let i = 1; i <= 2; i++) {
+        const node = document.getElementById(`step-node-${i}`);
+        if (i < currentStep) {
+          node.classList.add('completed');
+          node.classList.remove('active');
+        } else if (i === currentStep) {
+          node.classList.remove('completed');
+          node.classList.add('active');
+        } else {
+          node.classList.remove('completed', 'active');
+        }
+      }
+      
+      // Progress line fill percentage
+      const lineFill = document.getElementById('steps-line-fill');
+      lineFill.style.width = `${((currentStep - 1) / 1) * 100}%`;
+      
+      // Button states
+      const saveBtn = document.getElementById('btn-save-continue');
+      if (currentStep === 2) {
+        saveBtn.style.display = 'none';
+      } else {
+        saveBtn.style.display = 'inline-flex';
+        saveBtn.innerHTML = 'Save and continue';
+      }
+      
+      // Generate link if on send step
+      if (currentStep === 2) {
+        prepareGenericRsvpLink();
+      }
+    }
+
+    function nextStep() {
+      if (currentStep < 2) {
+        currentStep++;
+        renderStep();
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 1) {
+        currentStep--;
+        renderStep();
+      }
+    }
+
+    // Step navigation wiring from top save and continue button
+    document.getElementById('btn-save-continue').addEventListener('click', nextStep);
+    
+    // Wire change design to go back or reset
+    document.getElementById('btn-change-design').addEventListener('click', () => {
+      if (currentStep > 1) {
+        currentStep = 1;
+        renderStep();
+      } else {
+        alert("Returning to design selections dashboard (Simulated).");
+      }
+    });
+
+    // Build generic Base64 encoded RSVP URL
+    function generateGenericRSVPLink() {
+      const eventTitle = document.getElementById('event-title').value;
+      const eventDate = document.getElementById('event-date').value;
+      const eventTime = document.getElementById('event-time').value;
+      const hostName = document.getElementById('host-name').value;
+      const hostEmail = document.getElementById('host-email').value;
+      const formspreeId = document.getElementById('formspree-id').value;
+      const locName = document.getElementById('location-name').value;
+      const locAddress = document.getElementById('location-address').value;
+      const locCity = document.getElementById('location-city').value;
+      const locState = document.getElementById('location-state').value;
+      const locZip = document.getElementById('location-zip').value;
+      const isVirtual = document.getElementById('checkbox-virtual').checked;
+      const virtualLink = document.getElementById('virtual-link').value;
+      const addInfo = document.getElementById('additional-info-editor').innerHTML;
+
+      const eventData = {
+        title: eventTitle,
+        date: eventDate,
+        time: eventTime,
+        host: hostName,
+        host_email: hostEmail,
+        formspree_id: formspreeId,
+        locName: locName,
+        address: locAddress,
+        city: locCity,
+        state: locState,
+        zip: locZip,
+        isVirtual: isVirtual,
+        virtualLink: virtualLink,
+        info: addInfo
+      };
+
+      // Safe base64 encoding supporting unicode
+      const jsonStr = JSON.stringify(eventData);
+      const b64 = btoa(encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+        return String.fromCharCode('0x' + p1);
+      }));
+
+      // Find current folder path to map relative rsvp.html
+      const currentPath = window.location.href;
+      let basePath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+      if (basePath === '') basePath = window.location.origin;
+      return `${basePath}/rsvp.html?invite=${b64}`;
+    }
+
+    function prepareGenericRsvpLink() {
+      const rsvpUrl = generateGenericRSVPLink();
+      document.getElementById('generic-rsvp-url-input').value = rsvpUrl;
+
+      // Email share prefilled subject & body
+      const mailSubject = encodeURIComponent(`You're Invited: ${document.getElementById('event-title').value}`);
+      const mailBody = encodeURIComponent(`Hi,\n\n` +
+        `You're invited to celebrate ${document.getElementById('event-title').value}!\n\n` +
+        `Event Date: ${document.getElementById('event-date').value}\n` +
+        `Time: ${document.getElementById('event-time').value}\n` +
+        `Location: ${document.getElementById('location-name').value}\n\n` +
+        `Please open the digital invitation and submit your RSVP response here:\n${rsvpUrl}\n\n` +
+        `Hope to see you there!`);
+      document.getElementById('btn-share-email-generic').setAttribute('href', `mailto:?subject=${mailSubject}&body=${mailBody}`);
+
+      // WhatsApp share prefilled text
+      const waText = encodeURIComponent(`You're invited to celebrate ${document.getElementById('event-title').value}! Open the digital invitation and RSVP here: ${rsvpUrl}`);
+      document.getElementById('btn-share-whatsapp-generic').setAttribute('href', `https://api.whatsapp.com/send?text=${waText}`);
+    }
+
+    function copyGenericRsvpLink(btn) {
+      const input = document.getElementById('generic-rsvp-url-input');
+      navigator.clipboard.writeText(input.value).then(() => {
+        const originalText = btn.innerText;
+        btn.innerText = "Copied!";
+        btn.style.borderColor = 'var(--btn-green)';
+        btn.style.color = 'var(--btn-green)';
+        setTimeout(() => { 
+          btn.innerText = originalText; 
+          btn.style.borderColor = '';
+          btn.style.color = '';
+        }, 2000);
+      });
+    }
+
+    async function shortenInvitationLink() {
+      const btn = document.getElementById('btn-shorten-api');
+      const input = document.getElementById('generic-rsvp-url-input');
+      const longUrl = input.value;
+
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Shortening...`;
+
+      const tinyUrlEndpoint = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`;
+      
+      // Try corsproxy.io first (more reliable), then allorigins as fallback
+      const proxies = [
+        `https://corsproxy.io/?${encodeURIComponent(tinyUrlEndpoint)}`,
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(tinyUrlEndpoint)}`
+      ];
+
+      for (let proxyUrl of proxies) {
+        try {
+          const response = await fetch(proxyUrl);
+          if (response.ok) {
+            const shortUrl = await response.text();
+            if (shortUrl && shortUrl.startsWith('http')) {
+              input.value = shortUrl;
+              
+              // Update mail and whatsapp links to use the new short link!
+              updateGenericShareLinks(shortUrl);
+              
+              // Success indicator
+              document.getElementById('shorten-link-container').innerHTML = `
+                <span style="font-size: 11px; color: #16a34a; font-weight: 600;"><i class="fa-solid fa-circle-check"></i> Short link created successfully! Domain is hidden.</span>
+              `;
+              return;
+            }
+          }
+        } catch (err) {
+          console.warn(`Proxy ${proxyUrl} failed, trying next...`, err);
+        }
+      }
+
+      // If all proxies fail, fallback to opening TinyURL in a new tab
+      alert("Auto-shortening failed due to network restrictions. Opening TinyURL in a new tab for you to shorten it manually.");
+      window.open(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`, '_blank');
+      btn.disabled = false;
+      btn.innerHTML = `Create TinyURL`;
+    }
+
+    function updateGenericShareLinks(shortUrl) {
+      const mailSubject = encodeURIComponent(`You're Invited: ${document.getElementById('event-title').value}`);
+      const mailBody = encodeURIComponent(`Hi,\n\n` +
+        `You're invited to celebrate ${document.getElementById('event-title').value}!\n\n` +
+        `Event Date: ${document.getElementById('event-date').value}\n` +
+        `Time: ${document.getElementById('event-time').value}\n` +
+        `Location: ${document.getElementById('location-name').value}\n\n` +
+        `Please open the digital invitation and submit your RSVP response here:\n${shortUrl}\n\n` +
+        `Hope to see you there!`);
+      document.getElementById('btn-share-email-generic').setAttribute('href', `mailto:?subject=${mailSubject}&body=${mailBody}`);
+
+      const waText = encodeURIComponent(`You're invited to celebrate ${document.getElementById('event-title').value}! Open the digital invitation and RSVP here: ${shortUrl}`);
+      document.getElementById('btn-share-whatsapp-generic').setAttribute('href', `https://api.whatsapp.com/send?text=${waText}`);
+    }
+
+    function resetWizard() {
+      currentStep = 1;
+      renderStep();
+    }
+
+    // PREMIUM CELEBRATORY CANVAS CONFETTI
+    function triggerConfettiCelebration() {
+      const canvas = document.getElementById('canvas-confetti');
+      const ctx = canvas.getContext('2d');
+      
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+      
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+      
+      const colors = ['#f1c40f', '#e74c3c', '#3498db', '#2ecc71', '#9b59b6', '#e67e22', '#1abc9c', '#ffe699', '#ffd54f'];
+      const particles = [];
+      const particleCount = 150;
+      
+      class ConfettiParticle {
+        constructor() {
+          this.x = Math.random() * width;
+          this.y = Math.random() * -height - 20;
+          this.r = 6 + Math.random() * 8;
+          this.d = Math.random() * particleCount;
+          this.color = colors[Math.floor(Math.random() * colors.length)];
+          this.tilt = Math.random() * 10 - 5;
+          this.tiltAngleIncremental = Math.random() * 0.07 + 0.02;
+          this.tiltAngle = 0;
+          this.speedY = 2 + Math.random() * 4;
+        }
+        
+        update() {
+          this.tiltAngle += this.tiltAngleIncremental;
+          this.y += this.speedY;
+          this.x += Math.sin(this.tiltAngle) * 0.5;
+          this.tilt = Math.sin(this.tiltAngle - this.r / 2) * 15;
+        }
+        
+        draw() {
+          ctx.beginPath();
+          ctx.lineWidth = this.r / 2;
+          ctx.strokeStyle = this.color;
+          ctx.moveTo(this.x + this.tilt + this.r / 4, this.y);
+          ctx.lineTo(this.x + this.tilt, this.y + this.tilt + this.r / 4);
+          ctx.stroke();
+        }
+      }
+      
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new ConfettiParticle());
+      }
+      
+      let animationFrameId;
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        
+        let activeParticles = 0;
+        particles.forEach(p => {
+          if (p.y < height + 20) {
+            p.update();
+            p.draw();
+            activeParticles++;
+          }
+        });
+        
+        if (activeParticles > 0) {
+          animationFrameId = requestAnimationFrame(animate);
+        } else {
+          ctx.clearRect(0, 0, width, height);
+          cancelAnimationFrame(animationFrameId);
+        }
+      }
+      
+      animate();
+      
+      // Stop animation after 7 seconds if still active
+      setTimeout(() => {
+        cancelAnimationFrame(animationFrameId);
+        ctx.clearRect(0, 0, width, height);
+      }, 7000);
+    }
+
+    // App Initialization
+    window.addEventListener('DOMContentLoaded', () => {
+      generateGlitterParticles();
+      setupFormCardSync();
+    });
+  </script>
+</body>
+</html>

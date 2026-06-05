@@ -1,20 +1,286 @@
-<testsuites id="" name="" tests="8" failures="0" skipped="0" errors="0" time="23.030762">
-<testsuite name="ai_civilization.spec.ts" timestamp="2026-05-22T15:18:53.950Z" hostname="chromium" tests="8" failures="0" skipped="0" time="73.947" errors="0">
-<testcase name="Page header and elements are fully rendered" classname="ai_civilization.spec.ts" time="12.689">
+<testsuites id="" name="" tests="40" failures="7" skipped="0" errors="0" time="165.513997">
+<testsuite name="ai_civilization.spec.ts" timestamp="2026-06-02T04:08:51.338Z" hostname="chromium" tests="8" failures="4" skipped="0" time="263.486" errors="0">
+<testcase name="Page header and elements are fully rendered" classname="ai_civilization.spec.ts" time="55.261">
+<failure message="ai_civilization.spec.ts:20:16 Page header and elements are fully rendered" type="FAILURE">
+<![CDATA[  [chromium] › ai_civilization.spec.ts:20:16 › Page header and elements are fully rendered ─────────
+
+    Tearing down "context" exceeded the test timeout of 30000ms.
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ai_civilization-Page-header-and-elements-are-fully-rendered-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ai_civilization-Page-header-and-elements-are-fully-rendered-chromium/test-failed-1.png]]
+]]>
+</system-out>
 </testcase>
-<testcase name="Planet canvas click increments Compute Power successfully" classname="ai_civilization.spec.ts" time="12.71">
+<testcase name="Planet canvas click increments Compute Power successfully" classname="ai_civilization.spec.ts" time="64.271">
+<failure message="ai_civilization.spec.ts:40:16 Planet canvas click increments Compute Power successfully" type="FAILURE">
+<![CDATA[  [chromium] › ai_civilization.spec.ts:40:16 › Planet canvas click increments Compute Power successfully 
+
+    Test timeout of 30000ms exceeded.
+
+    Tearing down "context" exceeded the test timeout of 30000ms.
+
+    Error Context: ../test-results/ai_civilization-Planet-can-532d2--Compute-Power-successfully-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ai_civilization-Planet-can-532d2--Compute-Power-successfully-chromium/error-context.md]]
+]]>
+</system-out>
 </testcase>
-<testcase name="Sidebar tabs navigation updates content active classes correctly" classname="ai_civilization.spec.ts" time="12.911">
+<testcase name="Sidebar tabs navigation updates content active classes correctly" classname="ai_civilization.spec.ts" time="62.736">
+<failure message="ai_civilization.spec.ts:65:16 Sidebar tabs navigation updates content active classes correctly" type="FAILURE">
+<![CDATA[  [chromium] › ai_civilization.spec.ts:65:16 › Sidebar tabs navigation updates content active classes correctly 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: page.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('#tab-cooling')
+        - locator resolved to <button class="tab-btn" id="tab-cooling" onclick="switchTab('cooling')">…</button>
+      - attempting click action
+        - waiting for element to be visible, enabled and stable
+
+
+      76 |
+      77 |   // Switch to Algorithmic Research
+    > 78 |   await page.click('#tab-research');
+         |              ^
+      79 |   await expect(page.locator('#content-research')).toHaveClass(/active/);
+      80 | });
+      81 |
+        at /Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts:78:14
+
+    Tearing down "context" exceeded the test timeout of 30000ms.
+
+    Error Context: ../test-results/ai_civilization-Sidebar-ta-44658-nt-active-classes-correctly-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ai_civilization-Sidebar-ta-44658-nt-active-classes-correctly-chromium/error-context.md]]
+]]>
+</system-out>
 </testcase>
-<testcase name="Injecting compute and buying basic CPU elevates hardware count &amp; power demand" classname="ai_civilization.spec.ts" time="15.663">
+<testcase name="Injecting compute and buying basic CPU elevates hardware count &amp; power demand" classname="ai_civilization.spec.ts" time="61.694">
+<failure message="ai_civilization.spec.ts:85:16 Injecting compute and buying basic CPU elevates hardware count &amp; power demand" type="FAILURE">
+<![CDATA[  [chromium] › ai_civilization.spec.ts:85:16 › Injecting compute and buying basic CPU elevates hardware count & power demand 
+
+    Test timeout of 30000ms exceeded.
+
+    Tearing down "context" exceeded the test timeout of 30000ms.
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ai_civilization-Injecting--8f01d-hardware-count-power-demand-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ai_civilization-Injecting--8f01d-hardware-count-power-demand-chromium/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ai_civilization-Injecting--8f01d-hardware-count-power-demand-chromium/test-failed-1.png]]
+
+[[ATTACHMENT|ai_civilization-Injecting--8f01d-hardware-count-power-demand-chromium/error-context.md]]
+]]>
+</system-out>
 </testcase>
-<testcase name="Deploys solar array &amp; wind turbine and increases green power grid supply" classname="ai_civilization.spec.ts" time="5.677">
+<testcase name="Deploys solar array &amp; wind turbine and increases green power grid supply" classname="ai_civilization.spec.ts" time="4.269">
 </testcase>
-<testcase name="High core temperature triggers warning class and throttling status, cooling fan reduces core heat" classname="ai_civilization.spec.ts" time="5.089">
+<testcase name="High core temperature triggers warning class and throttling status, cooling fan reduces core heat" classname="ai_civilization.spec.ts" time="6.425">
 </testcase>
-<testcase name="Resuming game from local storage loads state correctly" classname="ai_civilization.spec.ts" time="5.523">
+<testcase name="Resuming game from local storage loads state correctly" classname="ai_civilization.spec.ts" time="6.374">
 </testcase>
-<testcase name="Offline Standby progression calculates and harvests compute correctly on resuming" classname="ai_civilization.spec.ts" time="3.685">
+<testcase name="Offline Standby progression calculates and harvests compute correctly on resuming" classname="ai_civilization.spec.ts" time="2.456">
+</testcase>
+</testsuite>
+<testsuite name="ai_civilization.spec.ts" timestamp="2026-06-02T04:08:51.338Z" hostname="firefox" tests="8" failures="0" skipped="0" time="102.348" errors="0">
+<testcase name="Page header and elements are fully rendered" classname="ai_civilization.spec.ts" time="13.799">
+</testcase>
+<testcase name="Planet canvas click increments Compute Power successfully" classname="ai_civilization.spec.ts" time="17.895">
+</testcase>
+<testcase name="Sidebar tabs navigation updates content active classes correctly" classname="ai_civilization.spec.ts" time="21.525">
+</testcase>
+<testcase name="Injecting compute and buying basic CPU elevates hardware count &amp; power demand" classname="ai_civilization.spec.ts" time="17.306">
+</testcase>
+<testcase name="Deploys solar array &amp; wind turbine and increases green power grid supply" classname="ai_civilization.spec.ts" time="12.215">
+</testcase>
+<testcase name="High core temperature triggers warning class and throttling status, cooling fan reduces core heat" classname="ai_civilization.spec.ts" time="8.578">
+</testcase>
+<testcase name="Resuming game from local storage loads state correctly" classname="ai_civilization.spec.ts" time="4.966">
+</testcase>
+<testcase name="Offline Standby progression calculates and harvests compute correctly on resuming" classname="ai_civilization.spec.ts" time="6.064">
+</testcase>
+</testsuite>
+<testsuite name="ai_civilization.spec.ts" timestamp="2026-06-02T04:08:51.338Z" hostname="webkit" tests="8" failures="1" skipped="0" time="55.422" errors="0">
+<testcase name="Page header and elements are fully rendered" classname="ai_civilization.spec.ts" time="10.347">
+</testcase>
+<testcase name="Planet canvas click increments Compute Power successfully" classname="ai_civilization.spec.ts" time="9.712">
+<failure message="ai_civilization.spec.ts:40:16 Planet canvas click increments Compute Power successfully" type="FAILURE">
+<![CDATA[  [webkit] › ai_civilization.spec.ts:40:16 › Planet canvas click increments Compute Power successfully 
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Expected: >= 3
+    Received:    2
+
+      60 |   }
+      61 | });
+    > 62 |
+         | ^
+      63 | test('Sidebar tabs navigation updates content active classes correctly', async ({ page }) => {
+      64 |   // Default active tab should be hardware
+      65 |   await expect(page.locator('#content-hardware')).toHaveClass(/active/);
+        at /Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts:62:61
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ai_civilization-Planet-can-532d2--Compute-Power-successfully-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ai_civilization-Planet-can-532d2--Compute-Power-successfully-webkit/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ai_civilization-Planet-can-532d2--Compute-Power-successfully-webkit/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ai_civilization-Planet-can-532d2--Compute-Power-successfully-webkit/test-failed-1.png]]
+
+[[ATTACHMENT|ai_civilization-Planet-can-532d2--Compute-Power-successfully-webkit/video.webm]]
+
+[[ATTACHMENT|ai_civilization-Planet-can-532d2--Compute-Power-successfully-webkit/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Sidebar tabs navigation updates content active classes correctly" classname="ai_civilization.spec.ts" time="6.973">
+</testcase>
+<testcase name="Injecting compute and buying basic CPU elevates hardware count &amp; power demand" classname="ai_civilization.spec.ts" time="6.845">
+</testcase>
+<testcase name="Deploys solar array &amp; wind turbine and increases green power grid supply" classname="ai_civilization.spec.ts" time="6.628">
+</testcase>
+<testcase name="High core temperature triggers warning class and throttling status, cooling fan reduces core heat" classname="ai_civilization.spec.ts" time="5.121">
+</testcase>
+<testcase name="Resuming game from local storage loads state correctly" classname="ai_civilization.spec.ts" time="6.777">
+</testcase>
+<testcase name="Offline Standby progression calculates and harvests compute correctly on resuming" classname="ai_civilization.spec.ts" time="3.019">
+</testcase>
+</testsuite>
+<testsuite name="ai_civilization.spec.ts" timestamp="2026-06-02T04:08:51.338Z" hostname="Mobile Chrome" tests="8" failures="1" skipped="0" time="23.67" errors="0">
+<testcase name="Page header and elements are fully rendered" classname="ai_civilization.spec.ts" time="3.654">
+</testcase>
+<testcase name="Planet canvas click increments Compute Power successfully" classname="ai_civilization.spec.ts" time="3.886">
+<failure message="ai_civilization.spec.ts:40:16 Planet canvas click increments Compute Power successfully" type="FAILURE">
+<![CDATA[  [Mobile Chrome] › ai_civilization.spec.ts:40:16 › Planet canvas click increments Compute Power successfully 
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Expected: >= 3
+    Received:    0
+
+      60 |   }
+      61 | });
+    > 62 |
+         | ^
+      63 | test('Sidebar tabs navigation updates content active classes correctly', async ({ page }) => {
+      64 |   // Default active tab should be hardware
+      65 |   await expect(page.locator('#content-hardware')).toHaveClass(/active/);
+        at /Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts:62:61
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ai_civilization-Planet-can-532d2--Compute-Power-successfully-Mobile-Chrome/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ai_civilization-Planet-can-532d2--Compute-Power-successfully-Mobile-Chrome/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ai_civilization-Planet-can-532d2--Compute-Power-successfully-Mobile-Chrome/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ai_civilization-Planet-can-532d2--Compute-Power-successfully-Mobile-Chrome/test-failed-1.png]]
+
+[[ATTACHMENT|ai_civilization-Planet-can-532d2--Compute-Power-successfully-Mobile-Chrome/video.webm]]
+
+[[ATTACHMENT|ai_civilization-Planet-can-532d2--Compute-Power-successfully-Mobile-Chrome/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Sidebar tabs navigation updates content active classes correctly" classname="ai_civilization.spec.ts" time="3.237">
+</testcase>
+<testcase name="Injecting compute and buying basic CPU elevates hardware count &amp; power demand" classname="ai_civilization.spec.ts" time="2.708">
+</testcase>
+<testcase name="Deploys solar array &amp; wind turbine and increases green power grid supply" classname="ai_civilization.spec.ts" time="2.526">
+</testcase>
+<testcase name="High core temperature triggers warning class and throttling status, cooling fan reduces core heat" classname="ai_civilization.spec.ts" time="2.768">
+</testcase>
+<testcase name="Resuming game from local storage loads state correctly" classname="ai_civilization.spec.ts" time="2.425">
+</testcase>
+<testcase name="Offline Standby progression calculates and harvests compute correctly on resuming" classname="ai_civilization.spec.ts" time="2.466">
+</testcase>
+</testsuite>
+<testsuite name="ai_civilization.spec.ts" timestamp="2026-06-02T04:08:51.338Z" hostname="Mobile Safari" tests="8" failures="1" skipped="0" time="43.086" errors="0">
+<testcase name="Page header and elements are fully rendered" classname="ai_civilization.spec.ts" time="2.741">
+</testcase>
+<testcase name="Planet canvas click increments Compute Power successfully" classname="ai_civilization.spec.ts" time="6.558">
+<failure message="ai_civilization.spec.ts:40:16 Planet canvas click increments Compute Power successfully" type="FAILURE">
+<![CDATA[  [Mobile Safari] › ai_civilization.spec.ts:40:16 › Planet canvas click increments Compute Power successfully 
+
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
+
+    Expected: >= 3
+    Received:    0
+
+      60 |   }
+      61 | });
+    > 62 |
+         | ^
+      63 | test('Sidebar tabs navigation updates content active classes correctly', async ({ page }) => {
+      64 |   // Default active tab should be hardware
+      65 |   await expect(page.locator('#content-hardware')).toHaveClass(/active/);
+        at /Users/farukhasan/Desktop/Projects/my_webpage/e2e/ai_civilization.spec.ts:62:61
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/ai_civilization-Planet-can-532d2--Compute-Power-successfully-Mobile-Safari/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/ai_civilization-Planet-can-532d2--Compute-Power-successfully-Mobile-Safari/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/ai_civilization-Planet-can-532d2--Compute-Power-successfully-Mobile-Safari/error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|ai_civilization-Planet-can-532d2--Compute-Power-successfully-Mobile-Safari/test-failed-1.png]]
+
+[[ATTACHMENT|ai_civilization-Planet-can-532d2--Compute-Power-successfully-Mobile-Safari/video.webm]]
+
+[[ATTACHMENT|ai_civilization-Planet-can-532d2--Compute-Power-successfully-Mobile-Safari/error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Sidebar tabs navigation updates content active classes correctly" classname="ai_civilization.spec.ts" time="9.624">
+</testcase>
+<testcase name="Injecting compute and buying basic CPU elevates hardware count &amp; power demand" classname="ai_civilization.spec.ts" time="7.811">
+</testcase>
+<testcase name="Deploys solar array &amp; wind turbine and increases green power grid supply" classname="ai_civilization.spec.ts" time="9.409">
+</testcase>
+<testcase name="High core temperature triggers warning class and throttling status, cooling fan reduces core heat" classname="ai_civilization.spec.ts" time="1.717">
+</testcase>
+<testcase name="Resuming game from local storage loads state correctly" classname="ai_civilization.spec.ts" time="2.661">
+</testcase>
+<testcase name="Offline Standby progression calculates and harvests compute correctly on resuming" classname="ai_civilization.spec.ts" time="2.565">
 </testcase>
 </testsuite>
 </testsuites>

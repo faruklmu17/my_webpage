@@ -25,9 +25,14 @@
     <!-- Top Telemetry Header -->
     <header class="game-header">
       <div class="header-main">
-        <a href="../../index.html" class="back-home-btn" id="btn-back-home">
-          <i class="fas fa-arrow-left"></i> Home
-        </a>
+        <div class="header-left" style="display: flex; gap: 10px; align-items: center;">
+          <a href="../../index.html" class="back-home-btn" id="btn-back-home">
+            <i class="fas fa-arrow-left"></i> Home
+          </a>
+          <button class="new-planet-btn" id="btn-new-planet" onclick="confirmNewPlanet()" title="Wipe Simulation Backup & Construct a New Planet">
+            <i class="fas fa-redo"></i> New Planet
+          </button>
+        </div>
         <h1 class="game-title">
           🌍 <span class="accent-glow">AI Planet Builder</span> <span class="mvp-badge">Mainframe</span>
         </h1>
@@ -303,7 +308,7 @@
                   <p class="upg-stats">❄️ -15°C/s heat reduction | ⚡ 2 GW</p>
                 </div>
               </div>
-              <button class="buy-btn" style="background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.3); color: var(--color-cyan);" onclick="buyCooling('fan')">
+              <button class="buy-btn cooling-btn" onclick="buyCooling('fan')">
                 <span class="btn-cost" id="cost-fan">20 Pflops</span>
                 <span class="btn-qty" id="qty-fan">0</span>
               </button>
@@ -318,7 +323,7 @@
                   <p class="upg-stats">❄️ -80°C/s heat reduction | ⚡ 8 GW</p>
                 </div>
               </div>
-              <button class="buy-btn" style="background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.3); color: var(--color-cyan);" onclick="buyCooling('liquid')">
+              <button class="buy-btn cooling-btn" onclick="buyCooling('liquid')">
                 <span class="btn-cost" id="cost-liquid">150 Pflops</span>
                 <span class="btn-qty" id="qty-liquid">0</span>
               </button>
@@ -333,7 +338,7 @@
                   <p class="upg-stats">❄️ -450°C/s heat reduction | ⚡ 40 GW</p>
                 </div>
               </div>
-              <button class="buy-btn" style="background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.3); color: var(--color-cyan);" onclick="buyCooling('cryo')">
+              <button class="buy-btn cooling-btn" onclick="buyCooling('cryo')">
                 <span class="btn-cost" id="cost-cryo">900 Pflops</span>
                 <span class="btn-qty" id="qty-cryo">0</span>
               </button>
