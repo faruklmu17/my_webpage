@@ -829,83 +829,78 @@
     // Submit RSVP Response
     async function submitRsvpResponse(e) {
       e.preventDefault();
-      
+
       if (!selectedAttendance) {
         alert("Please select whether you accept or decline the invitation.");
         return;
       }
 
-      const btnSubmit = document.getElementById('btn-submit-rsvp');
-      const formPanel = document.getElementById('rsvp-form-panel');
+      const btnSubmit    = document.getElementById('btn-submit-rsvp');
+      const formPanel    = document.getElementById('rsvp-form-panel');
       const successPanel = document.getElementById('rsvp-success-panel');
-      
-      const attendeesCount = selectedAttendance === 'Accept' ? document.getElementById('guests-count').value : 0;
-      const message = document.getElementById('guest-dietary').value;
-      
-      let guestEmail = inviteData.guest_email || 'Not Provided';
 
-      // Always prefer what the guest actually typed in the name field (if visible),
-      // otherwise fall back to the name embedded in the invite URL.
-      const nameInputEl = document.getElementById('guest-name-input');
-      const typedName = nameInputEl ? nameInputEl.value.trim() : '';
-      let guestName = typedName || inviteData.guest || '';
+      // Safe reads — inviteData may be null if URL parsing failed
+      const data          = inviteData || {};
+      const guestEmail    = data.guest_email || '';
+      const eventTitle    = data.title || 'Event';
+      const attendeesCount = (selectedAttendance === 'Accept')
+        ? (document.getElementById('guests-count').value || 1)
+        : 0;
+      const message = document.getElementById('guest-dietary').value || '';
 
-      if (!guestName || guestName === '') {
+      // Guest name: prefer typed input, fall back to URL-encoded name
+      const nameEl    = document.getElementById('guest-name-input');
+      const typedName = nameEl ? nameEl.value.trim() : '';
+      const guestName = typedName || data.guest || '';
+
+      if (!guestName) {
         alert("Please enter your full name to submit your RSVP.");
-        // Re-enable button so guest can retry
-        btnSubmit.disabled = false;
-        btnSubmit.innerHTML = `Submit RSVP Response`;
         return;
       }
 
       btnSubmit.disabled = true;
-      btnSubmit.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Submitting Response...`;
+      btnSubmit.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Submitting...';
 
-      const formData = {
+      const FORMSPREE_URL = 'https://formspree.io/f/xrevbnob';
+
+      const payload = {
         _replyto: guestEmail || 'not-provided@example.com',
         "Guest Name": guestName,
         "Guest Email": guestEmail || 'Not Provided',
-        "Event": inviteData.title,
+        "Event": eventTitle,
         "Attendance": selectedAttendance,
         "Attendees Count": attendeesCount,
         "Message or Dietary": message || 'None'
       };
 
-      let submissionOk = false;
-
+      let ok = false;
       try {
-        const formspreeId = inviteData.formspree_id || 'xrevbnob';
-        const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
+        const res = await fetch(FORMSPREE_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(formData)
+          body: JSON.stringify(payload)
         });
-
-        let responseBody = {};
-        try { responseBody = await response.json(); } catch(e) {}
-
-        if (response.ok) {
-          submissionOk = true;
-        } else {
-          const reason = responseBody?.error || responseBody?.errors?.[0]?.message || `Error ${response.status}`;
-          console.error('Formspree rejected submission:', reason);
+        ok = res.ok;
+        if (!ok) {
+          let body = {};
+          try { body = await res.json(); } catch (_) {}
+          console.error('Formspree error:', res.status, body);
         }
-
       } catch (err) {
-        console.error('Network error during RSVP submission:', err.message);
+        console.error('Fetch failed:', err.message);
       }
 
-      if (submissionOk) {
-        // Show clean success screen
+      if (ok) {
         formPanel.style.display = 'none';
         successPanel.style.display = 'block';
-        try { triggerConfetti(); } catch(e) {}
+        try { triggerConfetti(); } catch (_) {}
       } else {
         btnSubmit.disabled = false;
-        btnSubmit.innerHTML = `Submit RSVP Response`;
-        alert('Something went wrong submitting your RSVP. Please try again.');
+        btnSubmit.innerHTML = 'Submit RSVP Response';
+        alert('Something went wrong. Please try again.');
       }
     }
+
 
     // Confetti animation on success
     function triggerConfetti() {
