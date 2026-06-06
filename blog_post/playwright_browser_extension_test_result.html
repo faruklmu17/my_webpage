@@ -723,34 +723,54 @@ reporter: [
 ],
 ```
 
-## STEP 3 — Ask me which deployment option I want, then apply it:
+## STEP 3 — First, ask me: "Is your repository public, private, or an organization repo?"
+Then apply the correct option below. Do NOT proceed without knowing this.
 
-**Option A — Public Repo (Simplest)**
-Create `.github/workflows/playwright.yml` that:
-- Runs `npx playwright test`
-- Commits `test-summary.json` back to the repo with `contents: write` permission
-- Uses `[skip ci]` in the commit message to prevent infinite loops
+**Option A — Public Repository (No GitHub Pages needed)**
+Use this ONLY if the repo is public. The raw GitHub URL is publicly accessible, so no deployment is needed.
+- Create `.github/workflows/playwright.yml` that runs `npx playwright test` and commits `test-summary.json` directly back to the repo using `contents: write` permission and `[skip ci]` to prevent infinite loops.
+- NO GitHub Pages setup is needed for public repos.
+→ The extension URL will be the Raw GitHub URL of `test-summary.json` in the repo:
+  `https://raw.githubusercontent.com/USERNAME/REPO/main/test-summary.json`
+  Ask me for the GitHub username and repo name to build the exact URL.
 
-**Option B — Private Repo via GitHub Pages (Recommended for privacy)**
-Create `.github/workflows/playwright.yml` that:
-- Runs `npx playwright test`
-- Copies `test-summary.json` to a `public/` folder as both `test-summary.json` and `results.json`
-- Generates a simple HTML dashboard at `public/index.html`
-- Deploys the `public/` folder to GitHub Pages
-- Requires permissions: `contents: write`, `pages: write`, `id-token: write`
-- Remind me to enable GitHub Pages in repo Settings → Pages → Source: GitHub Actions
+**Option B — Private or Organization Repository (GitHub Pages deployment required)**
+Use this if the repo is private or belongs to a GitHub Organization. The raw URL of a private repo is NOT publicly accessible, so the extension cannot read it directly. The ONLY solution is to deploy `results.json` to GitHub Pages, which serves it as a public URL even though the source code stays private.
+- Create `.github/workflows/playwright.yml` that:
+  1. Runs `npx playwright test`
+  2. Copies `test-summary.json` into a `public/` folder as `results.json`
+  3. Deploys the `public/` folder to GitHub Pages using `actions/deploy-pages`
+  4. Requires permissions: `contents: write`, `pages: write`, `id-token: write`
+- Remind me to enable GitHub Pages: repo Settings → Pages → Source: GitHub Actions → Save
+→ The extension URL will be the GitHub Pages URL of the deployed `results.json` file:
+  `https://USERNAME.github.io/REPO/results.json`
+  This file is served publicly by GitHub Pages even if the repo is private.
+  Ask me for the GitHub username and repo name to build the exact URL.
 
-**Option C — AWS S3**
-Create `.github/workflows/playwright.yml` that:
-- Runs `npx playwright test`
-- Uploads `test-summary.json` to S3 as `results.json` using `aws s3 cp`
-- Uses secrets: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_DEFAULT_REGION
-- Ask me for my S3 bucket name and region
+**Option C — AWS S3 (Alternative for teams already using AWS)**
+Create `.github/workflows/playwright.yml` that runs tests and uploads `test-summary.json` to S3 as `results.json` using `aws s3 cp`. Uses secrets: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_DEFAULT_REGION. Ask me for my bucket name and region.
+→ The extension URL will be the public S3 object URL:
+  `https://BUCKET-NAME.s3.REGION.amazonaws.com/results.json`
 
-## STEP 4 — After setup is complete, tell me:
-- What files were created or modified
-- The exact URL format I should paste into the Chrome extension settings
-- Any remaining manual steps (e.g., enabling GitHub Pages, adding secrets)
+## STEP 4 — When all files are created, end your response with this exact formatted summary:
+
+---
+### ✅ Setup Complete — Here's What To Do Next
+
+**Files created/modified:**
+- [list each file]
+
+**Your Extension URL:**
+[The exact URL to paste — no placeholders. E.g.: https://raw.githubusercontent.com/myuser/myrepo/main/test-summary.json]
+
+**Remaining manual steps:**
+1. [e.g., Go to GitHub repo → Settings → Pages → Source: GitHub Actions → Save]
+2. [e.g., Push your changes to trigger the first CI run]
+3. Open the Chrome extension → click the ⚙️ gear icon → paste the URL above into "Results JSON URL" → click Save
+4. Wait for the CI pipeline to finish, then click the extension icon to see your live results
+
+**You're all set! The extension badge will turn green when tests pass and red when they fail.**
+---
 
 ## IMPORTANT RULES:
 - Do NOT modify any existing test files
