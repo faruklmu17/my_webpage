@@ -24,9 +24,11 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://faruk-hasan.com/blog_post/playwright_browser_extension_test_result.html" />
+    <meta name="twitter:url"
+        content="https://faruk-hasan.com/blog_post/playwright_browser_extension_test_result.html" />
     <meta name="twitter:title" content="Playwright Browser Extension: Monitor Test Results from Your Chrome Toolbar" />
-    <meta name="twitter:description" content="Monitor your Playwright test results directly from your Chrome toolbar. v1.8 is now 100% free with failed test details." />
+    <meta name="twitter:description"
+        content="Monitor your Playwright test results directly from your Chrome toolbar. v1.8 is now 100% free with failed test details." />
     <meta name="twitter:image" content="https://faruk-hasan.com/blog_images/playwright_extension_thumb.png" />
 
     <!-- SEO: Canonical & Structured Data -->
@@ -143,50 +145,50 @@
 
         /* Header Section */
         .article-header {
-            margin-bottom: 3.5rem;
+            margin-bottom: 1.5rem;
             text-align: center;
         }
 
         .category-badge {
             display: inline-block;
-            padding: 0.35rem 1rem;
+            padding: 0.25rem 0.75rem;
             background: var(--accent-soft);
             color: var(--accent);
             border-radius: 99px;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.75rem;
         }
 
         h1 {
-            font-size: clamp(2.25rem, 5vw, 3.25rem);
+            font-size: clamp(1.5rem, 3.5vw, 2rem);
             font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
             color: #111827;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.75rem;
         }
 
         .article-meta {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 1.5rem;
+            gap: 1rem;
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
 
         .meta-item {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.4rem;
         }
 
         .author-img {
-            width: 40px;
-            height: 40px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--border);
@@ -454,6 +456,134 @@
             box-shadow: var(--shadow-md);
             display: block;
         }
+
+        /* ── AI Instructions Section ── */
+        .ai-section {
+            border: 2px solid transparent;
+            background:
+                linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                linear-gradient(135deg, #6366f1, #2563eb, #10b981) border-box;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #6366f1, #2563eb, #10b981);
+        }
+
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: linear-gradient(135deg, #ede9fe, #dbeafe);
+            color: #4338ca;
+            border: 1px solid #c7d2fe;
+            padding: 0.3rem 0.85rem;
+            border-radius: 99px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 1rem;
+        }
+
+        .ai-how-it-works {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .ai-step-mini {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .ai-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.6rem;
+            height: 1.6rem;
+            background: linear-gradient(135deg, #6366f1, #2563eb);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .ai-prompt-wrapper {
+            margin: 1.5rem 0 0;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #334155;
+        }
+
+        .ai-prompt-topbar {
+            background: #1e293b;
+            color: #94a3b8;
+            padding: 0.6rem 1rem;
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.85rem;
+            background: linear-gradient(135deg, #6366f1, #2563eb);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .ai-copy-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .ai-copy-btn.copied {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .ai-prompt-block {
+            background: #0d1117;
+            color: #c9d1d9;
+            padding: 1.5rem;
+            margin: 0;
+            border-radius: 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            line-height: 1.7;
+            max-height: 320px;
+            overflow-y: auto;
+            border: none;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .ai-prompt-block::-webkit-scrollbar { width: 6px; }
+        .ai-prompt-block::-webkit-scrollbar-track { background: #1e293b; }
+        .ai-prompt-block::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
     </style>
 </head>
 
@@ -462,73 +592,176 @@
 
     <div class="main-wrapper">
         <nav class="breadcrumb" style="margin-bottom: 2rem; font-size: 0.9rem; color: var(--text-muted);">
-            <a href="../index.html" style="color: var(--primary); text-decoration: none;">Home</a> 
-            <span style="margin: 0 0.5rem;">/</span> 
-            <a href="../index.html#blog" style="color: var(--primary); text-decoration: none;">Blog</a> 
-            <span style="margin: 0 0.5rem;">/</span> 
+            <a href="../index.html" style="color: var(--primary); text-decoration: none;">Home</a>
+            <span style="margin: 0 0.5rem;">/</span>
+            <a href="../index.html#blog" style="color: var(--primary); text-decoration: none;">Blog</a>
+            <span style="margin: 0 0.5rem;">/</span>
             <span>Playwright Browser Extension</span>
         </nav>
 
         <header class="article-header">
             <span class="category-badge">QA Engineering • DevOps</span>
             <h1>The Playwright Test Results Badge: Monitor Your CI/CD Directly from Chrome</h1>
-
             <div class="article-meta">
                 <div class="meta-item">
                     <img src="../assets/images/me.jpg" alt="Faruk Hasan" class="author-img">
                     <span>By <strong>Faruk Hasan</strong></span>
                 </div>
-                <div class="meta-item">
-                    <i class="far fa-calendar-alt"></i>
-                    <span>December 20, 2025 (Updated May 2026)</span>
-                </div>
-                <div class="meta-item">
-                    <i class="far fa-clock"></i>
-                    <span>10 min read</span>
-                </div>
+                <div class="meta-item"><i class="far fa-calendar-alt"></i> <span>Dec 20, 2025 (Updated May 2026)</span></div>
+                <div class="meta-item"><i class="far fa-clock"></i> <span>10 min read</span></div>
             </div>
-
             <!-- Table of Contents -->
-            <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-top: 2rem; text-align: left; box-shadow: var(--shadow-sm);">
-                <h4 style="margin-bottom: 1rem; color: var(--primary);"><i class="fas fa-list-ul"></i> Table of Contents</h4>
-                <ul style="list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.5rem; font-size: 0.95rem;">
-                    <li><a href="#overview" style="color: var(--text-main); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.2s;">Overview & Features</a></li>
-                    <li><a href="#how-it-works" style="color: var(--how-it-works); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.2s;">How it Works</a></li>
-                    <li><a href="#github-pages" style="color: var(--text-main); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.2s;">Setup: GitHub Pages</a></li>
-                    <li><a href="#aws-s3" style="color: var(--text-main); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.2s;">Setup: AWS S3</a></li>
-                    <li><a href="#pro-tips" style="color: var(--text-main); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.2s;">Pro Tips & Best Practices</a></li>
-                </ul>
+            <div style="background:#fff; border:1px solid var(--border); border-radius:8px; padding:0.75rem 1rem; margin-top:1rem; text-align:left;">
+                <span style="font-size:0.8rem; font-weight:700; color:var(--primary); margin-right:0.75rem;"><i class="fas fa-list-ul"></i> Jump to:</span>
+                <a href="#ai-setup" style="color:#4338ca; font-weight:600; font-size:0.82rem; text-decoration:none; margin-right:1rem;">⚡ AI Setup</a>
+                <a href="#overview" style="color:var(--text-muted); font-size:0.82rem; text-decoration:none; margin-right:1rem;">Overview</a>
+                <a href="#how-it-works" style="color:var(--text-muted); font-size:0.82rem; text-decoration:none; margin-right:1rem;">How it Works</a>
+                <a href="#github-pages" style="color:var(--text-muted); font-size:0.82rem; text-decoration:none; margin-right:1rem;">GitHub Pages</a>
+                <a href="#aws-s3" style="color:var(--text-muted); font-size:0.82rem; text-decoration:none; margin-right:1rem;">AWS S3</a>
+                <a href="#pro-tips" style="color:var(--text-muted); font-size:0.82rem; text-decoration:none;">Pro Tips</a>
             </div>
         </header>
 
         <div id="overview"></div>
-        <section class="section-card">
-            <h2><i class="fas fa-eye"></i> Overview</h2>
-            <p>
-                As a developer or QA engineer, how much time do you lose switching between your IDE and your CI/CD
-                dashboard?
-                The <strong>Playwright Browser Extension</strong> is a lightweight Chrome extension that helps you quickly see your Playwright test status directly from your browser toolbar. Version 1.8 introduces failed test details directly in the popup and dark/light mode support, alongside AWS S3 and GitHub Pages integration, giving you complete flexibility in where you store your test results.
+        <section class="section-card" id="overview" style="padding: 1.5rem 2rem;">
+            <h2 style="font-size: 1.3rem; margin-bottom: 0.75rem;"><i class="fas fa-eye"></i> Overview</h2>
+            <p style="margin-bottom: 1rem; font-size: 1rem;">
+                The <strong>Playwright Browser Extension</strong> is a lightweight Chrome extension that shows your Playwright CI/CD test status directly from your browser toolbar — no more switching between tabs and dashboards. v1.8 is <strong>100% free</strong> with failed test details, dark mode, GitHub Pages & AWS S3 support.
             </p>
+            <div style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
+                <span style="display:inline-flex; align-items:center; gap:0.4rem; background:#f0fdf4; color:#166534; border:1px solid #bbf7d0; border-radius:99px; padding:0.3rem 0.8rem; font-size:0.85rem; font-weight:600;"><i class="fas fa-user-ninja"></i> For Devs & QA</span>
+                <span style="display:inline-flex; align-items:center; gap:0.4rem; background:#eff6ff; color:#1d4ed8; border:1px solid #bfdbfe; border-radius:99px; padding:0.3rem 0.8rem; font-size:0.85rem; font-weight:600;"><i class="fas fa-shield-alt"></i> No accounts or tracking</span>
+                <span style="display:inline-flex; align-items:center; gap:0.4rem; background:#fefce8; color:#854d0e; border:1px solid #fde68a; border-radius:99px; padding:0.3rem 0.8rem; font-size:0.85rem; font-weight:600;"><i class="fas fa-bolt"></i> Auto-refresh every 1 min</span>
+            </div>
+        </section>
 
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <div class="feature-icon"><i class="fas fa-user-ninja"></i></div>
-                    <div class="feature-title">Who is this for?</div>
-                    <div class="feature-desc">Perfect for DEVs, QA engineers, and students learning automated testing or
-                        CI/CD pipelines.</div>
+
+        <!-- ============================================================ -->
+        <!-- AI INSTRUCTIONS SECTION                                        -->
+        <!-- ============================================================ -->
+        <section class="section-card ai-section" id="ai-setup">
+            <div class="ai-section-header">
+                <div class="ai-badge"><i class="fas fa-robot"></i> AI-Powered Setup</div>
+                <h2 style="margin-bottom: 0.5rem;"><i class="fas fa-magic"></i> Set Up With AI — Skip the Steps Below</h2>
+                <p style="color: var(--text-muted); font-size: 1rem; margin-bottom: 0;">
+                    Using Cursor, GitHub Copilot, Claude, or any AI assistant? Just copy the prompt below and paste it into your AI chat. It will set everything up for you automatically — no manual reading required.
+                </p>
+            </div>
+
+            <div class="ai-how-it-works">
+                <div class="ai-step-mini"><span class="ai-num">1</span> Copy the prompt below</div>
+                <i class="fas fa-arrow-right" style="color: var(--text-muted);"></i>
+                <div class="ai-step-mini"><span class="ai-num">2</span> Paste it into your AI assistant</div>
+                <i class="fas fa-arrow-right" style="color: var(--text-muted);"></i>
+                <div class="ai-step-mini"><span class="ai-num">3</span> AI sets up your repo automatically</div>
+            </div>
+
+            <div class="ai-prompt-wrapper">
+                <div class="ai-prompt-topbar">
+                    <span><i class="fas fa-file-code"></i> AI Setup Prompt — Copy this entire block</span>
+                    <button class="ai-copy-btn" id="copyAiPromptBtn" onclick="copyAiPrompt()">
+                        <i class="fas fa-copy"></i> Copy Prompt
+                    </button>
                 </div>
-                <div class="feature-item">
-                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-                    <div class="feature-title">Privacy First</div>
-                    <div class="feature-desc">No accounts, no tracking, and no external servers. Your data stays between
-                        your browser and your source.</div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
-                    <div class="feature-title">Auto Refresh</div>
-                    <div class="feature-desc">The extension polls your summary file every 1 minute in the background,
-                        keeping you always up to date.</div>
-                </div>
+                <pre class="ai-prompt-block" id="aiPromptText">You are an AI coding assistant. I want to set up the Playwright Browser Extension integration in this repository so the Chrome extension can monitor my test results in real time.
+
+Please do the following steps exactly:
+
+## STEP 1 — Create the custom reporter file
+Create a file called `generate_summary.js` in the project root with this exact content:
+
+```js
+// generate_summary.js
+const fs = require('fs');
+
+class SummaryReporter {
+  onBegin(config, suite) {
+    this.rootSuite = suite;
+  }
+
+  onEnd(result) {
+    const summary = {
+      schemaVersion: 1,
+      passed: 0,
+      failed: 0,
+      flaky: 0,
+      total: 0,
+      startTime: new Date().toISOString(),
+      isSummary: true,
+      failedTests: []
+    };
+
+    if (this.rootSuite) {
+      for (const test of this.rootSuite.allTests()) {
+        const status = test.outcome();
+        if (status === 'expected') summary.passed++;
+        if (status === 'unexpected') {
+          summary.failed++;
+          summary.failedTests.push(test.title);
+        }
+        if (status === 'flaky') summary.flaky++;
+      }
+    }
+
+    summary.total = summary.passed + summary.failed + summary.flaky;
+    fs.writeFileSync('test-summary.json', JSON.stringify(summary, null, 2));
+    console.log('✅ Automatic summary created: test-summary.json');
+  }
+}
+
+module.exports = SummaryReporter;
+```
+
+## STEP 2 — Update playwright.config.ts
+In `playwright.config.ts`, add `./generate_summary.js` to the reporters array. Keep any existing reporters. Example:
+
+```ts
+reporter: [
+  ['./generate_summary.js'],
+  ['list'],
+  ['html'],
+],
+```
+
+## STEP 3 — Ask me which deployment option I want, then apply it:
+
+**Option A — Public Repo (Simplest)**
+Create `.github/workflows/playwright.yml` that:
+- Runs `npx playwright test`
+- Commits `test-summary.json` back to the repo with `contents: write` permission
+- Uses `[skip ci]` in the commit message to prevent infinite loops
+
+**Option B — Private Repo via GitHub Pages (Recommended for privacy)**
+Create `.github/workflows/playwright.yml` that:
+- Runs `npx playwright test`
+- Copies `test-summary.json` to a `public/` folder as both `test-summary.json` and `results.json`
+- Generates a simple HTML dashboard at `public/index.html`
+- Deploys the `public/` folder to GitHub Pages
+- Requires permissions: `contents: write`, `pages: write`, `id-token: write`
+- Remind me to enable GitHub Pages in repo Settings → Pages → Source: GitHub Actions
+
+**Option C — AWS S3**
+Create `.github/workflows/playwright.yml` that:
+- Runs `npx playwright test`
+- Uploads `test-summary.json` to S3 as `results.json` using `aws s3 cp`
+- Uses secrets: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_DEFAULT_REGION
+- Ask me for my S3 bucket name and region
+
+## STEP 4 — After setup is complete, tell me:
+- What files were created or modified
+- The exact URL format I should paste into the Chrome extension settings
+- Any remaining manual steps (e.g., enabling GitHub Pages, adding secrets)
+
+## IMPORTANT RULES:
+- Do NOT modify any existing test files
+- Do NOT install new npm packages unless absolutely necessary
+- If `generate_summary.js` already exists, check if it matches and skip if identical
+- If `playwright.config.ts` already has a reporter array, merge — do not replace
+- Always use `if: always()` in CI steps so results upload even when tests fail</pre>
+            </div>
+
+            <div class="callout success" style="margin-top: 1.5rem; margin-bottom: 0;">
+                <i class="fas fa-lightbulb"></i> <strong>Tip:</strong> After pasting, your AI will ask which deployment option you want (A, B, or C). Choose based on whether your repo is public or private. Most users should pick <strong>Option B (GitHub Pages)</strong>.
             </div>
         </section>
 
@@ -550,11 +783,18 @@
             <p>Click the extension icon in your browser toolbar to see a comprehensive breakdown:</p>
 
             <div style="display: flex; justify-content: center; margin: 2.5rem 0;">
-                <a href="../blog_images/extension_popup_dark_mode.png" target="_blank" style="text-decoration: none; display: inline-block; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                    <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 1.5rem; border-radius: 16px; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; border: 1px solid #334155; cursor: zoom-in;">
+                <a href="../blog_images/extension_popup_dark_mode.png" target="_blank"
+                    style="text-decoration: none; display: inline-block; transition: transform 0.2s ease;"
+                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div
+                        style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 1.5rem; border-radius: 16px; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; border: 1px solid #334155; cursor: zoom-in;">
                         <!-- Decorative glow -->
-                        <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 60%); pointer-events: none;"></div>
-                        <img src="../blog_images/extension_popup_dark_mode.png" alt="Playwright Test Results Extension Popup in Dark Mode" style="max-width: 320px; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); display: block; border: 1px solid #1e293b; position: relative; z-index: 1;">
+                        <div
+                            style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 60%); pointer-events: none;">
+                        </div>
+                        <img src="../blog_images/extension_popup_dark_mode.png"
+                            alt="Playwright Test Results Extension Popup in Dark Mode"
+                            style="max-width: 320px; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); display: block; border: 1px solid #1e293b; position: relative; z-index: 1;">
                     </div>
                 </a>
             </div>
@@ -569,9 +809,11 @@
                         style="position: absolute; left: 0; color: var(--danger);"></i> Failed test counts
                 </li>
                 <li style="padding-left: 2rem; position: relative; margin-bottom: 0.5rem;"><i class="fas fa-list-ul"
-                        style="position: absolute; left: 0; color: var(--primary);"></i> Names of failing tests displayed directly in the popup</li>
+                        style="position: absolute; left: 0; color: var(--primary);"></i> Names of failing tests
+                    displayed directly in the popup</li>
                 <li style="padding-left: 2rem; position: relative; margin-bottom: 0.5rem;"><i class="fas fa-desktop"
-                        style="position: absolute; left: 0; color: var(--accent);"></i> Automated HTML Dashboard generation</li>
+                        style="position: absolute; left: 0; color: var(--accent);"></i> Automated HTML Dashboard
+                    generation</li>
                 <li style="padding-left: 2rem; position: relative; margin-bottom: 0.5rem;"><i class="fas fa-clock"
                         style="position: absolute; left: 0; color: var(--warning);"></i> Last updated timestamp and
                     Manual Refresh button</li>
@@ -721,7 +963,8 @@ jobs:
             </p>
             <div class="callout success">
                 <strong>The Solution:</strong> Use <strong>GitHub Pages</strong> to host your summary file. GitHub Pages
-                can be enabled even on private repositories and GitHub Organizations, allowing you to serve the 1KB summary file publicly while
+                can be enabled even on private repositories and GitHub Organizations, allowing you to serve the 1KB
+                summary file publicly while
                 keeping your source code and test results private.
             </div>
 
@@ -729,13 +972,17 @@ jobs:
             <div class="setup-steps">
                 <div class="setup-step">
                     <h4>1. Enable GitHub Pages</h4>
-                    <p>Go to your repository <strong>Settings → Pages</strong>. Under "Build and deployment", set the Source to <strong>GitHub Actions</strong> as shown below.</p>
-                    <img src="../blog_images/github_pages_settings_new.png" alt="GitHub Pages Settings - Configure Build and Deployment for Playwright Results" class="blog-image" style="margin-bottom: 20px;">
+                    <p>Go to your repository <strong>Settings → Pages</strong>. Under "Build and deployment", set the
+                        Source to <strong>GitHub Actions</strong> as shown below.</p>
+                    <img src="../blog_images/github_pages_settings_new.png"
+                        alt="GitHub Pages Settings - Configure Build and Deployment for Playwright Results"
+                        class="blog-image" style="margin-bottom: 20px;">
                 </div>
                 <div class="setup-step">
                     <h4>2. Use the Complete Workflow</h4>
                     <p>Copy and paste this workflow into <code>.github/workflows/playwright.yml</code>. It handles
-                        testing, result commitment, and Pages deployment automatically while generating a beautiful HTML dashboard.</p>
+                        testing, result commitment, and Pages deployment automatically while generating a beautiful HTML
+                        dashboard.</p>
                     <div class="code-container">
                         <div class="code-label">playwright.yml</div>
                         <pre><code>name: Deploy results.json to GitHub Pages
@@ -918,7 +1165,9 @@ jobs:
         uses: actions/deploy-pages@v4</code></pre>
                     </div>
                     <p>The workflow above generates an automated dashboard like this:</p>
-                    <img src="../blog_images/test_summary_dashboard_blurred.png" alt="Playwright Browser Extension HTML Dashboard Summary - v1.8 Free Release" class="blog-image" style="margin-bottom: 20px;">
+                    <img src="../blog_images/test_summary_dashboard_blurred.png"
+                        alt="Playwright Browser Extension HTML Dashboard Summary - v1.8 Free Release" class="blog-image"
+                        style="margin-bottom: 20px;">
                 </div>
                 <div class="setup-step">
                     <h4>3. Initialize Your Summary</h4>
@@ -929,11 +1178,14 @@ jobs:
 
                 <div class="setup-step">
                     <h4>4. Connect & Verify</h4>
-                    <p>Once the workflow finishes, you can verify the deployment status in your repository settings as shown below:
+                    <p>Once the workflow finishes, you can verify the deployment status in your repository settings as
+                        shown below:
                     </p>
-                    <img src="../blog_images/github_pages_deployment.png" alt="GitHub Pages Deployment Success" class="blog-image" style="margin-bottom: 20px;">
+                    <img src="../blog_images/github_pages_deployment.png" alt="GitHub Pages Deployment Success"
+                        class="blog-image" style="margin-bottom: 20px;">
                     <div class="callout warning">
-                        <strong>Important:</strong> Provide the <strong>JSON</strong> URL to the extension, not the HTML dashboard URL.
+                        <strong>Important:</strong> Provide the <strong>JSON</strong> URL to the extension, not the HTML
+                        dashboard URL.
                         <br>
                         • ❌ Incorrect: <code>https://username.github.io/repo/</code>
                         <br>
@@ -1126,16 +1378,31 @@ jobs:
                 <a href="https://faruk-hasan.com" target="_blank"><i class="fas fa-globe"></i></a>
             </div>
         </footer>
-    </main>
+        </main>
 
-    <script>
-        window.onscroll = function () {
-            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            let scrolled = (winScroll / height) * 100;
-            document.getElementById("progressBar").style.width = scrolled + "%";
-        };
-    </script>
+        <script>
+            window.onscroll = function () {
+                let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                let scrolled = (winScroll / height) * 100;
+                document.getElementById("progressBar").style.width = scrolled + "%";
+            };
+
+            function copyAiPrompt() {
+                const text = document.getElementById('aiPromptText').innerText;
+                navigator.clipboard.writeText(text).then(function () {
+                    const btn = document.getElementById('copyAiPromptBtn');
+                    btn.classList.add('copied');
+                    btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(function () {
+                        btn.classList.remove('copied');
+                        btn.innerHTML = '<i class="fas fa-copy"></i> Copy Prompt';
+                    }, 2500);
+                }).catch(function () {
+                    alert('Please manually select and copy the text above.');
+                });
+            }
+        </script>
 </body>
 
 </html>
