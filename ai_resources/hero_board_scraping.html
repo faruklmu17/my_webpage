@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hero Database – Web Scraping Practice</title>
+  <meta name="description" content="A superhero-themed practice board for learning web scraping with Python. Scrape hero cards organized in power categories." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── DESIGN TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --bg:      #f0f4ff;
+      --surface: #ffffff;
+      --surface2:#f8f9ff;
+      --border:  #e0e4f0;
+      --text:    #1a1a3a;
+      --muted:   #6b7280;
+
+      --blue:   #2563eb;
+      --green:  #16a34a;
+      --amber:  #d97706;
+      --purple: #7c3aed;
+      --red:    #dc2626;
+      --cyan:   #0891b2;
+      --pink:   #db2777;
+
+      --col-speed:    #eff6ff;
+      --col-strength: #fff1f2;
+      --col-mind:     #f0fdf4;
+      --col-elemental:#fffbeb;
+      --col-legend:   #faf5ff;
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 4rem;
+      padding-top: 1rem;
+      background-image:
+        radial-gradient(ellipse 60% 40% at 10% 5%,  rgba(37,99,235,0.08),  transparent),
+        radial-gradient(ellipse 50% 40% at 90% 90%, rgba(124,58,237,0.08), transparent),
+        radial-gradient(ellipse 40% 30% at 50% 50%, rgba(219,39,119,0.04), transparent);
+    }
+
+    /* ─── HERO BANNER ───────────────────────────────────────────────── */
+    .page-hero {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 2rem 2rem 1.75rem;
+      text-align: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      border-radius: var(--radius-lg);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(102,126,234,0.35);
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255,255,255,0.25);
+      border: 1px solid rgba(255,255,255,0.5);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.85rem;
+      border-radius: 20px;
+      margin-bottom: 0.85rem;
+    }
+
+    .page-hero h1 {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(2.4rem, 5vw, 3.4rem);
+      letter-spacing: 0.06em;
+      line-height: 1.1;
+      margin-bottom: 0.6rem;
+      position: relative;
+      color: #fff;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    }
+
+    .page-hero p {
+      color: rgba(255,255,255,0.9);
+      font-size: 0.92rem;
+      line-height: 1.65;
+      max-width: 520px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .page-hero p strong { color: #fff; font-weight: 700; }
+
+    /* ─── STATS BAR ─────────────────────────────────────────────────── */
+    .stats-bar {
+      max-width: 1400px;
+      margin: 1.5rem auto 0;
+      padding: 0 1.5rem;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.4rem 0.85rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .stat-pill strong { color: var(--text); }
+
+    /* ─── BOARD ─────────────────────────────────────────────────────── */
+    .board-section {
+      max-width: 1400px;
+      margin: 1.5rem auto 0;
+      padding: 0 1.5rem;
+    }
+
+    .board-title-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .board-title-row h2 {
+      font-family: 'Bangers', cursive;
+      font-size: 1.6rem;
+      letter-spacing: 0.05em;
+      color: var(--text);
+    }
+
+    .board-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    /* ─── BOARD COLUMN ──────────────────────────────────────────────── */
+    .board-column {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+
+    .column-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .column-header.speed     { background: var(--col-speed);    border-top: 4px solid #2563eb; }
+    .column-header.strength  { background: var(--col-strength); border-top: 4px solid #dc2626; }
+    .column-header.mind      { background: var(--col-mind);     border-top: 4px solid #16a34a; }
+    .column-header.elemental { background: var(--col-elemental);border-top: 4px solid #d97706; }
+    .column-header.legend    { background: var(--col-legend);   border-top: 4px solid #7c3aed; }
+
+    .col-label {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: 'Bangers', cursive;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+      color: var(--text);
+    }
+
+    .col-count {
+      border-radius: 20px;
+      padding: 0.12rem 0.55rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .column-header.speed     .col-count { background: #2563eb; color: #fff; }
+    .column-header.strength  .col-count { background: #dc2626; color: #fff; }
+    .column-header.mind      .col-count { background: #16a34a; color: #fff; }
+    .column-header.elemental .col-count { background: #d97706; color: #fff; }
+    .column-header.legend    .col-count { background: #7c3aed; color: #fff; }
+
+    .column-body { padding: 0.8rem; display: flex; flex-direction: column; gap: 0.75rem; }
+
+    /* ─── HERO CARD ─────────────────────────────────────────────────── */
+    .hero-card {
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      transition: transform 0.15s, box-shadow 0.2s, border-color 0.2s;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+
+    .board-column[data-column="speed"]     .hero-card:hover { border-color: #2563eb; }
+    .board-column[data-column="strength"]  .hero-card:hover { border-color: #dc2626; }
+    .board-column[data-column="mind"]      .hero-card:hover { border-color: #16a34a; }
+    .board-column[data-column="elemental"] .hero-card:hover { border-color: #d97706; }
+    .board-column[data-column="legend"]    .hero-card:hover { border-color: #7c3aed; }
+
+    /* card top row */
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .hero-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      border: 2px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .card-info { flex: 1; min-width: 0; }
+
+    .hero-name {
+      font-family: 'Bangers', cursive;
+      font-size: 1.15rem;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      line-height: 1.1;
+    }
+
+    .hero-alias {
+      font-size: 0.74rem;
+      color: var(--muted);
+      margin-top: 0.1rem;
+    }
+
+    /* power level bar */
+    .power-level-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .power-level-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .power-level-label span:last-child { font-weight: 700; color: var(--text); }
+
+    .power-bar {
+      height: 7px;
+      background: #e5e7eb;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .power-fill {
+      height: 100%;
+      border-radius: 99px;
+      transition: width 0.6s ease;
+    }
+
+    /* meta tags */
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .meta-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.7rem;
+      padding: 0.22rem 0.6rem;
+      border-radius: 20px;
+      font-weight: 600;
+      border: 1.5px solid transparent;
+    }
+
+    .meta-tag.team      { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+    .meta-tag.universe  { background: #faf5ff; color: #6d28d9; border-color: #ddd6fe; }
+    .meta-tag.year      { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
+    .meta-tag.villain   { background: #fff1f2; color: #be123c; border-color: #fecdd3; }
+
+    /* ability tags */
+    .ability-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+
+    .ability-tag {
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      color: #374151;
+    }
+
+    /* weakness */
+    .weakness-row {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      color: #b91c1c;
+      padding: 0.4rem 0.65rem;
+      background: #fff1f2;
+      border: 1.5px solid #fecdd3;
+      border-radius: 8px;
+    }
+
+    .weakness-row i { color: #dc2626; font-size: 0.72rem; }
+    .weakness-row strong { color: #991b1b; font-weight: 700; }
+
+    /* card footer */
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.5rem;
+      border-top: 1.5px solid var(--border);
+    }
+
+    .first-seen {
+      font-size: 0.7rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .rank-badge {
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 0.22rem 0.6rem;
+      border-radius: 20px;
+      letter-spacing: 0.03em;
+    }
+
+    .rank-s { background: #fef3c7; color: #92400e; border: 1.5px solid #fcd34d; }
+    .rank-a { background: #ede9fe; color: #5b21b6; border: 1.5px solid #c4b5fd; }
+    .rank-b { background: #dbeafe; color: #1e40af; border: 1.5px solid #93c5fd; }
+
+    /* ─── SCRAPING TASKS ────────────────────────────────────────────── */
+    .targets-section {
+      max-width: 1400px;
+      margin: 2.5rem auto 0;
+      padding: 0 1.5rem;
+    }
+
+    .targets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .target-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .target-card:hover { border-color: #d97706; box-shadow: 0 4px 12px rgba(217,119,6,0.12); }
+
+    .target-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    .target-text h4 { font-size: 0.82rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .target-text p  { font-size: 0.73rem; color: var(--muted); line-height: 1.5; }
+    .target-text code {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.68rem;
+      background: rgba(255,255,255,0.06);
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+      color: var(--cyan);
+    }
+
+    @media (max-width: 768px) {
+      .board-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HERO BANNER ════════════════════════════════════════════════════ -->
+<div class="page-hero">
+  <div class="hero-badge"><i class="fas fa-mask"></i> Web Scraping Practice</div>
+  <h1>⚡ Hero Database ⚡</h1>
+  <p>
+    A <strong>superhero card board</strong> for learning web scraping with Python.<br>
+    20 heroes &amp; villains across 5 power categories — scrape their powers, teams, and stats!
+  </p>
+</div>
+
+<!-- ═══ STATS BAR ══════════════════════════════════════════════════════ -->
+<div class="stats-bar">
+  <div class="stat-pill"><i class="fas fa-columns" style="color:var(--blue)"></i> <strong>5</strong> Power Categories</div>
+  <div class="stat-pill"><i class="fas fa-shield-alt" style="color:var(--purple)"></i> <strong>20</strong> Hero Cards</div>
+  <div class="stat-pill"><i class="fas fa-bolt" style="color:var(--amber)"></i> <strong>7</strong> Fields per Card</div>
+  <div class="stat-pill"><i class="fas fa-robot" style="color:var(--cyan)"></i> Difficulty: <strong>Beginner–Intermediate</strong></div>
+</div>
+
+<!-- ═══ BOARD ══════════════════════════════════════════════════════════ -->
+<section class="board-section" id="hero-board">
+  <div class="board-title-row">
+    <h2>🦸 The Hero Registry</h2>
+  </div>
+
+  <div class="board-grid" id="board-grid">
+
+    <!-- ── COLUMN 1: Speed Heroes ────────────────────────────────────── -->
+    <div class="board-column" data-column="speed">
+      <div class="column-header speed">
+        <div class="col-label"><span>⚡ Speed Heroes</span></div>
+        <span class="col-count">4</span>
+      </div>
+      <div class="column-body">
+
+        <div class="hero-card" data-hero-id="1">
+          <div class="card-top">
+            <div class="hero-avatar" style="background:#0d1f40;">⚡</div>
+            <div class="card-info">
+              <p class="hero-name">The Flash</p>
+              <p class="hero-alias">Barry Allen</p>
+            </div>
+          </div>
+          <div class="power-level-wrap">
+            <div class="power-level-label"><span>Power Level</span><span>9,200</span></div>
+            <div class="power-bar"><div class="power-fill" style="width:92%;background:linear-gradient(90deg,#4f8ef7,#2dd4bf);"></div></div>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-tag team"><i class="fas fa-users"></i> Justice League</span>
+            <span class="meta-tag universe"><i class="fas fa-globe"></i> DC</span>
+            <span class="meta-tag year"><i class="far fa-calendar"></i> 1956</span>
+          </div>
+          <div class="ability-tags">
+            <span class="ability-tag">Super Speed</span>
+            <span class="ability-tag">Time Travel</span>
+            <span class="ability-tag">Phasing</span>
+          </div>
+          <div class="weakness-row"><i class="fas fa-exclamation-triangle"></i> Weakness: <strong>Loss of Speed Force</strong></div>
+          <div class="card-footer">
+            <span class="first-seen"><i class="fas fa-book-open"></i> Showcase #4</span>
+            <span class="rank-badge rank-s">S Rank</span>
+          </div>
+        </div>
+
+        <div class="hero-card" data-hero-id="2">
+          <div class="card-top">
+            <div class="hero-avatar" style="background:#1a0f2a;">🏃</div>
+            <div class="card-info">
+              <p class="hero-name">Quicksilver</p>
+              <p class="hero-alias">Pietro Maximoff</p>
+            </div>
+          </div>
+          <div class="power-level-wrap">
+            <div class="power-level-label"><span>Power Level</span><span>7,800</span></div>
+            <div class="power-bar"><div class="power-fill" style="width:78%;background:linear-gradient(90deg,#b06cf0,#4f8ef7);"></div></div>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-tag team"><i class="fas fa-users"></i> X-Men</span>
+            <span class="meta-tag universe"><i class="fas fa-globe"></i> Marvel</span>
+            <span class="meta-tag year"><i class="far fa-calendar"></i> 1964</span>
+          </div>
+          <div class="ability-tags">
+            <span class="ability-tag">Mach-10 Speed</span>
+            <span class="ability-tag">Molecular Vibration</span>
+          </div>
+          <div class="weakness-row"><i class="fas fa-exclamation-triangle"></i> Weakness: <strong>Arrogance &amp; Impulsiveness</strong></div>
+          <div class="card-footer">
+            <span class="first-seen"><i class="fas fa-book-open"></i> X-Men #4</span>
+            <span class="rank-badge rank-a">A Rank</span>
+          </div>
+        </div>
+
+        <div class="hero-card" data-hero-id="3">
+          <div class="card-top">
+            <div class="hero-avatar" style="background:#0d2020;">🌀</div>
+            <div class="card-info">
+              <p class="hero-name">Sonic</p>
+              <p class="hero-alias">Sonic the Hedgehog</p>
+            </div>
+          </div>
+          <div class="power-level-wrap">
+            <div class="power-level-label"><span>Power Level</span><span>8,500</span></div>
+            <div class="power-bar"><div class="power-fill" style="width:85%;background:linear-gradient(90deg,#2dd4bf,#4f8ef7);"></div></div>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-tag team"><i class="fas fa-users"></i> Freedom Fighters</span>
+            <span class="meta-tag universe"><i class="fas fa-globe"></i> SEGA</span>
+            <span class="meta-tag year"><i class="far fa-calendar"></i> 1991</span>
+          </div>
+          <div class="ability-tags">
+            <span class="ability-tag">Spin Dash</span>
+            <span class="ability-tag">Super Form</span>
+            <span class="ability-tag">Homing Attack</span>
+          </div>
+          <div class="weakness-row"><i class="fas fa-exclamation-triangle"></i> Weakness: <strong>Water</strong></div>
+          <div class="card-footer">
+            <span class="first-seen"><i class="fas fa-book-open"></i> Sonic #1 (1991)</span>
+            <span class="rank-badge rank-a">A Rank</span>
+          </div>
+        </div>
+
+        <div class="hero-card" data-hero-id="4">
+          <div class="card-top">
+            <div class="hero-avatar" style="background:#0f1a2a;">💨</div>
+            <div class="card-info">
+              <p class="hero-name">Dash</p>
+              <p class="hero-alias">Dashiell Robert Parr</p>
+            </div>
+          </div>
+          <div class="power-level-wrap">
+            <div class="power-level-label"><span>Power Level</span><span>6,400</span></div>
+            <div class="power-bar"><div class="power-fill" style="width:64%;background:linear-gradient(90deg,#4f8ef7,#3ecf6e);"></div></div>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-tag team"><i class="fas fa-users"></i> The Incredibles</span>
+            <span class="meta-tag universe"><i class="fas fa-globe"></i> Pixar</span>
+            <span class="meta-tag year"><i class="far fa-calendar"></i> 2004</span>
+          </div>
+          <div class="ability-tags">
+            <span class="ability-tag">Super Speed</span>
+            <span class="ability-tag">Water Running</span>
+          </div>
+          <div class="weakness-row"><i class="fas fa-exclamation-triangle"></i> Weakness: <strong>Over-Confidence</strong></div>
+          <div class="card-footer">
+            <span class="first-seen"><i class="fas fa-book-open"></i> The Incredibles</span>
+            <span class="rank-badge rank-b">B Rank</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── COLUMN 2: Strength Heroes ─────────────────────────────────── -->
+    <div class="board-column" data-column="strength">
+      <div class="column-header strength">
+        <div class="col-label"><span>💪 Strength Heroes</span></div>
+        <span class="col-count">4</span>
+      </div>
+      <div class="column-body">
+
+        <div class="hero-card" data-hero-id="5">
+          <div class="card-top">
+            <div class="hero-avatar" style="background:#2a0a0a;">🔨</div>
+            <div class="card-info">
+              <p class="hero-name">Thor</p>
+              <p class="hero-alias">Thor Odinson</p>
+            </div>
+          </div>
+          <div class="power-level-wrap">
+            <div class="power-level-label"><span>Power Level</span><span>9,700</span></div>
+            <div class="power-bar"><div class="power-fill" style="width:97%;background:linear-gradient(90deg,#f05252,#f5a623);"></div></div>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-tag team"><i class="fas fa-users"></i> Avengers</span>
+            <span class="meta-tag universe"><i class="fas fa-globe"></i> Marvel</span>
+            <span class="meta-tag year"><i class="far fa-calendar"></i> 1962</span>
+          </div>
+          <div class="ability-tags">
+            <span class="ability-tag">Lightning Control</span>
+            <span class="ability-tag">Mjolnir</span>
+            <span class="ability-tag">God Strength</span>
+          </div>
+          <div class="weakness-row"><i class="fas fa-exclamation-triangle"></i> Weakness: <strong>Unworthy Mindset</strong></div>
+          <div class="card-footer">
+            <span class="first-seen"><i class="fas fa-book-open"></i> Journey into Mystery #83</span>
+            <span class="rank-badge rank-s">S Rank</span>
+          </div>
+        </div>
+
+        <div class="hero-card" data-hero-id="6">
+          <div class="card-top">
+            <div class="hero-avatar" style="background:#2a1a0a;">💚</div>
+            <div class="card-info">
+              <p class="hero-name">Hulk</p>
+              <p class="hero-alias">Bruce Banner</p>
+            </div>
+          </div>
+          <div class="power-level-wrap">
+            <div class="power-level-label"><span>Power Level</span><span>10,000+</span></div>
+            <div class="power-bar"><div class="power-fill" style="width:100%;background:linear-gradient(90deg,#3ecf6e,#f5a623);"></div></div>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-tag team"><i class="fas fa-users"></i> Avengers</span>
+            <span class="meta-tag universe"><i class="fas fa-globe"></i> Marvel</span>
+            <span class="meta-tag year"><i class="far fa-calendar"></i> 1962</span>
+          </div>
+          <div class="ability-tags">
+            <span class="ability-tag">Rage Power</span>
+            <span class="ability-tag">Regeneration</span>
+            <span class="ability-tag">Unlimited Strength</span>
+          </div>
+          <div class="weakness-row"><i class="fas fa-exclamation-triangle"></i> Weakness: <strong>Gamma Draining Tech</strong></div>
+          <div class="card-footer">
+            <span class="first-seen"><i class="fas fa-book-open"></i> Incredible Hulk #1</span>
+            <span class="rank-badge rank-s">S Rank</span>
+          </div>
+        </div>
+
+        <div class="hero-card" data-hero-id="7">
+          <div class="card-top">
+            <div class="hero-avatar" style="background:#1f0a0a;">🦁</div>
+            <div class="card-info">
+              <p class="hero-name">Goku</p>
+              <p class="hero-alias">Son Goku / Kakarot</p>
+            </div>
+          </div>
+          <div class="power-level-wrap">
+            <div class="power-level-label"><span>Power Level</span><span>9,999</span></div>
+            <div class="power-bar"><div class="power-fill" style="width:99%;background:linear-gradient(90deg,#f5a623,#f05252);"></div></div>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-tag team"><i class="fas fa-users"></i> Z-Fighters</span>
+            <span class="meta-tag universe"><i class="fas fa-globe"></i> Dragon Ball</span>
+            <span class="meta-tag year"><i class="far fa-calendar"></i> 1984</span>
+          </div>
+          <div class="ability-tags">
+            <span class="ability-tag">Super Saiyan</span>
+            <span class="ability-tag">Kamehameha</span>
+            <span class="ability-tag">Ultra Instinct</span>
+          </div>
+          <div class="weakness-row"><i class="fas fa-exclamation-triangle"></i> Weakness: <strong>Tail (base form)</strong></div>
+          <div class="card-footer">
+            <span class="first-seen"><i class="fas fa-book-open"></i> Dragon Ball Ch.1</span>
+            <span class="rank-badge rank-s">S Rank</span>
+          </div>
+        </div>
+
+        <div class="hero-card" data-hero-id="8">
+          <div class="card-top">
+            <div class="hero-avatar" style="background:#2a0f0a;">🔵</div>
+            <div class="card-info">
+              <p class="hero-name">Superman</p>
+              <p class="hero-alias">Clark Kent / Kal-El</p>
+            </div>
+          </div>
+          <div class="power-level-wrap">
+            <div class="power-level-label"><span>Power Level</span><span>9,850</span></div>
+            <div class="power-bar"><div class="power-fill" style="width:98%;background:linear-gradient(90deg,#4f8ef7,#f05252);"></div></div>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-tag team"><i class="fas fa-users"></i> Justice League</span>
+            <span class="meta-tag universe"><i class="fas fa-globe"></i> DC</span>
+            <span class="meta-tag year"><i class="far fa-calendar"></i> 1938</span>
+          </div>
+          <div class="ability-tags">
+            <span class="ability-tag">Flight</span>
+            <span class="ability-tag">Heat Vision</span>
+            <span class="ability-tag">Invulnerability</span>
+          </div>
+          <div class="weakness-row"><i class="fas fa-exclamation-triangle"></i> Weakness: <strong>Kryptonite</strong></div>
+          <div class="card-footer">
+            <span class="first-seen"><i class="fas fa-book-open"></i> Action Comics #1</span>
+            <span class="rank-badge rank-s">S Rank</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── COLUMN 3: Mind Powers ───────────────────────────────────────── -->
+    <div class="board-column" data-column="mind">
+      <div class="column-header mind">
+        <div class="col-label"><span>🧠 Mind Powers</span></div>
+        <span class="col-count">4</span>
+      </div>
+      <div class="column-body">
+
+        <div class="hero-card" data-hero-id="9">
+          <div class="card-top">
+            <div class="hero-avatar" style="background:#062020;">🌀</div>
+            <div class="card-info">
+              <p class="hero-name">Professor X</p>
+              <p class="hero-alias">Charles Xavier</p>
+            </div>
+          </div>
+          <div class="power-level-wrap">
+            <div class="power-level-label"><span>Power Level</span><span>9,100</span></div>
+            <div class="power-bar"><div class="power-fill" style="width:91%;background:linear-gradient(90deg,#2dd4bf,#b06cf0);"></div></div>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-tag team"><i class="fas fa-users"></i> X-Men</span>
+            <span class="meta-tag universe"><i class="fas fa-globe"></i> Marvel</span>
+            <span class="meta-tag year"><i class="far fa-calendar"></i> 1963</span>
+          </div>
+          <div class="ability-tags">
+            <span class="ability-tag">Telepathy</span>
+            <span class="ability-tag">Mind Control</span>
+            <span class="ability-tag">Memory Wipe</span>
+          </div>
+          <div class="weakness-row"><i class="fas fa-exclamation-triangle"></i> Weakness: <strong>Physical Disability</strong></div>
+          <div class="card-footer">
+            <span class="first-seen"><i class="fas fa-book-open"></i> X-Men #1</span>
+            <span class="rank-badge rank-s">S Rank</span>
+          </div>
+        </div>
+
+        <div class="hero-card" data-hero-id="10">
+          <div class="card-top">
+            <div class="hero-avatar" style="background:#0a1a20;">🔮</div>
+            <div class="card-info">
+              <p class="hero-name">Jean Grey</p>
+              <p class="hero-alias">Marvel Girl / Phoenix</p>
+            </div>
+          </div>
+          <div class="power-level-wrap">
+            <div class="power-level-label"><span>Power Level</span><span>9,500</span></div>
+            <div class="power-bar"><div class="power-fill" style="width:95%;background:linear-gradient(90deg,#f472b6,#2dd4bf);"></div></div>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-tag team"><i class="fas fa-users"></i> X-Men</span>
+            <span class="meta-tag universe"><i class="fas fa-globe"></i> Marvel</span>
+            <span class="meta-tag year"><i class="far fa-calendar"></i> 1963</span>
+          </div>
+          <div class="ability-tags">
+            <span class="ability-tag">Telekinesis</span>
+            <span class="ability-tag">Telepathy</span>
+            <span class="ability-tag">Phoenix Force</span>
+          </div>
+          <div class="weakness-row"><i class="fas fa-exclamation-triangle"></i> Weakness: <strong>Emotional Instability</strong></div>
+          <div class="card-footer">
+            <span class="first-seen"><i class="fas fa-book-open"></i> X-Men #1</span>
+            <span class="rank-badge rank-s">S Rank</span>
+          </div>
+        </div>
+
+        <div class="hero-card" data-hero-id="11">
+          <div class="card-top">
+            <div class="hero-avatar" style="background:#081a18;">🌊</div>
+            <div class="card-info">
+              <p class="hero-name">Martian Manhunter</p>
+              <p class="hero-alias">J'onn J'onzz</p>
+            </div>
+          </div>
+          <div class="power-level-wrap">
+            <div class="power-level-label"><span>Power Level</span><span>8,900</span></div>
+            <div class="power-bar"><div class="power-fill" style="width:89%;background:linear-gradient(90deg,#2dd4bf,#3ecf6e);"></div></div>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-tag team"><i class="fas fa-users"></i> Justice League</span>
+            <span class="meta-tag universe"><i class="fas fa-globe"></i> DC</span>
+            <span class="meta-tag year"><i class="far fa-calendar"></i> 1955</span>
+          </div>
+          <div class="ability-tags">
+            <span class="ability-tag">Shapeshifting</span>
+            <span class="ability-tag">Telepathy</span>
+            <span class="ability-tag">Invisibility</span>
+          </div>
+          <div class="weakness-row"><i class="fas fa-exclamation-triangle"></i> Weakness: <strong>Fire</strong></div>
+          <div class="card-footer">
+            <span class="first-seen"><i class="fas fa-book-open"></i> Detective Comics #225</span>
+            <span class="rank-badge rank-a">A Rank</span>
+          </div>
+        </div>
+
+        <div class="hero-card" data-hero-id="12">
+          <div class="card-top">
+            <div class="hero-avatar" style="background:#0d1a1a;">🕷️</div>
+            <div class="card-info">
+              <p class="hero-name">Doctor Strange</p>
+              <p class="hero-alias">Stephen Strange</p>
+            </div>
+          </div>
+          <div class="power-level-wrap">
+            <div class="power-level-label"><span>Power Level</span><span>9,300</span></div>
+            <div class="power-bar"><div class="power-fill" style="width:93%;background:linear-gradient(90deg,#b06cf0,#2dd4bf);"></div></div>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-tag team"><i class="fas fa-users"></i> Avengers</span>
+            <span class="meta-tag universe"><i class="fas fa-globe"></i> Marvel</span>
+            <span class="meta-tag year"><i class="far fa-calendar"></i> 1963</span>
+          </div>
+          <div class="ability-tags">
+            <span class="ability-tag">Sorcery</span>
+            <span class="ability-tag">Dimension Travel</span>
+            <span class="ability-tag">Time Stone</span>
+          </div>
+          <div class="weakness-row"><i class="fas fa-exclamation-triangle"></i> Weakness: <strong>Damaged Hands</strong></div>
+          <div class="card-footer">
+            <span class="first-seen"><i class="fas fa-book-open"></i> Strange Tales #110</span>
+            <span class="rank-badge rank-s">S Rank</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── COLUMN 4: Elemental Powers ────────────────────────────────── -->
+    <div class="board-column" data-column="elemental">
+      <div class="column-header elemental">
+        <div class="col-label"><span>🔥 Elemental Powers</span></div>
+        <span class="col-count">4</span>
+      </div>
+      <div class="column-body">
+
+        <div class="hero-card" data-hero-id="13">
+          <div class="card-top">
+            <div class="hero-avatar" style="background:#2a1a00;">🔥</div>
+            <div class="card-info">
+              <p class="hero-name">Human Torch</p>
+              <p class="hero-alias">Johnny Storm</p>
+            </div>
+          </div>
+          <div class="power-level-wrap">
+            <div class="power-level-label"><span>Power Level</span><span>7,200</span></div>
+            <div class="power-bar"><div class="power-fill" style="width:72%;background:linear-gradient(90deg,#f5a623,#f05252);"></div></div>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-tag team"><i class="fas fa-users"></i> Fantastic Four</span>
+            <span class="meta-tag universe"><i class="fas fa-globe"></i> Marvel</span>
+            <span class="meta-tag year"><i class="far fa-calendar"></i> 1961</span>
+          </div>
+          <div class="ability-tags">
+            <span class="ability-tag">Pyrokinesis</span>
+            <span class="ability-tag">Flight</span>
+            <span class="ability-tag">Nova Blast</span>
+          </div>
+          <div class="weakness-row"><i class="fas fa-exclamation-triangle"></i> Weakness: <strong>Water &amp; Asbestos</strong></div>
+          <div class="card-footer">
+            <span class="first-seen"><i class="fas fa-book-open"></i> Fantastic Four #1</span>
+            <span class="rank-badge rank-a">A Rank</span>
+          </div>
+        </div>
+
+        <div class="hero-card" data-hero-id="14">
+          <div class="card-top">
+            <div class="hero-avatar" style="background:#002020;">🌊</div>
+            <div class="card-info">
+              <p class="hero-name">Aquaman</p>
+              <p class="hero-alias">Arthur Curry</p>
+            </div>
+          </div>
+          <div class="power-level-wrap">
+            <div class="power-level-label"><span>Power Level</span><span>8,100</span></div>
+            <div class="power-bar"><div class="power-fill" style="width:81%;background:linear-gradient(90deg,#2dd4bf,#4f8ef7);"></div></div>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-tag team"><i class="fas fa-users"></i> Justice League</span>
+            <span class="meta-tag universe"><i class="fas fa-globe"></i> DC</span>
+            <span class="meta-tag year"><i class="far fa-calendar"></i> 1941</span>
+          </div>
+          <div class="ability-tags">
+            <span class="ability-tag">Hydrokinesis</span>
+            <span class="ability-tag">Marine Telepathy</span>
+            <span class="ability-tag">Trident</span>
+          </div>
+          <div class="weakness-row"><i class="fas fa-exclamation-triangle"></i> Weakness: <strong>Dehydration</strong></div>
+          <div class="card-footer">
+            <span class="first-seen"><i class="fas fa-book-open"></i> More Fun Comics #73</span>
+            <span class="rank-badge rank-a">A Rank</span>
+          </div>
+        </div>
+
+        <div class="hero-card" data-hero-id="15">
+          <div class="card-top">
+            <div class="hero-avatar" style="background:#1a1000;">🌪️</div>
+            <div class="card-info">
+              <p class="hero-name">Storm</p>
+              <p class="hero-alias">Ororo Munroe</p>
+            </div>
+          </div>
+          <div class="power-level-wrap">
+            <div class="power-level-label"><span>Power Level</span><span>8,800</span></div>
+            <div class="power-bar"><div class="power-fill" style="width:88%;background:linear-gradient(90deg,#b06cf0,#f5a623);"></div></div>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-tag team"><i class="fas fa-users"></i> X-Men</span>
+            <span class="meta-tag universe"><i class="fas fa-globe"></i> Marvel</span>
+            <span class="meta-tag year"><i class="far fa-calendar"></i> 1975</span>
+          </div>
+          <div class="ability-tags">
+            <span class="ability-tag">Weather Control</span>
+            <span class="ability-tag">Lightning</span>
+            <span class="ability-tag">Flight</span>
+          </div>
+          <div class="weakness-row"><i class="fas fa-exclamation-triangle"></i> Weakness: <strong>Claustrophobia</strong></div>
+          <div class="card-footer">
+            <span class="first-seen"><i class="fas fa-book-open"></i> Giant-Size X-Men #1</span>
+            <span class="rank-badge rank-a">A Rank</span>
+          </div>
+        </div>
+
+        <div class="hero-card" data-hero-id="16">
+          <div class="card-top">
+            <div class="hero-avatar" style="background:#1a0808;">❄️</div>
+            <div class="card-info">
+              <p class="hero-name">Iceman</p>
+              <p class="hero-alias">Bobby Drake</p>
+            </div>
+          </div>
+          <div class="power-level-wrap">
+            <div class="power-level-label"><span>Power Level</span><span>7,600</span></div>
+            <div class="power-bar"><div class="power-fill" style="width:76%;background:linear-gradient(90deg,#4f8ef7,#2dd4bf);"></div></div>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-tag team"><i class="fas fa-users"></i> X-Men</span>
+            <span class="meta-tag universe"><i class="fas fa-globe"></i> Marvel</span>
+            <span class="meta-tag year"><i class="far fa-calendar"></i> 1963</span>
+          </div>
+          <div class="ability-tags">
+            <span class="ability-tag">Cryokinesis</span>
+            <span class="ability-tag">Ice Slides</span>
+            <span class="ability-tag">Ice Form</span>
+          </div>
+          <div class="weakness-row"><i class="fas fa-exclamation-triangle"></i> Weakness: <strong>Intense Heat</strong></div>
+          <div class="card-footer">
+            <span class="first-seen"><i class="fas fa-book-open"></i> X-Men #1</span>
+            <span class="rank-badge rank-b">B Rank</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── COLUMN 5: Legends ──────────────────────────────────────────── -->
+    <div class="board-column" data-column="legend">
+      <div class="column-header legend">
+        <div class="col-label"><span>🌟 Legends</span></div>
+        <span class="col-count">4</span>
+      </div>
+      <div class="column-body">
+
+        <div class="hero-card" data-hero-id="17">
+          <div class="card-top">
+            <div class="hero-avatar" style="background:#1a0f2a;">🕷️</div>
+            <div class="card-info">
+              <p class="hero-name">Spider-Man</p>
+              <p class="hero-alias">Peter Parker</p>
+            </div>
+          </div>
+          <div class="power-level-wrap">
+            <div class="power-level-label"><span>Power Level</span><span>8,400</span></div>
+            <div class="power-bar"><div class="power-fill" style="width:84%;background:linear-gradient(90deg,#f472b6,#b06cf0);"></div></div>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-tag team"><i class="fas fa-users"></i> Avengers</span>
+            <span class="meta-tag universe"><i class="fas fa-globe"></i> Marvel</span>
+            <span class="meta-tag year"><i class="far fa-calendar"></i> 1962</span>
+          </div>
+          <div class="ability-tags">
+            <span class="ability-tag">Wall Crawling</span>
+            <span class="ability-tag">Spider-Sense</span>
+            <span class="ability-tag">Web Slinging</span>
+          </div>
+          <div class="weakness-row"><i class="fas fa-exclamation-triangle"></i> Weakness: <strong>Ethyl Chloride</strong></div>
+          <div class="card-footer">
+            <span class="first-seen"><i class="fas fa-book-open"></i> Amazing Fantasy #15</span>
+            <span class="rank-badge rank-s">S Rank</span>
+          </div>
+        </div>
+
+        <div class="hero-card" data-hero-id="18">
+          <div class="card-top">
+            <div class="hero-avatar" style="background:#1a1200;">⭐</div>
+            <div class="card-info">
+              <p class="hero-name">Wonder Woman</p>
+              <p class="hero-alias">Diana Prince</p>
+            </div>
+          </div>
+          <div class="power-level-wrap">
+            <div class="power-level-label"><span>Power Level</span><span>9,600</span></div>
+            <div class="power-bar"><div class="power-fill" style="width:96%;background:linear-gradient(90deg,#f5a623,#b06cf0);"></div></div>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-tag team"><i class="fas fa-users"></i> Justice League</span>
+            <span class="meta-tag universe"><i class="fas fa-globe"></i> DC</span>
+            <span class="meta-tag year"><i class="far fa-calendar"></i> 1941</span>
+          </div>
+          <div class="ability-tags">
+            <span class="ability-tag">Lasso of Truth</span>
+            <span class="ability-tag">Flight</span>
+            <span class="ability-tag">Godly Strength</span>
+          </div>
+          <div class="weakness-row"><i class="fas fa-exclamation-triangle"></i> Weakness: <strong>Being Bound by Men</strong></div>
+          <div class="card-footer">
+            <span class="first-seen"><i class="fas fa-book-open"></i> All Star #8</span>
+            <span class="rank-badge rank-s">S Rank</span>
+          </div>
+        </div>
+
+        <div class="hero-card" data-hero-id="19">
+          <div class="card-top">
+            <div class="hero-avatar" style="background:#0a1a0a;">🦇</div>
+            <div class="card-info">
+              <p class="hero-name">Batman</p>
+              <p class="hero-alias">Bruce Wayne</p>
+            </div>
+          </div>
+          <div class="power-level-wrap">
+            <div class="power-level-label"><span>Power Level</span><span>7,500</span></div>
+            <div class="power-bar"><div class="power-fill" style="width:75%;background:linear-gradient(90deg,#8888bb,#4f8ef7);"></div></div>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-tag team"><i class="fas fa-users"></i> Justice League</span>
+            <span class="meta-tag universe"><i class="fas fa-globe"></i> DC</span>
+            <span class="meta-tag year"><i class="far fa-calendar"></i> 1939</span>
+          </div>
+          <div class="ability-tags">
+            <span class="ability-tag">Master Detective</span>
+            <span class="ability-tag">Gadgets</span>
+            <span class="ability-tag">Martial Arts</span>
+          </div>
+          <div class="weakness-row"><i class="fas fa-exclamation-triangle"></i> Weakness: <strong>No Superpowers</strong></div>
+          <div class="card-footer">
+            <span class="first-seen"><i class="fas fa-book-open"></i> Detective Comics #27</span>
+            <span class="rank-badge rank-a">A Rank</span>
+          </div>
+        </div>
+
+        <div class="hero-card" data-hero-id="20">
+          <div class="card-top">
+            <div class="hero-avatar" style="background:#200a1a;">🍃</div>
+            <div class="card-info">
+              <p class="hero-name">Black Widow</p>
+              <p class="hero-alias">Natasha Romanoff</p>
+            </div>
+          </div>
+          <div class="power-level-wrap">
+            <div class="power-level-label"><span>Power Level</span><span>6,900</span></div>
+            <div class="power-bar"><div class="power-fill" style="width:69%;background:linear-gradient(90deg,#f472b6,#f05252);"></div></div>
+          </div>
+          <div class="hero-meta">
+            <span class="meta-tag team"><i class="fas fa-users"></i> Avengers</span>
+            <span class="meta-tag universe"><i class="fas fa-globe"></i> Marvel</span>
+            <span class="meta-tag year"><i class="far fa-calendar"></i> 1964</span>
+          </div>
+          <div class="ability-tags">
+            <span class="ability-tag">Espionage</span>
+            <span class="ability-tag">Widow's Bite</span>
+            <span class="ability-tag">Acrobatics</span>
+          </div>
+          <div class="weakness-row"><i class="fas fa-exclamation-triangle"></i> Weakness: <strong>No Superhuman Abilities</strong></div>
+          <div class="card-footer">
+            <span class="first-seen"><i class="fas fa-book-open"></i> Tales of Suspense #52</span>
+            <span class="rank-badge rank-b">B Rank</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ SCRAPING TASKS ════════════════════════════════════════════════ -->
+<section class="targets-section" id="tasks">
+  <div class="board-title-row">
+    <h2>🎯 Your Scraping Missions</h2>
+  </div>
+  <div class="targets-grid">
+
+    <div class="target-card">
+      <div class="target-icon"><i class="fas fa-list-ol"></i></div>
+      <div class="target-text">
+        <h4>Mission 1 – Basic Extract</h4>
+        <p>Scrape every <code>hero-name</code> and <code>hero-alias</code>. Print them as a list.</p>
+      </div>
+    </div>
+
+    <div class="target-card">
+      <div class="target-icon"><i class="fas fa-columns"></i></div>
+      <div class="target-text">
+        <h4>Mission 2 – Group by Category</h4>
+        <p>Group heroes by their <code>data-column</code> attribute and print each group.</p>
+      </div>
+    </div>
+
+    <div class="target-card">
+      <div class="target-icon"><i class="fas fa-bolt"></i></div>
+      <div class="target-text">
+        <h4>Mission 3 – Power Ranking</h4>
+        <p>Extract power level numbers and sort heroes from strongest to weakest.</p>
+      </div>
+    </div>
+
+    <div class="target-card">
+      <div class="target-icon"><i class="fas fa-tag"></i></div>
+      <div class="target-text">
+        <h4>Mission 4 – Top Abilities</h4>
+        <p>Collect all <code>ability-tag</code> values and find the 5 most common abilities.</p>
+      </div>
+    </div>
+
+    <div class="target-card">
+      <div class="target-icon"><i class="fas fa-file-csv"></i></div>
+      <div class="target-text">
+        <h4>Mission 5 – Export CSV</h4>
+        <p>Save id, name, alias, team, universe, power level, and rank to a <code>.csv</code> file.</p>
+      </div>
+    </div>
+
+    <div class="target-card">
+      <div class="target-icon"><i class="fas fa-exclamation-triangle"></i></div>
+      <div class="target-text">
+        <h4>Mission 6 – Find Weaknesses</h4>
+        <p>Scrape the <code>weakness-row</code> for every hero and list them neatly.</p>
+      </div>
+    </div>
+
+    <div class="target-card">
+      <div class="target-icon"><i class="fas fa-globe"></i></div>
+      <div class="target-text">
+        <h4>Mission 7 – Universe Filter</h4>
+        <p>Separate Marvel vs DC heroes using the <code>meta-tag universe</code> text.</p>
+      </div>
+    </div>
+
+    <div class="target-card">
+      <div class="target-icon"><i class="fas fa-database"></i></div>
+      <div class="target-text">
+        <h4>Mission 8 – JSON Export</h4>
+        <p>Build a JSON with each column as a key and its heroes as an array of objects.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>
