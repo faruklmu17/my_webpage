@@ -53,6 +53,17 @@
     
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Auth Guard: redirect to login if not authenticated -->
+    <script>
+        (function () {
+            var currentUser = localStorage.getItem('currentUser');
+            var registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || {};
+            if (!currentUser || !registeredUsers[currentUser]) {
+                window.location.replace('login.html');
+            }
+        })();
+    </script>
 </head>
 
 <body>
