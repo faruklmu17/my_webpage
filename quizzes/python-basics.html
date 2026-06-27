@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐍 Python Basics Quiz | Python Fundamentals</title>
+  <meta name="description"
+    content="Test your fundamental Python knowledge with this 15-question quiz covering variables, types, operations, and basic syntax.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../shared/quiz-style.css">
+  <style>
+    code {
+      background-color: #f0f3f7;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      color: #e74c3c;
+      font-weight: bold;
+    }
+    .question-block {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--primary-color);
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🐍 Python Basics Quiz</h1>
+
+  <div class="quiz-container">
+    <a href="../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Resources</a>
+    <div class="intro">
+      <p>Test your fundamental Python knowledge with this 15-question quiz covering variables, comments, print outputs, concatenation, operators precedence, types, conversions, and conditionals. Answer all questions to see your detailed score and explanation key.</p>
+    </div>
+
+    <div class="progress-wrapper">
+      <div class="progress-container">
+        <div id="progress-fill"></div>
+      </div>
+      <div id="progress-count">0/15 answered</div>
+    </div>
+
+    <form id="quiz-form">
+      <div id="quiz-area"></div>
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Results</button>
+    </form>
+
+    <div id="results">
+      <div class="score-container">
+        <div class="score-circle">0</div>
+        <div class="score-label">Your Score</div>
+      </div>
+      <div class="feedback"></div>
+      <div class="action-buttons">
+        <a href="" class="secondary-btn" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake Quiz</a>
+        <a href="../resources/resources.html" class="secondary-btn"><i class="fas fa-th-list"></i> More Quizzes</a>
+      </div>
+      <div id="answer-key" class="answer-key"></div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "1. What is a binary number?",
+        options: [
+          "A) A number in base-2",
+          "B) A number in base-8",
+          "C) A number in base-10",
+          "D) A number in base-16"
+        ],
+        correct: "A",
+        explanation: "Binary numbers are represented in base-2, using only the digits 0 and 1."
+      },
+      {
+        q: "2. How do you write a single-line comment in Python?",
+        options: [
+          "A) //",
+          "B) *",
+          "C) #",
+          "D) <!-- -->"
+        ],
+        correct: "C",
+        explanation: "In Python, the hash character (#) is used to start a single-line comment."
+      },
+      {
+        q: "3. What will the following code print?<br><code>print(\"Hello, World!\")</code>",
+        options: [
+          "A) Hello World!",
+          "B) \"Hello, World!\"",
+          "C) Hello, World!",
+          "D) Error"
+        ],
+        correct: "C",
+        explanation: "The print() function outputs the string inside the quotes, which is 'Hello, World!'."
+      },
+      {
+        q: "4. Which of the following is a valid variable name in Python?",
+        options: [
+          "A) 2name",
+          "B) name2",
+          "C) name-2",
+          "D) name.2"
+        ],
+        correct: "B",
+        explanation: "Variable names in Python can contain letters, numbers (but cannot start with a number), and underscores. Hyphens and periods are not allowed."
+      },
+      {
+        q: "5. What will the following code output?<br><code>print(\"Hello\" + \" \" + \"World\")</code>",
+        options: [
+          "A) HelloWorld",
+          "B) Hello World",
+          "C) Hello",
+          "D) World"
+        ],
+        correct: "B",
+        explanation: "Concatenating 'Hello', a space ' ', and 'World' produces 'Hello World'."
+      },
+      {
+        q: "6. What is the result of the following operation?<br><code>7 + 3 * 2</code>",
+        options: [
+          "A) 20",
+          "B) 13",
+          "C) 10",
+          "D) 17"
+        ],
+        correct: "B",
+        explanation: "Following operator precedence (PEMDAS/BODMAS), multiplication is performed before addition: 3 * 2 = 6, and 7 + 6 = 13."
+      },
+      {
+        q: "7. What will type(\"Hello\") return?",
+        options: [
+          "A) &lt;class 'string'&gt;",
+          "B) &lt;class 'int'&gt;",
+          "C) &lt;class 'str'&gt;",
+          "D) &lt;class 'char'&gt;"
+        ],
+        correct: "C",
+        explanation: "In Python, strings belong to the 'str' class."
+      },
+      {
+        q: "8. What will int(3.14) return?",
+        options: [
+          "A) 3.14",
+          "B) 4",
+          "C) 3",
+          "D) Error"
+        ],
+        correct: "C",
+        explanation: "The int() function truncates a float and returns the integer part, which is 3."
+      },
+      {
+        q: "9. Which of the following is a valid float number?",
+        options: [
+          "A) 3,14",
+          "B) 3.14",
+          "C) \"3.14\"",
+          "D) 3 14"
+        ],
+        correct: "B",
+        explanation: "Float numbers in Python use a dot (.) as the decimal separator."
+      },
+      {
+        q: "10. Which of the following is a valid string in Python?",
+        options: [
+          "A) \"Hello\"",
+          "B) 'Hello'",
+          "C) \"\"\"Hello\"\"\"",
+          "D) All of the above"
+        ],
+        correct: "D",
+        explanation: "Python supports defining strings with double quotes, single quotes, and triple quotes."
+      },
+      {
+        q: "11. What will the following code output?<br><code>x = 10<br>if x &lt; 10:<br>&nbsp;&nbsp;&nbsp;&nbsp;print(\"Less than 10\")<br>elif x == 10:<br>&nbsp;&nbsp;&nbsp;&nbsp;print(\"Equal to 10\")<br>else:<br>&nbsp;&nbsp;&nbsp;&nbsp;print(\"Greater than 10\")</code>",
+        options: [
+          "A) Less than 10",
+          "B) Equal to 10",
+          "C) Greater than 10",
+          "D) Error"
+        ],
+        correct: "B",
+        explanation: "Since x is equal to 10, the elif condition evaluates to True and 'Equal to 10' is printed."
+      },
+      {
+        q: "12. Which of the following is not a valid variable name in Python?",
+        options: [
+          "A) my_var",
+          "B) myVar",
+          "C) _myvar",
+          "D) my-var"
+        ],
+        correct: "D",
+        explanation: "Dashes (-) are not allowed in Python variable names."
+      },
+      {
+        q: "13. What will cause a SyntaxError in Python?",
+        options: [
+          "A) Using single quotes for strings",
+          "B) Using double quotes for strings",
+          "C) Misspelling a keyword",
+          "D) Leaving out a closing parenthesis"
+        ],
+        correct: "D",
+        explanation: "Leaving out a closing parenthesis is a syntax violation and always results in a SyntaxError. (Note: Misspelling a keyword like printt produces a NameError at runtime, rather than a SyntaxError, although misspelling structure keywords like class or def will also raise a SyntaxError)."
+      },
+      {
+        q: "14. What is the result of the following operation? 9 / 2",
+        options: [
+          "A) 4",
+          "B) 4.5",
+          "C) 5",
+          "D) 4.0"
+        ],
+        correct: "B",
+        explanation: "In Python 3, standard division (/) always returns a float, so 9 / 2 is 4.5."
+      },
+      {
+        q: "15. What will the following code output?<br><code>print(\"The result is \" + str(10 + 5))</code>",
+        options: [
+          "A) The result is 10 + 5",
+          "B) The result is 15",
+          "C) The result is 105",
+          "D) Error"
+        ],
+        correct: "B",
+        explanation: "The expression 10 + 5 is evaluated to 15, then converted to a string '15', and concatenated with 'The result is ' to produce 'The result is 15'."
+      }
+    ];
+
+    const quizArea = document.getElementById("quiz-area");
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<h3>${q.q}</h3><div class="options">` +
+        q.options.map((opt, idx) => `<label><input type="radio" name="q${i + 1}" value="${opt.charAt(0)}"> ${opt}</label>`).join("") +
+        `</div>`;
+      quizArea.appendChild(div);
+    });
+
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        const answered = questions.filter((_, i) => document.querySelector(`input[name="q${i + 1}"]:checked`)).length;
+        document.getElementById('progress-fill').style.width = (answered / questions.length * 100) + '%';
+        document.getElementById('progress-count').textContent = answered + '/' + questions.length + ' answered';
+      });
+    });
+
+    function submitQuiz() {
+      let score = 0;
+      let html = '<h2>Detailed Results</h2>';
+      
+      // Validate that all questions are answered
+      const answered = questions.filter((_, i) => document.querySelector(`input[name="q${i + 1}"]:checked`)).length;
+      if (answered < questions.length) {
+        alert("Please answer all questions before submitting.");
+        return;
+      }
+
+      questions.forEach((q, i) => {
+        const selected = document.querySelector(`input[name="q${i + 1}"]:checked`);
+        const isCorrect = selected && selected.value === q.correct;
+        if (isCorrect) score++;
+        html += `<div class="answer-item ${isCorrect ? 'correct' : 'incorrect'}">
+          <strong>Question ${i + 1}:</strong> ${isCorrect ? 'Correct ✅' : 'Incorrect ❌'}<br>
+          <p>${q.q}</p>
+          <p>Your answer: ${selected ? selected.value : 'None'}</p>
+          <p>Correct Answer: (${q.correct})</p>
+          <p><em>${q.explanation}</em></p>
+        </div>`;
+      });
+      document.querySelector('.score-circle').textContent = score + '/' + questions.length;
+      document.getElementById('answer-key').innerHTML = html;
+      document.getElementById('quiz-form').style.display = 'none';
+      document.getElementById('results').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+
+  <script src="../shared/header-footer.js"></script>
+</body>
+
+</html>
