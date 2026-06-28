@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎮 Arduino Level-2 Control & Logic Quiz | Interactive Electronics</title>
+  <meta name="description"
+    content="Test your Arduino Level-2 skills with this interactive quiz covering potentiometer inputs, RGB LEDs, button logic, operator precedence, and debugging.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../../shared/quiz-style.css">
+  <style>
+    pre {
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #e9ecef;
+      overflow-x: auto;
+      margin: 10px 0;
+    }
+    code {
+      font-family: 'Courier New', Courier, monospace;
+      color: #e74c3c;
+      font-weight: bold;
+    }
+    pre code {
+      color: #2b5b84;
+      font-weight: normal;
+    }
+    .bonus-challenge-container {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #fcf8e3;
+      border: 1px solid #faebcc;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🎮 Arduino Level-2 Control & Logic</h1>
+
+  <div class="quiz-container">
+    <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Resources</a>
+    <div class="intro">
+      <p>This quiz challenges your recall, code reading, debugging, and critical thinking skills. You will analyze code blocks containing potentiometer readings, RGB LED controls, and push button conditions.</p>
+    </div>
+
+    <div class="progress-wrapper">
+      <div class="progress-container">
+        <div id="progress-fill"></div>
+      </div>
+      <div id="progress-count">0/10 answered</div>
+    </div>
+
+    <form id="quiz-form">
+      <div id="quiz-area"></div>
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Results</button>
+    </form>
+
+    <div id="results">
+      <div class="score-container">
+        <div class="score-circle">0</div>
+        <div class="score-label">Your Score</div>
+      </div>
+      <div class="feedback"></div>
+      <div class="action-buttons">
+        <a href="" class="secondary-btn" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake Quiz</a>
+        <a href="../../resources/resources.html" class="secondary-btn"><i class="fas fa-th-list"></i> More Quizzes</a>
+      </div>
+      <div id="answer-key" class="answer-key"></div>
+    </div>
+
+    <!-- Bonus Challenge Card -->
+    <div class="bonus-challenge-container">
+      <h3 style="color: #8a6d3b; margin-top: 0;"><i class="fas fa-trophy"></i> Bonus Challenge (No Multiple Choice)</h3>
+      <p>Your teacher asks you to change the program so that:</p>
+      <ul>
+        <li>The potentiometer still chooses <strong>Red, Green, or Blue</strong>.</li>
+        <li>The RGB LED only turns on <strong>while the push button is being pressed</strong>.</li>
+        <li>When the button is released, <strong>all LEDs turn off</strong>.</li>
+      </ul>
+      <p>Explain <strong>what changes you would make</strong> to the code. Mention:</p>
+      <ol>
+        <li>What new variable you would add,</li>
+        <li>What function you would use to read the button,</li>
+        <li>And how the <code>if</code> conditions would change.</li>
+      </ol>
+      
+      <textarea id="bonus-answer" rows="4" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; margin-bottom: 10px; font-family: sans-serif;" placeholder="Type your explanation here..."></textarea>
+      <button type="button" class="secondary-btn" id="revealBtn" onclick="revealBonusAnswer()" style="background-color: #8a6d3b; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; width: auto; display: inline-block;">Reveal Model Answer</button>
+      
+      <div id="bonus-model-answer" style="display: none; margin-top: 15px; padding: 15px; background-color: #f9f9f9; border-left: 4px solid #8a6d3b; border-radius: 4px;">
+        <strong>Model Answer:</strong>
+        <p>1. <strong>New Variable:</strong> Add an integer variable to hold the push button state, such as <code>int buttonState = 0;</code>.</p>
+        <p>2. <strong>Reading the Button:</strong> Use the <code>digitalRead(buttonPin)</code> function in the loop to read the button state and assign it to the variable: <code>buttonState = digitalRead(buttonPin);</code>.</p>
+        <p>3. <strong>If Conditions:</strong> You have two primary clean options to modify the logic:
+        <ul>
+          <li><strong>Option A (Direct Logic Link):</strong> Modify each color condition using the logical AND (<code>&&</code>) operator to also check that the button is pressed (HIGH):
+            <ul>
+              <li><code>if (potValue <= 340 && buttonState == HIGH) { ... }</code></li>
+              <li><code>if (potValue > 340 && potValue <= 680 && buttonState == HIGH) { ... }</code></li>
+              <li><code>if (potValue > 680 && buttonState == HIGH) { ... }</code></li>
+            </ul>
+          </li>
+          <li><strong>Option B (Nested Master Block):</strong> Wrap the entire potentiometer color selection logic inside a master <code>if (buttonState == HIGH)</code> block, and put an <code>else</code> block that turns all pins LOW when the button is released.</li>
+        </ul>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "1. What does this line do?<br><pre><code class=\"language-cpp\">pinMode(redPin, OUTPUT);</code></pre>",
+        options: [
+          "A) Reads the voltage from the red LED",
+          "B) Makes pin 11 an output pin",
+          "C) Turns on the red LED",
+          "D) Sets the brightness of the red LED"
+        ],
+        correct: "B",
+        explanation: "pinMode() configures the specified pin to behave either as an input or an output. In this circuit design, redPin represents pin 11, so it sets pin 11 as an OUTPUT pin."
+      },
+      {
+        q: "2. What is the purpose of this line?<br><pre><code class=\"language-cpp\">int potValue = analogRead(potPin);</code></pre>",
+        options: [
+          "A) Turns on the potentiometer",
+          "B) Reads a value between 0 and 1023",
+          "C) Reads a value between 0 and 255",
+          "D) Reads HIGH or LOW"
+        ],
+        correct: "B",
+        explanation: "analogRead() measures the voltage on the analog pin (0V to 5V) and converts it to a 10-bit digital representation ranging from 0 to 1023."
+      },
+      {
+        q: "3. Suppose the potentiometer value is <strong>200</strong>. Which LED(s) will turn on?",
+        options: [
+          "A) Red",
+          "B) Green",
+          "C) Blue",
+          "D) Red and Green"
+        ],
+        correct: "A",
+        explanation: "A potentiometer value of 200 is less than or equal to 340, which falls into the first range. This activates the Red LED."
+      },
+      {
+        q: "4. A student accidentally changes this line:<br><pre><code class=\"language-cpp\">if (potValue <= 340)</code></pre>to<br><pre><code class=\"language-cpp\">if (potValue < 340)</code></pre>What happens when the potentiometer value is exactly <strong>340</strong>?",
+        options: [
+          "A) Red LED stays ON",
+          "B) Red LED turns OFF",
+          "C) Green LED turns ON",
+          "D) Nothing changes"
+        ],
+        correct: "B",
+        explanation: "By replacing the <= (less than or equal to) operator with < (less than), the condition evaluates to false when potValue is exactly 340. Therefore, the Red LED will turn off."
+      },
+      {
+        q: "5. A student writes:<br><pre><code class=\"language-cpp\">pinMode(redPin, INPUT);</code></pre>instead of<br><pre><code class=\"language-cpp\">pinMode(redPin, OUTPUT);</code></pre>What is the most likely result?",
+        options: [
+          "A) The LED works normally.",
+          "B) The Arduino cannot control the LED correctly.",
+          "C) The LED becomes brighter.",
+          "D) The potentiometer stops working."
+        ],
+        correct: "B",
+        explanation: "Configuring the pin as an INPUT puts it in a high-impedance state, preventing it from sourcing enough current to light up the LED. The LED will remain off or show an extremely faint glow."
+      },
+      {
+        q: "6. Why does the program use three separate <code>if</code> statements instead of one long <code>if...else if...else</code> statement?",
+        options: [
+          "A) It uses less memory.",
+          "B) Each LED is controlled independently.",
+          "C) Arduino cannot use else if.",
+          "D) There is no difference at all."
+        ],
+        correct: "B",
+        explanation: "Three separate if statements allow the conditions to be checked independently, making it easier to control multiple outputs without forcing mutual exclusion."
+      },
+      {
+        q: "7. You add this code:<br><pre><code class=\"language-cpp\">int buttonState = digitalRead(buttonPin);</code></pre>Then you change the first condition to:<br><pre><code class=\"language-cpp\">if (potValue <= 340 && buttonState == HIGH)</code></pre>What must be true for the red LED to turn on?",
+        options: [
+          "A) Only the button is pressed.",
+          "B) Only the potentiometer is in the red range.",
+          "C) Both the button is pressed and the potentiometer is in the red range.",
+          "D) Either condition can be true."
+        ],
+        correct: "C",
+        explanation: "The logical AND (&&) operator requires both conditions to be true simultaneously: the potentiometer reading must be 340 or lower AND the button must be pressed (HIGH)."
+      },
+      {
+        q: "8. Suppose the potentiometer value is <strong>500</strong>, but the push button is <strong>not pressed</strong>. Which LEDs should be on after adding the push button logic?",
+        options: [
+          "A) Red",
+          "B) Green",
+          "C) Blue",
+          "D) None"
+        ],
+        correct: "B",
+        explanation: "Because only the first condition (Red LED) was changed to check the buttonState, the Green LED condition remains unchanged. At a value of 500, the Green LED will turn on regardless of the button state."
+      },
+      {
+        q: "9. A student changes:<br><pre><code class=\"language-cpp\">analogRead(potPin);</code></pre>to<br><pre><code class=\"language-cpp\">digitalRead(potPin);</code></pre>What problem will occur?",
+        options: [
+          "A) Nothing changes.",
+          "B) The potentiometer can now read values from 0 to 1023.",
+          "C) The Arduino will only read HIGH or LOW instead of the full range.",
+          "D) The RGB LED will become brighter."
+        ],
+        correct: "C",
+        explanation: "digitalRead() returns a binary state (HIGH or LOW / 1 or 0) rather than reading variable voltage levels. The potentiometer will no longer be able to select colors along a spectrum of values."
+      },
+      {
+        q: `10. A student changes the code to:<br><pre><code class="language-cpp">if (potValue <= 340)
+{
+    digitalWrite(redPin, LOW);
+}
+
+if (potValue <= 500)
+{
+    digitalWrite(greenPin, LOW);
+}</code></pre>If the potentiometer value is <strong>250</strong>, what will happen?`,
+        options: [
+          "A) Only the red LED turns on.",
+          "B) Only the green LED turns on.",
+          "C) Both the red and green LEDs turn on.",
+          "D) No LEDs turn on."
+        ],
+        correct: "D",
+        explanation: "Since 250 is less than or equal to both 340 and 500, both independent if conditions evaluate to true. In active-high setups, digitalWrite(pin, LOW) turns the LED off. Both Red and Green LEDs are set to LOW, so no LEDs turn on."
+      }
+    ];
+
+    const quizArea = document.getElementById("quiz-area");
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<h3>${q.q}</h3><div class="options">` +
+        q.options.map((opt, idx) => `<label><input type="radio" name="q${i + 1}" value="${opt.charAt(0)}"> ${opt}</label>`).join("") +
+        `</div>`;
+      quizArea.appendChild(div);
+    });
+
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        const answered = questions.filter((_, i) => document.querySelector(`input[name="q${i + 1}"]:checked`)).length;
+        document.getElementById('progress-fill').style.width = (answered / questions.length * 100) + '%';
+        document.getElementById('progress-count').textContent = answered + '/' + questions.length + ' answered';
+      });
+    });
+
+    function submitQuiz() {
+      let score = 0;
+      let html = '<h2>Detailed Results</h2>';
+      
+      const answered = questions.filter((_, i) => document.querySelector(`input[name="q${i + 1}"]:checked`)).length;
+      if (answered < questions.length) {
+        alert("Please answer all questions before submitting.");
+        return;
+      }
+
+      questions.forEach((q, i) => {
+        const selected = document.querySelector(`input[name="q${i + 1}"]:checked`);
+        const isCorrect = selected && selected.value === q.correct;
+        if (isCorrect) score++;
+        html += `<div class="answer-item ${isCorrect ? 'correct' : 'incorrect'}">
+          <strong>Question ${i + 1}:</strong> ${isCorrect ? 'Correct ✅' : 'Incorrect ❌'}<br>
+          <p>${q.q}</p>
+          <p>Your answer: ${selected ? selected.value : 'None'}</p>
+          <p>Correct Answer: (${q.correct})</p>
+          <p><em>${q.explanation}</em></p>
+        </div>`;
+      });
+      document.querySelector('.score-circle').textContent = score + '/' + questions.length;
+      document.getElementById('answer-key').innerHTML = html;
+      document.getElementById('quiz-form').style.display = 'none';
+      document.getElementById('results').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function revealBonusAnswer() {
+      const modelAnswer = document.getElementById("bonus-model-answer");
+      const revealBtn = document.getElementById("revealBtn");
+      if (modelAnswer.style.display === "none") {
+        modelAnswer.style.display = "block";
+        revealBtn.textContent = "Hide Model Answer";
+      } else {
+        modelAnswer.style.display = "none";
+        revealBtn.textContent = "Reveal Model Answer";
+      }
+    }
+  </script>
+
+  <script src="../../shared/header-footer.js"></script>
+</body>
+
+</html>
