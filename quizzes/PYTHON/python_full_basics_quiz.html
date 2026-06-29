@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐍 Python Quiz (Full Basics) | Test Python Fundamentals</title>
+  <meta name="description"
+    content="Test your fundamental Python knowledge with this 20-question basics quiz covering variables, data types, control structures, loops, built-in functions, user-defined functions, list methods, and more.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../../shared/quiz-style.css">
+  <style>
+    /* Styling adjustments to support fieldsets visually matching div.question */
+    fieldset.question {
+      border: none;
+      border-left: 4px solid var(--primary-color);
+      margin: 0 0 25px 0;
+      padding: 20px;
+      background: #eef2f5;
+      border-radius: 5px;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    fieldset.question:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    legend.question-title {
+      display: block;
+      width: 100%;
+      float: left;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #2c3e50;
+      padding: 0;
+      margin-bottom: 10px;
+      white-space: normal;
+    }
+
+    /* Clear float to align children correctly inside fieldset */
+    fieldset.question::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .options {
+      width: 100%;
+      clear: both;
+    }
+
+    /* Styling code snippet styling */
+    pre {
+      background: #f8f9fa;
+      padding: 12px;
+      border-radius: 6px;
+      border-left: 4px solid var(--primary-color);
+      margin: 10px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      overflow-x: auto;
+    }
+
+    code {
+      background-color: #eef2f5;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      color: #e74c3c;
+      font-weight: bold;
+    }
+
+    /* Screen reader announcement (visible only to screen readers) */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🐍 Python Quiz (Full Basics)</h1>
+
+  <div class="quiz-container">
+    <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Resources</a>
+    
+    <div class="intro" role="region" aria-label="Quiz Welcome Information">
+      <p>Welcome to the Python Basics Quiz! This quiz is designed to test your understanding of fundamental Python programming concepts. You will encounter 20 multiple-choice questions covering a range of topics, including:</p>
+      <ul>
+        <li><strong>Data Types:</strong> int, float, string, boolean, dictionary, list, and tuple.</li>
+        <li><strong>Control Structures:</strong> for loop, while loop, and nested loops.</li>
+        <li><strong>Built-in Functions:</strong> len(), range(), type(), int(), float(), str(), and split().</li>
+        <li><strong>User-Defined Functions:</strong> how to define and use them.</li>
+        <li><strong>Methods and Operations:</strong> list methods and the use of map().</li>
+      </ul>
+      <p>Each question has four options, and only one option is correct. This quiz will help reinforce your knowledge and ensure you have a solid grasp of basic Python programming. Good luck!</p>
+    </div>
+
+    <!-- Progress section with Screen Reader status and ARIA attributes -->
+    <div class="progress-wrapper" role="status" aria-live="polite">
+      <span class="sr-only">Quiz Progress:</span>
+      <div class="progress-container">
+        <div id="progress-fill" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="20" style="width: 0%;"></div>
+      </div>
+      <div id="progress-count">0/20 answered</div>
+    </div>
+
+    <form id="quiz-form" aria-label="Python Fundamentals Quiz Form">
+      <div id="quiz-area"></div>
+      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Results</button>
+    </form>
+
+    <div id="results" role="dialog" aria-labelledby="results-title" style="display: none;">
+      <div class="score-container">
+        <div class="score-circle" id="score-circle-display" aria-live="assertive">0/20</div>
+        <div class="score-label" id="results-title">Your Score</div>
+      </div>
+      <div class="feedback" id="feedback-display" aria-live="polite"></div>
+      <div class="action-buttons">
+        <a href="" class="secondary-btn" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake Quiz</a>
+        <a href="../../resources/resources.html" class="secondary-btn"><i class="fas fa-th-list"></i> More Quizzes</a>
+      </div>
+      <div id="answer-key" class="answer-key" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "1. What is the output of type(42)?",
+        options: [
+          "A) &lt;class 'int'&gt;",
+          "B) &lt;class 'float'&gt;",
+          "C) &lt;class 'str'&gt;",
+          "D) &lt;class 'bool'&gt;"
+        ],
+        correct: "A",
+        explanation: "<code>42</code> is an integer literal in Python, so calling <code>type(42)</code> returns <code>&lt;class 'int'&gt;</code>."
+      },
+      {
+        q: "2. Which of the following is a mutable data type in Python?",
+        options: [
+          "A) int",
+          "B) float",
+          "C) tuple",
+          "D) list"
+        ],
+        correct: "D",
+        explanation: "Lists are mutable, meaning their elements can be modified in-place. Numbers (int, float) and tuples are immutable."
+      },
+      {
+        q: "3. What is the result of int(3.14)?",
+        options: [
+          "A) 3.14",
+          "B) 3",
+          "C) 4",
+          "D) Error"
+        ],
+        correct: "B",
+        explanation: "The <code>int()</code> function converts a number to an integer by truncating towards zero, dropping the decimal part entirely."
+      },
+      {
+        q: "4. How do you define a function in Python?",
+        options: [
+          "A) function my_function():",
+          "B) def my_function():",
+          "C) define my_function():",
+          "D) function: my_function()"
+        ],
+        correct: "B",
+        explanation: "In Python, the <code>def</code> keyword is used to define functions."
+      },
+      {
+        q: "5. What is the output of len([1, 2, 3, 4])?",
+        options: [
+          "A) 3",
+          "B) 4",
+          "C) 5",
+          "D) Error"
+        ],
+        correct: "B",
+        explanation: "The <code>len()</code> function returns the count of items in a sequence (such as a list, string, or tuple). Here there are 4 items."
+      },
+      {
+        q: "6. What will be the output of the following code?<br><pre><code>x = 'Hello World'\ny = x.split()\nprint(y)</code></pre>",
+        options: [
+          "A) ['Hello', 'World']",
+          "B) ['H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd']",
+          "C) Hello World",
+          "D) Error"
+        ],
+        correct: "A",
+        explanation: "The <code>split()</code> method splits strings on whitespace by default, returning a list of individual words."
+      },
+      {
+        q: "7. Which of the following is a valid way to create a dictionary in Python?",
+        options: [
+          "A) {1, 2, 3}",
+          "B) [1, 2, 3]",
+          "C) {'one': 1, 'two': 2, 'three': 3}",
+          "D) (1, 2, 3)"
+        ],
+        correct: "C",
+        explanation: "Dictionaries are created using curly braces with key-value pairs separated by colons. <code>{1, 2, 3}</code> is a set; <code>[1, 2, 3]</code> is a list; <code>(1, 2, 3)</code> is a tuple."
+      },
+      {
+        q: "8. What will be the output of the following code?<br><pre><code>for i in range(3):\n    print(i)</code></pre>",
+        options: [
+          "A) 1 2 3",
+          "B) 0 1 2",
+          "C) 0 1 2 3",
+          "D) 1 2 3 4"
+        ],
+        correct: "B",
+        explanation: "The <code>range(3)</code> function generates numbers from 0 up to (but not including) 3, which are 0, 1, and 2."
+      },
+      {
+        q: "9. What does the type() function do in Python?",
+        options: [
+          "A) Converts a variable to a string",
+          "B) Determines the type of a variable",
+          "C) Checks if a variable is an integer",
+          "D) None of the above"
+        ],
+        correct: "B",
+        explanation: "The <code>type()</code> function returns the data type class of the passed argument or object."
+      },
+      {
+        q: "10. Which method would you use to add an element to the end of a list?",
+        options: [
+          "A) list.add()",
+          "B) list.append()",
+          "C) list.insert()",
+          "D) list.extend()"
+        ],
+        correct: "B",
+        explanation: "The <code>append()</code> method adds a single element to the end of a list. (Note: <code>add()</code> is for sets, <code>insert()</code> specifies an index, and <code>extend()</code> appends another iterable)."
+      },
+      {
+        q: "11. What is the correct syntax for a while loop in Python?",
+        options: [
+          "A) while x &lt; 10 {",
+          "B) while x &lt; 10:",
+          "C) while (x &lt; 10):",
+          "D) while x &lt; 10"
+        ],
+        correct: "B",
+        explanation: "A standard Python while loop starts with the keyword <code>while</code> followed by a condition and a colon (<code>:</code>). No braces or surrounding parentheses are required or customary."
+      },
+      {
+        q: "12. How would you convert the string \"123\" to an integer in Python?",
+        options: [
+          "A) str(123)",
+          "B) int(123)",
+          "C) int(\"123\")",
+          "D) float(\"123\")"
+        ],
+        correct: "C",
+        explanation: "The constructor <code>int()</code> takes a numeric string (like <code>\"123\"</code>) and parses it to an integer."
+      },
+      {
+        q: "13. Which of the following is a tuple?",
+        options: [
+          "A) {1, 2, 3}",
+          "B) [1, 2, 3]",
+          "C) (1, 2, 3)",
+          "D) {{1, 2, 3}}"
+        ],
+        correct: "C",
+        explanation: "Tuples are defined using parentheses <code>()</code>. Curly braces <code>{}</code> are sets/dictionaries, and square brackets <code>[]</code> are lists."
+      },
+      {
+        q: "14. What will be the output of the following code?<br><pre><code>x = [1, 2, 3]\ny = map(str, x)\nprint(list(y))</code></pre>",
+        options: [
+          "A) ['1', '2', '3']",
+          "B) [1, 2, 3]",
+          "C) ['one', 'two', 'three']",
+          "D) Error"
+        ],
+        correct: "A",
+        explanation: "The <code>map(str, x)</code> function applies the <code>str()</code> function to each element of list <code>x</code>. Converting the map object back to a list yields <code>['1', '2', '3']</code>."
+      },
+      {
+        q: "15. What is the result of the following code?<br><pre><code>x = (1, 2, 3)\nx[1] = 4</code></pre>",
+        options: [
+          "A) (1, 4, 3)",
+          "B) (1, 2, 3, 4)",
+          "C) (1, 2, 3)",
+          "D) Error"
+        ],
+        correct: "D",
+        explanation: "Tuples are immutable in Python. Attempting to assign elements like <code>x[1] = 4</code> throws a <code>TypeError</code>."
+      },
+      {
+        q: "16. What does the following code print?<br><pre><code>a = 10\nb = 5\nwhile b &lt; 10:\n    a += 1\n    b += 2\nprint(a)</code></pre>",
+        options: [
+          "A) 11",
+          "B) 12",
+          "C) 13",
+          "D) 14"
+        ],
+        correct: "C",
+        explanation: "Let's trace it: <code>b</code> is initially 5. <br>- Iteration 1: <code>b &lt; 10</code> (5 &lt; 10) is true. <code>a</code> becomes 11, <code>b</code> becomes 7.<br>- Iteration 2: <code>b &lt; 10</code> (7 &lt; 10) is true. <code>a</code> becomes 12, <code>b</code> becomes 9.<br>- Iteration 3: <code>b &lt; 10</code> (9 &lt; 10) is true. <code>a</code> becomes 13, <code>b</code> becomes 11.<br>- <code>b &lt; 10</code> (11 &lt; 10) is now false, ending the loop. 13 is printed."
+      },
+      {
+        q: "17. What will be the output of the following nested loop?<br><pre><code>for i in range(2):\n    for j in range(2):\n        print(i, j)</code></pre>",
+        options: [
+          "A) (0, 0), (1, 0)",
+          "B) (0, 0), (0, 1), (1, 0), (1, 1)",
+          "C) (1, 1), (2, 2)",
+          "D) (0, 1), (1, 0)"
+        ],
+        correct: "B",
+        explanation: "Outer loop <code>i</code> takes values 0 and 1. For each value of <code>i</code>, inner loop <code>j</code> takes values 0 and 1, outputting 0 0, 0 1, 1 0, and 1 1 respectively."
+      },
+      {
+        q: "18. How do you define a dictionary in Python?",
+        options: [
+          "A) dict = {}",
+          "B) dict = []",
+          "C) dict = ()",
+          "D) dict = {{}}"
+        ],
+        correct: "A",
+        explanation: "An empty dictionary is defined using curly braces <code>{}</code>."
+      },
+      {
+        q: "19. What is the result of float('3.14')?",
+        options: [
+          "A) 3",
+          "B) 3.14'",
+          "C) 3.14",
+          "D) Error"
+        ],
+        correct: "C",
+        explanation: "The <code>float()</code> function parses a numeric string representation of a float into an actual floating-point number, 3.14."
+      },
+      {
+        q: "20. Which of the following is not a valid method for a list in Python?",
+        options: [
+          "A) list.append()",
+          "B) list.extend()",
+          "C) list.pop()",
+          "D) list.add()"
+        ],
+        correct: "D",
+        explanation: "Lists do not have an <code>add()</code> method. Standard ways to add elements are <code>append()</code>, <code>insert()</code>, or <code>extend()</code>."
+      }
+    ];
+
+    // Build Quiz Area dynamically
+    const quizArea = document.getElementById("quiz-area");
+    questions.forEach((q, i) => {
+      const fieldset = document.createElement("fieldset");
+      fieldset.className = "question";
+      fieldset.setAttribute("role", "radiogroup");
+      fieldset.setAttribute("aria-labelledby", `q${i + 1}-title`);
+      
+      let optionsHTML = '';
+      q.options.forEach((opt) => {
+        const letter = opt.charAt(0); // A, B, C, or D
+        const optId = `q${i + 1}-opt-${letter.toLowerCase()}`;
+        optionsHTML += `
+          <label for="${optId}">
+            <input type="radio" id="${optId}" name="q${i + 1}" value="${letter}" aria-describedby="q${i + 1}-title">
+            ${opt}
+          </label>
+        `;
+      });
+
+      fieldset.innerHTML = `
+        <legend class="question-title" id="q${i + 1}-title">${q.q}</legend>
+        <div class="options">
+          ${optionsHTML}
+        </div>
+      `;
+      quizArea.appendChild(fieldset);
+    });
+
+    // Update progress tracking
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        const answered = questions.filter((_, i) => document.querySelector(`input[name="q${i + 1}"]:checked`)).length;
+        const progressFill = document.getElementById('progress-fill');
+        const progressCount = document.getElementById('progress-count');
+        
+        const percentage = (answered / questions.length) * 100;
+        progressFill.style.width = percentage + '%';
+        progressFill.setAttribute('aria-valuenow', answered);
+        progressCount.textContent = answered + '/' + questions.length + ' answered';
+      });
+    });
+
+    // Submit and score handling
+    function submitQuiz() {
+      let score = 0;
+      let html = '<h2>Detailed Results</h2>';
+      
+      // Ensure all questions are answered
+      const answered = questions.filter((_, i) => document.querySelector(`input[name="q${i + 1}"]:checked`)).length;
+      if (answered < questions.length) {
+        // Accessibility feedback for validation error
+        alert("Please answer all 20 questions before submitting.");
+        return;
+      }
+
+      questions.forEach((q, i) => {
+        const selected = document.querySelector(`input[name="q${i + 1}"]:checked`);
+        const isCorrect = selected && selected.value === q.correct;
+        if (isCorrect) score++;
+        
+        html += `<div class="answer-item ${isCorrect ? 'correct' : 'incorrect'}" role="region" aria-label="Question ${i + 1} feedback">
+          <strong>Question ${i + 1}:</strong> ${isCorrect ? 'Correct ✅' : 'Incorrect ❌'}<br>
+          <p>${q.q}</p>
+          <p class="user-answer">Your answer: ${selected ? selected.value : 'None'}</p>
+          <p class="correct-answer">Correct Answer: (${q.correct})</p>
+          <p class="explanation"><em>${q.explanation}</em></p>
+        </div>`;
+      });
+      
+      // Calculate score and feedback
+      const scoreString = score + '/' + questions.length;
+      document.getElementById('score-circle-display').textContent = scoreString;
+      
+      let feedbackText = '';
+      if (score === 20) {
+        feedbackText = '🌟 Perfect score! You have a flawless understanding of basic Python programming!';
+      } else if (score >= 16) {
+        feedbackText = '🎉 Excellent job! You have a very solid grasp of basic Python concepts.';
+      } else if (score >= 10) {
+        feedbackText = '👍 Good effort! Review your incorrect answers to reinforce your understanding.';
+      } else {
+        feedbackText = '📚 Keep studying! Review the Python Basics quiz material and try again.';
+      }
+      
+      document.getElementById('feedback-display').innerHTML = `<strong>${feedbackText}</strong>`;
+      document.getElementById('answer-key').innerHTML = html;
+      
+      document.getElementById('quiz-form').style.display = 'none';
+      document.getElementById('results').style.display = 'block';
+      
+      // Focus on the score to let screen readers announce it instantly
+      document.getElementById('results').focus();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+
+</html>
