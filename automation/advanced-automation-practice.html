@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Playwright, Selenium & Cypress Practice | Interactive Testing Playground</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Advanced interactive playground for QA engineers to practice automation testing. Test complex scenarios like shadow DOMs, file uploads, iframes, APIs, and OAuth." />
+    <meta name="keywords" content="advanced automation testing, Selenium practice, Playwright testing, Cypress automation, QA practice, shadow DOM testing, iframe testing, API testing" />
+    <meta name="author" content="Faruk Hasan" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <link rel="canonical" href="https://faruk-hasan.com/automation/advanced-automation-practice.html" />
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Advanced Playwright, Selenium & Cypress Practice | Interactive Testing Playground" />
+    <meta property="og:description" content="Master advanced QA automation with 15 advanced testing missions. Practice handling complex web elements, dynamic states, and APIs." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://faruk-hasan.com/automation/advanced-automation-practice.html" />
+    <meta property="og:site_name" content="Advanced Automation Testing Practice" />
+    
+    <link rel="stylesheet" href="advanced-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Auth Guard: redirect to login if not authenticated -->
+    <script>
+        (function () {
+            var currentUser = localStorage.getItem('currentUser');
+            var registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || {};
+            if (!currentUser || !registeredUsers[currentUser]) {
+                window.location.replace('login.html');
+            }
+        })();
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>Advanced Automation Adventure</h1>
+        <p>Tackle 15 complex interactive scenarios to achieve automation testing mastery!</p>
+        <div id="progress-bar">
+            <div id="progress"></div>
+        </div>
+    </header>
+
+    <!-- Sticky progress bar -->
+    <div class="sticky-progress">
+        <div id="sticky-progress-bar">
+            <div id="sticky-progress"></div>
+        </div>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="playwright-selenium-cypress-practice.html" class="back-btn">&larr; Basic Lab</a></li>
+            <li><a href="#mission1">Mission 1</a></li>
+            <li><a href="#mission2">Mission 2</a></li>
+            <li><a href="#mission3">Mission 3</a></li>
+            <li><a href="#mission4">Mission 4</a></li>
+            <li><a href="#mission5">Mission 5</a></li>
+            <li><a href="#mission6">Mission 6</a></li>
+            <li><a href="#mission7">Mission 7</a></li>
+            <li><a href="#mission8">Mission 8</a></li>
+            <li><a href="#mission9">Mission 9</a></li>
+            <li><a href="#mission10">Mission 10</a></li>
+            <li><a href="#mission11">Mission 11</a></li>
+            <li><a href="#mission12">Mission 12</a></li>
+            <li><a href="#mission13">Mission 13</a></li>
+            <li><a href="#mission14">Mission 14</a></li>
+            <li><a href="#mission15">Mission 15</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Info Card -->
+        <div style="background: white; border-radius: 10px; padding: 30px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); border-left: 5px solid #6d28d9;">
+            <h3 style="margin-top:0; color:#5b21b6; font-size: 1.3rem; font-weight: 700;">🧪 Advanced Test Automation Lab</h3>
+            <p style="margin-bottom: 10px;">Welcome to the Advanced Lab! This environment contains <strong>15 advanced test automation challenges</strong> designed to simulate complex real-world web application behavior. Perfect for writing robust E2E test suites with Playwright, Cypress, or Selenium WebDriver.</p>
+            <p style="margin: 0; font-weight: 500; color: #6b7280;">Your progress is tracked and saved to your profile automatically as you complete each mission.</p>
+        </div>
+
+        <!-- Mission 1 -->
+        <section id="mission1">
+            <h2>Mission 1: Awaiting Test Scenario</h2>
+            <p>Tell me your first test scenario, and we will build it right here!</p>
+            <div class="mission-content" style="text-align: center; padding: 20px; border: 2px dashed #ddd; border-radius: 8px; background-color: #fafafa;">
+                <p style="color: #888; font-style: italic; margin-bottom: 15px;">Mission 1 skeleton ready.</p>
+                <button onclick="markMissionComplete('mission1')" class="primary-button">Unlock Mission 1</button>
+                <p id="mission1-result"></p>
+            </div>
+        </section>
+
+        <!-- Mission 2 -->
+        <section id="mission2">
+            <h2>Mission 2: Awaiting Test Scenario</h2>
+            <p>Ready to be customized with your test requirements.</p>
+            <div class="mission-content" style="text-align: center; padding: 20px; border: 2px dashed #ddd; border-radius: 8px; background-color: #fafafa;">
+                <p style="color: #888; font-style: italic; margin-bottom: 15px;">Mission 2 skeleton ready.</p>
+                <button onclick="markMissionComplete('mission2')" class="primary-button">Unlock Mission 2</button>
+                <p id="mission2-result"></p>
+            </div>
+        </section>
+
+        <!-- Mission 3 -->
+        <section id="mission3">
+            <h2>Mission 3: Awaiting Test Scenario</h2>
+            <p>Ready to be customized with your test requirements.</p>
+            <div class="mission-content" style="text-align: center; padding: 20px; border: 2px dashed #ddd; border-radius: 8px; background-color: #fafafa;">
+                <p style="color: #888; font-style: italic; margin-bottom: 15px;">Mission 3 skeleton ready.</p>
+                <button onclick="markMissionComplete('mission3')" class="primary-button">Unlock Mission 3</button>
+                <p id="mission3-result"></p>
+            </div>
+        </section>
+
+        <!-- Mission 4 -->
+        <section id="mission4">
+            <h2>Mission 4: Awaiting Test Scenario</h2>
+            <p>Ready to be customized with your test requirements.</p>
+            <div class="mission-content" style="text-align: center; padding: 20px; border: 2px dashed #ddd; border-radius: 8px; background-color: #fafafa;">
+                <p style="color: #888; font-style: italic; margin-bottom: 15px;">Mission 4 skeleton ready.</p>
+                <button onclick="markMissionComplete('mission4')" class="primary-button">Unlock Mission 4</button>
+                <p id="mission4-result"></p>
+            </div>
+        </section>
+
+        <!-- Mission 5 -->
+        <section id="mission5">
+            <h2>Mission 5: Awaiting Test Scenario</h2>
+            <p>Ready to be customized with your test requirements.</p>
+            <div class="mission-content" style="text-align: center; padding: 20px; border: 2px dashed #ddd; border-radius: 8px; background-color: #fafafa;">
+                <p style="color: #888; font-style: italic; margin-bottom: 15px;">Mission 5 skeleton ready.</p>
+                <button onclick="markMissionComplete('mission5')" class="primary-button">Unlock Mission 5</button>
+                <p id="mission5-result"></p>
+            </div>
+        </section>
+
+        <!-- Mission 6 -->
+        <section id="mission6">
+            <h2>Mission 6: Awaiting Test Scenario</h2>
+            <p>Ready to be customized with your test requirements.</p>
+            <div class="mission-content" style="text-align: center; padding: 20px; border: 2px dashed #ddd; border-radius: 8px; background-color: #fafafa;">
+                <p style="color: #888; font-style: italic; margin-bottom: 15px;">Mission 6 skeleton ready.</p>
+                <button onclick="markMissionComplete('mission6')" class="primary-button">Unlock Mission 6</button>
+                <p id="mission6-result"></p>
+            </div>
+        </section>
+
+        <!-- Mission 7 -->
+        <section id="mission7">
+            <h2>Mission 7: Awaiting Test Scenario</h2>
+            <p>Ready to be customized with your test requirements.</p>
+            <div class="mission-content" style="text-align: center; padding: 20px; border: 2px dashed #ddd; border-radius: 8px; background-color: #fafafa;">
+                <p style="color: #888; font-style: italic; margin-bottom: 15px;">Mission 7 skeleton ready.</p>
+                <button onclick="markMissionComplete('mission7')" class="primary-button">Unlock Mission 7</button>
+                <p id="mission7-result"></p>
+            </div>
+        </section>
+
+        <!-- Mission 8 -->
+        <section id="mission8">
+            <h2>Mission 8: Awaiting Test Scenario</h2>
+            <p>Ready to be customized with your test requirements.</p>
+            <div class="mission-content" style="text-align: center; padding: 20px; border: 2px dashed #ddd; border-radius: 8px; background-color: #fafafa;">
+                <p style="color: #888; font-style: italic; margin-bottom: 15px;">Mission 8 skeleton ready.</p>
+                <button onclick="markMissionComplete('mission8')" class="primary-button">Unlock Mission 8</button>
+                <p id="mission8-result"></p>
+            </div>
+        </section>
+
+        <!-- Mission 9 -->
+        <section id="mission9">
+            <h2>Mission 9: Awaiting Test Scenario</h2>
+            <p>Ready to be customized with your test requirements.</p>
+            <div class="mission-content" style="text-align: center; padding: 20px; border: 2px dashed #ddd; border-radius: 8px; background-color: #fafafa;">
+                <p style="color: #888; font-style: italic; margin-bottom: 15px;">Mission 9 skeleton ready.</p>
+                <button onclick="markMissionComplete('mission9')" class="primary-button">Unlock Mission 9</button>
+                <p id="mission9-result"></p>
+            </div>
+        </section>
+
+        <!-- Mission 10 -->
+        <section id="mission10">
+            <h2>Mission 10: Awaiting Test Scenario</h2>
+            <p>Ready to be customized with your test requirements.</p>
+            <div class="mission-content" style="text-align: center; padding: 20px; border: 2px dashed #ddd; border-radius: 8px; background-color: #fafafa;">
+                <p style="color: #888; font-style: italic; margin-bottom: 15px;">Mission 10 skeleton ready.</p>
+                <button onclick="markMissionComplete('mission10')" class="primary-button">Unlock Mission 10</button>
+                <p id="mission10-result"></p>
+            </div>
+        </section>
+
+        <!-- Mission 11 -->
+        <section id="mission11">
+            <h2>Mission 11: Awaiting Test Scenario</h2>
+            <p>Ready to be customized with your test requirements.</p>
+            <div class="mission-content" style="text-align: center; padding: 20px; border: 2px dashed #ddd; border-radius: 8px; background-color: #fafafa;">
+                <p style="color: #888; font-style: italic; margin-bottom: 15px;">Mission 11 skeleton ready.</p>
+                <button onclick="markMissionComplete('mission11')" class="primary-button">Unlock Mission 11</button>
+                <p id="mission11-result"></p>
+            </div>
+        </section>
+
+        <!-- Mission 12 -->
+        <section id="mission12">
+            <h2>Mission 12: Awaiting Test Scenario</h2>
+            <p>Ready to be customized with your test requirements.</p>
+            <div class="mission-content" style="text-align: center; padding: 20px; border: 2px dashed #ddd; border-radius: 8px; background-color: #fafafa;">
+                <p style="color: #888; font-style: italic; margin-bottom: 15px;">Mission 12 skeleton ready.</p>
+                <button onclick="markMissionComplete('mission12')" class="primary-button">Unlock Mission 12</button>
+                <p id="mission12-result"></p>
+            </div>
+        </section>
+
+        <!-- Mission 13 -->
+        <section id="mission13">
+            <h2>Mission 13: Awaiting Test Scenario</h2>
+            <p>Ready to be customized with your test requirements.</p>
+            <div class="mission-content" style="text-align: center; padding: 20px; border: 2px dashed #ddd; border-radius: 8px; background-color: #fafafa;">
+                <p style="color: #888; font-style: italic; margin-bottom: 15px;">Mission 13 skeleton ready.</p>
+                <button onclick="markMissionComplete('mission13')" class="primary-button">Unlock Mission 13</button>
+                <p id="mission13-result"></p>
+            </div>
+        </section>
+
+        <!-- Mission 14 -->
+        <section id="mission14">
+            <h2>Mission 14: Awaiting Test Scenario</h2>
+            <p>Ready to be customized with your test requirements.</p>
+            <div class="mission-content" style="text-align: center; padding: 20px; border: 2px dashed #ddd; border-radius: 8px; background-color: #fafafa;">
+                <p style="color: #888; font-style: italic; margin-bottom: 15px;">Mission 14 skeleton ready.</p>
+                <button onclick="markMissionComplete('mission14')" class="primary-button">Unlock Mission 14</button>
+                <p id="mission14-result"></p>
+            </div>
+        </section>
+
+        <!-- Mission 15 -->
+        <section id="mission15">
+            <h2>Mission 15: Awaiting Test Scenario</h2>
+            <p>Ready to be customized with your test requirements.</p>
+            <div class="mission-content" style="text-align: center; padding: 20px; border: 2px dashed #ddd; border-radius: 8px; background-color: #fafafa;">
+                <p style="color: #888; font-style: italic; margin-bottom: 15px;">Mission 15 skeleton ready.</p>
+                <button onclick="markMissionComplete('mission15')" class="primary-button">Unlock Mission 15</button>
+                <p id="mission15-result"></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Automation Adventure - Advanced Testing Lab</p>
+        <p>&copy; 2026 Automation Adventure. All Rights Reserved.</p>
+    </footer>
+
+    <script src="advanced-scripts.js"></script>
+    <script src="../shared/header-footer.js"></script>
+</body>
+</html>

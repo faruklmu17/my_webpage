@@ -1,0 +1,101 @@
+@import url("styles.css");
+
+/* Overrides for Midnight Purple Theme */
+header {
+    background: linear-gradient(135deg, #6d28d9 0%, #2e1065 100%) !important;
+}
+
+.sticky-progress {
+    background: linear-gradient(135deg, #6d28d9 0%, #2e1065 100%) !important;
+}
+
+nav a {
+    color: #6d28d9 !important;
+}
+
+nav a:hover {
+    background-color: #f5f3ff !important;
+    color: #7c3aed !important;
+}
+
+h2 {
+    color: #5b21b6 !important;
+    border-bottom: 2px solid #ede9fe !important;
+}
+
+button {
+    background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%) !important;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #8b5cf6 0%, #5b21b6 100%) !important;
+}
+
+[id$="-result"] {
+    background-color: #f5f3ff !important;
+    border-left: 4px solid #7c3aed !important;
+}
+
+.practice-table thead tr {
+    background-color: #5b21b6 !important;
+}
+
+.practice-table tbody tr:hover {
+    background-color: #f5f3ff !important;
+}
+
+.practice-table tbody tr:last-of-type {
+    border-bottom: 2px solid #5b21b6 !important;
+}
+
+.drag-column h3 {
+    color: #5b21b6 !important;
+}
+
+.drag-item {
+    border-left: 4px solid #7c3aed !important;
+}
+
+.wizard-step-indicator.active {
+    background: #7c3aed !important;
+}
+
+.wizard-panel h3 {
+    color: #5b21b6 !important;
+}
+
+.wizard-opt:hover {
+    border-color: #7c3aed !important;
+    background: #f5f3ff !important;
+}
+
+.wizard-opt.selected {
+    border-color: #7c3aed !important;
+    background: #7c3aed !important;
+}
+
+.spinner {
+    border-top: 4px solid #7c3aed !important;
+}
+
+/* Custom advanced badge styles */
+.completion-badge {
+    background: #10b981;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.8rem;
+    margin-left: 10px;
+}
+
+/* Home / Back Navigation Button */
+.back-btn {
+    background: linear-gradient(135deg, #374151 0%, #1f2937 100%) !important;
+    color: white !important;
+    border: 1px solid #4b5563 !important;
+}
+
+.back-btn:hover {
+    background: linear-gradient(135deg, #4b5563 0%, #374151 100%) !important;
+    transform: translateY(-2px);
+}
