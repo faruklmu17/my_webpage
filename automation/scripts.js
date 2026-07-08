@@ -59,8 +59,15 @@ function checkRadio() {
 function checkDate() {
     const selectedDate = document.getElementById('date-picker').value;
     if (selectedDate) {
+        // Parse the YYYY-MM-DD string as local date to prevent timezone shift
+        const parts = selectedDate.split('-');
+        const year = parseInt(parts[0], 10);
+        const month = parseInt(parts[1], 10) - 1;
+        const day = parseInt(parts[2], 10);
+        const localDate = new Date(year, month, day);
+
         // Format date for better display
-        const formattedDate = new Date(selectedDate).toLocaleDateString('en-US', {
+        const formattedDate = localDate.toLocaleDateString('en-US', {
             weekday: 'long',
             year: 'numeric',
             month: 'long',
