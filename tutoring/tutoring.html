@@ -113,25 +113,23 @@
 
   <style>
     :root {
-      --bg: #0b1220;
-      --surface: #0f172a;
-      --muted: #0b1220;
-      --text: #e5e7eb;
+      --bg: #0a0f1c;
+      --surface: #111827;
+      --muted: #1f2937;
+      --text: #f3f4f6;
       --sub: #9ca3af;
-      --primary: #7c8cff;
-      --primary-600: #6366f1;
-      --primary-700: #4f46e5;
-      --accent: #f59e0b;
+      --primary: #00f0ff;
+      --primary-600: #00d8e5;
+      --primary-700: #00b9c4;
+      --accent: #00f0ff;
       --ok: #22c55e;
       --pink: #ec4899;
-      --cyan: #06b6d4;
-      --card: rgba(255, 255, 255, 0.06);
-      --glass: rgba(255, 255, 255, 0.08);
-      --shadow: 0 10px 30px rgba(0, 0, 0, .25);
-      --radius: 16px;
-      --grad-1: radial-gradient(1200px 600px at 10% -10%, rgba(99, 102, 241, .25), transparent 60%),
-        radial-gradient(800px 600px at 90% 10%, rgba(236, 72, 153, .18), transparent 60%),
-        radial-gradient(800px 600px at 50% 110%, rgba(14, 165, 233, .2), transparent 60%);
+      --cyan: #00f0ff;
+      --card: rgba(255, 255, 255, 0.03);
+      --glass: rgba(255, 255, 255, 0.05);
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      --radius: 12px;
+      --grad-1: none;
     }
 
     * {
@@ -146,7 +144,10 @@
     }
 
     body {
-      background: var(--bg);
+      background-color: var(--bg);
+      background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
       color: var(--text);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
       line-height: 1.7;
@@ -1073,43 +1074,44 @@
 
 <body>
 
-  <!-- Header will be injected by ../shared/header-footer.js -->
-
   <!-- ===== Tutoring Banner ===== -->
-  <div class="tutoring-banner">
-    <div class="container banner-content">
-      <i class="fa-solid fa-rocket" style="color: var(--accent); font-size: 1.2rem;"></i>
-      <span style="font-size: 1.1rem;">Unlock your potential with premium 1-on-1 tutoring at just <span class="highlight-price">$55 / hour</span>.</span>
-      <button class="btn btn--primary" style="padding: 0.5rem 1.5rem; font-size: 1rem; margin-left: 0.8rem; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4); border: 1px solid rgba(245, 158, 11, 0.5); background: linear-gradient(90deg, var(--accent), #d97706); color: #fff;" onclick="openTutoringModal(event)">Book a Session <i class="fa-solid fa-arrow-right" style="margin-left: 5px;"></i></button>
-    </div>
+  <div class="tutoring-banner" style="background: var(--cyan); color: #0a0f1c; padding: 0.5rem; text-align: center; font-weight: 600; font-size: 0.95rem;">
+    Unlock your potential with premium 1-on-1 tutoring at just $55 / hour. <a href="#" onclick="openTutoringModal(event)" style="color: #0a0f1c; text-decoration: underline; margin-left: 0.5rem; font-weight: 700;">Book a Session →</a>
   </div>
+
+  <nav style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; max-width: 1400px; margin: 0 auto; border-bottom: 1px solid rgba(255,255,255,0.05);">
+    <a href="/" style="color: var(--cyan); font-weight: 700; font-family: monospace; font-size: 1.2rem; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+      <span style="color: #64748b;">&gt;&gt;</span> CodeWithPro
+    </a>
+    <div style="display: flex; gap: 2rem; align-items: center;">
+      <a href="#about" style="color: var(--sub); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;">About</a>
+      <a href="#curriculum" style="color: var(--sub); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;">Curriculum</a>
+      <a href="#pricing" style="color: var(--sub); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;">Pricing</a>
+      <a href="#faq" style="color: var(--sub); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;">FAQ</a>
+      <button onclick="openTutoringModal(event)" style="background: var(--cyan); color: #0a0f1c; border: none; padding: 0.6rem 1.5rem; border-radius: 6px; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 14px rgba(0,240,255,0.3);">Book Now</button>
+    </div>
+  </nav>
 
   <!-- ===== Tutoring Page Sections ===== -->
 
-  <section id="hero" class="section hero" aria-labelledby="hero-title">
+  <section id="hero" class="section hero" aria-labelledby="hero-title" style="min-height: 85vh; display: flex; align-items: center;">
     <div class="container hero__grid">
-      <div style="position: sticky; top: 120px; padding-top: 1rem;">
+      <div style="padding-top: 2rem;">
         <div>
-          <h1 id="hero-title">Expert Online Coding & STEM Tutoring for Kids and Teens</h1>
-          <p class="lead">
-            Hi, I'm <strong>Faruk Hasan</strong> — STEM Educator & Senior QA Engineer.
-            I teach Python, Web Dev, AI/ML, Arduino, and Computer Fundamentals for ages 9–18.
-          </p>
-          <div class="cta-row">
-            <a class="btn btn--primary" href="#" onclick="openTutoringModal(event)">
-              <i class="fa-solid fa-calendar-check"></i> Schedule Free Trial
-            </a>
-            <a class="btn btn--ghost" href="#about"><i class="fa-solid fa-rocket"></i> Why Me?</a>
-            <a class="btn btn--chatbot" href="../index.html?chat=open">
-              <i class="fa-solid fa-robot"></i> Ask My AI Assistant!
-            </a>
+          <div style="display: flex; gap: 0.8rem; margin-bottom: 2rem; flex-wrap: wrap;">
+            <span style="font-family: monospace; color: var(--cyan); border: 1px solid rgba(0, 240, 255, 0.3); padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.85rem; background: rgba(0, 240, 255, 0.05);">&gt; 13 Yrs Teaching</span>
+            <span style="font-family: monospace; color: var(--cyan); border: 1px solid rgba(0, 240, 255, 0.3); padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.85rem; background: rgba(0, 240, 255, 0.05);">&gt; 7 Yrs Sr. SDET</span>
+            <span style="font-family: monospace; color: var(--cyan); border: 1px solid rgba(0, 240, 255, 0.3); padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.85rem; background: rgba(0, 240, 255, 0.05);">&gt; Master's Degree</span>
+            <span style="font-family: monospace; color: var(--cyan); border: 1px solid rgba(0, 240, 255, 0.3); padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.85rem; background: rgba(0, 240, 255, 0.05);">&gt; 100% Project-Based</span>
           </div>
-        </div>
-        <!-- Stats seamlessly integrated below CTAs with floating animation -->
-        <div class="avatar-blob" style="width: 250px; margin-top: 2.5rem;" aria-hidden="true">
-          <div class="stats-hero">
-            <div class="stat-bubble" style="font-size: 0.8rem; padding: 0.4rem 0.8rem;"><span id="rating-count">4.82</span> ⭐ Rating</div>
-            <div class="stat-bubble" style="font-size: 0.8rem; padding: 0.4rem 0.8rem;"><span id="learners-count">2,000</span> Learners</div>
+          <h1 id="hero-title" style="font-size: clamp(3.5rem, 5vw + 1rem, 5rem); line-height: 1.05; font-weight: 900; letter-spacing: -0.04em; color: #fff; margin-bottom: 1.5rem;">Learn to Build.<br><span style="color: var(--cyan); text-shadow: 0 0 20px rgba(0,240,255,0.4);">Real Things.</span></h1>
+          <p class="lead" style="font-size: 1.25rem; color: #94a3b8; line-height: 1.6; max-width: 500px; margin-bottom: 2.5rem; text-shadow: none;">
+            1-on-1 online coding sessions with a teacher who has lived on both sides — the classroom and the tech industry. No fluff. No copy-paste tutorials. You build projects from day one.
+          </p>
+          <div class="cta-row" style="margin-top: 2rem;">
+            <a href="#" onclick="openTutoringModal(event)" style="background: var(--cyan); color: #0a0f1c; text-decoration: none; padding: 1rem 2rem; border-radius: 6px; font-weight: 700; font-size: 1.1rem; transition: transform 0.2s; box-shadow: 0 4px 20px rgba(0,240,255,0.4); display: inline-block;">
+              Book a Session
+            </a>
           </div>
         </div>
       </div>
@@ -1118,14 +1120,24 @@
       <div class="hero__media" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
         <style>
           .glass-panel {
-            background: rgba(15, 23, 42, 0.3); /* Darker translucent background to match hero */
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 32px;
-            padding: 3rem 2.5rem;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            background: #111827;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 12px;
+            padding: 3rem 2.5rem 2.5rem 2.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
             width: 100%;
+            position: relative;
+          }
+          .glass-panel::before {
+             content: '';
+             position: absolute;
+             top: 1.25rem;
+             left: 1.25rem;
+             width: 10px;
+             height: 10px;
+             border-radius: 50%;
+             background: #ef4444;
+             box-shadow: 16px 0 0 #eab308, 32px 0 0 #22c55e;
           }
           
           .subject-tag {
@@ -1376,20 +1388,18 @@
         .about-features-grid { grid-template-columns: 1fr; }
       }
       .feature-glass-card {
-        background: rgba(30, 41, 59, 0.4);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: #111827;
+        border: 1px solid rgba(0, 240, 255, 0.1);
         padding: 1.5rem;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         transition: all 0.3s ease;
       }
       .feature-glass-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-        background: rgba(30, 41, 59, 0.8);
-        border-color: rgba(56, 189, 248, 0.3);
+        box-shadow: 0 15px 35px rgba(0, 240, 255, 0.1);
+        background: #1f2937;
+        border-color: rgba(0, 240, 255, 0.4);
       }
       .feature-icon-wrapper {
         width: 45px;
@@ -1420,28 +1430,28 @@
       <div class="about-modern-left">
         <h2>What I Teach</h2>
         <div class="subject-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem;">
-            <div class="subject-tag" style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 12px; display: flex; align-items: center; gap: 1rem;">
-              <i class="fa-brands fa-python" style="color: #38bdf8; font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
+            <div class="subject-tag" style="background: #111827; padding: 1.5rem; border-radius: 12px; display: flex; align-items: center; gap: 1rem; border: 1px solid rgba(0, 240, 255, 0.1);">
+              <i class="fa-brands fa-python" style="color: var(--cyan); font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
               <h3 style="font-size: 1.15rem; margin: 0; color: #fff; font-weight: 700;">Project-Based Programming</h3>
             </div>
             
-            <div class="subject-tag" style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 12px; display: flex; align-items: center; gap: 1rem;">
-              <i class="fa-solid fa-robot" style="color: #38bdf8; font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
+            <div class="subject-tag" style="background: #111827; padding: 1.5rem; border-radius: 12px; display: flex; align-items: center; gap: 1rem; border: 1px solid rgba(0, 240, 255, 0.1);">
+              <i class="fa-solid fa-robot" style="color: var(--cyan); font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
               <h3 style="font-size: 1.15rem; margin: 0; color: #fff; font-weight: 700;">AI & Machine Learning</h3>
             </div>
             
-            <div class="subject-tag" style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 12px; display: flex; align-items: center; gap: 1rem;">
-              <i class="fa-solid fa-microchip" style="color: #38bdf8; font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
+            <div class="subject-tag" style="background: #111827; padding: 1.5rem; border-radius: 12px; display: flex; align-items: center; gap: 1rem; border: 1px solid rgba(0, 240, 255, 0.1);">
+              <i class="fa-solid fa-microchip" style="color: var(--cyan); font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
               <h3 style="font-size: 1.15rem; margin: 0; color: #fff; font-weight: 700;">Hardware & Robotics</h3>
             </div>
 
-            <div class="subject-tag" style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 12px; display: flex; align-items: center; gap: 1rem;">
-              <i class="fa-solid fa-globe" style="color: #38bdf8; font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
+            <div class="subject-tag" style="background: #111827; padding: 1.5rem; border-radius: 12px; display: flex; align-items: center; gap: 1rem; border: 1px solid rgba(0, 240, 255, 0.1);">
+              <i class="fa-solid fa-globe" style="color: var(--cyan); font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
               <h3 style="font-size: 1.15rem; margin: 0; color: #fff; font-weight: 700;">Web, Cloud & Databases</h3>
             </div>
             
-            <div class="subject-tag" style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 12px; display: flex; align-items: center; gap: 1rem; grid-column: 1 / -1;">
-              <i class="fa-solid fa-vial" style="color: #38bdf8; font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
+            <div class="subject-tag" style="background: #111827; padding: 1.5rem; border-radius: 12px; display: flex; align-items: center; gap: 1rem; grid-column: 1 / -1; border: 1px solid rgba(0, 240, 255, 0.1);">
+              <i class="fa-solid fa-vial" style="color: var(--cyan); font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
               <h3 style="font-size: 1.15rem; line-height: 1.2; margin: 0; color: #fff; font-weight: 700;">Software Test Engineering</h3>
             </div>
           </div>
