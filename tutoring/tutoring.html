@@ -166,6 +166,32 @@
       padding: 0 1.25rem
     }
 
+    /* ====== TUTORING NAV ====== */
+    .tutoring-nav {
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      padding: 1.5rem 5%; 
+      max-width: 1400px; 
+      margin: 0 auto; 
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .tutoring-nav-logo {
+      color: var(--cyan); 
+      font-weight: 700; 
+      font-family: monospace; 
+      font-size: 1.2rem; 
+      text-decoration: none; 
+      display: flex; 
+      align-items: center; 
+      gap: 0.5rem;
+    }
+    .tutoring-nav-links {
+      display: flex; 
+      gap: 2rem; 
+      align-items: center;
+    }
+
     /* ====== HERO ====== */
     .hero {
       position: relative;
@@ -831,6 +857,19 @@
 
     /* Responsive */
     @media (max-width: 768px) {
+      .tutoring-nav {
+        flex-direction: column;
+        gap: 1.2rem;
+        padding: 1.2rem 5%;
+      }
+      .tutoring-nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+      .tutoring-nav-links a {
+        font-size: 0.9rem !important;
+      }
       .hero__grid {
         grid-template-columns: 1fr;
         text-align: center;
@@ -1106,11 +1145,11 @@
     Unlock your potential with premium 1-on-1 tutoring at just $55 / hour. <a href="#" onclick="openTutoringModal(event)" style="color: #0a0f1c; text-decoration: underline; margin-left: 0.5rem; font-weight: 700;">Book a Session →</a>
   </div>
 
-  <nav style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 5%; max-width: 1400px; margin: 0 auto; border-bottom: 1px solid rgba(255,255,255,0.05);">
-    <a href="/" style="color: var(--cyan); font-weight: 700; font-family: monospace; font-size: 1.2rem; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+  <nav class="tutoring-nav">
+    <a href="/" class="tutoring-nav-logo">
       <span style="color: #64748b;">&gt;&gt;</span> Faruk Hasan
     </a>
-    <div style="display: flex; gap: 2rem; align-items: center;">
+    <div class="tutoring-nav-links">
       <a href="#about" style="color: var(--sub); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;">About</a>
       <a href="#curriculum" style="color: var(--sub); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;">Curriculum</a>
       <a href="#pricing" style="color: var(--sub); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;">Pricing</a>
