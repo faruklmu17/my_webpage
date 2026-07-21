@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎮 Arduino Level-2 Control & Logic Quiz | Interactive Electronics</title>
-  <meta name="description"
-    content="Test your Arduino Level-2 skills with this interactive quiz covering potentiometer inputs, RGB LEDs, button logic, operator precedence, and debugging.">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../../shared/quiz-style.css">
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>🎮 Arduino Level-2 Control &amp; Logic Quiz | Interactive Electronics</title>
+<meta content="Test your Arduino Level-2 skills with this interactive quiz covering potentiometer inputs, RGB LEDs, button logic, operator precedence, and debugging." name="description"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../../shared/quiz-style.css" rel="stylesheet"/>
+<style>
     pre {
       background-color: #f8f9fa;
       padding: 10px;
@@ -35,83 +34,73 @@
       border-radius: 8px;
     }
   </style>
-</head>
-
+<link href="https://faruk-hasan.com/quizzes/Arduino/arduino_level2_quiz2.html" rel="canonical"/></head>
 <body>
-
-  <h1>🎮 Arduino Level-2 Control & Logic</h1>
-
-  <div class="quiz-container">
-    <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Resources</a>
-    <div class="intro">
-      <p>This quiz challenges your recall, code reading, debugging, and critical thinking skills. You will analyze code blocks containing potentiometer readings, RGB LED controls, and push button conditions.</p>
-    </div>
-
-    <div class="progress-wrapper">
-      <div class="progress-container">
-        <div id="progress-fill"></div>
-      </div>
-      <div id="progress-count">0/10 answered</div>
-    </div>
-
-    <form id="quiz-form">
-      <div id="quiz-area"></div>
-      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Results</button>
-    </form>
-
-    <div id="results">
-      <div class="score-container">
-        <div class="score-circle">0</div>
-        <div class="score-label">Your Score</div>
-      </div>
-      <div class="feedback"></div>
-      <div class="action-buttons">
-        <a href="" class="secondary-btn" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake Quiz</a>
-        <a href="../../resources/resources.html" class="secondary-btn"><i class="fas fa-th-list"></i> More Quizzes</a>
-      </div>
-      <div id="answer-key" class="answer-key"></div>
-    </div>
-
-    <!-- Bonus Challenge Card -->
-    <div class="bonus-challenge-container">
-      <h3 style="color: #8a6d3b; margin-top: 0;"><i class="fas fa-trophy"></i> Bonus Challenge (No Multiple Choice)</h3>
-      <p>Your teacher asks you to change the program so that:</p>
-      <ul>
-        <li>The potentiometer still chooses <strong>Red, Green, or Blue</strong>.</li>
-        <li>The RGB LED only turns on <strong>while the push button is being pressed</strong>.</li>
-        <li>When the button is released, <strong>all LEDs turn off</strong>.</li>
-      </ul>
-      <p>Explain <strong>what changes you would make</strong> to the code. Mention:</p>
-      <ol>
-        <li>What new variable you would add,</li>
-        <li>What function you would use to read the button,</li>
-        <li>And how the <code>if</code> conditions would change.</li>
-      </ol>
-      
-      <textarea id="bonus-answer" rows="4" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; margin-bottom: 10px; font-family: sans-serif;" placeholder="Type your explanation here..."></textarea>
-      <button type="button" class="secondary-btn" id="revealBtn" onclick="revealBonusAnswer()" style="background-color: #8a6d3b; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; width: auto; display: inline-block;">Reveal Model Answer</button>
-      
-      <div id="bonus-model-answer" style="display: none; margin-top: 15px; padding: 15px; background-color: #f9f9f9; border-left: 4px solid #8a6d3b; border-radius: 4px;">
-        <strong>Model Answer:</strong>
-        <p>1. <strong>New Variable:</strong> Add an integer variable to hold the push button state, such as <code>int buttonState = 0;</code>.</p>
-        <p>2. <strong>Reading the Button:</strong> Use the <code>digitalRead(buttonPin)</code> function in the loop to read the button state and assign it to the variable: <code>buttonState = digitalRead(buttonPin);</code>.</p>
-        <p>3. <strong>If Conditions:</strong> You have two primary clean options to modify the logic:
+<h1>🎮 Arduino Level-2 Control &amp; Logic</h1>
+<div class="quiz-container">
+<a class="back-link" href="../../resources/resources.html"><i class="fas fa-arrow-left"></i> Back to Resources</a>
+<div class="intro">
+<p>This quiz challenges your recall, code reading, debugging, and critical thinking skills. You will analyze code blocks containing potentiometer readings, RGB LED controls, and push button conditions.</p>
+</div>
+<div class="progress-wrapper">
+<div class="progress-container">
+<div id="progress-fill"></div>
+</div>
+<div id="progress-count">0/10 answered</div>
+</div>
+<form id="quiz-form">
+<div id="quiz-area"></div>
+<button id="submitBtn" onclick="submitQuiz()" type="button">Submit Results</button>
+</form>
+<div id="results">
+<div class="score-container">
+<div class="score-circle">0</div>
+<div class="score-label">Your Score</div>
+</div>
+<div class="feedback"></div>
+<div class="action-buttons">
+<a class="secondary-btn" href="" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake Quiz</a>
+<a class="secondary-btn" href="../../resources/resources.html"><i class="fas fa-th-list"></i> More Quizzes</a>
+</div>
+<div class="answer-key" id="answer-key"></div>
+</div>
+<!-- Bonus Challenge Card -->
+<div class="bonus-challenge-container">
+<h3 style="color: #8a6d3b; margin-top: 0;"><i class="fas fa-trophy"></i> Bonus Challenge (No Multiple Choice)</h3>
+<p>Your teacher asks you to change the program so that:</p>
+<ul>
+<li>The potentiometer still chooses <strong>Red, Green, or Blue</strong>.</li>
+<li>The RGB LED only turns on <strong>while the push button is being pressed</strong>.</li>
+<li>When the button is released, <strong>all LEDs turn off</strong>.</li>
+</ul>
+<p>Explain <strong>what changes you would make</strong> to the code. Mention:</p>
+<ol>
+<li>What new variable you would add,</li>
+<li>What function you would use to read the button,</li>
+<li>And how the <code>if</code> conditions would change.</li>
+</ol>
+<textarea id="bonus-answer" placeholder="Type your explanation here..." rows="4" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; margin-bottom: 10px; font-family: sans-serif;"></textarea>
+<button class="secondary-btn" id="revealBtn" onclick="revealBonusAnswer()" style="background-color: #8a6d3b; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; width: auto; display: inline-block;" type="button">Reveal Model Answer</button>
+<div id="bonus-model-answer" style="display: none; margin-top: 15px; padding: 15px; background-color: #f9f9f9; border-left: 4px solid #8a6d3b; border-radius: 4px;">
+<strong>Model Answer:</strong>
+<p>1. <strong>New Variable:</strong> Add an integer variable to hold the push button state, such as <code>int buttonState = 0;</code>.</p>
+<p>2. <strong>Reading the Button:</strong> Use the <code>digitalRead(buttonPin)</code> function in the loop to read the button state and assign it to the variable: <code>buttonState = digitalRead(buttonPin);</code>.</p>
+<p>3. <strong>If Conditions:</strong> You have two primary clean options to modify the logic:
         <ul>
-          <li><strong>Option A (Direct Logic Link):</strong> Modify each color condition using the logical AND (<code>&&</code>) operator to also check that the button is pressed (HIGH):
+<li><strong>Option A (Direct Logic Link):</strong> Modify each color condition using the logical AND (<code>&amp;&amp;</code>) operator to also check that the button is pressed (HIGH):
             <ul>
-              <li><code>if (potValue <= 340 && buttonState == HIGH) { ... }</code></li>
-              <li><code>if (potValue > 340 && potValue <= 680 && buttonState == HIGH) { ... }</code></li>
-              <li><code>if (potValue > 680 && buttonState == HIGH) { ... }</code></li>
-            </ul>
-          </li>
-          <li><strong>Option B (Nested Master Block):</strong> Wrap the entire potentiometer color selection logic inside a master <code>if (buttonState == HIGH)</code> block, and put an <code>else</code> block that turns all pins LOW when the button is released.</li>
-        </ul>
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <script>
+<li><code>if (potValue &lt;= 340 &amp;&amp; buttonState == HIGH) { ... }</code></li>
+<li><code>if (potValue &gt; 340 &amp;&amp; potValue &lt;= 680 &amp;&amp; buttonState == HIGH) { ... }</code></li>
+<li><code>if (potValue &gt; 680 &amp;&amp; buttonState == HIGH) { ... }</code></li>
+</ul>
+</li>
+<li><strong>Option B (Nested Master Block):</strong> Wrap the entire potentiometer color selection logic inside a master <code>if (buttonState == HIGH)</code> block, and put an <code>else</code> block that turns all pins LOW when the button is released.</li>
+</ul>
+</p>
+</div>
+</div>
+</div>
+<script>
     const questions = [
       {
         q: "1. What does this line do?<br><pre><code class=\"language-cpp\">pinMode(redPin, OUTPUT);</code></pre>",
@@ -292,8 +281,6 @@ if (potValue <= 500)
       }
     }
   </script>
-
-  <script src="../../shared/header-footer.js"></script>
+<script src="../../shared/header-footer.js"></script>
 </body>
-
 </html>

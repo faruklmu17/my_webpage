@@ -1,21 +1,17 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
 
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Space Typing Hero - Kids Typing Practice Game</title>
-    <meta name="description"
-        content="A fun, free space-themed typing game for kids. Help the rocket fly by typing letters correctly! Learn default keys A, B, C, D and Space effectively." />
-    <meta name="keywords"
-        content="typing game for kids, learn to type, space game, educational game, free typing practice, alphabet game" />
-    <meta property="og:title" content="Space Typing Hero - Learn to Type" />
-    <meta property="og:description"
-        content="Blast off into learning! A fun interactive game to practice keyboard skills." />
-    <meta property="og:type" content="website" />
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;800&display=swap"
-        rel="stylesheet">
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Space Typing Hero - Kids Typing Practice Game</title>
+<meta content="A fun, free space-themed typing game for kids. Help the rocket fly by typing letters correctly! Learn default keys A, B, C, D and Space effectively." name="description"/>
+<meta content="typing game for kids, learn to type, space game, educational game, free typing practice, alphabet game" name="keywords"/>
+<meta content="Space Typing Hero - Learn to Type" property="og:title"/>
+<meta content="Blast off into learning! A fun interactive game to practice keyboard skills." property="og:description"/>
+<meta content="website" property="og:type"/>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&amp;family=Nunito:wght@600;800&amp;display=swap" rel="stylesheet"/>
+<style>
         body {
             margin: 0;
             font-family: 'Nunito', sans-serif;
@@ -377,75 +373,63 @@
             }
         }
     </style>
-</head>
-
+<link href="https://faruk-hasan.com/games/typing_practice.html" rel="canonical"/></head>
 <body>
-
-    <div class="stars"></div>
-
-    <div class="game-container">
-        <h1>Space Typing Hero 🚀</h1>
-        <p class="sub">Help the rocket fly! Use the correct fingers.</p>
-
-        <div class="stats-bar">
-            <div class="stat-pill"><span class="icon">⭐</span> <span id="lvlDisplay">Level 1</span></div>
-            <div class="stat-pill"><span class="icon">🔄</span> <span id="roundDisplay">Round 1/20</span></div>
-            <div class="stat-pill"><span class="icon">⏳</span> <span id="timerDisplay">20s</span></div>
-            <div class="stat-pill highlight"><span class="icon">🎯</span> <span id="scoreDisplay">0</span></div>
-            <div class="stat-pill"><span class="icon">❤️</span> <span id="accDisplay">0%</span></div>
-        </div>
-
-        <!-- Progress Track -->
-        <div class="track-container">
-            <div class="track-fill" id="trackFill"></div>
-            <div class="rocket" id="rocket">🚀</div>
-        </div>
-
-        <!-- The typing words go here -->
-        <div class="typing-box" id="typingBox">
-            <div style="font-size:24px; color:rgba(255,255,255,0.5); margin-top:10px;">Press Start to Play!</div>
-        </div>
-
-        <!-- Hands Visual -->
-        <div class="hands-container">
-            <!-- Left Hand -->
-            <div class="hand" id="leftHand">
-                <label>Left Hand</label>
-                <svg viewBox="0 0 100 120">
-                    <path id="l-pinky" d="M10,60 Q10,30 20,30 Q30,30 30,60 L30,90" class="finger" />
-                    <path id="l-ring" d="M32,50 Q32,15 42,15 Q52,15 52,50 L52,90" class="finger" />
-                    <path id="l-middle" d="M54,45 Q54,5 64,5 Q74,5 74,45 L74,90" class="finger" />
-                    <path id="l-index" d="M76,50 Q76,15 86,15 Q96,15 96,50 L96,90" class="finger" />
-                    <path id="l-thumb" d="M80,95 Q100,105 90,120 M76,90 L96,90" class="finger thumb" />
-                    <rect x="20" y="90" width="60" height="30" rx="10" fill="#334155" />
-                </svg>
-            </div>
-
-            <!-- Right Hand -->
-            <div class="hand" id="rightHand">
-                <label>Right Hand</label>
-                <svg viewBox="0 0 100 120">
-                    <path id="r-index" d="M4,50 Q4,15 14,15 Q24,15 24,50 L24,90" class="finger" />
-                    <path id="r-middle" d="M26,45 Q26,5 36,5 Q46,5 46,45 L46,90" class="finger" />
-                    <path id="r-ring" d="M48,50 Q48,15 58,15 Q68,15 68,50 L68,90" class="finger" />
-                    <path id="r-pinky" d="M70,60 Q70,30 80,30 Q90,30 90,60 L90,90" class="finger" />
-                    <path id="r-thumb" d="M10,95 Q-10,105 10,120" class="finger thumb" />
-                    <rect x="20" y="90" width="60" height="30" rx="10" fill="#334155" />
-                </svg>
-            </div>
-        </div>
-
-        <div class="controls-area">
-            <button id="mainBtn">Start Mission</button>
-            <button id="nextLvlBtn" class="locked">Next Level 🔓</button>
-        </div>
-
-        <div class="info-msg" id="infoMsg"></div>
-    </div>
-
-    <div class="feedback-overlay" id="feedback">Awesome!</div>
-
-    <script>
+<div class="stars"></div>
+<div class="game-container">
+<h1>Space Typing Hero 🚀</h1>
+<p class="sub">Help the rocket fly! Use the correct fingers.</p>
+<div class="stats-bar">
+<div class="stat-pill"><span class="icon">⭐</span> <span id="lvlDisplay">Level 1</span></div>
+<div class="stat-pill"><span class="icon">🔄</span> <span id="roundDisplay">Round 1/20</span></div>
+<div class="stat-pill"><span class="icon">⏳</span> <span id="timerDisplay">20s</span></div>
+<div class="stat-pill highlight"><span class="icon">🎯</span> <span id="scoreDisplay">0</span></div>
+<div class="stat-pill"><span class="icon">❤️</span> <span id="accDisplay">0%</span></div>
+</div>
+<!-- Progress Track -->
+<div class="track-container">
+<div class="track-fill" id="trackFill"></div>
+<div class="rocket" id="rocket">🚀</div>
+</div>
+<!-- The typing words go here -->
+<div class="typing-box" id="typingBox">
+<div style="font-size:24px; color:rgba(255,255,255,0.5); margin-top:10px;">Press Start to Play!</div>
+</div>
+<!-- Hands Visual -->
+<div class="hands-container">
+<!-- Left Hand -->
+<div class="hand" id="leftHand">
+<label>Left Hand</label>
+<svg viewbox="0 0 100 120">
+<path class="finger" d="M10,60 Q10,30 20,30 Q30,30 30,60 L30,90" id="l-pinky"></path>
+<path class="finger" d="M32,50 Q32,15 42,15 Q52,15 52,50 L52,90" id="l-ring"></path>
+<path class="finger" d="M54,45 Q54,5 64,5 Q74,5 74,45 L74,90" id="l-middle"></path>
+<path class="finger" d="M76,50 Q76,15 86,15 Q96,15 96,50 L96,90" id="l-index"></path>
+<path class="finger thumb" d="M80,95 Q100,105 90,120 M76,90 L96,90" id="l-thumb"></path>
+<rect fill="#334155" height="30" rx="10" width="60" x="20" y="90"></rect>
+</svg>
+</div>
+<!-- Right Hand -->
+<div class="hand" id="rightHand">
+<label>Right Hand</label>
+<svg viewbox="0 0 100 120">
+<path class="finger" d="M4,50 Q4,15 14,15 Q24,15 24,50 L24,90" id="r-index"></path>
+<path class="finger" d="M26,45 Q26,5 36,5 Q46,5 46,45 L46,90" id="r-middle"></path>
+<path class="finger" d="M48,50 Q48,15 58,15 Q68,15 68,50 L68,90" id="r-ring"></path>
+<path class="finger" d="M70,60 Q70,30 80,30 Q90,30 90,60 L90,90" id="r-pinky"></path>
+<path class="finger thumb" d="M10,95 Q-10,105 10,120" id="r-thumb"></path>
+<rect fill="#334155" height="30" rx="10" width="60" x="20" y="90"></rect>
+</svg>
+</div>
+</div>
+<div class="controls-area">
+<button id="mainBtn">Start Mission</button>
+<button class="locked" id="nextLvlBtn">Next Level 🔓</button>
+</div>
+<div class="info-msg" id="infoMsg"></div>
+</div>
+<div class="feedback-overlay" id="feedback">Awesome!</div>
+<script>
         // Game Config
         const LEVELS = [
             { id: 1, chars: ['a', 'b', 'c', 'd', ' '], min: 6, max: 10 },
@@ -875,5 +859,4 @@
 
     </script>
 </body>
-
 </html>

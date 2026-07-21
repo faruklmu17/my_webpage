@@ -1,16 +1,15 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>🚀 Quantum Computing for Kids: Bits → Bytes → Qubits!</title>
-
-  <!-- Kid-friendly fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>🚀 Quantum Computing for Kids: Bits → Bytes → Qubits!</title>
+<!-- Kid-friendly fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&amp;family=Nunito:wght@400;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
     :root{
       --bg:#E0F7FA; --card:#fff; --text:#2c3e50; --muted:#6b7c93;
       --primary:#FF6B6B; --primaryDark:#EE5253;
@@ -460,273 +459,238 @@
       font-size: 14px;
     }
   </style>
-</head>
-
+<meta content="Explore 🚀 Quantum Computing for Kids! on Faruk Hasan's portfolio. Interactive resources and programming practice." name="description"/><link href="https://faruk-hasan.com/quantum/quantum_computing_lesson1.html" rel="canonical"/></head>
 <body>
-  <div class="wrap">
-    <header>
-      <h1>🚀 Quantum Computing for Kids!</h1>
-      <div class="sub">
+<div class="wrap">
+<header>
+<h1>🚀 Quantum Computing for Kids!</h1>
+<div class="sub">
         Learn about <strong>Bits → Bytes → Qubits</strong> through fun, interactive missions!
         Click, play, and discover how quantum computers work. Less reading, more doing! 🎮
       </div>
-
-      <div class="pillRow">
-        <div class="pill points">⭐ Points: <span id="points">0</span></div>
-        <div class="pill missions">🏁 Missions: <span id="doneCount">0</span>/4</div>
-        <div class="pill tip">⌨️ Press <span style="font-family:var(--mono)">Space</span> to measure qubits!</div>
-      </div>
-    </header>
-
-    <div class="grid">
-      <!-- Mission 1 -->
-      <div class="card" id="m1">
-        <div class="missionHeader">
-          <div class="mission">
-            <div class="badge">1</div>
-            <div class="missionText">
-              <h2>🔄 Mission 1: Flip a Bit</h2>
-              <p>Bits are simple: only 0 or 1. Let's play with them!</p>
-            </div>
-          </div>
-          <div class="status todo" id="m1Status">Not finished</div>
-        </div>
-
-        <div class="bigBox">
-          <div style="display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;">
-            <div>
-              <div style="color:var(--muted); font-size:1rem; margin-bottom:8px;">🎯 Current Bit Value</div>
-              <div class="bigNumber" id="bitValue">0</div>
-            </div>
-
-            <div class="switchRow">
-              <div class="toggle" id="bitToggle" aria-label="bit toggle">
-                <div class="knob"></div>
-              </div>
-              <div>
-                <div style="color:var(--muted); font-size:1rem; margin-bottom:4px;">🎮 Your Goal</div>
-                <div style="font-size:1.2rem; font-weight:900; color:var(--primary);">Flip it 3 times!</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="note" id="m1Hint">💡 Click the switch to change 0 ↔ 1. Watch the number change!</div>
-        </div>
-      </div>
-
-      <!-- Mission 2 -->
-      <div class="card" id="m2">
-        <div class="missionHeader">
-          <div class="mission">
-            <div class="badge">2</div>
-            <div class="missionText">
-              <h2>🧱 Mission 2: Build a Byte</h2>
-              <p>A byte is 8 bits working together. Tap the colorful boxes!</p>
-            </div>
-          </div>
-          <div class="status todo" id="m2Status">Not finished</div>
-        </div>
-
-        <div class="readouts">
-          <div class="pillBox">💎 Bit Values: <span class="mono">128 64 32 16 8 4 2 1</span></div>
-        </div>
-
-        <div class="byteGrid" id="byteGrid"></div>
-
-        <div class="readouts">
-          <div class="pillBox">🔢 Binary: <span class="mono" id="binaryText">00000000</span></div>
-          <div class="pillBox">🎯 Decimal: <span class="mono" id="decimalText">0</span></div>
-          <div class="pillBox">✨ ON Bits: <span class="mono" id="onBits">0</span>/8</div>
-        </div>
-
-        <div class="bigBox">
-          <div style="color:var(--muted); font-size:1rem; margin-bottom:8px;">🧮 How Your Byte Becomes a Number</div>
-          <div style="font-size:1.3rem; font-weight:900; margin-top:8px; color:var(--primary);" id="sumLine">
+<div class="pillRow">
+<div class="pill points">⭐ Points: <span id="points">0</span></div>
+<div class="pill missions">🏁 Missions: <span id="doneCount">0</span>/4</div>
+<div class="pill tip">⌨️ Press <span style="font-family:var(--mono)">Space</span> to measure qubits!</div>
+</div>
+</header>
+<div class="grid">
+<!-- Mission 1 -->
+<div class="card" id="m1">
+<div class="missionHeader">
+<div class="mission">
+<div class="badge">1</div>
+<div class="missionText">
+<h2>🔄 Mission 1: Flip a Bit</h2>
+<p>Bits are simple: only 0 or 1. Let's play with them!</p>
+</div>
+</div>
+<div class="status todo" id="m1Status">Not finished</div>
+</div>
+<div class="bigBox">
+<div style="display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;">
+<div>
+<div style="color:var(--muted); font-size:1rem; margin-bottom:8px;">🎯 Current Bit Value</div>
+<div class="bigNumber" id="bitValue">0</div>
+</div>
+<div class="switchRow">
+<div aria-label="bit toggle" class="toggle" id="bitToggle">
+<div class="knob"></div>
+</div>
+<div>
+<div style="color:var(--muted); font-size:1rem; margin-bottom:4px;">🎮 Your Goal</div>
+<div style="font-size:1.2rem; font-weight:900; color:var(--primary);">Flip it 3 times!</div>
+</div>
+</div>
+</div>
+<div class="note" id="m1Hint">💡 Click the switch to change 0 ↔ 1. Watch the number change!</div>
+</div>
+</div>
+<!-- Mission 2 -->
+<div class="card" id="m2">
+<div class="missionHeader">
+<div class="mission">
+<div class="badge">2</div>
+<div class="missionText">
+<h2>🧱 Mission 2: Build a Byte</h2>
+<p>A byte is 8 bits working together. Tap the colorful boxes!</p>
+</div>
+</div>
+<div class="status todo" id="m2Status">Not finished</div>
+</div>
+<div class="readouts">
+<div class="pillBox">💎 Bit Values: <span class="mono">128 64 32 16 8 4 2 1</span></div>
+</div>
+<div class="byteGrid" id="byteGrid"></div>
+<div class="readouts">
+<div class="pillBox">🔢 Binary: <span class="mono" id="binaryText">00000000</span></div>
+<div class="pillBox">🎯 Decimal: <span class="mono" id="decimalText">0</span></div>
+<div class="pillBox">✨ ON Bits: <span class="mono" id="onBits">0</span>/8</div>
+</div>
+<div class="bigBox">
+<div style="color:var(--muted); font-size:1rem; margin-bottom:8px;">🧮 How Your Byte Becomes a Number</div>
+<div id="sumLine" style="font-size:1.3rem; font-weight:900; margin-top:8px; color:var(--primary);">
             Turn bits ON to add their values together!
           </div>
-          <div style="margin-top:8px; color:var(--muted); font-size:0.95rem;">
+<div style="margin-top:8px; color:var(--muted); font-size:0.95rem;">
             💡 Example: Turn ON 128 and 1 to get 129!
           </div>
-        </div>
-
-        <div class="btnRow">
-          <button class="btn btnSecondary" id="randomByte">🎲 Random</button>
-          <button class="btn btnWarn" id="animateByte">🎬 Auto-build</button>
-          <button class="btn btnWarn" id="maxByteBtn">🚀 Make MAX</button>
-          <button class="btn btnBad" id="clearByte">🧹 Clear</button>
-        </div>
-
-        <div class="note" id="m2Hint">🎯 Goal: Make at least 4 bits turn ON (green)!</div>
-      </div>
-
-      <!-- NEW: Binary Counting Activity (why 1,2,4,8...) -->
-      <div class="card" id="countCard">
-        <div class="head">
-          <div class="mission">
-            <div class="badge">🔢</div>
-            <div>
-              <h2>Bonus Game: Binary Counting</h2>
-              <p>Press Next and watch which bit flips.</p>
-            </div>
-          </div>
-          <div class="status" id="countStatus">Try it</div>
-        </div>
-
-        <div class="body">
-          <div class="bigBox">
-            <div style="display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;">
-              <div>
-                <div style="color:var(--muted); font-size:14px;">Decimal</div>
-                <div class="bigNumber mono" id="countDec">0</div>
-              </div>
-              <div>
-                <div style="color:var(--muted); font-size:14px;">Binary (8 bits)</div>
-                <div style="font-size:34px; font-weight:1000; letter-spacing:2px" class="mono" id="countBinText">00000000</div>
-              </div>
-            </div>
-
-            <div class="countGrid" id="countGrid"></div>
-
-            <div class="row">
-              <button class="btn" id="prevCount">Back</button>
-              <button class="btn good" id="nextCount">Next</button>
-              <button class="btn primary" id="autoCount">Auto</button>
-              <button class="btn bad" id="resetCount">Reset</button>
-            </div>
-
-            <div class="hint" id="countHint">
+</div>
+<div class="btnRow">
+<button class="btn btnSecondary" id="randomByte">🎲 Random</button>
+<button class="btn btnWarn" id="animateByte">🎬 Auto-build</button>
+<button class="btn btnWarn" id="maxByteBtn">🚀 Make MAX</button>
+<button class="btn btnBad" id="clearByte">🧹 Clear</button>
+</div>
+<div class="note" id="m2Hint">🎯 Goal: Make at least 4 bits turn ON (green)!</div>
+</div>
+<!-- NEW: Binary Counting Activity (why 1,2,4,8...) -->
+<div class="card" id="countCard">
+<div class="head">
+<div class="mission">
+<div class="badge">🔢</div>
+<div>
+<h2>Bonus Game: Binary Counting</h2>
+<p>Press Next and watch which bit flips.</p>
+</div>
+</div>
+<div class="status" id="countStatus">Try it</div>
+</div>
+<div class="body">
+<div class="bigBox">
+<div style="display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+<div>
+<div style="color:var(--muted); font-size:14px;">Decimal</div>
+<div class="bigNumber mono" id="countDec">0</div>
+</div>
+<div>
+<div style="color:var(--muted); font-size:14px;">Binary (8 bits)</div>
+<div class="mono" id="countBinText" style="font-size:34px; font-weight:1000; letter-spacing:2px">00000000</div>
+</div>
+</div>
+<div class="countGrid" id="countGrid"></div>
+<div class="row">
+<button class="btn" id="prevCount">Back</button>
+<button class="btn good" id="nextCount">Next</button>
+<button class="btn primary" id="autoCount">Auto</button>
+<button class="btn bad" id="resetCount">Reset</button>
+</div>
+<div class="hint" id="countHint">
               Watch this: the rightmost bit changes every time. The next bit changes every 2 steps. That’s why values double.
             </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Mission 3 -->
-      <div class="card" id="m3">
-        <div class="head">
-          <div class="mission">
-            <div class="badge">3</div>
-            <div>
-              <h2>Mission 3: Letter Magic</h2>
-              <p>Type a letter and it becomes 8 bits.</p>
-            </div>
-          </div>
-          <div class="status todo" id="m3Status">Not finished</div>
-        </div>
-
-        <div class="body">
-          <div class="inputs">
-            <div class="field">
-              <label>Type 1 character (try A or a)</label>
-              <input id="charInput" maxlength="1" placeholder="A" />
-            </div>
-            <div class="field">
-              <label>Or type 8 bits (try 01000001)</label>
-              <input id="byteInput" class="monoInput" maxlength="8" placeholder="01000001" />
-            </div>
-          </div>
-
-          <div class="row">
-            <button class="btn good" id="toByteBtn">Letter → Byte</button>
-            <button class="btn good" id="toCharBtn">Byte → Letter</button>
-            <button class="btn bad" id="clearAsciiBtn">Clear</button>
-          </div>
-
-          <div class="bigBox">
-            <div style="color:var(--muted); font-size:14px;">Result</div>
-            <div style="font-size:22px; font-weight:1000; margin-top:8px;" id="asciiOutput">
+</div>
+</div>
+</div>
+<!-- Mission 3 -->
+<div class="card" id="m3">
+<div class="head">
+<div class="mission">
+<div class="badge">3</div>
+<div>
+<h2>Mission 3: Letter Magic</h2>
+<p>Type a letter and it becomes 8 bits.</p>
+</div>
+</div>
+<div class="status todo" id="m3Status">Not finished</div>
+</div>
+<div class="body">
+<div class="inputs">
+<div class="field">
+<label>Type 1 character (try A or a)</label>
+<input id="charInput" maxlength="1" placeholder="A"/>
+</div>
+<div class="field">
+<label>Or type 8 bits (try 01000001)</label>
+<input class="monoInput" id="byteInput" maxlength="8" placeholder="01000001"/>
+</div>
+</div>
+<div class="row">
+<button class="btn good" id="toByteBtn">Letter → Byte</button>
+<button class="btn good" id="toCharBtn">Byte → Letter</button>
+<button class="btn bad" id="clearAsciiBtn">Clear</button>
+</div>
+<div class="bigBox">
+<div style="color:var(--muted); font-size:14px;">Result</div>
+<div id="asciiOutput" style="font-size:22px; font-weight:1000; margin-top:8px;">
               Try: A → 01000001
             </div>
-          </div>
-
-          <div class="hint" id="m3Hint">Goal: successfully convert A or a.</div>
-        </div>
-      </div>
-
-      <!-- Mission 4 -->
-      <div class="card" id="m4">
-        <div class="head">
-          <div class="mission">
-            <div class="badge">4</div>
-            <div>
-              <h2>Mission 4: Meet the Qubit</h2>
-              <p>Qubit is like a “spinning coin” until you measure it.</p>
-            </div>
-          </div>
-          <div class="status todo" id="m4Status">Not finished</div>
-        </div>
-
-        <div class="body">
-          <div class="bigBox">
-            <div class="coinZone" id="coinZone">
-              <div class="coin" id="coin"><span id="coinText">Ready</span></div>
-
-              <div class="meter">
-                <div class="meterTitle">After many measurements, you often see a mix of 0 and 1</div>
-
-                <div class="row" style="margin-top:10px">
-                  <button class="btn primary" id="spinBtn">Spin</button>
-                  <button class="btn good" id="measureBtn">Measure</button>
-                  <button class="btn warn" id="run20">Run 20</button>
-                  <button class="btn bad" id="clearCounts">Clear</button>
-                </div>
-
-                <div class="bars">
-                  <div class="barRow">
-                    <div>0</div>
-                    <div class="bar"><div class="fill" id="fill0"></div></div>
-                    <div><span id="pct0">0%</span></div>
-                  </div>
-                  <div class="barRow">
-                    <div>1</div>
-                    <div class="bar"><div class="fill" id="fill1"></div></div>
-                    <div><span id="pct1">0%</span></div>
-                  </div>
-                </div>
-
-                <div class="bigBox" style="margin-top:12px">
-                  <div style="color:var(--muted); font-size:14px;">Counts</div>
-                  <div style="font-size:20px; font-weight:1000; margin-top:8px" id="countText">0 → 0, 1 → 0 (Total: 0)</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="hint" id="m4Hint">Goal: Spin + then Measure at least 3 times.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Exit ticket -->
-      <div class="card">
-        <div class="head">
-          <div class="mission">
-            <div class="badge">✍️</div>
-            <div>
-              <h2>Exit Ticket (super short)</h2>
-              <p>Write 1 sentence: What is different about a qubit?</p>
-            </div>
-          </div>
-          <div class="status" id="exitStatus">Optional</div>
-        </div>
-
-        <div class="body">
-          <textarea id="exitTicket" rows="3" placeholder="Example: A bit is 0 or 1, but a qubit can be like a spinning coin until you measure it."></textarea>
-          <div class="row">
-            <button class="btn" id="copyTicket">Copy</button>
-            <button class="btn bad" id="clearTicket">Clear</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="foot">
+</div>
+<div class="hint" id="m3Hint">Goal: successfully convert A or a.</div>
+</div>
+</div>
+<!-- Mission 4 -->
+<div class="card" id="m4">
+<div class="head">
+<div class="mission">
+<div class="badge">4</div>
+<div>
+<h2>Mission 4: Meet the Qubit</h2>
+<p>Qubit is like a “spinning coin” until you measure it.</p>
+</div>
+</div>
+<div class="status todo" id="m4Status">Not finished</div>
+</div>
+<div class="body">
+<div class="bigBox">
+<div class="coinZone" id="coinZone">
+<div class="coin" id="coin"><span id="coinText">Ready</span></div>
+<div class="meter">
+<div class="meterTitle">After many measurements, you often see a mix of 0 and 1</div>
+<div class="row" style="margin-top:10px">
+<button class="btn primary" id="spinBtn">Spin</button>
+<button class="btn good" id="measureBtn">Measure</button>
+<button class="btn warn" id="run20">Run 20</button>
+<button class="btn bad" id="clearCounts">Clear</button>
+</div>
+<div class="bars">
+<div class="barRow">
+<div>0</div>
+<div class="bar"><div class="fill" id="fill0"></div></div>
+<div><span id="pct0">0%</span></div>
+</div>
+<div class="barRow">
+<div>1</div>
+<div class="bar"><div class="fill" id="fill1"></div></div>
+<div><span id="pct1">0%</span></div>
+</div>
+</div>
+<div class="bigBox" style="margin-top:12px">
+<div style="color:var(--muted); font-size:14px;">Counts</div>
+<div id="countText" style="font-size:20px; font-weight:1000; margin-top:8px">0 → 0, 1 → 0 (Total: 0)</div>
+</div>
+</div>
+</div>
+<div class="hint" id="m4Hint">Goal: Spin + then Measure at least 3 times.</div>
+</div>
+</div>
+</div>
+<!-- Exit ticket -->
+<div class="card">
+<div class="head">
+<div class="mission">
+<div class="badge">✍️</div>
+<div>
+<h2>Exit Ticket (super short)</h2>
+<p>Write 1 sentence: What is different about a qubit?</p>
+</div>
+</div>
+<div class="status" id="exitStatus">Optional</div>
+</div>
+<div class="body">
+<textarea id="exitTicket" placeholder="Example: A bit is 0 or 1, but a qubit can be like a spinning coin until you measure it." rows="3"></textarea>
+<div class="row">
+<button class="btn" id="copyTicket">Copy</button>
+<button class="btn bad" id="clearTicket">Clear</button>
+</div>
+</div>
+</div>
+<div class="foot">
         Teacher tip: After Binary Counting, ask: “Which bit flips the most? Which flips the least?”
       </div>
-    </div>
-  </div>
-
-  <div class="confetti" id="confetti"></div>
-
-  <script>
+</div>
+</div>
+<div class="confetti" id="confetti"></div>
+<script>
     const $ = (id) => document.getElementById(id);
 
     // Global progress

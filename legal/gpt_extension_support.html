@@ -1,11 +1,12 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ChatGPT Stats Overlay - Support</title>
-  <meta name="description" content="Support page for ChatGPT Stats Overlay: troubleshooting, FAQ, and contact." />
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>ChatGPT Stats Overlay - Support</title>
+<meta content="Support page for ChatGPT Stats Overlay: troubleshooting, FAQ, and contact." name="description"/>
+<style>
     body{font-family:Arial,Helvetica,sans-serif;line-height:1.6;max-width:920px;margin:0 auto;padding:24px;color:#222}
     h1,h2{line-height:1.2}
     .box{border:1px solid #e5e5e5;border-radius:10px;padding:16px;margin:14px 0;background:#fafafa}
@@ -14,66 +15,55 @@
     .small{font-size:14px;color:#555}
     .footer{margin-top:28px;border-top:1px solid #eee;padding-top:14px;color:#666;font-size:13px}
   </style>
-</head>
+<link href="https://faruk-hasan.com/legal/gpt_extension_support.html" rel="canonical"/></head>
 <body>
-  <h1>Support: ChatGPT Stats Overlay</h1>
-  <p class="small">
+<h1>Support: ChatGPT Stats Overlay</h1>
+<p class="small">
     Need help or want to report an issue? This page covers common questions and troubleshooting steps.
   </p>
-
-  <div class="box">
-    <h2>Quick troubleshooting</h2>
-    <ul>
-      <li><b>Reload chatgpt.com</b> after installing or updating the extension.</li>
-      <li>Open <b>chrome://extensions</b> and confirm the extension is <b>enabled</b>.</li>
-      <li>If the overlay disappears, try a hard refresh: <b>Ctrl+Shift+R</b> (Windows) or <b>Cmd+Shift+R</b> (Mac).</li>
-      <li>If you updated files, click <b>Reload</b> on the extension card in <b>chrome://extensions</b>.</li>
-    </ul>
-  </div>
-
-  <div class="box">
-    <h2>FAQ</h2>
-
-    <p><b>Q: Does this extension read my chat messages?</b><br />
+<div class="box">
+<h2>Quick troubleshooting</h2>
+<ul>
+<li><b>Reload chatgpt.com</b> after installing or updating the extension.</li>
+<li>Open <b>chrome://extensions</b> and confirm the extension is <b>enabled</b>.</li>
+<li>If the overlay disappears, try a hard refresh: <b>Ctrl+Shift+R</b> (Windows) or <b>Cmd+Shift+R</b> (Mac).</li>
+<li>If you updated files, click <b>Reload</b> on the extension card in <b>chrome://extensions</b>.</li>
+</ul>
+</div>
+<div class="box">
+<h2>FAQ</h2>
+<p><b>Q: Does this extension read my chat messages?</b><br/>
     A: No. It tracks activity signals (tab focus + interaction) to calculate active time, and stores your notes locally.</p>
-
-    <p><b>Q: Why does it ask for “User activity” in Chrome disclosures?</b><br />
+<p><b>Q: Why does it ask for “User activity” in Chrome disclosures?</b><br/>
     A: Active time requires detecting interaction (mouse/keyboard) to avoid counting idle time. The extension does not log specific keystrokes or content.</p>
-
-    <p><b>Q: Is my data uploaded anywhere?</b><br />
+<p><b>Q: Is my data uploaded anywhere?</b><br/>
     A: No. Data stays on your device in Chrome local storage.</p>
-
-    <p><b>Q: Why isn’t active time increasing?</b><br />
+<p><b>Q: Why isn’t active time increasing?</b><br/>
     A: Active time only counts when:
       <ul>
-        <li>the tab is visible and focused, and</li>
-        <li>you interacted recently (mouse/keyboard activity).</li>
-      </ul>
-    </p>
-
-    <p><b>Q: What is the optional import?</b><br />
+<li>the tab is visible and focused, and</li>
+<li>you interacted recently (mouse/keyboard activity).</li>
+</ul>
+</p>
+<p><b>Q: What is the optional import?</b><br/>
     A: If you enable import and manually select an exported <code>conversations.json</code> file, the extension can compute extra summary stats locally. Import is optional.</p>
-
-    <p><b>Q: How do I reset everything?</b><br />
+<p><b>Q: How do I reset everything?</b><br/>
     A: Uninstall the extension or clear extension storage from Chrome. Uninstalling removes all stored local data.</p>
-  </div>
-
-  <div class="box">
-    <h2>Contact</h2>
-    <p class="small">
+</div>
+<div class="box">
+<h2>Contact</h2>
+<p class="small">
       For support, please contact the developer using the email or support link listed on the Chrome Web Store item page.
       If you have a GitHub repository for issues, you can also link it here.
     </p>
-
-    <!-- Optional: add your preferred contact details -->
-    <p>
-      Email: <b>REPLACE_WITH_SUPPORT_EMAIL</b><br />
+<!-- Optional: add your preferred contact details -->
+<p>
+      Email: <b>REPLACE_WITH_SUPPORT_EMAIL</b><br/>
       Issues: <b>REPLACE_WITH_GITHUB_ISSUES_URL</b>
-    </p>
-  </div>
-
-  <div class="footer">
-    <div>Last updated: January 2026</div>
-  </div>
+</p>
+</div>
+<div class="footer">
+<div>Last updated: January 2026</div>
+</div>
 </body>
 </html>

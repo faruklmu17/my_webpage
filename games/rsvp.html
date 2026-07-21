@@ -1,19 +1,17 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Invitation RSVP Portal</title>
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playball&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  
-  <!-- FontAwesome Icons for UI -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Your Invitation RSVP Portal</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&amp;family=Great+Vibes&amp;family=Inter:wght@300;400;500;600;700&amp;family=Montserrat:wght@300;400;500;600;700&amp;family=Playball&amp;family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<!-- FontAwesome Icons for UI -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
     :root {
       --primary-color: #2ecc71;
       --primary-hover: #27ae60;
@@ -527,156 +525,139 @@
       z-index: 9999;
     }
   </style>
-</head>
+<meta content="Your Invitation RSVP Portal - Interactive programming resources, tutorials, and automation testing practice by Faruk Hasan." name="description"/><link href="https://faruk-hasan.com/games/rsvp.html" rel="canonical"/></head>
 <body>
-
-  <div class="rsvp-wrapper">
-    <div class="portal-logo">EVENTY RSVP PORTAL</div>
-
-    <!-- 3D Envelope and Card slide out container -->
-    <div class="envelope-container">
-      <div class="envelope-wrapper">
-        <div class="envelope" id="3d-envelope" onclick="openEnvelope()">
-          <div class="envelope-flap"></div>
-          <div class="envelope-pocket">
-            <svg class="pocket-overlay" viewBox="0 0 440 330" preserveAspectRatio="none">
-              <!-- Inner lining shadow (opaque to hide card completely when closed) -->
-              <rect width="440" height="330" fill="#b0bac6"/>
-              <polygon points="0,0 220,165 440,0" fill="#9ba8b6"/>
-              <!-- Bottom diagonal folds -->
-              <polygon points="0,330 220,150 440,330" fill="#d9e2ec" stroke="#b8c2cc" stroke-width="2"/>
-              <!-- Side folds overlay (fully opaque) -->
-              <polygon points="0,0 180,165 0,330" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.5"/>
-              <polygon points="440,0 260,165 440,330" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.5"/>
-            </svg>
-          </div>
-          
-          <!-- Miniature card content inside envelope -->
-          <div class="envelope-card-holder" id="envelope-card-holder">
-            <div class="invitation-card" id="card-inner-view" style="transform: scale(0.85); transform-origin: top center; pointer-events: none;">
-              
-              <!-- Sparkles background overlay -->
-              <svg class="card-decorations" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" preserveAspectRatio="none">
-                <defs>
-                  <radialGradient id="glitterGrad" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#ffe699" />
-                    <stop offset="60%" stop-color="#d4af37" />
-                    <stop offset="100%" stop-color="#aa7c11" />
-                  </radialGradient>
-                  <filter id="linenNoise" x="0%" y="0%" width="100%" height="100%">
-                    <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" result="noise" />
-                    <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.12 0" />
-                    <feComposite operator="in" in2="SourceGraphic" />
-                  </filter>
-                </defs>
-                <rect width="100%" height="100%" fill="#ffffff" opacity="0.03" filter="url(#linenNoise)" />
-                <g id="sparkle-particles">
-                  <!-- Generated via Javascript -->
-                </g>
-              </svg>
-
-              <!-- Card Content Area -->
-              <div class="card-content-area">
-                <div class="card-sub-header" id="card-sub-header">Join Us To Celebrate</div>
-                <div class="card-script-title" id="card-script-title">Birthday Party!</div>
-                <div class="card-main-title" id="card-main-title">EVENT TITLE</div>
-                <div class="card-divider"></div>
-                <div class="card-details-group">
-                  <div class="card-date" id="card-date">Saturday, June 20th</div>
-                  <div class="card-time" id="card-time">5pm</div>
-                  <div class="card-location" id="card-location">Location Name</div>
-                  <div class="card-address" id="card-address">Address, City, State</div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-      <p class="envelope-tip" id="envelope-tip">Click the envelope to open your invitation</p>
-    </div>
-
-    <!-- RSVP FORM SECTION -->
-    <div class="rsvp-form-container" id="rsvp-form-panel">
-      <h2 class="form-title" id="rsvp-form-title">RSVP to this Event</h2>
-      <p class="form-desc" style="margin-bottom: 16px;">Please complete the form below to register your RSVP details.</p>
-
-      <!-- Event Details Summary Box -->
-      <div class="event-summary-card" id="event-summary-card" style="margin-bottom: 24px; padding: 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left;">
-        <h3 style="font-size: 13px; font-weight: 700; color: #475569; margin: 0 0 10px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Event Details Summary</h3>
-        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: #475569;">
-          <div style="display: flex; align-items: flex-start; gap: 8px;">
-            <i class="fa-solid fa-cake-candles" style="color: #64748b; margin-top: 3px; width: 16px; text-align: center;"></i>
-            <div><strong>Celebration:</strong> <span id="summary-title">-</span></div>
-          </div>
-          <div style="display: flex; align-items: flex-start; gap: 8px;">
-            <i class="fa-regular fa-calendar-days" style="color: #64748b; margin-top: 3px; width: 16px; text-align: center;"></i>
-            <div><strong>When:</strong> <span id="summary-datetime">-</span></div>
-          </div>
-          <div style="display: flex; align-items: flex-start; gap: 8px;">
-            <i class="fa-solid fa-location-dot" style="color: #64748b; margin-top: 3px; width: 16px; text-align: center;"></i>
-            <div><strong>Where:</strong> <span id="summary-location">-</span></div>
-          </div>
-        </div>
-      </div>
-
-      <form id="rsvp-submission-form" onsubmit="submitRsvpResponse(event)">
-        <!-- Guest Details input (only shown if not in URL) -->
-        <div id="generic-guest-fields" style="display: none; margin-bottom: 20px; border-bottom: 1px dashed var(--border-light); padding-bottom: 16px;">
-          <div class="form-group">
-            <label class="form-label" for="guest-name-input">Your Full Name</label>
-            <input type="text" class="form-control" id="guest-name-input" placeholder="e.g. Alice Miller">
-          </div>
-        </div>
-
-        <!-- Attending Option cards -->
-        <div class="response-cards">
-          <div class="response-card accept" id="card-resp-accept" onclick="selectResponse('Accept')">
-            <i class="fa-regular fa-circle-check" style="color: #38a169;"></i>
+<div class="rsvp-wrapper">
+<div class="portal-logo">EVENTY RSVP PORTAL</div>
+<!-- 3D Envelope and Card slide out container -->
+<div class="envelope-container">
+<div class="envelope-wrapper">
+<div class="envelope" id="3d-envelope" onclick="openEnvelope()">
+<div class="envelope-flap"></div>
+<div class="envelope-pocket">
+<svg class="pocket-overlay" preserveaspectratio="none" viewbox="0 0 440 330">
+<!-- Inner lining shadow (opaque to hide card completely when closed) -->
+<rect fill="#b0bac6" height="330" width="440"></rect>
+<polygon fill="#9ba8b6" points="0,0 220,165 440,0"></polygon>
+<!-- Bottom diagonal folds -->
+<polygon fill="#d9e2ec" points="0,330 220,150 440,330" stroke="#b8c2cc" stroke-width="2"></polygon>
+<!-- Side folds overlay (fully opaque) -->
+<polygon fill="#e2e8f0" points="0,0 180,165 0,330" stroke="#cbd5e1" stroke-width="1.5"></polygon>
+<polygon fill="#e2e8f0" points="440,0 260,165 440,330" stroke="#cbd5e1" stroke-width="1.5"></polygon>
+</svg>
+</div>
+<!-- Miniature card content inside envelope -->
+<div class="envelope-card-holder" id="envelope-card-holder">
+<div class="invitation-card" id="card-inner-view" style="transform: scale(0.85); transform-origin: top center; pointer-events: none;">
+<!-- Sparkles background overlay -->
+<svg class="card-decorations" preserveaspectratio="none" viewbox="0 0 400 520" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialgradient cx="50%" cy="50%" id="glitterGrad" r="50%">
+<stop offset="0%" stop-color="#ffe699"></stop>
+<stop offset="60%" stop-color="#d4af37"></stop>
+<stop offset="100%" stop-color="#aa7c11"></stop>
+</radialgradient>
+<filter height="100%" id="linenNoise" width="100%" x="0%" y="0%">
+<feturbulence basefrequency="0.75" numoctaves="3" result="noise" type="fractalNoise"></feturbulence>
+<fecolormatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.12 0"></fecolormatrix>
+<fecomposite in2="SourceGraphic" operator="in"></fecomposite>
+</filter>
+</defs>
+<rect fill="#ffffff" filter="url(#linenNoise)" height="100%" opacity="0.03" width="100%"></rect>
+<g id="sparkle-particles">
+<!-- Generated via Javascript -->
+</g>
+</svg>
+<!-- Card Content Area -->
+<div class="card-content-area">
+<div class="card-sub-header" id="card-sub-header">Join Us To Celebrate</div>
+<div class="card-script-title" id="card-script-title">Birthday Party!</div>
+<div class="card-main-title" id="card-main-title">EVENT TITLE</div>
+<div class="card-divider"></div>
+<div class="card-details-group">
+<div class="card-date" id="card-date">Saturday, June 20th</div>
+<div class="card-time" id="card-time">5pm</div>
+<div class="card-location" id="card-location">Location Name</div>
+<div class="card-address" id="card-address">Address, City, State</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p class="envelope-tip" id="envelope-tip">Click the envelope to open your invitation</p>
+</div>
+<!-- RSVP FORM SECTION -->
+<div class="rsvp-form-container" id="rsvp-form-panel">
+<h2 class="form-title" id="rsvp-form-title">RSVP to this Event</h2>
+<p class="form-desc" style="margin-bottom: 16px;">Please complete the form below to register your RSVP details.</p>
+<!-- Event Details Summary Box -->
+<div class="event-summary-card" id="event-summary-card" style="margin-bottom: 24px; padding: 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; text-align: left;">
+<h3 style="font-size: 13px; font-weight: 700; color: #475569; margin: 0 0 10px 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Event Details Summary</h3>
+<div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: #475569;">
+<div style="display: flex; align-items: flex-start; gap: 8px;">
+<i class="fa-solid fa-cake-candles" style="color: #64748b; margin-top: 3px; width: 16px; text-align: center;"></i>
+<div><strong>Celebration:</strong> <span id="summary-title">-</span></div>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 8px;">
+<i class="fa-regular fa-calendar-days" style="color: #64748b; margin-top: 3px; width: 16px; text-align: center;"></i>
+<div><strong>When:</strong> <span id="summary-datetime">-</span></div>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 8px;">
+<i class="fa-solid fa-location-dot" style="color: #64748b; margin-top: 3px; width: 16px; text-align: center;"></i>
+<div><strong>Where:</strong> <span id="summary-location">-</span></div>
+</div>
+</div>
+</div>
+<form id="rsvp-submission-form" onsubmit="submitRsvpResponse(event)">
+<!-- Guest Details input (only shown if not in URL) -->
+<div id="generic-guest-fields" style="display: none; margin-bottom: 20px; border-bottom: 1px dashed var(--border-light); padding-bottom: 16px;">
+<div class="form-group">
+<label class="form-label" for="guest-name-input">Your Full Name</label>
+<input class="form-control" id="guest-name-input" placeholder="e.g. Alice Miller" type="text"/>
+</div>
+</div>
+<!-- Attending Option cards -->
+<div class="response-cards">
+<div class="response-card accept" id="card-resp-accept" onclick="selectResponse('Accept')">
+<i class="fa-regular fa-circle-check" style="color: #38a169;"></i>
             Accepts with Pleasure
           </div>
-          <div class="response-card decline" id="card-resp-decline" onclick="selectResponse('Decline')">
-            <i class="fa-regular fa-circle-xmark" style="color: #e53e3e;"></i>
+<div class="response-card decline" id="card-resp-decline" onclick="selectResponse('Decline')">
+<i class="fa-regular fa-circle-xmark" style="color: #e53e3e;"></i>
             Declines with Regret
           </div>
-        </div>
-
-        <div class="form-group" id="guests-count-group" style="display: none;">
-          <label class="form-label" for="guests-count">Number of Attendees</label>
-          <select class="form-control" id="guests-count">
-            <option value="1" selected>1 Guest</option>
-            <option value="2">2 Guests</option>
-            <option value="3">3 Guests</option>
-            <option value="4">4 Guests</option>
-            <option value="5">5+ Guests</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="guest-dietary">Message to Host & Dietary Restrictions</label>
-          <textarea class="form-control" id="guest-dietary" rows="3" placeholder="e.g. Vegetarian diet, allergies, or a congratulatory message..."></textarea>
-        </div>
-
-        <button type="submit" class="btn-submit" id="btn-submit-rsvp">
+</div>
+<div class="form-group" id="guests-count-group" style="display: none;">
+<label class="form-label" for="guests-count">Number of Attendees</label>
+<select class="form-control" id="guests-count">
+<option selected="" value="1">1 Guest</option>
+<option value="2">2 Guests</option>
+<option value="3">3 Guests</option>
+<option value="4">4 Guests</option>
+<option value="5">5+ Guests</option>
+</select>
+</div>
+<div class="form-group">
+<label class="form-label" for="guest-dietary">Message to Host &amp; Dietary Restrictions</label>
+<textarea class="form-control" id="guest-dietary" placeholder="e.g. Vegetarian diet, allergies, or a congratulatory message..." rows="3"></textarea>
+</div>
+<button class="btn-submit" id="btn-submit-rsvp" type="submit">
           Submit RSVP Response
         </button>
-      </form>
-    </div>
-
-    <!-- SUCCESS SCREEN -->
-    <div class="rsvp-success-state" id="rsvp-success-panel">
-      <div class="success-checkmark">
-        <i class="fa-solid fa-check"></i>
-      </div>
-      <h2 class="form-title" style="color: #38a169; margin-bottom: 12px;">RSVP Sent Successfully!</h2>
-      <p class="form-desc" style="margin-bottom: 10px;">Your response has been delivered. Thank you for notifying the host.</p>
-    </div>
-
-  </div>
-
-  <canvas class="confetti-canvas" id="canvas-confetti"></canvas>
-
-  <script>
+</form>
+</div>
+<!-- SUCCESS SCREEN -->
+<div class="rsvp-success-state" id="rsvp-success-panel">
+<div class="success-checkmark">
+<i class="fa-solid fa-check"></i>
+</div>
+<h2 class="form-title" style="color: #38a169; margin-bottom: 12px;">RSVP Sent Successfully!</h2>
+<p class="form-desc" style="margin-bottom: 10px;">Your response has been delivered. Thank you for notifying the host.</p>
+</div>
+</div>
+<canvas class="confetti-canvas" id="canvas-confetti"></canvas>
+<script>
     let inviteData = null;
     let selectedAttendance = null;
     let envelopeOpened = false;

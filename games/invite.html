@@ -1,19 +1,17 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Premium Event Invitation Builder</title>
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playball&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  
-  <!-- FontAwesome Icons for UI -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Premium Event Invitation Builder</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&amp;family=Great+Vibes&amp;family=Inter:wght@300;400;500;600;700&amp;family=Montserrat:wght@300;400;500;600;700&amp;family=Playball&amp;family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<!-- FontAwesome Icons for UI -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
     :root {
       --primary-color: #2ecc71; /* Green */
       --primary-hover: #27ae60;
@@ -1029,379 +1027,331 @@
       z-index: 9999;
     }
   </style>
-</head>
+<meta content="Premium Event Invitation Builder - Interactive programming resources, tutorials, and automation testing practice by Faruk Hasan." name="description"/><link href="https://faruk-hasan.com/games/invite.html" rel="canonical"/></head>
 <body>
-
-  <!-- Top navigation and progress steps -->
-  <header class="wizard-header">
-    <button class="btn-header btn-outline" id="btn-change-design">
+<!-- Top navigation and progress steps -->
+<header class="wizard-header">
+<button class="btn-header btn-outline" id="btn-change-design">
       Change design
     </button>
-
-    <div class="steps-container">
-      <div class="steps-line">
-        <div class="steps-line-fill" id="steps-line-fill"></div>
-      </div>
-      <div class="step-item active" id="step-node-1">
-        <div class="step-dot"></div>
-        <div class="step-label">DESIGN</div>
-      </div>
-      <div class="step-item" id="step-node-2">
-        <div class="step-dot"></div>
-        <div class="step-label">SEND & SHARE</div>
-      </div>
-    </div>
-
-    <button class="btn-header btn-solid-green" id="btn-save-continue">
+<div class="steps-container">
+<div class="steps-line">
+<div class="steps-line-fill" id="steps-line-fill"></div>
+</div>
+<div class="step-item active" id="step-node-1">
+<div class="step-dot"></div>
+<div class="step-label">DESIGN</div>
+</div>
+<div class="step-item" id="step-node-2">
+<div class="step-dot"></div>
+<div class="step-label">SEND &amp; SHARE</div>
+</div>
+</div>
+<button class="btn-header btn-solid-green" id="btn-save-continue">
       Save and continue
     </button>
-  </header>
-
-  <main class="app-container">
-    
-    <!-- STEP 1: DESIGN & BUILD DETAILS -->
-    <div class="step-content active" id="step-content-1">
-      
-      <!-- Sub-navigation tabs -->
-      <nav class="tabs-nav">
-        <button class="tab-btn active" id="tab-btn-details" onclick="switchTab('details')">
-          <i class="fa-regular fa-file-lines"></i> Design & Details
+</header>
+<main class="app-container">
+<!-- STEP 1: DESIGN & BUILD DETAILS -->
+<div class="step-content active" id="step-content-1">
+<!-- Sub-navigation tabs -->
+<nav class="tabs-nav">
+<button class="tab-btn active" id="tab-btn-details" onclick="switchTab('details')">
+<i class="fa-regular fa-file-lines"></i> Design &amp; Details
         </button>
-        <button class="tab-btn" id="tab-btn-envelope" onclick="switchTab('envelope')">
-          <i class="fa-regular fa-envelope"></i> Envelope
+<button class="tab-btn" id="tab-btn-envelope" onclick="switchTab('envelope')">
+<i class="fa-regular fa-envelope"></i> Envelope
         </button>
-      </nav>
-
-      <!-- Panel layouts for Details view -->
-      <div class="split-layout" id="tab-view-details">
-        
-        <!-- Forms panel (left) -->
-        <div class="form-panel">
-          
-          <!-- Event Details -->
-          <section class="form-section">
-            <h2 class="section-title">Event Details</h2>
-            <p class="section-desc">Select text on the invitation to customize the font, size, and color.</p>
-            
-            <div class="form-group">
-              <label for="event-type">Event Type</label>
-              <select class="form-control" id="event-type">
-                <option value="rsvp" selected>Invitation (with RSVP)</option>
-                <option value="save-date">Save the Date</option>
-                <option value="announcement">Announcement</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="event-title">Event Title</label>
-              <input type="text" class="form-control" id="event-title" value="" placeholder="e.g. Aariz & Aahil's Birthday!">
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label for="event-date">Event Date</label>
-                <input type="text" class="form-control" id="event-date" value="" placeholder="MM/DD/YYYY">
-              </div>
-              <div class="form-group">
-                <label for="event-time">Time</label>
-                <input type="text" class="form-control" id="event-time" value="" placeholder="e.g. 5pm">
-              </div>
-            </div>
-            
-            <button class="link-btn" id="btn-add-end-date" onclick="toggleEndDate()">Add end date</button>
-            <div class="form-group" id="end-date-wrapper" style="display: none;">
-              <label for="event-end-date">End Date / Time</label>
-              <input type="text" class="form-control" id="event-end-date" placeholder="e.g. 8pm">
-            </div>
-          </section>
-
-          <!-- Host Information -->
-          <section class="form-section">
-            <h2 class="section-title">Host Information</h2>
-            
-            <div class="form-row">
-              <div class="form-group">
-                <label for="host-name">Host Name</label>
-                <input type="text" class="form-control" id="host-name" value="" placeholder="Your name">
-              </div>
-              <div class="form-group">
-                <label for="host-email">Host Email <span class="label-desc">(for RSVP notifications)</span></label>
-                <input type="email" class="form-control" id="host-email" value="" placeholder="your@email.com">
-              </div>
-            </div>
-
-            <div class="form-row" style="margin-top: 12px;">
-              <div class="form-group">
-                <label for="host-phone">Phone</label>
-                <input type="text" class="form-control" id="host-phone" value="" placeholder="e.g. 555-123-4567">
-              </div>
-              <div class="form-group">
-                <label for="formspree-id">Formspree Form ID <span class="label-desc"><a href="https://formspree.io" target="_blank" style="color: #3182ce; text-decoration: underline;">Get free ID</a></span></label>
-                <input type="text" class="form-control" id="formspree-id" placeholder="e.g. xqewdkny (Paste ID for auto-emails)" value="xrevbnob">
-              </div>
-            </div>
-          </section>
-
-          <!-- Location -->
-          <section class="form-section">
-            <div class="header-with-checkbox">
-              <h2 class="section-title">Location</h2>
-              <label class="checkbox-container">
-                <input type="checkbox" id="checkbox-virtual" onchange="toggleVirtualEvent()"> Virtual Event
+</nav>
+<!-- Panel layouts for Details view -->
+<div class="split-layout" id="tab-view-details">
+<!-- Forms panel (left) -->
+<div class="form-panel">
+<!-- Event Details -->
+<section class="form-section">
+<h2 class="section-title">Event Details</h2>
+<p class="section-desc">Select text on the invitation to customize the font, size, and color.</p>
+<div class="form-group">
+<label for="event-type">Event Type</label>
+<select class="form-control" id="event-type">
+<option selected="" value="rsvp">Invitation (with RSVP)</option>
+<option value="save-date">Save the Date</option>
+<option value="announcement">Announcement</option>
+</select>
+</div>
+<div class="form-group">
+<label for="event-title">Event Title</label>
+<input class="form-control" id="event-title" placeholder="e.g. Aariz &amp; Aahil's Birthday!" type="text" value=""/>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label for="event-date">Event Date</label>
+<input class="form-control" id="event-date" placeholder="MM/DD/YYYY" type="text" value=""/>
+</div>
+<div class="form-group">
+<label for="event-time">Time</label>
+<input class="form-control" id="event-time" placeholder="e.g. 5pm" type="text" value=""/>
+</div>
+</div>
+<button class="link-btn" id="btn-add-end-date" onclick="toggleEndDate()">Add end date</button>
+<div class="form-group" id="end-date-wrapper" style="display: none;">
+<label for="event-end-date">End Date / Time</label>
+<input class="form-control" id="event-end-date" placeholder="e.g. 8pm" type="text"/>
+</div>
+</section>
+<!-- Host Information -->
+<section class="form-section">
+<h2 class="section-title">Host Information</h2>
+<div class="form-row">
+<div class="form-group">
+<label for="host-name">Host Name</label>
+<input class="form-control" id="host-name" placeholder="Your name" type="text" value=""/>
+</div>
+<div class="form-group">
+<label for="host-email">Host Email <span class="label-desc">(for RSVP notifications)</span></label>
+<input class="form-control" id="host-email" placeholder="your@email.com" type="email" value=""/>
+</div>
+</div>
+<div class="form-row" style="margin-top: 12px;">
+<div class="form-group">
+<label for="host-phone">Phone</label>
+<input class="form-control" id="host-phone" placeholder="e.g. 555-123-4567" type="text" value=""/>
+</div>
+<div class="form-group">
+<label for="formspree-id">Formspree Form ID <span class="label-desc"><a href="https://formspree.io" style="color: #3182ce; text-decoration: underline;" target="_blank">Get free ID</a></span></label>
+<input class="form-control" id="formspree-id" placeholder="e.g. xqewdkny (Paste ID for auto-emails)" type="text" value="xrevbnob"/>
+</div>
+</div>
+</section>
+<!-- Location -->
+<section class="form-section">
+<div class="header-with-checkbox">
+<h2 class="section-title">Location</h2>
+<label class="checkbox-container">
+<input id="checkbox-virtual" onchange="toggleVirtualEvent()" type="checkbox"/> Virtual Event
               </label>
-            </div>
-            
-            <div id="physical-location-fields">
-              <div class="form-group">
-                <label for="location-name">Location Name <span class="label-desc">e.g., Our House</span></label>
-                <input type="text" class="form-control" id="location-name" value="" placeholder="e.g., Our House">
-              </div>
-
-              <div class="form-group">
-                <label for="location-address">Address</label>
-                <input type="text" class="form-control" id="location-address" value="" placeholder="Street address">
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="location-city">City</label>
-                  <input type="text" class="form-control" id="location-city" value="" placeholder="City">
-                </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="location-state">State</label>
-                    <input type="text" class="form-control" id="location-state" value="" placeholder="State">
-                  </div>
-                  <div class="form-group">
-                    <label for="location-zip">ZIP</label>
-                    <input type="text" class="form-control" id="location-zip" value="" placeholder="ZIP">
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div id="virtual-location-fields" style="display: none;">
-              <div class="form-group">
-                <label for="virtual-link">Meeting Link</label>
-                <input type="text" class="form-control" id="virtual-link" placeholder="e.g. Zoom or Google Meet Link">
-              </div>
-              <div class="form-group">
-                <label for="virtual-instructions">Dial-in / Access Instructions</label>
-                <input type="text" class="form-control" id="virtual-instructions" placeholder="e.g. Password or passcode">
-              </div>
-            </div>
-          </section>
-
-          <!-- Additional Information -->
-          <section class="form-section">
-            <h2 class="section-title">Additional Information</h2>
-            <p class="section-desc">Provide additional details about your event. The message will appear next to your invitation.</p>
-            
-            <div class="editor-container">
-              <div class="editor-toolbar">
-                <button class="toolbar-btn" onclick="execCmd('bold')"><i class="fa-solid fa-bold"></i></button>
-                <button class="toolbar-btn" onclick="execCmd('italic')"><i class="fa-solid fa-italic"></i></button>
-                <button class="toolbar-btn" onclick="execCmd('underline')"><i class="fa-solid fa-underline"></i></button>
-                <button class="toolbar-btn" onclick="execCmd('strikeThrough')"><i class="fa-solid fa-strikethrough"></i></button>
-                <button class="toolbar-btn" onclick="execCmd('insertUnorderedList')"><i class="fa-solid fa-list-ul"></i></button>
-                <button class="toolbar-btn" onclick="execCmd('insertOrderedList')"><i class="fa-solid fa-list-ol"></i></button>
-                <button class="toolbar-btn" onclick="execCmd('justifyLeft')"><i class="fa-solid fa-align-left"></i></button>
-                <button class="toolbar-btn" onclick="execCmd('createLink')"><i class="fa-solid fa-link"></i></button>
-              </div>
-              <div class="editor-content" id="additional-info-editor" contenteditable="true">Please join us in celebrating Aariz and Aahil's birthday at our home on Saturday, June 20th, at 5:00 PM. We would love to celebrate this special day with you!</div>
-            </div>
-          </section>
-        </div>
-
-        <!-- Sticky Preview panel (right) -->
-        <div class="preview-panel">
-          <div class="card-outer-wrapper" id="card-outer-wrapper">
-            <div class="invitation-card" id="card-preview">
-              <!-- Glitter background confetti circles dynamic overlay -->
-              <svg class="card-decorations" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" preserveAspectRatio="none">
-                <defs>
-                  <radialGradient id="glitterGrad" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#ffe699" />
-                    <stop offset="60%" stop-color="#d4af37" />
-                    <stop offset="100%" stop-color="#aa7c11" />
-                  </radialGradient>
-                  <radialGradient id="sparkleGrad" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#ffffff" />
-                    <stop offset="30%" stop-color="#ffe699" />
-                    <stop offset="100%" stop-color="rgba(255,255,255,0)" />
-                  </radialGradient>
-                  <!-- Noise filter for background texture -->
-                  <filter id="linenNoise" x="0%" y="0%" width="100%" height="100%">
-                    <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" result="noise" />
-                    <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.15 0" />
-                    <feComposite operator="in" in2="SourceGraphic" />
-                  </filter>
-                </defs>
-                
-                <!-- Background visual noise overlay -->
-                <rect width="100%" height="100%" fill="#ffffff" opacity="0.03" filter="url(#linenNoise)" />
-                
-                <!-- Confetti groups -->
-                <g id="confetti-particles">
-                  <!-- Generated via Javascript, fallbacks below in case JS is slow -->
-                  <circle cx="40" cy="50" r="10" fill="url(#glitterGrad)" opacity="0.7"/>
-                  <circle cx="80" cy="20" r="6" fill="url(#glitterGrad)" opacity="0.8"/>
-                  <circle cx="120" cy="45" r="4" fill="url(#glitterGrad)" opacity="0.9"/>
-                  <circle cx="150" cy="25" r="9" fill="url(#glitterGrad)" opacity="0.65"/>
-                  <circle cx="200" cy="40" r="12" fill="url(#glitterGrad)" opacity="0.85"/>
-                  <circle cx="250" cy="20" r="5" fill="url(#glitterGrad)" opacity="0.75"/>
-                  <circle cx="310" cy="50" r="8" fill="url(#glitterGrad)" opacity="0.9"/>
-                  <circle cx="360" cy="30" r="11" fill="url(#glitterGrad)" opacity="0.8"/>
-                  <!-- Dense scatter bottom -->
-                  <circle cx="30" cy="480" r="9" fill="url(#glitterGrad)" opacity="0.8"/>
-                  <circle cx="70" cy="500" r="5" fill="url(#glitterGrad)" opacity="0.7"/>
-                  <circle cx="110" cy="475" r="10" fill="url(#glitterGrad)" opacity="0.9"/>
-                  <circle cx="160" cy="495" r="7" fill="url(#glitterGrad)" opacity="0.75"/>
-                  <circle cx="210" cy="465" r="11" fill="url(#glitterGrad)" opacity="0.85"/>
-                  <circle cx="270" cy="490" r="6" fill="url(#glitterGrad)" opacity="0.9"/>
-                  <circle cx="320" cy="470" r="8" fill="url(#glitterGrad)" opacity="0.8"/>
-                  <circle cx="370" cy="495" r="10" fill="url(#glitterGrad)" opacity="0.7"/>
-                </g>
-              </svg>
-
-              <!-- Card Content Overlay -->
-              <div class="card-content-area">
-                <div class="card-element card-sub-header" id="card-text-prefix">Join Us To Celebrate</div>
-                
-                <div class="card-element card-script-title" id="card-text-cursive">Birthday Party!</div>
-                
-                <div class="card-element card-main-title" id="card-text-title">Aariz and Aahil's Birthday!</div>
-                
-                <div class="card-divider"></div>
-                
-                <div class="card-details-group">
-                  <div class="card-element card-date" id="card-text-date">Saturday, June 20th</div>
-                  <div class="card-element card-time" id="card-text-time">5pm</div>
-                  <div class="card-element card-location" id="card-text-locname">Our House</div>
-                  <div class="card-element card-address" id="card-text-address">162 Riverview Dr, Fishkill, NY</div>
-                </div>
-              </div>
-
-              <!-- Floating badge on card -->
-              <div class="floating-badge" id="floating-edit-badge">
+</div>
+<div id="physical-location-fields">
+<div class="form-group">
+<label for="location-name">Location Name <span class="label-desc">e.g., Our House</span></label>
+<input class="form-control" id="location-name" placeholder="e.g., Our House" type="text" value=""/>
+</div>
+<div class="form-group">
+<label for="location-address">Address</label>
+<input class="form-control" id="location-address" placeholder="Street address" type="text" value=""/>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label for="location-city">City</label>
+<input class="form-control" id="location-city" placeholder="City" type="text" value=""/>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label for="location-state">State</label>
+<input class="form-control" id="location-state" placeholder="State" type="text" value=""/>
+</div>
+<div class="form-group">
+<label for="location-zip">ZIP</label>
+<input class="form-control" id="location-zip" placeholder="ZIP" type="text" value=""/>
+</div>
+</div>
+</div>
+</div>
+<div id="virtual-location-fields" style="display: none;">
+<div class="form-group">
+<label for="virtual-link">Meeting Link</label>
+<input class="form-control" id="virtual-link" placeholder="e.g. Zoom or Google Meet Link" type="text"/>
+</div>
+<div class="form-group">
+<label for="virtual-instructions">Dial-in / Access Instructions</label>
+<input class="form-control" id="virtual-instructions" placeholder="e.g. Password or passcode" type="text"/>
+</div>
+</div>
+</section>
+<!-- Additional Information -->
+<section class="form-section">
+<h2 class="section-title">Additional Information</h2>
+<p class="section-desc">Provide additional details about your event. The message will appear next to your invitation.</p>
+<div class="editor-container">
+<div class="editor-toolbar">
+<button class="toolbar-btn" onclick="execCmd('bold')"><i class="fa-solid fa-bold"></i></button>
+<button class="toolbar-btn" onclick="execCmd('italic')"><i class="fa-solid fa-italic"></i></button>
+<button class="toolbar-btn" onclick="execCmd('underline')"><i class="fa-solid fa-underline"></i></button>
+<button class="toolbar-btn" onclick="execCmd('strikeThrough')"><i class="fa-solid fa-strikethrough"></i></button>
+<button class="toolbar-btn" onclick="execCmd('insertUnorderedList')"><i class="fa-solid fa-list-ul"></i></button>
+<button class="toolbar-btn" onclick="execCmd('insertOrderedList')"><i class="fa-solid fa-list-ol"></i></button>
+<button class="toolbar-btn" onclick="execCmd('justifyLeft')"><i class="fa-solid fa-align-left"></i></button>
+<button class="toolbar-btn" onclick="execCmd('createLink')"><i class="fa-solid fa-link"></i></button>
+</div>
+<div class="editor-content" contenteditable="true" id="additional-info-editor">Please join us in celebrating Aariz and Aahil's birthday at our home on Saturday, June 20th, at 5:00 PM. We would love to celebrate this special day with you!</div>
+</div>
+</section>
+</div>
+<!-- Sticky Preview panel (right) -->
+<div class="preview-panel">
+<div class="card-outer-wrapper" id="card-outer-wrapper">
+<div class="invitation-card" id="card-preview">
+<!-- Glitter background confetti circles dynamic overlay -->
+<svg class="card-decorations" preserveaspectratio="none" viewbox="0 0 400 520" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialgradient cx="50%" cy="50%" id="glitterGrad" r="50%">
+<stop offset="0%" stop-color="#ffe699"></stop>
+<stop offset="60%" stop-color="#d4af37"></stop>
+<stop offset="100%" stop-color="#aa7c11"></stop>
+</radialgradient>
+<radialgradient cx="50%" cy="50%" id="sparkleGrad" r="50%">
+<stop offset="0%" stop-color="#ffffff"></stop>
+<stop offset="30%" stop-color="#ffe699"></stop>
+<stop offset="100%" stop-color="rgba(255,255,255,0)"></stop>
+</radialgradient>
+<!-- Noise filter for background texture -->
+<filter height="100%" id="linenNoise" width="100%" x="0%" y="0%">
+<feturbulence basefrequency="0.75" numoctaves="3" result="noise" type="fractalNoise"></feturbulence>
+<fecolormatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.15 0"></fecolormatrix>
+<fecomposite in2="SourceGraphic" operator="in"></fecomposite>
+</filter>
+</defs>
+<!-- Background visual noise overlay -->
+<rect fill="#ffffff" filter="url(#linenNoise)" height="100%" opacity="0.03" width="100%"></rect>
+<!-- Confetti groups -->
+<g id="confetti-particles">
+<!-- Generated via Javascript, fallbacks below in case JS is slow -->
+<circle cx="40" cy="50" fill="url(#glitterGrad)" opacity="0.7" r="10"></circle>
+<circle cx="80" cy="20" fill="url(#glitterGrad)" opacity="0.8" r="6"></circle>
+<circle cx="120" cy="45" fill="url(#glitterGrad)" opacity="0.9" r="4"></circle>
+<circle cx="150" cy="25" fill="url(#glitterGrad)" opacity="0.65" r="9"></circle>
+<circle cx="200" cy="40" fill="url(#glitterGrad)" opacity="0.85" r="12"></circle>
+<circle cx="250" cy="20" fill="url(#glitterGrad)" opacity="0.75" r="5"></circle>
+<circle cx="310" cy="50" fill="url(#glitterGrad)" opacity="0.9" r="8"></circle>
+<circle cx="360" cy="30" fill="url(#glitterGrad)" opacity="0.8" r="11"></circle>
+<!-- Dense scatter bottom -->
+<circle cx="30" cy="480" fill="url(#glitterGrad)" opacity="0.8" r="9"></circle>
+<circle cx="70" cy="500" fill="url(#glitterGrad)" opacity="0.7" r="5"></circle>
+<circle cx="110" cy="475" fill="url(#glitterGrad)" opacity="0.9" r="10"></circle>
+<circle cx="160" cy="495" fill="url(#glitterGrad)" opacity="0.75" r="7"></circle>
+<circle cx="210" cy="465" fill="url(#glitterGrad)" opacity="0.85" r="11"></circle>
+<circle cx="270" cy="490" fill="url(#glitterGrad)" opacity="0.9" r="6"></circle>
+<circle cx="320" cy="470" fill="url(#glitterGrad)" opacity="0.8" r="8"></circle>
+<circle cx="370" cy="495" fill="url(#glitterGrad)" opacity="0.7" r="10"></circle>
+</g>
+</svg>
+<!-- Card Content Overlay -->
+<div class="card-content-area">
+<div class="card-element card-sub-header" id="card-text-prefix">Join Us To Celebrate</div>
+<div class="card-element card-script-title" id="card-text-cursive">Birthday Party!</div>
+<div class="card-element card-main-title" id="card-text-title">Aariz and Aahil's Birthday!</div>
+<div class="card-divider"></div>
+<div class="card-details-group">
+<div class="card-element card-date" id="card-text-date">Saturday, June 20th</div>
+<div class="card-element card-time" id="card-text-time">5pm</div>
+<div class="card-element card-location" id="card-text-locname">Our House</div>
+<div class="card-element card-address" id="card-text-address">162 Riverview Dr, Fishkill, NY</div>
+</div>
+</div>
+<!-- Floating badge on card -->
+<div class="floating-badge" id="floating-edit-badge">
                 Edit Message
               </div>
-            </div>
-          </div>
-
-          <!-- Buttons under preview card -->
-          <div class="preview-actions">
-            <button class="btn-preview" id="btn-reset" onclick="resetFormToDefault()">
-              <i class="fa-solid fa-rotate-left"></i> Reset
+</div>
+</div>
+<!-- Buttons under preview card -->
+<div class="preview-actions">
+<button class="btn-preview" id="btn-reset" onclick="resetFormToDefault()">
+<i class="fa-solid fa-rotate-left"></i> Reset
             </button>
-            <button class="btn-preview" id="btn-toggle-edit" onclick="toggleCardEditable()">
-              <i class="fa-solid fa-pen-to-square"></i> Edit Inline
+<button class="btn-preview" id="btn-toggle-edit" onclick="toggleCardEditable()">
+<i class="fa-solid fa-pen-to-square"></i> Edit Inline
             </button>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Envelope Tab view -->
-      <div class="envelope-container" id="tab-view-envelope" style="display: none;">
-        <div class="envelope-wrapper">
-          <div class="envelope" id="3d-envelope" onclick="toggleEnvelopeOpen()">
-            <div class="envelope-flap"></div>
-            <div class="envelope-pocket">
-              <svg class="pocket-overlay" viewBox="0 0 440 330" preserveAspectRatio="none">
-                <!-- Inner lining shadow (opaque to hide card completely when closed) -->
-                <rect width="440" height="330" fill="#b0bac6"/>
-                <polygon points="0,0 220,165 440,0" fill="#9ba8b6"/>
-                <!-- Bottom diagonal folds -->
-                <polygon points="0,330 220,150 440,330" fill="#d9e2ec" stroke="#b8c2cc" stroke-width="2"/>
-                <!-- Side folds overlay (fully opaque) -->
-                <polygon points="0,0 180,165 0,330" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.5"/>
-                <polygon points="440,0 260,165 440,330" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1.5"/>
-              </svg>
-            </div>
-            
-            <!-- Sliding mini card inside envelope -->
-            <div class="envelope-card-holder" id="envelope-card-holder">
-              <!-- Replicated miniature card preview -->
-              <div class="invitation-card" id="envelope-card-preview" style="transform: scale(0.85); transform-origin: top center; pointer-events: none;">
-                <!-- Content injected dynamically -->
-              </div>
-            </div>
-          </div>
-        </div>
-        <p class="envelope-tip" id="envelope-tip-text">Click the envelope to slide out your invitation!</p>
-      </div>
-
-    </div>
-
-    <!-- STEP 2: SEND & SHARE PANEL -->
-    <div class="step-content" id="step-content-2">
-      <div class="send-layout" id="send-main-panel">
-        <i class="fa-regular fa-paper-plane email-envelope-icon"></i>
-        <h2 class="send-summary-title">Your RSVP Link is Ready!</h2>
-        <p class="send-summary-desc">Send this link to all your guests. When they open it, they will see your custom envelope and RSVP card, and their responses will be emailed directly to you via Formspree.</p>
-        
-        <div style="margin-bottom: 30px; display: inline-block; padding: 20px; background: #ffffff; border: 1px solid var(--border-light); border-radius: 8px; text-align: left; width: 100%; max-width: 500px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
-          <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-link" style="color: var(--btn-green);"></i> Shareable RSVP Link:</h4>
-          <div style="display: flex; gap: 10px; margin-bottom: 12px;">
-            <input type="text" class="form-control" id="generic-rsvp-url-input" style="font-size: 12px; font-family: monospace; background: #f8fafc;" readonly value="">
-            <button class="btn-header btn-outline" style="padding: 10px 16px; font-size: 13px;" onclick="copyGenericRsvpLink(this)">Copy Link</button>
-          </div>
-
-          <div id="shorten-link-container" style="margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; background: #f1f5f9; padding: 10px 14px; border-radius: 6px; border: 1px dashed #cbd5e1;">
-            <span style="font-size: 11px; color: #475569; font-weight: 500;"><i class="fa-solid fa-wand-magic-sparkles" style="color: #6366f1;"></i> Hide your domain name?</span>
-            <button class="btn-header btn-solid-green" style="padding: 6px 10px; font-size: 11px; margin: 0; background-color: #6366f1;" id="btn-shorten-api" onclick="shortenInvitationLink()">
+</div>
+</div>
+</div>
+<!-- Envelope Tab view -->
+<div class="envelope-container" id="tab-view-envelope" style="display: none;">
+<div class="envelope-wrapper">
+<div class="envelope" id="3d-envelope" onclick="toggleEnvelopeOpen()">
+<div class="envelope-flap"></div>
+<div class="envelope-pocket">
+<svg class="pocket-overlay" preserveaspectratio="none" viewbox="0 0 440 330">
+<!-- Inner lining shadow (opaque to hide card completely when closed) -->
+<rect fill="#b0bac6" height="330" width="440"></rect>
+<polygon fill="#9ba8b6" points="0,0 220,165 440,0"></polygon>
+<!-- Bottom diagonal folds -->
+<polygon fill="#d9e2ec" points="0,330 220,150 440,330" stroke="#b8c2cc" stroke-width="2"></polygon>
+<!-- Side folds overlay (fully opaque) -->
+<polygon fill="#e2e8f0" points="0,0 180,165 0,330" stroke="#cbd5e1" stroke-width="1.5"></polygon>
+<polygon fill="#e2e8f0" points="440,0 260,165 440,330" stroke="#cbd5e1" stroke-width="1.5"></polygon>
+</svg>
+</div>
+<!-- Sliding mini card inside envelope -->
+<div class="envelope-card-holder" id="envelope-card-holder">
+<!-- Replicated miniature card preview -->
+<div class="invitation-card" id="envelope-card-preview" style="transform: scale(0.85); transform-origin: top center; pointer-events: none;">
+<!-- Content injected dynamically -->
+</div>
+</div>
+</div>
+</div>
+<p class="envelope-tip" id="envelope-tip-text">Click the envelope to slide out your invitation!</p>
+</div>
+</div>
+<!-- STEP 2: SEND & SHARE PANEL -->
+<div class="step-content" id="step-content-2">
+<div class="send-layout" id="send-main-panel">
+<i class="fa-regular fa-paper-plane email-envelope-icon"></i>
+<h2 class="send-summary-title">Your RSVP Link is Ready!</h2>
+<p class="send-summary-desc">Send this link to all your guests. When they open it, they will see your custom envelope and RSVP card, and their responses will be emailed directly to you via Formspree.</p>
+<div style="margin-bottom: 30px; display: inline-block; padding: 20px; background: #ffffff; border: 1px solid var(--border-light); border-radius: 8px; text-align: left; width: 100%; max-width: 500px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+<h4 style="font-size: 14px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-link" style="color: var(--btn-green);"></i> Shareable RSVP Link:</h4>
+<div style="display: flex; gap: 10px; margin-bottom: 12px;">
+<input class="form-control" id="generic-rsvp-url-input" readonly="" style="font-size: 12px; font-family: monospace; background: #f8fafc;" type="text" value=""/>
+<button class="btn-header btn-outline" onclick="copyGenericRsvpLink(this)" style="padding: 10px 16px; font-size: 13px;">Copy Link</button>
+</div>
+<div id="shorten-link-container" style="margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; background: #f1f5f9; padding: 10px 14px; border-radius: 6px; border: 1px dashed #cbd5e1;">
+<span style="font-size: 11px; color: #475569; font-weight: 500;"><i class="fa-solid fa-wand-magic-sparkles" style="color: #6366f1;"></i> Hide your domain name?</span>
+<button class="btn-header btn-solid-green" id="btn-shorten-api" onclick="shortenInvitationLink()" style="padding: 6px 10px; font-size: 11px; margin: 0; background-color: #6366f1;">
               Create TinyURL
             </button>
-          </div>
-          
-          <div style="display: flex; gap: 12px;">
-            <a href="#" id="btn-share-email-generic" class="btn-header btn-solid-green" style="flex: 1; text-decoration: none; justify-content: center; align-items: center; display: inline-flex; gap: 6px;">
-              <i class="fa-regular fa-envelope"></i> Share via Email
+</div>
+<div style="display: flex; gap: 12px;">
+<a class="btn-header btn-solid-green" href="#" id="btn-share-email-generic" style="flex: 1; text-decoration: none; justify-content: center; align-items: center; display: inline-flex; gap: 6px;">
+<i class="fa-regular fa-envelope"></i> Share via Email
             </a>
-            <a href="#" id="btn-share-whatsapp-generic" target="_blank" class="btn-header btn-outline" style="flex: 1; text-decoration: none; justify-content: center; align-items: center; display: inline-flex; gap: 6px; border-color: #25D366; color: #25D366; background: #ffffff;">
-              <i class="fa-brands fa-whatsapp"></i> WhatsApp Share
+<a class="btn-header btn-outline" href="#" id="btn-share-whatsapp-generic" style="flex: 1; text-decoration: none; justify-content: center; align-items: center; display: inline-flex; gap: 6px; border-color: #25D366; color: #25D366; background: #ffffff;" target="_blank">
+<i class="fa-brands fa-whatsapp"></i> WhatsApp Share
             </a>
-          </div>
-        </div>
-
-        <div style="display: flex; gap: 16px; justify-content: center;">
-          <button class="btn-header btn-outline" onclick="prevStep()">
-            <i class="fa-solid fa-arrow-left"></i> Back to Design
+</div>
+</div>
+<div style="display: flex; gap: 16px; justify-content: center;">
+<button class="btn-header btn-outline" onclick="prevStep()">
+<i class="fa-solid fa-arrow-left"></i> Back to Design
           </button>
-        </div>
-      </div>
-    </div>
-
-  </main>
-
-  <!-- Style customizer popup floating toolbar -->
-  <div class="style-popover" id="text-style-popover">
-    <select class="popover-select" id="popover-font-select" onchange="applySelectedStyle('fontFamily', this.value)">
-      <option value="'Montserrat', sans-serif">Sans-Serif</option>
-      <option value="'Cinzel', serif">Serif (Cinzel)</option>
-      <option value="'Great Vibes', cursive">Script (Fancy)</option>
-      <option value="'Playball', cursive">Script (Modern)</option>
-      <option value="'Playfair Display', serif">Serif (Playfair)</option>
-    </select>
-    
-    <div class="popover-colors">
-      <div class="color-swatch" style="background: #ffe699;" title="Gold" onclick="applySelectedStyle('color', '#ffe699')"></div>
-      <div class="color-swatch" style="background: #ffffff;" title="White" onclick="applySelectedStyle('color', '#ffffff')"></div>
-      <div class="color-swatch" style="background: #b76e79;" title="Rose Gold" onclick="applySelectedStyle('color', '#b76e79')"></div>
-      <div class="color-swatch" style="background: #cbd5e1;" title="Silver" onclick="applySelectedStyle('color', '#cbd5e1')"></div>
-    </div>
-
-    <div class="popover-sizes">
-      <button class="size-btn" onclick="adjustSelectedFontSize(-2)" title="Smaller"><i class="fa-solid fa-minus"></i></button>
-      <button class="size-btn" onclick="adjustSelectedFontSize(2)" title="Larger"><i class="fa-solid fa-plus"></i></button>
-    </div>
-  </div>
-
-  <canvas class="confetti-canvas" id="canvas-confetti"></canvas>
-
-  <!-- JavaScript logic implementation -->
-  <script>
+</div>
+</div>
+</div>
+</main>
+<!-- Style customizer popup floating toolbar -->
+<div class="style-popover" id="text-style-popover">
+<select class="popover-select" id="popover-font-select" onchange="applySelectedStyle('fontFamily', this.value)">
+<option value="'Montserrat', sans-serif">Sans-Serif</option>
+<option value="'Cinzel', serif">Serif (Cinzel)</option>
+<option value="'Great Vibes', cursive">Script (Fancy)</option>
+<option value="'Playball', cursive">Script (Modern)</option>
+<option value="'Playfair Display', serif">Serif (Playfair)</option>
+</select>
+<div class="popover-colors">
+<div class="color-swatch" onclick="applySelectedStyle('color', '#ffe699')" style="background: #ffe699;" title="Gold"></div>
+<div class="color-swatch" onclick="applySelectedStyle('color', '#ffffff')" style="background: #ffffff;" title="White"></div>
+<div class="color-swatch" onclick="applySelectedStyle('color', '#b76e79')" style="background: #b76e79;" title="Rose Gold"></div>
+<div class="color-swatch" onclick="applySelectedStyle('color', '#cbd5e1')" style="background: #cbd5e1;" title="Silver"></div>
+</div>
+<div class="popover-sizes">
+<button class="size-btn" onclick="adjustSelectedFontSize(-2)" title="Smaller"><i class="fa-solid fa-minus"></i></button>
+<button class="size-btn" onclick="adjustSelectedFontSize(2)" title="Larger"><i class="fa-solid fa-plus"></i></button>
+</div>
+</div>
+<canvas class="confetti-canvas" id="canvas-confetti"></canvas>
+<!-- JavaScript logic implementation -->
+<script>
     // App States
     let currentStep = 1;
     let activeTab = 'details';

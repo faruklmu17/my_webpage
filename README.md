@@ -1,14 +1,151 @@
+# Project Status
 
-# My Personal Website
+**Status:** 🟢 Live
 
-This is my personal website, built using HTML, CSS, and JavaScript. The site showcases various aspects of my life, including my career, the courses I offer, my travel experiences, and my investment strategies. 
+Version: 1.0.0
 
-The website is designed as a **static page**, with sections dedicated to:
-- **Career**: My professional background and passions.
-- **Courses**: Information about the tech courses I offer for students.
-- **Travel**: A glimpse into my travel adventures.
-- **Investment**: Details about my investment approach and strategies.
+Last Updated: July 2026
 
-The site is deployed using **GitHub Pages**, allowing for easy hosting and updates. 
+Current Goal:
+Maintain live website.
 
-Feel free to explore and learn more about my journey and offerings!
+Next Task:
+Add new blog posts.
+
+Known Issues:
+- Initial scaffold only
+
+---
+
+# Portfolio Website
+
+Personal website.
+
+---
+
+## Purpose
+
+Why was this project created?
+
+---
+
+## Features
+
+- Feature 1
+- Feature 2
+- Feature 3
+
+---
+
+## Technologies
+
+- Node.js
+- Docker
+- FastAPI
+- Python
+- SQLite
+- Playwright
+- React
+
+---
+
+## Folder Structure
+
+```
+project/
+│
+├── src/
+├── config/
+├── tests/
+├── docs/
+├── docker-compose.yml
+├── .env.example
+└── README.md
+```
+
+---
+
+## Installation
+
+Clone
+
+```bash
+git clone ...
+```
+
+---
+
+## Environment Variables
+
+Create
+
+```
+.env
+```
+
+---
+
+## Running
+
+```bash
+npm start
+```
+
+---
+
+## Docker
+
+```bash
+docker compose up -d
+```
+
+---
+
+## Screenshots
+
+(Add screenshots here)
+
+---
+
+## Architecture
+
+Describe how the project works.
+
+---
+
+## API
+
+Example
+
+GET
+
+```
+/health
+```
+
+---
+
+## TODO
+
+- [ ] Add authentication
+- [ ] Improve logging
+- [ ] Dockerize
+- [ ] Add tests
+
+---
+
+## Future Ideas
+
+Ideas that are not implemented yet.
+
+---
+
+## Lessons Learned
+
+Things learned while building this project.
+
+---
+
+## License
+
+MIT

@@ -1,19 +1,16 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
 
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Pro Curling 2026 - Free Online Winter Sports Game</title>
-    <meta name="description"
-        content="Play Pro Curling 2026, the best free online curling game. Master realistic physics, sweeping mechanics, and strategy in this 3D-style browser sports simulator. No download required." />
-    <meta name="keywords"
-        content="curling game, online curling, winter olympics game, browser game, free games, physics game, html5 curling, sweeping mechanic" />
-    <meta property="og:title" content="Pro Curling 2026 - Master the Ice" />
-    <meta property="og:description"
-        content="Slide, sweep, and score in this realistic curling simulation. Challenge yourself to land on the button!" />
-    <meta property="og:type" content="website" />
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Pro Curling 2026 - Free Online Winter Sports Game</title>
+<meta content="Play Pro Curling 2026, the best free online curling game. Master realistic physics, sweeping mechanics, and strategy in this 3D-style browser sports simulator. No download required." name="description"/>
+<meta content="curling game, online curling, winter olympics game, browser game, free games, physics game, html5 curling, sweeping mechanic" name="keywords"/>
+<meta content="Pro Curling 2026 - Master the Ice" property="og:title"/>
+<meta content="Slide, sweep, and score in this realistic curling simulation. Challenge yourself to land on the button!" property="og:description"/>
+<meta content="website" property="og:type"/>
+<style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
 
         :root {
@@ -396,135 +393,115 @@
             color: #fff;
         }
     </style>
-</head>
-
+<link href="https://faruk-hasan.com/games/curling.html" rel="canonical"/></head>
 <body>
-
-    <div class="game-container">
-        <canvas id="gameCanvas" width="600" height="900"></canvas>
-
-        <div class="ui-layer">
-
-            <!-- Top Scoreboard -->
-            <div class="top-bar">
-                <div class="scoreboard">
-                    <div class="team-score red">
-                        <span>Red</span>
-                        <strong id="scoreRed">0</strong>
-                    </div>
-                    <div class="end-info">
-                        <h2>End</h2>
-                        <div id="endDisplay">1/1</div>
-                    </div>
-                    <div class="team-score blue">
-                        <span>Blue</span>
-                        <strong id="scoreBlue">0</strong>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Turn Indicator -->
-            <div class="turn-indicator">
-                <div class="dot" id="turnDot" style="background:var(--danger)"></div>
-                <span id="turnText">Red's Turn</span>
-                <span id="shotsLeft" style="opacity:0.6; font-size:12px; margin-left:8px;">(Shot 1 / 8)</span>
-            </div>
-
-            <!-- Sweep Button -->
-            <div id="sweepBtn">
+<div class="game-container">
+<canvas height="900" id="gameCanvas" width="600"></canvas>
+<div class="ui-layer">
+<!-- Top Scoreboard -->
+<div class="top-bar">
+<div class="scoreboard">
+<div class="team-score red">
+<span>Red</span>
+<strong id="scoreRed">0</strong>
+</div>
+<div class="end-info">
+<h2>End</h2>
+<div id="endDisplay">1/1</div>
+</div>
+<div class="team-score blue">
+<span>Blue</span>
+<strong id="scoreBlue">0</strong>
+</div>
+</div>
+</div>
+<!-- Turn Indicator -->
+<div class="turn-indicator">
+<div class="dot" id="turnDot" style="background:var(--danger)"></div>
+<span id="turnText">Red's Turn</span>
+<span id="shotsLeft" style="opacity:0.6; font-size:12px; margin-left:8px;">(Shot 1 / 8)</span>
+</div>
+<!-- Sweep Button -->
+<div id="sweepBtn">
                 SWEEP!
                 <span>Hold to Glide Further</span>
-            </div>
-
-            <!-- Bottom Controls -->
-            <div style="display:flex; justify-content:flex-end;">
-                <div class="controls-panel">
-                    <h3>Shot Settings</h3>
-
-                    <div class="control-group">
-                        <div class="control-label">
-                            <span>Handle Turn (Curl)</span>
-                            <span id="curlVal">Right</span>
-                        </div>
-                        <input type="range" id="curlSlider" min="-1" max="1" step="0.1" value="0.2">
-                    </div>
-
-                    <div class="btn-row">
-                        <button class="btn-secondary" id="undoBtn">Undo</button>
-                        <button class="btn-primary" id="restartBtn">Reset Match</button>
-                    </div>
-                    <button class="btn-secondary" id="infoBtn" style="margin-top:10px; width:100%;">Tips & Info</button>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Tutorial/Start Screen -->
-    <div class="tutorial-overlay" id="startScreen">
-        <div class="tutorial-card">
-            <h1>Pro Curling 2026</h1>
-
-            <h2>How to Play</h2>
-            <ul>
-                <li><b>Aim & Shoot:</b> Drag anywhere on screen to set power and direction.</li>
-                <li><b>Set Curl:</b> Use the slider to rotate the handle left or right before shooting.</li>
-                <li><b>Sweep:</b> Hold <span class="key-hint">SPACE</span> while the stone is moving.</li>
-            </ul>
-
-            <h2>Sweeping Mechanics 101</h2>
-            <p>Sweeping warms the ice, creating a thin layer of water. This does two things:</p>
-            <ul>
-                <li><b>Reduces Friction:</b> The stone glides further.</li>
-                <li><b>Reduces Curl:</b> The stone travels straighter.</li>
-            </ul>
-
-            <h2>Pro Tips</h2>
-            <p style="font-size:14px; color:#94a3b8; font-style:italic;">
+</div>
+<!-- Bottom Controls -->
+<div style="display:flex; justify-content:flex-end;">
+<div class="controls-panel">
+<h3>Shot Settings</h3>
+<div class="control-group">
+<div class="control-label">
+<span>Handle Turn (Curl)</span>
+<span id="curlVal">Right</span>
+</div>
+<input id="curlSlider" max="1" min="-1" step="0.1" type="range" value="0.2"/>
+</div>
+<div class="btn-row">
+<button class="btn-secondary" id="undoBtn">Undo</button>
+<button class="btn-primary" id="restartBtn">Reset Match</button>
+</div>
+<button class="btn-secondary" id="infoBtn" style="margin-top:10px; width:100%;">Tips &amp; Info</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Tutorial/Start Screen -->
+<div class="tutorial-overlay" id="startScreen">
+<div class="tutorial-card">
+<h1>Pro Curling 2026</h1>
+<h2>How to Play</h2>
+<ul>
+<li><b>Aim &amp; Shoot:</b> Drag anywhere on screen to set power and direction.</li>
+<li><b>Set Curl:</b> Use the slider to rotate the handle left or right before shooting.</li>
+<li><b>Sweep:</b> Hold <span class="key-hint">SPACE</span> while the stone is moving.</li>
+</ul>
+<h2>Sweeping Mechanics 101</h2>
+<p>Sweeping warms the ice, creating a thin layer of water. This does two things:</p>
+<ul>
+<li><b>Reduces Friction:</b> The stone glides further.</li>
+<li><b>Reduces Curl:</b> The stone travels straighter.</li>
+</ul>
+<h2>Pro Tips</h2>
+<p style="font-size:14px; color:#94a3b8; font-style:italic;">
                 "If you see your stone curling too much or slowing down too early, <b>SWEEP!</b>
                 But be careful—if you're already going too fast, sweeping will make it worse!"
             </p>
-
-            <button class="btn-primary" id="startBtn" style="width:100%; font-size:18px; margin-top:10px;">Start
+<button class="btn-primary" id="startBtn" style="width:100%; font-size:18px; margin-top:10px;">Start
                 Match</button>
-        </div>
-    </div>
-    <!-- Info Modal -->
-    <div class="tutorial-overlay" id="infoOverlay" style="display:none; z-index:101;">
-        <div class="info-modal" style="display:block;">
-            <h1>Game Info & Tips</h1>
-
-            <h2>About the Game</h2>
-            <p>
-                <b>Pro Curling 2026</b> is a strategy sports game where two teams slide stones on a sheet of ice towards
+</div>
+</div>
+<!-- Info Modal -->
+<div class="tutorial-overlay" id="infoOverlay" style="display:none; z-index:101;">
+<div class="info-modal" style="display:block;">
+<h1>Game Info &amp; Tips</h1>
+<h2>About the Game</h2>
+<p>
+<b>Pro Curling 2026</b> is a strategy sports game where two teams slide stones on a sheet of ice towards
                 a target area.
                 The goal is to get your stones closer to the center (the "button") than the opponent's stones.
             </p>
-
-            <h2>Winning Strategy</h2>
-            <ul>
-                <li><b>The Hammer:</b> The team that shoots last (has the "hammer") has a huge advantage. They can knock
+<h2>Winning Strategy</h2>
+<ul>
+<li><b>The Hammer:</b> The team that shoots last (has the "hammer") has a huge advantage. They can knock
                     out opponent stones with the final shot.</li>
-                <li><b>Guards:</b> Place stones in front of the house to protect your scoring stones.</li>
-                <li><b>Takeouts:</b> Use high power to knock opponent stones out of play.</li>
-            </ul>
-
-            <h2>Advanced Sweeping Tips</h2>
-            <ul>
-                <li><b>Extend Distance:</b> If a shot is light (too slow), sweep immediately and keep sweeping!</li>
-                <li><b>Hold the Line:</b> If a stone is curling too much towards a guard, sweep to make it run
+<li><b>Guards:</b> Place stones in front of the house to protect your scoring stones.</li>
+<li><b>Takeouts:</b> Use high power to knock opponent stones out of play.</li>
+</ul>
+<h2>Advanced Sweeping Tips</h2>
+<ul>
+<li><b>Extend Distance:</b> If a shot is light (too slow), sweep immediately and keep sweeping!</li>
+<li><b>Hold the Line:</b> If a stone is curling too much towards a guard, sweep to make it run
                     straighter.</li>
-                <li><b>Don't Sweep</b> if the stone is too heavy (fast) or tracking incorrectly—let the ice slow it down
+<li><b>Don't Sweep</b> if the stone is too heavy (fast) or tracking incorrectly—let the ice slow it down
                     or curl it away.</li>
-            </ul>
-
-            <button class="btn-primary" id="closeInfoBtn" style="width:100%; font-size:16px; margin-top:20px;">Return to
+</ul>
+<button class="btn-primary" id="closeInfoBtn" style="width:100%; font-size:16px; margin-top:20px;">Return to
                 Game</button>
-        </div>
-    </div>
-    </div>
+</div>
+</div>
 
-    <script>
+<script>
         /**
          * AUDIO SYSTEM (Synthesized)
          */
@@ -1086,5 +1063,4 @@
 
     </script>
 </body>
-
 </html>

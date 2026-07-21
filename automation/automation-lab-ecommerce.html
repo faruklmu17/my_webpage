@@ -1,154 +1,143 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automation Lab: POM & Data-Driven Testing | Practice Playground</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Dedicated automation lab for practicing Page Object Model (POM) and Data-Driven Testing (DDT). Ideal for Selenium, Playwright, and Cypress engineers." />
-    <meta name="keywords" content="Page Object Model practice, POM testing, Data-Driven Testing lab, DDT practice, Selenium lab, Playwright practice, QA automation training, locators practice" />
-    <meta name="author" content="Faruk Hasan" />
-    
-    <link rel="stylesheet" href="lab-styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-</head>
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Automation Lab: POM &amp; Data-Driven Testing | Practice Playground</title>
+<!-- SEO Meta Tags -->
+<meta content="Dedicated automation lab for practicing Page Object Model (POM) and Data-Driven Testing (DDT). Ideal for Selenium, Playwright, and Cypress engineers." name="description">
+<meta content="Page Object Model practice, POM testing, Data-Driven Testing lab, DDT practice, Selenium lab, Playwright practice, QA automation training, locators practice" name="keywords">
+<meta content="Faruk Hasan" name="author"/>
+<link href="lab-styles.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Outfit:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+</meta></meta><link href="https://faruk-hasan.com/automation/automation-lab-ecommerce.html" rel="canonical"/></head>
 <body>
-    <header class="lab-header">
-        <div class="header-container">
-            <div class="logo">
-                <span class="logo-icon">🚀</span>
-                <h1>AutomationLab<span>.io</span></h1>
-            </div>
-            <nav class="lab-nav">
-                <ul>
-                    <li><a href="#login-section">Auth</a></li>
-                    <li><a href="#products-section">Catalog</a></li>
-                    <li><a href="#search-section">Search</a></li>
-                    <li><a href="#contact-section">Forms</a></li>
-                </ul>
-            </nav>
-            <div class="lab-badge">POM & DDT Edition</div>
-        </div>
-    </header>
-
-    <main class="lab-main">
-        <section class="hero-section">
-            <h2>The Automation Architect's Playground</h2>
-            <p>Master <strong>Page Object Model</strong> and <strong>Data-Driven Testing</strong> through realistic e-commerce scenarios. Every element is designed for reliable locator strategy practice.</p>
-        </section>
-
-        <!-- Section 1: Authentication (POM Practice) -->
-        <section id="login-section" class="lab-card">
-            <div class="card-header">
-                <h3>1. Authentication Module</h3>
-                <span class="badge pom">POM Focus</span>
-            </div>
-            <p class="section-desc">Practice creating a Login Page Object. Test various scenarios using external data sets.</p>
-            <div class="login-wrapper">
-                <form id="lab-login-form" onsubmit="return handleLogin(event)">
-                    <div class="form-control">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" placeholder="faruk_qa" required>
-                    </div>
-                    <div class="form-control">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" placeholder="••••••••" required>
-                    </div>
-                    <div class="login-actions">
-                        <label class="remember-me">
-                            <input type="checkbox" id="remember"> Remember me
+<header class="lab-header">
+<div class="header-container">
+<div class="logo">
+<span class="logo-icon">🚀</span>
+<h1>AutomationLab<span>.io</span></h1>
+</div>
+<nav class="lab-nav">
+<ul>
+<li><a href="#login-section">Auth</a></li>
+<li><a href="#products-section">Catalog</a></li>
+<li><a href="#search-section">Search</a></li>
+<li><a href="#contact-section">Forms</a></li>
+</ul>
+</nav>
+<div class="lab-badge">POM &amp; DDT Edition</div>
+</div>
+</header>
+<main class="lab-main">
+<section class="hero-section">
+<h2>The Automation Architect's Playground</h2>
+<p>Master <strong>Page Object Model</strong> and <strong>Data-Driven Testing</strong> through realistic e-commerce scenarios. Every element is designed for reliable locator strategy practice.</p>
+</section>
+<!-- Section 1: Authentication (POM Practice) -->
+<section class="lab-card" id="login-section">
+<div class="card-header">
+<h3>1. Authentication Module</h3>
+<span class="badge pom">POM Focus</span>
+</div>
+<p class="section-desc">Practice creating a Login Page Object. Test various scenarios using external data sets.</p>
+<div class="login-wrapper">
+<form id="lab-login-form" onsubmit="return handleLogin(event)">
+<div class="form-control">
+<label for="username">Username</label>
+<input id="username" name="username" placeholder="faruk_qa" required="" type="text"/>
+</div>
+<div class="form-control">
+<label for="password">Password</label>
+<input id="password" name="password" placeholder="••••••••" required="" type="password"/>
+</div>
+<div class="login-actions">
+<label class="remember-me">
+<input id="remember" type="checkbox"/> Remember me
                         </label>
-                        <a href="#" class="forgot-link">Forgot password?</a>
-                    </div>
-                    <button type="submit" id="login-submit" class="btn-primary">Sign In</button>
-                    <div id="login-message" class="status-message"></div>
-                </form>
-            </div>
-        </section>
-
-        <!-- Section 2: Catalog (DDT Practice) -->
-        <section id="products-section" class="lab-card">
-            <div class="card-header">
-                <h3>2. Product Catalog</h3>
-                <span class="badge ddt">DDT Focus</span>
-            </div>
-            <p class="section-desc">Iterate through items and verify details. Feed your test with an array of product names and prices.</p>
-            <div class="product-grid" id="product-list">
-                <!-- Products will be injected via JS -->
-            </div>
-        </section>
-
-        <!-- Section 3: Dynamic Filtering -->
-        <section id="search-section" class="lab-card">
-            <div class="card-header">
-                <h3>3. Global Search & Filter</h3>
-                <span class="badge pom-ddt">Mixed Mode</span>
-            </div>
-            <p class="section-desc">Test search functionality with a list of keywords. Practice parameterizing your automated queries.</p>
-            <div class="search-container">
-                <div class="search-bar">
-                    <input type="text" id="lab-search" placeholder="Search products (e.g., 'Core', 'Edge', 'Pro')...">
-                    <button onclick="performSearch()" id="search-btn">Search</button>
-                </div>
-                <div class="filter-chips" id="filter-container">
-                    <span class="chip active" onclick="filterBy('All')">All</span>
-                    <span class="chip" onclick="filterBy('Hardware')">Hardware</span>
-                    <span class="chip" onclick="filterBy('Software')">Software</span>
-                    <span class="chip" onclick="filterBy('Service')">Service</span>
-                </div>
-                <div id="search-results-info" class="results-info">Showing all items</div>
-            </div>
-        </section>
-
-        <!-- Section 4: Lead Generation (DDT Practice) -->
-        <section id="contact-section" class="lab-card">
-            <div class="card-header">
-                <h3>4. Contact & Inquiries</h3>
-                <span class="badge ddt">DDT Focus</span>
-            </div>
-            <p class="section-desc">Submit various test cases (Valid, Invalid Email, Missing Subject) using a Data Provider.</p>
-            <form id="lab-contact-form" onsubmit="return handleContact(event)">
-                <div class="form-grid">
-                    <div class="form-control">
-                        <label for="contact-name">Full Name</label>
-                        <input type="text" id="contact-name" name="name" required>
-                    </div>
-                    <div class="form-control">
-                        <label for="contact-email">Email</label>
-                        <input type="email" id="contact-email" name="email" required>
-                    </div>
-                </div>
-                <div class="form-control">
-                    <label for="contact-subject">Subject</label>
-                    <select id="contact-subject" name="subject">
-                        <option value="">-- Choose Subject --</option>
-                        <option value="support">Technical Support</option>
-                        <option value="sales">Sales Inquiry</option>
-                        <option value="billing">Billing Issue</option>
-                    </select>
-                </div>
-                <div class="form-control">
-                    <label for="contact-message">Message</label>
-                    <textarea id="contact-message" name="message" rows="4"></textarea>
-                </div>
-                <button type="submit" id="contact-submit" class="btn-primary">Send Message</button>
-                <div id="contact-message-status" class="status-message"></div>
-            </form>
-        </section>
-    </main>
-
-    <footer class="lab-footer">
-        <p>&copy; 2025 Faruk Hasan - Automation Lab Practice Hub</p>
-        <div class="footer-links">
-            <a href="playwright-selenium-cypress-practice.html">Back to Main Playground</a>
-        </div>
-    </footer>
-
-    <script src="lab-scripts.js"></script>
-    <script src="../shared/header-footer.js"></script>
+<a class="forgot-link" href="#">Forgot password?</a>
+</div>
+<button class="btn-primary" id="login-submit" type="submit">Sign In</button>
+<div class="status-message" id="login-message"></div>
+</form>
+</div>
+</section>
+<!-- Section 2: Catalog (DDT Practice) -->
+<section class="lab-card" id="products-section">
+<div class="card-header">
+<h3>2. Product Catalog</h3>
+<span class="badge ddt">DDT Focus</span>
+</div>
+<p class="section-desc">Iterate through items and verify details. Feed your test with an array of product names and prices.</p>
+<div class="product-grid" id="product-list">
+<!-- Products will be injected via JS -->
+</div>
+</section>
+<!-- Section 3: Dynamic Filtering -->
+<section class="lab-card" id="search-section">
+<div class="card-header">
+<h3>3. Global Search &amp; Filter</h3>
+<span class="badge pom-ddt">Mixed Mode</span>
+</div>
+<p class="section-desc">Test search functionality with a list of keywords. Practice parameterizing your automated queries.</p>
+<div class="search-container">
+<div class="search-bar">
+<input id="lab-search" placeholder="Search products (e.g., 'Core', 'Edge', 'Pro')..." type="text"/>
+<button id="search-btn" onclick="performSearch()">Search</button>
+</div>
+<div class="filter-chips" id="filter-container">
+<span class="chip active" onclick="filterBy('All')">All</span>
+<span class="chip" onclick="filterBy('Hardware')">Hardware</span>
+<span class="chip" onclick="filterBy('Software')">Software</span>
+<span class="chip" onclick="filterBy('Service')">Service</span>
+</div>
+<div class="results-info" id="search-results-info">Showing all items</div>
+</div>
+</section>
+<!-- Section 4: Lead Generation (DDT Practice) -->
+<section class="lab-card" id="contact-section">
+<div class="card-header">
+<h3>4. Contact &amp; Inquiries</h3>
+<span class="badge ddt">DDT Focus</span>
+</div>
+<p class="section-desc">Submit various test cases (Valid, Invalid Email, Missing Subject) using a Data Provider.</p>
+<form id="lab-contact-form" onsubmit="return handleContact(event)">
+<div class="form-grid">
+<div class="form-control">
+<label for="contact-name">Full Name</label>
+<input id="contact-name" name="name" required="" type="text"/>
+</div>
+<div class="form-control">
+<label for="contact-email">Email</label>
+<input id="contact-email" name="email" required="" type="email"/>
+</div>
+</div>
+<div class="form-control">
+<label for="contact-subject">Subject</label>
+<select id="contact-subject" name="subject">
+<option value="">-- Choose Subject --</option>
+<option value="support">Technical Support</option>
+<option value="sales">Sales Inquiry</option>
+<option value="billing">Billing Issue</option>
+</select>
+</div>
+<div class="form-control">
+<label for="contact-message">Message</label>
+<textarea id="contact-message" name="message" rows="4"></textarea>
+</div>
+<button class="btn-primary" id="contact-submit" type="submit">Send Message</button>
+<div class="status-message" id="contact-message-status"></div>
+</form>
+</section>
+</main>
+<footer class="lab-footer">
+<p>© 2025 Faruk Hasan - Automation Lab Practice Hub</p>
+<div class="footer-links">
+<a href="playwright-selenium-cypress-practice.html">Back to Main Playground</a>
+</div>
+</footer>
+<script src="lab-scripts.js"></script>
+<script src="../shared/header-footer.js"></script>
 </body>
-
 </html>

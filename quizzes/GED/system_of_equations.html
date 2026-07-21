@@ -1,63 +1,52 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GED Math: Systems of Equations Practice Test | Free GED Math Quiz</title>
-  <meta name="description"
-    content="Free GED Math practice test with 15 systems of equations questions ranging from easy to hard. Perfect for GED test prep with instant scoring and explanations.">
-  <meta name="keywords"
-    content="GED math practice test, systems of equations, GED test prep, free GED practice, GED math questions, GED algebra, linear equations">
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../../shared/quiz-style.css">
-</head>
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GED Math: Systems of Equations Practice Test | Free GED Math Quiz</title>
+<meta content="Free GED Math practice test with 15 systems of equations questions ranging from easy to hard. Perfect for GED test prep with instant scoring and explanations." name="description"/>
+<meta content="GED math practice test, systems of equations, GED test prep, free GED practice, GED math questions, GED algebra, linear equations" name="keywords"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../../shared/quiz-style.css" rel="stylesheet"/>
+<link href="https://faruk-hasan.com/quizzes/GED/system_of_equations.html" rel="canonical"/></head>
 <body>
-
-  <h1>📐 GED Math: Systems of Equations</h1>
-
-  <div class="quiz-container">
-    <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Resources</a>
-    <div class="intro">
-      <p>This free GED Math practice test contains 15 systems of equations questions ranging from easy to hard. The quiz
+<h1>📐 GED Math: Systems of Equations</h1>
+<div class="quiz-container">
+<a class="back-link" href="../../resources/resources.html"><i class="fas fa-arrow-left"></i> Back to Resources</a>
+<div class="intro">
+<p>This free GED Math practice test contains 15 systems of equations questions ranging from easy to hard. The quiz
         covers solving linear systems, word problems, and applications of systems of equations.</p>
-      <p><strong>GED Math Test Info:</strong> Systems of equations are a key part of the Algebra section of the GED
+<p><strong>GED Math Test Info:</strong> Systems of equations are a key part of the Algebra section of the GED
         exam.</p>
-    </div>
-
-    <div class="progress-wrapper">
-      <div class="progress-container">
-        <div id="progress-fill"></div>
-      </div>
-      <div id="progress-count">0/15 answered</div>
-    </div>
-
-    <form id="quiz-form">
-      <div id="quiz-area"></div>
-      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Results</button>
-    </form>
-
-    <div id="results">
-      <div class="score-container">
-        <div class="score-circle">0</div>
-        <div class="score-label">Your Score</div>
-      </div>
-      <div class="feedback"></div>
-      <div class="action-buttons">
-        <a href="" class="secondary-btn" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
+</div>
+<div class="progress-wrapper">
+<div class="progress-container">
+<div id="progress-fill"></div>
+</div>
+<div id="progress-count">0/15 answered</div>
+</div>
+<form id="quiz-form">
+<div id="quiz-area"></div>
+<button id="submitBtn" onclick="submitQuiz()" type="button">Submit Results</button>
+</form>
+<div id="results">
+<div class="score-container">
+<div class="score-circle">0</div>
+<div class="score-label">Your Score</div>
+</div>
+<div class="feedback"></div>
+<div class="action-buttons">
+<a class="secondary-btn" href="" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
           Quiz</a>
-        <a href="../../resources/resources.html" class="secondary-btn"><i class="fas fa-th-list"></i> More Quizzes</a>
-      </div>
-      <div id="answer-key" class="answer-key"></div>
-    </div>
-  </div>
-
-  <script>
+<a class="secondary-btn" href="../../resources/resources.html"><i class="fas fa-th-list"></i> More Quizzes</a>
+</div>
+<div class="answer-key" id="answer-key"></div>
+</div>
+</div>
+<script>
     const questions = [
       {
         q: "1. Solve the system: \\( x + y = 10 \\), \\( x - y = 2 \\). What is the value of \\(x\\) and \\(y\\)?",
@@ -206,5 +195,4 @@
     }
   </script>
 </body>
-
 </html>

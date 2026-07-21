@@ -1,19 +1,15 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bag of Words Lab 🧺🔢</title>
-
-  <!-- Friendly Font (same vibe as your example) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600;700&family=Nunito:wght@400;700;800&display=swap"
-    rel="stylesheet">
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Bag of Words Lab 🧺🔢</title>
+<!-- Friendly Font (same vibe as your example) -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600;700&amp;family=Nunito:wght@400;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
     :root {
       /* Fun palette (inspired by your provided example styling) */
       --bg: #E0F7FA;
@@ -475,155 +471,137 @@
       margin-bottom: 10px;
     }
   </style>
-</head>
-
+<meta content="Explore Bag of Words Lab 🧺🔢 on Faruk Hasan's portfolio. Interactive resources and programming practice." name="description"/><link href="https://faruk-hasan.com/ai_resources/bag_of_words.html" rel="canonical"/></head>
 <body>
-  <header>
-    <h1>Bag of Words Lab 🧺🔢</h1>
-    <div class="sub">
+<header>
+<h1>Bag of Words Lab 🧺🔢</h1>
+<div class="sub">
       Type 3 messages, then click <span class="kbd">Build Vocabulary</span> to see how <strong>vectorization</strong>
       turns text into numbers (Bag of Words = just word counts).
     </div>
-
-    <div class="stats-bar">
-      <div class="stat-pill primary">
+<div class="stats-bar">
+<div class="stat-pill primary">
         🧠 Vocabulary Size: <b id="vocabSize">0</b>
-      </div>
-      <div class="stat-pill">
+</div>
+<div class="stat-pill">
         📄 Messages: <b id="docCount">3</b>
-      </div>
-      <div class="stat-pill">
+</div>
+<div class="stat-pill">
         🧊 Non-Zero Cells: <b id="nnz">0</b>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <!-- LEFT: Controls -->
-    <section class="card">
-      <h2>🛠️ Mission Control</h2>
-
-      <div class="control-group">
-        <label class="control-label">✍️ Message #1</label>
-        <textarea id="m1" spellcheck="false">Hi there</textarea>
-      </div>
-
-      <div class="control-group">
-        <label class="control-label">✍️ Message #2</label>
-        <textarea id="m2" spellcheck="false">Hello</textarea>
-      </div>
-
-      <div class="control-group">
-        <label class="control-label">✍️ Message #3</label>
-        <textarea id="m3" spellcheck="false">Hi again</textarea>
-      </div>
-
-      <div class="btnRow">
-        <button class="btn btn-primary" id="buildBtn">🧺 Build Vocabulary</button>
-        <button class="btn btn-secondary" id="vectorBtn">🔢 Vectorize (Make Numbers)</button>
-        <button class="btn btn-ghost" id="helpBtn">❓ Show Explanation</button>
-        <button class="btn btn-secondary" id="resetBtn">🧹 Reset to Example</button>
-      </div>
-
-      <div class="chipsBox" id="vocabChips">
-        <div style="text-align:center; color:#adb5bd; padding:18px 0;">
-          <em>Click “Build Vocabulary” to fill the bag.</em>
-        </div>
-      </div>
-
-      <div class="hint">
+</div>
+</div>
+</header>
+<main>
+<!-- LEFT: Controls -->
+<section class="card">
+<h2>🛠️ Mission Control</h2>
+<div class="control-group">
+<label class="control-label">✍️ Message #1</label>
+<textarea id="m1" spellcheck="false">Hi there</textarea>
+</div>
+<div class="control-group">
+<label class="control-label">✍️ Message #2</label>
+<textarea id="m2" spellcheck="false">Hello</textarea>
+</div>
+<div class="control-group">
+<label class="control-label">✍️ Message #3</label>
+<textarea id="m3" spellcheck="false">Hi again</textarea>
+</div>
+<div class="btnRow">
+<button class="btn btn-primary" id="buildBtn">🧺 Build Vocabulary</button>
+<button class="btn btn-secondary" id="vectorBtn">🔢 Vectorize (Make Numbers)</button>
+<button class="btn btn-ghost" id="helpBtn">❓ Show Explanation</button>
+<button class="btn btn-secondary" id="resetBtn">🧹 Reset to Example</button>
+</div>
+<div class="chipsBox" id="vocabChips">
+<div style="text-align:center; color:#adb5bd; padding:18px 0;">
+<em>Click “Build Vocabulary” to fill the bag.</em>
+</div>
+</div>
+<div class="hint">
         ✅ Tip: Click a word-chip to <strong>highlight its column</strong> in the table.
       </div>
-
-      <div class="status-msg" id="statusBox">
+<div class="status-msg" id="statusBox">
         👋 Start with the example, or type your own messages. Then build the vocabulary and vectorize.
       </div>
-    </section>
-
-    <!-- RIGHT: Output -->
-    <section class="gridRight">
-      <div class="panel">
-        <div class="panelHeader">
-          <span>📚 Step 1: Vocabulary (word → column index)</span>
-          <span class="tag" id="vocabTag">Not built</span>
-        </div>
-        <div class="panelBody">
-          <p class="miniTitle">Vocabulary Dictionary</p>
-          <div id="vocabDict" class="mono">{}</div>
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="panelHeader">
-          <span>📊 Step 2: Count Table (rows = messages, cols = words)</span>
-          <span class="tag" id="tableTag">Waiting</span>
-        </div>
-        <div class="panelBody">
-          <div id="countTableWrap">
-            <div style="color:#adb5bd;"><em>Click “Vectorize” to generate the table.</em></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="panelHeader">
-          <span>🧊 Step 3: Sparse Matrix (only non-zero cells)</span>
-          <span class="tag" id="sparseTag">Waiting</span>
-        </div>
-        <div class="panelBody">
-          <p class="miniTitle">What the computer stores</p>
-          <div id="sparseOut" class="mono">Shape (0, 0)</div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Explanation Modal -->
-  <div class="overlay" id="overlay">
-    <div class="modalCard">
-      <button class="closeX" id="closeHelp">×</button>
-      <h2 style="font-family:var(--font-head); color:var(--secondary-dark); margin-top:0;">
+</section>
+<!-- RIGHT: Output -->
+<section class="gridRight">
+<div class="panel">
+<div class="panelHeader">
+<span>📚 Step 1: Vocabulary (word → column index)</span>
+<span class="tag" id="vocabTag">Not built</span>
+</div>
+<div class="panelBody">
+<p class="miniTitle">Vocabulary Dictionary</p>
+<div class="mono" id="vocabDict">{}</div>
+</div>
+</div>
+<div class="panel">
+<div class="panelHeader">
+<span>📊 Step 2: Count Table (rows = messages, cols = words)</span>
+<span class="tag" id="tableTag">Waiting</span>
+</div>
+<div class="panelBody">
+<div id="countTableWrap">
+<div style="color:#adb5bd;"><em>Click “Vectorize” to generate the table.</em></div>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="panelHeader">
+<span>🧊 Step 3: Sparse Matrix (only non-zero cells)</span>
+<span class="tag" id="sparseTag">Waiting</span>
+</div>
+<div class="panelBody">
+<p class="miniTitle">What the computer stores</p>
+<div class="mono" id="sparseOut">Shape (0, 0)</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Explanation Modal -->
+<div class="overlay" id="overlay">
+<div class="modalCard">
+<button class="closeX" id="closeHelp">×</button>
+<h2 style="font-family:var(--font-head); color:var(--secondary-dark); margin-top:0;">
         🧠 Bag of Words Explanation
       </h2>
-
-      <ol class="stepList">
-        <li>
-          <strong>Vectorization</strong> means converting text into numbers.
+<ol class="stepList">
+<li>
+<strong>Vectorization</strong> means converting text into numbers.
           The model can’t learn from words directly — it needs numbers.
         </li>
-        <li>
-          <strong>Bag of Words</strong> means we ignore grammar and order.
+<li>
+<strong>Bag of Words</strong> means we ignore grammar and order.
           We only care:
-          <br>➡️ Which words exist?
-          <br>➡️ How many times each word appears?
+          <br/>➡️ Which words exist?
+          <br/>➡️ How many times each word appears?
         </li>
-        <li>
+<li>
           We build a <strong>vocabulary</strong> (a list of all unique words).
           Each word gets a <strong>column index</strong> like:
           <div class="mono" style="margin-top:8px;">{ "again": 0, "hello": 1, "hi": 2, "there": 3 }</div>
-        </li>
-        <li>
+</li>
+<li>
           Each message becomes a <strong>row</strong> of numbers.
           Each number is the <strong>count</strong> for one vocabulary word.
         </li>
-        <li>
+<li>
           The result is usually mostly zeros, so we store it as a <strong>sparse matrix</strong>
           (only the important non-zero values).
         </li>
-      </ol>
-
-      <div class="status-msg" style="margin-top:14px;">
+</ol>
+<div class="status-msg" style="margin-top:14px;">
         🎯 If you see <span class="kbd">(0, 2) 1</span> that means:
-        <br>→ message row 0
-        <br>→ word column 2
-        <br>→ count is 1
+        <br/>→ message row 0
+        <br/>→ word column 2
+        <br/>→ count is 1
       </div>
-
-      <button class="btn btn-primary" style="margin-top:14px;" id="closeHelp2">Got it!</button>
-    </div>
-  </div>
-
-  <script>
+<button class="btn btn-primary" id="closeHelp2" style="margin-top:14px;">Got it!</button>
+</div>
+</div>
+<script>
     // ------------------------------
     // Bag of Words Lab (kid-friendly)
     // ------------------------------
@@ -912,5 +890,4 @@
     })();
   </script>
 </body>
-
 </html>

@@ -1,60 +1,50 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🔧 Git & GitHub Beginner Quiz | Version Control Mastery</title>
-  <meta name="description"
-    content="Master Git and GitHub fundamentals with this comprehensive 16-question quiz covering repositories, commits, branches, and collaboration workflows." />
-  <meta name="keywords" content="git quiz, github quiz, version control, git commands, git basics, programming quiz" />
-  <meta name="author" content="Faruk Hasan" />
-
-  <!-- Open Graph Meta Tags -->
-  <meta property="og:title" content="Git & GitHub Beginner Quiz | Version Control Mastery">
-  <meta property="og:description"
-    content="Test your Git and GitHub knowledge with 16 comprehensive questions covering repositories, commits, branches, and collaboration.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://faruk-hasan.com/quizzes/GIT/git_quiz_basics.html">
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../../shared/quiz-style.css">
-</head>
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>🔧 Git &amp; GitHub Beginner Quiz | Version Control Mastery</title>
+<meta content="Master Git and GitHub fundamentals with this comprehensive 16-question quiz covering repositories, commits, branches, and collaboration workflows." name="description">
+<meta content="git quiz, github quiz, version control, git commands, git basics, programming quiz" name="keywords">
+<meta content="Faruk Hasan" name="author"/>
+<!-- Open Graph Meta Tags -->
+<meta content="Git &amp; GitHub Beginner Quiz | Version Control Mastery" property="og:title"/>
+<meta content="Test your Git and GitHub knowledge with 16 comprehensive questions covering repositories, commits, branches, and collaboration." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://faruk-hasan.com/quizzes/GIT/git_quiz_basics.html" property="og:url"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../../shared/quiz-style.css" rel="stylesheet"/>
+</meta></meta><link href="https://faruk-hasan.com/quizzes/GIT/git_quiz_basics.html" rel="canonical"/></head>
 <body>
-
-  <h1>🔧 Git & GitHub Mastery Quiz</h1>
-
-  <div class="quiz-container">
-    <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Resources</a>
-    <div class="progress-wrapper">
-      <div class="progress-container">
-        <div id="progress-fill"></div>
-      </div>
-      <div id="progress-count">0/16 answered</div>
-    </div>
-
-    <form id="quiz-form">
-      <div id="quiz-area"></div>
-      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Results</button>
-    </form>
-
-    <div id="results">
-      <div class="score-container">
-        <div class="score-circle">0</div>
-        <div class="score-label">Your Score</div>
-      </div>
-      <div class="feedback"></div>
-      <div class="action-buttons">
-        <a href="" class="secondary-btn" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
+<h1>🔧 Git &amp; GitHub Mastery Quiz</h1>
+<div class="quiz-container">
+<a class="back-link" href="../../resources/resources.html"><i class="fas fa-arrow-left"></i> Back to Resources</a>
+<div class="progress-wrapper">
+<div class="progress-container">
+<div id="progress-fill"></div>
+</div>
+<div id="progress-count">0/16 answered</div>
+</div>
+<form id="quiz-form">
+<div id="quiz-area"></div>
+<button id="submitBtn" onclick="submitQuiz()" type="button">Submit Results</button>
+</form>
+<div id="results">
+<div class="score-container">
+<div class="score-circle">0</div>
+<div class="score-label">Your Score</div>
+</div>
+<div class="feedback"></div>
+<div class="action-buttons">
+<a class="secondary-btn" href="" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
           Quiz</a>
-        <a href="../../resources/resources.html" class="secondary-btn"><i class="fas fa-th-list"></i> More Quizzes</a>
-      </div>
-      <div id="answer-key" class="answer-key"></div>
-    </div>
-  </div>
-
-  <script>
+<a class="secondary-btn" href="../../resources/resources.html"><i class="fas fa-th-list"></i> More Quizzes</a>
+</div>
+<div class="answer-key" id="answer-key"></div>
+</div>
+</div>
+<script>
     const questions = [
       {
         q: "1. What is Git?",
@@ -211,5 +201,4 @@
     }
   </script>
 </body>
-
 </html>

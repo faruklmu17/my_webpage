@@ -1,21 +1,17 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Advanced GED Math Practice Test | Free GED Math Quiz</title>
-  <meta name="description"
-    content="Free GED Math practice test with 10 advanced questions covering algebra, geometry, and data analysis. Perfect for GED test prep with instant scoring and explanations.">
-  <meta name="keywords"
-    content="GED math practice test, GED math quiz, GED test prep, free GED practice, GED math questions, GED math problems, GED algebra, GED geometry">
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../../shared/quiz-style.css">
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Advanced GED Math Practice Test | Free GED Math Quiz</title>
+<meta content="Free GED Math practice test with 10 advanced questions covering algebra, geometry, and data analysis. Perfect for GED test prep with instant scoring and explanations." name="description"/>
+<meta content="GED math practice test, GED math quiz, GED test prep, free GED practice, GED math questions, GED math problems, GED algebra, GED geometry" name="keywords"/>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../../shared/quiz-style.css" rel="stylesheet"/>
+<style>
     .social-share-container {
       margin-bottom: 20px;
       display: flex;
@@ -62,57 +58,49 @@
       background-color: #ff4500;
     }
   </style>
-</head>
-
+<link href="https://faruk-hasan.com/quizzes/GED/ged_prep_test_1.html" rel="canonical"/></head>
 <body>
-
-  <h1>🎓 Advanced GED Math Practice</h1>
-
-  <div class="social-share-container">
-    <div><span id="share-counter" style="font-weight:bold;color:var(--primary-color)">0</span> shares</div>
-    <div class="share-buttons">
-      <a href="#" class="share-btn facebook" onclick="incrementShareCount()"><i class="fab fa-facebook-f"></i> Share</a>
-      <a href="#" class="share-btn twitter" onclick="incrementShareCount()"><i class="fab fa-twitter"></i> Tweet</a>
-      <a href="#" class="share-btn linkedin" onclick="incrementShareCount()"><i class="fab fa-linkedin-in"></i>
+<h1>🎓 Advanced GED Math Practice</h1>
+<div class="social-share-container">
+<div><span id="share-counter" style="font-weight:bold;color:var(--primary-color)">0</span> shares</div>
+<div class="share-buttons">
+<a class="share-btn facebook" href="#" onclick="incrementShareCount()"><i class="fab fa-facebook-f"></i> Share</a>
+<a class="share-btn twitter" href="#" onclick="incrementShareCount()"><i class="fab fa-twitter"></i> Tweet</a>
+<a class="share-btn linkedin" href="#" onclick="incrementShareCount()"><i class="fab fa-linkedin-in"></i>
         Share</a>
-    </div>
-  </div>
-
-  <div class="quiz-container">
-    <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Resources</a>
-    <div class="intro">
-      <p>This free GED Math practice test contains 10 advanced questions similar to those you'll encounter on the actual
+</div>
+</div>
+<div class="quiz-container">
+<a class="back-link" href="../../resources/resources.html"><i class="fas fa-arrow-left"></i> Back to Resources</a>
+<div class="intro">
+<p>This free GED Math practice test contains 10 advanced questions similar to those you'll encounter on the actual
         GED exam. The quiz covers key topics including algebra, geometry, data analysis, and word problems.</p>
-    </div>
-
-    <div class="progress-wrapper">
-      <div class="progress-container">
-        <div id="progress-fill"></div>
-      </div>
-      <div id="progress-count">0/10 answered</div>
-    </div>
-
-    <form id="quiz-form">
-      <div id="quiz-area"></div>
-      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Results</button>
-    </form>
-
-    <div id="results">
-      <div class="score-container">
-        <div class="score-circle">0</div>
-        <div class="score-label">Your Score</div>
-      </div>
-      <div class="feedback"></div>
-      <div class="action-buttons">
-        <a href="" class="secondary-btn" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
+</div>
+<div class="progress-wrapper">
+<div class="progress-container">
+<div id="progress-fill"></div>
+</div>
+<div id="progress-count">0/10 answered</div>
+</div>
+<form id="quiz-form">
+<div id="quiz-area"></div>
+<button id="submitBtn" onclick="submitQuiz()" type="button">Submit Results</button>
+</form>
+<div id="results">
+<div class="score-container">
+<div class="score-circle">0</div>
+<div class="score-label">Your Score</div>
+</div>
+<div class="feedback"></div>
+<div class="action-buttons">
+<a class="secondary-btn" href="" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
           Quiz</a>
-        <a href="../../resources/resources.html" class="secondary-btn"><i class="fas fa-th-list"></i> More Quizzes</a>
-      </div>
-      <div id="answer-key" class="answer-key"></div>
-    </div>
-  </div>
-
-  <script>
+<a class="secondary-btn" href="../../resources/resources.html"><i class="fas fa-th-list"></i> More Quizzes</a>
+</div>
+<div class="answer-key" id="answer-key"></div>
+</div>
+</div>
+<script>
     const questions = [
       {
         q: "1. What is the sum of the roots of the equation \\( 3x^2 - 7x + 2 = 0 \\)?",
@@ -227,5 +215,4 @@
     }
   </script>
 </body>
-
 </html>

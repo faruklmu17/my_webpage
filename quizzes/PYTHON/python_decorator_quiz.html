@@ -1,55 +1,47 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🐍 Python Functions & Decorators Quiz | Advanced Python</title>
-  <meta name="description"
-    content="Test your knowledge of Python functions, closures, and decorators with this 15-question advanced quiz.">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../../shared/quiz-style.css">
-</head>
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>🐍 Python Functions &amp; Decorators Quiz | Advanced Python</title>
+<meta content="Test your knowledge of Python functions, closures, and decorators with this 15-question advanced quiz." name="description"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../../shared/quiz-style.css" rel="stylesheet"/>
+<link href="https://faruk-hasan.com/quizzes/PYTHON/python_decorator_quiz.html" rel="canonical"/></head>
 <body>
-
-  <h1>🐍 Python Functions & Decorators</h1>
-
-  <div class="quiz-container">
-    <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Resources</a>
-    <div class="intro">
-      <p>Master the power of Python decorators and functional programming. This quiz covers higher-order functions,
+<h1>🐍 Python Functions &amp; Decorators</h1>
+<div class="quiz-container">
+<a class="back-link" href="../../resources/resources.html"><i class="fas fa-arrow-left"></i> Back to Resources</a>
+<div class="intro">
+<p>Master the power of Python decorators and functional programming. This quiz covers higher-order functions,
         wrapping, and the @decorator syntax.</p>
-    </div>
-
-    <div class="progress-wrapper">
-      <div class="progress-container">
-        <div id="progress-fill"></div>
-      </div>
-      <div id="progress-count">0/15 answered</div>
-    </div>
-
-    <form id="quiz-form">
-      <div id="quiz-area"></div>
-      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Results</button>
-    </form>
-
-    <div id="results">
-      <div class="score-container">
-        <div class="score-circle">0</div>
-        <div class="score-label">Your Score</div>
-      </div>
-      <div class="feedback"></div>
-      <div class="action-buttons">
-        <a href="" class="secondary-btn" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
+</div>
+<div class="progress-wrapper">
+<div class="progress-container">
+<div id="progress-fill"></div>
+</div>
+<div id="progress-count">0/15 answered</div>
+</div>
+<form id="quiz-form">
+<div id="quiz-area"></div>
+<button id="submitBtn" onclick="submitQuiz()" type="button">Submit Results</button>
+</form>
+<div id="results">
+<div class="score-container">
+<div class="score-circle">0</div>
+<div class="score-label">Your Score</div>
+</div>
+<div class="feedback"></div>
+<div class="action-buttons">
+<a class="secondary-btn" href="" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
           Quiz</a>
-        <a href="../../resources/resources.html" class="secondary-btn"><i class="fas fa-th-list"></i> More Quizzes</a>
-      </div>
-      <div id="answer-key" class="answer-key"></div>
-    </div>
-  </div>
-
-  <script>
+<a class="secondary-btn" href="../../resources/resources.html"><i class="fas fa-th-list"></i> More Quizzes</a>
+</div>
+<div class="answer-key" id="answer-key"></div>
+</div>
+</div>
+<script>
     const questions = [
       { q: "1. What is a class in Python?", options: ["A) A blueprint for creating objects", "B) A built-in data type for storing multiple values", "C) A special kind of function", "D) A syntax for looping over items"], correct: "A", explanation: "Classes define the structure and behavior of objects." },
       { q: "2. Which statement best describes a Python object?", options: ["A) An instance created from a class", "B) A collection of unrelated variables", "C) A keyword used to define functions", "D) A file containing Python code"], correct: "A", explanation: "Objects are data structures created based on class blueprints." },
@@ -109,5 +101,4 @@
     }
   </script>
 </body>
-
 </html>

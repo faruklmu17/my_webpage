@@ -197,7 +197,7 @@
     .hero__grid {
       display: grid;
       gap: 3.5rem;
-      align-items: start;
+      align-items: stretch;
       grid-template-columns: 1fr 1fr;
     }
 
@@ -1088,23 +1088,25 @@
 
   <section id="hero" class="section hero" aria-labelledby="hero-title">
     <div class="container hero__grid">
-      <div style="margin-top: 3rem;">
-        <h1 id="hero-title">Expert Online Coding & STEM Tutoring for Kids and Teens</h1>
-        <p class="lead">
-          Hi, I'm <strong>Faruk Hasan</strong> — STEM Educator & Senior QA Engineer.
-          I teach Python, Web Dev, AI/ML, Arduino, and Computer Fundamentals for ages 9–18.
-        </p>
-        <div class="cta-row">
-          <a class="btn btn--primary" href="#" onclick="openTutoringModal(event)">
-            <i class="fa-solid fa-calendar-check"></i> Schedule Free Trial
-          </a>
-          <a class="btn btn--ghost" href="#about"><i class="fa-solid fa-rocket"></i> Why Me?</a>
-          <a class="btn btn--chatbot" href="../index.html?chat=open">
-            <i class="fa-solid fa-robot"></i> Ask My AI Assistant!
-          </a>
+      <div style="display: flex; flex-direction: column; justify-content: space-between; padding: 2.5rem 0;">
+        <div>
+          <h1 id="hero-title">Expert Online Coding & STEM Tutoring for Kids and Teens</h1>
+          <p class="lead">
+            Hi, I'm <strong>Faruk Hasan</strong> — STEM Educator & Senior QA Engineer.
+            I teach Python, Web Dev, AI/ML, Arduino, and Computer Fundamentals for ages 9–18.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn--primary" href="#" onclick="openTutoringModal(event)">
+              <i class="fa-solid fa-calendar-check"></i> Schedule Free Trial
+            </a>
+            <a class="btn btn--ghost" href="#about"><i class="fa-solid fa-rocket"></i> Why Me?</a>
+            <a class="btn btn--chatbot" href="../index.html?chat=open">
+              <i class="fa-solid fa-robot"></i> Ask My AI Assistant!
+            </a>
+          </div>
         </div>
         <!-- Stats seamlessly integrated below CTAs with floating animation -->
-        <div class="avatar-blob" style="width: 250px; margin-top: 2.5rem;" aria-hidden="true">
+        <div class="avatar-blob" style="width: 250px; margin-top: auto; margin-bottom: 2rem;" aria-hidden="true">
           <div class="stats-hero">
             <div class="stat-bubble" style="font-size: 0.8rem; padding: 0.4rem 0.8rem;"><span id="rating-count">4.82</span> ⭐ Rating</div>
             <div class="stat-bubble" style="font-size: 0.8rem; padding: 0.4rem 0.8rem;"><span id="learners-count">2,000</span> Learners</div>

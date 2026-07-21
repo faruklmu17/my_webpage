@@ -1,19 +1,15 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Word Detective 🕵️‍♀️</title>
-
-    <!-- Friendly Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600;700&family=Nunito:wght@400;700;800&display=swap"
-        rel="stylesheet">
-
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Word Detective 🕵️‍♀️</title>
+<!-- Friendly Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600;700&amp;family=Nunito:wght@400;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
         :root {
             /* Palette: Fun & Bright */
             --bg: #E0F7FA;
@@ -588,176 +584,146 @@
             color: #e67e22;
         }
     </style>
-</head>
-
+<meta content="Explore Word Detective 🕵️‍♀️✨ on Faruk Hasan's portfolio. Interactive resources and programming practice." name="description"/><link href="https://faruk-hasan.com/ai_resources/tf_idf.html" rel="canonical"/></head>
 <body>
-
-    <header>
-        <h1>Word Detective 🕵️‍♀️✨</h1>
-        <div class="sub">
+<header>
+<h1>Word Detective 🕵️‍♀️✨</h1>
+<div class="sub">
             Welcome to the <strong>Keyword Hunt</strong>! Your mission is to find the special "Keyword Clues" in these
             stories.
             Select the words that make each story <em>unique</em>!
         </div>
-
-        <div class="stats-bar">
-            <div class="stat-pill timer">
-                <span style="font-size:1.2rem">⏳</span>
-                <span id="timeLeft">00:00</span>
-            </div>
-            <div class="stat-pill">
-                <span>🎒 Clues Collected:</span>
-                <b id="selCount">0</b>
-            </div>
-        </div>
-    </header>
-
-    <main>
-        <!-- Sidebar Controls -->
-        <section class="card">
-            <h2>🛠️ Mission Control</h2>
-
-            <div class="control-group">
-                <label class="control-label">⏳ Time Limit (Minutes)</label>
-                <select id="minutes">
-                    <option value="2">2 Minutes</option>
-                    <option value="3">3 Minutes</option>
-                    <option value="5" selected>5 Minutes</option>
-                    <option value="10">10 Minutes</option>
-                </select>
-            </div>
-
-            <div class="control-group">
-                <label class="control-label">🌶️ Difficulty</label>
-                <select id="difficulty">
-                    <option value="easy">Easy (Simple Stories)</option>
-                    <option value="medium" selected>Medium</option>
-                    <option value="hard">Hard (Tricky!)</option>
-                </select>
-            </div>
-
-            <button id="startBtn" class="btn btn-primary">
+<div class="stats-bar">
+<div class="stat-pill timer">
+<span style="font-size:1.2rem">⏳</span>
+<span id="timeLeft">00:00</span>
+</div>
+<div class="stat-pill">
+<span>🎒 Clues Collected:</span>
+<b id="selCount">0</b>
+</div>
+</div>
+</header>
+<main>
+<!-- Sidebar Controls -->
+<section class="card">
+<h2>🛠️ Mission Control</h2>
+<div class="control-group">
+<label class="control-label">⏳ Time Limit (Minutes)</label>
+<select id="minutes">
+<option value="2">2 Minutes</option>
+<option value="3">3 Minutes</option>
+<option selected="" value="5">5 Minutes</option>
+<option value="10">10 Minutes</option>
+</select>
+</div>
+<div class="control-group">
+<label class="control-label">🌶️ Difficulty</label>
+<select id="difficulty">
+<option value="easy">Easy (Simple Stories)</option>
+<option selected="" value="medium">Medium</option>
+<option value="hard">Hard (Tricky!)</option>
+</select>
+</div>
+<button class="btn btn-primary" id="startBtn">
                 🚀 Start Mission
             </button>
-
-            <button id="resetBtn" class="btn btn-secondary">
+<button class="btn btn-secondary" id="resetBtn">
                 🧹 Clear My Bag
             </button>
-
-            <div class="bucket-container" id="bucket">
-                <div style="text-align:center; color:#adb5bd; padding-top:20px;">
-                    <em>Your bag is empty.<br>Start the game and click words!</em>
-                </div>
-            </div>
-
-            <div class="status-msg" id="statusBox">
+<div class="bucket-container" id="bucket">
+<div style="text-align:center; color:#adb5bd; padding-top:20px;">
+<em>Your bag is empty.<br/>Start the game and click words!</em>
+</div>
+</div>
+<div class="status-msg" id="statusBox">
                 👋 Hello Detective! Pick the <strong>Settings</strong> above and click <strong>Start Mission</strong> to
                 look for clues.
             </div>
-        </section>
-
-        <!-- Content Area -->
-        <section class="card">
-            <h2>📚 The Stories <span
-                    style="font-size:0.6em; color:var(--text-soft); margin-left:10px; font-weight:400;">(Click words to
+</section>
+<!-- Content Area -->
+<section class="card">
+<h2>📚 The Stories <span style="font-size:0.6em; color:var(--text-soft); margin-left:10px; font-weight:400;">(Click words to
                     collect them)</span></h2>
-            <div id="docsGrid" class="docs-grid">
-                <!-- Generated by JS -->
-            </div>
-        </section>
-    </main>
-
-    <!-- Game Over Overlay -->
-    <div class="overlay" id="overlay">
-        <div class="result-card">
-            <h3>Time's Up! 🎉 <span class="help-btn" onclick="openExplanation()" title="How was this decided?">?</span>
-            </h3>
-            <p>Great job detective! Here is your score:</p>
-
-            <div class="big-score" id="finalScore">0</div>
-            <div id="finalSummary"></div>
-
-            <div
-                style="max-height: 300px; overflow-y:auto; margin-top:20px; border:1px solid #eee; border-radius:12px; padding:0 10px;">
-                <table class="result-table" id="breakdown"></table>
-            </div>
-
-            <button class="btn btn-primary" style="margin-top:20px"
-                onclick="document.getElementById('overlay').classList.remove('show')">
-                Close & Play Again
+<div class="docs-grid" id="docsGrid">
+<!-- Generated by JS -->
+</div>
+</section>
+</main>
+<!-- Game Over Overlay -->
+<div class="overlay" id="overlay">
+<div class="result-card">
+<h3>Time's Up! 🎉 <span class="help-btn" onclick="openExplanation()" title="How was this decided?">?</span>
+</h3>
+<p>Great job detective! Here is your score:</p>
+<div class="big-score" id="finalScore">0</div>
+<div id="finalSummary"></div>
+<div style="max-height: 300px; overflow-y:auto; margin-top:20px; border:1px solid #eee; border-radius:12px; padding:0 10px;">
+<table class="result-table" id="breakdown"></table>
+</div>
+<button class="btn btn-primary" onclick="document.getElementById('overlay').classList.remove('show')" style="margin-top:20px">
+                Close &amp; Play Again
             </button>
-        </div>
-    </div>
-
-    <!-- Explanation Overlay -->
-    <div class="overlay" id="explanationOverlay">
-        <div class="explanation-card">
-            <button class="close-x" onclick="closeExplanation()">×</button>
-            <h2>🧠 How Your Score Was Decided (Read This!)</h2>
-            <p><strong>The computer did NOT mark words as “right” or “wrong.”</strong> It did something different:</p>
-
-            <h3>🔍 What the computer actually does</h3>
-            <ul>
-                <li>It <strong>ranks all words</strong> in each story</li>
-                <li>It keeps only the <strong>strongest few clues</strong></li>
-                <li>Strong clues are words that:
+</div>
+</div>
+<!-- Explanation Overlay -->
+<div class="overlay" id="explanationOverlay">
+<div class="explanation-card">
+<button class="close-x" onclick="closeExplanation()">×</button>
+<h2>🧠 How Your Score Was Decided (Read This!)</h2>
+<p><strong>The computer did NOT mark words as “right” or “wrong.”</strong> It did something different:</p>
+<h3>🔍 What the computer actually does</h3>
+<ul>
+<li>It <strong>ranks all words</strong> in each story</li>
+<li>It keeps only the <strong>strongest few clues</strong></li>
+<li>Strong clues are words that:
                     <ul>
-                        <li>appear <strong>often in one story</strong></li>
-                        <li>but <strong>not across all stories</strong></li>
-                    </ul>
-                </li>
-            </ul>
-            <p>These top-ranked words are shown as <strong>Correct</strong>.</p>
-
-            <hr>
-
-            <h3>⚠️ What “Extra” means</h3>
-            <p><strong>Extra does NOT mean bad or stupid.</strong></p>
-            <p>It means:</p>
-            <ul>
-                <li>The word makes sense to a human</li>
-                <li>But it <strong>did not rank high enough</strong> compared to other words</li>
-            </ul>
-            <p><em>Example:</em> <code>basil</code> makes sense, but words like <code>chef</code> or <code>recipe</code>
+<li>appear <strong>often in one story</strong></li>
+<li>but <strong>not across all stories</strong></li>
+</ul>
+</li>
+</ul>
+<p>These top-ranked words are shown as <strong>Correct</strong>.</p>
+<hr/>
+<h3>⚠️ What “Extra” means</h3>
+<p><strong>Extra does NOT mean bad or stupid.</strong></p>
+<p>It means:</p>
+<ul>
+<li>The word makes sense to a human</li>
+<li>But it <strong>did not rank high enough</strong> compared to other words</li>
+</ul>
+<p><em>Example:</em> <code>basil</code> makes sense, but words like <code>chef</code> or <code>recipe</code>
                 were <strong>stronger signals</strong>. Think of it like a leaderboard — not everyone can be in the top.
             </p>
-
-            <hr>
-
-            <h3>❌ What “Missed” means</h3>
-            <p><strong>Missed does NOT mean you were wrong.</strong></p>
-            <p>It means:</p>
-            <ul>
-                <li>The computer ranked that word high</li>
-                <li>But it didn’t get picked</li>
-            </ul>
-            <p>This often happens with very specific words, words that repeat, or words that uniquely identify the
+<hr/>
+<h3>❌ What “Missed” means</h3>
+<p><strong>Missed does NOT mean you were wrong.</strong></p>
+<p>It means:</p>
+<ul>
+<li>The computer ranked that word high</li>
+<li>But it didn’t get picked</li>
+</ul>
+<p>This often happens with very specific words, words that repeat, or words that uniquely identify the
                 story.</p>
-
-            <hr>
-
-            <h3>🧠 The BIG idea to remember</h3>
-            <blockquote>
-                <p>The computer is trying to IDENTIFY the story, not explain it like a human.</p>
-            </blockquote>
-            <p style="text-align: center;">Humans think in <strong>topics</strong> <br> ↕️ <br> Computers think in
+<hr/>
+<h3>🧠 The BIG idea to remember</h3>
+<blockquote>
+<p>The computer is trying to IDENTIFY the story, not explain it like a human.</p>
+</blockquote>
+<p style="text-align: center;">Humans think in <strong>topics</strong> <br/> ↕️ <br/> Computers think in
                 <strong>signals</strong>
-            </p>
-
-            <hr>
-
-            <h3>🎯 Strategy tip for next round</h3>
-            <ul>
-                <li>Pick <strong>fewer, stronger words</strong></li>
-                <li>Avoid broad words that could fit many stories</li>
-                <li>Ask yourself: <em>“If I only saw this word, could I guess which story it came from?”</em></li>
-            </ul>
-
-            <button class="btn btn-secondary" onclick="closeExplanation()">Dismiss</button>
-        </div>
-    </div>
-
-    <script>
+</p>
+<hr/>
+<h3>🎯 Strategy tip for next round</h3>
+<ul>
+<li>Pick <strong>fewer, stronger words</strong></li>
+<li>Avoid broad words that could fit many stories</li>
+<li>Ask yourself: <em>“If I only saw this word, could I guess which story it came from?”</em></li>
+</ul>
+<button class="btn btn-secondary" onclick="closeExplanation()">Dismiss</button>
+</div>
+</div>
+<script>
         // ---------------------------
         // LOGIC & GAME ENGINE
         // ---------------------------
@@ -1264,5 +1230,4 @@
 
     </script>
 </body>
-
 </html>

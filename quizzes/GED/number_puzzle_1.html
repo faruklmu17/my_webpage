@@ -1,18 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🧩 Interactive Number Puzzles | Math Logic Mastery</title>
-  <meta name="description"
-    content="Free interactive number puzzles that test your math skills with addition and multiplication. Solve fun math logic puzzles with instant feedback and scoring.">
-  <meta name="keywords"
-    content="number puzzles, math puzzles, logic puzzles, interactive math games, math brain teasers">
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../../shared/quiz-style.css">
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>🧩 Interactive Number Puzzles | Math Logic Mastery</title>
+<meta content="Free interactive number puzzles that test your math skills with addition and multiplication. Solve fun math logic puzzles with instant feedback and scoring." name="description"/>
+<meta content="number puzzles, math puzzles, logic puzzles, interactive math games, math brain teasers" name="keywords"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../../shared/quiz-style.css" rel="stylesheet"/>
+<style>
     .puzzles-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -111,116 +108,105 @@
       background: var(--primary-dark);
     }
   </style>
-</head>
-
+<link href="https://faruk-hasan.com/quizzes/GED/number_puzzle_1.html" rel="canonical"/></head>
 <body>
-
-  <h1>🧩 Interactive Number Puzzles</h1>
-
-  <div class="quiz-container">
-    <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Resources</a>
-    <div class="intro">
-      <p>The <strong>top</strong> circle is the <strong>product</strong> (multiplication) of the two middle numbers.</p>
-      <p>The <strong>bottom</strong> circle is the <strong>sum</strong> (addition) of the two middle numbers.</p>
-      <p>Find the missing numbers to solve the puzzle!</p>
-    </div>
-
-    <div class="puzzles-grid">
-      <!-- Puzzle 1 -->
-      <div class="puzzle-card" data-base1="6" data-base2="7">
-        <div class="puzzle-type">Find Product & Sum</div>
-        <div class="puzzle-layout">
-          <div class="circle"><input type="number" class="p-in" placeholder="×"></div>
-          <div class="mid-row">
-            <div class="circle">6</div>
-            <div class="circle">7</div>
-          </div>
-          <div class="circle"><input type="number" class="s-in" placeholder="+"></div>
-        </div>
-        <button class="check-btn" onclick="checkPuzzle(this)">Check Puzzle</button>
-      </div>
-
-      <!-- Puzzle 2 -->
-      <div class="puzzle-card" data-base1="6" data-p="90">
-        <div class="puzzle-type">Find Missing & Sum</div>
-        <div class="puzzle-layout">
-          <div class="circle">90</div>
-          <div class="mid-row">
-            <div class="circle">6</div>
-            <div class="circle"><input type="number" class="b2-in" placeholder="?"></div>
-          </div>
-          <div class="circle"><input type="number" class="s-in" placeholder="+"></div>
-        </div>
-        <button class="check-btn" onclick="checkPuzzle(this)">Check Puzzle</button>
-      </div>
-
-      <!-- Puzzle 3 -->
-      <div class="puzzle-card" data-base1="20" data-base2="7">
-        <div class="puzzle-type">Find Product & Sum</div>
-        <div class="puzzle-layout">
-          <div class="circle"><input type="number" class="p-in" placeholder="×"></div>
-          <div class="mid-row">
-            <div class="circle">20</div>
-            <div class="circle">7</div>
-          </div>
-          <div class="circle"><input type="number" class="s-in" placeholder="+"></div>
-        </div>
-        <button class="check-btn" onclick="checkPuzzle(this)">Check Puzzle</button>
-      </div>
-
-      <!-- Puzzle 4 -->
-      <div class="puzzle-card" data-base1="7" data-base2="14">
-        <div class="puzzle-type">Find Product & Sum</div>
-        <div class="puzzle-layout">
-          <div class="circle"><input type="number" class="p-in" placeholder="×"></div>
-          <div class="mid-row">
-            <div class="circle">7</div>
-            <div class="circle">14</div>
-          </div>
-          <div class="circle"><input type="number" class="s-in" placeholder="+"></div>
-        </div>
-        <button class="check-btn" onclick="checkPuzzle(this)">Check Puzzle</button>
-      </div>
-
-      <!-- Puzzle 5 -->
-      <div class="puzzle-card" data-base2="13" data-s="23">
-        <div class="puzzle-type">Find Missing & Product</div>
-        <div class="puzzle-layout">
-          <div class="circle"><input type="number" class="p-in" placeholder="×"></div>
-          <div class="mid-row">
-            <div class="circle"><input type="number" class="b1-in" placeholder="?"></div>
-            <div class="circle">13</div>
-          </div>
-          <div class="circle">23</div>
-        </div>
-        <button class="check-btn" onclick="checkPuzzle(this)">Check Puzzle</button>
-      </div>
-
-      <!-- Puzzle 6 -->
-      <div class="puzzle-card" data-base1="16" data-p="304">
-        <div class="puzzle-type">Find Missing & Sum</div>
-        <div class="puzzle-layout">
-          <div class="circle">304</div>
-          <div class="mid-row">
-            <div class="circle">16</div>
-            <div class="circle"><input type="number" class="b2-in" placeholder="?"></div>
-          </div>
-          <div class="circle"><input type="number" class="s-in" placeholder="+"></div>
-        </div>
-        <button class="check-btn" onclick="checkPuzzle(this)">Check Puzzle</button>
-      </div>
-    </div>
-
-    <div id="results">
-      <div class="score-container">
-        <div class="score-circle" id="final-score">0</div>
-        <div class="score-label">Puzzles Solved</div>
-      </div>
-      <div class="feedback" id="final-feedback"></div>
-    </div>
-  </div>
-
-  <script>
+<h1>🧩 Interactive Number Puzzles</h1>
+<div class="quiz-container">
+<a class="back-link" href="../../resources/resources.html"><i class="fas fa-arrow-left"></i> Back to Resources</a>
+<div class="intro">
+<p>The <strong>top</strong> circle is the <strong>product</strong> (multiplication) of the two middle numbers.</p>
+<p>The <strong>bottom</strong> circle is the <strong>sum</strong> (addition) of the two middle numbers.</p>
+<p>Find the missing numbers to solve the puzzle!</p>
+</div>
+<div class="puzzles-grid">
+<!-- Puzzle 1 -->
+<div class="puzzle-card" data-base1="6" data-base2="7">
+<div class="puzzle-type">Find Product &amp; Sum</div>
+<div class="puzzle-layout">
+<div class="circle"><input class="p-in" placeholder="×" type="number"/></div>
+<div class="mid-row">
+<div class="circle">6</div>
+<div class="circle">7</div>
+</div>
+<div class="circle"><input class="s-in" placeholder="+" type="number"/></div>
+</div>
+<button class="check-btn" onclick="checkPuzzle(this)">Check Puzzle</button>
+</div>
+<!-- Puzzle 2 -->
+<div class="puzzle-card" data-base1="6" data-p="90">
+<div class="puzzle-type">Find Missing &amp; Sum</div>
+<div class="puzzle-layout">
+<div class="circle">90</div>
+<div class="mid-row">
+<div class="circle">6</div>
+<div class="circle"><input class="b2-in" placeholder="?" type="number"/></div>
+</div>
+<div class="circle"><input class="s-in" placeholder="+" type="number"/></div>
+</div>
+<button class="check-btn" onclick="checkPuzzle(this)">Check Puzzle</button>
+</div>
+<!-- Puzzle 3 -->
+<div class="puzzle-card" data-base1="20" data-base2="7">
+<div class="puzzle-type">Find Product &amp; Sum</div>
+<div class="puzzle-layout">
+<div class="circle"><input class="p-in" placeholder="×" type="number"/></div>
+<div class="mid-row">
+<div class="circle">20</div>
+<div class="circle">7</div>
+</div>
+<div class="circle"><input class="s-in" placeholder="+" type="number"/></div>
+</div>
+<button class="check-btn" onclick="checkPuzzle(this)">Check Puzzle</button>
+</div>
+<!-- Puzzle 4 -->
+<div class="puzzle-card" data-base1="7" data-base2="14">
+<div class="puzzle-type">Find Product &amp; Sum</div>
+<div class="puzzle-layout">
+<div class="circle"><input class="p-in" placeholder="×" type="number"/></div>
+<div class="mid-row">
+<div class="circle">7</div>
+<div class="circle">14</div>
+</div>
+<div class="circle"><input class="s-in" placeholder="+" type="number"/></div>
+</div>
+<button class="check-btn" onclick="checkPuzzle(this)">Check Puzzle</button>
+</div>
+<!-- Puzzle 5 -->
+<div class="puzzle-card" data-base2="13" data-s="23">
+<div class="puzzle-type">Find Missing &amp; Product</div>
+<div class="puzzle-layout">
+<div class="circle"><input class="p-in" placeholder="×" type="number"/></div>
+<div class="mid-row">
+<div class="circle"><input class="b1-in" placeholder="?" type="number"/></div>
+<div class="circle">13</div>
+</div>
+<div class="circle">23</div>
+</div>
+<button class="check-btn" onclick="checkPuzzle(this)">Check Puzzle</button>
+</div>
+<!-- Puzzle 6 -->
+<div class="puzzle-card" data-base1="16" data-p="304">
+<div class="puzzle-type">Find Missing &amp; Sum</div>
+<div class="puzzle-layout">
+<div class="circle">304</div>
+<div class="mid-row">
+<div class="circle">16</div>
+<div class="circle"><input class="b2-in" placeholder="?" type="number"/></div>
+</div>
+<div class="circle"><input class="s-in" placeholder="+" type="number"/></div>
+</div>
+<button class="check-btn" onclick="checkPuzzle(this)">Check Puzzle</button>
+</div>
+</div>
+<div id="results">
+<div class="score-container">
+<div class="score-circle" id="final-score">0</div>
+<div class="score-label">Puzzles Solved</div>
+</div>
+<div class="feedback" id="final-feedback"></div>
+</div>
+</div>
+<script>
     let solvedCount = 0;
     const solvedSet = new Set();
 
@@ -274,5 +260,4 @@
     }
   </script>
 </body>
-
 </html>
