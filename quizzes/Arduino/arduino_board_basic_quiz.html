@@ -1,55 +1,47 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🔌 Electronics Basics Quiz | Arduino Fundamentals</title>
-  <meta name="description"
-    content="Test your electronics fundamentals with this quiz covering resistors, LEDs, voltage, current, and breadboards for Arduino projects.">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../../shared/quiz-style.css">
-</head>
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>🔌 Electronics Basics Quiz | Arduino Fundamentals</title>
+<meta content="Test your electronics fundamentals with this quiz covering resistors, LEDs, voltage, current, and breadboards for Arduino projects." name="description"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../../shared/quiz-style.css" rel="stylesheet"/>
+<link href="https://faruk-hasan.com/quizzes/Arduino/arduino_board_basic_quiz.html" rel="canonical"/></head>
 <body>
-
-  <h1>🔌 Electronics Basics Quiz</h1>
-
-  <div class="quiz-container">
-    <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Resources</a>
-    <div class="intro">
-      <p>Check your understanding of resistors, LEDs, voltage, current, and breadboard connections. Essential for any
+<h1>🔌 Electronics Basics Quiz</h1>
+<div class="quiz-container">
+<a class="back-link" href="../../resources/resources.html"><i class="fas fa-arrow-left"></i> Back to Resources</a>
+<div class="intro">
+<p>Check your understanding of resistors, LEDs, voltage, current, and breadboard connections. Essential for any
         Arduino project!</p>
-    </div>
-
-    <div class="progress-wrapper">
-      <div class="progress-container">
-        <div id="progress-fill"></div>
-      </div>
-      <div id="progress-count">0/15 answered</div>
-    </div>
-
-    <form id="quiz-form">
-      <div id="quiz-area"></div>
-      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Results</button>
-    </form>
-
-    <div id="results">
-      <div class="score-container">
-        <div class="score-circle">0</div>
-        <div class="score-label">Your Score</div>
-      </div>
-      <div class="feedback"></div>
-      <div class="action-buttons">
-        <a href="" class="secondary-btn" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
+</div>
+<div class="progress-wrapper">
+<div class="progress-container">
+<div id="progress-fill"></div>
+</div>
+<div id="progress-count">0/15 answered</div>
+</div>
+<form id="quiz-form">
+<div id="quiz-area"></div>
+<button id="submitBtn" onclick="submitQuiz()" type="button">Submit Results</button>
+</form>
+<div id="results">
+<div class="score-container">
+<div class="score-circle">0</div>
+<div class="score-label">Your Score</div>
+</div>
+<div class="feedback"></div>
+<div class="action-buttons">
+<a class="secondary-btn" href="" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
           Quiz</a>
-        <a href="../../resources/resources.html" class="secondary-btn"><i class="fas fa-th-list"></i> More Quizzes</a>
-      </div>
-      <div id="answer-key" class="answer-key"></div>
-    </div>
-  </div>
-
-  <script>
+<a class="secondary-btn" href="../../resources/resources.html"><i class="fas fa-th-list"></i> More Quizzes</a>
+</div>
+<div class="answer-key" id="answer-key"></div>
+</div>
+</div>
+<script>
     const questions = [
       { q: "1. What is the purpose of a resistor in a circuit?", options: ["A) To increase current", "B) To limit current flow", "C) To store energy", "D) To generate voltage"], correct: "B", explanation: "Resistors limit current to protect components and set operating points." },
       { q: "2. What happens if an LED is connected without a resistor?", options: ["A) It glows brighter safely", "B) It may burn out due to too much current", "C) It will not turn on", "D) It will blink automatically"], correct: "B", explanation: "LEDs require current limiting; otherwise they can overheat and fail." },
@@ -109,5 +101,4 @@
     }
   </script>
 </body>
-
 </html>

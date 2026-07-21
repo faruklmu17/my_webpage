@@ -1,15 +1,16 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Careers - Apply for a Job</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="shared/header-footer.css">
-  <script src="shared/header-footer.js" defer></script>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Careers - Apply for a Job</title>
+<link href="styles.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="shared/header-footer.css" rel="stylesheet"/>
+<script defer="" src="shared/header-footer.js"></script>
+<style>
     body {
       font-family: 'Montserrat', sans-serif;
       background-color: #f4f7f6;
@@ -190,72 +191,60 @@
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
-</head>
+<meta content="Explore Join Our Team on Faruk Hasan's portfolio. Interactive resources and programming practice." name="description"/><link href="https://faruk-hasan.com/apply.html" rel="canonical"/></head>
 <body>
-
-  <div class="job-application-container">
-    <div class="form-header">
-      <h1>Join Our Team</h1>
-      <p>Fill out the form below and we'll be in touch soon.</p>
+<div class="job-application-container">
+<div class="form-header">
+<h1>Join Our Team</h1>
+<p>Fill out the form below and we'll be in touch soon.</p>
+</div>
+<div class="success-message" id="successMessage">
+<strong><i class="fas fa-check-circle"></i> Success!</strong> Your application has been submitted successfully. We will review it shortly.
     </div>
-
-    <div class="success-message" id="successMessage">
-      <strong><i class="fas fa-check-circle"></i> Success!</strong> Your application has been submitted successfully. We will review it shortly.
-    </div>
-
-    <form id="jobApplicationForm" action="https://formspree.io/f/mdawrday" method="POST" onsubmit="submitForm(event)">
-      <div class="form-group">
-        <label for="fullName">Full Name</label>
-        <input type="text" id="fullName" name="name" placeholder="John Doe" required>
-      </div>
-
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="email" placeholder="john.doe@example.com" required>
-      </div>
-
-      <div class="form-group">
-        <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" required>
-      </div>
-
-      <div class="form-group">
-        <label for="role">Desired Role</label>
-        <select id="role" name="role" required>
-          <option value="" disabled selected>Select a position...</option>
-          <option value="software_engineer">Software QA Engineer</option>
-          <option value="frontend_dev">Frontend Developer</option>
-          <option value="backend_dev">Backend Developer</option>
-          <option value="ai_specialist">AI Specialist</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="portfolio">Portfolio / LinkedIn / GitHub URL</label>
-        <input type="url" id="portfolio" name="portfolio" placeholder="https://linkedin.com/in/yourprofile">
-      </div>
-
-      <div class="form-group">
-        <label for="resumeLink">Resume Link (Google Drive, Dropbox, etc.)</label>
-        <input type="url" id="resumeLink" name="resume_link" placeholder="https://docs.google.com/..." required>
-      </div>
-
-      <div class="form-group">
-        <label for="coverLetter">Cover Letter (Optional)</label>
-        <textarea id="coverLetter" name="coverLetter" placeholder="Tell us why you'd be a great fit..."></textarea>
-      </div>
-
-      <button type="submit" class="submit-btn" id="submitBtn">
+<form action="https://formspree.io/f/mdawrday" id="jobApplicationForm" method="POST" onsubmit="submitForm(event)">
+<div class="form-group">
+<label for="fullName">Full Name</label>
+<input id="fullName" name="name" placeholder="John Doe" required="" type="text"/>
+</div>
+<div class="form-group">
+<label for="email">Email Address</label>
+<input id="email" name="email" placeholder="john.doe@example.com" required="" type="email"/>
+</div>
+<div class="form-group">
+<label for="phone">Phone Number</label>
+<input id="phone" name="phone" placeholder="+1 (555) 000-0000" required="" type="tel"/>
+</div>
+<div class="form-group">
+<label for="role">Desired Role</label>
+<select id="role" name="role" required="">
+<option disabled="" selected="" value="">Select a position...</option>
+<option value="software_engineer">Software QA Engineer</option>
+<option value="frontend_dev">Frontend Developer</option>
+<option value="backend_dev">Backend Developer</option>
+<option value="ai_specialist">AI Specialist</option>
+<option value="other">Other</option>
+</select>
+</div>
+<div class="form-group">
+<label for="portfolio">Portfolio / LinkedIn / GitHub URL</label>
+<input id="portfolio" name="portfolio" placeholder="https://linkedin.com/in/yourprofile" type="url"/>
+</div>
+<div class="form-group">
+<label for="resumeLink">Resume Link (Google Drive, Dropbox, etc.)</label>
+<input id="resumeLink" name="resume_link" placeholder="https://docs.google.com/..." required="" type="url"/>
+</div>
+<div class="form-group">
+<label for="coverLetter">Cover Letter (Optional)</label>
+<textarea id="coverLetter" name="coverLetter" placeholder="Tell us why you'd be a great fit..."></textarea>
+</div>
+<button class="submit-btn" id="submitBtn" type="submit">
         Submit Application <i class="fas fa-paper-plane" style="margin-left: 8px;"></i>
-      </button>
-
-      <div style="text-align: center;">
-      </div>
-    </form>
-  </div>
-
-  <script>
+</button>
+<div style="text-align: center;">
+</div>
+</form>
+</div>
+<script>
     async function submitForm(event) {
       event.preventDefault();
       const form = document.getElementById('jobApplicationForm');

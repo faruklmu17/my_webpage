@@ -1,57 +1,49 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Concepts & Web Interactions Quiz | Web Dev Project 4</title>
-    <meta name="description"
-        content="Test your understanding of JavaScript functionality and how it interacts with web elements. 20+ questions on events, DOM, and JS methods.">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../../shared/quiz-style.css">
-</head>
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JavaScript Concepts &amp; Web Interactions Quiz | Web Dev Project 4</title>
+<meta content="Test your understanding of JavaScript functionality and how it interacts with web elements. 20+ questions on events, DOM, and JS methods." name="description"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../../shared/quiz-style.css" rel="stylesheet"/>
+<link href="https://faruk-hasan.com/quizzes/HTML-CSS-JS/wd_project_4_quiz2.html" rel="canonical"/></head>
 <body>
-
-    <h1>🎚️ JS & Web Interactions Quiz</h1>
-
-    <div class="quiz-container">
-        <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to
+<h1>🎚️ JS &amp; Web Interactions Quiz</h1>
+<div class="quiz-container">
+<a class="back-link" href="../../resources/resources.html"><i class="fas fa-arrow-left"></i> Back to
             Resources</a>
-        <div class="intro">
-            <p>Test your understanding of JavaScript functionality and how it interacts with web elements (DOM, Events,
+<div class="intro">
+<p>Test your understanding of JavaScript functionality and how it interacts with web elements (DOM, Events,
                 URL handling).</p>
-        </div>
-
-        <div class="progress-wrapper">
-            <div class="progress-container">
-                <div id="progress-fill"></div>
-            </div>
-            <div id="progress-count">0/21 answered</div>
-        </div>
-
-        <form id="quiz-form">
-            <div id="quiz-area"></div>
-            <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Results</button>
-        </form>
-
-        <div id="results">
-            <div class="score-container">
-                <div class="score-circle">0</div>
-                <div class="score-label">Your Score</div>
-            </div>
-            <div class="feedback"></div>
-            <div class="action-buttons">
-                <a href="" class="secondary-btn" onclick="location.reload(); return false;"><i class="fas fa-redo"></i>
+</div>
+<div class="progress-wrapper">
+<div class="progress-container">
+<div id="progress-fill"></div>
+</div>
+<div id="progress-count">0/21 answered</div>
+</div>
+<form id="quiz-form">
+<div id="quiz-area"></div>
+<button id="submitBtn" onclick="submitQuiz()" type="button">Submit Results</button>
+</form>
+<div id="results">
+<div class="score-container">
+<div class="score-circle">0</div>
+<div class="score-label">Your Score</div>
+</div>
+<div class="feedback"></div>
+<div class="action-buttons">
+<a class="secondary-btn" href="" onclick="location.reload(); return false;"><i class="fas fa-redo"></i>
                     Retake Quiz</a>
-                <a href="../../resources/resources.html" class="secondary-btn"><i class="fas fa-th-list"></i> More
+<a class="secondary-btn" href="../../resources/resources.html"><i class="fas fa-th-list"></i> More
                     Quizzes</a>
-            </div>
-            <div id="answer-key" class="answer-key"></div>
-        </div>
-    </div>
-
-    <script>
+</div>
+<div class="answer-key" id="answer-key"></div>
+</div>
+</div>
+<script>
         const questions = [
             { q: "1. The onchange event happens when you pick something from a dropdown menu.", options: ["A) True", "B) False"], correct: "A", explanation: "onchange triggers when a user changes the selection." },
             { q: "2. You can change the text inside a paragraph using .value.", options: ["A) True", "B) False"], correct: "B", explanation: "Use textContent or innerHTML for paragraph text; .value is for inputs." },
@@ -117,5 +109,4 @@
         }
     </script>
 </body>
-
 </html>

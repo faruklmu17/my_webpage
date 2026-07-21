@@ -1,56 +1,48 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fraction Addition Quiz | GED Math Prep Mastery</title>
-  <meta name="description"
-    content="Master fractions with this interactive GED Math quiz. 20 questions on addition, common denominators, and simplifying fractions.">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../../shared/quiz-style.css">
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-</head>
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fraction Addition Quiz | GED Math Prep Mastery</title>
+<meta content="Master fractions with this interactive GED Math quiz. 20 questions on addition, common denominators, and simplifying fractions." name="description"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../../shared/quiz-style.css" rel="stylesheet"/>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link href="https://faruk-hasan.com/quizzes/GED/ged_fractions.html" rel="canonical"/></head>
 <body>
-
-  <h1>🍕 Fraction Addition Quiz</h1>
-
-  <div class="quiz-container">
-    <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Resources</a>
-    <div class="intro">
-      <p>Test your skills adding fractions with both like and unlike denominators. Remember to simplify your final
+<h1>🍕 Fraction Addition Quiz</h1>
+<div class="quiz-container">
+<a class="back-link" href="../../resources/resources.html"><i class="fas fa-arrow-left"></i> Back to Resources</a>
+<div class="intro">
+<p>Test your skills adding fractions with both like and unlike denominators. Remember to simplify your final
         answers!</p>
-    </div>
-
-    <div class="progress-wrapper">
-      <div class="progress-container">
-        <div id="progress-fill"></div>
-      </div>
-      <div id="progress-count">0/20 answered</div>
-    </div>
-
-    <form id="quiz-form">
-      <div id="quiz-area"></div>
-      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Results</button>
-    </form>
-
-    <div id="results">
-      <div class="score-container">
-        <div class="score-circle">0</div>
-        <div class="score-label">Your Score</div>
-      </div>
-      <div class="feedback"></div>
-      <div class="action-buttons">
-        <a href="" class="secondary-btn" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
+</div>
+<div class="progress-wrapper">
+<div class="progress-container">
+<div id="progress-fill"></div>
+</div>
+<div id="progress-count">0/20 answered</div>
+</div>
+<form id="quiz-form">
+<div id="quiz-area"></div>
+<button id="submitBtn" onclick="submitQuiz()" type="button">Submit Results</button>
+</form>
+<div id="results">
+<div class="score-container">
+<div class="score-circle">0</div>
+<div class="score-label">Your Score</div>
+</div>
+<div class="feedback"></div>
+<div class="action-buttons">
+<a class="secondary-btn" href="" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
           Quiz</a>
-        <a href="../../resources/resources.html" class="secondary-btn"><i class="fas fa-th-list"></i> More Quizzes</a>
-      </div>
-      <div id="answer-key" class="answer-key"></div>
-    </div>
-  </div>
-
-  <script>
+<a class="secondary-btn" href="../../resources/resources.html"><i class="fas fa-th-list"></i> More Quizzes</a>
+</div>
+<div class="answer-key" id="answer-key"></div>
+</div>
+</div>
+<script>
     const questions = [
       { q: "1. Simplify: \\(\\frac{1}{4} + \\frac{2}{4}\\)", options: ["A) \\(\\frac{3}{4}\\)", "B) \\(\\frac{3}{8}\\)", "C) \\(\\frac{1}{2}\\)", "D) \\(\\frac{4}{4}\\)"], correct: "A", explanation: "With like denominators, just add the numerators: 1+2=3. Keeps the denominator 4." },
       { q: "2. Simplify: \\(\\frac{1}{2} + \\frac{1}{3}\\)", options: ["A) \\(\\frac{2}{5}\\)", "B) \\(\\frac{5}{6}\\)", "C) \\(\\frac{1}{6}\\)", "D) \\(\\frac{3}{5}\\)"], correct: "B", explanation: "Common denominator is 6. \\(\\frac{3}{6} + \\frac{2}{6} = \\frac{5}{6}\\)." },
@@ -115,5 +107,4 @@
     }
   </script>
 </body>
-
 </html>

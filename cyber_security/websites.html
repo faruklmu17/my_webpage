@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>2FA Login Challenge - Cyber Safety Lab</title>
-  <link rel="canonical" href="https://faruk-hasan.com/cyber_security/websites.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
+<meta charset="utf-8"/>
+<title>2FA Login Challenge - Cyber Safety Lab</title>
+<link href="https://faruk-hasan.com/cyber_security/websites.html" rel="canonical"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<style>
     :root {
       --bg-gradient: linear-gradient(135deg, #4f46e5, #06b6d4);
       --card-bg: #ffffff;
@@ -360,115 +360,107 @@
       text-decoration: underline;
     }
   </style>
-</head>
-
+<meta content="Explore 2FA Login Challenge 🔐 on Faruk Hasan's portfolio. Interactive resources and programming practice." name="description"/></head>
 <body>
-  <div class="app">
-    <!-- RIGHT SIDE: explanation -->
-    <section class="right-panel">
-      <div class="tag">
-        <span class="tag-dot"></span>
+<div class="app">
+<!-- RIGHT SIDE: explanation -->
+<section class="right-panel">
+<div class="tag">
+<span class="tag-dot"></span>
         CYBER SAFETY LAB
       </div>
-      <h1>2FA Login Challenge 🔐</h1>
-      <p class="fun-text">
+<h1>2FA Login Challenge 🔐</h1>
+<p class="fun-text">
         2FA (two-factor authentication) means your account needs
         <strong>two things</strong> to let you in:
         something you <strong>know</strong> (your password) and
         something you <strong>have</strong> (a code on your phone).
       </p>
-      <p class="fun-text">
+<p class="fun-text">
         In this challenge, you’ll pretend to log in, then type a
         one-time 6-digit code. See how this extra step keeps your
         account safer if someone guesses your password.
       </p>
-      <div class="badge">
-        <span class="badge-dot"></span>
+<div class="badge">
+<span class="badge-dot"></span>
         Never share real 2FA codes or screenshots with anyone
       </div>
-    </section>
-
-    <!-- LEFT SIDE: interactive 2FA simulator -->
-    <section class="card">
-      <div>
-        <div class="section-title">Step 1 · Pretend login</div>
-        <div class="field-group">
-          <div class="row">
-            <div>
-              <label for="username">Username</label>
-              <input id="username" type="text" placeholder="Example: gamer123" autocomplete="off" />
-            </div>
-            <div>
-              <label for="password">Password (practice only)</label>
-              <input id="password" type="password" placeholder="Use a pretend password" autocomplete="off" />
-            </div>
-          </div>
-          <div class="row">
-            <button class="btn btn-primary" id="send-code-btn">
+</section>
+<!-- LEFT SIDE: interactive 2FA simulator -->
+<section class="card">
+<div>
+<div class="section-title">Step 1 · Pretend login</div>
+<div class="field-group">
+<div class="row">
+<div>
+<label for="username">Username</label>
+<input autocomplete="off" id="username" placeholder="Example: gamer123" type="text"/>
+</div>
+<div>
+<label for="password">Password (practice only)</label>
+<input autocomplete="off" id="password" placeholder="Use a pretend password" type="password"/>
+</div>
+</div>
+<div class="row">
+<button class="btn btn-primary" id="send-code-btn">
               Send 6-digit code
             </button>
-            <div class="hint">
+<div class="hint">
               Use fake info here. This is just a demo, not a real login.
             </div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="section-title">Step 2 · Enter your 2FA code</div>
-        <div class="code-display" id="code-display">
-          <span>Code sent to your phone (for demo):</span>
-          <span class="code-number" id="code-number">000000</span>
-        </div>
-        <div class="field-group" style="margin-top: 0.5rem;">
-          <div class="row">
-            <div>
-              <label for="code-input">Enter 6-digit code</label>
-              <input id="code-input" type="number" placeholder="123456" autocomplete="off" />
-            </div>
-            <button class="btn btn-primary btn-small" id="verify-btn" disabled>
+</div>
+</div>
+</div>
+<div>
+<div class="section-title">Step 2 · Enter your 2FA code</div>
+<div class="code-display" id="code-display">
+<span>Code sent to your phone (for demo):</span>
+<span class="code-number" id="code-number">000000</span>
+</div>
+<div class="field-group" style="margin-top: 0.5rem;">
+<div class="row">
+<div>
+<label for="code-input">Enter 6-digit code</label>
+<input autocomplete="off" id="code-input" placeholder="123456" type="number"/>
+</div>
+<button class="btn btn-primary btn-small" disabled="" id="verify-btn">
               Verify &amp; log in
             </button>
-          </div>
-          <div class="hint">
+</div>
+<div class="hint">
             Imagine this code came to your phone. Only the real you should see it.
           </div>
-        </div>
-
-        <div class="status-box" id="status-box">
-          <span class="status-icon" id="status-icon">ℹ️</span>
-          <span id="status-text">Status message</span>
-        </div>
-
-        <div class="login-stats" id="login-stats">
+</div>
+<div class="status-box" id="status-box">
+<span class="status-icon" id="status-icon">ℹ️</span>
+<span id="status-text">Status message</span>
+</div>
+<div class="login-stats" id="login-stats">
           Successful logins with 2FA: <strong>0</strong> · Attempts: <strong>0</strong>
-        </div>
-      </div>
-
-      <div class="quiz">
-        <div class="section-title">Quick question</div>
-        <div class="quiz-question">
+</div>
+</div>
+<div class="quiz">
+<div class="section-title">Quick question</div>
+<div class="quiz-question">
           If a hacker knows your password but <strong>does not</strong> have your 2FA code, can they log in?
         </div>
-        <div class="quiz-buttons">
-          <button class="btn btn-outline btn-small" id="quiz-yes">Yes</button>
-          <button class="btn btn-outline btn-small" id="quiz-no">No</button>
-        </div>
-        <div class="quiz-result" id="quiz-result">
+<div class="quiz-buttons">
+<button class="btn btn-outline btn-small" id="quiz-yes">Yes</button>
+<button class="btn btn-outline btn-small" id="quiz-no">No</button>
+</div>
+<div class="quiz-result" id="quiz-result">
           Choose an answer to see why 2FA helps.
         </div>
-      </div>
-
-      <div class="nav-links">
+</div>
+<div class="nav-links">
         Practice more cyber safety:
         <a href="../cyber_security/password.html">Password Tester</a> ·
         <a href="../cyber_security/phishing.html">Phishing Detective</a> ·
         <a href="../cyber_security/websites.html">Fake vs Real Website</a>
-      </div>
-    </section>
-  </div>
-
-  <script>
+</div>
+</section>
+</div>
+<script>
     const sendCodeBtn = document.getElementById("send-code-btn");
     const verifyBtn = document.getElementById("verify-btn");
     const codeDisplay = document.getElementById("code-display");
@@ -578,5 +570,4 @@
     updateStats();
   </script>
 </body>
-
 </html>

@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JavaScript Arrays & Functions Quiz | Web Dev Project 5</title>
-  <meta name="description"
-    content="Test your knowledge of JavaScript arrays, loops, and functions with this interactive quiz. 10 challenging coding concepts and behaviors.">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../../shared/quiz-style.css">
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JavaScript Arrays &amp; Functions Quiz | Web Dev Project 5</title>
+<meta content="Test your knowledge of JavaScript arrays, loops, and functions with this interactive quiz. 10 challenging coding concepts and behaviors." name="description"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../../shared/quiz-style.css" rel="stylesheet"/>
+<style>
     pre {
       background-color: #f8f9fa;
       padding: 12px;
@@ -21,47 +20,40 @@
       margin: 15px 0;
     }
   </style>
-</head>
-
+<link href="https://faruk-hasan.com/quizzes/HTML-CSS-JS/project5_quiz2.html" rel="canonical"/></head>
 <body>
-
-  <h1>🚀 JS Arrays & Functions Quiz</h1>
-
-  <div class="quiz-container">
-    <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Resources</a>
-    <div class="intro">
-      <p>Test your knowledge of JavaScript arrays, loops, and functions. Can you predict the output of these code
+<h1>🚀 JS Arrays &amp; Functions Quiz</h1>
+<div class="quiz-container">
+<a class="back-link" href="../../resources/resources.html"><i class="fas fa-arrow-left"></i> Back to Resources</a>
+<div class="intro">
+<p>Test your knowledge of JavaScript arrays, loops, and functions. Can you predict the output of these code
         snippets?</p>
-    </div>
-
-    <div class="progress-wrapper">
-      <div class="progress-container">
-        <div id="progress-fill"></div>
-      </div>
-      <div id="progress-count">0/10 answered</div>
-    </div>
-
-    <form id="quiz-form">
-      <div id="quiz-area"></div>
-      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Results</button>
-    </form>
-
-    <div id="results">
-      <div class="score-container">
-        <div class="score-circle">0</div>
-        <div class="score-label">Your Score</div>
-      </div>
-      <div class="feedback"></div>
-      <div class="action-buttons">
-        <a href="" class="secondary-btn" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
+</div>
+<div class="progress-wrapper">
+<div class="progress-container">
+<div id="progress-fill"></div>
+</div>
+<div id="progress-count">0/10 answered</div>
+</div>
+<form id="quiz-form">
+<div id="quiz-area"></div>
+<button id="submitBtn" onclick="submitQuiz()" type="button">Submit Results</button>
+</form>
+<div id="results">
+<div class="score-container">
+<div class="score-circle">0</div>
+<div class="score-label">Your Score</div>
+</div>
+<div class="feedback"></div>
+<div class="action-buttons">
+<a class="secondary-btn" href="" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
           Quiz</a>
-        <a href="../../resources/resources.html" class="secondary-btn"><i class="fas fa-th-list"></i> More Quizzes</a>
-      </div>
-      <div id="answer-key" class="answer-key"></div>
-    </div>
-  </div>
-
-  <script>
+<a class="secondary-btn" href="../../resources/resources.html"><i class="fas fa-th-list"></i> More Quizzes</a>
+</div>
+<div class="answer-key" id="answer-key"></div>
+</div>
+</div>
+<script>
     const questions = [
       { q: "1. What will be the output?", code: `let sum = 0;\nfor (let i = 1; i <= 5; i++) {\n    sum += i;\n}\nconsole.log(sum);`, options: ["A) 10", "B) 15", "C) 5", "D) 20"], correct: "B", explanation: "The loop sums numbers 1 to 5: 1+2+3+4+5 = 15." },
       { q: "2. What is the output of this while loop?", code: `let i = 0;\nwhile (i < 3) {\n    console.log(i);\n    i++;\n}`, options: ["A) 0 1 2", "B) 0 1", "C) 1 2 3", "D) 1 2"], correct: "A", explanation: "Logs 0, 1, 2. Stops when i reaches 3." },
@@ -117,5 +109,4 @@
     }
   </script>
 </body>
-
 </html>

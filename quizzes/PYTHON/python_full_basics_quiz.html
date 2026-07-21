@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🐍 Python Quiz (Full Basics) | Test Python Fundamentals</title>
-  <meta name="description"
-    content="Test your fundamental Python knowledge with this 20-question basics quiz covering variables, data types, control structures, loops, built-in functions, user-defined functions, list methods, and more.">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../../shared/quiz-style.css">
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>🐍 Python Quiz (Full Basics) | Test Python Fundamentals</title>
+<meta content="Test your fundamental Python knowledge with this 20-question basics quiz covering variables, data types, control structures, loops, built-in functions, user-defined functions, list methods, and more." name="description"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../../shared/quiz-style.css" rel="stylesheet"/>
+<style>
     /* Styling adjustments to support fieldsets visually matching div.question */
     fieldset.question {
       border: none;
@@ -83,56 +82,48 @@
       border: 0;
     }
   </style>
-</head>
-
+<link href="https://faruk-hasan.com/quizzes/PYTHON/python_full_basics_quiz.html" rel="canonical"/></head>
 <body>
-
-  <h1>🐍 Python Quiz (Full Basics)</h1>
-
-  <div class="quiz-container">
-    <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Resources</a>
-    
-    <div class="intro" role="region" aria-label="Quiz Welcome Information">
-      <p>Welcome to the Python Basics Quiz! This quiz is designed to test your understanding of fundamental Python programming concepts. You will encounter 20 multiple-choice questions covering a range of topics, including:</p>
-      <ul>
-        <li><strong>Data Types:</strong> int, float, string, boolean, dictionary, list, and tuple.</li>
-        <li><strong>Control Structures:</strong> for loop, while loop, and nested loops.</li>
-        <li><strong>Built-in Functions:</strong> len(), range(), type(), int(), float(), str(), and split().</li>
-        <li><strong>User-Defined Functions:</strong> how to define and use them.</li>
-        <li><strong>Methods and Operations:</strong> list methods and the use of map().</li>
-      </ul>
-      <p>Each question has four options, and only one option is correct. This quiz will help reinforce your knowledge and ensure you have a solid grasp of basic Python programming. Good luck!</p>
-    </div>
-
-    <!-- Progress section with Screen Reader status and ARIA attributes -->
-    <div class="progress-wrapper" role="status" aria-live="polite">
-      <span class="sr-only">Quiz Progress:</span>
-      <div class="progress-container">
-        <div id="progress-fill" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="20" style="width: 0%;"></div>
-      </div>
-      <div id="progress-count">0/20 answered</div>
-    </div>
-
-    <form id="quiz-form" aria-label="Python Fundamentals Quiz Form">
-      <div id="quiz-area"></div>
-      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Results</button>
-    </form>
-
-    <div id="results" role="dialog" aria-labelledby="results-title" style="display: none;">
-      <div class="score-container">
-        <div class="score-circle" id="score-circle-display" aria-live="assertive">0/20</div>
-        <div class="score-label" id="results-title">Your Score</div>
-      </div>
-      <div class="feedback" id="feedback-display" aria-live="polite"></div>
-      <div class="action-buttons">
-        <a href="" class="secondary-btn" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake Quiz</a>
-        <a href="../../resources/resources.html" class="secondary-btn"><i class="fas fa-th-list"></i> More Quizzes</a>
-      </div>
-      <div id="answer-key" class="answer-key" aria-live="polite"></div>
-    </div>
-  </div>
-
-  <script>
+<h1>🐍 Python Quiz (Full Basics)</h1>
+<div class="quiz-container">
+<a class="back-link" href="../../resources/resources.html"><i class="fas fa-arrow-left"></i> Back to Resources</a>
+<div aria-label="Quiz Welcome Information" class="intro" role="region">
+<p>Welcome to the Python Basics Quiz! This quiz is designed to test your understanding of fundamental Python programming concepts. You will encounter 20 multiple-choice questions covering a range of topics, including:</p>
+<ul>
+<li><strong>Data Types:</strong> int, float, string, boolean, dictionary, list, and tuple.</li>
+<li><strong>Control Structures:</strong> for loop, while loop, and nested loops.</li>
+<li><strong>Built-in Functions:</strong> len(), range(), type(), int(), float(), str(), and split().</li>
+<li><strong>User-Defined Functions:</strong> how to define and use them.</li>
+<li><strong>Methods and Operations:</strong> list methods and the use of map().</li>
+</ul>
+<p>Each question has four options, and only one option is correct. This quiz will help reinforce your knowledge and ensure you have a solid grasp of basic Python programming. Good luck!</p>
+</div>
+<!-- Progress section with Screen Reader status and ARIA attributes -->
+<div aria-live="polite" class="progress-wrapper" role="status">
+<span class="sr-only">Quiz Progress:</span>
+<div class="progress-container">
+<div aria-valuemax="20" aria-valuemin="0" aria-valuenow="0" id="progress-fill" role="progressbar" style="width: 0%;"></div>
+</div>
+<div id="progress-count">0/20 answered</div>
+</div>
+<form aria-label="Python Fundamentals Quiz Form" id="quiz-form">
+<div id="quiz-area"></div>
+<button id="submitBtn" onclick="submitQuiz()" type="button">Submit Results</button>
+</form>
+<div aria-labelledby="results-title" id="results" role="dialog" style="display: none;">
+<div class="score-container">
+<div aria-live="assertive" class="score-circle" id="score-circle-display">0/20</div>
+<div class="score-label" id="results-title">Your Score</div>
+</div>
+<div aria-live="polite" class="feedback" id="feedback-display"></div>
+<div class="action-buttons">
+<a class="secondary-btn" href="" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake Quiz</a>
+<a class="secondary-btn" href="../../resources/resources.html"><i class="fas fa-th-list"></i> More Quizzes</a>
+</div>
+<div aria-live="polite" class="answer-key" id="answer-key"></div>
+</div>
+</div>
+<script>
     const questions = [
       {
         q: "1. What is the output of type(42)?",
@@ -452,7 +443,5 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
-
 </body>
-
 </html>

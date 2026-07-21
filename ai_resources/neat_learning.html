@@ -1,30 +1,27 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>NEAT Config File Tutorial - Interactive 10-Minute Lesson for Kids</title>
-  <meta name="description" content="Learn how NEAT (NeuroEvolution of Augmenting Topologies) config files work through an interactive, kid-friendly lesson. Understand robots, fitness scores, mutations, and evolution in AI - no scary math required!" />
-  <meta name="keywords" content="NEAT tutorial, NEAT config file, AI for kids, machine learning tutorial, neuroevolution, genetic algorithm, interactive AI lesson, NEAT Python, evolutionary algorithms" />
-  <meta name="author" content="Faruk" />
-
-  <!-- Open Graph / Social Media Meta Tags -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="NEAT Config File Tutorial - Interactive 10-Minute Lesson" />
-  <meta property="og:description" content="Learn how NEAT config files work through an interactive, kid-friendly lesson. Understand AI evolution, mutations, and fitness scores!" />
-  <meta property="og:url" content="https://farukalamai.com/ai_resources/neat_learning.html" />
-
-  <!-- Twitter Card Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="NEAT Config File Tutorial - Interactive Lesson" />
-  <meta name="twitter:description" content="Learn how NEAT config files work through an interactive, kid-friendly lesson. Understand AI evolution, mutations, and fitness scores!" />
-
-  <!-- Friendly Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>NEAT Config File Tutorial - Interactive 10-Minute Lesson for Kids</title>
+<meta content="Learn how NEAT (NeuroEvolution of Augmenting Topologies) config files work through an interactive, kid-friendly lesson. Understand robots, fitness scores, mutations, and evolution in AI - no scary math required!" name="description"/>
+<meta content="NEAT tutorial, NEAT config file, AI for kids, machine learning tutorial, neuroevolution, genetic algorithm, interactive AI lesson, NEAT Python, evolutionary algorithms" name="keywords"/>
+<meta content="Faruk" name="author"/>
+<!-- Open Graph / Social Media Meta Tags -->
+<meta content="website" property="og:type"/>
+<meta content="NEAT Config File Tutorial - Interactive 10-Minute Lesson" property="og:title"/>
+<meta content="Learn how NEAT config files work through an interactive, kid-friendly lesson. Understand AI evolution, mutations, and fitness scores!" property="og:description"/>
+<meta content="https://farukalamai.com/ai_resources/neat_learning.html" property="og:url"/>
+<!-- Twitter Card Meta Tags -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="NEAT Config File Tutorial - Interactive Lesson" name="twitter:title"/>
+<meta content="Learn how NEAT config files work through an interactive, kid-friendly lesson. Understand AI evolution, mutations, and fitness scores!" name="twitter:description"/>
+<!-- Friendly Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600;700&amp;family=Nunito:wght@400;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
     :root {
       /* Fun & Bright Palette */
       --bg: #E0F7FA;
@@ -464,354 +461,317 @@
       border-radius: 6px;
     }
   </style>
-</head>
+<link href="https://faruk-hasan.com/ai_resources/neat_learning.html" rel="canonical"/></head>
 <body>
 <header>
-  <h1>🤖 NEAT Config File — Interactive Lesson</h1>
-  <div class="sub">
+<h1>🤖 NEAT Config File — Interactive Lesson</h1>
+<div class="sub">
     Goal: Understand what the config does (robots, inputs/outputs, fitness, mutation, generations) — no scary math! 🎯
   </div>
-
-  <div class="stats-bar">
-    <div class="stat-pill timer">
-      <span style="font-size:1.2rem">⏱️</span>
-      <span id="timer">10:00</span>
-    </div>
-    <div class="stat-pill">
-      <span>✅ Progress:</span>
-      <b id="progressText">0/5</b>
-    </div>
-  </div>
+<div class="stats-bar">
+<div class="stat-pill timer">
+<span style="font-size:1.2rem">⏱️</span>
+<span id="timer">10:00</span>
+</div>
+<div class="stat-pill">
+<span>✅ Progress:</span>
+<b id="progressText">0/5</b>
+</div>
+</div>
 </header>
-
 <main>
-  <div class="card">
-    <div class="row" style="justify-content: space-between;">
-      <div class="row">
-        <button id="startBtn" class="primary">🚀 Start Lesson</button>
-        <button id="resetBtn" class="danger">🔄 Reset</button>
-      </div>
-    </div>
-
-    <div style="margin-top: 20px;">
-      <div class="stepper" id="stepper">
-        <div class="step active" data-step="0">🤖 Robots & Fitness</div>
-        <div class="step" data-step="1">👀 Inputs & Outputs</div>
-        <div class="step" data-step="2">🧬 Mutation</div>
-        <div class="step" data-step="3">🎯 Species & Stagnation</div>
-        <div class="step" data-step="4">📝 Quick Quiz</div>
-      </div>
-
-      <div class="progress" aria-label="Lesson progress">
-        <div class="bar" id="bar"></div>
-      </div>
-
-      <!-- STEP 1 -->
-      <section class="panel" id="step0">
-        <h2>🤖 Step 1: Robots & Fitness (Score)</h2>
-        <p class="muted">
+<div class="card">
+<div class="row" style="justify-content: space-between;">
+<div class="row">
+<button class="primary" id="startBtn">🚀 Start Lesson</button>
+<button class="danger" id="resetBtn">🔄 Reset</button>
+</div>
+</div>
+<div style="margin-top: 20px;">
+<div class="stepper" id="stepper">
+<div class="step active" data-step="0">🤖 Robots &amp; Fitness</div>
+<div class="step" data-step="1">👀 Inputs &amp; Outputs</div>
+<div class="step" data-step="2">🧬 Mutation</div>
+<div class="step" data-step="3">🎯 Species &amp; Stagnation</div>
+<div class="step" data-step="4">📝 Quick Quiz</div>
+</div>
+<div aria-label="Lesson progress" class="progress">
+<div class="bar" id="bar"></div>
+</div>
+<!-- STEP 1 -->
+<section class="panel" id="step0">
+<h2>🤖 Step 1: Robots &amp; Fitness (Score)</h2>
+<p class="muted">
           NEAT makes a bunch of “robot players” (AI agents). Each robot plays the same level <b>one at a time</b>.
           The robot earns a <span class="tag">fitness score</span> (like points). High score = better robot! 🏆
         </p>
-
-        <div class="grid">
-          <div class="card">
-            <h2>⚙️ Config Snippet</h2>
-            <div class="codebox">
-              <div><span class="k">[NEAT]</span></div>
-              <div><span class="hl">pop_size</span> = <b id="popSizeView">200</b> <span class="c"># robots per generation</span></div>
-              <div><span class="hl">fitness_threshold</span> = <b id="fitThreshView">600</b> <span class="c"># stop when reached</span></div>
-              <div><span class="hl">fitness_criterion</span> = max <span class="c"># higher is better</span></div>
-            </div>
-
-            <div class="slider">
-              <label class="muted"><b>pop_size</b> (robots in a generation): <span id="popSizeLabel">200</span></label>
-              <input id="popSize" type="range" min="20" max="400" step="10" value="200" />
-            </div>
-            <div class="slider">
-              <label class="muted"><b>fitness_threshold</b> (goal score): <span id="fitThreshLabel">600</span></label>
-              <input id="fitThresh" type="range" min="50" max="1000" step="50" value="600" />
-            </div>
-
-            <div class="row" style="margin-top: 10px;">
-              <button id="runGenBtn" class="primary">▶️ Run 1 Generation</button>
-              <button id="run5Btn">⏩ Run 5 Generations</button>
-            </div>
-            <p class="muted" style="margin-top:10px;">
+<div class="grid">
+<div class="card">
+<h2>⚙️ Config Snippet</h2>
+<div class="codebox">
+<div><span class="k">[NEAT]</span></div>
+<div><span class="hl">pop_size</span> = <b id="popSizeView">200</b> <span class="c"># robots per generation</span></div>
+<div><span class="hl">fitness_threshold</span> = <b id="fitThreshView">600</b> <span class="c"># stop when reached</span></div>
+<div><span class="hl">fitness_criterion</span> = max <span class="c"># higher is better</span></div>
+</div>
+<div class="slider">
+<label class="muted"><b>pop_size</b> (robots in a generation): <span id="popSizeLabel">200</span></label>
+<input id="popSize" max="400" min="20" step="10" type="range" value="200"/>
+</div>
+<div class="slider">
+<label class="muted"><b>fitness_threshold</b> (goal score): <span id="fitThreshLabel">600</span></label>
+<input id="fitThresh" max="1000" min="50" step="50" type="range" value="600"/>
+</div>
+<div class="row" style="margin-top: 10px;">
+<button class="primary" id="runGenBtn">▶️ Run 1 Generation</button>
+<button id="run5Btn">⏩ Run 5 Generations</button>
+</div>
+<p class="muted" style="margin-top:10px;">
               You’re simulating: <b>robots play → scores saved → best survive → babies created</b> 🔄
             </p>
-          </div>
-
-          <div class="card">
-            <h2>🎮 Mini Simulator</h2>
-            <div class="sim">
-              <div class="simgrid">
-                <div class="stat">
-                  <div class="muted">Generation</div>
-                  <div class="big" id="genView">0</div>
-                </div>
-                <div class="stat">
-                  <div class="muted">Best Fitness</div>
-                  <div class="big" id="bestView">0</div>
-                </div>
-                <div class="stat">
-                  <div class="muted">Status</div>
-                  <div class="big" id="statusView"><span class="warn">Waiting</span></div>
-                </div>
-              </div>
-
-              <div class="codebox" id="log" style="max-height: 160px; overflow:auto;">
-                <div class="c">Click “Run 1 Generation” to see what happens…</div>
-              </div>
-
-              <div class="row">
-                <button id="nextBtn0">Next Step →</button>
-                <span class="pill" id="complete0">Step complete: <b class="bad">No</b></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- STEP 2 -->
-      <section class="panel" id="step1" style="display:none;">
-        <h2>👀 Step 2: Inputs & Outputs (Eyes & Buttons)</h2>
-        <p class="muted">
+</div>
+<div class="card">
+<h2>🎮 Mini Simulator</h2>
+<div class="sim">
+<div class="simgrid">
+<div class="stat">
+<div class="muted">Generation</div>
+<div class="big" id="genView">0</div>
+</div>
+<div class="stat">
+<div class="muted">Best Fitness</div>
+<div class="big" id="bestView">0</div>
+</div>
+<div class="stat">
+<div class="muted">Status</div>
+<div class="big" id="statusView"><span class="warn">Waiting</span></div>
+</div>
+</div>
+<div class="codebox" id="log" style="max-height: 160px; overflow:auto;">
+<div class="c">Click “Run 1 Generation” to see what happens…</div>
+</div>
+<div class="row">
+<button id="nextBtn0">Next Step →</button>
+<span class="pill" id="complete0">Step complete: <b class="bad">No</b></span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- STEP 2 -->
+<section class="panel" id="step1" style="display:none;">
+<h2>👀 Step 2: Inputs &amp; Outputs (Eyes &amp; Buttons)</h2>
+<p class="muted">
           The AI needs <b>inputs</b> (what it can see) and produces <b>outputs</b> (what buttons it presses).
           Your config says the robot has <b>9 inputs</b> and <b>3 outputs</b>. 🎮
         </p>
-
-        <div class="grid">
-          <div class="card">
-            <h2>⚙️ Config Snippet</h2>
-            <div class="codebox">
-              <div><span class="k">[DefaultGenome]</span></div>
-              <div><span class="hl">num_inputs</span> = <b id="inView">9</b></div>
-              <div><span class="hl">num_outputs</span> = <b id="outView">3</b></div>
-            </div>
-
-            <div class="slider">
-              <label class="muted"><b>num_inputs</b>: <span id="inLabel">9</span></label>
-              <input id="inRange" type="range" min="3" max="20" step="1" value="9" />
-              <div class="muted">Examples: distance to enemy, is on ground?, speed, gap ahead…</div>
-            </div>
-
-            <div class="slider">
-              <label class="muted"><b>num_outputs</b>: <span id="outLabel">3</span></label>
-              <input id="outRange" type="range" min="2" max="6" step="1" value="3" />
-              <div class="muted">Examples: move left, move right, jump, shoot…</div>
-            </div>
-          </div>
-
-          <div class="card">
-            <h2>🎯 Try It: Map Outputs to Game Buttons</h2>
-            <p class="muted">Pick what the 3 outputs mean for your platform game:</p>
-            <div class="quiz">
-              <div class="q">
-                <h3>Output #1</h3>
-                <div class="choices">
-                  <label class="choice"><input type="radio" name="o1" value="left"> Move Left</label>
-                  <label class="choice"><input type="radio" name="o1" value="right"> Move Right</label>
-                  <label class="choice"><input type="radio" name="o1" value="jump"> Jump</label>
-                </div>
-              </div>
-              <div class="q">
-                <h3>Output #2</h3>
-                <div class="choices">
-                  <label class="choice"><input type="radio" name="o2" value="left"> Move Left</label>
-                  <label class="choice"><input type="radio" name="o2" value="right"> Move Right</label>
-                  <label class="choice"><input type="radio" name="o2" value="jump"> Jump</label>
-                </div>
-              </div>
-              <div class="q">
-                <h3>Output #3</h3>
-                <div class="choices">
-                  <label class="choice"><input type="radio" name="o3" value="left"> Move Left</label>
-                  <label class="choice"><input type="radio" name="o3" value="right"> Move Right</label>
-                  <label class="choice"><input type="radio" name="o3" value="jump"> Jump</label>
-                </div>
-              </div>
-            </div>
-
-            <div class="row" style="margin-top: 10px;">
-              <button id="checkMappingBtn" class="primary">✅ Check Mapping</button>
-              <button id="nextBtn1">Next Step →</button>
-              <span class="pill" id="complete1">Step complete: <b class="bad">No</b></span>
-            </div>
-            <div class="feedback" id="mappingFeedback"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- STEP 3 -->
-      <section class="panel" id="step2" style="display:none;">
-        <h2>🧬 Step 3: Mutation (How Robots Change)</h2>
-        <p class="muted">
+<div class="grid">
+<div class="card">
+<h2>⚙️ Config Snippet</h2>
+<div class="codebox">
+<div><span class="k">[DefaultGenome]</span></div>
+<div><span class="hl">num_inputs</span> = <b id="inView">9</b></div>
+<div><span class="hl">num_outputs</span> = <b id="outView">3</b></div>
+</div>
+<div class="slider">
+<label class="muted"><b>num_inputs</b>: <span id="inLabel">9</span></label>
+<input id="inRange" max="20" min="3" step="1" type="range" value="9"/>
+<div class="muted">Examples: distance to enemy, is on ground?, speed, gap ahead…</div>
+</div>
+<div class="slider">
+<label class="muted"><b>num_outputs</b>: <span id="outLabel">3</span></label>
+<input id="outRange" max="6" min="2" step="1" type="range" value="3"/>
+<div class="muted">Examples: move left, move right, jump, shoot…</div>
+</div>
+</div>
+<div class="card">
+<h2>🎯 Try It: Map Outputs to Game Buttons</h2>
+<p class="muted">Pick what the 3 outputs mean for your platform game:</p>
+<div class="quiz">
+<div class="q">
+<h3>Output #1</h3>
+<div class="choices">
+<label class="choice"><input name="o1" type="radio" value="left"/> Move Left</label>
+<label class="choice"><input name="o1" type="radio" value="right"/> Move Right</label>
+<label class="choice"><input name="o1" type="radio" value="jump"/> Jump</label>
+</div>
+</div>
+<div class="q">
+<h3>Output #2</h3>
+<div class="choices">
+<label class="choice"><input name="o2" type="radio" value="left"/> Move Left</label>
+<label class="choice"><input name="o2" type="radio" value="right"/> Move Right</label>
+<label class="choice"><input name="o2" type="radio" value="jump"/> Jump</label>
+</div>
+</div>
+<div class="q">
+<h3>Output #3</h3>
+<div class="choices">
+<label class="choice"><input name="o3" type="radio" value="left"/> Move Left</label>
+<label class="choice"><input name="o3" type="radio" value="right"/> Move Right</label>
+<label class="choice"><input name="o3" type="radio" value="jump"/> Jump</label>
+</div>
+</div>
+</div>
+<div class="row" style="margin-top: 10px;">
+<button class="primary" id="checkMappingBtn">✅ Check Mapping</button>
+<button id="nextBtn1">Next Step →</button>
+<span class="pill" id="complete1">Step complete: <b class="bad">No</b></span>
+</div>
+<div class="feedback" id="mappingFeedback"></div>
+</div>
+</div>
+</section>
+<!-- STEP 3 -->
+<section class="panel" id="step2" style="display:none;">
+<h2>🧬 Step 3: Mutation (How Robots Change)</h2>
+<p class="muted">
           After one generation, NEAT keeps the better robots and makes new robots by copying them… then adds
           small random changes called <span class="tag">mutations</span>. That’s how robots “evolve.”
         </p>
-
-        <div class="grid">
-          <div class="card">
-            <h2>⚙️ Config Snippet</h2>
-            <div class="codebox">
-              <div><span class="k">[DefaultGenome]</span></div>
-              <div><span class="hl">weight_mutate_rate</span> = <b id="wmView">0.55</b></div>
-              <div><span class="hl">node_add_prob</span> = <b id="naView">0.20</b></div>
-              <div><span class="hl">conn_add_prob</span> = <b id="caView">0.20</b></div>
-            </div>
-
-            <div class="slider">
-              <label class="muted"><b>weight_mutate_rate</b> (change brain numbers): <span id="wmLabel">0.55</span></label>
-              <input id="wmRange" type="range" min="0" max="1" step="0.01" value="0.55" />
-            </div>
-            <div class="slider">
-              <label class="muted"><b>node_add_prob</b> (add new neuron): <span id="naLabel">0.20</span></label>
-              <input id="naRange" type="range" min="0" max="0.5" step="0.01" value="0.20" />
-            </div>
-            <div class="slider">
-              <label class="muted"><b>conn_add_prob</b> (add new wire): <span id="caLabel">0.20</span></label>
-              <input id="caRange" type="range" min="0" max="0.5" step="0.01" value="0.20" />
-            </div>
-          </div>
-
-          <div class="card">
-            <h2>🧪 Try It: Evolve a New Generation</h2>
-            <p class="muted">
+<div class="grid">
+<div class="card">
+<h2>⚙️ Config Snippet</h2>
+<div class="codebox">
+<div><span class="k">[DefaultGenome]</span></div>
+<div><span class="hl">weight_mutate_rate</span> = <b id="wmView">0.55</b></div>
+<div><span class="hl">node_add_prob</span> = <b id="naView">0.20</b></div>
+<div><span class="hl">conn_add_prob</span> = <b id="caView">0.20</b></div>
+</div>
+<div class="slider">
+<label class="muted"><b>weight_mutate_rate</b> (change brain numbers): <span id="wmLabel">0.55</span></label>
+<input id="wmRange" max="1" min="0" step="0.01" type="range" value="0.55">
+</input></div>
+<div class="slider">
+<label class="muted"><b>node_add_prob</b> (add new neuron): <span id="naLabel">0.20</span></label>
+<input id="naRange" max="0.5" min="0" step="0.01" type="range" value="0.20">
+</input></div>
+<div class="slider">
+<label class="muted"><b>conn_add_prob</b> (add new wire): <span id="caLabel">0.20</span></label>
+<input id="caRange" max="0.5" min="0" step="0.01" type="range" value="0.20">
+</input></div>
+</div>
+<div class="card">
+<h2>🧪 Try It: Evolve a New Generation</h2>
+<p class="muted">
               Press the button to “make babies” from the best robot. We’ll show how mutation settings change results.
             </p>
-            <div class="row">
-              <button id="evolveBtn" class="primary">🧬 Evolve 1 Gen With These Settings</button>
-              <button id="nextBtn2">Next Step →</button>
-              <span class="pill" id="complete2">Step complete: <b class="bad">No</b></span>
-            </div>
-            <div class="codebox" id="mutLog" style="margin-top:10px; max-height: 220px; overflow:auto;">
-              <div class="c">Tip: If mutation is too low, robots don’t change much. If too high, robots become random.</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- STEP 4 -->
-      <section class="panel" id="step3" style="display:none;">
-        <h2>4) Species & Stagnation (Teams and “No Improvement”)</h2>
-        <p class="muted">
+<div class="row">
+<button class="primary" id="evolveBtn">🧬 Evolve 1 Gen With These Settings</button>
+<button id="nextBtn2">Next Step →</button>
+<span class="pill" id="complete2">Step complete: <b class="bad">No</b></span>
+</div>
+<div class="codebox" id="mutLog" style="margin-top:10px; max-height: 220px; overflow:auto;">
+<div class="c">Tip: If mutation is too low, robots don’t change much. If too high, robots become random.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- STEP 4 -->
+<section class="panel" id="step3" style="display:none;">
+<h2>4) Species &amp; Stagnation (Teams and “No Improvement”)</h2>
+<p class="muted">
           NEAT splits robots into <span class="tag">species</span> (teams of similar brains) so one strategy doesn’t dominate too early.
           If a species stops improving, NEAT can remove it (stagnation).
         </p>
-
-        <div class="grid">
-          <div class="card">
-            <h2>Config Snippet</h2>
-            <div class="codebox">
-              <div><span class="k">[DefaultSpeciesSet]</span></div>
-              <div><span class="hl">compatibility_threshold</span> = <b id="ctView">1.485</b></div>
-              <div style="margin-top:10px;"><span class="k">[DefaultStagnation]</span></div>
-              <div><span class="hl">max_stagnation</span> = <b id="msView">5</b></div>
-              <div><span class="hl">species_elitism</span> = <b id="seView">2</b></div>
-            </div>
-
-            <p class="muted" style="margin-top:10px;">
+<div class="grid">
+<div class="card">
+<h2>Config Snippet</h2>
+<div class="codebox">
+<div><span class="k">[DefaultSpeciesSet]</span></div>
+<div><span class="hl">compatibility_threshold</span> = <b id="ctView">1.485</b></div>
+<div style="margin-top:10px;"><span class="k">[DefaultStagnation]</span></div>
+<div><span class="hl">max_stagnation</span> = <b id="msView">5</b></div>
+<div><span class="hl">species_elitism</span> = <b id="seView">2</b></div>
+</div>
+<p class="muted" style="margin-top:10px;">
               • Lower compatibility threshold → more species (more teams)<br/>
               • Higher threshold → fewer species (bigger teams)
             </p>
-          </div>
-
-          <div class="card">
-            <h2>Mini Challenge: Keep Diversity</h2>
-            <p class="muted">
+</div>
+<div class="card">
+<h2>Mini Challenge: Keep Diversity</h2>
+<p class="muted">
               Choose the best explanation for why we use species.
             </p>
-
-            <div class="q">
-              <div class="choices">
-                <label class="choice"><input type="radio" name="speciesQ" value="a"> So robots can play multiplayer together</label>
-                <label class="choice"><input type="radio" name="speciesQ" value="b"> So similar robots compete in teams and different ideas don’t disappear too fast</label>
-                <label class="choice"><input type="radio" name="speciesQ" value="c"> So the game runs faster</label>
-              </div>
-              <div class="feedback" id="speciesFeedback"></div>
-            </div>
-
-            <div class="row" style="margin-top:10px;">
-              <button id="checkSpeciesBtn" class="primary">Check Answer</button>
-              <button id="nextBtn3">Next →</button>
-              <span class="pill" id="complete3">Step complete: <b class="bad">No</b></span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- STEP 5 -->
-      <section class="panel" id="step4" style="display:none;">
-        <h2>5) Quick Quiz (2 minutes)</h2>
-        <p class="muted">Answer these 4 questions. If you score 3/4 or higher, you completed the lesson ✅</p>
-
-        <div class="quiz" id="finalQuiz">
-          <div class="q" data-answer="b">
-            <h3>1) What does <code>pop_size = 200</code> mean?</h3>
-            <div class="choices">
-              <label class="choice"><input type="radio" name="q1" value="a"> 200 enemies spawn</label>
-              <label class="choice"><input type="radio" name="q1" value="b"> 200 robots are tested per generation</label>
-              <label class="choice"><input type="radio" name="q1" value="c"> 200 levels are loaded</label>
-            </div>
-            <div class="feedback"></div>
-          </div>
-
-          <div class="q" data-answer="c">
-            <h3>2) What are <code>num_inputs</code> and <code>num_outputs</code>?</h3>
-            <div class="choices">
-              <label class="choice"><input type="radio" name="q2" value="a"> Player health and score</label>
-              <label class="choice"><input type="radio" name="q2" value="b"> Enemy speed settings</label>
-              <label class="choice"><input type="radio" name="q2" value="c"> The AI’s sensors (inputs) and action buttons (outputs)</label>
-            </div>
-            <div class="feedback"></div>
-          </div>
-
-          <div class="q" data-answer="a">
-            <h3>3) What does a “mutation” do?</h3>
-            <div class="choices">
-              <label class="choice"><input type="radio" name="q3" value="a"> Randomly changes the robot brain a little so new ideas appear</label>
-              <label class="choice"><input type="radio" name="q3" value="b"> Deletes the game code</label>
-              <label class="choice"><input type="radio" name="q3" value="c"> Makes the robot cheat</label>
-            </div>
-            <div class="feedback"></div>
-          </div>
-
-          <div class="q" data-answer="b">
-            <h3>4) Why does NEAT use “species”?</h3>
-            <div class="choices">
-              <label class="choice"><input type="radio" name="q4" value="a"> To make robots talk to each other</label>
-              <label class="choice"><input type="radio" name="q4" value="b"> To keep different strategies alive instead of one dominating too early</label>
-              <label class="choice"><input type="radio" name="q4" value="c"> To increase screen resolution</label>
-            </div>
-            <div class="feedback"></div>
-          </div>
-
-          <div class="row">
-            <button id="gradeBtn" class="primary">Grade Quiz</button>
-            <span class="pill">Score: <b id="scoreView">0/4</b></span>
-            <span class="pill" id="complete4">Lesson complete: <b class="bad">No</b></span>
-          </div>
-
-          <div class="card" style="margin-top: 12px;">
-            <h2>Takeaway (What the config really is)</h2>
-            <p class="muted">
+<div class="q">
+<div class="choices">
+<label class="choice"><input name="speciesQ" type="radio" value="a"/> So robots can play multiplayer together</label>
+<label class="choice"><input name="speciesQ" type="radio" value="b"/> So similar robots compete in teams and different ideas don’t disappear too fast</label>
+<label class="choice"><input name="speciesQ" type="radio" value="c"/> So the game runs faster</label>
+</div>
+<div class="feedback" id="speciesFeedback"></div>
+</div>
+<div class="row" style="margin-top:10px;">
+<button class="primary" id="checkSpeciesBtn">Check Answer</button>
+<button id="nextBtn3">Next →</button>
+<span class="pill" id="complete3">Step complete: <b class="bad">No</b></span>
+</div>
+</div>
+</div>
+</section>
+<!-- STEP 5 -->
+<section class="panel" id="step4" style="display:none;">
+<h2>5) Quick Quiz (2 minutes)</h2>
+<p class="muted">Answer these 4 questions. If you score 3/4 or higher, you completed the lesson ✅</p>
+<div class="quiz" id="finalQuiz">
+<div class="q" data-answer="b">
+<h3>1) What does <code>pop_size = 200</code> mean?</h3>
+<div class="choices">
+<label class="choice"><input name="q1" type="radio" value="a"/> 200 enemies spawn</label>
+<label class="choice"><input name="q1" type="radio" value="b"/> 200 robots are tested per generation</label>
+<label class="choice"><input name="q1" type="radio" value="c"/> 200 levels are loaded</label>
+</div>
+<div class="feedback"></div>
+</div>
+<div class="q" data-answer="c">
+<h3>2) What are <code>num_inputs</code> and <code>num_outputs</code>?</h3>
+<div class="choices">
+<label class="choice"><input name="q2" type="radio" value="a"/> Player health and score</label>
+<label class="choice"><input name="q2" type="radio" value="b"/> Enemy speed settings</label>
+<label class="choice"><input name="q2" type="radio" value="c"/> The AI’s sensors (inputs) and action buttons (outputs)</label>
+</div>
+<div class="feedback"></div>
+</div>
+<div class="q" data-answer="a">
+<h3>3) What does a “mutation” do?</h3>
+<div class="choices">
+<label class="choice"><input name="q3" type="radio" value="a"/> Randomly changes the robot brain a little so new ideas appear</label>
+<label class="choice"><input name="q3" type="radio" value="b"/> Deletes the game code</label>
+<label class="choice"><input name="q3" type="radio" value="c"/> Makes the robot cheat</label>
+</div>
+<div class="feedback"></div>
+</div>
+<div class="q" data-answer="b">
+<h3>4) Why does NEAT use “species”?</h3>
+<div class="choices">
+<label class="choice"><input name="q4" type="radio" value="a"/> To make robots talk to each other</label>
+<label class="choice"><input name="q4" type="radio" value="b"/> To keep different strategies alive instead of one dominating too early</label>
+<label class="choice"><input name="q4" type="radio" value="c"/> To increase screen resolution</label>
+</div>
+<div class="feedback"></div>
+</div>
+<div class="row">
+<button class="primary" id="gradeBtn">Grade Quiz</button>
+<span class="pill">Score: <b id="scoreView">0/4</b></span>
+<span class="pill" id="complete4">Lesson complete: <b class="bad">No</b></span>
+</div>
+<div class="card" style="margin-top: 12px;">
+<h2>Takeaway (What the config really is)</h2>
+<p class="muted">
               This file is the <b>rulebook</b> for evolving robot brains:
               how many robots, how scoring works, how robots mutate, and how diversity is kept.
               It does <b>not</b> draw the game or change physics—only the AI evolution rules.
             </p>
-          </div>
-        </div>
-      </section>
-
-    </div>
-  </div>
-
-  <footer>
+</div>
+</div>
+</section>
+</div>
+</div>
+<footer>
     Tip for the student: If the AI isn’t learning, the #1 thing to check is the <b>fitness function</b> and whether the game resets properly between robots.
   </footer>
 </main>
-
 <script>
   // ---------------------------
   // State

@@ -1,13 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <title>Phishing Email Detective - Cyber Safety Lab</title>
-  <link rel="canonical" href="https://faruk-hasan.com/cyber_security/phishing.html" />
-
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json">
+<meta charset="utf-8"/>
+<title>Phishing Email Detective - Cyber Safety Lab</title>
+<link href="https://faruk-hasan.com/cyber_security/phishing.html" rel="canonical"/>
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "LearningResource",
@@ -23,9 +22,8 @@
     }
   }
   </script>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<style>
     :root {
       --bg-gradient: linear-gradient(135deg, #4f46e5, #06b6d4);
       --card-bg: #ffffff;
@@ -360,95 +358,86 @@
       display: none;
     }
   </style>
-</head>
-
+<meta content="Explore Phishing Email Detective 🕵️‍♀️ on Faruk Hasan's portfolio. Interactive resources and programming practice." name="description"/></head>
 <body>
-  <div class="app">
-    <!-- RIGHT SIDE: instructions -->
-    <section class="right-panel">
-      <div class="tag">
-        <span class="tag-dot"></span>
+<div class="app">
+<!-- RIGHT SIDE: instructions -->
+<section class="right-panel">
+<div class="tag">
+<span class="tag-dot"></span>
         CYBER SAFETY LAB
       </div>
-      <h1>Phishing Email Detective 🕵️‍♀️</h1>
-      <p class="fun-text">
+<h1>Phishing Email Detective 🕵️‍♀️</h1>
+<p class="fun-text">
         Read each pretend email on the left and decide:
         <strong>Is this a safe, normal email or a tricky phishing email?</strong>
         Watch for red flags like strange links, “hurry up!” messages, or people
         asking for passwords.
       </p>
-      <p class="fun-text">
+<p class="fun-text">
         Click <strong>“This is Phishing”</strong> if it feels suspicious.
         Click <strong>“This is Safe”</strong> if it seems like a normal message.
         Then check the explanation to learn what clues you spotted—or missed!
       </p>
-      <div class="badge">
-        <span class="badge-dot"></span>
+<div class="badge">
+<span class="badge-dot"></span>
         These emails are examples only — do not click real suspicious links
       </div>
-    </section>
-
-    <!-- LEFT SIDE: email and quiz -->
-    <section class="card">
-      <div class="email-header">
-        <div class="email-row">
-          <div class="email-from-to">
-            <span id="email-from">From: support@example.com</span>
-            <span id="email-to">To: you@studentmail.com</span>
-          </div>
-          <span class="email-meta" id="email-time">Today · 2:14 PM</span>
-        </div>
-        <div class="email-subject" id="email-subject">
+</section>
+<!-- LEFT SIDE: email and quiz -->
+<section class="card">
+<div class="email-header">
+<div class="email-row">
+<div class="email-from-to">
+<span id="email-from">From: support@example.com</span>
+<span id="email-to">To: you@studentmail.com</span>
+</div>
+<span class="email-meta" id="email-time">Today · 2:14 PM</span>
+</div>
+<div class="email-subject" id="email-subject">
           Subject: Example subject line
         </div>
-      </div>
-
-      <div class="email-body" id="email-body">
+</div>
+<div class="email-body" id="email-body">
         Email body goes here.
       </div>
-
-      <div class="email-footer-note">
+<div class="email-footer-note">
         (This is a practice email. Do not copy or use these links in real life.)
       </div>
-
-      <div class="choice-buttons">
-        <button class="btn btn-safe" id="btn-safe">
+<div class="choice-buttons">
+<button class="btn btn-safe" id="btn-safe">
           ✅ This is Safe
         </button>
-        <button class="btn btn-phish" id="btn-phish">
+<button class="btn btn-phish" id="btn-phish">
           ⚠️ This is Phishing
         </button>
-        <button class="btn btn-next" id="btn-next" disabled>
+<button class="btn btn-next" disabled="" id="btn-next">
           Next Email →
         </button>
-      </div>
-
-      <div class="result-box" id="result-box">
-        <div class="result-icon" id="result-icon">💬</div>
-        <div class="result-text" id="result-text">
-          <strong>Result line</strong>
+</div>
+<div class="result-box" id="result-box">
+<div class="result-icon" id="result-icon">💬</div>
+<div class="result-text" id="result-text">
+<strong>Result line</strong>
           Explanation text.
         </div>
-      </div>
-
-      <div class="score-box">
-        <div>
-          <span class="score-main" id="score-main">Score: 0 / 0</span>
-          <span id="score-extra"></span>
-        </div>
-        <div class="progress-dots" id="progress-dots"></div>
-      </div>
-
-      <!-- Next activity: appears only after last email answered -->
-      <div class="next-activity hidden" id="next-activity">
-        <a href="../cyber_security/websites.html" class="btn btn-next">
+</div>
+<div class="score-box">
+<div>
+<span class="score-main" id="score-main">Score: 0 / 0</span>
+<span id="score-extra"></span>
+</div>
+<div class="progress-dots" id="progress-dots"></div>
+</div>
+<!-- Next activity: appears only after last email answered -->
+<div class="next-activity hidden" id="next-activity">
+<a class="btn btn-next" href="../cyber_security/websites.html">
           Next: Fake vs Real Website →
         </a>
-      </div>
-    </section>
-  </div>
-
-  <script>
+</div>
+</section>
+</div>
+<script>
     const scenarios = [
       {
         from: "GamingRewards <rewards@gamingworld.com>",
@@ -706,5 +695,4 @@ Offer ends in 30 minutes. Do NOT tell anyone about this secret link.`,
     loadScenario(currentIndex);
   </script>
 </body>
-
 </html>

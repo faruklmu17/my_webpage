@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Python Mastery Quiz | Beginner to Intermediate</title>
-  <meta name="description"
-    content="Test your Python skills with 15 questions on input types, list slicing, dictionaries, map(), and lambda functions.">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../../shared/quiz-style.css">
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Python Mastery Quiz | Beginner to Intermediate</title>
+<meta content="Test your Python skills with 15 questions on input types, list slicing, dictionaries, map(), and lambda functions." name="description"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../../shared/quiz-style.css" rel="stylesheet"/>
+<style>
     code {
       background-color: #f0f3f7;
       padding: 2px 4px;
@@ -26,47 +25,40 @@
       border-left: 4px solid var(--primary-color);
     }
   </style>
-</head>
-
+<link href="https://faruk-hasan.com/quizzes/PYTHON/python_quiz_advance_1.html" rel="canonical"/></head>
 <body>
-
-  <h1>🐍 Python Mastery Quiz</h1>
-
-  <div class="quiz-container">
-    <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Resources</a>
-    <div class="intro">
-      <p>Challenge yourself with these 15 questions covering variable types, list structures, operations, and functional
+<h1>🐍 Python Mastery Quiz</h1>
+<div class="quiz-container">
+<a class="back-link" href="../../resources/resources.html"><i class="fas fa-arrow-left"></i> Back to Resources</a>
+<div class="intro">
+<p>Challenge yourself with these 15 questions covering variable types, list structures, operations, and functional
         programming concepts.</p>
-    </div>
-
-    <div class="progress-wrapper">
-      <div class="progress-container">
-        <div id="progress-fill"></div>
-      </div>
-      <div id="progress-count">0/15 answered</div>
-    </div>
-
-    <form id="quiz-form">
-      <div id="quiz-area"></div>
-      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Results</button>
-    </form>
-
-    <div id="results">
-      <div class="score-container">
-        <div class="score-circle">0</div>
-        <div class="score-label">Your Score</div>
-      </div>
-      <div class="feedback"></div>
-      <div class="action-buttons">
-        <a href="" class="secondary-btn" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
+</div>
+<div class="progress-wrapper">
+<div class="progress-container">
+<div id="progress-fill"></div>
+</div>
+<div id="progress-count">0/15 answered</div>
+</div>
+<form id="quiz-form">
+<div id="quiz-area"></div>
+<button id="submitBtn" onclick="submitQuiz()" type="button">Submit Results</button>
+</form>
+<div id="results">
+<div class="score-container">
+<div class="score-circle">0</div>
+<div class="score-label">Your Score</div>
+</div>
+<div class="feedback"></div>
+<div class="action-buttons">
+<a class="secondary-btn" href="" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
           Quiz</a>
-        <a href="../../resources/resources.html" class="secondary-btn"><i class="fas fa-th-list"></i> More Quizzes</a>
-      </div>
-      <div id="answer-key" class="answer-key"></div>
-    </div>
-  </div>
-
-  <script>
+<a class="secondary-btn" href="../../resources/resources.html"><i class="fas fa-th-list"></i> More Quizzes</a>
+</div>
+<div class="answer-key" id="answer-key"></div>
+</div>
+</div>
+<script>
     const questions = [
       { q: "1. What will be the type of 'age' if the user enters 30? <br><code>age = input('How old are you? ')</code>", options: ["A) <class 'int'>", "B) <class 'str'>", "C) <class 'float'>", "D) 30"], correct: "B", explanation: "The input() function always returns a string in Python 3." },
       { q: "2. What is the output if you omit int() and try to add inputs '7' and '5'?", options: ["A) 12", "B) '75'", "C) Error", "D) None"], correct: "B", explanation: "Adding two strings results in concatenation: '7' + '5' = '75'." },
@@ -126,5 +118,4 @@
     }
   </script>
 </body>
-
 </html>

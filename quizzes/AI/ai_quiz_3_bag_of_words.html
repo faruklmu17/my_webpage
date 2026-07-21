@@ -1,55 +1,47 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Quiz 3: Bag-of-Words & Sparse Matrix | Python NLP Mastery</title>
-  <meta name="description"
-    content="Master NLP fundamentals with 15 questions on Bag-of-Words, Sparse Matrices, and Scikit-learn's CountVectorizer.">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../../shared/quiz-style.css">
-</head>
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Quiz 3: Bag-of-Words &amp; Sparse Matrix | Python NLP Mastery</title>
+<meta content="Master NLP fundamentals with 15 questions on Bag-of-Words, Sparse Matrices, and Scikit-learn's CountVectorizer." name="description"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../../shared/quiz-style.css" rel="stylesheet"/>
+<link href="https://faruk-hasan.com/quizzes/AI/ai_quiz_3_bag_of_words.html" rel="canonical"/></head>
 <body>
-
-  <h1>🤖 Bag-of-Words & NLP Quiz</h1>
-
-  <div class="quiz-container">
-    <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Resources</a>
-    <div class="intro">
-      <p>Test your understanding of the Bag-of-Words model and how sparse matrices are used to store text data
+<h1>🤖 Bag-of-Words &amp; NLP Quiz</h1>
+<div class="quiz-container">
+<a class="back-link" href="../../resources/resources.html"><i class="fas fa-arrow-left"></i> Back to Resources</a>
+<div class="intro">
+<p>Test your understanding of the Bag-of-Words model and how sparse matrices are used to store text data
         efficiently in Python.</p>
-    </div>
-
-    <div class="progress-wrapper">
-      <div class="progress-container">
-        <div id="progress-fill"></div>
-      </div>
-      <div id="progress-count">0/15 answered</div>
-    </div>
-
-    <form id="quiz-form">
-      <div id="quiz-area"></div>
-      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Results</button>
-    </form>
-
-    <div id="results">
-      <div class="score-container">
-        <div class="score-circle">0</div>
-        <div class="score-label">Your Score</div>
-      </div>
-      <div class="feedback"></div>
-      <div class="action-buttons">
-        <a href="" class="secondary-btn" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
+</div>
+<div class="progress-wrapper">
+<div class="progress-container">
+<div id="progress-fill"></div>
+</div>
+<div id="progress-count">0/15 answered</div>
+</div>
+<form id="quiz-form">
+<div id="quiz-area"></div>
+<button id="submitBtn" onclick="submitQuiz()" type="button">Submit Results</button>
+</form>
+<div id="results">
+<div class="score-container">
+<div class="score-circle">0</div>
+<div class="score-label">Your Score</div>
+</div>
+<div class="feedback"></div>
+<div class="action-buttons">
+<a class="secondary-btn" href="" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
           Quiz</a>
-        <a href="../../resources/resources.html" class="secondary-btn"><i class="fas fa-th-list"></i> More Quizzes</a>
-      </div>
-      <div id="answer-key" class="answer-key"></div>
-    </div>
-  </div>
-
-  <script>
+<a class="secondary-btn" href="../../resources/resources.html"><i class="fas fa-th-list"></i> More Quizzes</a>
+</div>
+<div class="answer-key" id="answer-key"></div>
+</div>
+</div>
+<script>
     const questions = [
       { q: "1. What does a 'bag-of-words' model do with a collection of text documents?", options: ["A) It treats each document as a mathematical 'bag' and counts word frequency", "B) It translates words into emojis", "C) It stores full sentences without breaking them", "D) It removes all punctuation and ignores words"], correct: "A" },
       { q: "2. When calling CountVectorizer().fit_transform(documents), what is the returned object type?", options: ["A) A dense Python list", "B) A CSR sparse matrix", "C) A pandas DataFrame", "D) A simple integer"], correct: "B" },
@@ -109,5 +101,4 @@
     }
   </script>
 </body>
-
 </html>

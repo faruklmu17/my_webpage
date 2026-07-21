@@ -1,11 +1,26 @@
 :root {
-  --primary-color: #3a6ea5;
-  --secondary-color: #2c3e50;
-  --background-color: #f4f7f6;
-  --text-color: #333;
-  --accent-color: #2980b9;
+  /* Premium Light Theme Colors */
+  --primary-color: #38bdf8;      /* Vibrant Sky Blue */
+  --primary-hover: #0ea5e9;
+  --secondary-color: #1e293b;    /* Deep Slate */
+  --background-color: #f8fafc;   /* Soft Off-White */
+  --text-color: #334155;         /* Slate 700 */
+  --accent-color: #818cf8;       /* Indigo */
   --light-background: #ffffff;
-  --soft-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  
+  /* Glassmorphism & UI Tokens */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.5);
+  --glass-blur: blur(12px);
+  
+  /* Advanced Layered Shadows */
+  --soft-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+  --hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --premium-shadow: 0 0 0 1px rgba(0,0,0,0.02), 0 4px 12px rgba(0,0,0,0.04), 0 16px 32px rgba(0,0,0,0.04);
+  
+  /* Animations */
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 * {
@@ -30,14 +45,16 @@ body {
 
 /* Enhanced Header Styling with larger round profile image */
 header {
-  background-color: #ffffff;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  background-color: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: var(--glass-border);
+  box-shadow: var(--soft-shadow);
   position: sticky;
   top: 0;
   z-index: 100;
   padding: 0.5rem 0;
-  /* Small padding to give some space */
-  transition: all 0.3s ease;
+  transition: var(--transition-smooth);
 }
 
 @media (max-width: 768px) {
@@ -47,7 +64,9 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: #ffffff;
+    background-color: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
   }
 }
 
@@ -2849,7 +2868,7 @@ footer {
 
 /* New Skills & Education Section */
 .skills-education-section {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: linear-gradient(135deg, var(--background-color) 0%, #eef2f6 100%);
   padding: 2.5rem 0;
   margin: 0.1rem 0;
 }
@@ -2866,11 +2885,11 @@ footer {
 
 /* Left Column - Skills */
 .skills-column {
-  background: white;
-  border-radius: 15px;
+  background: var(--light-background);
+  border-radius: 20px;
   padding: 1.8rem;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: var(--premium-shadow);
+  border: 1px solid rgba(0,0,0,0.02);
   display: grid;
   grid-template-rows: auto 1fr;
   gap: 0.3rem;
@@ -2898,19 +2917,21 @@ footer {
 }
 
 .skill-category {
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   border-radius: 16px;
   padding: 0.5rem;
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: var(--glass-border);
+  transition: var(--transition-bounce);
+  box-shadow: var(--soft-shadow);
   margin-bottom: 0.2rem;
 }
 
 .skill-category:hover {
-  transform: translateY(-2px);
-  border-color: #3498db;
-  box-shadow: 0 8px 20px rgba(52, 152, 219, 0.12);
+  transform: translateY(-4px) scale(1.01);
+  border-color: var(--primary-color);
+  box-shadow: var(--hover-shadow);
 }
 
 .category-header {
@@ -3174,11 +3195,11 @@ a[href*="huggingface"].category-link-inline:hover {
 
 /* Right Column - Education */
 .education-column {
-  background: white;
-  border-radius: 15px;
+  background: var(--light-background);
+  border-radius: 20px;
   padding: 1.2rem 1.8rem 1.1rem 1.8rem;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: var(--premium-shadow);
+  border: 1px solid rgba(0, 0, 0, 0.02);
   display: grid;
   grid-template-rows: auto auto 1fr auto;
   gap: 1.2rem;
@@ -3357,17 +3378,21 @@ a[href*="huggingface"].category-link-inline:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: white;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   padding: 1.25rem 1.2rem;
   border-radius: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+  border: var(--glass-border);
+  transition: var(--transition-smooth);
+  box-shadow: var(--soft-shadow);
   margin-bottom: 0.8rem;
 }
 
 .course-item:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: var(--hover-shadow);
+  border-color: var(--primary-color);
 }
 
 .course-info h4 {

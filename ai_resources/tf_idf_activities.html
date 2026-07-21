@@ -1,10 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TF-IDF Word Detective Lab</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>TF-IDF Word Detective Lab</title>
+<style>
     :root{
       --bg:#0b1220;
       --card:#121b2f;
@@ -347,159 +348,145 @@
     .ok{ color: var(--good); }
     .no{ color: var(--bad); }
   </style>
-</head>
-
+<meta content="Explore TF-IDF Word Detective Lab 🕵️‍♀️📄 on Faruk Hasan's portfolio. Interactive resources and programming practice." name="description"/><link href="https://faruk-hasan.com/ai_resources/tf_idf_activities.html" rel="canonical"/></head>
 <body>
 <header>
-  <div class="titleRow">
-    <div>
-      <h1>TF-IDF Word Detective Lab 🕵️‍♀️📄</h1>
-      <div class="subtitle">
+<div class="titleRow">
+<div>
+<h1>TF-IDF Word Detective Lab 🕵️‍♀️📄</h1>
+<div class="subtitle">
         Students edit documents, then the app calculates TF-IDF keywords and highlights important words.
         Use <b>Challenge Mode</b> to make it a game: students guess keywords first, then reveal scores.
       </div>
-    </div>
-    <div class="badge">
-      <span>Mode:</span> <strong id="modeLabel">Guided</strong> <span>•</span>
-      <span>Docs:</span> <strong id="docCountLabel">4</strong>
-    </div>
-  </div>
+</div>
+<div class="badge">
+<span>Mode:</span> <strong id="modeLabel">Guided</strong> <span>•</span>
+<span>Docs:</span> <strong id="docCountLabel">4</strong>
+</div>
+</div>
 </header>
-
 <main>
-  <!-- LEFT: Controls -->
-  <section class="card">
-    <div class="cardHeader">
-      <h2>Teacher Controls</h2>
-      <button class="secondary" id="howBtn">How it works</button>
-    </div>
-
-    <div class="cardBody">
-      <div class="row split">
-        <div class="control">
-          <div class="label">Number of documents</div>
-          <select id="docCount">
-            <option value="3">3</option>
-            <option value="4" selected>4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-          </select>
-        </div>
-        <div class="control">
-          <div class="label">Top keywords per document</div>
-          <select id="topN">
-            <option value="3">3</option>
-            <option value="5" selected>5</option>
-            <option value="7">7</option>
-            <option value="10">10</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row split">
-        <div class="control">
-          <div class="label">TF mode (term frequency)</div>
-          <select id="tfMode">
-            <option value="raw" selected>Raw counts</option>
-            <option value="log">Log scaled (1 + ln(tf))</option>
-            <option value="norm">Normalized (tf / max_tf)</option>
-          </select>
-        </div>
-        <div class="control">
-          <div class="label">IDF mode (inverse document frequency)</div>
-          <select id="idfMode">
-            <option value="classic" selected>Classic ln(N / df)</option>
-            <option value="smooth">Smooth ln((N+1)/(df+1)) + 1</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row">
-        <label class="tog" title="Remove common words like 'the', 'is', 'and'">
-          <input id="stopwords" type="checkbox" checked />
-          <span><b>Stopwords ON</b> (recommended)</span>
-        </label>
-
-        <label class="tog" title="Very simple suffix stripping to group similar forms (e.g., testing → test). Not perfect, but helps older students discuss preprocessing.">
-          <input id="stemLite" type="checkbox" />
-          <span><b>Stem-Lite</b> (optional)</span>
-        </label>
-      </div>
-
-      <div class="row split">
-        <div class="control">
-          <div class="label">Highlight intensity</div>
-          <select id="heat">
-            <option value="soft" selected>Soft</option>
-            <option value="medium">Medium</option>
-            <option value="strong">Strong</option>
-          </select>
-        </div>
-        <div class="control">
-          <div class="label">Challenge Mode</div>
-          <select id="challenge">
-            <option value="off" selected>Off (show scores)</option>
-            <option value="on">On (hide scores, guess first)</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="btnRow" style="margin-top: 12px;">
-        <button id="analyzeBtn">Analyze TF-IDF</button>
-        <button class="secondary" id="resetBtn">Reset Sample Docs</button>
-        <button class="ghost" id="shuffleBtn">Shuffle Topics</button>
-      </div>
-
-      <div class="hint">
+<!-- LEFT: Controls -->
+<section class="card">
+<div class="cardHeader">
+<h2>Teacher Controls</h2>
+<button class="secondary" id="howBtn">How it works</button>
+</div>
+<div class="cardBody">
+<div class="row split">
+<div class="control">
+<div class="label">Number of documents</div>
+<select id="docCount">
+<option value="3">3</option>
+<option selected="" value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+</select>
+</div>
+<div class="control">
+<div class="label">Top keywords per document</div>
+<select id="topN">
+<option value="3">3</option>
+<option selected="" value="5">5</option>
+<option value="7">7</option>
+<option value="10">10</option>
+</select>
+</div>
+</div>
+<div class="row split">
+<div class="control">
+<div class="label">TF mode (term frequency)</div>
+<select id="tfMode">
+<option selected="" value="raw">Raw counts</option>
+<option value="log">Log scaled (1 + ln(tf))</option>
+<option value="norm">Normalized (tf / max_tf)</option>
+</select>
+</div>
+<div class="control">
+<div class="label">IDF mode (inverse document frequency)</div>
+<select id="idfMode">
+<option selected="" value="classic">Classic ln(N / df)</option>
+<option value="smooth">Smooth ln((N+1)/(df+1)) + 1</option>
+</select>
+</div>
+</div>
+<div class="row">
+<label class="tog" title="Remove common words like 'the', 'is', 'and'">
+<input checked="" id="stopwords" type="checkbox"/>
+<span><b>Stopwords ON</b> (recommended)</span>
+</label>
+<label class="tog" title="Very simple suffix stripping to group similar forms (e.g., testing → test). Not perfect, but helps older students discuss preprocessing.">
+<input id="stemLite" type="checkbox"/>
+<span><b>Stem-Lite</b> (optional)</span>
+</label>
+</div>
+<div class="row split">
+<div class="control">
+<div class="label">Highlight intensity</div>
+<select id="heat">
+<option selected="" value="soft">Soft</option>
+<option value="medium">Medium</option>
+<option value="strong">Strong</option>
+</select>
+</div>
+<div class="control">
+<div class="label">Challenge Mode</div>
+<select id="challenge">
+<option selected="" value="off">Off (show scores)</option>
+<option value="on">On (hide scores, guess first)</option>
+</select>
+</div>
+</div>
+<div class="btnRow" style="margin-top: 12px;">
+<button id="analyzeBtn">Analyze TF-IDF</button>
+<button class="secondary" id="resetBtn">Reset Sample Docs</button>
+<button class="ghost" id="shuffleBtn">Shuffle Topics</button>
+</div>
+<div class="hint">
         Tip: For high schoolers, turn on <b>Log TF</b> + <b>Smooth IDF</b> + <b>Stem-Lite</b> and ask:
         “How do preprocessing choices change the top keywords?”
       </div>
-    </div>
-
-    <div class="panel">
-      <div class="status" id="status">
+</div>
+<div class="panel">
+<div class="status" id="status">
         Ready. Click <b>Analyze TF-IDF</b>.
       </div>
-      <div class="mini">
-        <span>Click a highlighted word to inspect:</span>
-        <code>tf</code> <code>df</code> <code>idf</code> <code>tfidf</code>
-      </div>
-    </div>
-  </section>
-
-  <!-- RIGHT: Documents -->
-  <section class="card">
-    <div class="cardHeader">
-      <h2>Documents</h2>
-      <div class="pill" id="pillInfo">Edit → Analyze → Discuss</div>
-    </div>
-
-    <div class="docsGrid" id="docsGrid"></div>
-  </section>
+<div class="mini">
+<span>Click a highlighted word to inspect:</span>
+<code>tf</code> <code>df</code> <code>idf</code> <code>tfidf</code>
+</div>
+</div>
+</section>
+<!-- RIGHT: Documents -->
+<section class="card">
+<div class="cardHeader">
+<h2>Documents</h2>
+<div class="pill" id="pillInfo">Edit → Analyze → Discuss</div>
+</div>
+<div class="docsGrid" id="docsGrid"></div>
+</section>
 </main>
-
 <!-- Modal -->
 <div class="modal" id="modal">
-  <div class="modalBox">
-    <div class="modalHead">
-      <h3>How TF-IDF Works (student-friendly)</h3>
-      <button class="closeBtn" id="closeBtn">Close</button>
-    </div>
-    <div class="modalBody">
+<div class="modalBox">
+<div class="modalHead">
+<h3>How TF-IDF Works (student-friendly)</h3>
+<button class="closeBtn" id="closeBtn">Close</button>
+</div>
+<div class="modalBody">
       TF-IDF helps a computer find words that are <b>important for one document</b>.
       <ul>
-        <li><b>TF</b> (Term Frequency): a word gets more points if it repeats in the same document.</li>
-        <li><b>DF</b> (Document Frequency): how many documents contain the word.</li>
-        <li><b>IDF</b> (Inverse Document Frequency): a word gets more points if it appears in <b>fewer</b> documents.</li>
-        <li><b>TF-IDF</b>: TF × IDF → high when a word is frequent in one doc but rare overall.</li>
-      </ul>
-      <div class="smallNote">
+<li><b>TF</b> (Term Frequency): a word gets more points if it repeats in the same document.</li>
+<li><b>DF</b> (Document Frequency): how many documents contain the word.</li>
+<li><b>IDF</b> (Inverse Document Frequency): a word gets more points if it appears in <b>fewer</b> documents.</li>
+<li><b>TF-IDF</b>: TF × IDF → high when a word is frequent in one doc but rare overall.</li>
+</ul>
+<div class="smallNote">
         Challenge idea: Have students guess the top keywords before revealing. Then discuss why some “common” words shouldn’t count.
       </div>
-    </div>
-  </div>
 </div>
-
+</div>
+</div>
 <script>
   // ---------------------------
   // Sample topic sets (shuffle)

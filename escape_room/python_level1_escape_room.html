@@ -1,30 +1,23 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Mission: PyBot Rescue | Python Escape Room</title>
-    <meta name="description"
-        content="A kid-friendly Python Escape Room game! Solve Python puzzles, repair the spaceship, and save PyBot. Learn variables, loops, and logic in a fun way!">
-    <meta name="keywords"
-        content="Python, Kids Coding, Escape Room, Python Game, Learn Python, Coding for Kids, Programming">
-    <meta name="author" content="Faruk Hasan">
-
-    <!-- Open Graph for Social Sharing -->
-    <meta property="og:title" content="Mission: PyBot Rescue | Python Escape Room">
-    <meta property="og:description"
-        content="Can you save PyBot? Solve 8 Python puzzles to unlock the spaceship! perfect for beginners.">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://farukhasan.github.io/my_webpage/images/python_escape_room_cover.png">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
-
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Mission: PyBot Rescue | Python Escape Room</title>
+<meta content="A kid-friendly Python Escape Room game! Solve Python puzzles, repair the spaceship, and save PyBot. Learn variables, loops, and logic in a fun way!" name="description"/>
+<meta content="Python, Kids Coding, Escape Room, Python Game, Learn Python, Coding for Kids, Programming" name="keywords"/>
+<meta content="Faruk Hasan" name="author"/>
+<!-- Open Graph for Social Sharing -->
+<meta content="Mission: PyBot Rescue | Python Escape Room" property="og:title"/>
+<meta content="Can you save PyBot? Solve 8 Python puzzles to unlock the spaceship! perfect for beginners." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://farukhasan.github.io/my_webpage/images/python_escape_room_cover.png" property="og:image"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&amp;family=Outfit:wght@300;400;600;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<style>
         :root {
             --bg: #0b1121;
             --card: rgba(23, 37, 84, 0.7);
@@ -697,142 +690,123 @@
             transform: translateX(5px);
         }
     </style>
-</head>
-
+<link href="https://faruk-hasan.com/escape_room/python_level1_escape_room.html" rel="canonical"/></head>
 <body>
-
-    <!-- Dynamic Background -->
-    <div class="star-field" id="starField"></div>
-    <a href="../resources/resources.html" class="exit-btn"><i class="fas fa-arrow-left"></i> Exit to Resources</a>
-
-    <!-- Intro Screen -->
-    <div class="overlay" id="introScreen">
-        <div class="mascot-container happy" style="transform: scale(1.5);">
-            <div class="robot-face">
-                <div class="robot-antenna"></div>
-                <div class="robot-eyes">
-                    <div class="eye"></div>
-                    <div class="eye"></div>
-                </div>
-                <div class="robot-mouth"></div>
-            </div>
-        </div>
-        <h1 style="margin-top:20px;">MISSION: PYBOT RESCUE</h1>
-        <p>
-            <b>Alert!</b> PyBot is stranded in the Python Asteroid Belt.<br>
-            The spaceship's navigation system is corrupted.<br>
+<!-- Dynamic Background -->
+<div class="star-field" id="starField"></div>
+<a class="exit-btn" href="../resources/resources.html"><i class="fas fa-arrow-left"></i> Exit to Resources</a>
+<!-- Intro Screen -->
+<div class="overlay" id="introScreen">
+<div class="mascot-container happy" style="transform: scale(1.5);">
+<div class="robot-face">
+<div class="robot-antenna"></div>
+<div class="robot-eyes">
+<div class="eye"></div>
+<div class="eye"></div>
+</div>
+<div class="robot-mouth"></div>
+</div>
+</div>
+<h1 style="margin-top:20px;">MISSION: PYBOT RESCUE</h1>
+<p>
+<b>Alert!</b> PyBot is stranded in the Python Asteroid Belt.<br/>
+            The spaceship's navigation system is corrupted.<br/>
             Use your coding skills to repair the 8 core systems and bring PyBot home!
         </p>
-        <button class="btn-start" onclick="startMission()">🚀 LAUNCH MISSION</button>
-    </div>
-
-    <!-- Win Screen -->
-    <div class="overlay" id="winScreen" style="display: none;">
-        <h1 style="color: var(--success)">MISSION ACCOMPLISHED!</h1>
-        <div class="mascot-container happy" style="transform: scale(2); margin: 30px auto;">
-            <div class="robot-face">
-                <div class="robot-antenna"></div>
-                <div class="robot-eyes">
-                    <div class="eye"></div>
-                    <div class="eye"></div>
-                </div>
-                <div class="robot-mouth"></div>
-            </div>
-        </div>
-        <p>
-            System fully operational! You saved PyBot!<br>
+<button class="btn-start" onclick="startMission()">🚀 LAUNCH MISSION</button>
+</div>
+<!-- Win Screen -->
+<div class="overlay" id="winScreen" style="display: none;">
+<h1 style="color: var(--success)">MISSION ACCOMPLISHED!</h1>
+<div class="mascot-container happy" style="transform: scale(2); margin: 30px auto;">
+<div class="robot-face">
+<div class="robot-antenna"></div>
+<div class="robot-eyes">
+<div class="eye"></div>
+<div class="eye"></div>
+</div>
+<div class="robot-mouth"></div>
+</div>
+</div>
+<p>
+            System fully operational! You saved PyBot!<br/>
             You are a certified Python Pilot.
         </p>
-        <button class="btn-start" onclick="location.reload()">🔄 PLAY AGAIN</button>
-    </div>
-
-    <!-- Fail Screen -->
-    <div class="overlay" id="failScreen" style="display: none;">
-        <h1 style="color: var(--error)">MISSION FAILED!</h1>
-        <div class="mascot-container sad" style="transform: scale(2); margin: 30px auto;">
-            <div class="robot-face">
-                <div class="robot-antenna"></div>
-                <div class="robot-eyes">
-                    <div class="eye"></div>
-                    <div class="eye"></div>
-                </div>
-                <div class="robot-mouth"></div>
-            </div>
-        </div>
-        <p>
-            Time ran out! PyBot is lost in space forever.<br>
+<button class="btn-start" onclick="location.reload()">🔄 PLAY AGAIN</button>
+</div>
+<!-- Fail Screen -->
+<div class="overlay" id="failScreen" style="display: none;">
+<h1 style="color: var(--error)">MISSION FAILED!</h1>
+<div class="mascot-container sad" style="transform: scale(2); margin: 30px auto;">
+<div class="robot-face">
+<div class="robot-antenna"></div>
+<div class="robot-eyes">
+<div class="eye"></div>
+<div class="eye"></div>
+</div>
+<div class="robot-mouth"></div>
+</div>
+</div>
+<p>
+            Time ran out! PyBot is lost in space forever.<br/>
             Don't give up, try again to save him!
         </p>
-        <button class="btn-start" onclick="location.reload()"
-            style="background: var(--error); box-shadow: 0 0 30px rgba(255, 42, 109, 0.4);">🔄 RETRY MISSION</button>
-    </div>
-
-
-    <!-- Main Game Dashboard -->
-    <div class="dashboard" id="gameDashboard" style="filter: blur(10px);">
-
-        <!-- LEFT: Code / Puzzle -->
-        <div class="cockpit-panel">
-            <div class="scanner-line"></div>
-
-            <div class="header-content">
-                <div class="mascot-container" id="mascot">
-                    <div class="robot-face">
-                        <div class="robot-antenna"></div>
-                        <div class="robot-eyes">
-                            <div class="eye"></div>
-                            <div class="eye"></div>
-                        </div>
-                        <div class="robot-mouth"></div>
-                    </div>
-                </div>
-                <h1>PyBot Interface</h1>
-                <div class="mission-subtitle">System Repair Protocol</div>
-                <div id="missionTimer"
-                    style="font-size: 24px; color: var(--warning); font-family: var(--font-mono); margin-top: 10px; font-weight: bold;">
+<button class="btn-start" onclick="location.reload()" style="background: var(--error); box-shadow: 0 0 30px rgba(255, 42, 109, 0.4);">🔄 RETRY MISSION</button>
+</div>
+<!-- Main Game Dashboard -->
+<div class="dashboard" id="gameDashboard" style="filter: blur(10px);">
+<!-- LEFT: Code / Puzzle -->
+<div class="cockpit-panel">
+<div class="scanner-line"></div>
+<div class="header-content">
+<div class="mascot-container" id="mascot">
+<div class="robot-face">
+<div class="robot-antenna"></div>
+<div class="robot-eyes">
+<div class="eye"></div>
+<div class="eye"></div>
+</div>
+<div class="robot-mouth"></div>
+</div>
+</div>
+<h1>PyBot Interface</h1>
+<div class="mission-subtitle">System Repair Protocol</div>
+<div id="missionTimer" style="font-size: 24px; color: var(--warning); font-family: var(--font-mono); margin-top: 10px; font-weight: bold;">
                     T-MINUS: 90s</div>
-            </div>
-
-            <div class="level-bar" id="levelBar">
-                <!-- Pips generated by JS -->
-            </div>
-
-            <div class="puzzle-container" id="puzzleContainer">
-                <!-- Content injected by JS -->
-            </div>
-
-            <div class="action-bar">
-                <button class="btn btn-hint" onclick="showHint()">💡 HINT</button>
-                <button class="btn btn-run" onclick="checkAnswer()">⚡ RUN CODE</button>
-            </div>
-        </div>
-
-        <!-- RIGHT: Log / Vault -->
-        <div class="cockpit-panel chat-panel">
-            <div style="font-family: var(--font-fancy); font-size: 20px; margin-bottom: 10px; color: var(--accent);">
+</div>
+<div class="level-bar" id="levelBar">
+<!-- Pips generated by JS -->
+</div>
+<div class="puzzle-container" id="puzzleContainer">
+<!-- Content injected by JS -->
+</div>
+<div class="action-bar">
+<button class="btn btn-hint" onclick="showHint()">💡 HINT</button>
+<button class="btn btn-run" onclick="checkAnswer()">⚡ RUN CODE</button>
+</div>
+</div>
+<!-- RIGHT: Log / Vault -->
+<div class="cockpit-panel chat-panel">
+<div style="font-family: var(--font-fancy); font-size: 20px; margin-bottom: 10px; color: var(--accent);">
                 📟 Mission Log
             </div>
-            <div class="chat-window" id="chatWindow">
-                <div class="chat-msg sys">> System Booting...</div>
-                <div class="chat-msg sys">> Connection Established.</div>
-            </div>
-
-            <div class="vault">
-                <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">Key Fragments</div>
-                <div class="fragment-row" id="fragmentRow">
-                    <!-- Fragments appear here -->
-                </div>
-                <div style="display: flex; gap: 8px;">
-                    <input type="text" id="finalInput" class="input-box" style="font-size:14px; padding: 10px;"
-                        placeholder="ENTER FINAL KEY">
-                    <button class="btn-run" style="flex:0 0 60px; font-size: 20px;" onclick="tryUnlock()">🔓</button>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <script>
+<div class="chat-window" id="chatWindow">
+<div class="chat-msg sys">&gt; System Booting...</div>
+<div class="chat-msg sys">&gt; Connection Established.</div>
+</div>
+<div class="vault">
+<div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">Key Fragments</div>
+<div class="fragment-row" id="fragmentRow">
+<!-- Fragments appear here -->
+</div>
+<div style="display: flex; gap: 8px;">
+<input class="input-box" id="finalInput" placeholder="ENTER FINAL KEY" style="font-size:14px; padding: 10px;" type="text"/>
+<button class="btn-run" onclick="tryUnlock()" style="flex:0 0 60px; font-size: 20px;">🔓</button>
+</div>
+</div>
+</div>
+</div>
+<script>
         // --- Stars Generator ---
         const starField = document.getElementById('starField');
         for (let i = 0; i < 60; i++) {
@@ -1218,5 +1192,4 @@
         }
     </script>
 </body>
-
 </html>

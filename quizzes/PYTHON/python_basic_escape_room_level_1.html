@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Prison Escape - Level 1</title>
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Python Prison Escape - Level 1</title>
+<style>
         * {
             margin: 0;
             padding: 0;
@@ -406,78 +406,70 @@
             transform: translateX(5px);
         }
     </style>
-</head>
-
+<meta content="Explore 🔒 PYTHON PRISON ESCAPE 🔒 on Faruk Hasan's portfolio. Interactive resources and programming practice." name="description"/><link href="https://faruk-hasan.com/quizzes/PYTHON/python_basic_escape_room_level_1.html" rel="canonical"/></head>
 <body>
-    <div class="prison-container">
-        <div class="prison-bars" id="prisonBars"></div>
-        <a href="../../resources/resources.html" class="exit-btn"><i class="fas fa-arrow-left"></i> Exit to
+<div class="prison-container">
+<div class="prison-bars" id="prisonBars"></div>
+<a class="exit-btn" href="../../resources/resources.html"><i class="fas fa-arrow-left"></i> Exit to
             Resources</a>
-
-        <div class="header">
-            <h1>🔒 PYTHON PRISON ESCAPE 🔒</h1>
-            <p>Level 1 - Basic Python Challenges</p>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-
-            <div class="timer-section">
-                <div class="timer-label">Time Remaining</div>
-                <div class="timer-display" id="timerDisplay">01:00</div>
-                <div class="stage-time-info" id="stageTimeInfo">Prison Cell: 1 minute per stage</div>
-            </div>
-
-            <div class="stage-indicator">
-                <div class="stage current" id="stage1">Prison Cell (0/3)</div>
-                <div class="stage" id="stage2">Corridor (0/3)</div>
-                <div class="stage" id="stage3">Main Door (0/3)</div>
-                <div class="stage" id="stage4">Prison Wall (0/3)</div>
-            </div>
-        </div>
-
-        <div class="game-area">
-            <div class="problem-section">
-                <div class="stage-title" id="stageTitle">ESCAPING THE PRISON CELL</div>
-                <div class="problem-counter" id="problemCounter">Problem 1 of 3</div>
-                <div class="problem-title" id="problemTitle">Variable Assignment</div>
-                <div class="problem-text" id="problemText">
+<div class="header">
+<h1>🔒 PYTHON PRISON ESCAPE 🔒</h1>
+<p>Level 1 - Basic Python Challenges</p>
+<div class="progress-bar">
+<div class="progress-fill" id="progressFill"></div>
+</div>
+<div class="timer-section">
+<div class="timer-label">Time Remaining</div>
+<div class="timer-display" id="timerDisplay">01:00</div>
+<div class="stage-time-info" id="stageTimeInfo">Prison Cell: 1 minute per stage</div>
+</div>
+<div class="stage-indicator">
+<div class="stage current" id="stage1">Prison Cell (0/3)</div>
+<div class="stage" id="stage2">Corridor (0/3)</div>
+<div class="stage" id="stage3">Main Door (0/3)</div>
+<div class="stage" id="stage4">Prison Wall (0/3)</div>
+</div>
+</div>
+<div class="game-area">
+<div class="problem-section">
+<div class="stage-title" id="stageTitle">ESCAPING THE PRISON CELL</div>
+<div class="problem-counter" id="problemCounter">Problem 1 of 3</div>
+<div class="problem-title" id="problemTitle">Variable Assignment</div>
+<div class="problem-text" id="problemText">
                     Create a variable called 'key' and assign it the value 42. Then print the value of key.
                 </div>
-                <textarea class="code-input" id="codeInput" placeholder="# Write your Python code here..."></textarea>
-                <div class="button-group">
-                    <button class="btn btn-primary" onclick="runCode()">🚀 Run Code</button>
-                    <button class="btn btn-success" onclick="submitCode()">✅ Submit</button>
-                    <button class="btn" onclick="showHint()" style="background: #f39c12; color: white;">💡 Hint</button>
-                </div>
-                <div class="output" id="output">Click "Run Code" to test your solution...</div>
-                <div class="hint" id="hint" style="display: none;"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="game-over-screen" id="gameOverScreen">
-        <div class="game-over-content">
-            <h2>⏰ TIME'S UP! ⏰</h2>
-            <p>The guards caught you before you could escape!</p>
-            <p>Better luck next time, prisoner...</p>
-            <button class="btn btn-primary" onclick="restartGame()" style="margin-top: 20px; font-size: 1.2em;">
+<textarea class="code-input" id="codeInput" placeholder="# Write your Python code here..."></textarea>
+<div class="button-group">
+<button class="btn btn-primary" onclick="runCode()">🚀 Run Code</button>
+<button class="btn btn-success" onclick="submitCode()">✅ Submit</button>
+<button class="btn" onclick="showHint()" style="background: #f39c12; color: white;">💡 Hint</button>
+</div>
+<div class="output" id="output">Click "Run Code" to test your solution...</div>
+<div class="hint" id="hint" style="display: none;"></div>
+</div>
+</div>
+</div>
+<div class="game-over-screen" id="gameOverScreen">
+<div class="game-over-content">
+<h2>⏰ TIME'S UP! ⏰</h2>
+<p>The guards caught you before you could escape!</p>
+<p>Better luck next time, prisoner...</p>
+<button class="btn btn-primary" onclick="restartGame()" style="margin-top: 20px; font-size: 1.2em;">
                 🔄 Try Again
             </button>
-        </div>
-    </div>
-
-    <div class="victory-screen" id="victoryScreen">
-        <div class="victory-content">
-            <h2>🎉 FREEDOM! 🎉</h2>
-            <p>Congratulations! You've escaped the Python Prison!</p>
-            <p>You've mastered the basics of Python programming.</p>
-            <button class="btn btn-primary" onclick="restartGame()" style="margin-top: 20px; font-size: 1.2em;">
+</div>
+</div>
+<div class="victory-screen" id="victoryScreen">
+<div class="victory-content">
+<h2>🎉 FREEDOM! 🎉</h2>
+<p>Congratulations! You've escaped the Python Prison!</p>
+<p>You've mastered the basics of Python programming.</p>
+<button class="btn btn-primary" onclick="restartGame()" style="margin-top: 20px; font-size: 1.2em;">
                 🔄 Play Again
             </button>
-        </div>
-    </div>
-
-    <script>
+</div>
+</div>
+<script>
         // Game state
         let currentStage = 1;
         let currentProblem = 1;
@@ -902,7 +894,6 @@
         // Initialize the game
         updateDisplay();
     </script>
-    <script src="../../shared/header-footer.js"></script>
+<script src="../../shared/header-footer.js"></script>
 </body>
-
 </html>

@@ -1,54 +1,46 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🔍 Python Dictionary Quiz | Beginner to Advanced</title>
-  <meta name="description"
-    content="A 15-question Python dictionary quiz with questions on syntax, nested dictionaries, .items(), and loops.">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../../shared/quiz-style.css">
-</head>
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>🔍 Python Dictionary Quiz | Beginner to Advanced</title>
+<meta content="A 15-question Python dictionary quiz with questions on syntax, nested dictionaries, .items(), and loops." name="description"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../../shared/quiz-style.css" rel="stylesheet"/>
+<link href="https://faruk-hasan.com/quizzes/PYTHON/python_dictionary_quiz.html" rel="canonical"/></head>
 <body>
-
-  <h1>🔍 Python Dictionary Quiz</h1>
-
-  <div class="quiz-container">
-    <a href="../../resources/resources.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Resources</a>
-    <div class="intro">
-      <p>Test your Python dictionary skills with 15 questions on keys, values, .items(), and nested structures.</p>
-    </div>
-
-    <div class="progress-wrapper">
-      <div class="progress-container">
-        <div id="progress-fill"></div>
-      </div>
-      <div id="progress-count">0/15 answered</div>
-    </div>
-
-    <form id="quiz-form">
-      <div id="quiz-area"></div>
-      <button type="button" id="submitBtn" onclick="submitQuiz()">Submit Results</button>
-    </form>
-
-    <div id="results">
-      <div class="score-container">
-        <div class="score-circle">0</div>
-        <div class="score-label">Your Score</div>
-      </div>
-      <div class="feedback"></div>
-      <div class="action-buttons">
-        <a href="" class="secondary-btn" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
+<h1>🔍 Python Dictionary Quiz</h1>
+<div class="quiz-container">
+<a class="back-link" href="../../resources/resources.html"><i class="fas fa-arrow-left"></i> Back to Resources</a>
+<div class="intro">
+<p>Test your Python dictionary skills with 15 questions on keys, values, .items(), and nested structures.</p>
+</div>
+<div class="progress-wrapper">
+<div class="progress-container">
+<div id="progress-fill"></div>
+</div>
+<div id="progress-count">0/15 answered</div>
+</div>
+<form id="quiz-form">
+<div id="quiz-area"></div>
+<button id="submitBtn" onclick="submitQuiz()" type="button">Submit Results</button>
+</form>
+<div id="results">
+<div class="score-container">
+<div class="score-circle">0</div>
+<div class="score-label">Your Score</div>
+</div>
+<div class="feedback"></div>
+<div class="action-buttons">
+<a class="secondary-btn" href="" onclick="location.reload(); return false;"><i class="fas fa-redo"></i> Retake
           Quiz</a>
-        <a href="../../resources/resources.html" class="secondary-btn"><i class="fas fa-th-list"></i> More Quizzes</a>
-      </div>
-      <div id="answer-key" class="answer-key"></div>
-    </div>
-  </div>
-
-  <script>
+<a class="secondary-btn" href="../../resources/resources.html"><i class="fas fa-th-list"></i> More Quizzes</a>
+</div>
+<div class="answer-key" id="answer-key"></div>
+</div>
+</div>
+<script>
     const questions = [
       { q: "1. What is the correct syntax to create a dictionary with keys 'name' and 'age'?", options: ["A) dict = ['name': 'Alice', 'age': 25]", "B) dict = ('name': 'Alice', 'age': 25)", "C) dict = {'name': 'Alice', 'age': 25}", "D) dict = name='Alice', age=25"], correct: "C", explanation: "Dictionaries use curly braces {} and colon : to separate keys and values." },
       { q: "2. What is returned by my_dict.get('key') if the key doesn't exist?", options: ["A) 0", "B) Error", "C) None", "D) False"], correct: "C", explanation: "The .get() method returns None (or a specified default) instead of raising an error." },
@@ -108,5 +100,4 @@
     }
   </script>
 </body>
-
 </html>
