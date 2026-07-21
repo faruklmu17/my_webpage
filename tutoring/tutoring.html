@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tutoring - Faruk Hasan | STEM Education & Coding for Kids</title>
+  <title>Online Coding Tutoring for Kids & Teens | Python, AI, Web Dev</title>
   <link rel="canonical" href="https://faruk-hasan.com/tutoring/tutoring.html" />
   <!-- Standard SEO Meta Tags -->
   <meta name="description"
@@ -15,39 +15,91 @@
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://faruk-hasan.com/tutoring/tutoring.html">
-  <meta property="og:title" content="Tutoring - Faruk Hasan | STEM Education & Coding for Kids">
+  <meta property="og:title" content="Online Coding Tutoring for Kids & Teens | Python, AI, Web Dev">
   <meta property="og:description" content="Professional STEM tutoring and coding education for ages 9-18. Join 2,000+ happy learners exploring Python, Web Dev, AI, and more.">
   <meta property="og:image" content="https://faruk-hasan.com/assets/images/me.jpg">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://faruk-hasan.com/tutoring/tutoring.html">
-  <meta property="twitter:title" content="Tutoring - Faruk Hasan | STEM Education & Coding for Kids">
+  <meta property="twitter:title" content="Online Coding Tutoring for Kids & Teens | Python, AI, Web Dev">
   <meta property="twitter:description" content="Professional STEM tutoring and coding education for ages 9-18. Join 2,000+ happy learners exploring Python, Web Dev, AI, and more.">
   <meta property="twitter:image" content="https://faruk-hasan.com/assets/images/me.jpg">
 
   <!-- JSON-LD Schema Markup -->
   <script type="application/ld+json">
-  {
+  [{
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
     "name": "Faruk Hasan STEM Tutoring",
     "url": "https://faruk-hasan.com/tutoring/tutoring.html",
     "logo": "https://faruk-hasan.com/assets/images/me.jpg",
-    "description": "Professional STEM tutoring and coding education for ages 9-18. Python, Web Development, AI/ML, Arduino, and Computer Fundamentals.",
+    "description": "Professional 1-on-1 online STEM tutoring and coding education for ages 9-18. Specializing in Python, Web Development, AI/ML, and Test Automation.",
     "founder": {
       "@type": "Person",
       "name": "Faruk Hasan",
       "jobTitle": "STEM Educator & Senior QA Engineer"
     },
-    "knowsAbout": ["Python", "Web Development", "Artificial Intelligence", "Arduino", "Computer Fundamentals"],
+    "knowsAbout": ["Python", "Web Development", "Artificial Intelligence", "Arduino", "Computer Fundamentals", "Test Automation"],
+    "areaServed": {
+      "@type": "GeoCircle",
+      "description": "Remote/Virtual classes available globally"
+    },
     "offers": {
       "@type": "Offer",
       "price": "55.00",
       "priceCurrency": "USD",
-      "description": "1-on-1 Hourly Tutoring Session"
+      "description": "1-on-1 Hourly Virtual Tutoring Session"
     }
-  }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Expert Online Coding & STEM Tutoring",
+    "provider": {
+      "@type": "Person",
+      "name": "Faruk Hasan"
+    },
+    "serviceType": "Educational Tutoring",
+    "description": "1-on-1 and group online tutoring in Python, Web Development, AI, and AP Computer Science.",
+    "areaServed": "Worldwide",
+    "offers": {
+      "@type": "Offer",
+      "price": "55.00",
+      "priceCurrency": "USD",
+      "url": "https://faruk-hasan.com/tutoring/tutoring.html"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What age group do you teach?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "My tutoring sessions are optimized for students aged 9 to 18 (Grades 4-12), although I also work with adult beginners transitioning into tech."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do virtual tutoring sessions work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sessions are conducted live via Zoom. We use screen sharing, interactive coding environments, and digital whiteboards to make the experience highly collaborative."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need any prior coding experience?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not at all! I specialize in teaching complete beginners as well as advancing intermediate students. We start at your level and pace."
+        }
+      }
+    ]
+  }]
   </script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -790,6 +842,10 @@
       .tutoring-banner .highlight-price {
         font-size: 1rem;
       }
+      
+      .mobile-sticky-cta {
+        display: block !important;
+      }
     }
 
     /* ====== BANNER ====== */
@@ -988,6 +1044,30 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
     }
+    
+    /* Mobile Sticky CTA */
+    .mobile-sticky-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(11, 18, 32, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      z-index: 9998;
+      text-align: center;
+      box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.4);
+    }
+    
+    .mobile-sticky-cta .btn {
+      width: 100%;
+      justify-content: center;
+      padding: 1rem;
+      font-size: 1.1rem;
+    }
   </style>
 </head>
 
@@ -1009,16 +1089,16 @@
   <section id="hero" class="section hero" aria-labelledby="hero-title">
     <div class="container hero__grid">
       <div>
-        <h1 id="hero-title">Inspiring the Next Generation of Coders & Thinkers</h1>
+        <h1 id="hero-title">Expert Online Coding & STEM Tutoring for Kids and Teens</h1>
         <p class="lead">
           Hi, I'm <strong>Faruk Hasan</strong> — STEM Educator & Senior QA Engineer.
           I teach Python, Web Dev, AI/ML, Arduino, and Computer Fundamentals for ages 9–18.
         </p>
         <div class="cta-row">
-          <a class="btn btn--primary" href="#about"><i class="fa-solid fa-rocket"></i> Why Me?</a>
-          <a class="btn btn--ghost" href="#" onclick="openTutoringModal(event)">
-            <i class="fa-solid fa-calendar-check"></i> Book Free Consult
+          <a class="btn btn--primary" href="#" onclick="openTutoringModal(event)">
+            <i class="fa-solid fa-calendar-check"></i> Schedule Free Trial
           </a>
+          <a class="btn btn--ghost" href="#about"><i class="fa-solid fa-rocket"></i> Why Me?</a>
           <a class="btn btn--chatbot" href="../index.html?chat=open">
             <i class="fa-solid fa-robot"></i> Ask My AI Assistant!
           </a>
@@ -1048,10 +1128,11 @@
           
           .subject-tag {
             display: flex;
-            align-items: center;
-            gap: 1.2rem;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.8rem;
             background: rgba(255, 255, 255, 0.05);
-            padding: 1.2rem;
+            padding: 1.5rem;
             border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -1065,6 +1146,23 @@
             background: rgba(255, 255, 255, 1);
             border-color: #fff;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(56, 189, 248, 0.1);
+          }
+          
+          .subject-tag:hover h3 {
+            color: #0f172a !important;
+          }
+          
+          .subject-tag p {
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+            z-index: 2;
+            position: relative;
+          }
+          
+          .subject-tag:hover p {
+            color: #334155;
           }
           
           .subject-tag i, .subject-tag h3 {
@@ -1138,33 +1236,39 @@
           <div class="subject-grid">
             
             <div class="subject-tag">
-              <i class="fa-brands fa-python" style="color: #38bdf8; font-size: 1.8rem; width: 35px; text-align: center;"></i>
-              <h3 style="font-size: 1.15rem; margin: 0; color: #fff; font-weight: 600;">Project-Based Python</h3>
+              <i class="fa-brands fa-python" style="color: #38bdf8; font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
+              <h3 style="font-size: 1.15rem; margin: 0; color: #fff; font-weight: 700;">Python Tutoring for Kids & Teens</h3>
+              <p>Master Python programming from scratch. We cover loops, functions, OOP, and data structures by building fun games, tools, and real-world projects that keep students engaged.</p>
             </div>
             
             <div class="subject-tag">
-              <i class="fa-solid fa-globe" style="color: #38bdf8; font-size: 1.8rem; width: 35px; text-align: center;"></i>
-              <h3 style="font-size: 0.95rem; line-height: 1.2; margin: 0; color: #fff; font-weight: 600;">Web Development (HTML, CSS, JS) with AI Assistance</h3>
+              <i class="fa-solid fa-globe" style="color: #38bdf8; font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
+              <h3 style="font-size: 1.15rem; line-height: 1.2; margin: 0; color: #fff; font-weight: 700;">Web Development & AI Apps</h3>
+              <p>Learn HTML, CSS, and JavaScript. We advance to building full-stack web applications and integrating Artificial Intelligence (AI) APIs to create interactive chatbots and tools.</p>
             </div>
 
             <div class="subject-tag">
-              <i class="fa-solid fa-robot" style="color: #38bdf8; font-size: 1.8rem; width: 35px; text-align: center;"></i>
-              <h3 style="font-size: 1.15rem; margin: 0; color: #fff; font-weight: 600;">AI & ML</h3>
+              <i class="fa-solid fa-robot" style="color: #38bdf8; font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
+              <h3 style="font-size: 1.15rem; margin: 0; color: #fff; font-weight: 700;">AI & Machine Learning</h3>
+              <p>Dive into the world of Artificial Intelligence. Understand how LLMs work, learn prompt engineering, and use Python to train basic machine learning models.</p>
             </div>
             
             <div class="subject-tag">
-              <i class="fa-solid fa-microchip" style="color: #38bdf8; font-size: 1.8rem; width: 35px; text-align: center;"></i>
-              <h3 style="font-size: 1.05rem; margin: 0; color: #fff; font-weight: 600;">Arduino/Robotics</h3>
+              <i class="fa-solid fa-microchip" style="color: #38bdf8; font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
+              <h3 style="font-size: 1.15rem; margin: 0; color: #fff; font-weight: 700;">Arduino & Robotics</h3>
+              <p>Combine hardware and software! Learn basic electronics, sensors, and C++ to program Arduino boards, build smart devices, and bring robotic projects to life.</p>
             </div>
             
             <div class="subject-tag">
-              <i class="fa-solid fa-vial" style="color: #38bdf8; font-size: 1.8rem; width: 35px; text-align: center;"></i>
-              <h3 style="font-size: 0.95rem; line-height: 1.2; margin: 0; color: #fff; font-weight: 600;">Software Test Engineering</h3>
+              <i class="fa-solid fa-vial" style="color: #38bdf8; font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
+              <h3 style="font-size: 1.15rem; line-height: 1.2; margin: 0; color: #fff; font-weight: 700;">Software Test Engineering</h3>
+              <p>Gain industry-level skills in QA and automation. Learn how to write robust tests using Pytest and automate browser actions with Playwright to ensure flawless software.</p>
             </div>
             
             <div class="subject-tag">
-              <i class="fa-solid fa-laptop-code" style="color: #38bdf8; font-size: 1.8rem; width: 35px; text-align: center;"></i>
-              <h3 style="font-size: 1.05rem; margin: 0; color: #fff; font-weight: 600;">AP CSA &amp; CSP</h3>
+              <i class="fa-solid fa-laptop-code" style="color: #38bdf8; font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
+              <h3 style="font-size: 1.15rem; margin: 0; color: #fff; font-weight: 700;">AP Computer Science (A & Principles)</h3>
+              <p>Get comprehensive tutoring for AP CSA (Java) and AP CSP. We focus on core computing concepts, exam strategies, and the Create Performance Task to maximize your score.</p>
             </div>
 
           </div>
@@ -1176,6 +1280,20 @@
       </div>
     </div>
   </section>
+
+  <!-- Trust Indicators / As Seen On -->
+  <div style="background: rgba(15, 23, 42, 0.8); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 2rem 0;">
+    <div class="container" style="text-align: center;">
+      <p style="color: var(--sub); font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1.5rem;">Trusted & Featured On</p>
+      <div style="display: flex; justify-content: center; align-items: center; gap: 3rem; flex-wrap: wrap; opacity: 0.7; filter: grayscale(100%) brightness(200%);">
+        <!-- Using text placeholders that look like logos if real SVGs aren't available -->
+        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0;">OUTSCHOOL</h3>
+        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0; color:#fff;"><i class="fa-brands fa-youtube" style="margin-right: 5px;"></i>YouTube</h3>
+        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0;">UDEMY</h3>
+        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0;"><i class="fa-brands fa-github" style="margin-right: 5px;"></i>GitHub</h3>
+      </div>
+    </div>
+  </div>
 
   <section id="about" class="section">
     <style>
@@ -1358,7 +1476,28 @@
     </div>
   </section>
 
-  <section id="reviews" class="section section--alt">
+  <!-- Lead Capture Section -->
+  <section id="lead-capture" class="section" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1)); position: relative; overflow: hidden;">
+    <!-- Abstract background blob -->
+    <div style="position: absolute; top: -50%; left: -10%; width: 500px; height: 500px; background: rgba(99, 102, 241, 0.2); filter: blur(80px); border-radius: 50%; z-index: 0;"></div>
+    
+    <div class="container" style="position: relative; z-index: 1; text-align: center; max-width: 600px;">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">🚀</div>
+      <h2>Not ready for a session yet?</h2>
+      <p style="color: var(--text); font-size: 1.1rem; margin-bottom: 2rem;">Get my free <strong>STEM Roadmap for Kids & Teens</strong>. Learn exactly which languages and tools your child should focus on based on their age and interests.</p>
+      
+      <form action="https://formspree.io/f/xqewdkny" method="POST" style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+        <input type="hidden" name="_subject" value="New Lead: STEM Roadmap Request">
+        <input type="email" name="email" placeholder="Enter your email address" required style="padding: 1rem 1.5rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.3); color: white; flex-grow: 1; max-width: 300px; font-size: 1rem; outline: none;">
+        <button type="submit" class="btn btn--primary" style="border: none; cursor: pointer; padding: 1rem 2rem;">Get Free Guide</button>
+      </form>
+      <p style="font-size: 0.8rem; color: var(--sub); margin-top: 1rem;">No spam, ever. Unsubscribe at any time.</p>
+    </div>
+  </section>
+
+
+
+    <section id="reviews" class="section section--alt">
     <div class="container">
       <h2>What Parents & Students Say</h2>
       <div class="review-scroller" tabindex="0">
@@ -1409,7 +1548,37 @@
     </div>
   </section>
 
+  <!-- FAQ Section -->
+  <section id="faq" class="section" style="background: var(--surface);">
+    <div class="container">
+      <h2>Frequently Asked Questions</h2>
+      <p class="sub">Everything you need to know about the tutoring experience.</p>
+      
+      <div style="max-width: 800px; margin: 2rem auto 0; display: flex; flex-direction: column; gap: 1rem;">
+        <div class="faq-item" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 1.5rem;">
+          <h3 style="font-size: 1.15rem; color: #fff; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.8rem;"><i class="fa-solid fa-circle-question" style="color: var(--primary);"></i> What age group do you teach?</h3>
+          <p style="color: var(--sub); margin: 0; line-height: 1.6;">My tutoring sessions are optimized for students aged 9 to 18 (Grades 4-12). I adapt the curriculum complexity and pacing based on the student's age and experience level.</p>
+        </div>
+        
+        <div class="faq-item" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 1.5rem;">
+          <h3 style="font-size: 1.15rem; color: #fff; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.8rem;"><i class="fa-solid fa-circle-question" style="color: var(--primary);"></i> How do virtual tutoring sessions work?</h3>
+          <p style="color: var(--sub); margin: 0; line-height: 1.6;">Sessions are conducted live via Zoom. We use screen sharing, interactive coding environments (like Replit or VS Code Live Share), and digital whiteboards to make the experience highly collaborative and engaging.</p>
+        </div>
+        
+        <div class="faq-item" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 1.5rem;">
+          <h3 style="font-size: 1.15rem; color: #fff; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.8rem;"><i class="fa-solid fa-circle-question" style="color: var(--primary);"></i> Do I need any prior coding experience?</h3>
+          <p style="color: var(--sub); margin: 0; line-height: 1.6;">Not at all! I specialize in teaching complete beginners as well as advancing intermediate students. We start exactly where you are and build from there.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
+<!-- Mobile Sticky CTA -->
+  <div class="mobile-sticky-cta">
+    <a class="btn btn--primary" href="#" onclick="openTutoringModal(event)">
+      <i class="fa-solid fa-calendar-check"></i> Schedule Free Trial
+    </a>
+  </div>
 
   <!-- ===== Tutoring Contact Modal ===== -->
   <div class="tutoring-modal-overlay" id="tutoringModalOverlay" onclick="closeTutoringModal(event)">
