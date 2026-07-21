@@ -386,6 +386,35 @@
       }
     }
 
+    .pro-stat-bubble {
+      background: rgba(0, 240, 255, 0.05);
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      border-radius: 12px;
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: float 6s ease-in-out infinite;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .pro-stat-value {
+      color: var(--cyan);
+      font-size: 1.4rem;
+      font-weight: 800;
+      font-family: monospace;
+      text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+    }
+    
+    .pro-stat-label {
+      color: #94a3b8;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.2rem;
+      font-weight: 600;
+    }
+
     /* Two Column Layout */
     .two-col {
       display: grid;
@@ -1110,6 +1139,17 @@
             <a href="#" onclick="openTutoringModal(event)" style="background: var(--cyan); color: #0a0f1c; text-decoration: none; padding: 1rem 2rem; border-radius: 6px; font-weight: 700; font-size: 1.1rem; transition: transform 0.2s; box-shadow: 0 4px 20px rgba(0,240,255,0.4); display: inline-block;">
               Book a Session
             </a>
+            <div style="display: flex; gap: 1.5rem; margin-top: 2rem; flex-wrap: wrap;">
+              <div class="pro-stat-bubble" style="animation-delay: 0s;">
+                <span class="pro-stat-value">4.82/5</span> <span class="pro-stat-label">⭐ Rating</span>
+              </div>
+              <div class="pro-stat-bubble" style="animation-delay: 1.5s;">
+                <span class="pro-stat-value">2,000+</span> <span class="pro-stat-label">Students</span>
+              </div>
+              <div class="pro-stat-bubble" style="animation-delay: 3s;">
+                <span class="pro-stat-value">1,945+</span> <span class="pro-stat-label">Followers</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
