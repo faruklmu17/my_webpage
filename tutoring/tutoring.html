@@ -275,6 +275,41 @@
       box-shadow: var(--shadow)
     }
 
+    @keyframes pulse-glow {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.7);
+        transform: scale(1);
+      }
+      50% {
+        box-shadow: 0 0 0 15px rgba(0, 240, 255, 0);
+        transform: scale(1.02);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 240, 255, 0);
+        transform: scale(1);
+      }
+    }
+
+    .btn-hero-cta {
+      background: var(--cyan);
+      color: #0a0f1c;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+      display: inline-block;
+      width: fit-content;
+      animation: pulse-glow 2s infinite ease-in-out;
+    }
+    
+    .btn-hero-cta:hover {
+      transform: scale(1.05) !important;
+      background: #fff;
+      color: var(--cyan);
+    }
+
     .btn--primary:hover {
       transform: translateY(-2px)
     }
@@ -1160,25 +1195,12 @@
 
   <!-- ===== Tutoring Page Sections ===== -->
 
-  <section id="hero" class="section hero" aria-labelledby="hero-title" style="min-height: 85vh; display: flex; align-items: center;">
+  <section id="hero" class="section hero" aria-labelledby="hero-title" style="padding-top: 4rem; padding-bottom: 4rem;">
     <div class="container hero__grid">
       <div style="padding-top: 2rem;">
         <div>
-          <div style="display: flex; gap: 0.8rem; margin-bottom: 2rem; flex-wrap: wrap;">
-            <span style="font-family: monospace; color: var(--cyan); border: 1px solid rgba(0, 240, 255, 0.3); padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.85rem; background: rgba(0, 240, 255, 0.05);">&gt; 13 Yrs Teaching</span>
-            <span style="font-family: monospace; color: var(--cyan); border: 1px solid rgba(0, 240, 255, 0.3); padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.85rem; background: rgba(0, 240, 255, 0.05);">&gt; 7 Yrs Sr. SDET</span>
-            <span style="font-family: monospace; color: var(--cyan); border: 1px solid rgba(0, 240, 255, 0.3); padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.85rem; background: rgba(0, 240, 255, 0.05);">&gt; Master's Degree</span>
-            <span style="font-family: monospace; color: var(--cyan); border: 1px solid rgba(0, 240, 255, 0.3); padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.85rem; background: rgba(0, 240, 255, 0.05);">&gt; 100% Project-Based</span>
-          </div>
-          <h1 id="hero-title" style="font-size: clamp(2rem, 3.5vw + 1rem, 3.5rem); line-height: 1.1; font-weight: 900; letter-spacing: -0.03em; color: #fff; margin-bottom: 1.5rem;">Inspiring the Next Generation of<br><span style="color: var(--cyan); text-shadow: 0 0 20px rgba(0,240,255,0.4);">Coders & Thinkers</span></h1>
-          <p class="lead" style="font-size: 1.25rem; color: #94a3b8; line-height: 1.6; max-width: 500px; margin-bottom: 2.5rem; text-shadow: none;">
-            1-on-1 online coding sessions with a teacher who has lived on both sides — the classroom and the tech industry. No fluff. No copy-paste tutorials. You build projects from day one.
-          </p>
-          <div class="cta-row" style="margin-top: 2rem;">
-            <a href="#" onclick="openTutoringModal(event)" style="background: var(--cyan); color: #0a0f1c; text-decoration: none; padding: 1rem 2rem; border-radius: 6px; font-weight: 700; font-size: 1.1rem; transition: transform 0.2s; box-shadow: 0 4px 20px rgba(0,240,255,0.4); display: inline-block;">
-              Book Free 20-Min Consult
-            </a>
-            <div style="display: flex; gap: 1.5rem; margin-top: 2rem; flex-wrap: wrap;">
+          <div style="margin-bottom: 2rem;">
+            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 0.6rem;">
               <div class="pro-stat-bubble" style="animation-delay: 0s;">
                 <span class="pro-stat-value">4.82/5</span> <span class="pro-stat-label">⭐ Rating</span>
               </div>
@@ -1189,6 +1211,27 @@
                 <span class="pro-stat-value">1,945+</span> <span class="pro-stat-label">Followers</span>
               </div>
             </div>
+            <a href="https://outschool.com/teachers/Faruk-Hasan" target="_blank" style="color: var(--cyan); font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 500; opacity: 0.8; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+              Read the reviews on Outschool <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem;"></i>
+            </a>
+          </div>
+          <h1 id="hero-title" style="font-size: clamp(2rem, 3.5vw + 1rem, 3.5rem); line-height: 1.1; font-weight: 900; letter-spacing: -0.03em; color: #fff; margin-bottom: 1.5rem;">Inspiring the Next Generation of<br><span style="color: var(--cyan); text-shadow: 0 0 20px rgba(0,240,255,0.4);">Coders & Thinkers</span></h1>
+          <p class="lead" style="font-size: 1.25rem; color: #94a3b8; line-height: 1.6; max-width: 500px; margin-bottom: 2.5rem; text-shadow: none;">
+            1-on-1 online coding sessions with a teacher who has lived on both sides — the classroom and the tech industry. No fluff. No copy-paste tutorials. You build projects from day one.
+          </p>
+          <div class="cta-row" style="margin-top: 0.5rem; flex-direction: column; align-items: flex-start;">
+            <a href="#" onclick="openTutoringModal(event)" class="btn-hero-cta">
+              Book Free 20-Min Consult
+            </a>
+            
+            <div style="margin-top: 1rem; background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.2); border-left: 4px solid var(--cyan); padding: 1rem 1.5rem; border-radius: 6px; max-width: 500px;">
+              <p style="margin: 0; font-size: 0.95rem; color: #cbd5e1; line-height: 1.5;">
+                <strong style="color: #fff;"><i class="fa-solid fa-circle-info" style="color: var(--cyan); margin-right: 0.4rem;"></i>Not sure where to start or how live sessions work?</strong><br>
+                Book a free 20-minute online consultation to learn more about my approach and discuss what you are planning to learn before starting. No commitments, no hassle.
+              </p>
+            </div>
+
+
           </div>
         </div>
       </div>
@@ -1410,13 +1453,12 @@
   <section id="about" class="section">
     <style>
       .about-modern {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        align-items: center;
+        display: block;
+        max-width: 900px;
+        margin: 0 auto;
       }
       @media (max-width: 980px) {
-        .about-modern { grid-template-columns: 1fr; gap: 3rem; }
+        .about-modern { max-width: 100%; }
       }
       .about-modern-left h2 {
         font-size: 2.2rem;
@@ -1504,36 +1546,7 @@
       }
     </style>
     <div class="container about-modern">
-      <div class="about-modern-left">
-        <h2>What I Teach</h2>
-        <div class="subject-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem;">
-            <div class="subject-tag" style="background: #111827; padding: 1.5rem; border-radius: 12px; display: flex; align-items: center; gap: 1rem; border: 1px solid rgba(0, 240, 255, 0.1);">
-              <i class="fa-brands fa-python" style="color: var(--cyan); font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
-              <h3 style="font-size: 1.15rem; margin: 0; color: #fff; font-weight: 700;">Project-Based Programming</h3>
-            </div>
-            
-            <div class="subject-tag" style="background: #111827; padding: 1.5rem; border-radius: 12px; display: flex; align-items: center; gap: 1rem; border: 1px solid rgba(0, 240, 255, 0.1);">
-              <i class="fa-solid fa-robot" style="color: var(--cyan); font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
-              <h3 style="font-size: 1.15rem; margin: 0; color: #fff; font-weight: 700;">AI & Machine Learning</h3>
-            </div>
-            
-            <div class="subject-tag" style="background: #111827; padding: 1.5rem; border-radius: 12px; display: flex; align-items: center; gap: 1rem; border: 1px solid rgba(0, 240, 255, 0.1);">
-              <i class="fa-solid fa-microchip" style="color: var(--cyan); font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
-              <h3 style="font-size: 1.15rem; margin: 0; color: #fff; font-weight: 700;">Hardware & Robotics</h3>
-            </div>
 
-            <div class="subject-tag" style="background: #111827; padding: 1.5rem; border-radius: 12px; display: flex; align-items: center; gap: 1rem; border: 1px solid rgba(0, 240, 255, 0.1);">
-              <i class="fa-solid fa-globe" style="color: var(--cyan); font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
-              <h3 style="font-size: 1.15rem; margin: 0; color: #fff; font-weight: 700;">Web, Cloud & Databases</h3>
-            </div>
-            
-            <div class="subject-tag" style="background: #111827; padding: 1.5rem; border-radius: 12px; display: flex; align-items: center; gap: 1rem; grid-column: 1 / -1; border: 1px solid rgba(0, 240, 255, 0.1);">
-              <i class="fa-solid fa-vial" style="color: var(--cyan); font-size: 2.2rem; width: 35px; text-align: left;" aria-hidden="true"></i>
-              <h3 style="font-size: 1.15rem; line-height: 1.2; margin: 0; color: #fff; font-weight: 700;">Software Test Engineering</h3>
-            </div>
-          </div>
-      </div>
-      
       <div class="about-features-grid">
         <div class="feature-glass-card">
           <div class="feature-icon-wrapper"><i class="fa-solid fa-person-chalkboard"></i></div>
