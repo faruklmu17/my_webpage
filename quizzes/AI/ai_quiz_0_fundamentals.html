@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Data &amp; Web Scraping Quiz (20 MCQs)</title>
+<title>Data &amp; Web Scraping Quiz (12 MCQs)</title>
 <link href="https://faruk-hasan.com/quizzes/AI/ai_quiz_0_fundamentals.html" rel="canonical"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
 <link href="../../shared/quiz-style.css" rel="stylesheet"/>
@@ -17,7 +17,7 @@
 <div class="progress-container">
 <div id="progress-fill"></div>
 </div>
-<div id="progress-count">0/20 answered</div>
+<div id="progress-count">0/12 answered</div>
 </div>
 <form id="quiz-form">
 <div id="quiz-area"></div>
@@ -40,179 +40,136 @@
 <script>
     const questions = [
       {
-        q: "1. What is the fundamental difference between 'Structured' and 'Unstructured' data?",
+        q: "1. What is data in the context of AI?",
         options: [
-          "A) Structured data is high-volume; unstructured is low-volume.",
-          "B) Structured data follows a schema (like SQL); unstructured does not (like text/images).",
-          "C) Structured data is only found on hard drives; unstructured is only on the web.",
-          "D) There is no difference."
+          "A) Only numbers used for math.",
+          "B) Information that a computer can store, process, or analyze to learn and make decisions.",
+          "C) The physical hardware inside a computer.",
+          "D) A type of computer virus."
         ],
         correct: "B",
-        explanation: "Structured data follows a predefined structure or schema, while unstructured data does not have a formal organization."
+        explanation: "Data is information (numbers, text, images, etc.) that serves as the foundation and fuel for AI to learn and make decisions."
       },
       {
-        q: "2. Which HTTP method is typically used to retrieve data from a server during scraping?",
-        options: ["A) POST", "B) GET", "C) DELETE", "D) UPDATE"],
-        correct: "B",
-        explanation: "The GET method is used to request data from a specified resource."
-      },
-      {
-        q: "3. What does the 'robots.txt' file on a website tell a web scraper?",
+        q: "2. Why is data quality important for Artificial Intelligence?",
         options: [
-          "A) It provides the password to the database.",
-          "B) It specifies which parts of the site should not be crawled.",
-          "C) It lists all the usernames and emails of the site owners.",
-          "D) It is a virus intended to stop scrapers."
+          "A) It makes the computer run faster.",
+          "B) Messy or wrong data can cause the AI to make mistakes.",
+          "C) High-quality data is cheaper to store.",
+          "D) It doesn't matter; AI can fix any data."
         ],
         correct: "B",
-        explanation: "Robots.txt is a standard used by websites to communicate with web crawlers and other web robots."
+        explanation: "The better the data, the smarter the AI becomes. If data is messy or wrong, AI can make mistakes (like a self-driving car misreading a blurry sign)."
       },
       {
-        q: "4. In HTML, which tag is most commonly used for defining hyperlinked anchors?",
-        options: ["A) <link>", "B) <a>", "C) <href>", "D) <p>"],
-        correct: "B",
-        explanation: "The <a> (anchor) tag defines a hyperlink."
-      },
-      {
-        q: "5. What is 'Dynamic Content' in the context of web scraping?",
+        q: "3. What is 'data scraping'?",
         options: [
-          "A) Content that changes color when clicked.",
-          "B) Content loaded via JavaScript after the initial HTML page is received.",
-          "C) Content that only exists on mobile apps.",
-          "D) Images that move (GIFs)."
+          "A) The process of deleting old files from a computer.",
+          "B) Automatically collecting information from websites on the internet.",
+          "C) Drawing pictures on a screen.",
+          "D) Upgrading a computer's hardware."
         ],
         correct: "B",
-        explanation: "Dynamic content is content that changes based on user interaction or other factors, often loaded via JS."
+        explanation: "Data scraping acts like a robot gathering information for you from a website, saving you time instead of copying it manually."
       },
       {
-        q: "6. Which Python library is most famous for parsing HTML and navigating the parse tree?",
-        options: ["A) Pandas", "B) NumPy", "C) BeautifulSoup", "D) PyTorch"],
+        q: "4. Why should you check a website's 'robots.txt' file before scraping?",
+        options: [
+          "A) To find hidden passwords.",
+          "B) To make sure it’s okay and permitted to collect the data from the site.",
+          "C) To make the internet connection faster.",
+          "D) To translate the website to another language."
+        ],
+        correct: "B",
+        explanation: "Checking robots.txt is like asking for permission to use someone’s things. It tells you what is allowed to be scraped."
+      },
+      {
+        q: "5. What is Google Colab?",
+        options: [
+          "A) A social media app.",
+          "B) A physical laboratory in California.",
+          "C) A free, cloud-based coding platform perfect for learning Python without installing software.",
+          "D) A web scraping library."
+        ],
         correct: "C",
-        explanation: "BeautifulSoup is the go-to library for parsing HTML and XML in Python."
+        explanation: "Google Colab is a cloud platform by Google where you can write and run Python code, with files saved directly to Google Drive."
       },
       {
-        q: "7. A 'CSS Selector' is used in scraping to:",
+        q: "6. What is the primary purpose of the 'Beautiful Soup' Python library?",
         options: [
-          "A) Change the font size of the scraped data.",
-          "B) Target specific HTML elements based on their style, class, or ID.",
-          "C) Encrypt the connection to the server.",
-          "D) Calculate the average value of a column."
+          "A) To cook recipes online.",
+          "B) To parse HTML files and extract data like titles, links, and text from web pages.",
+          "C) To create 3D video games.",
+          "D) To send emails automatically."
         ],
         correct: "B",
-        explanation: "CSS selectors are patterns used to select the elements you want to style or scrape."
+        explanation: "Beautiful Soup is a Python library specifically designed for web scraping and organizing HTML data so you can extract specific elements."
       },
       {
-        q: "8. What is the main purpose of an API (Application Programming Interface)?",
+        q: "7. How does the 'Requests' tool help in web scraping?",
         options: [
-          "A) To create pretty user interfaces.",
-          "B) To allow two software applications to communicate with each other in a structured way.",
-          "C) To prevent people from visiting a website.",
-          "D) To host images."
+          "A) It formats the data into tables.",
+          "B) It acts like a messenger that connects to websites and brings back the webpage content (HTML).",
+          "C) It translates the webpage into different languages.",
+          "D) It generates random numbers."
         ],
         correct: "B",
-        explanation: "APIs allow different software systems to interact and share data."
+        explanation: "Requests allows your scraper to 'travel' to websites and fetch data by sending HTTP requests, like a GET request."
       },
       {
-        q: "9. Which format is most commonly used for data exchange in modern APIs?",
-        options: ["A) CSV", "B) JSON", "C) PDF", "D) DOCX"],
-        correct: "B",
-        explanation: "JSON (JavaScript Object Notation) is the most popular format for data exchange."
-      },
-      {
-        q: "10. What does 'Rate Limiting' mean in web scraping?",
+        q: "8. What does 'parsing' mean in the context of web scraping?",
         options: [
-          "A) The speed at which you can type code.",
-          "B) The restriction on the number of requests a client can make to a server in a given time.",
-          "C) The price you pay for internet data.",
-          "D) The maximum size of the data being downloaded."
+          "A) Deleting unnecessary websites.",
+          "B) Breaking down the structure of a webpage (HTML) into smaller, organized parts that Python can understand.",
+          "C) Encrypting the data to make it secure.",
+          "D) Printing the data on paper."
         ],
         correct: "B",
-        explanation: "Rate limiting prevents servers from being overwhelmed by too many requests."
+        explanation: "Parsing turns a messy webpage into a neat structure, allowing tools like Beautiful Soup to easily find and extract specific elements."
       },
       {
-        q: "11. Which tool is best suited for scraping websites that rely heavily on JavaScript rendering?",
-        options: ["A) requests", "B) urllib", "C) Selenium or Playwright", "D) pandas.read_html()"],
+        q: "9. In HTML, what is the <span> tag primarily used for?",
+        options: [
+          "A) To create large, bold headings.",
+          "B) To group inline elements, like text, without affecting the page layout.",
+          "C) To display images.",
+          "D) To create a new paragraph."
+        ],
+        correct: "B",
+        explanation: "A <span> tag is used to group inline content and helps target specific pieces of text, like a quote, without creating new blocks or lines."
+      },
+      {
+        q: "10. What does the find_all() method do in Beautiful Soup?",
+        options: [
+          "A) It downloads all images on the page.",
+          "B) It searches for all HTML elements that match a specific tag and/or class.",
+          "C) It finds all errors in your Python code.",
+          "D) It deletes all the text on a website."
+        ],
+        correct: "B",
+        explanation: "find_all() is a method used to find every element that matches your search criteria, such as all <span> tags with a specific class."
+      },
+      {
+        q: "11. In the HTML snippet <span class='text'>, what is the purpose of class='text'?",
+        options: [
+          "A) A command to make the text bigger.",
+          "B) A unique label or identifier given to certain elements so they can be easily targeted by a scraper.",
+          "C) The actual quote being scraped.",
+          "D) A Python function."
+        ],
+        correct: "B",
+        explanation: "The class attribute acts as an identifier (like targeting just the elements containing quotes) so Beautiful Soup can find exactly what you want."
+      },
+      {
+        q: "12. Which Python module can be used to select a random quote from a list of scraped quotes?",
+        options: [
+          "A) math",
+          "B) requests",
+          "C) random",
+          "D) beautifulsoup"
+        ],
         correct: "C",
-        explanation: "Selenium and Playwright can control a real browser to render JavaScript."
-      },
-      {
-        q: "12. What is a 'User-Agent' string?",
-        options: [
-          "A) The user's login password.",
-          "B) A string in the HTTP header that identifies the browser or client making the request.",
-          "C) The name of the government agency regulating the web.",
-          "D) A secret code to skip the robots.txt file."
-        ],
-        correct: "B",
-        explanation: "User-Agent strings tell the server what kind of device/browser is making the request."
-      },
-      {
-        q: "13. In a CSV (Comma-Separated Values) file, what does each row typically represent?",
-        options: ["A) A column", "B) A record or data entry", "C) A separate file", "D) A pixel"],
-        correct: "B",
-        explanation: "Rows in a CSV typically correspond to individual records or observations."
-      },
-      {
-        q: "14. What is the process of 'Cleaning' data in a Data Science workflow?",
-        options: [
-          "A) Deleting all the data to start over.",
-          "B) Handling missing values, removing duplicates, and fixing formatting errors.",
-          "C) Running the data through a physical washing machine.",
-          "D) Translating the data into a different language."
-        ],
-        correct: "B",
-        explanation: "Data cleaning is the process of fixing or removing incorrect, corrupted, or incomplete data."
-      },
-      {
-        q: "15. Which of these is an example of 'Semi-Structured' data?",
-        options: ["A) A relational database (SQL Table)", "B) An XML or JSON file", "C) A physical newspaper", "D) A purely handwritten note"],
-        correct: "B",
-        explanation: "XML and JSON have structure but don't strictly follow a rigid relational schema."
-      },
-      {
-        q: "16. What is 'Xpath'?",
-        options: [
-          "A) The path where your Python script is saved.",
-          "B) A syntax for navigating through elements and attributes in an XML/HTML document.",
-          "C) A new type of high-speed internet.",
-          "D) A popular social media platform."
-        ],
-        correct: "B",
-        explanation: "XPath (XML Path Language) is a query language for selecting nodes from an XML/HTML document."
-      },
-      {
-        q: "17. What does the HTTP 404 Status Code represent?",
-        options: ["A) OK", "B) Forbidden", "C) Not Found", "D) Internal Server Error"],
-        correct: "C",
-        explanation: "404 means the server could not find the requested resource."
-      },
-      {
-        q: "18. Why should you use a Proxy or VPN when scraping heavily?",
-        options: [
-          "A) To make your internet faster.",
-          "B) To avoid getting your IP address banned or blocked by the target website.",
-          "C) To make the data look more professional.",
-          "D) It is mandatory by law."
-        ],
-        correct: "B",
-        explanation: "Proxies hide your real IP address, helping to avoid blocks during high-volume scraping."
-      },
-      {
-        q: "19. Which Python data structure is most similar to a JSON object?",
-        options: ["A) List", "B) Tuple", "C) Dictionary", "D) Set"],
-        correct: "C",
-        explanation: "Python dictionaries use key-value pairs, just like JSON objects."
-      },
-      {
-        q: "20. What is 'Data Latency'?",
-        options: [
-          "A) The amount of data saved.",
-          "B) The time delay between data collection and data availability.",
-          "C) The accuracy of the data.",
-          "D) The cost of the database."
-        ],
-        correct: "B",
-        explanation: "Latency refers to the delay before a transfer of data begins following an instruction."
+        explanation: "The random module, specifically using random.choice(), allows you to easily pick a random item from a list."
       }
     ];
 
