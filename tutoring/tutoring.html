@@ -1170,6 +1170,107 @@
       padding: 1rem;
       font-size: 1.1rem;
     }
+
+    /* ====== PORTFOLIO ====== */
+    #portfolio {
+      position: relative;
+      background: var(--bg);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 450px));
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .portfolio-card {
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .portfolio-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 240, 255, 0.4);
+      box-shadow: 0 10px 30px rgba(0, 240, 255, 0.15);
+    }
+    .portfolio-img {
+      width: 100%;
+      height: 180px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(6, 182, 212, 0.2));
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .portfolio-img i {
+      font-size: 4rem;
+      color: rgba(255, 255, 255, 0.8);
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+      transition: transform 0.4s ease;
+    }
+    .portfolio-card:hover .portfolio-img i {
+      transform: scale(1.1);
+    }
+    .portfolio-content {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .portfolio-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .portfolio-desc {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+    .portfolio-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .portfolio-tag {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--cyan);
+      font-size: 0.8rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .portfolio-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: rgba(0, 240, 255, 0.1);
+      color: var(--cyan);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 0.8rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s;
+      width: 100%;
+    }
+    .portfolio-btn:hover {
+      background: var(--cyan);
+      color: #0a0f1c;
+    }
   </style>
 </head>
 
@@ -1211,8 +1312,8 @@
                 <span class="pro-stat-value">1,945+</span> <span class="pro-stat-label">Followers</span>
               </div>
             </div>
-            <a href="https://outschool.com/teachers/Faruk-Hasan" target="_blank" style="color: var(--cyan); font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 500; opacity: 0.8; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
-              Read the reviews on Outschool <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem;"></i>
+            <a href="https://outschool.com/teachers/Faruk-Hasan" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(0, 240, 255, 0.1); border: 1px solid rgba(0, 240, 255, 0.4); color: var(--cyan); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 1rem; font-weight: 700; text-decoration: none; transition: all 0.3s ease; margin-top: 0.5rem;" onmouseover="this.style.background='var(--cyan)'; this.style.color='#0a0f1c'; this.style.boxShadow='0 4px 15px rgba(0, 240, 255, 0.3)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='rgba(0, 240, 255, 0.1)'; this.style.color='var(--cyan)'; this.style.boxShadow='none'; this.style.transform='translateY(0)';">
+              <i class="fa-solid fa-star" style="color: #eab308;"></i> Read the reviews on Outschool <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.85rem;"></i>
             </a>
           </div>
           <h1 id="hero-title" style="font-size: clamp(2rem, 3.5vw + 1rem, 3.5rem); line-height: 1.1; font-weight: 900; letter-spacing: -0.03em; color: #fff; margin-bottom: 1.5rem;">Inspiring the Next Generation of<br><span style="color: var(--cyan); text-shadow: 0 0 20px rgba(0,240,255,0.4);">Coders & Thinkers</span></h1>
@@ -1364,11 +1465,12 @@
               <a href="https://outschool.com/teachers/Faruk-Hasan" class="social-glass" target="_blank" title="Outschool"><img src="../assets/images/outschool-icon.svg" alt="Outschool" style="width: 1.25rem; height: 1.25rem; object-fit: contain;"></a>
               <a href="https://youtube.com/@kidzcodeai" class="social-glass" target="_blank" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
               <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-glass" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+              <a href="https://github.com/faruklmu17" class="social-glass" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
               <a href="https://www.moltbook.com/u/FarukGroqAgent" class="social-glass" target="_blank" title="Moltbook"><img src="../assets/images/moltbook-icon.png" alt="Moltbook" style="width: 1.25rem; height: 1.25rem; object-fit: contain;"></a>
             </div>
           </div>
           <p class="sub" style="font-size: 1.05rem; color: #38bdf8; font-weight: 600; margin-bottom: 1.5rem;">13+ Years Teaching Experience | 7 Years SDET | MSEE | Published Researcher</p>
-          <p style="color: #cbd5e1; line-height: 1.6; margin-bottom: 2rem;">I hold a Master's in Electrical Engineering with two graduate-level research publications. I blend my 7 years of day-to-day industry experience as a Senior SDET with 13 years of teaching experience. I focus on highly engaging, project-based activities so learners leave with portfolio-ready work and practical, real-world skills.</p>
+          <p style="color: #cbd5e1; line-height: 1.6; margin-bottom: 2rem;">I hold a Master's in Electrical Engineering with two undergraduate-level research publications. I blend my 7 years of day-to-day industry experience as a Senior SDET with 13 years of teaching experience. I focus on highly engaging, project-based activities so learners leave with portfolio-ready work and practical, real-world skills.</p>
           
           <div class="stats-modern" style="display: flex; gap: 2rem; flex-wrap: wrap; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
             <div class="stat-modern">
@@ -1399,10 +1501,21 @@
       <p style="color: var(--sub); font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1.5rem;">Trusted & Featured On</p>
       <div style="display: flex; justify-content: center; align-items: center; gap: 3rem; flex-wrap: wrap; opacity: 0.7; filter: grayscale(100%) brightness(200%);">
         <!-- Using text placeholders that look like logos if real SVGs aren't available -->
-        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0;">OUTSCHOOL</h3>
-        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0; color:#fff;"><i class="fa-brands fa-youtube" style="margin-right: 5px;"></i>YouTube</h3>
-        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0;">UDEMY</h3>
-        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0;"><i class="fa-brands fa-github" style="margin-right: 5px;"></i>GitHub</h3>
+        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0; display:flex; align-items:center; gap:0.4rem;">
+          <img src="../assets/images/outschool-icon.svg" style="height: 1.5rem;" alt="Outschool Logo"> OUTSCHOOL
+        </h3>
+        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0; color:#fff;">
+          <i class="fa-brands fa-youtube" style="margin-right: 5px;"></i>YouTube
+        </h3>
+        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0; display:flex; align-items:center; gap:0.4rem;">
+          <img src="../assets/images/udemy-icon.svg" style="height: 1.5rem;" alt="Udemy Logo"> UDEMY
+        </h3>
+        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0;">
+          <i class="fa-brands fa-github" style="margin-right: 5px;"></i>GitHub
+        </h3>
+        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0;">
+          <i class="fa-brands fa-chrome" style="margin-right: 5px;"></i>Chrome Web Store
+        </h3>
       </div>
     </div>
   </div>
@@ -1568,12 +1681,37 @@
           <h4>Real Portfolios</h4>
           <p>Building tangible projects ready for school applications or internships.</p>
         </div>
-      </div>
     </div>
   </section>
 
+  <!-- ====== PORTFOLIO ====== -->
+  <section id="portfolio" class="section">
+    <div class="container">
+      <h2>Real-World Experience</h2>
+      <p class="sub">I don't just teach code—I write it every day. Here are some of the active projects I've built and published.</p>
 
-
+      <div class="portfolio-grid">
+        <!-- Chrome Extension -->
+        <div class="portfolio-card">
+          <div class="portfolio-img">
+            <i class="fa-brands fa-chrome"></i>
+          </div>
+          <div class="portfolio-content">
+            <h3 class="portfolio-title">Live Content - Chrome Extension</h3>
+            <div class="portfolio-tags">
+              <span class="portfolio-tag">JavaScript</span>
+              <span class="portfolio-tag">Chrome APIs</span>
+              <span class="portfolio-tag">HTML/CSS</span>
+            </div>
+            <p class="portfolio-desc">A custom productivity tool published on the Google Chrome Web Store. It enables users to seamlessly interact with web content directly from their browser.</p>
+            <a href="https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh?utm_source=item-share-cb" target="_blank" class="portfolio-btn">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> View on Web Store
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section id="platforms" class="section section--tight">
     <div class="container">
