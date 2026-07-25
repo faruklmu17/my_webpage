@@ -1605,25 +1605,24 @@
         .about-features-grid { grid-template-columns: 1fr; }
       }
       .feature-glass-card {
-        background: #111827;
-        border: 1px solid rgba(0, 240, 255, 0.1);
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         padding: 1.5rem;
         border-radius: 12px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         transition: all 0.3s ease;
       }
       .feature-glass-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 15px 35px rgba(0, 240, 255, 0.1);
-        background: #1f2937;
-        border-color: rgba(0, 240, 255, 0.4);
+        box-shadow: 0 15px 35px rgba(0, 240, 255, 0.05);
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(0, 240, 255, 0.3);
       }
       .feature-icon-wrapper {
         width: 45px;
         height: 45px;
         border-radius: 12px;
-        background: linear-gradient(135deg, rgba(56,189,248,0.15), rgba(6,182,212,0.15));
-        color: #38bdf8;
+        background: rgba(0, 240, 255, 0.1);
+        color: var(--cyan);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -1638,7 +1637,7 @@
       }
       .feature-glass-card p {
         font-size: 0.9rem;
-        color: #cbd5e1;
+        color: #94a3b8;
         line-height: 1.5;
         margin: 0;
       }
@@ -1657,12 +1656,12 @@
       <div style="margin-bottom: 3rem;">
         <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 1rem; text-align: center;">Core Technologies</h3>
         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem;">
-          <span style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600;"><i class="fa-brands fa-python" style="color: #38bdf8; margin-right: 0.4rem;"></i>Python</span>
-          <span style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600;"><i class="fa-brands fa-js" style="color: #facc15; margin-right: 0.4rem;"></i>JavaScript</span>
-          <span style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600;"><i class="fa-solid fa-code" style="color: #3b82f6; margin-right: 0.4rem;"></i>TypeScript</span>
-          <span style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600;"><i class="fa-brands fa-git-alt" style="color: #f97316; margin-right: 0.4rem;"></i>Git</span>
-          <span style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600;"><i class="fa-brands fa-docker" style="color: #0ea5e9; margin-right: 0.4rem;"></i>Docker</span>
-          <span style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600;"><i class="fa-solid fa-server" style="color: #10b981; margin-right: 0.4rem;"></i>CI/CD</span>
+          <span style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600;"><i class="fa-brands fa-python" style="color: #38bdf8; margin-right: 0.4rem;"></i>Python</span>
+          <span style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600;"><i class="fa-brands fa-js" style="color: #facc15; margin-right: 0.4rem;"></i>JavaScript</span>
+          <span style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600;"><i class="fa-solid fa-code" style="color: #3b82f6; margin-right: 0.4rem;"></i>TypeScript</span>
+          <span style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600;"><i class="fa-brands fa-git-alt" style="color: #f97316; margin-right: 0.4rem;"></i>Git</span>
+          <span style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600;"><i class="fa-brands fa-docker" style="color: #0ea5e9; margin-right: 0.4rem;"></i>Docker</span>
+          <span style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600;"><i class="fa-solid fa-server" style="color: #10b981; margin-right: 0.4rem;"></i>CI/CD</span>
         </div>
       </div>
 
@@ -1691,7 +1690,7 @@
       </div>
 
       <!-- Open Source Contributions -->
-      <div style="margin-top: 1.5rem; background: rgba(0,240,255,0.03); border: 1px solid rgba(0,240,255,0.2); border-radius: 12px; padding: 2rem;">
+      <div style="margin-top: 1.5rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 2rem;">
         <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
           <div>
             <h3 style="font-size: 1.4rem; color: #fff; margin: 0 0 0.4rem 0;"><i class="fa-brands fa-github" style="margin-right: 0.5rem; color: #cbd5e1;"></i>Open Source</h3>
