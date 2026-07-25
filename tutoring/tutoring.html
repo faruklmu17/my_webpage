@@ -1350,19 +1350,29 @@
   </nav>
 
   <!-- ===== Live Projects Bar ===== -->
-  <div style="border-bottom: 1px solid rgba(0,240,255,0.12); padding: 0.5rem 5%; display: flex; align-items: center; gap: 2rem;">
-    <span style="font-size: 0.72rem; font-weight: 700; color: #22c55e; text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0;">🔴 Live Projects</span>
+  <div style="border-bottom: 1px solid rgba(0,240,255,0.12); background: rgba(0,240,255,0.02); padding: 0.75rem 5%; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+    <span style="font-size: 0.7rem; font-weight: 700; color: #22c55e; text-transform: uppercase; letter-spacing: 0.1em; flex-shrink: 0;">🔴 Latest Projects</span>
 
-    <a href="https://hasanfaruk25-faruk-assistant.hf.space/gradio/" target="_blank" style="display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 600; color: #94a3b8; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='#94a3b8'">
-      <i class="fa-solid fa-robot" style="color: var(--cyan); font-size: 0.75rem;"></i>
-      Faruk Assistant – AI Chatbot
+    <div style="width: 1px; height: 2rem; background: rgba(255,255,255,0.1); flex-shrink: 0;"></div>
+
+    <!-- AI Chatbot -->
+    <a href="https://hasanfaruk25-faruk-assistant.hf.space/gradio/" target="_blank" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none; flex-shrink: 0;" onmouseover="this.querySelector('.proj-title').style.color='var(--cyan)'" onmouseout="this.querySelector('.proj-title').style.color='#e2e8f0'">
+      <i class="fa-solid fa-robot" style="color: var(--cyan); font-size: 1.1rem;"></i>
+      <div>
+        <div class="proj-title" style="font-size: 0.82rem; font-weight: 700; color: #e2e8f0; transition: color 0.2s; line-height: 1.2;">Faruk Assistant – AI Chatbot</div>
+        <div style="font-size: 0.72rem; color: #64748b; margin-top: 0.15rem;">Live chatbot using Groq API · RAG · Hugging Face · Gradio</div>
+      </div>
     </a>
 
-    <span style="color: rgba(255,255,255,0.15);">|</span>
+    <div style="width: 1px; height: 2rem; background: rgba(255,255,255,0.1); flex-shrink: 0;"></div>
 
-    <a href="https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh" target="_blank" style="display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 600; color: #94a3b8; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='#94a3b8'">
-      <i class="fa-brands fa-chrome" style="color: var(--cyan); font-size: 0.75rem;"></i>
-      Live Content – Chrome Extension
+    <!-- Chrome Extension -->
+    <a href="https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh" target="_blank" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none; flex-shrink: 0;" onmouseover="this.querySelector('.proj-title').style.color='var(--cyan)'" onmouseout="this.querySelector('.proj-title').style.color='#e2e8f0'">
+      <i class="fa-brands fa-chrome" style="color: var(--cyan); font-size: 1.1rem;"></i>
+      <div>
+        <div class="proj-title" style="font-size: 0.82rem; font-weight: 700; color: #e2e8f0; transition: color 0.2s; line-height: 1.2;">Live Content – Chrome Extension</div>
+        <div style="font-size: 0.72rem; color: #64748b; margin-top: 0.15rem;">Published on Chrome Web Store · Interact with web content directly from your browser</div>
+      </div>
     </a>
   </div>
 
