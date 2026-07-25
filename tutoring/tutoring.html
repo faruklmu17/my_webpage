@@ -1088,7 +1088,8 @@
     /* ====== RESPONSIVE ====== */
     @media (max-width: 980px) {
       .hero__grid {
-        grid-template-columns: 1fr
+        grid-template-columns: 1fr;
+        text-align: center;
       }
 
       .about {
@@ -1097,6 +1098,46 @@
 
       .row {
         grid-template-columns: 1fr
+      }
+      
+      .hero-trust-stats {
+        justify-content: center;
+      }
+      
+      .hero-cta-buttons {
+        justify-content: center;
+      }
+      
+      .hero__media {
+        margin-top: 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .tutoring-nav-links a {
+        display: none;
+      }
+      
+      .pricing-top-grid {
+        grid-template-columns: 1fr !important;
+      }
+      
+      .pricing-bottom-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+        text-align: left;
+      }
+      
+      .live-divider {
+        display: none;
+      }
+      
+      .about-modern-left h2 {
+        font-size: 1.8rem;
+      }
+      
+      #hero-title {
+        font-size: 2.5rem !important;
       }
     }
     
@@ -1406,7 +1447,7 @@
         </p>
 
         <!-- Trust stats row -->
-        <div style="display: flex; gap: 2rem; margin-bottom: 2.25rem; flex-wrap: wrap;">
+        <div class="hero-trust-stats" style="display: flex; gap: 2rem; margin-bottom: 2.25rem; flex-wrap: wrap;">
           <div>
             <div style="font-size: 1.6rem; font-weight: 900; color: #fff; line-height: 1;">⭐ 4.82<span style="font-size: 1rem; color: #94a3b8;">/5</span></div>
             <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.2rem;">Avg. Rating</div>
@@ -1424,7 +1465,7 @@
         </div>
 
         <!-- CTA -->
-        <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+        <div class="hero-cta-buttons" style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
           <a href="#" onclick="openTutoringModal(event)" class="btn-hero-cta">
             Book Free 20-Min Consult
           </a>
@@ -1888,7 +1929,7 @@
       </div>
 
       <!-- Top row: 3 cards -->
-      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; align-items: start; margin-bottom: 1.5rem;">
+      <div class="pricing-top-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; align-items: start; margin-bottom: 1.5rem;">
 
         <!-- Free Consultation -->
         <div style="background: var(--surface); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 2rem;">
@@ -1946,7 +1987,7 @@
       </div>
 
       <!-- Monthly Subscription — full width -->
-      <div style="background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(168,85,247,0.08)); border: 1px solid rgba(168,85,247,0.3); border-radius: 16px; padding: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;">
+      <div class="pricing-bottom-grid" style="background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(168,85,247,0.08)); border: 1px solid rgba(168,85,247,0.3); border-radius: 16px; padding: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;">
         <div>
           <div style="font-size: 0.78rem; font-weight: 700; color: #a855f7; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem;">Monthly Subscription</div>
           <div style="display: flex; align-items: flex-end; gap: 0.4rem; line-height: 1; margin-bottom: 0.5rem;">
