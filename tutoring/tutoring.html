@@ -177,46 +177,77 @@
       border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
-    /* ====== LIVE PROJECTS BAR ====== */
-    .live-projects-bar {
-      background: rgba(0, 240, 255, 0.04);
-      border-bottom: 1px solid rgba(0, 240, 255, 0.12);
-      padding: 0.45rem 5%;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-    .live-projects-inner {
-      display: inline-flex;
-      gap: 2.5rem;
+    /* ====== LATEST PROJECTS SHOWCASE BAR ====== */
+    .projects-showcase {
+      border-top: 1px solid rgba(0, 240, 255, 0.15);
+      border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+      background: rgba(10, 20, 40, 0.85);
+      padding: 1.2rem 5%;
+      display: flex;
       align-items: center;
-      animation: tickerScroll 30s linear infinite;
+      justify-content: center;
+      gap: 1.75rem;
+      flex-wrap: wrap;
     }
-    .live-projects-bar:hover .live-projects-inner {
-      animation-play-state: paused;
-    }
-    @keyframes tickerScroll {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    .live-tag {
-      display: inline-flex;
+    .projects-showcase-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #22c55e;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      flex-shrink: 0;
+      display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: #94a3b8;
+    }
+    .project-card {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
       text-decoration: none;
-      transition: color 0.2s;
+      background: rgba(0, 240, 255, 0.06);
+      border: 1px solid rgba(0, 240, 255, 0.35);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.08);
+      flex: 1;
+      min-width: 280px;
+      max-width: 420px;
+      box-sizing: border-box;
+    }
+    .project-card:hover {
+      background: rgba(0, 240, 255, 0.12);
+      border-color: rgba(0, 240, 255, 0.7);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    .project-divider {
+      width: 1px;
+      height: 3rem;
+      background: rgba(0, 240, 255, 0.15);
       flex-shrink: 0;
     }
-    .live-tag:hover { color: var(--cyan); }
-    .live-tag .live-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #22c55e;
-      box-shadow: 0 0 6px #22c55e;
-      animation: pulse-dot 2s ease-in-out infinite;
+    @media (max-width: 768px) {
+      .projects-showcase {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+        padding: 1.25rem 5%;
+      }
+      .projects-showcase-title {
+        justify-content: center;
+        margin-bottom: 0.2rem;
+      }
+      .project-divider {
+        display: none !important;
+      }
+      .project-card {
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+        flex: none;
+      }
     }
     @keyframes pulse-dot {
       0%, 100% { opacity: 1; transform: scale(1); }
@@ -1420,36 +1451,36 @@
   </nav>
 
   <!-- ===== Live Projects Bar ===== -->
-  <div style="border-top: 1px solid rgba(0,240,255,0.15); border-bottom: 1px solid rgba(0,240,255,0.15); background: rgba(10,20,40,0.85); padding: 1rem 5%; display: flex; align-items: center; justify-content: center; gap: 1.75rem; flex-wrap: wrap;">
-    <span style="font-size: 0.75rem; font-weight: 700; color: #22c55e; text-transform: uppercase; letter-spacing: 0.12em; flex-shrink: 0; display: flex; align-items: center; gap: 0.4rem;">
+  <div class="projects-showcase">
+    <span class="projects-showcase-title">
       <span style="width: 7px; height: 7px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 8px #22c55e; display: inline-block;"></span>
       Latest Projects
     </span>
 
-    <div style="width: 1px; height: 3rem; background: rgba(0,240,255,0.15); flex-shrink: 0;"></div>
+    <div class="project-divider"></div>
 
     <!-- AI Chatbot -->
-    <a href="https://hasanfaruk25-faruk-assistant.hf.space/gradio/" target="_blank" style="display: flex; align-items: center; gap: 0.85rem; text-decoration: none; flex-shrink: 0; background: rgba(0,240,255,0.06); border: 1px solid rgba(0,240,255,0.35); border-radius: 10px; padding: 0.6rem 1rem; transition: all 0.2s; box-shadow: 0 0 12px rgba(0,240,255,0.08);" onmouseover="this.style.background='rgba(0,240,255,0.12)'; this.style.borderColor='rgba(0,240,255,0.7)'; this.style.boxShadow='0 0 20px rgba(0,240,255,0.2)'" onmouseout="this.style.background='rgba(0,240,255,0.06)'; this.style.borderColor='rgba(0,240,255,0.35)'; this.style.boxShadow='0 0 12px rgba(0,240,255,0.08)'">
-      <i class="fa-solid fa-robot" style="color: var(--cyan); font-size: 1.4rem;"></i>
-      <div>
+    <a href="https://hasanfaruk25-faruk-assistant.hf.space/gradio/" target="_blank" class="project-card">
+      <i class="fa-solid fa-robot" style="color: var(--cyan); font-size: 1.4rem; flex-shrink: 0;"></i>
+      <div style="flex: 1; min-width: 0;">
         <div style="font-size: 0.92rem; font-weight: 700; color: #fff; line-height: 1.3;">Faruk Assistant – AI Chatbot</div>
         <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 0.15rem;">Groq API · RAG · Hugging Face · Gradio</div>
         <div style="font-size: 0.68rem; color: #22c55e; margin-top: 0.2rem; font-weight: 600;">● Updated Jul 2026</div>
       </div>
-      <i class="fa-solid fa-arrow-up-right-from-square" style="color: var(--cyan); font-size: 0.75rem; margin-left: 0.4rem;"></i>
+      <i class="fa-solid fa-arrow-up-right-from-square" style="color: var(--cyan); font-size: 0.75rem; margin-left: 0.4rem; flex-shrink: 0;"></i>
     </a>
 
-    <div style="width: 1px; height: 3rem; background: rgba(0,240,255,0.15); flex-shrink: 0;"></div>
+    <div class="project-divider"></div>
 
     <!-- Chrome Extension -->
-    <a href="https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh" target="_blank" style="display: flex; align-items: center; gap: 0.85rem; text-decoration: none; flex-shrink: 0; background: rgba(0,240,255,0.06); border: 1px solid rgba(0,240,255,0.35); border-radius: 10px; padding: 0.6rem 1rem; transition: all 0.2s; box-shadow: 0 0 12px rgba(0,240,255,0.08);" onmouseover="this.style.background='rgba(0,240,255,0.12)'; this.style.borderColor='rgba(0,240,255,0.7)'; this.style.boxShadow='0 0 20px rgba(0,240,255,0.2)'" onmouseout="this.style.background='rgba(0,240,255,0.06)'; this.style.borderColor='rgba(0,240,255,0.35)'; this.style.boxShadow='0 0 12px rgba(0,240,255,0.08)'">
-      <i class="fa-brands fa-chrome" style="color: var(--cyan); font-size: 1.4rem;"></i>
-      <div>
+    <a href="https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh" target="_blank" class="project-card">
+      <i class="fa-brands fa-chrome" style="color: var(--cyan); font-size: 1.4rem; flex-shrink: 0;"></i>
+      <div style="flex: 1; min-width: 0;">
         <div style="font-size: 0.92rem; font-weight: 700; color: #fff; line-height: 1.3;">Playwright Test Results Badge</div>
         <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 0.15rem;">Monitor automated test status directly from your browser</div>
         <div style="font-size: 0.68rem; color: #22c55e; margin-top: 0.2rem; font-weight: 600;">● Updated Jul 2026</div>
       </div>
-      <i class="fa-solid fa-arrow-up-right-from-square" style="color: var(--cyan); font-size: 0.75rem; margin-left: 0.4rem;"></i>
+      <i class="fa-solid fa-arrow-up-right-from-square" style="color: var(--cyan); font-size: 0.75rem; margin-left: 0.4rem; flex-shrink: 0;"></i>
     </a>
   </div>
 
