@@ -171,10 +171,70 @@
       display: flex; 
       justify-content: space-between; 
       align-items: center; 
-      padding: 1.5rem 5%; 
+      padding: 0.75rem 5%; 
       max-width: 1400px; 
       margin: 0 auto; 
       border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* ====== LIVE PROJECTS BAR ====== */
+    .live-projects-bar {
+      background: rgba(0, 240, 255, 0.04);
+      border-bottom: 1px solid rgba(0, 240, 255, 0.12);
+      padding: 0.45rem 5%;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .live-projects-inner {
+      display: inline-flex;
+      gap: 2.5rem;
+      align-items: center;
+      animation: tickerScroll 30s linear infinite;
+    }
+    .live-projects-bar:hover .live-projects-inner {
+      animation-play-state: paused;
+    }
+    @keyframes tickerScroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .live-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.2s;
+      flex-shrink: 0;
+    }
+    .live-tag:hover { color: var(--cyan); }
+    .live-tag .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 6px #22c55e;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(1.4); }
+    }
+    .live-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #22c55e;
+      text-transform: uppercase;
+      margin-right: 0.5rem;
+      flex-shrink: 0;
+    }
+    .live-divider {
+      color: rgba(255,255,255,0.15);
+      font-size: 0.9rem;
+      flex-shrink: 0;
     }
     .tutoring-nav-logo {
       color: var(--cyan); 
@@ -1276,11 +1336,6 @@
 
 <body>
 
-  <!-- ===== Tutoring Banner ===== -->
-  <div class="tutoring-banner" style="background: var(--cyan); color: #0a0f1c; padding: 0.5rem; text-align: center; font-weight: 600; font-size: 0.95rem;">
-    Unlock your potential with premium 1-on-1 tutoring at just $55 / hour. <a href="#" onclick="openTutoringModal(event)" style="color: #0a0f1c; text-decoration: underline; margin-left: 0.5rem; font-weight: 700;">Book a Session →</a>
-  </div>
-
   <nav class="tutoring-nav">
     <a href="/" class="tutoring-nav-logo">
       <span style="color: #64748b;">&gt;&gt;</span> Faruk Hasan
@@ -1290,9 +1345,79 @@
       <a href="#curriculum" style="color: var(--sub); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;">Curriculum</a>
       <a href="#pricing" style="color: var(--sub); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;">Pricing</a>
       <a href="#faq" style="color: var(--sub); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;">FAQ</a>
-      <button onclick="openTutoringModal(event)" style="background: var(--cyan); color: #0a0f1c; border: none; padding: 0.6rem 1.5rem; border-radius: 6px; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 14px rgba(0,240,255,0.3);">Book Now</button>
+      <button onclick="openTutoringModal(event)" style="background: var(--cyan); color: #0a0f1c; border: none; padding: 0.5rem 1.2rem; border-radius: 6px; font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 14px rgba(0,240,255,0.3);">Book Now</button>
     </div>
   </nav>
+
+  <!-- ===== Live Projects Ticker Bar ===== -->
+  <div class="live-projects-bar">
+    <div class="live-projects-inner">
+      <span class="live-label">🔴 Live</span>
+
+      <a href="https://hasanfaruk25-faruk-assistant.hf.space/gradio/" target="_blank" class="live-tag">
+        <span class="live-dot"></span>
+        <i class="fa-solid fa-robot" style="color: var(--cyan); font-size: 0.75rem;"></i>
+        Faruk Assistant – AI Chatbot
+      </a>
+
+      <span class="live-divider">|</span>
+
+      <a href="https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh" target="_blank" class="live-tag">
+        <span class="live-dot"></span>
+        <i class="fa-brands fa-chrome" style="color: var(--cyan); font-size: 0.75rem;"></i>
+        Live Content – Chrome Extension
+      </a>
+
+      <span class="live-divider">|</span>
+
+      <a href="https://faruk-hasan.com" target="_blank" class="live-tag">
+        <span class="live-dot"></span>
+        <i class="fa-solid fa-globe" style="color: var(--cyan); font-size: 0.75rem;"></i>
+        Portfolio Website
+      </a>
+
+      <span class="live-divider">|</span>
+
+      <a href="https://github.com/faruklmu17" target="_blank" class="live-tag">
+        <span class="live-dot"></span>
+        <i class="fa-brands fa-github" style="color: var(--cyan); font-size: 0.75rem;"></i>
+        Open Source on GitHub
+      </a>
+
+      <!-- Duplicate set for seamless loop -->
+      <span class="live-divider" style="margin-left:1rem;">|</span>
+
+      <a href="https://hasanfaruk25-faruk-assistant.hf.space/gradio/" target="_blank" class="live-tag">
+        <span class="live-dot"></span>
+        <i class="fa-solid fa-robot" style="color: var(--cyan); font-size: 0.75rem;"></i>
+        Faruk Assistant – AI Chatbot
+      </a>
+
+      <span class="live-divider">|</span>
+
+      <a href="https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh" target="_blank" class="live-tag">
+        <span class="live-dot"></span>
+        <i class="fa-brands fa-chrome" style="color: var(--cyan); font-size: 0.75rem;"></i>
+        Live Content – Chrome Extension
+      </a>
+
+      <span class="live-divider">|</span>
+
+      <a href="https://faruk-hasan.com" target="_blank" class="live-tag">
+        <span class="live-dot"></span>
+        <i class="fa-solid fa-globe" style="color: var(--cyan); font-size: 0.75rem;"></i>
+        Portfolio Website
+      </a>
+
+      <span class="live-divider">|</span>
+
+      <a href="https://github.com/faruklmu17" target="_blank" class="live-tag">
+        <span class="live-dot"></span>
+        <i class="fa-brands fa-github" style="color: var(--cyan); font-size: 0.75rem;"></i>
+        Open Source on GitHub
+      </a>
+    </div>
+  </div>
 
   <!-- ===== Tutoring Page Sections ===== -->
 
