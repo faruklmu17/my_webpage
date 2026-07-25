@@ -1343,7 +1343,7 @@
     <div class="tutoring-nav-links">
       <a href="#about" style="color: var(--sub); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;">About</a>
       <a href="#curriculum" style="color: var(--sub); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;">Curriculum</a>
-      <a href="#" onclick="openTutoringModal(event)" style="color: var(--sub); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;">Pricing</a>
+      <a href="#pricing" style="color: var(--sub); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;">Pricing</a>
       <a href="#faq" style="color: var(--sub); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;">FAQ</a>
       <button onclick="openTutoringModal(event)" style="background: var(--cyan); color: #0a0f1c; border: none; padding: 0.5rem 1.2rem; border-radius: 6px; font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 14px rgba(0,240,255,0.3);">Book Now</button>
     </div>
@@ -1810,6 +1810,58 @@
           <figcaption>★★★★★ — Parent • December 16, 2024</figcaption>
         </figure>
       </div>
+    </div>
+  </section>
+
+  <!-- ====== PRICING ====== -->
+  <section id="pricing" class="section">
+    <div class="container" style="max-width: 900px;">
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <span style="color: var(--cyan); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">Simple & Transparent</span>
+        <h2 style="margin-top: 0.5rem;">Pricing</h2>
+        <p class="sub">No hidden fees. No contracts. Cancel anytime.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start;">
+
+        <!-- Free Consultation -->
+        <div style="background: var(--surface); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 2rem;">
+          <div style="font-size: 0.8rem; font-weight: 700; color: #22c55e; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem;">Free to Start</div>
+          <div style="font-size: 2.5rem; font-weight: 900; color: #fff; line-height: 1;">$0</div>
+          <div style="font-size: 0.9rem; color: #64748b; margin-top: 0.25rem; margin-bottom: 1.5rem;">20-min consultation</div>
+          <ul style="list-style: none; padding: 0; margin: 0 0 2rem 0; display: flex; flex-direction: column; gap: 0.75rem;">
+            <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: #cbd5e1;"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 0.8rem;"></i> Meet your tutor first</li>
+            <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: #cbd5e1;"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 0.8rem;"></i> Discuss goals & learning path</li>
+            <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: #cbd5e1;"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 0.8rem;"></i> No commitment required</li>
+          </ul>
+          <a href="#" onclick="openTutoringModal(event)" style="display: block; text-align: center; padding: 0.75rem; border: 1px solid rgba(0,240,255,0.3); border-radius: 8px; color: var(--cyan); font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.background='rgba(0,240,255,0.08)'" onmouseout="this.style.background='transparent'">Book Free Consult</a>
+        </div>
+
+        <!-- 1-on-1 Sessions -->
+        <div style="background: rgba(0,240,255,0.05); border: 2px solid rgba(0,240,255,0.4); border-radius: 16px; padding: 2rem; position: relative; box-shadow: 0 0 30px rgba(0,240,255,0.08);">
+          <div style="position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--cyan); color: #0a0f1c; font-size: 0.72rem; font-weight: 800; padding: 0.25rem 1rem; border-radius: 999px; letter-spacing: 0.06em; white-space: nowrap;">MOST POPULAR</div>
+          <div style="font-size: 0.8rem; font-weight: 700; color: var(--cyan); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem;">1-on-1 Sessions</div>
+          <div style="display: flex; align-items: flex-end; gap: 0.4rem; line-height: 1;">
+            <span style="font-size: 2.5rem; font-weight: 900; color: #fff;">$55</span>
+            <span style="font-size: 1rem; color: #64748b; margin-bottom: 0.4rem;">/ hour</span>
+          </div>
+          <div style="font-size: 0.9rem; color: #64748b; margin-top: 0.25rem; margin-bottom: 1.5rem;">Live, private online session</div>
+          <ul style="list-style: none; padding: 0; margin: 0 0 2rem 0; display: flex; flex-direction: column; gap: 0.75rem;">
+            <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: #cbd5e1;"><i class="fa-solid fa-check" style="color: var(--cyan); font-size: 0.8rem;"></i> Python, Web Dev, AI, Arduino & more</li>
+            <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: #cbd5e1;"><i class="fa-solid fa-check" style="color: var(--cyan); font-size: 0.8rem;"></i> Project-based learning</li>
+            <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: #cbd5e1;"><i class="fa-solid fa-check" style="color: var(--cyan); font-size: 0.8rem;"></i> Tailored curriculum for your child</li>
+            <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: #cbd5e1;"><i class="fa-solid fa-check" style="color: var(--cyan); font-size: 0.8rem;"></i> Flexible scheduling</li>
+            <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: #cbd5e1;"><i class="fa-solid fa-check" style="color: var(--cyan); font-size: 0.8rem;"></i> Session recordings available</li>
+          </ul>
+          <a href="#" onclick="openTutoringModal(event)" style="display: block; text-align: center; padding: 0.75rem; background: var(--cyan); border-radius: 8px; color: #0a0f1c; font-weight: 800; font-size: 0.95rem; text-decoration: none; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">Book a Session</a>
+        </div>
+
+      </div>
+
+      <p style="text-align: center; margin-top: 1.5rem; font-size: 0.85rem; color: #475569;">
+        <i class="fa-solid fa-shield-halved" style="color: var(--cyan); margin-right: 0.3rem;"></i>
+        Sessions booked through <a href="https://outschool.com/teachers/Faruk-Hasan" target="_blank" style="color: var(--cyan); text-decoration: none;">Outschool</a> are protected by their secure payment system.
+      </p>
     </div>
   </section>
 
