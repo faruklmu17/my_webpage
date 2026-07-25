@@ -171,10 +171,70 @@
       display: flex; 
       justify-content: space-between; 
       align-items: center; 
-      padding: 1.5rem 5%; 
+      padding: 0.75rem 5%; 
       max-width: 1400px; 
       margin: 0 auto; 
       border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    /* ====== LIVE PROJECTS BAR ====== */
+    .live-projects-bar {
+      background: rgba(0, 240, 255, 0.04);
+      border-bottom: 1px solid rgba(0, 240, 255, 0.12);
+      padding: 0.45rem 5%;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .live-projects-inner {
+      display: inline-flex;
+      gap: 2.5rem;
+      align-items: center;
+      animation: tickerScroll 30s linear infinite;
+    }
+    .live-projects-bar:hover .live-projects-inner {
+      animation-play-state: paused;
+    }
+    @keyframes tickerScroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .live-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.2s;
+      flex-shrink: 0;
+    }
+    .live-tag:hover { color: var(--cyan); }
+    .live-tag .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 6px #22c55e;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(1.4); }
+    }
+    .live-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #22c55e;
+      text-transform: uppercase;
+      margin-right: 0.5rem;
+      flex-shrink: 0;
+    }
+    .live-divider {
+      color: rgba(255,255,255,0.15);
+      font-size: 0.9rem;
+      flex-shrink: 0;
     }
     .tutoring-nav-logo {
       color: var(--cyan); 
@@ -1028,7 +1088,8 @@
     /* ====== RESPONSIVE ====== */
     @media (max-width: 980px) {
       .hero__grid {
-        grid-template-columns: 1fr
+        grid-template-columns: 1fr;
+        text-align: center;
       }
 
       .about {
@@ -1037,6 +1098,46 @@
 
       .row {
         grid-template-columns: 1fr
+      }
+      
+      .hero-trust-stats {
+        justify-content: center;
+      }
+      
+      .hero-cta-buttons {
+        justify-content: center;
+      }
+      
+      .hero__media {
+        margin-top: 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .tutoring-nav-links a {
+        display: none;
+      }
+      
+      .pricing-top-grid {
+        grid-template-columns: 1fr !important;
+      }
+      
+      .pricing-bottom-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+        text-align: left;
+      }
+      
+      .live-divider {
+        display: none;
+      }
+      
+      .about-modern-left h2 {
+        font-size: 1.8rem;
+      }
+      
+      #hero-title {
+        font-size: 2.5rem !important;
       }
     }
     
@@ -1276,13 +1377,8 @@
 
 <body>
 
-  <!-- ===== Tutoring Banner ===== -->
-  <div class="tutoring-banner" style="background: var(--cyan); color: #0a0f1c; padding: 0.5rem; text-align: center; font-weight: 600; font-size: 0.95rem;">
-    Unlock your potential with premium 1-on-1 tutoring at just $55 / hour. <a href="#" onclick="openTutoringModal(event)" style="color: #0a0f1c; text-decoration: underline; margin-left: 0.5rem; font-weight: 700;">Book a Session →</a>
-  </div>
-
   <nav class="tutoring-nav">
-    <a href="/" class="tutoring-nav-logo">
+    <a href="https://faruk-hasan.com" class="tutoring-nav-logo">
       <span style="color: #64748b;">&gt;&gt;</span> Faruk Hasan
     </a>
     <div class="tutoring-nav-links">
@@ -1290,208 +1386,128 @@
       <a href="#curriculum" style="color: var(--sub); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;">Curriculum</a>
       <a href="#pricing" style="color: var(--sub); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;">Pricing</a>
       <a href="#faq" style="color: var(--sub); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s;">FAQ</a>
-      <button onclick="openTutoringModal(event)" style="background: var(--cyan); color: #0a0f1c; border: none; padding: 0.6rem 1.5rem; border-radius: 6px; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 14px rgba(0,240,255,0.3);">Book Now</button>
+      <button onclick="openTutoringModal(event)" style="background: var(--cyan); color: #0a0f1c; border: none; padding: 0.5rem 1.2rem; border-radius: 6px; font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 14px rgba(0,240,255,0.3);">Book Now</button>
     </div>
   </nav>
 
-  <!-- ===== Tutoring Page Sections ===== -->
+  <!-- ===== Live Projects Bar ===== -->
+  <div style="border-top: 1px solid rgba(0,240,255,0.15); border-bottom: 1px solid rgba(0,240,255,0.15); background: rgba(10,20,40,0.85); padding: 1rem 5%; display: flex; align-items: center; justify-content: center; gap: 1.75rem; flex-wrap: wrap;">
+    <span style="font-size: 0.75rem; font-weight: 700; color: #22c55e; text-transform: uppercase; letter-spacing: 0.12em; flex-shrink: 0; display: flex; align-items: center; gap: 0.4rem;">
+      <span style="width: 7px; height: 7px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 8px #22c55e; display: inline-block;"></span>
+      Latest Projects
+    </span>
 
-  <section id="hero" class="section hero" aria-labelledby="hero-title" style="padding-top: 4rem; padding-bottom: 4rem;">
-    <div class="container hero__grid">
-      <div style="padding-top: 2rem;">
-        <div>
-          <div style="margin-bottom: 2rem;">
-            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 0.6rem;">
-              <div class="pro-stat-bubble" style="animation-delay: 0s;">
-                <span class="pro-stat-value">4.82/5</span> <span class="pro-stat-label">⭐ Rating</span>
-              </div>
-              <div class="pro-stat-bubble" style="animation-delay: 1.5s;">
-                <span class="pro-stat-value">2,000+</span> <span class="pro-stat-label">Students</span>
-              </div>
-              <div class="pro-stat-bubble" style="animation-delay: 3s;">
-                <span class="pro-stat-value">1,945+</span> <span class="pro-stat-label">Followers</span>
-              </div>
-            </div>
-            <a href="https://outschool.com/teachers/Faruk-Hasan" target="_blank" style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(0, 240, 255, 0.1); border: 1px solid rgba(0, 240, 255, 0.4); color: var(--cyan); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 1rem; font-weight: 700; text-decoration: none; transition: all 0.3s ease; margin-top: 0.5rem;" onmouseover="this.style.background='var(--cyan)'; this.style.color='#0a0f1c'; this.style.boxShadow='0 4px 15px rgba(0, 240, 255, 0.3)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='rgba(0, 240, 255, 0.1)'; this.style.color='var(--cyan)'; this.style.boxShadow='none'; this.style.transform='translateY(0)';">
-              <i class="fa-solid fa-star" style="color: #eab308;"></i> Read the reviews on Outschool <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.85rem;"></i>
-            </a>
+    <div style="width: 1px; height: 3rem; background: rgba(0,240,255,0.15); flex-shrink: 0;"></div>
+
+    <!-- AI Chatbot -->
+    <a href="https://hasanfaruk25-faruk-assistant.hf.space/gradio/" target="_blank" style="display: flex; align-items: center; gap: 0.85rem; text-decoration: none; flex-shrink: 0; background: rgba(0,240,255,0.06); border: 1px solid rgba(0,240,255,0.35); border-radius: 10px; padding: 0.6rem 1rem; transition: all 0.2s; box-shadow: 0 0 12px rgba(0,240,255,0.08);" onmouseover="this.style.background='rgba(0,240,255,0.12)'; this.style.borderColor='rgba(0,240,255,0.7)'; this.style.boxShadow='0 0 20px rgba(0,240,255,0.2)'" onmouseout="this.style.background='rgba(0,240,255,0.06)'; this.style.borderColor='rgba(0,240,255,0.35)'; this.style.boxShadow='0 0 12px rgba(0,240,255,0.08)'">
+      <i class="fa-solid fa-robot" style="color: var(--cyan); font-size: 1.4rem;"></i>
+      <div>
+        <div style="font-size: 0.92rem; font-weight: 700; color: #fff; line-height: 1.3;">Faruk Assistant – AI Chatbot</div>
+        <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 0.15rem;">Groq API · RAG · Hugging Face · Gradio</div>
+        <div style="font-size: 0.68rem; color: #22c55e; margin-top: 0.2rem; font-weight: 600;">● Updated Jul 2026</div>
+      </div>
+      <i class="fa-solid fa-arrow-up-right-from-square" style="color: var(--cyan); font-size: 0.75rem; margin-left: 0.4rem;"></i>
+    </a>
+
+    <div style="width: 1px; height: 3rem; background: rgba(0,240,255,0.15); flex-shrink: 0;"></div>
+
+    <!-- Chrome Extension -->
+    <a href="https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh" target="_blank" style="display: flex; align-items: center; gap: 0.85rem; text-decoration: none; flex-shrink: 0; background: rgba(0,240,255,0.06); border: 1px solid rgba(0,240,255,0.35); border-radius: 10px; padding: 0.6rem 1rem; transition: all 0.2s; box-shadow: 0 0 12px rgba(0,240,255,0.08);" onmouseover="this.style.background='rgba(0,240,255,0.12)'; this.style.borderColor='rgba(0,240,255,0.7)'; this.style.boxShadow='0 0 20px rgba(0,240,255,0.2)'" onmouseout="this.style.background='rgba(0,240,255,0.06)'; this.style.borderColor='rgba(0,240,255,0.35)'; this.style.boxShadow='0 0 12px rgba(0,240,255,0.08)'">
+      <i class="fa-brands fa-chrome" style="color: var(--cyan); font-size: 1.4rem;"></i>
+      <div>
+        <div style="font-size: 0.92rem; font-weight: 700; color: #fff; line-height: 1.3;">Playwright Test Results Badge</div>
+        <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 0.15rem;">Monitor automated test status directly from your browser</div>
+        <div style="font-size: 0.68rem; color: #22c55e; margin-top: 0.2rem; font-weight: 600;">● Updated Jul 2026</div>
+      </div>
+      <i class="fa-solid fa-arrow-up-right-from-square" style="color: var(--cyan); font-size: 0.75rem; margin-left: 0.4rem;"></i>
+    </a>
+  </div>
+
+  <section id="hero" class="section hero" aria-labelledby="hero-title" style="padding-top: 2.5rem; padding-bottom: 3rem;">
+    <div class="container hero__grid" style="align-items: center;">
+
+      <!-- LEFT: Headline + CTA -->
+      <div>
+        <!-- Credential badge -->
+        <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(0,240,255,0.08); border: 1px solid rgba(0,240,255,0.3); border-radius: 999px; padding: 0.4rem 1rem; margin-bottom: 1.5rem;">
+          <i class="fa-solid fa-circle-check" style="color: var(--cyan); font-size: 0.85rem;"></i>
+          <span style="font-size: 0.82rem; font-weight: 700; color: var(--cyan); letter-spacing: 0.04em;">Senior SDET · 13+ Years Teaching · MSEE</span>
+        </div>
+
+        <!-- Headline -->
+        <h1 id="hero-title" style="font-size: clamp(2.2rem, 3.5vw + 1rem, 3.6rem); line-height: 1.1; font-weight: 900; letter-spacing: -0.03em; color: #fff; margin-bottom: 1.25rem;">
+          Inspiring the Next Generation of<br>
+          <span style="color: var(--cyan); text-shadow: 0 0 24px rgba(0,240,255,0.35);">Coders &amp; Thinkers</span>
+        </h1>
+
+        <!-- Subheadline -->
+        <p style="font-size: 1.15rem; color: #94a3b8; line-height: 1.7; max-width: 480px; margin-bottom: 2rem;">
+          1-on-1 live coding sessions built around real projects — not copy-paste tutorials. Your child ships something they're proud of from day one.
+        </p>
+
+        <!-- Trust stats row -->
+        <div class="hero-trust-stats" style="display: flex; gap: 2rem; margin-bottom: 2.25rem; flex-wrap: wrap;">
+          <div>
+            <div style="font-size: 1.6rem; font-weight: 900; color: #fff; line-height: 1;">⭐ 4.82<span style="font-size: 1rem; color: #94a3b8;">/5</span></div>
+            <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.2rem;">Avg. Rating</div>
           </div>
-          <h1 id="hero-title" style="font-size: clamp(2rem, 3.5vw + 1rem, 3.5rem); line-height: 1.1; font-weight: 900; letter-spacing: -0.03em; color: #fff; margin-bottom: 1.5rem;">Inspiring the Next Generation of<br><span style="color: var(--cyan); text-shadow: 0 0 20px rgba(0,240,255,0.4);">Coders & Thinkers</span></h1>
-          <p class="lead" style="font-size: 1.25rem; color: #94a3b8; line-height: 1.6; max-width: 500px; margin-bottom: 2.5rem; text-shadow: none;">
-            1-on-1 online coding sessions with a teacher who has lived on both sides — the classroom and the tech industry. No fluff. No copy-paste tutorials. You build projects from day one.
-          </p>
-          <div class="cta-row" style="margin-top: 0.5rem; flex-direction: column; align-items: flex-start;">
-            <a href="#" onclick="openTutoringModal(event)" class="btn-hero-cta">
-              Book Free 20-Min Consult
-            </a>
-            
-            <div style="margin-top: 1rem; background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.2); border-left: 4px solid var(--cyan); padding: 1rem 1.5rem; border-radius: 6px; max-width: 500px;">
-              <p style="margin: 0; font-size: 0.95rem; color: #cbd5e1; line-height: 1.5;">
-                <strong style="color: #fff;"><i class="fa-solid fa-circle-info" style="color: var(--cyan); margin-right: 0.4rem;"></i>Not sure where to start or how live sessions work?</strong><br>
-                Book a free 20-minute online consultation to learn more about my approach and discuss what you are planning to learn before starting. No commitments, no hassle.
-              </p>
-            </div>
-
-
+          <div style="width: 1px; background: rgba(255,255,255,0.1);"></div>
+          <div>
+            <div style="font-size: 1.6rem; font-weight: 900; color: #fff; line-height: 1;">2,000+</div>
+            <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.2rem;">Students Taught</div>
+          </div>
+          <div style="width: 1px; background: rgba(255,255,255,0.1);"></div>
+          <div>
+            <div style="font-size: 1.6rem; font-weight: 900; color: #fff; line-height: 1;">13+</div>
+            <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.2rem;">Years Teaching</div>
           </div>
         </div>
-      </div>
-      
-      <!-- Right Column: What I Teach Compact Layout -->
-      <div class="hero__media" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
-        <style>
-          .glass-panel {
-            background: #111827;
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            border-radius: 12px;
-            padding: 3rem 2.5rem 2.5rem 2.5rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            width: 100%;
-            position: relative;
-          }
-          .glass-panel::before {
-             content: '';
-             position: absolute;
-             top: 1.25rem;
-             left: 1.25rem;
-             width: 10px;
-             height: 10px;
-             border-radius: 50%;
-             background: #ef4444;
-             box-shadow: 16px 0 0 #eab308, 32px 0 0 #22c55e;
-          }
-          
-          .subject-tag {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 0.8rem;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 1.5rem;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            cursor: default;
-          }
-          
-          .subject-tag:hover {
-            transform: translateY(-4px);
-            background: rgba(255, 255, 255, 1);
-            border-color: #fff;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(56, 189, 248, 0.1);
-          }
-          
-          .subject-tag:hover h3 {
-            color: #0f172a !important;
-          }
-          
-          .subject-tag p {
-            color: #cbd5e1;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin: 0;
-            z-index: 2;
-            position: relative;
-          }
-          
-          .subject-tag:hover p {
-            color: #334155;
-          }
-          
-          .subject-tag i, .subject-tag h3 {
-            position: relative;
-            z-index: 2;
-          }
-          
-          .subject-tag h3 {
-            color: #ffffff !important; /* White text for dark mode */
-          }
-          
-          .sleek-pill {
-            background: rgba(255, 255, 255, 0.8);
-            color: #475569;
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            padding: 0.5rem 1.2rem;
-            font-size: 0.9rem;
-            border-radius: 999px;
-            font-weight: 600;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-          }
-          
-          .social-glass {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            color: #cbd5e1;
-            font-size: 1.2rem;
-            text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-          }
-          
-          .social-glass:hover {
-            transform: translateY(-4px) scale(1.05);
-            background: #fff;
-            color: #38bdf8;
-            box-shadow: 0 10px 20px rgba(56, 189, 248, 0.15);
-          }
-          .subject-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-          }
-          
-          @media (max-width: 640px) {
-            .subject-grid {
-              grid-template-columns: 1fr;
-            }
-            .glass-panel {
-              padding: 2rem 1.5rem;
-            }
-          }
-        </style>
-        <div class="glass-panel">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
-            <h2 style="margin: 0; font-size: 1.8rem; color: #ffffff;">Why Learn With Faruk?</h2>
-            <div style="display: flex; gap: 0.8rem; align-items: center;">
-              <span style="font-size: 0.85rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 0.5rem;" class="hide-mobile">Find Me On Social Media:</span>
-              <a href="https://outschool.com/teachers/Faruk-Hasan" class="social-glass" target="_blank" title="Outschool"><img src="../assets/images/outschool-icon.svg" alt="Outschool" style="width: 1.25rem; height: 1.25rem; object-fit: contain;"></a>
-              <a href="https://youtube.com/@kidzcodeai" class="social-glass" target="_blank" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-              <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-glass" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-              <a href="https://github.com/faruklmu17" class="social-glass" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
-              <a href="https://www.moltbook.com/u/FarukGroqAgent" class="social-glass" target="_blank" title="Moltbook"><img src="../assets/images/moltbook-icon.png" alt="Moltbook" style="width: 1.25rem; height: 1.25rem; object-fit: contain;"></a>
-            </div>
-          </div>
-          <p class="sub" style="font-size: 1.05rem; color: #38bdf8; font-weight: 600; margin-bottom: 1.5rem;">13+ Years Teaching Experience | 7 Years SDET | MSEE | Published Researcher</p>
-          <p style="color: #cbd5e1; line-height: 1.6; margin-bottom: 2rem;">I hold a Master's in Electrical Engineering with two undergraduate-level research publications. I blend my 7 years of day-to-day industry experience as a Senior SDET with 13 years of teaching experience. I focus on highly engaging, project-based activities so learners leave with portfolio-ready work and practical, real-world skills.</p>
-          
-          <div class="stats-modern" style="display: flex; gap: 2rem; flex-wrap: wrap; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
-            <div class="stat-modern">
-              <h3 style="font-size: 2rem; font-weight: 800; color: #38bdf8; margin: 0 0 0.2rem 0;">13+</h3>
-              <p style="font-size: 0.85rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin: 0; font-weight: 600;">Years Teaching</p>
-            </div>
-            <div class="stat-modern">
-              <h3 style="font-size: 2rem; font-weight: 800; color: #38bdf8; margin: 0 0 0.2rem 0;">7</h3>
-              <p style="font-size: 0.85rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin: 0; font-weight: 600;">Years in SDET</p>
-            </div>
-            <div class="stat-modern">
-              <h3 style="font-size: 2rem; font-weight: 800; color: #38bdf8; margin: 0 0 0.2rem 0;">2</h3>
-              <p style="font-size: 0.85rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin: 0; font-weight: 600;">Publications</p>
-            </div>
-          </div>
-          <div style="display: flex; flex-wrap: wrap; margin-top: 2rem; justify-content: flex-start; gap: 0.8rem; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 1.5rem;">
-            <span class="sleek-pill">Grades 4–12</span>
-            <span class="sleek-pill">1:1 & Groups</span>
-          </div>
+
+        <!-- CTA -->
+        <div class="hero-cta-buttons" style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+          <a href="#" onclick="openTutoringModal(event)" class="btn-hero-cta">
+            Book Free 20-Min Consult
+          </a>
+          <a href="#pricing" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.75rem; border: 1.5px solid rgba(0,240,255,0.4); border-radius: 8px; color: var(--cyan); font-weight: 700; font-size: 1rem; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.background='rgba(0,240,255,0.08)'; this.style.borderColor='var(--cyan)'" onmouseout="this.style.background='transparent'; this.style.borderColor='rgba(0,240,255,0.4)'">
+            <i class="fa-solid fa-tag" style="font-size: 0.85rem;"></i> View Pricing
+          </a>
         </div>
       </div>
+
+      <!-- RIGHT: Photo + credential cards -->
+      <div class="hero__media" style="display: flex; flex-direction: column; align-items: center; gap: 1.25rem;">
+
+        <!-- Photo with badge overlay -->
+        <div style="position: relative; display: inline-block;">
+          <img src="../assets/images/me.jpg" alt="Faruk Hasan - Coding Tutor"
+            style="width: 280px; height: 280px; object-fit: cover; border-radius: 20px; border: 2px solid rgba(0,240,255,0.25); box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
+          <!-- Rating badge -->
+          <div style="position: absolute; bottom: -16px; left: 50%; transform: translateX(-50%); background: #111827; border: 1px solid rgba(0,240,255,0.3); border-radius: 999px; padding: 0.4rem 1.1rem; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,0.4);">
+            <span style="color: #eab308; font-size: 0.9rem;">★★★★★</span>
+            <span style="font-size: 0.82rem; font-weight: 700; color: #fff;">4.82 / 5</span>
+            <span style="font-size: 0.75rem; color: #64748b;">on Outschool</span>
+          </div>
+        </div>
+
+        <!-- Credential pills -->
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; width: 100%; max-width: 280px; margin-top: 1.25rem;">
+          <div style="display: flex; align-items: center; gap: 0.75rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.65rem 1rem;">
+            <i class="fa-solid fa-graduation-cap" style="color: var(--cyan); font-size: 1rem; flex-shrink: 0;"></i>
+            <span style="font-size: 0.85rem; color: #cbd5e1; font-weight: 500;">Master's in Electrical Engineering (MSEE)</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.75rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.65rem 1rem;">
+            <i class="fa-solid fa-laptop-code" style="color: var(--cyan); font-size: 1rem; flex-shrink: 0;"></i>
+            <span style="font-size: 0.85rem; color: #cbd5e1; font-weight: 500;">7 Years as Senior SDET in Tech Industry</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.75rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.65rem 1rem;">
+            <i class="fa-solid fa-book-open" style="color: var(--cyan); font-size: 1rem; flex-shrink: 0;"></i>
+            <span style="font-size: 0.85rem; color: #cbd5e1; font-weight: 500;">Published Researcher · 2 Research Papers</span>
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </section>
 
@@ -1501,21 +1517,31 @@
       <p style="color: var(--sub); font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1.5rem;">Trusted & Featured On</p>
       <div style="display: flex; justify-content: center; align-items: center; gap: 3rem; flex-wrap: wrap; opacity: 0.7; filter: grayscale(100%) brightness(200%);">
         <!-- Using text placeholders that look like logos if real SVGs aren't available -->
-        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0; display:flex; align-items:center; gap:0.4rem;">
-          <img src="../assets/images/outschool-icon.svg" style="height: 1.5rem;" alt="Outschool Logo"> OUTSCHOOL
-        </h3>
-        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0; color:#fff;">
-          <i class="fa-brands fa-youtube" style="margin-right: 5px;"></i>YouTube
-        </h3>
-        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0; display:flex; align-items:center; gap:0.4rem;">
-          <img src="../assets/images/udemy-icon.svg" style="height: 1.5rem;" alt="Udemy Logo"> UDEMY
-        </h3>
-        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0;">
-          <i class="fa-brands fa-github" style="margin-right: 5px;"></i>GitHub
-        </h3>
-        <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0;">
-          <i class="fa-brands fa-chrome" style="margin-right: 5px;"></i>Chrome Web Store
-        </h3>
+        <a href="https://outschool.com/teachers/Faruk-Hasan" target="_blank" style="text-decoration: none; color: inherit; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+          <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0; display:flex; align-items:center; gap:0.4rem;">
+            <img src="../assets/images/outschool-icon.svg" style="height: 1.5rem;" alt="Outschool Logo"> OUTSCHOOL
+          </h3>
+        </a>
+        <a href="https://youtube.com/@kidzcodeai" target="_blank" style="text-decoration: none; color: inherit; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+          <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0; color:#fff;">
+            <i class="fa-brands fa-youtube" style="margin-right: 5px;"></i>YouTube
+          </h3>
+        </a>
+        <a href="#" target="_blank" style="text-decoration: none; color: inherit; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+          <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0; display:flex; align-items:center; gap:0.4rem;">
+            <img src="../assets/images/udemy-icon.svg" style="height: 1.5rem;" alt="Udemy Logo"> UDEMY
+          </h3>
+        </a>
+        <a href="https://github.com/faruklmu17" target="_blank" style="text-decoration: none; color: inherit; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+          <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0;">
+            <i class="fa-brands fa-github" style="margin-right: 5px;"></i>GitHub
+          </h3>
+        </a>
+        <a href="https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh" target="_blank" style="text-decoration: none; color: inherit; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+          <h3 style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; margin:0;">
+            <i class="fa-brands fa-chrome" style="margin-right: 5px;"></i>Chrome Web Store
+          </h3>
+        </a>
       </div>
     </div>
   </div>
@@ -1563,12 +1589,14 @@
     </div>
   </section>
 
-  <section id="about" class="section">
+  <section id="about" class="section" style="background: radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 20%), radial-gradient(circle at 90% 80%, rgba(0, 240, 255, 0.03) 0%, transparent 20%), #0a0f1c; position: relative; overflow: hidden; border-top: 1px solid rgba(0,240,255,0.05); border-bottom: 1px solid rgba(0,240,255,0.05);">
     <style>
       .about-modern {
         display: block;
         max-width: 900px;
         margin: 0 auto;
+        position: relative;
+        z-index: 1;
       }
       @media (max-width: 980px) {
         .about-modern { max-width: 100%; }
@@ -1620,25 +1648,26 @@
         .about-features-grid { grid-template-columns: 1fr; }
       }
       .feature-glass-card {
-        background: #111827;
-        border: 1px solid rgba(0, 240, 255, 0.1);
+        background: rgba(10, 15, 28, 0.7);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(0, 240, 255, 0.15);
         padding: 1.5rem;
         border-radius: 12px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.4);
       }
       .feature-glass-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 15px 35px rgba(0, 240, 255, 0.1);
-        background: #1f2937;
+        background: rgba(10, 15, 28, 0.9);
         border-color: rgba(0, 240, 255, 0.4);
+        box-shadow: 0 15px 35px rgba(0, 240, 255, 0.1);
       }
       .feature-icon-wrapper {
         width: 45px;
         height: 45px;
         border-radius: 12px;
-        background: linear-gradient(135deg, rgba(56,189,248,0.15), rgba(6,182,212,0.15));
-        color: #38bdf8;
+        background: rgba(0, 240, 255, 0.1);
+        color: var(--cyan);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -1653,35 +1682,87 @@
       }
       .feature-glass-card p {
         font-size: 0.9rem;
-        color: #cbd5e1;
+        color: #94a3b8;
         line-height: 1.5;
         margin: 0;
       }
     </style>
     <div class="container about-modern">
+      
+      <div style="text-align: center; margin-bottom: 3.5rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+        <span style="color: var(--cyan); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">Meet Your Instructor</span>
+        <h2 style="margin-top: 0.5rem; margin-bottom: 1rem; font-size: 2.2rem; color: #fff;">About Faruk</h2>
+        <p style="color: #cbd5e1; font-size: 1.1rem; line-height: 1.7;">
+          I hold a Master's in Electrical Engineering with two undergraduate-level research publications. I blend my 7 years of day-to-day industry experience as a Senior SDET with 13 years of teaching experience. I focus on highly engaging, project-based activities so learners leave with portfolio-ready work and practical, real-world skills.
+        </p>
+      </div>
 
+      <!-- Core Technologies -->
+      <div style="margin-bottom: 3rem;">
+        <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 1rem; text-align: center;">Core Technologies</h3>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem;">
+          <span style="background: rgba(10,15,28,0.7); border: 1px solid rgba(0,240,255,0.15); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.4);"><i class="fa-brands fa-python" style="color: #38bdf8; margin-right: 0.4rem;"></i>Python</span>
+          <span style="background: rgba(10,15,28,0.7); border: 1px solid rgba(0,240,255,0.15); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.4);"><i class="fa-brands fa-js" style="color: #facc15; margin-right: 0.4rem;"></i>JavaScript</span>
+          <span style="background: rgba(10,15,28,0.7); border: 1px solid rgba(0,240,255,0.15); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.4);"><i class="fa-solid fa-code" style="color: #3b82f6; margin-right: 0.4rem;"></i>TypeScript</span>
+          <span style="background: rgba(10,15,28,0.7); border: 1px solid rgba(0,240,255,0.15); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.4);"><i class="fa-brands fa-git-alt" style="color: #f97316; margin-right: 0.4rem;"></i>Git</span>
+          <span style="background: rgba(10,15,28,0.7); border: 1px solid rgba(0,240,255,0.15); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.4);"><i class="fa-brands fa-docker" style="color: #0ea5e9; margin-right: 0.4rem;"></i>Docker</span>
+          <span style="background: rgba(10,15,28,0.7); border: 1px solid rgba(0,240,255,0.15); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.4);"><i class="fa-solid fa-server" style="color: #10b981; margin-right: 0.4rem;"></i>CI/CD</span>
+        </div>
+      </div>
+
+      <!-- Technical Expertise Grid -->
       <div class="about-features-grid">
         <div class="feature-glass-card">
-          <div class="feature-icon-wrapper"><i class="fa-solid fa-person-chalkboard"></i></div>
-          <h4>Interactive Classes</h4>
-          <p>Live, engaging sessions focused entirely on clear, actionable outcomes.</p>
+          <div class="feature-icon-wrapper"><i class="fa-solid fa-robot"></i></div>
+          <h4>AI &amp; ML</h4>
+          <p>Deployed personalized chatbots using Ollama and Hugging Face Spaces.</p>
         </div>
         <div class="feature-glass-card">
-          <div class="feature-icon-wrapper"><i class="fa-solid fa-bug-slash"></i></div>
-          <h4>Clean Coding</h4>
-          <p>Instilling a debugging mindset alongside standard testing practices.</p>
+          <div class="feature-icon-wrapper"><i class="fa-solid fa-brain"></i></div>
+          <h4>AI-Driven Grading</h4>
+          <p>Automated student grading system with RAG-based personalized feedback.</p>
         </div>
         <div class="feature-glass-card">
-          <div class="feature-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div>
-          <h4>Parent Friendly</h4>
-          <p>Kid-safe environments with transparent, regular communication.</p>
+          <div class="feature-icon-wrapper"><i class="fa-solid fa-vial-circle-check"></i></div>
+          <h4>Automation Frameworks</h4>
+          <p>Expertise in Playwright, Selenium, and Cypress for robust cross-browser testing.</p>
         </div>
         <div class="feature-glass-card">
-          <div class="feature-icon-wrapper"><i class="fa-solid fa-diagram-project"></i></div>
-          <h4>Real Portfolios</h4>
-          <p>Building tangible projects ready for school applications or internships.</p>
+          <div class="feature-icon-wrapper"><i class="fa-solid fa-code-merge"></i></div>
+          <h4>QE &amp; DevOps Tools</h4>
+          <p>Built browser extensions for Playwright test results with enhanced visualization.</p>
         </div>
-    </div>
+      </div>
+
+      <!-- Open Source Contributions -->
+      <div style="margin-top: 1.5rem; background: rgba(10,15,28,0.7); backdrop-filter: blur(8px); border: 1px solid rgba(0,240,255,0.15); border-radius: 12px; padding: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.4);">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h3 style="font-size: 1.4rem; color: #fff; margin: 0 0 0.4rem 0;"><i class="fa-brands fa-github" style="margin-right: 0.5rem; color: #cbd5e1;"></i>Open Source</h3>
+            <p style="color: #94a3b8; font-size: 0.95rem; margin: 0;">Active contributor to the developer community.</p>
+          </div>
+          <div style="text-align: right;">
+            <span style="font-size: 2.2rem; font-weight: 900; color: var(--cyan); line-height: 1;">200+</span>
+            <div style="font-size: 0.8rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-top: 0.2rem;">Contributions</div>
+          </div>
+        </div>
+        
+        <!-- Language Bar -->
+        <div style="display: flex; height: 12px; border-radius: 999px; overflow: hidden; margin-bottom: 1rem;">
+          <div style="width: 45%; background: #38bdf8;" title="Python - 45%"></div>
+          <div style="width: 25%; background: #3b82f6;" title="TypeScript - 25%"></div>
+          <div style="width: 20%; background: #e11d48;" title="HTML/CSS - 20%"></div>
+          <div style="width: 10%; background: #facc15;" title="JavaScript - 10%"></div>
+        </div>
+        
+        <!-- Legend -->
+        <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.85rem; color: #cbd5e1; font-weight: 500;">
+          <span style="display: flex; align-items: center; gap: 0.4rem;"><span style="width: 10px; height: 10px; border-radius: 50%; background: #38bdf8;"></span> Python (45%)</span>
+          <span style="display: flex; align-items: center; gap: 0.4rem;"><span style="width: 10px; height: 10px; border-radius: 50%; background: #3b82f6;"></span> TypeScript (25%)</span>
+          <span style="display: flex; align-items: center; gap: 0.4rem;"><span style="width: 10px; height: 10px; border-radius: 50%; background: #e11d48;"></span> HTML/CSS (20%)</span>
+          <span style="display: flex; align-items: center; gap: 0.4rem;"><span style="width: 10px; height: 10px; border-radius: 50%; background: #facc15;"></span> JavaScript (10%)</span>
+        </div>
+      </div>
   </section>
 
   <!-- ====== PORTFOLIO ====== -->
@@ -1706,6 +1787,26 @@
             <p class="portfolio-desc">A custom productivity tool published on the Google Chrome Web Store. It enables users to seamlessly interact with web content directly from their browser.</p>
             <a href="https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh?utm_source=item-share-cb" target="_blank" class="portfolio-btn">
               <i class="fa-solid fa-arrow-up-right-from-square"></i> View on Web Store
+            </a>
+          </div>
+        </div>
+
+        <!-- AI Chatbot -->
+        <div class="portfolio-card">
+          <div class="portfolio-img">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div class="portfolio-content">
+            <h3 class="portfolio-title">Faruk Assistant – AI Chatbot</h3>
+            <div class="portfolio-tags">
+              <span class="portfolio-tag">Python</span>
+              <span class="portfolio-tag">Gradio</span>
+              <span class="portfolio-tag">Hugging Face</span>
+              <span class="portfolio-tag">AI/LLM</span>
+            </div>
+            <p class="portfolio-desc">A fully deployed AI assistant built with Python and Gradio, hosted live on Hugging Face Spaces. Demonstrates real-world integration of large language models and conversational AI.</p>
+            <a href="https://hasanfaruk25-faruk-assistant.hf.space/gradio/" target="_blank" class="portfolio-btn">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Try it Live
             </a>
           </div>
         </div>
@@ -1818,6 +1919,106 @@
     </div>
   </section>
 
+  <!-- ====== PRICING ====== -->
+  <section id="pricing" class="section">
+    <div class="container" style="max-width: 1100px;">
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <span style="color: var(--cyan); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">Simple &amp; Transparent</span>
+        <h2 style="margin-top: 0.5rem;">Pricing</h2>
+        <p class="sub">No hidden fees. No contracts. Cancel anytime.</p>
+      </div>
+
+      <!-- Top row: 3 cards -->
+      <div class="pricing-top-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; align-items: start; margin-bottom: 1.5rem;">
+
+        <!-- Free Consultation -->
+        <div style="background: var(--surface); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 2rem;">
+          <div style="font-size: 0.78rem; font-weight: 700; color: #22c55e; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem;">Free to Start</div>
+          <div style="font-size: 2.4rem; font-weight: 900; color: #fff; line-height: 1;">$0</div>
+          <div style="font-size: 0.88rem; color: #64748b; margin-top: 0.25rem; margin-bottom: 1.5rem;">20-min consultation</div>
+          <ul style="list-style: none; padding: 0; margin: 0 0 2rem 0; display: flex; flex-direction: column; gap: 0.75rem;">
+            <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: #cbd5e1;"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 0.8rem;"></i> Meet your tutor first</li>
+            <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: #cbd5e1;"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 0.8rem;"></i> Discuss goals &amp; learning path</li>
+            <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: #cbd5e1;"><i class="fa-solid fa-check" style="color: #22c55e; font-size: 0.8rem;"></i> No commitment required</li>
+          </ul>
+          <a href="#" onclick="openTutoringModal(event)" style="display: block; text-align: center; padding: 0.75rem; border: 1px solid rgba(0,240,255,0.3); border-radius: 8px; color: var(--cyan); font-weight: 700; font-size: 0.92rem; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.background='rgba(0,240,255,0.08)'" onmouseout="this.style.background='transparent'">Book Free Consult</a>
+        </div>
+
+        <!-- 1-on-1 Sessions (Most Popular) -->
+        <div style="background: rgba(0,240,255,0.05); border: 2px solid rgba(0,240,255,0.4); border-radius: 16px; padding: 2rem; position: relative; box-shadow: 0 0 30px rgba(0,240,255,0.08);">
+          <div style="position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--cyan); color: #0a0f1c; font-size: 0.7rem; font-weight: 800; padding: 0.25rem 1rem; border-radius: 999px; letter-spacing: 0.06em; white-space: nowrap;">MOST POPULAR</div>
+          <div style="font-size: 0.78rem; font-weight: 700; color: var(--cyan); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem;">1-on-1 Session</div>
+          <div style="display: flex; align-items: flex-end; gap: 0.4rem; line-height: 1;">
+            <span style="font-size: 2.4rem; font-weight: 900; color: #fff;">$55</span>
+            <span style="font-size: 1rem; color: #64748b; margin-bottom: 0.4rem;">/ hour</span>
+          </div>
+          <div style="font-size: 0.88rem; color: #64748b; margin-top: 0.25rem; margin-bottom: 1.5rem;">Live, private online session</div>
+          <ul style="list-style: none; padding: 0; margin: 0 0 2rem 0; display: flex; flex-direction: column; gap: 0.75rem;">
+            <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: #cbd5e1;"><i class="fa-solid fa-check" style="color: var(--cyan); font-size: 0.8rem;"></i> Python, Web Dev, AI, Arduino &amp; more</li>
+            <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: #cbd5e1;"><i class="fa-solid fa-check" style="color: var(--cyan); font-size: 0.8rem;"></i> Project-based learning</li>
+            <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: #cbd5e1;"><i class="fa-solid fa-check" style="color: var(--cyan); font-size: 0.8rem;"></i> Tailored curriculum for your child</li>
+            <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: #cbd5e1;"><i class="fa-solid fa-check" style="color: var(--cyan); font-size: 0.8rem;"></i> Flexible scheduling</li>
+            <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: #cbd5e1;"><i class="fa-solid fa-check" style="color: var(--cyan); font-size: 0.8rem;"></i> Session recordings available</li>
+          </ul>
+          <a href="#" onclick="openTutoringModal(event)" style="display: block; text-align: center; padding: 0.75rem; background: var(--cyan); border-radius: 8px; color: #0a0f1c; font-weight: 800; font-size: 0.92rem; text-decoration: none; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">Book a Session</a>
+        </div>
+
+        <!-- 10-Session Bundle -->
+        <div style="background: rgba(234,179,8,0.05); border: 1px solid rgba(234,179,8,0.3); border-radius: 16px; padding: 2rem; position: relative;">
+          <div style="position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: #eab308; color: #0a0f1c; font-size: 0.7rem; font-weight: 800; padding: 0.25rem 1rem; border-radius: 999px; letter-spacing: 0.06em; white-space: nowrap;">SAVE $50</div>
+          <div style="font-size: 0.78rem; font-weight: 700; color: #eab308; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem;">10-Session Bundle</div>
+          <div style="display: flex; align-items: flex-end; gap: 0.4rem; line-height: 1;">
+            <span style="font-size: 2.4rem; font-weight: 900; color: #fff;">$500</span>
+            <span style="font-size: 1rem; color: #64748b; margin-bottom: 0.4rem;">/ 10 sessions</span>
+          </div>
+          <div style="font-size: 0.88rem; margin-top: 0.25rem; margin-bottom: 1.5rem;">
+            <span style="color: #64748b; text-decoration: line-through;">$550</span>
+            <span style="color: #22c55e; font-weight: 700; margin-left: 0.4rem;">Save $50!</span>
+          </div>
+          <ul style="list-style: none; padding: 0; margin: 0 0 2rem 0; display: flex; flex-direction: column; gap: 0.75rem;">
+            <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: #cbd5e1;"><i class="fa-solid fa-check" style="color: #eab308; font-size: 0.8rem;"></i> Everything in 1-on-1 session</li>
+            <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: #cbd5e1;"><i class="fa-solid fa-check" style="color: #eab308; font-size: 0.8rem;"></i> Best value — $50/hr effective rate</li>
+            <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: #cbd5e1;"><i class="fa-solid fa-check" style="color: #eab308; font-size: 0.8rem;"></i> Use at your own pace</li>
+            <li style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: #cbd5e1;"><i class="fa-solid fa-users" style="color: #eab308; font-size: 0.8rem;"></i> <strong style="color: #eab308;">Siblings 50% off</strong> in the same session!</li>
+          </ul>
+          <a href="#" onclick="openTutoringModal(event)" style="display: block; text-align: center; padding: 0.75rem; background: #eab308; border-radius: 8px; color: #0a0f1c; font-weight: 800; font-size: 0.92rem; text-decoration: none; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">Get the Bundle</a>
+        </div>
+
+      </div>
+
+      <!-- Monthly Subscription — full width -->
+      <div class="pricing-bottom-grid" style="background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(168,85,247,0.08)); border: 1px solid rgba(168,85,247,0.3); border-radius: 16px; padding: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;">
+        <div>
+          <div style="font-size: 0.78rem; font-weight: 700; color: #a855f7; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem;">Monthly Subscription</div>
+          <div style="display: flex; align-items: flex-end; gap: 0.4rem; line-height: 1; margin-bottom: 0.5rem;">
+            <span style="font-size: 2.4rem; font-weight: 900; color: #fff;">$50</span>
+            <span style="font-size: 1rem; color: #64748b; margin-bottom: 0.4rem;">/ month</span>
+          </div>
+          <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin: 0.5rem 0 1rem;">Async codebase support — no live sessions needed after setup. Perfect for learners who want ongoing mentorship and real-world project experience.</p>
+          <!-- Prerequisite note -->
+          <div style="background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.3); border-left: 3px solid #a855f7; border-radius: 6px; padding: 0.75rem 1rem; margin-bottom: 1.5rem;">
+            <p style="margin: 0; font-size: 0.82rem; color: #cbd5e1; line-height: 1.5;">
+              <strong style="color: #a855f7;">⚡ One-time setup required:</strong> Purchase a minimum of <strong style="color: #fff;">2 live sessions</strong> to configure your GitHub repo, branch structure, and project settings. Once setup is complete, no further live sessions are needed.
+            </p>
+          </div>
+          <a href="#" onclick="openTutoringModal(event)" style="display: inline-block; padding: 0.75rem 2rem; background: #a855f7; border-radius: 8px; color: #fff; font-weight: 800; font-size: 0.92rem; text-decoration: none; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">Subscribe Now</a>
+        </div>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.85rem;">
+          <li style="display: flex; align-items: flex-start; gap: 0.7rem; font-size: 0.88rem; color: #cbd5e1;"><i class="fa-brands fa-github" style="color: #a855f7; font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem;"></i> GitHub project setup — teacher creates and manages your repos</li>
+          <li style="display: flex; align-items: flex-start; gap: 0.7rem; font-size: 0.88rem; color: #cbd5e1;"><i class="fa-solid fa-code-branch" style="color: #a855f7; font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem;"></i> Branch creation, code reviews &amp; merges on your projects</li>
+          <li style="display: flex; align-items: flex-start; gap: 0.7rem; font-size: 0.88rem; color: #cbd5e1;"><i class="fa-solid fa-robot" style="color: #a855f7; font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem;"></i> AI-based coding support chat as needed</li>
+          <li style="display: flex; align-items: flex-start; gap: 0.7rem; font-size: 0.88rem; color: #cbd5e1;"><i class="fa-solid fa-envelope" style="color: #a855f7; font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem;"></i> Email support — ask questions anytime</li>
+          <li style="display: flex; align-items: flex-start; gap: 0.7rem; font-size: 0.88rem; color: #64748b;"><i class="fa-solid fa-xmark" style="color: #475569; font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem;"></i> Does not include live sessions</li>
+        </ul>
+      </div>
+
+      <p style="text-align: center; margin-top: 1.5rem; font-size: 0.85rem; color: #475569;">
+        <i class="fa-solid fa-shield-halved" style="color: var(--cyan); margin-right: 0.3rem;"></i>
+        Sessions booked through <a href="https://outschool.com/teachers/Faruk-Hasan" target="_blank" style="color: var(--cyan); text-decoration: none;">Outschool</a> are protected by their secure payment system.
+      </p>
+    </div>
+  </section>
+
   <!-- FAQ Section -->
   <section id="faq" class="section" style="background: var(--surface);">
     <div class="container">
@@ -1873,9 +2074,29 @@
     </div>
   </div>
 
-  <footer>
-    <div class="footer-content">
-      <p>&copy; 2024 Faruk Hasan. All rights reserved.</p>
+  <footer style="background: rgba(10,15,30,0.9); border-top: 1px solid rgba(0,240,255,0.1); padding: 3rem 0; text-align: center;">
+    <div class="container">
+      <h3 style="font-size: 1.25rem; color: #fff; margin-bottom: 1.5rem;">Connect with Faruk</h3>
+      
+      <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;">
+        <a href="https://outschool.com/teachers/Faruk-Hasan" target="_blank" title="Outschool" style="display: inline-flex; justify-content: center; align-items: center; width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; font-size: 1.2rem; transition: all 0.3s;" onmouseover="this.style.background='rgba(0,240,255,0.1)'; this.style.borderColor='var(--cyan)'; this.style.color='var(--cyan)'; this.style.transform='translateY(-3px)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.1)'; this.style.color='#cbd5e1'; this.style.transform='translateY(0)'">
+          <img src="../assets/images/outschool-icon.svg" alt="Outschool" style="width: 1.25rem; height: 1.25rem; object-fit: contain; filter: brightness(0) invert(0.8);" onmouseover="this.style.filter='brightness(1) invert(0) drop-shadow(0 0 5px rgba(0,240,255,0.5))'" onmouseout="this.style.filter='brightness(0) invert(0.8)'">
+        </a>
+        <a href="https://youtube.com/@kidzcodeai" target="_blank" title="YouTube" style="display: inline-flex; justify-content: center; align-items: center; width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; font-size: 1.2rem; transition: all 0.3s;" onmouseover="this.style.background='rgba(239,68,68,0.1)'; this.style.borderColor='#ef4444'; this.style.color='#ef4444'; this.style.transform='translateY(-3px)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.1)'; this.style.color='#cbd5e1'; this.style.transform='translateY(0)'">
+          <i class="fa-brands fa-youtube"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/md-faruk-hasan/" target="_blank" title="LinkedIn" style="display: inline-flex; justify-content: center; align-items: center; width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; font-size: 1.2rem; transition: all 0.3s;" onmouseover="this.style.background='rgba(56,189,248,0.1)'; this.style.borderColor='#38bdf8'; this.style.color='#38bdf8'; this.style.transform='translateY(-3px)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.1)'; this.style.color='#cbd5e1'; this.style.transform='translateY(0)'">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/faruklmu17" target="_blank" title="GitHub" style="display: inline-flex; justify-content: center; align-items: center; width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; font-size: 1.2rem; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.borderColor='#fff'; this.style.color='#fff'; this.style.transform='translateY(-3px)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.1)'; this.style.color='#cbd5e1'; this.style.transform='translateY(0)'">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="https://www.moltbook.com/u/FarukGroqAgent" target="_blank" title="Moltbook" style="display: inline-flex; justify-content: center; align-items: center; width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; font-size: 1.2rem; transition: all 0.3s;" onmouseover="this.style.background='rgba(245,158,11,0.1)'; this.style.borderColor='#f59e0b'; this.style.color='#f59e0b'; this.style.transform='translateY(-3px)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.1)'; this.style.color='#cbd5e1'; this.style.transform='translateY(0)'">
+          <img src="../assets/images/moltbook-icon.png" alt="Moltbook" style="width: 1.25rem; height: 1.25rem; object-fit: contain; filter: grayscale(1) opacity(0.8);" onmouseover="this.style.filter='grayscale(0) opacity(1)'" onmouseout="this.style.filter='grayscale(1) opacity(0.8)'">
+        </a>
+      </div>
+
+      <p style="color: #64748b; font-size: 0.9rem;">&copy; 2026 Faruk Hasan. All rights reserved.</p>
     </div>
   </footer>
 
