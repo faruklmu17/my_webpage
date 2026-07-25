@@ -1377,6 +1377,35 @@
 
 <body>
 
+  <!-- Moltbook Live Status Top Announcement Bar -->
+  <div id="moltbook-pill" class="moltbook-pill" hidden></div>
+  <style>
+    .moltbook-pill {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 10px 20px;
+      background: rgba(16, 185, 129, 0.15);
+      border-bottom: 1px solid rgba(16, 185, 129, 0.4);
+      color: #10b981;
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: all 0.4s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      z-index: 9999;
+      position: relative;
+    }
+    .moltbook-pill a {
+      color: #00f0ff;
+      text-decoration: underline;
+      font-weight: 700;
+      margin-left: 6px;
+    }
+    .moltbook-pill a:hover {
+      color: #6ee7b7;
+    }
+  </style>
+
   <nav class="tutoring-nav">
     <a href="https://faruk-hasan.com" class="tutoring-nav-logo">
       <span style="color: #64748b;">&gt;&gt;</span> Faruk Hasan
@@ -2208,6 +2237,83 @@
         });
       }
     });
+  </script>
+
+  <!-- Supabase Live Moltbook Status Script -->
+  <script type="module">
+    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+    const supabase = createClient(
+      "https://jpnwwcietpdgidfddecq.supabase.co",
+      "sb_publishable_3X0N0QT3KQOpjHyYMr__9A_BRWPN3sV"
+    );
+
+    const pill = document.getElementById("moltbook-pill");
+
+    function formatTimeAgo(dateString) {
+      if (!dateString) return { text: "", isRecent: false };
+      const now = new Date();
+      const posted = new Date(dateString);
+      const diffMs = now - posted;
+      const diffMins = Math.floor(diffMs / 60000);
+      const diffHours = Math.floor(diffMins / 60);
+      const diffDays = Math.floor(diffHours / 24);
+
+      if (diffMins < 1) return { text: "just now", isRecent: true };
+      if (diffMins < 60) return { text: `${diffMins} minute${diffMins !== 1 ? 's' : ''} ago`, isRecent: true };
+      if (diffHours < 24) return { text: `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`, isRecent: diffHours < 1 };
+      return { text: `${diffDays} day${diffDays !== 1 ? 's' : ''} ago`, isRecent: false };
+    }
+
+    function showPost(post) {
+      if (!post || !pill) return;
+      pill.hidden = false;
+      const timeInfo = formatTimeAgo(post.posted_at);
+
+      if (timeInfo.isRecent) {
+        pill.style.background = "rgba(16, 185, 129, 0.15)";
+        pill.style.borderColor = "rgba(16, 185, 129, 0.4)";
+        pill.style.color = "#10b981";
+        pill.style.boxShadow = "0 4px 20px rgba(16, 185, 129, 0.25)";
+        pill.innerHTML = `🟢 My AI agent just posted on its social media (Moltbook) ${timeInfo.text} — <a href="${post.url || '#'}" target="_blank">View it here! &rarr;</a>`;
+      } else {
+        pill.style.background = "rgba(245, 158, 11, 0.15)";
+        pill.style.borderColor = "rgba(245, 158, 11, 0.4)";
+        pill.style.color = "#fbbf24";
+        pill.style.boxShadow = "0 4px 20px rgba(245, 158, 11, 0.25)";
+        pill.innerHTML = `🤖 My AI agent posted on its social media (Moltbook) (${timeInfo.text ? 'posted ' + timeInfo.text : 'recent'}) — <a href="${post.url || '#'}" target="_blank">View it here! &rarr;</a>`;
+      }
+    }
+
+    // Fetch latest post on load
+    try {
+      const { data, error } = await supabase
+        .from("moltbook_posts")
+        .select("*")
+        .order("posted_at", { ascending: false })
+        .limit(1)
+        .single();
+
+      if (data && !error) showPost(data);
+    } catch (err) {
+      console.error("Error fetching Moltbook post status:", err);
+    }
+
+    // Subscribe to real-time inserts
+    try {
+      supabase
+        .channel("moltbook-live")
+        .on(
+          "postgres_changes",
+          { event: "INSERT", schema: "public", table: "moltbook_posts" },
+          (payload) => {
+            if (payload && payload.new) showPost(payload.new);
+          }
+        )
+        .subscribe();
+    } catch (err) {
+      console.error("Error subscribing to Moltbook live channel:", err);
+    }
   </script>
 
 </body>
