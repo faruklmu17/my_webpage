@@ -1548,12 +1548,14 @@
     </div>
   </section>
 
-  <section id="about" class="section">
+  <section id="about" class="section" style="background: radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 20%), radial-gradient(circle at 90% 80%, rgba(0, 240, 255, 0.03) 0%, transparent 20%), #0a0f1c; position: relative; overflow: hidden; border-top: 1px solid rgba(0,240,255,0.05); border-bottom: 1px solid rgba(0,240,255,0.05);">
     <style>
       .about-modern {
         display: block;
         max-width: 900px;
         margin: 0 auto;
+        position: relative;
+        z-index: 1;
       }
       @media (max-width: 980px) {
         .about-modern { max-width: 100%; }
@@ -1605,17 +1607,19 @@
         .about-features-grid { grid-template-columns: 1fr; }
       }
       .feature-glass-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(10, 15, 28, 0.7);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(0, 240, 255, 0.15);
         padding: 1.5rem;
         border-radius: 12px;
         transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.4);
       }
       .feature-glass-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 15px 35px rgba(0, 240, 255, 0.05);
-        background: rgba(255, 255, 255, 0.05);
-        border-color: rgba(0, 240, 255, 0.3);
+        background: rgba(10, 15, 28, 0.9);
+        border-color: rgba(0, 240, 255, 0.4);
+        box-shadow: 0 15px 35px rgba(0, 240, 255, 0.1);
       }
       .feature-icon-wrapper {
         width: 45px;
@@ -1656,12 +1660,12 @@
       <div style="margin-bottom: 3rem;">
         <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 1rem; text-align: center;">Core Technologies</h3>
         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem;">
-          <span style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600;"><i class="fa-brands fa-python" style="color: #38bdf8; margin-right: 0.4rem;"></i>Python</span>
-          <span style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600;"><i class="fa-brands fa-js" style="color: #facc15; margin-right: 0.4rem;"></i>JavaScript</span>
-          <span style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600;"><i class="fa-solid fa-code" style="color: #3b82f6; margin-right: 0.4rem;"></i>TypeScript</span>
-          <span style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600;"><i class="fa-brands fa-git-alt" style="color: #f97316; margin-right: 0.4rem;"></i>Git</span>
-          <span style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600;"><i class="fa-brands fa-docker" style="color: #0ea5e9; margin-right: 0.4rem;"></i>Docker</span>
-          <span style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600;"><i class="fa-solid fa-server" style="color: #10b981; margin-right: 0.4rem;"></i>CI/CD</span>
+          <span style="background: rgba(10,15,28,0.7); border: 1px solid rgba(0,240,255,0.15); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.4);"><i class="fa-brands fa-python" style="color: #38bdf8; margin-right: 0.4rem;"></i>Python</span>
+          <span style="background: rgba(10,15,28,0.7); border: 1px solid rgba(0,240,255,0.15); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.4);"><i class="fa-brands fa-js" style="color: #facc15; margin-right: 0.4rem;"></i>JavaScript</span>
+          <span style="background: rgba(10,15,28,0.7); border: 1px solid rgba(0,240,255,0.15); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.4);"><i class="fa-solid fa-code" style="color: #3b82f6; margin-right: 0.4rem;"></i>TypeScript</span>
+          <span style="background: rgba(10,15,28,0.7); border: 1px solid rgba(0,240,255,0.15); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.4);"><i class="fa-brands fa-git-alt" style="color: #f97316; margin-right: 0.4rem;"></i>Git</span>
+          <span style="background: rgba(10,15,28,0.7); border: 1px solid rgba(0,240,255,0.15); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.4);"><i class="fa-brands fa-docker" style="color: #0ea5e9; margin-right: 0.4rem;"></i>Docker</span>
+          <span style="background: rgba(10,15,28,0.7); border: 1px solid rgba(0,240,255,0.15); padding: 0.6rem 1.2rem; border-radius: 999px; font-size: 0.9rem; color: #cbd5e1; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.4);"><i class="fa-solid fa-server" style="color: #10b981; margin-right: 0.4rem;"></i>CI/CD</span>
         </div>
       </div>
 
@@ -1690,7 +1694,7 @@
       </div>
 
       <!-- Open Source Contributions -->
-      <div style="margin-top: 1.5rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 2rem;">
+      <div style="margin-top: 1.5rem; background: rgba(10,15,28,0.7); backdrop-filter: blur(8px); border: 1px solid rgba(0,240,255,0.15); border-radius: 12px; padding: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.4);">
         <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
           <div>
             <h3 style="font-size: 1.4rem; color: #fff; margin: 0 0 0.4rem 0;"><i class="fa-brands fa-github" style="margin-right: 0.5rem; color: #cbd5e1;"></i>Open Source</h3>
