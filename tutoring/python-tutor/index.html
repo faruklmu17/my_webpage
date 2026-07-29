@@ -456,15 +456,34 @@
       border-radius: 16px;
       padding: 1.75rem;
       margin-bottom: 1.25rem;
+      transition: all 0.3s ease;
+    }
+
+    .faq-item[open] {
+      border-color: rgba(0, 240, 255, 0.3);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
     }
 
     .faq-item h3 {
       font-size: 1.15rem;
       color: #fff;
-      margin-bottom: 0.75rem;
+      margin: 0;
       display: flex;
       align-items: center;
       gap: 0.8rem;
+    }
+
+    .faq-item p {
+      margin-top: 1rem !important;
     }
 
     /* Modal */
@@ -536,10 +555,35 @@
     .tutoring-form button:hover {
       box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
     }
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
 
     @media (max-width: 768px) {
+      .tutoring-nav {
+        flex-wrap: wrap;
+      }
       .tutoring-nav-links {
         display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding-top: 1.5rem;
+      }
+      .tutoring-nav-links.active {
+        display: flex;
+      }
+      .mobile-menu-toggle {
+        display: block;
+      }
+      .btn-book-nav {
+        text-align: center;
+        width: 100%;
       }
     }
   </style>
@@ -552,7 +596,10 @@
     <a href="https://faruk-hasan.com" class="tutoring-nav-logo">
       <span style="color: var(--cyan);">&gt;&gt;</span> Faruk Hasan
     </a>
-    <div class="tutoring-nav-links">
+    <button class="mobile-menu-toggle" onclick="document.getElementById('navLinks').classList.toggle('active')" aria-label="Toggle mobile menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="tutoring-nav-links" id="navLinks">
       <a href="#curriculum">Curriculum</a>
       <a href="#instructor">About Faruk</a>
       <a href="#pricing">Pricing</a>
@@ -858,26 +905,26 @@
       </div>
 
       <div class="faq-list">
-        <div class="faq-item">
-          <h3><i class="fa-solid fa-circle-question" style="color: var(--cyan);"></i> What age group is this Python tutoring designed for?</h3>
+        <details class="faq-item">
+          <summary><h3><i class="fa-solid fa-circle-question" style="color: var(--cyan);"></i> What age group is this Python tutoring designed for?</h3></summary>
           <p style="color: var(--sub); line-height: 1.6; margin: 0;">My 1-on-1 Python lessons are specifically tailored for students aged 9 to 18 (Grades 4–12). I also mentor adult beginners and career switchers looking for practical coding skills.</p>
-        </div>
-        <div class="faq-item">
-          <h3><i class="fa-solid fa-circle-question" style="color: var(--cyan);"></i> What kind of Python projects will my child build?</h3>
+        </details>
+        <details class="faq-item">
+          <summary><h3><i class="fa-solid fa-circle-question" style="color: var(--cyan);"></i> What kind of Python projects will my child build?</h3></summary>
           <p style="color: var(--sub); line-height: 1.6; margin: 0;">We follow a 100% project-based curriculum. Depending on their level, students build arcade games using Pygame, web scrapers, automated file organizers, interactive Discord/Telegram bots, and AI chatbots using OpenAI and Hugging Face APIs.</p>
-        </div>
-        <div class="faq-item">
-          <h3><i class="fa-solid fa-circle-question" style="color: var(--cyan);"></i> Does my child need prior programming experience to start Python?</h3>
+        </details>
+        <details class="faq-item">
+          <summary><h3><i class="fa-solid fa-circle-question" style="color: var(--cyan);"></i> Does my child need prior programming experience to start Python?</h3></summary>
           <p style="color: var(--sub); line-height: 1.6; margin: 0;">No prior experience is necessary! Python is universally recognized as the best first programming language due to its readable syntax. We start at the absolute basics and advance at the student's individual pace.</p>
-        </div>
-        <div class="faq-item">
-          <h3><i class="fa-solid fa-circle-question" style="color: var(--cyan);"></i> How do virtual 1-on-1 Python sessions work?</h3>
+        </details>
+        <details class="faq-item">
+          <summary><h3><i class="fa-solid fa-circle-question" style="color: var(--cyan);"></i> How do virtual 1-on-1 Python sessions work?</h3></summary>
           <p style="color: var(--sub); line-height: 1.6; margin: 0;">Sessions are conducted live via Zoom. We utilize collaborative coding environments like Replit and VS Code Live Share, enabling real-time pair programming and instant debugging guidance.</p>
-        </div>
-        <div class="faq-item">
-          <h3><i class="fa-solid fa-circle-question" style="color: var(--cyan);"></i> How does the free 20-minute consultation work?</h3>
+        </details>
+        <details class="faq-item">
+          <summary><h3><i class="fa-solid fa-circle-question" style="color: var(--cyan);"></i> How does the free 20-minute consultation work?</h3></summary>
           <p style="color: var(--sub); line-height: 1.6; margin: 0;">During our free intro call, we meet on Zoom to discuss your child's current tech experience, learning style, and goals. We map out a customized Python learning path with zero financial commitment or pressure.</p>
-        </div>
+        </details>
       </div>
     </div>
   </section>
@@ -900,7 +947,7 @@
       <h2 id="modal-title" style="color: #fff; font-size: 1.8rem; margin-bottom: 0.4rem; font-weight: 800;">Book Python Tutoring</h2>
       <p style="color: var(--sub); font-size: 0.95rem; margin-bottom: 1.5rem;">Fill out your details and I'll get back to you shortly to schedule our session or free consultation.</p>
 
-      <form action="https://formspree.io/f/xqewdkny" method="POST" class="tutoring-form">
+      <form action="https://formspree.io/f/xqewdkny" method="POST" class="tutoring-form" onsubmit="var btn = this.querySelector('button[type=submit]'); btn.disabled = true; btn.innerHTML = 'Sending... <i class=\'fa-solid fa-spinner fa-spin\' style=\'margin-left: 6px;\'></i>'; return true;">
         <input type="hidden" name="_subject" value="New Python Tutoring Request from Faruk-Hasan.com">
         <input type="hidden" name="_next" value="https://faruk-hasan.com/tutoring/python-tutor/">
 
