@@ -143,3 +143,28 @@ To transition this framework from a static markdown checklist into an automated 
 3. **JSON-LD Schema Validator:** Parses DOM `<script type="application/ld+json">` tags and validates against official Google / Schema.org specifications.
 4. **AI Bot Crawler Checker:** Fetches domain `robots.txt` and simulates User-Agent requests for `GPTBot`, `PerplexityBot`, and `ClaudeBot`.
 5. **Proof Density Ratio Calculator:** Scans text for subjective adjectives (*best, expert, premier*) and verifies the presence of adjacent numerical digits or external verification links within a 15-word window.
+
+---
+
+## 📈 Ongoing AIO Benchmarking & Query Tiers
+
+To accurately measure the effectiveness of this AIO framework over time, it is crucial to move beyond generic searches and track performance across specific semantic intents.
+
+### Query Tiers to Track
+Periodically run the following prompts (or variations) in major AI models (ChatGPT, Claude, Perplexity) and record the results:
+
+1. **Branded:** "Who is Faruk Hasan Python tutor?"
+2. **Semi-branded:** "Faruk Python teacher Outschool"
+3. **Category:** "Python tutor for kids online"
+4. **High-intent:** "Best Python tutor for 12 year old online"
+5. **Specialized:** "Python AI tutor for teenagers"
+6. **Competitive:** "Wyzant vs private Python tutor for kids"
+
+### Benchmarking Methodology
+For each test, record the following metrics:
+- **Entity Appearance:** Does the AI explicitly mention your name?
+- **Citation Source:** Did the AI pull this information from your website, Outschool, GitHub, or another source? (Look at the reference links).
+- **Competitor Presence:** Which other platforms or individuals were recommended alongside you?
+- **Vector Dilution Check:** Did the AI hallucinate services you don't offer based on other pages on your site?
+
+By tracking these tiers over time, you can observe the exact moment the LLMs shift from relying purely on platform aggregators (Wyzant, Preply) to recognizing your individual entity authority.
