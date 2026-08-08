@@ -1,3 +1,13 @@
+# Explicit AI Crawler Access Configuration (confirms access for search summaries & citations)
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
 User-agent: *
 Allow: /
 
