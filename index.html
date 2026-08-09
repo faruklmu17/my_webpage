@@ -153,6 +153,99 @@
       z-index: 1000;
     }
 
+    /* Chatbot Welcome Bubble */
+    .chatbot-tooltip {
+      position: absolute;
+      bottom: 80px;
+      right: 0;
+      width: 260px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #f8fafc;
+      padding: 0;
+      border-radius: 16px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 0 15px rgba(56, 189, 248, 0.15);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      opacity: 0;
+      transform: translateY(15px) scale(0.9);
+      transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+      z-index: 1001;
+      overflow: hidden;
+    }
+
+    .chatbot-tooltip.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .tooltip-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #e2e8f0;
+    }
+
+    .tooltip-header i.fa-sparkles {
+      margin-right: 6px;
+      color: #38bdf8;
+      animation: pulseSparkle 2s infinite ease-in-out;
+    }
+
+    .tooltip-body {
+      padding: 14px;
+      color: #cbd5e1;
+    }
+
+    /* Tooltip arrow/tail */
+    .chatbot-tooltip::after {
+      content: '';
+      position: absolute;
+      bottom: -7px;
+      right: 24px;
+      width: 14px;
+      height: 14px;
+      background: rgba(15, 23, 42, 0.95);
+      border-right: 1px solid rgba(56, 189, 248, 0.3);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+      transform: rotate(45deg);
+      backdrop-filter: blur(12px);
+    }
+
+    .tooltip-close {
+      background: none;
+      border: none;
+      color: #64748b;
+      font-size: 1.1rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tooltip-close:hover {
+      color: #f8fafc;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    @keyframes pulseSparkle {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+
     .chatbot-toggle {
       width: 60px;
       height: 60px;
@@ -456,18 +549,33 @@
 
   <section class="skills-education-section">
     <div class="skills-education-container">
-      <!-- Top Announcement Banner -->
-      <div class="skills-top-banner">
-        <div class="banner-content">
-          <span class="banner-badge"><i class="fas fa-hammer"></i> My Latest Creation</span>
-          <strong>Playwright Browser Extension (v1.12)</strong> — I built this tool to help QA engineers monitor tests
-          directly in the browser!
-          <div class="banner-cta-group">
-            <a href="https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh?utm_source=item-share-cb"
-              target="_blank" class="banner-store-btn"><i class="fab fa-chrome" style="color: #4ade80;"></i> Get it from
-              Chrome Store</a>
-            <a href="#featured-product" class="banner-details-btn">View Details <i class="fas fa-arrow-right"></i></a>
+      <!-- Announcement Banners Wrapper -->
+      <div class="announcement-banners-wrapper" style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 0.5rem;">
+        <!-- AI Agent Announcement Banner -->
+        <div class="skills-top-banner" id="global-ai-banner">
+          <div class="banner-content">
+            <span class="banner-badge" style="background: linear-gradient(90deg, #db2777, #7c3aed); border: none;"><i class="fas fa-robot"></i> New AI Agent</span>
+            <strong>Moltbook</strong> — My AI agent posted on its social media just 2 hours ago!
+            <div class="banner-cta-group">
+              <a href="#" class="banner-store-btn"><i class="fas fa-eye" style="color: #38bdf8;"></i> View it here!</a>
+              <a href="https://github.com/faruklmu17/moltbook_ai_agent" target="_blank" rel="noopener noreferrer" class="banner-details-btn">Build your own <i class="fab fa-github"></i></a>
+            </div>
           </div>
+          <button onclick="this.closest('.skills-top-banner').style.display='none'" aria-label="Close announcement" class="banner-close-x"><i class="fas fa-times"></i></button>
+        </div>
+
+        <!-- Playwright Extension Announcement Banner -->
+        <div class="skills-top-banner" id="pw-extension-banner">
+          <div class="banner-content">
+            <span class="banner-badge"><i class="fas fa-hammer"></i> My Latest Creation</span>
+            <strong>Playwright Browser Extension (v1.12)</strong> — I built this tool to help QA engineers monitor tests directly in the browser!
+            <div class="banner-cta-group">
+              <a href="https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh?utm_source=item-share-cb"
+                target="_blank" class="banner-store-btn"><i class="fab fa-chrome" style="color: #4ade80;"></i> Get it from Chrome Store</a>
+              <a href="#featured-product" class="banner-details-btn">View Details <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+          <button onclick="this.closest('.skills-top-banner').style.display='none'" aria-label="Close announcement" class="banner-close-x"><i class="fas fa-times"></i></button>
         </div>
       </div>
       <!-- Left Column: Skills Grid -->
@@ -1488,6 +1596,17 @@
 
   <!-- Enhanced Chatbot Interface -->
   <div class="chatbot-container">
+    <!-- Chatbot Welcome Bubble -->
+    <div class="chatbot-tooltip" id="chatbot-welcome-bubble">
+      <div class="tooltip-header">
+        <span><i class="fas fa-sparkles"></i> AI Assistant</span>
+        <button class="tooltip-close" id="tooltip-close-btn" aria-label="Close tooltip">&times;</button>
+      </div>
+      <div class="tooltip-body">
+        Hi there! 👋 How can I help? I am Faruk's AI assistant!
+      </div>
+    </div>
+
     <!-- Minimized Chatbot Button -->
     <button class="chatbot-toggle" id="chatbot-toggle" aria-label="Open Chat Assistant">
       <i class="fas fa-robot chat-icon" style="font-size: 24px;"></i>
@@ -1712,11 +1831,87 @@
       }
     }
 
+    const welcomeBubble = document.getElementById('chatbot-welcome-bubble');
+    const tooltipCloseBtn = document.getElementById('tooltip-close-btn');
+    let bubbleDismissed = false;
+
+    let globalAudioCtx = null;
+
+    // Initialize audio on first user interaction to bypass autoplay blocks
+    function initAudio() {
+      if (!globalAudioCtx) {
+        globalAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (globalAudioCtx.state === 'suspended') {
+        globalAudioCtx.resume();
+      }
+    }
+
+    document.addEventListener('click', initAudio, { once: true });
+    document.addEventListener('keydown', initAudio, { once: true });
+    document.addEventListener('touchstart', initAudio, { once: true });
+
+    // Synthesize a gentle "pop" sound
+    function playPopSound() {
+      try {
+        if (!globalAudioCtx) {
+          globalAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        // Force resume if possible
+        if (globalAudioCtx.state === 'suspended') {
+          globalAudioCtx.resume();
+        }
+        
+        const oscillator = globalAudioCtx.createOscillator();
+        const gainNode = globalAudioCtx.createGain();
+
+        oscillator.connect(gainNode);
+        gainNode.connect(globalAudioCtx.destination);
+
+        oscillator.type = 'sine';
+        // Start high, drop fast for a "pop/bloop" sound
+        oscillator.frequency.setValueAtTime(800, globalAudioCtx.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(200, globalAudioCtx.currentTime + 0.15);
+
+        // Max volume attack, quick decay
+        gainNode.gain.setValueAtTime(0, globalAudioCtx.currentTime);
+        gainNode.gain.linearRampToValueAtTime(1.0, globalAudioCtx.currentTime + 0.02);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, globalAudioCtx.currentTime + 0.15);
+
+        oscillator.start(globalAudioCtx.currentTime);
+        oscillator.stop(globalAudioCtx.currentTime + 0.15);
+      } catch (e) {
+        console.warn('Could not play pop sound:', e);
+      }
+    }
+
+    // Show bubble after 3 seconds
+    setTimeout(() => {
+      if (!isOpen && !bubbleDismissed) {
+        playPopSound();
+        welcomeBubble.classList.add('show');
+      }
+    }, 3000);
+
+    // Hide bubble on close button click
+    tooltipCloseBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      welcomeBubble.classList.remove('show');
+      bubbleDismissed = true;
+    });
+
+    // Hide bubble when chatbot opens
+    function hideBubble() {
+      welcomeBubble.classList.remove('show');
+      bubbleDismissed = true;
+    }
+
     // Toggle chatbot
     function toggleChatbot() {
       if (isOpen) {
         closeChatbot();
       } else {
+        hideBubble();
         openChatbot();
       }
     }
