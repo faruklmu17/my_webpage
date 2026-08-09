@@ -465,19 +465,149 @@
       position: relative;
       background: #0b1220;
       min-height: 0;
-      /* Important for flex child */
       display: flex;
       flex-direction: column;
     }
 
-    .chatbot-frame {
-      width: 100%;
-      height: 100%;
-      min-height: 400px;
-      /* Ensure minimum height */
-      border: none;
-      background: white;
+    .chat-history {
       flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .chat-message-wrapper {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+      width: 100%;
+    }
+
+    .chat-message-wrapper.bot {
+      flex-direction: row;
+    }
+
+    .chat-message-wrapper.user {
+      flex-direction: row-reverse;
+    }
+
+    .chat-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 14px;
+      color: white;
+    }
+
+    .chat-avatar.bot {
+      background: #1e293b;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .chat-avatar.user {
+      background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+    }
+
+    .chat-message {
+      max-width: calc(85% - 42px);
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+
+    .chat-message p { margin: 0 0 8px 0; }
+    .chat-message p:last-child { margin: 0; }
+    .chat-message pre { 
+      background: rgba(0,0,0,0.3); 
+      padding: 8px; 
+      border-radius: 6px; 
+      overflow-x: auto; 
+      margin: 8px 0;
+      font-size: 0.85rem;
+    }
+    .chat-message code {
+      font-family: monospace;
+      background: rgba(0,0,0,0.2);
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-size: 0.85em;
+    }
+    .chat-message ul, .chat-message ol {
+      margin: 8px 0;
+      padding-left: 20px;
+    }
+    .chat-message a {
+      color: inherit;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    .chat-message.bot {
+      background: #1e293b;
+      color: #f8fafc;
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .chat-message.user {
+      background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+      color: #0f172a;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .chat-input-area {
+      display: flex;
+      padding: 12px;
+      background: #0f172a;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      gap: 8px;
+    }
+
+    #chat-input {
+      flex: 1;
+      background: #1e293b;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 10px 16px;
+      color: #f8fafc;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    #chat-input:focus {
+      border-color: #38bdf8;
+    }
+
+    #chat-send-btn {
+      background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+      color: #0f172a;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    #chat-send-btn:hover {
+      transform: scale(1.05);
+    }
+    
+    #chat-send-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
     .chatbot-loading {
@@ -1638,9 +1768,16 @@
         <div class="loading-text">Loading AI Assistant...</div>
       </div>
 
-      <div class="chatbot-content">
-        <iframe class="chatbot-frame" id="chatbot-frame" src="" title="AI Chat Assistant" loading="lazy">
-        </iframe>
+      <div class="chatbot-content" id="chatbot-content">
+        <div class="chat-history" id="chat-history">
+          <!-- Messages injected via JS -->
+        </div>
+        <div class="chat-input-area">
+          <input type="text" id="chat-input" placeholder="Type your message..." autocomplete="off" />
+          <button id="chat-send-btn" aria-label="Send message">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
       </div>
 
     </div>
@@ -1716,6 +1853,11 @@
 
 
 </script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script type="module">
+  import { Client } from "https://cdn.jsdelivr.net/npm/@gradio/client/dist/index.min.js";
+  window.GradioClient = Client;
+</script>
 
 <!-- Enhanced Chatbot JavaScript -->
 <script>
@@ -1723,70 +1865,145 @@
     const chatbotToggle = document.getElementById('chatbot-toggle');
     const chatbotWindow = document.getElementById('chatbot-window');
     const minimizeBtn = document.getElementById('minimize-btn');
-    const chatbotFrame = document.getElementById('chatbot-frame');
     const chatbotLoading = document.getElementById('chatbot-loading');
     const notificationBadge = document.getElementById('notification-badge');
+    
+    const chatHistory = document.getElementById('chat-history');
+    const chatInput = document.getElementById('chat-input');
+    const chatSendBtn = document.getElementById('chat-send-btn');
 
     let isOpen = false;
     let isLoaded = false;
-
-    // Chatbot URLs
-    //const chatbotUrl = 'https://hasanfaruk25-personal-chatbot.hf.space/?__theme=light';
-    // Chatbot URL – NEW Live Version (Direct Embed)
-    const chatbotUrl = 'https://hasanfaruk25-faruk-assistant.hf.space/gradio/';
-
-    // Auto-open chatbot disabled - will now only open when clicked
-    /*
-    setTimeout(() => {
-      openChatbot();
-    }, 2000); // Wait 2 seconds after page load for smooth experience
-    */
+    let gradioApp = null;
+    let chatSessionHistory = [];
 
     // Initialize chatbot state
     function initializeChatbot() {
-      // Keep notification badge visible until interaction
-      /*
-      if (notificationBadge) {
-        setTimeout(() => {
-          notificationBadge.style.display = 'none';
-        }, 3000);
-      }
-      */
+      // Logic for initial state if needed
+    }
+    initializeChatbot();
+    
+    function addMessage(text, sender) {
+      const wrapperDiv = document.createElement('div');
+      wrapperDiv.className = `chat-message-wrapper ${sender}`;
 
-      // Add welcome animation to toggle button
-      setTimeout(() => {
-        chatbotToggle.style.animation = 'pulse 2s ease-in-out 3';
-      }, 2000);
+      const avatarDiv = document.createElement('div');
+      avatarDiv.className = `chat-avatar ${sender}`;
+      if (sender === 'bot') {
+        avatarDiv.innerHTML = '<i class="fas fa-robot"></i>';
+      } else {
+        avatarDiv.innerHTML = '<i class="fas fa-user"></i>';
+      }
+
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `chat-message ${sender}`;
+      
+      let htmlContent = '';
+      if (typeof marked !== 'undefined') {
+        htmlContent = marked.parse(text);
+      } else {
+        const escapeDiv = document.createElement('div');
+        escapeDiv.textContent = text;
+        let escapedText = escapeDiv.innerHTML;
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        escapedText = escapedText.replace(urlRegex, function(url) {
+          let cleanUrl = url;
+          let trailing = '';
+          if (/[.,;!?]$/.test(url)) {
+            trailing = url.slice(-1);
+            cleanUrl = url.slice(0, -1);
+          }
+          return `<a href="${cleanUrl}" target="_blank" style="color: inherit; text-decoration: underline; font-weight: 600;">${cleanUrl}</a>${trailing}`;
+        });
+        htmlContent = escapedText;
+      }
+      
+      msgDiv.innerHTML = htmlContent;
+      
+      wrapperDiv.appendChild(avatarDiv);
+      wrapperDiv.appendChild(msgDiv);
+
+      chatHistory.appendChild(wrapperDiv);
+      chatHistory.scrollTop = chatHistory.scrollHeight;
     }
 
-    // Load chatbot iframe
-    function loadChatbot() {
+    async function sendMessage() {
+      const text = chatInput.value.trim();
+      if (!text || !gradioApp) return;
+      
+      chatInput.value = '';
+      chatInput.disabled = true;
+      chatSendBtn.disabled = true;
+      
+      addMessage(text, 'user');
+      
+      // Add loading indicator
+      const loadingWrapper = document.createElement('div');
+      loadingWrapper.className = 'chat-message-wrapper bot loading-wrapper';
+      const loadingAvatar = document.createElement('div');
+      loadingAvatar.className = 'chat-avatar bot';
+      loadingAvatar.innerHTML = '<i class="fas fa-robot"></i>';
+      const loadingMsg = document.createElement('div');
+      loadingMsg.className = 'chat-message bot loading-msg';
+      loadingMsg.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Thinking...';
+      loadingWrapper.appendChild(loadingAvatar);
+      loadingWrapper.appendChild(loadingMsg);
+      chatHistory.appendChild(loadingWrapper);
+      chatHistory.scrollTop = chatHistory.scrollHeight;
+
+      try {
+        const result = await gradioApp.predict("/chat_fn", [text, chatSessionHistory]);
+        
+        chatHistory.removeChild(loadingWrapper);
+        
+        let botResponse = "Error parsing response.";
+        if (result && result.data && result.data.length > 1) {
+           const historyArray = result.data[1];
+           if (historyArray.length > 0) {
+             botResponse = historyArray[historyArray.length - 1].content;
+             chatSessionHistory = historyArray;
+           }
+        }
+        
+        addMessage(botResponse, 'bot');
+      } catch (error) {
+        console.error(error);
+        chatHistory.removeChild(loadingWrapper);
+        addMessage("Sorry, I encountered an error connecting to the AI. Please try again.", 'bot');
+      }
+      
+      chatInput.disabled = false;
+      chatSendBtn.disabled = false;
+      chatInput.focus();
+    }
+    
+    chatSendBtn.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    // Load chatbot backend
+    async function loadChatbot() {
       if (!isLoaded) {
-        chatbotFrame.src = chatbotUrl;
-        isLoaded = true;
-
-        // Handle iframe load with elegant transition
-        chatbotFrame.onload = function () {
-          setTimeout(() => {
-            chatbotLoading.style.opacity = '0';
-            setTimeout(() => {
-              chatbotLoading.style.display = 'none';
-              chatbotFrame.style.opacity = '1';
-            }, 300);
-          }, 1500);
-        };
-
-        // Fallback in case onload doesn't fire
-        setTimeout(() => {
+        chatbotLoading.style.display = 'flex';
+        try {
+          if (!window.GradioClient) {
+            await new Promise(r => setTimeout(r, 800));
+          }
+          
+          gradioApp = await window.GradioClient.connect("https://hasanfaruk25-faruk-assistant.hf.space/gradio/");
+          
+          addMessage("Hi! I'm Faruk's AI assistant. Feel free to ask me anything about his projects, skills, or experience!", 'bot');
+          
+          isLoaded = true;
           chatbotLoading.style.opacity = '0';
           setTimeout(() => {
             chatbotLoading.style.display = 'none';
-            chatbotFrame.style.opacity = '1';
           }, 300);
-        }, 4000);
-      } else {
-        chatbotLoading.style.display = 'none';
-        chatbotFrame.style.display = 'block';
+        } catch (error) {
+          console.error("Failed to connect to Gradio:", error);
+          chatbotLoading.innerHTML = "Failed to connect to AI server. Please try again later.";
+        }
       }
     }
 
@@ -1818,12 +2035,8 @@
         chatbotToggle.style.transform = 'scale(1)';
 
         // Reset loading state for next open
-        if (isLoaded) {
-          chatbotLoading.style.display = 'none';
-          chatbotFrame.style.display = 'block';
-        } else {
+        if (!isLoaded) {
           chatbotLoading.style.display = 'flex';
-          chatbotFrame.style.display = 'none';
         }
 
         // Restore body scrolling
