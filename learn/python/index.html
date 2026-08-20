@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Learning Hub | Free Resources & 1-on-1 Tutoring | Faruk Hasan</title>
+    <meta name="description" content="Explore beginner to advanced Python tutorials, escape rooms, quizzes, and AI learning resources. Book 1-on-1 online tutoring for kids and teens.">
+    <link rel="canonical" href="https://faruk-hasan.com/learn/python/" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Python Learning Hub | Faruk Hasan">
+    <meta property="og:description" content="Free Python resources, tutorials, and private mentorship for kids & teens.">
+    <meta property="og:url" content="https://faruk-hasan.com/learn/python/">
+    
+    <!-- Canonical Entity -->
+    <script src="../../shared/entity.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #0a0f1c;
+            --surface: #111827;
+            --text: #f3f4f6;
+            --sub: #9ca3af;
+            --cyan: #00f0ff;
+            --pink: #ec4899;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+        
+        /* Hero */
+        .hero { text-align: center; padding: 4rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 1rem; }
+        .hero h1 span { color: var(--cyan); }
+        .hero p { font-size: 1.2rem; color: var(--sub); max-width: 600px; margin: 0 auto 2rem; }
+        
+        /* CTA */
+        .primary-cta {
+            background: var(--cyan);
+            color: #000;
+            padding: 1rem 2rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.1rem;
+            display: inline-block;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(0, 240, 255, 0.3);
+        }
+        .primary-cta:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0, 240, 255, 0.5); }
+        
+        /* Grid Sections */
+        .section-title { font-size: 2rem; margin: 3rem 0 1.5rem; border-left: 4px solid var(--cyan); padding-left: 1rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        
+        .card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 1.5rem;
+            border-radius: 16px;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover { transform: translateY(-5px); border-color: var(--cyan); background: rgba(0,240,255,0.02); }
+        .card h3 { color: var(--cyan); margin: 0 0 0.5rem 0; font-size: 1.25rem; }
+        .card p { color: var(--sub); font-size: 0.95rem; margin: 0; }
+        
+        /* Breadcrumb */
+        .breadcrumb { font-size: 0.9rem; color: var(--sub); margin-bottom: 2rem; }
+        .breadcrumb a { color: var(--cyan); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../../index.html">Home</a> &gt; Python Learning Hub
+        </div>
+    </div>
+
+    <header class="hero">
+        <div class="container">
+            <h1>The <span>Python</span> Learning Hub</h1>
+            <p>From fundamental syntax to building AI chatbots. Explore free quizzes, tutorials, and escape rooms to level up your coding skills.</p>
+            <a href="../../tutoring/python-tutor/index.html" class="primary-cta">
+                <i class="fa-solid fa-chalkboard-user"></i> Book 1-on-1 Python Tutoring
+            </a>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title">Beginner Fundamentals</h2>
+        <div class="grid">
+            <a href="../../quizzes/python-basics.html" class="card">
+                <h3>Python Basics Quiz</h3>
+                <p>Test your knowledge of variables, loops, and logic.</p>
+            </a>
+            <a href="../../escape_room/python_level1_escape_room.html" class="card">
+                <h3>Level 1 Escape Room</h3>
+                <p>Solve Python puzzles to escape the virtual room.</p>
+            </a>
+            <a href="../../quizzes/PYTHON/python_full_basics_quiz.html" class="card">
+                <h3>Comprehensive Basics</h3>
+                <p>A full review of foundational Python concepts.</p>
+            </a>
+        </div>
+
+        <h2 class="section-title">Intermediate & Advanced</h2>
+        <div class="grid">
+            <a href="../../quizzes/PYTHON/python_oop_quiz_2.html" class="card">
+                <h3>Object-Oriented Programming</h3>
+                <p>Master classes, objects, and inheritance.</p>
+            </a>
+            <a href="../../blog_post/python_decorator_tutorial.html" class="card">
+                <h3>Python Decorators Guide</h3>
+                <p>A simple 5-step visual guide to mastering decorators.</p>
+            </a>
+            <a href="../../quizzes/PYTHON/python_decorator_quiz.html" class="card">
+                <h3>Decorators Quiz</h3>
+                <p>Test your new knowledge of Python decorators.</p>
+            </a>
+        </div>
+
+        <h2 class="section-title">AI & Data</h2>
+        <div class="grid">
+            <a href="../../ai_resources/ai_quiz_0_fundamentals.html" class="card">
+                <h3>AI Fundamentals</h3>
+                <p>Learn the basics of Artificial Intelligence in Python.</p>
+            </a>
+            <a href="../../ai_resources/ai_quiz_3_bag_of_words.html" class="card">
+                <h3>NLP & Bag of Words</h3>
+                <p>Understand how computers process human language.</p>
+            </a>
+            <a href="../../quizzes/PYTHON/data_scraping_quiz.html" class="card">
+                <h3>Web Scraping</h3>
+                <p>Extract data from websites using Python.</p>
+            </a>
+        </div>
+    </main>
+
+    <footer style="text-align: center; padding: 4rem 1rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 4rem;">
+        <p style="color: var(--sub);">© 2026 Faruk Hasan. Empowering the next generation of coders.</p>
+    </footer>
+
+</body>
+</html>

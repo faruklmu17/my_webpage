@@ -4988,3 +4988,64 @@ a[href*="huggingface"].category-link-inline:hover {
     white-space: normal;
   }
 }
+
+/* --- GLOBAL MOBILE OPTIMIZATIONS ADDED BY AI --- */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+  
+  img, video, iframe {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    width: 100% !important;
+  }
+
+  /* Force single column layout on elements that might overflow */
+  .skills-education-container,
+  .projects-grid,
+  .stats-grid,
+  .about-grid,
+  .footer-grid,
+  .course-list {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Fix banner overlapping and wrap */
+  .banner-content {
+    flex-direction: column !important;
+    text-align: center;
+    gap: 0.8rem;
+  }
+  .banner-cta-group {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 !important;
+  }
+
+  /* Touch targets for accessibility */
+  button, .btn, a.btn, .nav-links a, .banner-store-btn {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  h1 { font-size: 2.2rem !important; }
+  h2 { font-size: 1.8rem !important; }
+  h3 { font-size: 1.4rem !important; }
+  
+  p, span, div, h1, h2, h3, h4, h5, h6 { 
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
+  }
+}
