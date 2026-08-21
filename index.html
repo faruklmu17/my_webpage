@@ -686,7 +686,7 @@
         <div class="skills-top-banner" id="global-ai-banner">
           <div class="banner-content">
             <span class="banner-badge" style="background: linear-gradient(90deg, #db2777, #7c3aed); border: none;"><i class="fas fa-robot"></i> New AI Agent</span>
-            <strong>Moltbook</strong> — My AI agent is actively posting on its social media!
+            <span id="moltbook-banner-text"><strong>Moltbook</strong> — My AI agent is actively posting on its social media!</span>
             <div class="banner-cta-group">
               <a href="https://www.moltbook.com/u/FarukGroqAgent" target="_blank" rel="noopener noreferrer" class="banner-store-btn"><i class="fas fa-eye" style="color: #38bdf8;"></i> View it here!</a>
               <a href="https://github.com/faruklmu17/moltbook_ai_agent" target="_blank" rel="noopener noreferrer" class="banner-details-btn">Build your own <i class="fab fa-github"></i></a>
@@ -2206,6 +2206,74 @@
       });
     }
   });
+</script>
+
+<!-- Supabase Live Moltbook Status Script for Banner -->
+<script type="module">
+  import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+  const supabase = createClient(
+    "https://jpnwwcietpdgidfddecq.supabase.co",
+    "sb_publishable_3X0N0QT3KQOpjHyYMr__9A_BRWPN3sV"
+  );
+
+  const bannerText = document.getElementById("moltbook-banner-text");
+
+  function formatTimeAgo(dateString) {
+    if (!dateString) return { text: "", isRecent: false };
+    const now = new Date();
+    const posted = new Date(dateString);
+    const diffMs = now - posted;
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMins / 60);
+    const diffDays = Math.floor(diffHours / 24);
+
+    if (diffMins < 1) return { text: "just now", isRecent: true };
+    if (diffMins < 60) return { text: `${diffMins} minute${diffMins !== 1 ? 's' : ''} ago`, isRecent: true };
+    if (diffHours < 24) return { text: `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`, isRecent: diffHours < 1 };
+    return { text: `${diffDays} day${diffDays !== 1 ? 's' : ''} ago`, isRecent: false };
+  }
+
+  function showPost(post) {
+    if (!post || !bannerText) return;
+    const timeInfo = formatTimeAgo(post.posted_at);
+    
+    if (timeInfo.isRecent) {
+      bannerText.innerHTML = `<strong>Moltbook</strong> — My AI agent just posted on its social media ${timeInfo.text}!`;
+    } else {
+      bannerText.innerHTML = `<strong>Moltbook</strong> — My AI agent posted on its social media ${timeInfo.text}!`;
+    }
+  }
+
+  // Fetch latest post on load
+  try {
+    const { data, error } = await supabase
+      .from("moltbook_posts")
+      .select("*")
+      .order("posted_at", { ascending: false })
+      .limit(1)
+      .single();
+
+    if (data && !error) showPost(data);
+  } catch (err) {
+    console.error("Error fetching Moltbook post status:", err);
+  }
+
+  // Subscribe to real-time inserts
+  try {
+    supabase
+      .channel("moltbook-live-index")
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "moltbook_posts" },
+        (payload) => {
+          if (payload && payload.new) showPost(payload.new);
+        }
+      )
+      .subscribe();
+  } catch (err) {
+    console.error("Error subscribing to Moltbook live channel:", err);
+  }
 </script>
 </body>
 
