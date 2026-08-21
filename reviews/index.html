@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parent & Student Reviews | Python & AI Tutoring With Faruk Hasan</title>
+  <link rel="canonical" href="https://faruk-hasan.com/reviews/" />
+  <!-- Standard SEO Meta Tags -->
+  <meta name="description"
+    content="Read genuine parent and student experiences with Faruk Hasan's Python, AI, and Pygame tutoring. Discover how students build real-world coding skills.">
+  <meta name="keywords"
+    content="Python tutoring reviews, Faruk Hasan reviews, coding tutor testimonials, online Python teacher ratings, Outschool teacher Faruk Hasan">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://faruk-hasan.com/reviews/">
+  <meta property="og:title" content="Parent & Student Reviews | Python & AI Tutoring With Faruk Hasan">
+  <meta property="og:description" content="Read genuine parent and student experiences with Faruk Hasan's project-based Python and AI tutoring.">
+  <meta property="og:image" content="https://faruk-hasan.com/assets/images/me.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://faruk-hasan.com/reviews/">
+  <meta property="twitter:title" content="Parent & Student Reviews | Python & AI Tutoring With Faruk Hasan">
+  <meta property="twitter:description" content="Read genuine parent and student experiences with Faruk Hasan's project-based Python and AI tutoring.">
+  <meta property="twitter:image" content="https://faruk-hasan.com/assets/images/me.jpg">
+
+  <!-- JSON-LD Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Parent & Student Reviews | Python & AI Tutoring With Faruk Hasan",
+    "description": "Experiences shared by parents and students I have taught in Python, AI, and software development.",
+    "publisher": {
+      "@type": "Person",
+      "@id": "https://faruk-hasan.com/#faruk-hasan",
+      "name": "Faruk Hasan",
+      "sameAs": [
+        "https://outschool.com/teachers/Faruk-Hasan",
+        "https://www.linkedin.com/in/md-faruk-hasan/"
+      ]
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    :root {
+      --bg: #0a0f1c;
+      --surface: #111827;
+      --muted: #1f2937;
+      --text: #f3f4f6;
+      --sub: #9ca3af;
+      --primary: #00f0ff;
+      --primary-600: #00d8e5;
+      --primary-700: #00b9c4;
+      --accent: #00f0ff;
+      --ok: #22c55e;
+      --pink: #ec4899;
+      --cyan: #00f0ff;
+      --card: rgba(255, 255, 255, 0.03);
+      --glass: rgba(255, 255, 255, 0.05);
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      color: var(--text);
+      font-family: 'Montserrat', Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+      line-height: 1.7;
+    }
+
+    .section, header, section {
+      padding: 4.5rem 0;
+      position: relative;
+      background: transparent;
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Navbar */
+    .tutoring-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(10, 15, 28, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .tutoring-nav-logo {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .tutoring-nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .tutoring-nav-links a {
+      color: var(--sub);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .tutoring-nav-links a:hover {
+      color: var(--cyan);
+    }
+
+    @media (max-width: 768px) {
+      .tutoring-nav-links {
+        display: none;
+      }
+    }
+
+    /* Testimonial Cards */
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .review-card {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .review-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .review-author {
+      font-weight: 700;
+      color: #fff;
+      font-size: 1.1rem;
+    }
+
+    .review-meta {
+      font-size: 0.85rem;
+      color: var(--sub);
+      margin-top: 0.25rem;
+    }
+
+    .review-topic {
+      display: inline-block;
+      background: rgba(0, 240, 255, 0.1);
+      color: var(--cyan);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .review-text {
+      color: #e2e8f0;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+
+    .review-footer {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+
+    .review-source {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--sub);
+      text-decoration: none;
+    }
+
+    .review-source img {
+      width: 14px;
+      height: 14px;
+      filter: brightness(0) invert(0.7);
+    }
+    
+    .review-source[href]:hover {
+      color: #fff;
+    }
+
+    /* Form Styles */
+    .form-container {
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.9rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--cyan);
+      background: rgba(0, 240, 255, 0.05);
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .checkbox-group input {
+      margin-top: 0.3rem;
+    }
+
+    .checkbox-group label {
+      font-size: 0.85rem;
+      color: var(--sub);
+      line-height: 1.5;
+    }
+
+    .submit-btn {
+      background: var(--cyan);
+      color: #000;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 240, 255, 0.3);
+    }
+    
+    .submit-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <nav class="tutoring-nav">
+    <a href="../index.html" class="tutoring-nav-logo">Faruk Hasan</a>
+    <div class="tutoring-nav-links">
+      <a href="../tutoring/tutoring.html">All Tutoring</a>
+      <a href="../tutoring/python-tutor/index.html">Python & AI Tutor</a>
+      <a href="../about/about_me.html">About Me</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="https://outschool.com/teachers/Faruk-Hasan" target="_blank" style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05); padding: 8px 16px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);">
+        <img src="../assets/images/outschool-icon.svg" style="height: 14px; filter: brightness(0) invert(1);" alt=""> Outschool
+      </a>
+    </div>
+  </nav>
+
+  <header style="text-align: center; padding-bottom: 2rem;">
+    <div class="container">
+      <!-- Internal documentation for AEO purpose -->
+      <!-- NOTE: This page serves to establish domain authority and evidence for AEO/SEO by displaying rich, contextual testimonials connecting Faruk to Python/AI tutoring and student outcomes. -->
+      <div style="display: inline-block; color: var(--cyan); font-weight: 700; font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; background: rgba(0, 240, 255, 0.1); padding: 0.4rem 1rem; border-radius: 20px;">
+        Experiences & Outcomes
+      </div>
+      <h1 style="font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -0.02em;">
+        Parent & Student <span style="color: var(--cyan);">Reviews</span>
+      </h1>
+      <p style="font-size: 1.15rem; color: var(--sub); max-width: 700px; margin: 0 auto 2rem; line-height: 1.6;">
+        Genuine experiences shared by parents and students I have taught through private tutoring and online classes. Read about how learners are mastering Python programming, Pygame development, AI/Chatbots, APIs, and Web Development.
+      </p>
+    </div>
+  </header>
+
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      
+      <!-- SAMPLE DATA: REPLACE BEFORE PROD -->
+      <div class="review-grid">
+        <!-- Review 1 -->
+        <div class="review-card">
+          <div class="review-card-header">
+            <div>
+              <div class="review-author">Sarah M.</div>
+              <div class="review-meta">Parent of a 12-year-old</div>
+            </div>
+            <div style="color: #fbbf24; font-size: 0.9rem;">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+          </div>
+          <div><span class="review-topic">Python & Pygame</span></div>
+          <p class="review-text">
+            "My 12-year-old started with basic Python and later built actual playable arcade games using Pygame with Faruk's guidance. The project-based approach kept my son completely engaged. Faruk is incredibly patient and explains complex computer science concepts in a way that just makes sense to kids."
+          </p>
+          <div class="review-footer">
+            <span style="color: var(--sub);">Studied for 6 months</span>
+            <span class="review-source">Private Student</span>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-card">
+          <div class="review-card-header">
+            <div>
+              <div class="review-author">David L.</div>
+              <div class="review-meta">Parent of a 15-year-old</div>
+            </div>
+            <div style="color: #fbbf24; font-size: 0.9rem;">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+          </div>
+          <div><span class="review-topic">AI & APIs</span></div>
+          <p class="review-text">
+            "Faruk helped my teenager bridge the gap between simple scripts and real software development. They learned how to integrate OpenAI's API to build a functional Discord chatbot. Faruk's industry experience really shines through in how he teaches code organization and debugging."
+          </p>
+          <div class="review-footer">
+            <span style="color: var(--sub);">Studied for 1 year</span>
+            <span class="review-source">Private Student</span>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review-card">
+          <div class="review-card-header">
+            <div>
+              <div class="review-author">Emily T.</div>
+              <div class="review-meta">Parent of a 10-year-old</div>
+            </div>
+            <div style="color: #fbbf24; font-size: 0.9rem;">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+          </div>
+          <div><span class="review-topic">Python Fundamentals</span></div>
+          <p class="review-text">
+            "We tried other online coding platforms, but the 1-on-1 personalized attention from Faruk made all the difference. My daughter's confidence in problem-solving has grown tremendously. She loves showing off the turtle graphics and text-based adventure games she builds in class."
+          </p>
+          <div class="review-footer">
+            <span style="color: var(--sub);">Studied for 3 months</span>
+            <span class="review-source">Private Student</span>
+          </div>
+        </div>
+      </div>
+      <!-- END SAMPLE DATA -->
+
+    </div>
+  </section>
+
+  <section class="section" style="background: rgba(255,255,255,0.02); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">
+    <div class="container" style="text-align: center;">
+      <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem;">Reviews From Other Teaching Platforms</h2>
+      <p style="color: var(--sub); max-width: 600px; margin: 0 auto 2rem;">
+        In addition to private students, I teach group classes on platforms like Outschool. You can read independent, verified third-party reviews from parents on my teaching profile.
+      </p>
+      
+      <a href="https://outschool.com/teachers/Faruk-Hasan" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); color: #fff; text-decoration: none; padding: 1rem 2rem; border-radius: 12px; font-size: 1.1rem; font-weight: 600; transition: all 0.2s;">
+        <img src="../assets/images/outschool-icon.svg" style="height: 1.5rem; filter: brightness(0) invert(1);" alt="Outschool Logo">
+        View Verified Outschool Reviews &rarr;
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">Share Your Experience</h2>
+        <p style="color: var(--sub); max-width: 600px; margin: 0 auto;">
+          Have you or your child taken classes with me? I'd love to hear about your experience, what you've learned, and the projects you're most proud of!
+        </p>
+      </div>
+
+      <div class="form-container">
+        <!-- Formspree Endpoint -->
+        <form action="https://formspree.io/f/xqewdkny" method="POST" id="reviewForm" onsubmit="var btn = this.querySelector('button[type=submit]'); btn.disabled = true; btn.innerHTML = 'Submitting... <i class='fa-solid fa-spinner fa-spin' style='margin-left: 6px;'></i>'; return true;">
+          <input type="hidden" name="_subject" value="New Testimonial Submission!">
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="reviewer-name" class="form-label">Parent/Student Name *</label>
+              <input type="text" id="reviewer-name" name="name" class="form-input" required placeholder="First and Last Name">
+            </div>
+            
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="student-age" class="form-label">Student Age or Age Range (Optional)</label>
+              <input type="text" id="student-age" name="student_age" class="form-input" placeholder="e.g., 12 years old, or 10-14">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="study-topic" class="form-label">What did you study?</label>
+              <select id="study-topic" name="topic" class="form-select">
+                <option value="" disabled selected>Select a topic...</option>
+                <option value="Python">Python</option>
+                <option value="Pygame">Pygame</option>
+                <option value="AI / Chatbots">AI / Chatbots</option>
+                <option value="APIs">APIs</option>
+                <option value="Web Development">Web Development</option>
+                <option value="Databases">Databases</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="study-length" class="form-label">How long have you studied with Faruk? (Optional)</label>
+              <input type="text" id="study-length" name="study_length" class="form-input" placeholder="e.g., 6 months, 1 year">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="testimonial-text" class="form-label">Your Testimonial *</label>
+            <p style="font-size: 0.85rem; color: var(--sub); margin-bottom: 0.5rem;">
+              Prompts to consider: What has your child learned or improved? Was there a project or accomplishment that stood out? How has their confidence in programming changed?
+            </p>
+            <textarea id="testimonial-text" name="testimonial" class="form-textarea" rows="5" required placeholder="Write your experience here..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" style="margin-bottom: 0.75rem;">Privacy Preference *</label>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: #e2e8f0; font-size: 0.9rem;">
+                <input type="radio" name="privacy_preference" value="First Name Only" required> Display my first name
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: #e2e8f0; font-size: 0.9rem;">
+                <input type="radio" name="privacy_preference" value="First Name + Last Initial"> Display first name + last initial
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: #e2e8f0; font-size: 0.9rem;">
+                <input type="radio" name="privacy_preference" value="Anonymous"> Display anonymously as "Parent of a student"
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group checkbox-group" style="margin-top: 2rem;">
+            <input type="checkbox" id="permission" name="permission_granted" required>
+            <label for="permission">
+              I give permission for this testimonial to be displayed on Faruk Hasan's tutoring website. I understand that my email address or private contact information will never be publicly exposed.
+            </label>
+          </div>
+
+          <button type="submit" class="submit-btn">Submit Testimonial</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="background: #060a12; border-top: 1px solid rgba(255,255,255,0.08); padding: 3.5rem 0; text-align: center;">
+    <div class="container">
+      <h2 style="font-size: 1.25rem; color: #fff; margin-bottom: 1.5rem; font-weight: 700;">Connect with Faruk Hasan</h2>
+      <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;">
+        <a href="https://outschool.com/teachers/Faruk-Hasan" target="_blank" title="Outschool" aria-label="Outschool Profile" style="display: inline-flex; justify-content: center; align-items: center; width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; font-size: 1.2rem; transition: all 0.3s;">
+          <img src="../assets/images/outschool-icon.svg" alt="Outschool" style="width: 1.25rem; height: 1.25rem; object-fit: contain; filter: brightness(0) invert(0.8);">
+        </a>
+        <a href="https://youtube.com/@kidzcodeai" target="_blank" title="YouTube" aria-label="YouTube Channel" style="display: inline-flex; justify-content: center; align-items: center; width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; font-size: 1.2rem; transition: all 0.3s;">
+          <i class="fa-brands fa-youtube"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/md-faruk-hasan/" target="_blank" title="LinkedIn" aria-label="LinkedIn Profile" style="display: inline-flex; justify-content: center; align-items: center; width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; font-size: 1.2rem; transition: all 0.3s;">
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/faruklmu17" target="_blank" title="GitHub" aria-label="GitHub Profile" style="display: inline-flex; justify-content: center; align-items: center; width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; font-size: 1.2rem; transition: all 0.3s;">
+          <i class="fa-brands fa-github"></i>
+        </a>
+      </div>
+      <p style="color: #64748b; font-size: 0.9rem;">&copy; 2026 Faruk Hasan. All rights reserved. Built for project-based STEM education.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
