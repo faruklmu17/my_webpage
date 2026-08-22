@@ -1,394 +1,524 @@
-import gradio as gr
-import requests
-import json
-import re
+# import gradio as gr
+# import requests
+# import json
+# import re
+# import os
+# import numpy as np
+# from typing import Optional
+# from sentence_transformers import SentenceTransformer
+# from sklearn.metrics.pairwise import cosine_similarity
+# from fastapi import BackgroundTasks
+# from fastapi.requests import Request
+# from fastapi.responses import JSONResponse, PlainTextResponse
+
+# # Force Rebuild: 2026-03-06 09:10
+# print("=== STARTING APP ===")
+
+# # =========================
+# # Configuration
+# # =========================
+# GROQ_API_KEY = os.getenv("GROQ_API_KEY", "").strip()
+# SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN", "").strip()
+# MODEL_NAME = "openai/gpt-oss-20b"
+# print(f"GROQ_API_KEY={'SET' if GROQ_API_KEY else 'MISSING'}")
+
+# # =========================
+# # Cache & RAG
+# # =========================
+# class ChatbotCache:
+#     def __init__(self, config_file="cache_config.json"):
+#         try:
+#             with open(config_file, "r", encoding="utf-8") as f:
+#                 config = json.load(f)
+#         except:
+#             config = {}
+#         self.cache = config.get("cache_responses", {})
+
+#     def find(self, message: str) -> Optional[str]:
+#         msg = re.sub(r"[^\w\s]", "", message.lower().strip())
+#         for k, v in self.cache.items():
+#             if re.sub(r"[^\w\s]", "", k.lower().strip()) == msg:
+#                 return v
+#         return None
+
+# GLOBAL_CACHE = ChatbotCache()
+
+# try:
+#     with open("faruk_context.md", "r", encoding="utf-8") as f:
+#         CONTENT = f.read()
+#     CHUNKS = [CONTENT[i:i+800] for i in range(0, len(CONTENT), 600)]
+#     MODEL = SentenceTransformer('all-MiniLM-L6-v2')
+#     EMBEDDINGS = MODEL.encode(CHUNKS)
+#     print("RAG loaded")
+# except Exception as e:
+#     CHUNKS, MODEL, EMBEDDINGS = [], None, []
+#     print(f"RAG skipped: {e}")
+
+# def get_context(query):
+#     if not MODEL or not CHUNKS:
+#         return ""
+#     q_emb = MODEL.encode([query])
+#     sims = cosine_similarity(q_emb, EMBEDDINGS)[0]
+#     return CHUNKS[np.argmax(sims)] if np.max(sims) > 0.2 else ""
+
+# def call_groq(messages):
+#     r = requests.post(
+#         "https://api.groq.com/openai/v1/chat/completions",
+#         headers={"Authorization": f"Bearer {GROQ_API_KEY}"},
+#         json={"model": MODEL_NAME, "messages": messages, "temperature": 0.5},
+#         timeout=30
+#     )
+#     print(f"[GROQ] status={r.status_code}")
+#     return r.json()["choices"][0]["message"]["content"]
+
+# # =========================
+# # Chat function
+# # =========================
+# def chat_fn(user_message, history):
+#     print(f"[CHAT] {user_message[:50]!r}")
+#     cached = GLOBAL_CACHE.find(user_message)
+#     if cached:
+#         return "", history + [{"role": "user", "content": user_message},
+#                                {"role": "assistant", "content": f"⚡ {cached}"}]
+#     context = get_context(user_message)
+#     system = f"You are Faruk's assistant. Context: {context}\nKeep it brief (2-3 sentences)."
+#     msgs = [{"role": "system", "content": system}]
+#     for h in history[-5:]:
+#         if isinstance(h, dict):
+#             msgs.append({"role": h["role"], "content": str(h["content"])})
+#     msgs.append({"role": "user", "content": user_message})
+#     try:
+#         reply = call_groq(msgs)
+#     except Exception as e:
+#         reply = f"Error: {e}"
+#         print(f"[GROQ ERROR] {e}")
+#     return "", history + [{"role": "user", "content": user_message},
+#                            {"role": "assistant", "content": reply}]
+
+# # =========================
+# # Gradio UI
+# # =========================
+# custom_css = """
+# .gradio-container { background: linear-gradient(135deg, #FFF5E1 0%, #FFD1A9 50%, #FF9E68 100%) !important; }
+# .chip-btn { border-radius: 20px !important; background: rgba(255,255,255,0.4) !important;
+#             font-size: 13px !important; border: 1px solid rgba(0,0,0,0.1) !important; color: #333 !important; }
+# .chip-btn:hover { background: rgba(255,255,255,0.8) !important; }
+# """
+# with gr.Blocks(css=custom_css, title="Faruk's Assistant") as demo:
+#     gr.HTML("<div style='text-align:center;padding:20px'><h2 style='margin:0; color: #1A237E;'>Hello, I'm Faruk's Assistant</h2></div>")
+#     chatbot = gr.Chatbot(type="messages", show_label=False)
+#     with gr.Row():
+#         msg = gr.Textbox(placeholder="Ask me anything...", show_label=False, scale=9)
+#         btn = gr.Button("↑", scale=1, variant="primary")
+#     with gr.Row():
+#         btn1 = gr.Button("👋 Who is Faruk?",              elem_classes="chip-btn", size="sm")
+#         btn2 = gr.Button("📚 Courses",                    elem_classes="chip-btn", size="sm")
+#         btn3 = gr.Button("🛠️ Skills",                     elem_classes="chip-btn", size="sm")
+
+#     msg.submit(chat_fn, [msg, chatbot], [msg, chatbot])
+#     btn.click(chat_fn,  [msg, chatbot], [msg, chatbot])
+#     btn1.click(lambda: "Who is Faruk?",                outputs=msg).then(chat_fn, [msg, chatbot], [msg, chatbot])
+#     btn2.click(lambda: "What courses do you teach?",   outputs=msg).then(chat_fn, [msg, chatbot], [msg, chatbot])
+#     btn3.click(lambda: "What are your technical skills?", outputs=msg).then(chat_fn, [msg, chatbot], [msg, chatbot])
+
+# # =========================
+# # Inject Slack routes into Gradio's internal FastAPI app
+# # Must happen BEFORE demo.launch()
+# # =========================
+# @demo.app.post("/slack/events")
+# async def slack_events(request: Request, background_tasks: BackgroundTasks):
+#     try:
+#         data = await request.json()
+#         print(f"[SLACK] type={data.get('type')}")
+#         if data.get("type") == "url_verification":
+#             return PlainTextResponse(data.get("challenge"))
+#         if data.get("type") == "event_callback":
+#             event = data.get("event", {})
+#             if event.get("type") == "message" and not event.get("bot_id") and not event.get("subtype"):
+#                 background_tasks.add_task(respond_to_slack, event.get("text", ""), event.get("channel", ""))
+#     except Exception as e:
+#         print(f"[SLACK ERROR] {e}")
+#     return JSONResponse({"ok": True})
+
+# @demo.app.get("/slack/events")
+# async def slack_events_get():
+#     return PlainTextResponse("Slack endpoint active")
+
+# def respond_to_slack(text: str, channel: str):
+#     context = get_context(text)
+#     system = f"You are Faruk's assistant. Context: {context}\nKeep it brief (2-3 sentences)."
+#     try:
+#         reply = call_groq([{"role": "system", "content": system}, {"role": "user", "content": text}])
+#     except Exception as e:
+#         reply = "Sorry, I can't connect right now!"
+#         print(f"[SLACK GROQ ERROR] {e}")
+#     if SLACK_BOT_TOKEN:
+#         requests.post("https://slack.com/api/chat.postMessage",
+#             headers={"Authorization": f"Bearer {SLACK_BOT_TOKEN}", "Content-Type": "application/json"},
+#             json={"channel": channel, "text": reply}, timeout=10)
+
+# # =========================
+# # Launch — Gradio manages all startup/lifecycle correctly
+# # =========================
+# demo.launch(server_name="0.0.0.0", server_port=7860)
+
 import os
-from difflib import SequenceMatcher
-from typing import Dict, Optional
+import re
+import json
+import numpy as np
+import requests
+import gradio as gr
+import fastapi
+from typing import Optional
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
+from fastapi import BackgroundTasks, Request
+from fastapi.responses import JSONResponse, PlainTextResponse
+from gradio import mount_gradio_app
 
-# Ollama HTTP API endpoint
-API_URL = "http://localhost:11434/api/chat"
-MODEL_NAME = "llama3.2"  # Changed to generic base model for dynamic context
+print("=== STARTING APP ===")
 
+# =========================
+# Configuration
+# =========================
+GROQ_API_KEY = os.getenv("GROQ_API_KEY", "").strip()
+SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN", "").strip()
+MODEL_NAME = "openai/gpt-oss-20b"
+
+print(f"GROQ_API_KEY={'SET' if GROQ_API_KEY else 'MISSING'}")
+print(f"SLACK_BOT_TOKEN={'SET' if SLACK_BOT_TOKEN else 'MISSING'}")
+print(f"MODEL_NAME={MODEL_NAME}")
+
+# =========================
+# Cache
+# =========================
 class ChatbotCache:
     def __init__(self, config_file="cache_config.json"):
-        self.config_file = config_file
-        self.config = self._load_config()
-        self.cache = self.config.get("cache_responses", {})
-        self.similarity_threshold = self.config.get("settings", {}).get("similarity_threshold", 0.6)
-        self.cache_enabled = self.config.get("settings", {}).get("cache_enabled", True)
-        self.cache_indicator = self.config.get("settings", {}).get("cache_indicator", "⚡")
-    
-    def _load_config(self) -> Dict:
-        """Load configuration from JSON file"""
         try:
-            config_path = os.path.join(os.path.dirname(__file__), self.config_file)
-            with open(config_path, 'r', encoding='utf-8') as f:
-                return json.load(f)
-        except FileNotFoundError:
-            print(f"Config file {self.config_file} not found. Using default cache.")
-            return {"cache_responses": {}, "settings": {}}
-        except json.JSONDecodeError:
-            print(f"Error parsing {self.config_file}. Using default cache.")
-            return {"cache_responses": {}, "settings": {}}
-    
-    def _normalize_text(self, text: str) -> str:
-        """Normalize text for better matching"""
-        return re.sub(r'[^\w\s]', '', text.lower().strip())
-    
-    def _calculate_similarity(self, text1: str, text2: str) -> float:
-        """Calculate similarity between two texts"""
-        return SequenceMatcher(None, text1, text2).ratio()
-    
-    def _contains_keywords(self, message: str, keywords: str) -> bool:
-        """Check if message contains any of the keywords"""
-        message_words = set(message.split())
-        keyword_words = set(keywords.split())
-        return bool(message_words.intersection(keyword_words))
-    
-    def find_cached_response(self, user_message: str) -> Optional[str]:
-        """Find a cached response for the user message"""
-        if not self.cache_enabled:
-            return None
+            with open(config_file, "r", encoding="utf-8") as f:
+                config = json.load(f)
+        except Exception:
+            config = {}
+        self.cache = config.get("cache_responses", {})
 
-        normalized_message = self._normalize_text(user_message)
+    def find(self, message: str) -> Optional[str]:
+        msg = re.sub(r"[^\w\s]", "", message.lower().strip())
+        for k, v in self.cache.items():
+            if re.sub(r"[^\w\s]", "", k.lower().strip()) == msg:
+                return v
+        return None
 
-        # Step 1: Exact phrase matching (highest priority)
-        for key, response in self.cache.items():
-            normalized_key = self._normalize_text(key)
-            if normalized_key == normalized_message:
-                return response
+GLOBAL_CACHE = ChatbotCache()
 
-        # Step 2: Check if the cache key is completely contained in the message
-        best_exact_match = None
-        best_exact_length = 0
+# =========================
+# RAG
+# =========================
+try:
+    with open("faruk_context.md", "r", encoding="utf-8") as f:
+        CONTENT = f.read()
+    CHUNKS = [CONTENT[i:i+1200] for i in range(0, len(CONTENT), 600)]
+    MODEL = SentenceTransformer("all-MiniLM-L6-v2")
+    EMBEDDINGS = MODEL.encode(CHUNKS)
+    print("RAG loaded")
+except Exception as e:
+    CHUNKS, MODEL, EMBEDDINGS = [], None, []
+    print(f"RAG skipped: {e}")
 
-        for key, response in self.cache.items():
-            normalized_key = self._normalize_text(key)
-            if normalized_key in normalized_message:
-                # Prefer longer, more specific matches
-                if len(normalized_key) > best_exact_length:
-                    best_exact_length = len(normalized_key)
-                    best_exact_match = response
-
-        if best_exact_match:
-            return best_exact_match
-
-
-
-        # Step 4: Fuzzy matching for similar questions (lowest priority)
-        best_match = None
-        best_score = 0
-
-        for key, response in self.cache.items():
-            similarity = self._calculate_similarity(normalized_message, self._normalize_text(key))
-            if similarity > best_score and similarity >= self.similarity_threshold:
-                best_score = similarity
-                best_match = response
-
-        return best_match
-    
-    def get_cache_stats(self) -> Dict:
-        """Get cache statistics"""
-        return {
-            "total_cached_responses": len(self.cache),
-            "cache_enabled": self.cache_enabled,
-            "similarity_threshold": self.similarity_threshold
-        }
-
-# --- NEW LOGIC START ---
-
-def load_faruk_profile():
-    """Load Faruk's profile from external MD file."""
-    try:
-        path = os.path.join(os.path.dirname(__file__), "faruk_context.md")
-        with open(path, "r", encoding="utf-8") as f:
-            return f.read()
-    except Exception as e:
-        print(f"Error loading profile: {e}")
+def get_context(query: str) -> str:
+    if MODEL is None or not CHUNKS:
         return ""
+    q_emb = MODEL.encode([query])
+    sims = cosine_similarity(q_emb, EMBEDDINGS)[0]
+    return CHUNKS[np.argmax(sims)] if np.max(sims) > 0.2 else ""
 
-def is_faruk_intent(text):
-    """Check if the user is asking about Faruk or his work."""
-    keywords = [
-        "faruk", "hasan", "he", "his", "him", # direct references
-        "tutor", "teach", "course", "class", "student", "outschool", "udemy", # teaching
-        "qa", "sdet", "automation", "test", "playwright", "selenium", "python", # tech stack
-        "job", "work", "career", "experience", "resume", "cv", # professional
-        "contact", "email", "reach", # contact
-        "github", "youtube", "linkedin" # social
-    ]
-    norm_text = text.lower()
-    return any(k in norm_text for k in keywords)
+# =========================
+# Groq
+# =========================
+def call_groq(messages):
+    r = requests.post(
+        "https://api.groq.com/openai/v1/chat/completions",
+        headers={
+            "Authorization": f"Bearer {GROQ_API_KEY}",
+            "Content-Type": "application/json",
+        },
+        json={
+            "model": MODEL_NAME,
+            "messages": messages,
+            "temperature": 0.5,
+        },
+        timeout=30,
+    )
+    print(f"[GROQ] status={r.status_code}")
+    print(f"[GROQ] body={r.text[:800]}")
+    r.raise_for_status()
+    data = r.json()
+    return data["choices"][0]["message"]["content"]
 
-def chat_with_ollama_cached(history, user_message):
-    """
-    Enhanced chat function with caching AND conditional context injection.
-    Replaces the old logic to fix over-conditioning.
-    """
-    if history is None:
-        history = []
-    
-    cache = ChatbotCache()
-    
-    # 1. Try to find cached response first (Instant)
-    cached_response = cache.find_cached_response(user_message)
-    
-    if cached_response:
-        # Return cached response instantly with indicator
-        response_with_indicator = f"{cache.cache_indicator} {cached_response}"
-        history.append((user_message, response_with_indicator))
-        return history, ""
-    
-    # 2. Determine Intent & Load Context
-    faruk_intent = is_faruk_intent(user_message)
-    
-    system_content = ""
-    slow_response_warning = ""
+def build_reply(user_message: str, history: list = None) -> str:
+    cached = GLOBAL_CACHE.find(user_message)
+    if cached:
+        return f"⚡ {cached}"
 
-    if faruk_intent:
-        profile_text = load_faruk_profile()
-        system_content = (
-            "You are Faruk Hasan's personal AI assistant. "
-            "Use the following profile to answer questions about him:\n\n"
-            f"{profile_text}\n\n"
-            "STYLE RULES:\n"
-            "- Answer concisely in 2-4 sentences.\n"
-            "- Be friendly and professional.\n"
-            "- Only use the profile info provided."
-        )
-    else:
-        # Generic Mode - Free from Faruk's bio
-        system_content = (
-            "You are a helpful and friendly AI assistant. "
-            "You are NOT Faruk Hasan. You are his assistant. "
-            "If the user asks about their own name or identity (e.g. 'what is my name'), check the conversation history."
-            "Do NOT randomly talk about Faruk Hasan unless the user explicitly asks about him. "
-            "Answer the user's specific question directly."
-        )
-        # Add a small warning that non-cached responses might be slower on the free/cloud instance
-        slow_response_warning = "\n\n(🐢 *Note: Response generated by the AI model. Please wait a moment...*)"
+    # Extract search query based on recent conversational turn for context retrieval
+    search_query = user_message
+    if history and len(history) > 0:
+        last_user_msgs = [h["content"] for h in history if hasattr(h, 'get') and h.get("role") == "user"]
+        if last_user_msgs:
+            search_query = f"{last_user_msgs[-1]} {user_message}"
 
-    # 3. Build Messages for Ollama
-    messages = [{"role": "system", "content": system_content}]
-    
-    # 3. Clean and prepare usage context from history
-    # We maintain memory (e.g. "I am John") but strip markers
-    clean_history_messages = []
-    
-    # Keep last 10 turns for context
-    recent_history = history[-10:] if history else []
+    context = get_context(search_query)
+    system = (
+        f"You are the AI Assistant for Faruk Hasan. You must clearly act as his assistant, NOT as Faruk. "
+        f"The provided context is written from Faruk's perspective (using 'I' and 'my'), but you MUST translate it "
+        f"to speak about him in the third person (using 'Faruk', 'he', 'his'). "
+        f"FACTUAL ACCURACY IS PARAMOUNT: Faruk earned his Bachelor's in the UK and his Master's in the USA. Do not mix these up. "
+        f"CRITICAL: If someone asks how to contact Faruk or book a session, you MUST provide this link: https://faruk-hasan.com/tutoring/tutoring.html#book "
+        f"If the user just greets you, greet them back as his assistant and ask how you can help them learn about Faruk. "
+        f"DO NOT invent or make up any life updates, feelings, tasks, or events. "
+        f"Read the context carefully. If the context does not contain the answer to a question, say 'I don't know'. "
+        f"Context: {context}\nCRITICAL: Keep your response extremely concise (MAX 1-2 SHORT SENTENCES)."
+    )
 
-    for user_msg, bot_msg in recent_history:
-        # Clean icons/warnings from previous bot messages
-        clean_bot_msg = re.sub(r'^[⚡🐢]\s*', '', bot_msg).replace("(Note: Response generated by the AI model. Please wait a moment...*)", "").strip()
-        
-        clean_history_messages.append({"role": "user", "content": user_msg})
-        clean_history_messages.append({"role": "assistant", "content": clean_bot_msg})
-    
-    # Add current message
-    clean_history_messages.append({"role": "user", "content": user_message})
+    messages = [{"role": "system", "content": system}]
+    if history:
+        for h in history[-6:]: # Include the last 3 pairs of messages
+            if isinstance(h, dict) and 'role' in h and 'content' in h:
+                messages.append({"role": h["role"], "content": str(h["content"])})
+            elif isinstance(h, tuple) or isinstance(h, list):  # Fallback for old Gradio versions
+                messages.append({"role": "user", "content": str(h[0])})
+                messages.append({"role": "assistant", "content": str(h[1])})
 
-    # Combine with system prompt
-    messages = [{"role": "system", "content": system_content}] + clean_history_messages
-    
-    # 4. Call Ollama chat API
+    messages.append({"role": "user", "content": user_message})
+
+    return call_groq(messages)
+
+# =========================
+# Gradio chat
+# =========================
+def chat_fn(user_message, history):
+    print(f"[CHAT] {user_message[:50]!r}")
+    history = history or []
     try:
-        response = requests.post(
-            API_URL,
-            json={
-                "model": MODEL_NAME,
-                "messages": messages,
-                "stream": False,
-            },
-            timeout=120,
-        )
-        
-        response.raise_for_status()
-        data = response.json()
-        
-        bot_reply = data.get("message", {}).get("content", "").strip()
-        if not bot_reply:
-            bot_reply = "I'm having trouble generating a response right now. Please try again."
-        
-        # Append warning if it was a generic generation
-        if slow_response_warning:
-            bot_reply += slow_response_warning
-            
+        reply = build_reply(user_message, history)
     except Exception as e:
-        bot_reply = f"Sorry, I ran into an error talking to the model: {e}"
-    
-    history.append((user_message, bot_reply))
-    return history, ""
+        reply = f"Error: {e}"
+        print(f"[CHAT ERROR] {e}")
 
-# --- UI REDESIGN (KEPT ORIGINAL) ---
+    return "", history + [
+        {"role": "user", "content": user_message},
+        {"role": "assistant", "content": reply},
+    ]
 
-custom_css = """
-/* Main Background - Deep Slate/Navy Gradient */
-.gradio-container {
-    background: #0b1220 !important;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-    padding: 0 !important;
-    color: #f8fafc !important;
-}
+# =========================
+# Slack reply
+# =========================
+SLACK_MEMORY = {}
 
-/* Header & Typography */
-.header-container {
-    text-align: center;
-    padding: 16px 0 12px 0;
-    margin: 0 !important;
-    background: #0f172a !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
+def respond_to_slack(text: str, channel: str, thread_ts: str = None):
+    try:
+        cleaned_text = re.sub(r"<@[\w]+>\s*", "", text).strip()
+        if not cleaned_text:
+            cleaned_text = "Hello"
+            
+        history_key = f"{channel}_{thread_ts}"
+        history = SLACK_MEMORY.get(history_key, [])
+        
+        reply = build_reply(cleaned_text, history)
+        
+        history.append({"role": "user", "content": cleaned_text})
+        history.append({"role": "assistant", "content": reply})
+        SLACK_MEMORY[history_key] = history[-6:]
+        
+    except Exception as e:
+        reply = "Sorry, I can't connect right now!"
+        print(f"[SLACK GROQ ERROR] {e}")
 
-.main-title {
-    font-size: 20px; 
-    font-weight: 800;
-    color: #38bdf8 !important; /* Vibrant blue for high visibility */
-    margin: 0;
-    line-height: 1.2;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
-.subtitle {
-    font-size: 13px; 
-    font-weight: 500;
-    color: #94a3b8 !important;
-    margin: 6px 0 0 0;
-}
-
-/* Chatbot Area - Fix Black Box Issue */
-#chatbot {
-    background: #0b1220 !important;
-    border: none !important;
-    height: 340px !important;
-}
-
-/* Ensure messages have contrast */
-.message-wrap .message {
-    border-radius: 18px !important;
-    font-size: 14.5px !important;
-}
-
-.user.message {
-    background: #38bdf8 !important;
-    color: #0f172a !important;
-}
-
-.bot.message {
-    background: #1e293b !important;
-    color: #f1f5f9 !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-/* Input Area */
-.input-container {
-    background: #0f172a !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-    padding: 12px !important;
-}
-
-#msg-input textarea {
-    background: #1e293b !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    color: #fff !important;
-}
-
-#send-btn {
-    background: #38bdf8 !important;
-    color: #0f172a !important;
-}
-"""
-
-header_html = """
-<div class="header-container">
-    <div class="main-title" style="color: #38bdf8 !important;">Hello, I'm Faruk's Assistant</div>
-    <div class="subtitle" style="color: #94a3b8 !important;">How can I help you today?</div>
-</div>
-"""
-
-# Build Gradio UI with redesigned layout
-with gr.Blocks(css=custom_css, title="Faruk's AI Assistant", theme=gr.themes.Base()) as demo:
-    
-    gr.HTML(header_html)
-    
-    chatbot = gr.Chatbot(
-        value=[(None, "Hi there! 👋 I'm Faruk's AI Assistant.\n\nI can answer questions about his **resume**, **classes**, **projects**, or **consulting**. Pick a topic below or just ask!")],
-        elem_id="chatbot",
-        show_label=False,
-        show_share_button=False,
-        show_copy_button=True,
-        bubble_full_width=False,
-        avatar_images=(None, "https://ui-avatars.com/api/?name=F&background=000&color=fff"), # User: None, Bot: "F"
-        render=False
-    )
-    
-    # Render chatbot BEFORE input
-    chatbot.render()
-
-    # Custom Input Row
-    with gr.Row(elem_classes="input-container"):
-        msg = gr.Textbox(
-            elem_id="msg-input",
-            show_label=False,
-            placeholder="Hi, how can I help?",
-            scale=10,
-            container=True, # Restored container for stability
-            lines=1,
-            autofocus=True
+    if SLACK_BOT_TOKEN:
+        payload = {"channel": channel, "text": reply}
+        if thread_ts:
+            payload["thread_ts"] = thread_ts
+            
+        r = requests.post(
+            "https://slack.com/api/chat.postMessage",
+            headers={
+                "Authorization": f"Bearer {SLACK_BOT_TOKEN}",
+                "Content-Type": "application/json",
+            },
+            json=payload,
+            timeout=10,
         )
-        submit_btn = gr.Button(value="↑", elem_id="send-btn", scale=1, size="sm")
+        print(f"[SLACK POST] status={r.status_code}")
+        print(f"[SLACK POST] body={r.text[:500]}")
+
+# =========================
+# UI
+# =========================
+custom_css = """
+.gradio-container { background: linear-gradient(135deg, #FFF5E1 0%, #FFD1A9 50%, #FF9E68 100%) !important; }
+
+/* The Glassmorphism Action Bar Wrapper */
+#chat-wrapper { 
+    display: flex !important;
+    flex-direction: column !important;
+    border: 1px solid rgba(26, 35, 126, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    background: white; /* Clean background for the whole unit */
+    margin-bottom: 0px; /* Removed margin */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.chatbot { 
+    border: none !important; /* Remove internal border */
+    flex-grow: 1 !important;
+}
+
+#chips-row {
+    padding: 4px 0px;
+    background: transparent !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    gap: 4px !important;
+    justify-content: center !important;
+    border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+    scrollbar-width: none;
+}
+
+#chips-row::-webkit-scrollbar { display: none; }
+
+.chip-btn { 
+    border-radius: 10px !important; 
+    background: white !important;
+    font-size: 10px !important; 
+    border: 1px solid rgba(26, 35, 126, 0.1) !important; 
+    color: #1A237E !important;
+    padding: 2px 6px !important; 
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02) !important;
+    font-weight: 500 !important;
+}
+
+.chip-btn:hover { 
+    background: #1A237E !important; 
+    color: white !important;
+}
+
+/* Premium Send Button */
+.send-btn {
+    background: #1A237E !important;
+    color: white !important;
+    font-weight: bold !important;
+    border-radius: 8px !important;
+    font-size: 12px !important;
+}
+
+h2, h3 { color: #1A237E !important; font-weight: bold !important; }
+"""
+
+with gr.Blocks(css=custom_css, title="Faruk's Assistant") as demo:
+    gr.HTML("<div style='text-align:center;padding:0px;line-height:1;'><h3 style='margin:0; font-size: 14px; color: #1A237E;'>Hello, I'm Faruk's Assistant</h3></div>")
     
-    # Chips / Suggestions (Moved to bottom)
-    with gr.Row(elem_classes="chips-row"):
-        # Original
-        btn_who = gr.Button("👋 Who is Faruk?", elem_classes="chip-btn", size="sm")
-        btn_courses = gr.Button("📚 Courses Taught", elem_classes="chip-btn", size="sm")
-        
-        # New
-        btn_skills = gr.Button("🛠️ Technical Skills", elem_classes="chip-btn", size="sm")
-        btn_education = gr.Button("🎓 Education", elem_classes="chip-btn", size="sm")
-        btn_students = gr.Button("👥 Student Stats", elem_classes="chip-btn", size="sm")
-        btn_udemy = gr.Button("📹 Udemy Course", elem_classes="chip-btn", size="sm")
-        btn_career = gr.Button("💼 Career Journey", elem_classes="chip-btn", size="sm")
-        
-        # Original
-        btn_contact = gr.Button("📧 Contact", elem_classes="chip-btn", size="sm")
+    with gr.Column(elem_id="chat-wrapper"):
+        with gr.Row(elem_id="chips-row"):
+            btn1 = gr.Button("👋 Faruk", elem_classes="chip-btn", size="sm")
+            btn2 = gr.Button("📚 Courses", elem_classes="chip-btn", size="sm")
+            btn3 = gr.Button("🛠️ Skills", elem_classes="chip-btn", size="sm")
+            btn4 = gr.Button("📞 Contact", elem_classes="chip-btn", size="sm")
+        chatbot = gr.Chatbot(type="messages", show_label=False, height=180)
 
-    # Interactions
-    msg.submit(
-        fn=chat_with_ollama_cached,
-        inputs=[chatbot, msg],
-        outputs=[chatbot, msg],
-    )
-    submit_btn.click(
-        fn=chat_with_ollama_cached,
-        inputs=[chatbot, msg],
-        outputs=[chatbot, msg],
-    )
+    with gr.Row():
+        msg = gr.Textbox(placeholder="Ask me...", show_label=False, scale=8)
+        btn = gr.Button("Send ↑", scale=2, variant="primary", elem_classes="send-btn")
 
-    # Chip Handlers (Populate input AND Submit)
-    common_args = {
-        "fn": chat_with_ollama_cached,
-        "inputs": [chatbot, msg],
-        "outputs": [chatbot, msg]
-    }
+    msg.submit(chat_fn, [msg, chatbot], [msg, chatbot])
+    btn.click(chat_fn, [msg, chatbot], [msg, chatbot])
 
-    btn_who.click(lambda: "Who is Faruk?", outputs=msg).then(**common_args)
-    btn_courses.click(lambda: "What courses do you teach?", outputs=msg).then(**common_args)
-    
-    # New Handlers
-    btn_skills.click(lambda: "What are your technical skills?", outputs=msg).then(**common_args)
-    btn_education.click(lambda: "What is your education?", outputs=msg).then(**common_args)
-    btn_students.click(lambda: "How many students have you taught?", outputs=msg).then(**common_args)
-    btn_udemy.click(lambda: "Do you have a Udemy course?", outputs=msg).then(**common_args)
-    btn_career.click(lambda: "What is your career journey?", outputs=msg).then(**common_args)
-    
-    btn_contact.click(lambda: "How can I contact Faruk?", outputs=msg).then(**common_args)
+    btn1.click(lambda: "Who is Faruk?", outputs=msg).then(chat_fn, [msg, chatbot], [msg, chatbot])
+    btn2.click(lambda: "What courses do you teach?", outputs=msg).then(chat_fn, [msg, chatbot], [msg, chatbot])
+    btn3.click(lambda: "What are your technical skills?", outputs=msg).then(chat_fn, [msg, chatbot], [msg, chatbot])
+    btn4.click(lambda: "How can I contact Faruk or book a session?", outputs=msg).then(chat_fn, [msg, chatbot], [msg, chatbot])
 
-# Launch the app
-if __name__ == "__main__":
-    demo.launch(
-        server_name="0.0.0.0",
-        server_port=7860,
-        share=False
-    )
+# # =========================
+# # FastAPI + Slack
+# # =========================
+# api = fastapi.FastAPI()
+
+# @api.get("/slack/events")
+# async def slack_events_get():
+#     return PlainTextResponse("Slack endpoint active")
+
+# @api.post("/slack/events")
+# async def slack_events(request: Request, background_tasks: BackgroundTasks):
+#     try:
+#         data = await request.json()
+#         print(f"[SLACK] payload={data}")
+
+#         if data.get("type") == "url_verification":
+#             return PlainTextResponse(data.get("challenge", ""))
+
+#         if data.get("type") == "event_callback":
+#             event = data.get("event", {})
+#             event_type = event.get("type")
+#             text = event.get("text", "")
+#             channel = event.get("channel", "")
+
+#             print(f"[SLACK EVENT] type={event_type} channel={channel} text={text}")
+
+#             if event.get("bot_id") or event.get("subtype"):
+#                 return JSONResponse({"ok": True})
+
+#             if event_type in ["app_mention", "message"] and text and channel:
+#                 background_tasks.add_task(respond_to_slack, text, channel)
+
+#     except Exception as e:
+#         print(f"[SLACK ERROR] {e}")
+
+#     return JSONResponse({"ok": True})
+
+# app = mount_gradio_app(api, demo, path="/")
+
+# =========================
+# FastAPI + Slack
+# =========================
+api = fastapi.FastAPI()
+
+@api.get("/")
+async def home():
+    return PlainTextResponse("App is running. Open /gradio for the chat UI.")
+
+@api.get("/slack/events")
+async def slack_events_get():
+    return PlainTextResponse("Slack endpoint active")
+
+@api.post("/slack/events")
+async def slack_events(request: Request, background_tasks: BackgroundTasks):
+    try:
+        data = await request.json()
+        print(f"[SLACK] payload={data}")
+
+        if data.get("type") == "url_verification":
+            return PlainTextResponse(data.get("challenge", ""))
+
+        if data.get("type") == "event_callback":
+            event = data.get("event", {})
+            event_type = event.get("type")
+            text = event.get("text", "")
+            channel = event.get("channel", "")
+            thread_ts = event.get("thread_ts", event.get("ts"))
+
+            print(f"[SLACK EVENT] type={event_type} channel={channel} thread_ts={thread_ts} text={text}")
+
+            if event.get("bot_id") or event.get("subtype"):
+                return JSONResponse({"ok": True})
+
+            if (event_type == "app_mention" or (event_type == "message" and event.get("channel_type") == "im")) and text and channel:
+                background_tasks.add_task(respond_to_slack, text, channel, thread_ts)
+
+    except Exception as e:
+        print(f"[SLACK ERROR] {e}")
+
+    return JSONResponse({"ok": True})
+
+app = mount_gradio_app(api, demo, path="/gradio")

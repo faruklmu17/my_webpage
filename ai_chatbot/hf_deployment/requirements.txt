@@ -1,3 +1,10 @@
 gradio==5.42.0
 requests
 huggingface_hub
+numpy
+scikit-learn
+sentence-transformers
+transformers<5.0
+fastapi
+uvicorn
+python-dotenv
