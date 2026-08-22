@@ -521,4 +521,4 @@ async def slack_events(request: Request, background_tasks: BackgroundTasks):
 
     return JSONResponse({"ok": True})
 
-app = mount_gradio_app(api, demo, path="/gradio")
+app = mount_gradio_app(api, demo, path="/gradio")# redeploy
