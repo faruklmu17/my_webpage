@@ -31,7 +31,7 @@ test.describe('Website Basic Tests', () => {
     await page.goto('/finance/financial_plan.html');
     
     // Check page loads without errors
-    await expect(page.locator('h1')).toContainText('Wealth Structure');
+    await expect(page.locator('h1').filter({ hasText: 'Wealth Structure' })).toBeVisible();
     
     // Check that the chart container exists
     const chartContainer = page.locator('.chart-shell');

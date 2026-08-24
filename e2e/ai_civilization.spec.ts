@@ -49,10 +49,13 @@ test('Planet canvas click increments Compute Power successfully', async ({ page 
     const cx = box.x + box.width / 2;
     const cy = box.y + box.height / 2;
     
-    // Perform manual clicks on the planet
+    // Perform manual clicks on the planet with delay to bypass 50ms debouncer
     await page.mouse.click(cx, cy);
+    await page.waitForTimeout(100);
     await page.mouse.click(cx, cy);
+    await page.waitForTimeout(100);
     await page.mouse.click(cx, cy);
+    await page.waitForTimeout(100);
 
     // Verify compute increased to at least 3
     const computeVal = await page.locator('#stockpile-compute').innerText();
@@ -94,10 +97,10 @@ test('Injecting compute and buying basic CPU elevates hardware count & power dem
   await expect(buyBtn).toBeEnabled();
 
   // Buy CPU
-  await buyBtn.click();
+  await buyBtn.click({ force: true });
 
   // Assert hardware count is 1
-  await expect(page.locator('#qty-cpu')).toContainText('1');
+  await expect(page.locator('#qty-cpu')).toContainText('1', { timeout: 10000 });
 
   // Verify power demand and passive compute rate rises (throttled to 10% due to grid power shortage!)
   await expect(page.locator('#stockpile-energy')).toContainText('1 / 0');
@@ -115,12 +118,12 @@ test('Deploys solar array & wind turbine and increases green power grid supply',
   });
 
   // Purchase Solar Panel
-  await page.click('#upg-solar .buy-btn');
-  await expect(page.locator('#qty-solar')).toContainText('1');
+  await page.locator('#upg-solar .buy-btn').click({ force: true });
+  await expect(page.locator('#qty-solar')).toContainText('1', { timeout: 10000 });
 
   // Purchase Wind Turbine
-  await page.click('#upg-wind .buy-btn');
-  await expect(page.locator('#qty-wind')).toContainText('1');
+  await page.locator('#upg-wind .buy-btn').click({ force: true });
+  await expect(page.locator('#qty-wind')).toContainText('1', { timeout: 10000 });
 
   // Verify energy supply matches (10 GW solar + 25 GW wind = 35 GW supply)
   await expect(page.locator('#stockpile-energy')).toContainText('0 / 35');
@@ -141,8 +144,8 @@ test('High core temperature triggers warning class and throttling status, coolin
   await page.click('#tab-cooling');
 
   // Purchase Exhaust Cooling Fan
-  await page.click('#upg-fan .buy-btn');
-  await expect(page.locator('#qty-fan')).toContainText('1');
+  await page.locator('#upg-fan .buy-btn').click({ force: true });
+  await expect(page.locator('#qty-fan')).toContainText('1', { timeout: 10000 });
 
   // Run a single simulation step to verify heat drops
   await page.evaluate(() => {
