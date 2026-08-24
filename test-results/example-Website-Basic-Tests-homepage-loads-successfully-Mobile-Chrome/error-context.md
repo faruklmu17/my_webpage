@@ -1,0 +1,619 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - img "Faruk Hasan" [ref=e6]
+        - heading "Faruk Hasan" [level=1] [ref=e8]
+      - button "Toggle navigation" [ref=e9] [cursor=pointer]:
+        - generic [ref=e10]: 
+      - text:   
+  - generic [ref=e12]:
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - generic [ref=e16]:
+            - generic [ref=e17]: 
+            - text: New AI Agent
+          - generic [ref=e18]:
+            - strong [ref=e19]: Moltbook
+            - text: — My AI agent posted on its social media 18 hours ago!
+          - generic [ref=e20]:
+            - link " View it here!" [ref=e21] [cursor=pointer]:
+              - /url: https://www.moltbook.com/u/FarukGroqAgent
+              - generic [ref=e22]: 
+              - text: View it here!
+            - link "Build your own " [ref=e23] [cursor=pointer]:
+              - /url: https://github.com/faruklmu17/moltbook_ai_agent
+              - text: Build your own
+              - generic [ref=e24]: 
+        - button "Close announcement" [ref=e25] [cursor=pointer]:
+          - generic [ref=e26]: 
+      - generic [ref=e27]:
+        - generic [ref=e28]:
+          - generic [ref=e29]:
+            - generic [ref=e30]: 
+            - text: My Latest Creation
+          - strong [ref=e31]: Playwright Browser Extension (v1.12)
+          - text: — I built this tool to help QA engineers monitor tests directly in the browser!
+          - generic [ref=e32]:
+            - link " Get it from Chrome Store" [ref=e33] [cursor=pointer]:
+              - /url: https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh?utm_source=item-share-cb
+              - generic [ref=e34]: 
+              - text: Get it from Chrome Store
+            - link "View Details " [ref=e35] [cursor=pointer]:
+              - /url: "#featured-product"
+              - text: View Details
+              - generic [ref=e36]: 
+        - button "Close announcement" [ref=e37] [cursor=pointer]:
+          - generic [ref=e38]: 
+    - generic [ref=e39]:
+      - heading "Technical Skills" [level=2] [ref=e41]
+      - generic [ref=e42]:
+        - generic [ref=e43]:
+          - generic [ref=e44]:
+            - generic [ref=e46]: 
+            - heading "QE & DevOps Tools" [level=3] [ref=e47]
+          - paragraph [ref=e48]:
+            - text: Browser extension for Playwright test results with enhanced visualization
+            - link "" [ref=e49] [cursor=pointer]:
+              - /url: https://chromewebstore.google.com/detail/playwright-test-results/cnbifhpjofgeaobfppnfnngfkkjniodh?authuser=0&hl=en
+              - generic [ref=e50]: 
+        - generic [ref=e51]:
+          - generic [ref=e52]:
+            - generic [ref=e54]: 
+            - heading "AI & ML" [level=3] [ref=e55]
+          - paragraph [ref=e56]:
+            - text: Deployed my own personalized chatbot using Ollama and Hugging Face Spaces.
+            - link "" [ref=e57] [cursor=pointer]:
+              - /url: https://hasanfaruk25-faruk-assistant.hf.space/gradio/
+              - generic [ref=e58]: 
+        - generic [ref=e59]:
+          - generic [ref=e60]:
+            - generic [ref=e62]: 
+            - heading "AI-Driven Grading" [level=3] [ref=e63]
+          - paragraph [ref=e64]:
+            - text: Automated student grading system with RAG-based personalized feedback.
+            - link "" [ref=e65] [cursor=pointer]:
+              - /url: https://github.com/faruklmu17/student_grader
+              - generic [ref=e66]: 
+        - generic [ref=e67]:
+          - generic [ref=e68]:
+            - generic [ref=e70]: 
+            - generic [ref=e71]:
+              - heading "Open Source Contributions" [level=3] [ref=e72]
+              - generic [ref=e73]:
+                - generic [ref=e74]: 200+ Contributions
+                - link "" [ref=e75] [cursor=pointer]:
+                  - /url: https://github.com/faruklmu17
+                  - generic [ref=e76]: 
+          - generic [ref=e78]:
+            - generic [ref=e80]:
+              - generic [ref=e81]: Python
+              - generic [ref=e82]: 45%
+            - generic [ref=e86]:
+              - generic [ref=e87]: TypeScript
+              - generic [ref=e88]: 25%
+            - generic [ref=e92]:
+              - generic [ref=e93]: HTML/CSS
+              - generic [ref=e94]: 20%
+            - generic [ref=e98]:
+              - generic [ref=e99]: JavaScript
+              - generic [ref=e100]: 10%
+        - generic [ref=e103]:
+          - generic [ref=e104]:
+            - generic [ref=e106]: 
+            - heading "Automation Frameworks" [level=3] [ref=e107]
+          - paragraph [ref=e108]:
+            - text: Expertise in
+            - strong [ref=e109]: Playwright
+            - text: ","
+            - strong [ref=e110]: Selenium
+            - text: ", and"
+            - strong [ref=e111]: Cypress
+            - text: for robust cross-browser testing.
+        - generic [ref=e112]:
+          - generic [ref=e113]:
+            - generic [ref=e115]: 
+            - heading "Core Technologies" [level=3] [ref=e116]
+          - generic [ref=e117]:
+            - generic [ref=e118]:
+              - generic [ref=e119]: 
+              - text: Python
+            - generic [ref=e120]:
+              - generic [ref=e121]: 
+              - text: JavaScript
+            - generic [ref=e122]:
+              - generic [ref=e123]: 
+              - text: TypeScript
+            - generic [ref=e124]:
+              - generic [ref=e125]: 
+              - text: Git
+            - generic [ref=e126]:
+              - generic [ref=e127]: 
+              - text: Docker
+            - generic [ref=e128]:
+              - generic [ref=e129]: 
+              - text: CI/CD
+    - generic [ref=e130]:
+      - generic [ref=e133]:
+        - generic [ref=e134]:
+          - heading "Teaching Experiences" [level=2] [ref=e135]
+          - link "Udemy Profile" [ref=e136] [cursor=pointer]:
+            - /url: https://www.udemy.com/user/mohammadfarukhasan/
+            - img [ref=e137]
+            - generic [ref=e139]: Udemy Profile
+        - paragraph [ref=e140]:
+          - text: Empowering the next generation of young learners with
+          - link "1-on-1 private Python tutoring" [ref=e141] [cursor=pointer]:
+            - /url: tutoring/python-tutor/index.html
+          - text: and online courses!
+      - generic [ref=e142]:
+        - generic [ref=e143]:
+          - heading " Impact" [level=3] [ref=e144]:
+            - generic [ref=e145]: 
+            - text: Impact
+          - generic [ref=e146]:
+            - generic [ref=e147]:
+              - generic [ref=e148]: 2000+
+              - generic [ref=e149]: Students
+            - generic [ref=e150]:
+              - generic [ref=e151]: 12+
+              - generic [ref=e152]: Years
+            - generic [ref=e153]:
+              - generic [ref=e154]: 4.82/5
+              - generic [ref=e155]: Rating
+            - generic [ref=e156]:
+              - generic [ref=e157]: 10+
+              - generic [ref=e158]: Courses
+        - generic [ref=e159]:
+          - heading " Highlighted Courses" [level=3] [ref=e160]:
+            - generic [ref=e161]: 
+            - text: Highlighted Courses
+          - generic [ref=e162]:
+            - generic [ref=e163]:
+              - generic [ref=e164]:
+                - heading "Python Fundamentals" [level=4] [ref=e165]
+                - generic [ref=e166]: Udemy
+              - link "View" [ref=e168] [cursor=pointer]:
+                - /url: https://www.udemy.com/share/10bHxx/
+            - generic [ref=e169]:
+              - generic [ref=e170]:
+                - heading "AI & Machine Learning for Beginners" [level=4] [ref=e171]
+                - generic [ref=e172]: Udemy
+              - link "View" [ref=e174] [cursor=pointer]:
+                - /url: https://www.udemy.com/share/10epAN3@05VLbZS6cyYWeanWr7aYYXJ9vYtzQ3pKj91dOS0vuGMtSk-q1ALWSAWO_Lam1fvX/
+      - generic [ref=e175]:
+        - paragraph [ref=e176]: Unlock your potential with premium 1-on-1 tutoring sessions at just $55 / hour.
+        - paragraph [ref=e177]:
+          - link "Book your session today!" [ref=e178] [cursor=pointer]:
+            - /url: tutoring/tutoring.html#book
+      - generic [ref=e179]:
+        - link " Interested in Tutoring? " [ref=e180] [cursor=pointer]:
+          - /url: tutoring/tutoring.html
+          - generic [ref=e181]: 
+          - generic [ref=e182]: Interested in Tutoring?
+          - generic [ref=e183]: 
+        - link " Course Details " [ref=e184] [cursor=pointer]:
+          - /url: "#courses"
+          - generic [ref=e185]: 
+          - generic [ref=e186]: Course Details
+          - generic [ref=e187]: 
+        - link " Student & Parent Reviews " [ref=e188] [cursor=pointer]:
+          - /url: reviews/index.html
+          - generic [ref=e189]: 
+          - generic [ref=e190]: Student & Parent Reviews
+          - generic [ref=e191]: 
+  - generic [ref=e192]:
+    - heading "Featured Project" [level=2] [ref=e194]
+    - generic [ref=e196]:
+      - generic [ref=e197]:
+        - generic [ref=e198]: v1.12 Release (100% Free)
+        - heading "Playwright Browser Extension Monitor Tests in Browser" [level=2] [ref=e199]:
+          - text: Playwright Browser Extension
+          - text: Monitor Tests in Browser
+        - generic [ref=e200]:
+          - generic [ref=e201]: 
+          - generic [ref=e202]:
+            - text: Designed & Developed by
+            - strong [ref=e203]: Faruk Hasan
+        - paragraph [ref=e204]: I built this Chrome extension to solve my own context-switching pain. It integrates seamlessly with Playwright to deliver real-time test execution results directly to your browser toolbar. Now featuring Dark Mode and Detailed Failed Test Logs.
+        - list [ref=e205]:
+          - listitem [ref=e206]:
+            - generic [ref=e207]: 
+            - text: Live Status Badge & Test Summaries
+          - listitem [ref=e208]:
+            - generic [ref=e209]: 
+            - text: Beautiful Dark & Light Mode
+          - listitem [ref=e210]:
+            - generic [ref=e211]: 
+            - text: Detailed Failure Logs & Stack Traces
+          - listitem [ref=e212]:
+            - generic [ref=e213]: 
+            - text: Works with GitHub (Public, Private, Org) & AWS
+        - generic [ref=e214]:
+          - link " Get Extension" [ref=e215] [cursor=pointer]:
+            - /url: https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh?utm_source=item-share-cb
+            - generic [ref=e216]: 
+            - text: Get Extension
+          - link "Learn More" [ref=e217] [cursor=pointer]:
+            - /url: projects/playwright_test_result_chrome_extension.html
+      - generic [ref=e218]:
+        - generic [ref=e219]:
+          - generic [ref=e224]:
+            - generic [ref=e225]: 
+            - text: github.com/pulls
+          - generic [ref=e227]:
+            - generic [ref=e228]: 
+            - generic [ref=e229]: "2"
+        - generic [ref=e230]:
+          - generic [ref=e231]:
+            - generic [ref=e232]:
+              - generic [ref=e233]: 🎭
+              - text: Test Results
+            - generic [ref=e234] [cursor=pointer]: 
+          - generic [ref=e235]:
+            - generic [ref=e236]: Results JSON URL (GitHub, AWS, etc)
+            - generic [ref=e237]:
+              - textbox [ref=e238]: https://raw.githubusercontent.com/faruklmu17...
+              - generic [ref=e239]: 
+            - generic [ref=e240]:
+              - button "Save URL" [ref=e241] [cursor=pointer]
+              - button " Refresh" [ref=e242] [cursor=pointer]:
+                - generic [ref=e243]: 
+                - text: Refresh
+          - generic [ref=e244]:
+            - generic [ref=e245]: SUMMARY
+            - generic [ref=e246]:
+              - generic [ref=e247]:
+                - generic [ref=e248]:
+                  - generic [ref=e249]: 
+                  - text: "13"
+                - generic [ref=e250]: PASSED
+              - generic [ref=e251]:
+                - generic [ref=e252]:
+                  - generic [ref=e253]: 
+                  - text: "2"
+                - generic [ref=e254]: FAILED
+          - generic [ref=e255]:
+            - generic [ref=e256]: FAILING TESTS
+            - generic [ref=e257]:
+              - generic [ref=e258]: 
+              - text: page has proper language attribute
+            - generic [ref=e259]:
+              - generic [ref=e260]: 
+              - text: footer is present
+          - generic [ref=e261]:
+            - generic [ref=e262]: 15 Total Tests
+            - generic [ref=e263]:
+              - generic [ref=e264]: 
+              - text: "Last updated: 1 day ago"
+        - generic [ref=e265]:
+          - button " Simulate Test Pass" [ref=e266] [cursor=pointer]:
+            - generic [ref=e267]: 
+            - text: Simulate Test Pass
+          - button " Simulate Test Fail" [ref=e268] [cursor=pointer]:
+            - generic [ref=e269]: 
+            - text: Simulate Test Fail
+  - generic [ref=e271]:
+    - heading "Latest Blog Posts" [level=2] [ref=e272]
+    - generic [ref=e273]:
+      - generic [ref=e274]:
+        - link "Python Decorators Tutorial" [ref=e276] [cursor=pointer]:
+          - /url: blog_post/python_decorator_tutorial.html
+          - img "Python Decorators Tutorial" [ref=e277]
+        - generic [ref=e278]:
+          - generic [ref=e279]:
+            - generic [ref=e280]:
+              - generic [ref=e281]: 
+              - generic [ref=e282]: May 11, 2026
+            - generic [ref=e283]:
+              - generic [ref=e284]: 
+              - generic [ref=e285]: 8 min read
+          - 'heading "Mastering Python Decorators: A 5-Step Guide for Beginners" [level=3] [ref=e286]'
+          - paragraph [ref=e287]: Understand how Python decorators work behind the scenes. Learn everything from function objects to the magic of @decorator syntax in 5 simple steps.
+          - link "Read More " [ref=e288] [cursor=pointer]:
+            - /url: blog_post/python_decorator_tutorial.html
+            - text: Read More
+            - generic [ref=e289]: 
+      - generic [ref=e290]:
+        - link "Playwright Screencast API Tutorial" [ref=e292] [cursor=pointer]:
+          - /url: blog_post/playwright_screencast_api_basics.html
+          - img "Playwright Screencast API Tutorial" [ref=e293]
+        - generic [ref=e294]:
+          - generic [ref=e295]:
+            - generic [ref=e296]:
+              - generic [ref=e297]: 
+              - generic [ref=e298]: April 25, 2026
+            - generic [ref=e299]:
+              - generic [ref=e300]: 
+              - generic [ref=e301]: 6 min read
+          - 'heading "Playwright Screencast API Tutorial (v1.59+): Record Test Videos with Action Annotations" [level=3] [ref=e302]'
+          - paragraph [ref=e303]: Master the new Screencast API. Learn how to record custom test videos with visual action annotations for better debugging and documentation.
+          - link "Read More " [ref=e304] [cursor=pointer]:
+            - /url: blog_post/playwright_screencast_api_basics.html
+            - text: Read More
+            - generic [ref=e305]: 
+      - generic [ref=e306]:
+        - link "Playwright Soft Assertions Tutorial" [ref=e308] [cursor=pointer]:
+          - /url: blog_post/playwright_soft_assertion.html
+          - img "Playwright Soft Assertions Tutorial" [ref=e309]
+        - generic [ref=e310]:
+          - generic [ref=e311]:
+            - generic [ref=e312]:
+              - generic [ref=e313]: 
+              - generic [ref=e314]: January 11, 2026
+            - generic [ref=e315]:
+              - generic [ref=e316]: 
+              - generic [ref=e317]: 5 min read
+          - 'heading "Mastering Playwright Soft Assertions: The Guide to expect.soft()" [level=3] [ref=e318]'
+          - paragraph [ref=e319]: Stop debugging blindly. Learn how Playwright soft assertions (expect.soft) let you catch multiple UI failures in a single test run.
+          - link "Read More " [ref=e320] [cursor=pointer]:
+            - /url: blog_post/playwright_soft_assertion.html
+            - text: Read More
+            - generic [ref=e321]: 
+      - generic [ref=e322]:
+        - link "Playwright Test Results Extension tutorial" [ref=e324] [cursor=pointer]:
+          - /url: blog_post/playwright_browser_extension_test_result.html
+          - img "Playwright Test Results Extension tutorial" [ref=e325]
+        - generic [ref=e326]:
+          - generic [ref=e327]:
+            - generic [ref=e328]:
+              - generic [ref=e329]: 
+              - generic [ref=e330]: December 20, 2025
+            - generic [ref=e331]:
+              - generic [ref=e332]: 
+              - generic [ref=e333]: 7 min read
+          - 'heading "Context-Switching is Dead: Monitoring Playwright Results via Browser Extension" [level=3] [ref=e334]'
+          - paragraph [ref=e335]: Stop digging through CI logs. Learn how to monitor your Playwright test results directly from your Chrome toolbar using a live status badge and GitHub Actions.
+          - link "Read More " [ref=e336] [cursor=pointer]:
+            - /url: blog_post/playwright_browser_extension_test_result.html
+            - text: Read More
+            - generic [ref=e337]: 
+  - generic [ref=e339]:
+    - generic [ref=e340]:
+      - heading "About Me" [level=2] [ref=e342]
+      - generic [ref=e345]:
+        - paragraph [ref=e346]:
+          - text: Hi, I'm
+          - generic [ref=e347]: Faruk Hasan
+          - text: — a catalyst for quality and a passionate educator.
+        - generic [ref=e348]:
+          - generic [ref=e349]:
+            - generic [ref=e350]: 
+            - text: QA Architect
+          - generic [ref=e351]:
+            - generic [ref=e352]: 
+            - text: Tech Mentor
+          - generic [ref=e353]:
+            - generic [ref=e354]: 
+            - text: AI Pioneer
+        - paragraph [ref=e355]: With over 6+ years of specialized experience in automation engineering, I bridge the gap between complex code and flawless user experiences. My expertise lies in architecting scalable testing frameworks that integrate seamlessly with modern CI/CD ecosystems.
+        - paragraph [ref=e356]: Beyond the terminal, I'm committed to democratizing tech education. I design and lead curriculum for the next generation of engineers, transforming abstract concepts into hands-on innovation.
+        - generic [ref=e357]:
+          - generic [ref=e358]: "#Playwright"
+          - generic [ref=e359]: "#DevOps"
+          - generic [ref=e360]: "#EdTech"
+          - generic [ref=e361]: "#AIAutomation"
+    - generic [ref=e362]:
+      - heading "Career Milestones" [level=2] [ref=e364]
+      - generic [ref=e366]:
+        - generic [ref=e367]:
+          - generic [ref=e368]:
+            - heading "Senior Software QA Engineer" [level=3] [ref=e369]
+            - text: Digital.ai
+          - generic [ref=e371]:
+            - generic [ref=e372]: 
+            - text: 2022 – Present
+        - generic [ref=e373]:
+          - generic [ref=e374]: Playwright
+          - generic [ref=e375]: GitHub Actions
+          - generic [ref=e376]: TypeScript
+        - list [ref=e377]:
+          - listitem [ref=e378]:
+            - generic [ref=e379]: 
+            - generic [ref=e380]:
+              - text: Architected Playwright frameworks that reduced regression testing time by
+              - strong [ref=e381]: 50%
+              - text: .
+          - listitem [ref=e382]:
+            - generic [ref=e383]: 
+            - generic [ref=e384]: Integrated comprehensive end-to-end CI/CD pipelines to support high-velocity software releases.
+          - listitem [ref=e385]:
+            - generic [ref=e386]: 
+            - generic [ref=e387]: Spearheaded quality assurance strategies for enterprise-grade cloud platforms and applications.
+      - generic [ref=e388]:
+        - generic [ref=e389]:
+          - generic [ref=e390]:
+            - heading "Software Test Engineer" [level=3] [ref=e391]
+            - text: M.M.Hayes Co
+          - generic [ref=e393]:
+            - generic [ref=e394]: 
+            - text: 2020 – 2022
+        - generic [ref=e395]:
+          - generic [ref=e396]: Selenium
+          - generic [ref=e397]: Python
+          - generic [ref=e398]: Azure DevOps
+        - list [ref=e399]:
+          - listitem [ref=e400]:
+            - generic [ref=e401]: 
+            - generic [ref=e402]:
+              - text: Optimized legacy automation suites, boosting overall execution efficiency by
+              - strong [ref=e403]: 30%
+              - text: .
+          - listitem [ref=e404]:
+            - generic [ref=e405]: 
+            - generic [ref=e406]: Mentored and upskilled junior engineers on modern automation paradigms and best practices.
+          - listitem [ref=e407]:
+            - generic [ref=e408]: 
+            - generic [ref=e409]: Implemented robust cross-browser stability protocols to ensure seamless user experiences.
+      - link "Full Portfolio " [ref=e411] [cursor=pointer]:
+        - /url: javascript:void(0)
+        - text: Full Portfolio
+        - generic [ref=e412]: 
+  - generic [ref=e414]:
+    - heading "Courses" [level=2] [ref=e415]
+    - generic [ref=e416]:
+      - generic [ref=e417]:
+        - img "Python Fundamentals Course" [ref=e419]
+        - generic [ref=e420]: Udemy
+        - 'link "Python Fundamentals: Fun and Practical Projects for Beginners" [ref=e421] [cursor=pointer]':
+          - /url: https://www.udemy.com/share/10bHxx/
+          - 'heading "Python Fundamentals: Fun and Practical Projects for Beginners" [level=3] [ref=e422]'
+        - generic [ref=e423]: "2024"
+        - paragraph [ref=e424]: An interactive course focusing on Python basics through real-world projects.
+        - generic [ref=e425]:
+          - heading "Student Reviews" [level=4] [ref=e426]
+          - generic [ref=e427]:
+            - generic [ref=e428]:
+              - text: "\""
+              - generic [ref=e429]:
+                - generic [ref=e430]: 
+                - generic [ref=e431]: 
+                - generic [ref=e432]: 
+                - generic [ref=e433]: 
+                - generic [ref=e434]: 
+              - paragraph [ref=e435]: "\"Great course. This is actually fun. Never learned Python but it looks so easy now. Thank You Instructor Mr. Faruk Hasan.\""
+              - paragraph [ref=e436]: "- Habibus Sobhan S."
+            - generic [ref=e437]:
+              - text: "\""
+              - generic [ref=e438]:
+                - generic [ref=e439]: 
+                - generic [ref=e440]: 
+                - generic [ref=e441]: 
+                - generic [ref=e442]: 
+                - generic [ref=e443]: 
+              - paragraph [ref=e444]: "\"Really easy to follow and learn!\""
+              - paragraph [ref=e445]: "- Syed M."
+        - link "View Course" [ref=e446] [cursor=pointer]:
+          - /url: https://www.udemy.com/share/10bHxx/
+      - generic [ref=e447]:
+        - img "AI & Machine Learning for Beginners Course" [ref=e449]
+        - generic [ref=e450]: Udemy
+        - link "AI & Machine Learning for Beginners" [ref=e451] [cursor=pointer]:
+          - /url: https://www.udemy.com/share/10epAN3@05VLbZS6cyYWeanWr7aYYXJ9vYtzQ3pKj91dOS0vuGMtSk-q1ALWSAWO_Lam1fvX/
+          - heading "AI & Machine Learning for Beginners" [level=3] [ref=e452]
+        - generic [ref=e453]: "2024"
+        - paragraph [ref=e454]: An accessible introduction to AI and machine learning concepts with hands-on projects for beginners.
+        - link "View Course" [ref=e455] [cursor=pointer]:
+          - /url: https://www.udemy.com/share/10epAN3@05VLbZS6cyYWeanWr7aYYXJ9vYtzQ3pKj91dOS0vuGMtSk-q1ALWSAWO_Lam1fvX/
+  - generic [ref=e457]:
+    - heading "Projects & GitHub Activity" [level=2] [ref=e458]
+    - generic [ref=e459]:
+      - generic [ref=e460]:
+        - generic [ref=e461]:
+          - img "AI-Driven Student Grader mockup" [ref=e462]
+          - generic [ref=e464]: AI-Driven
+        - generic [ref=e465]:
+          - generic [ref=e466]:
+            - heading "AI-Driven Student Grader" [level=3] [ref=e467]
+            - generic [ref=e468]:
+              - generic [ref=e469]: Python
+              - generic [ref=e470]: RAG / OpenAI
+              - generic [ref=e471]: EdTech
+          - paragraph [ref=e472]: An intelligent grading system that leverages Retrieval-Augmented Generation (RAG) to provide students with deeply personalized feedback and evidence-based scoring based on specific rubrics.
+          - link " GitHub" [ref=e474] [cursor=pointer]:
+            - /url: https://github.com/faruklmu17/student_grader
+            - generic [ref=e475]: 
+            - text: GitHub
+      - generic [ref=e476]:
+        - generic [ref=e477]:
+          - img "Playwright Browser Extension Mockup" [ref=e478]
+          - generic [ref=e480]: Open Source
+        - generic [ref=e481]:
+          - generic [ref=e482]:
+            - heading "Playwright Browser Extension" [level=3] [ref=e483]
+            - generic [ref=e484]:
+              - generic [ref=e485]: TypeScript
+              - generic [ref=e486]: Chrome Extension
+              - generic [ref=e487]: QA
+          - paragraph [ref=e488]: A high-performance Chrome extension that integrates with Playwright to deliver real-time test execution results directly in your browser. Features live status updates and detailed failure logs.
+          - generic [ref=e489]:
+            - link " GitHub" [ref=e490] [cursor=pointer]:
+              - /url: https://github.com/faruklmu17/playwright_test_result
+              - generic [ref=e491]: 
+              - text: GitHub
+            - link " Demo" [ref=e492] [cursor=pointer]:
+              - /url: projects/playwright_test_result_chrome_extension.html
+              - generic [ref=e493]: 
+              - text: Demo
+      - generic [ref=e494]:
+        - generic [ref=e495]:
+          - img "AI Planet Builder Mockup" [ref=e496]
+          - generic [ref=e498]: System Simulation
+        - generic [ref=e499]:
+          - generic [ref=e500]:
+            - heading "AI Planet Builder" [level=3] [ref=e501]
+            - generic [ref=e502]:
+              - generic [ref=e503]: JavaScript
+              - generic [ref=e504]: HTML5 Canvas
+              - generic [ref=e505]: Cyber-System Physics
+          - paragraph [ref=e506]: A premium cyber-planet sandbox simulation. Scale compute capacity, manage advanced CPU arrays and renewable energy grids, and maintain core temperatures to prevent ecological collapse!
+          - link " Play Now" [ref=e508] [cursor=pointer]:
+            - /url: games/ai_civilization/index.html
+            - generic [ref=e509]: 
+            - text: Play Now
+      - generic [ref=e510]:
+        - generic [ref=e511]:
+          - 'img "Robo-Balance: RL Game Mockup" [ref=e512]'
+          - generic [ref=e514]: Interactive AI
+        - generic [ref=e515]:
+          - generic [ref=e516]:
+            - 'heading "Robo-Balance: RL Game" [level=3] [ref=e517]'
+            - generic [ref=e518]:
+              - generic [ref=e519]: JavaScript
+              - generic [ref=e520]: Reinforcement Learning
+              - generic [ref=e521]: CartPole
+          - paragraph [ref=e522]: An interactive web application that teaches Reinforcement Learning basics through a gamified CartPole simulation. Help the robot learn to balance using AI dynamics!
+          - link " Play Now" [ref=e524] [cursor=pointer]:
+            - /url: games/cartpole_balance.html
+            - generic [ref=e525]: 
+            - text: Play Now
+  - contentinfo [ref=e526]:
+    - generic [ref=e527]:
+      - generic [ref=e528]:
+        - generic [ref=e529]: Faruk Hasan
+        - paragraph [ref=e530]: QA Engineer | Automation & AI-Driven Testing Specialist
+      - generic [ref=e531]:
+        - heading "Connect With Me" [level=4] [ref=e532]
+        - generic [ref=e533]:
+          - link "LinkedIn" [ref=e534] [cursor=pointer]:
+            - /url: https://www.linkedin.com/in/md-faruk-hasan/
+            - generic [ref=e535]: 
+          - link "YouTube" [ref=e536] [cursor=pointer]:
+            - /url: https://www.youtube.com/@kidzcodeai
+            - generic [ref=e537]: 
+          - link "Facebook" [ref=e538] [cursor=pointer]:
+            - /url: https://www.facebook.com/HasanMd2020/
+            - generic [ref=e539]: 
+          - link "GitHub" [ref=e540] [cursor=pointer]:
+            - /url: https://github.com/faruklmu17
+            - generic [ref=e541]: 
+      - generic [ref=e542]:
+        - heading "Share This Page" [level=4] [ref=e543]
+        - generic [ref=e544]:
+          - link "Share on Facebook" [ref=e545] [cursor=pointer]:
+            - /url: javascript:void(0)
+            - generic [ref=e546]: 
+          - link "Share on Twitter" [ref=e547] [cursor=pointer]:
+            - /url: javascript:void(0)
+            - generic [ref=e548]: 
+          - link "Share on LinkedIn" [ref=e549] [cursor=pointer]:
+            - /url: javascript:void(0)
+            - generic [ref=e550]: 
+          - link "Share by Email" [ref=e551] [cursor=pointer]:
+            - /url: javascript:void(0)
+            - generic [ref=e552]: 
+    - paragraph [ref=e554]: © 2025 Faruk Hasan. All rights reserved.
+  - generic [ref=e555]:
+    - generic [ref=e556]:
+      - generic [ref=e557]:
+        - generic [ref=e558]: AI Assistant
+        - button "Close tooltip" [ref=e559] [cursor=pointer]: ×
+      - generic [ref=e560]: Hi there! 👋 How can I help? I am Faruk's AI assistant!
+    - button "Open Chat Assistant" [ref=e561] [cursor=pointer]:
+      - generic [ref=e562]: 
+      - generic [ref=e563]: "1"
+```
