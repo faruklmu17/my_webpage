@@ -989,8 +989,8 @@
   <div class="tutoring-modal-overlay" id="tutoringModalOverlay" onclick="closeTutoringModal(event)" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
     <div class="tutoring-modal" onclick="event.stopPropagation()">
       <button class="close-btn" onclick="closeTutoringModal()" aria-label="Close modal">&times;</button>
-      <h2 id="modal-title" style="color: #fff; font-size: 1.8rem; margin-bottom: 0.4rem; font-weight: 800;">Book Python Tutoring</h2>
-      <p style="color: var(--sub); font-size: 0.95rem; margin-bottom: 1.5rem;">Fill out your details and I'll get back to you shortly to schedule our session or free consultation.</p>
+      <h2 id="modal-title" style="color: #fff; font-size: 1.8rem; margin-bottom: 0.4rem; font-weight: 800;">Request Availability</h2>
+      <p style="color: var(--sub); font-size: 0.95rem; margin-bottom: 1.5rem;">Spots are currently limited. Fill out your details below and I'll get back to you with my availability to schedule a session.</p>
 
       <form action="https://formspree.io/f/xqewdkny" method="POST" class="tutoring-form" onsubmit="var btn = this.querySelector('button[type=submit]'); btn.disabled = true; btn.innerHTML = 'Sending... <i class=\'fa-solid fa-spinner fa-spin\' style=\'margin-left: 6px;\'></i>'; return true;">
         <input type="hidden" name="_subject" value="New Python Tutoring Request from Faruk-Hasan.com">
@@ -1005,8 +1005,8 @@
         <label for="py-phone" style="display: block; font-size: 0.85rem; color: #cbd5e1; margin-bottom: 0.3rem; text-align: left; font-weight: 600;">Phone Number (Optional)</label>
         <input id="py-phone" type="tel" name="phone" placeholder="e.g. (555) 123-4567">
 
-        <label for="py-message" style="display: block; font-size: 0.85rem; color: #cbd5e1; margin-bottom: 0.3rem; text-align: left; font-weight: 600;">How can I help? *</label>
-        <textarea id="py-message" name="message" rows="4" placeholder="Student age, grade level, current Python experience, or specific learning goals..." required aria-required="true"></textarea>
+        <label for="py-message" style="display: block; font-size: 0.85rem; color: #cbd5e1; margin-bottom: 0.3rem; text-align: left; font-weight: 600;">Goals & Your Availability *</label>
+        <textarea id="py-message" name="message" rows="4" placeholder="Student age, goals, and when you are typically free (e.g. Weekdays after 5pm EST)..." required aria-required="true"></textarea>
 
         <button type="submit" style="margin-top: 0.5rem;">Send Request <i class="fa-solid fa-paper-plane" style="margin-left: 6px;"></i></button>
       </form>

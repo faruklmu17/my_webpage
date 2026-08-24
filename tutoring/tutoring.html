@@ -2141,8 +2141,8 @@
   <div class="tutoring-modal-overlay" id="tutoringModalOverlay" onclick="closeTutoringModal(event)">
     <div class="tutoring-modal" onclick="event.stopPropagation()">
       <button class="close-btn" onclick="closeTutoringModal()">&times;</button>
-      <h2>Book a Session</h2>
-      <p class="sub">Fill out your details and I'll get back to you shortly to schedule our session.</p>
+      <h2>Request Availability</h2>
+      <p class="sub">Spots are currently limited. Fill out your details below and I'll get back to you with my availability to schedule a session.</p>
       
       <!-- Using Formspree for email processing -->
       <form action="https://formspree.io/f/xqewdkny" method="POST" class="tutoring-form">
@@ -2153,7 +2153,7 @@
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="email" placeholder="Your Email Address" required>
         <input type="tel" name="phone" placeholder="Phone Number (Optional)">
-        <textarea name="message" rows="4" placeholder="How can I help? (e.g. Grade level, subjects of interest, goals...)" required></textarea>
+        <textarea name="message" rows="4" placeholder="How can I help? Please include your typical availability (e.g. Weekdays after 5pm EST)..." required></textarea>
         
         <button type="submit">Send Request <i class="fa-solid fa-paper-plane" style="margin-left: 5px;"></i></button>
       </form>
