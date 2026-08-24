@@ -174,7 +174,7 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from fastapi import BackgroundTasks, Request
 from fastapi.responses import JSONResponse, PlainTextResponse
-from gradio import mount_gradio_app
+from gradio import mount_gradio_app.    
 
 print("=== STARTING APP ===")
 
