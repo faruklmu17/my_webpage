@@ -11,6 +11,7 @@
   <link rel="sitemap" type="application/xml" title="Sitemap" href="https://faruk-hasan.com/sitemap.xml" />
 
   <link rel="stylesheet" href="assets/css/chatbot.css">
+  <link rel="stylesheet" href="assets/css/avatar-bot.css">
 
 
   <!-- Open Graph / Social Media Meta Tags -->
@@ -1811,6 +1812,16 @@
       window.location.href = `mailto:?subject=${subject}&body=${body}`;
     }
   </script>
+
+  <!-- AI Faruk Avatar Launcher (Mini Video Bubble) -->
+  <div id="avatarLauncher" class="avatar-bot-launcher-bubble" aria-label="Talk to AI Faruk" title="Talk to AI Faruk">
+    <div class="avatar-video-wrapper">
+      <video id="avatarLauncherVideo" src="assets/avatar/welcome-v1.mp4" autoplay loop muted playsinline></video>
+    </div>
+    <div class="avatar-bubble-badge">Talk to AI Faruk</div>
+  </div>
+  <script src="assets/js/avatar-bot.js"></script>
+
 </body>
 
 </html>
