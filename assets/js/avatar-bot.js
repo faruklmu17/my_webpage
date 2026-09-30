@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="avatar-ai-disclosure">
             <i class="fas fa-robot"></i> AI-Generated Video
           </div>
-          <video id="avatar-video" playsinline preload="metadata">
+          <video id="avatar-video" playsinline webkit-playsinline preload="metadata">
             <source id="avatar-video-source" src="" type="video/mp4">
           </video>
           
