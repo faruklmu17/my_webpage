@@ -8,3 +8,7 @@ run_tqqq_update.bat
 .DS_Store
 health/HEALTH_REPORTS_DATA.md
 finance/
+.next/
+temp_test_clone/
+temp_hf_app.py
+temp_hf_space/
