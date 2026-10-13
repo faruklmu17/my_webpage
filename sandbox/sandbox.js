@@ -572,7 +572,6 @@ async function runCode(isResume = false) {
     }
 
     clearOutput();
-    appendOutput("▶ Running Python...\n\n", "muted");
     runBtn.disabled = true;
 
     // Mobile UX: Automatically switch to output tab if on mobile
@@ -584,11 +583,12 @@ async function runCode(isResume = false) {
     currentRunBuffer = [...persistentBuffer];
 
     try {
-        setStatus("running", "Program is running...");
+        setStatus("running", "Running your code...");
         await pyodide.runPythonAsync(code);
         
         if (!output.innerHTML.includes("___WAITING_FOR_INPUT___")) {
-            appendOutput("\n✓ Program finished successfully.\n", "ok");
+            const separator = output.textContent.length > 0 ? "\n" : "";
+            appendOutput(separator + "✓ Program finished successfully.\n", "ok");
             setStatus("ready", "Execution complete.");
             
             if (isNewStudentDemo && currentLanguage === 'python') {
