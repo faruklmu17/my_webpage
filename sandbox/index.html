@@ -1096,6 +1096,22 @@
         </div>
     </div>
 
+    <!-- Reset Confirmation Modal -->
+    <div class="modal-backdrop" id="resetModal" role="dialog" aria-modal="true" aria-labelledby="resetTitle">
+        <div class="modal" style="max-width: 440px; text-align: center;">
+            <button class="modal-close" id="resetModalCloseBtn" aria-label="Close">&times;</button>
+            <div style="font-size: 2.5rem; color: #f59e0b; margin-bottom: 0.75rem;">
+                <i class="fas fa-rotate-left"></i>
+            </div>
+            <h2 id="resetTitle" style="justify-content: center; margin-bottom: 0.5rem;">Reset Starter Code?</h2>
+            <p class="modal-sub" style="margin-bottom: 1.5rem;">This will replace your current code with the fresh starter code. Any unsaved changes will be lost.</p>
+            <div style="display: flex; gap: 0.75rem; justify-content: center;">
+                <button class="btn btn-secondary" id="resetCancelBtn">Cancel</button>
+                <button class="btn btn-run" id="resetConfirmBtn" style="background: #ef4444;"><i class="fas fa-trash-can"></i> Yes, Reset</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Help Modal -->
     <div class="modal-backdrop" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
         <div class="modal">
@@ -1178,7 +1194,7 @@
     <!-- Pyodide -->
     <script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"></script>
 
-    <script src="sandbox.js"></script>
+    <script src="sandbox.js?v=2.1"></script>
 </body>
 
 </html>

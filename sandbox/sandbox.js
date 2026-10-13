@@ -844,11 +844,35 @@ function wireUI() {
         output.innerHTML = '<span class="muted">Output cleared.</span>';
     });
 
-    document.getElementById("resetBtn").addEventListener("click", () => {
-        if (confirm("Reset code to the starter example? Your current code will be lost.")) {
-            editor.setValue(DEFAULT_CODE);
-        }
-    });
+    // Reset confirmation modal handlers
+    const resetModal = document.getElementById("resetModal");
+    const openResetModal = () => resetModal && resetModal.classList.add("show");
+    const closeResetModal = () => resetModal && resetModal.classList.remove("show");
+
+    document.getElementById("resetBtn").addEventListener("click", openResetModal);
+    const resetCancelBtn = document.getElementById("resetCancelBtn");
+    if (resetCancelBtn) resetCancelBtn.addEventListener("click", closeResetModal);
+    const resetModalCloseBtn = document.getElementById("resetModalCloseBtn");
+    if (resetModalCloseBtn) resetModalCloseBtn.addEventListener("click", closeResetModal);
+    if (resetModal) {
+        resetModal.addEventListener("click", (e) => {
+            if (e.target === resetModal) closeResetModal();
+        });
+    }
+
+    const resetConfirmBtn = document.getElementById("resetConfirmBtn");
+    if (resetConfirmBtn) {
+        resetConfirmBtn.addEventListener("click", () => {
+            if (currentLanguage === 'html') {
+                editor.setValue(EXAMPLES.html_hello);
+            } else {
+                editor.setValue(DEFAULT_CODE);
+            }
+            clearOutput();
+            setStatus("ready", "Code reset to starter template.");
+            closeResetModal();
+        });
+    }
 
     const newStudentBtn = document.getElementById("newStudentBtn");
     if (newStudentBtn) {
@@ -952,7 +976,10 @@ function wireUI() {
         if (e.target === helpModal) closeHelp();
     });
     document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && helpModal.classList.contains("show")) closeHelp();
+        if (e.key === "Escape") {
+            if (helpModal && helpModal.classList.contains("show")) closeHelp();
+            if (resetModal && resetModal.classList.contains("show")) closeResetModal();
+        }
     });
 
     // Auto-show on first visit (uses localStorage so it only happens once)
