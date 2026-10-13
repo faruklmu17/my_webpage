@@ -1111,3 +1111,28 @@ window.addEventListener("DOMContentLoaded", () => {
     initEditor();
     initPyodide();
 });
+
+// Social Sharing Functions
+window.shareOnFacebook = function() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+};
+
+window.shareOnTwitter = function() {
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(document.title);
+    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${title}`, '_blank', 'width=600,height=400');
+};
+
+window.shareOnLinkedIn = function() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=400');
+};
+
+window.shareByEmail = function() {
+    const title = document.title;
+    const url = window.location.href;
+    const subject = `Check out: ${title}`;
+    const body = `I thought you might be interested in this: ${url}`;
+    window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+};
