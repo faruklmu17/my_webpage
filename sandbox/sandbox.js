@@ -1045,6 +1045,7 @@ function switchLanguageTo(newLanguage) {
     const editorFileName = document.getElementById("editorFileName");
     const editorLangBadge = document.getElementById("editorLangBadge");
     const levelSelect = document.getElementById("levelSelect");
+    const clearOutputBtn = document.getElementById("clearOutputBtn");
     
     if (newLanguage === 'html') {
         editor.setOption("mode", "htmlmixed");
@@ -1052,6 +1053,7 @@ function switchLanguageTo(newLanguage) {
         previewFrame.style.display = "block";
         launchBtn.style.display = "flex";
         levelSelect.style.display = "none";
+        if (clearOutputBtn) clearOutputBtn.style.display = "none";
         outputTitle.textContent = "Website Preview";
         editorFileName.textContent = "index.html";
         editorLangBadge.innerHTML = '<i class="fas fa-code"></i> HTML / Web';
@@ -1071,6 +1073,7 @@ function switchLanguageTo(newLanguage) {
         previewFrame.style.display = "none";
         launchBtn.style.display = "none";
         levelSelect.style.display = "inline-block";
+        if (clearOutputBtn) clearOutputBtn.style.display = "inline-flex";
         levelSelect.value = "1";
         currentLevel = 1;
         outputTitle.textContent = "stdout (Output)";
