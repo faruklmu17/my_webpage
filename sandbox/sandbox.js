@@ -665,7 +665,7 @@ try:
 
     def _sandbox_custom_show(*args, **kwargs):
         buf = io.BytesIO()
-        plt.savefig(buf, format='png', bbox_inches='tight')
+        plt.savefig(buf, format='png', bbox_inches='tight', dpi=150)
         buf.seek(0)
         b64 = base64.b64encode(buf.read()).decode('ascii')
         buf.close()
