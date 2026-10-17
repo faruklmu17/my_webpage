@@ -662,8 +662,49 @@ try:
     import matplotlib
     matplotlib.use('agg')
     import matplotlib.pyplot as plt
+    from matplotlib.ticker import MultipleLocator
 
     def _sandbox_custom_show(*args, **kwargs):
+        # Auto-enhance student graphs for clear 1-by-1 math readability
+        try:
+            fig = plt.gcf()
+            for ax in fig.axes:
+                # 1. Put dots on discrete series so students see exact points
+                for line in ax.get_lines():
+                    if line.get_marker() in ('', 'None', None):
+                        xdata = line.get_xdata()
+                        if len(xdata) <= 30:
+                            line.set_marker('o')
+                            line.set_markersize(5.5)
+
+                # 2. Draw prominent origin axes (x=0, y=0) if in range
+                xlim = ax.get_xlim()
+                ylim = ax.get_ylim()
+                if xlim[0] < 0 < xlim[1]:
+                    ax.axvline(0, color='#334155', linewidth=1.1, zorder=2)
+                if ylim[0] < 0 < ylim[1]:
+                    ax.axhline(0, color='#334155', linewidth=1.1, zorder=2)
+
+                # 3. Orderly leveling: step by 1 on small ranges instead of decimals like 2.5
+                x_span = abs(xlim[1] - xlim[0])
+                y_span = abs(ylim[1] - ylim[0])
+
+                if x_span <= 22:
+                    ax.xaxis.set_major_locator(MultipleLocator(1))
+                elif x_span <= 44:
+                    ax.xaxis.set_major_locator(MultipleLocator(2))
+
+                if y_span <= 25:
+                    ax.yaxis.set_major_locator(MultipleLocator(1))
+                elif y_span <= 50:
+                    ax.yaxis.set_major_locator(MultipleLocator(2))
+
+                # 4. Clean math grid and readable tick labels
+                ax.grid(True, linestyle='--', alpha=0.55, color='#94a3b8')
+                ax.tick_params(labelsize=8.5)
+        except Exception:
+            pass
+
         buf = io.BytesIO()
         plt.savefig(buf, format='png', bbox_inches='tight', dpi=150)
         buf.seek(0)
