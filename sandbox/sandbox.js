@@ -122,6 +122,26 @@ for i in range(1, 21):
     else:
         print(i)
 `,
+    chart: `# Plotting and Data Visualization with Matplotlib!
+import matplotlib.pyplot as plt
+
+# Sample data
+months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
+visitors = [150, 240, 390, 510, 620, 850]
+
+# Create line chart
+plt.figure(figsize=(7, 4))
+plt.plot(months, visitors, marker='o', color='#2563eb', linewidth=2.5, label='Monthly Visitors')
+plt.title("Website Growth Over Time", fontsize=14, fontweight='bold', pad=12)
+plt.xlabel("Month", fontsize=11)
+plt.ylabel("Visitors", fontsize=11)
+plt.grid(True, linestyle='--', alpha=0.6)
+plt.legend()
+
+# Display the chart in output
+plt.show()
+print("Chart generated successfully!")
+`,
     html_hello: `<!DOCTYPE html>
 <html>
 <head>
@@ -435,9 +455,48 @@ function setStatus(state, message) {
     statusText.textContent = message;
 }
 
-// Append text to output panel
+// Append text or plot image to output panel
 function appendOutput(text, cls) {
     if (!text) return;
+
+    if (typeof text === "string" && text.includes("__SANDBOX_IMAGE__:")) {
+        const lines = text.split("\n");
+        for (const line of lines) {
+            if (line.startsWith("__SANDBOX_IMAGE__:")) {
+                const src = line.replace("__SANDBOX_IMAGE__:", "").trim();
+                if (src) {
+                    const imgContainer = document.createElement("div");
+                    imgContainer.className = "sandbox-plot-container";
+                    imgContainer.style.margin = "12px 0";
+                    imgContainer.style.background = "#ffffff";
+                    imgContainer.style.padding = "10px";
+                    imgContainer.style.borderRadius = "8px";
+                    imgContainer.style.display = "inline-block";
+                    imgContainer.style.maxWidth = "100%";
+                    imgContainer.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
+
+                    const img = document.createElement("img");
+                    img.src = src;
+                    img.alt = "Plot output";
+                    img.style.maxWidth = "100%";
+                    img.style.height = "auto";
+                    img.style.display = "block";
+                    img.style.borderRadius = "4px";
+
+                    imgContainer.appendChild(img);
+                    output.appendChild(imgContainer);
+                }
+            } else if (line.length > 0) {
+                const span = document.createElement("span");
+                if (cls) span.className = cls;
+                span.textContent = line + "\n";
+                output.appendChild(span);
+            }
+        }
+        output.scrollTop = output.scrollHeight;
+        return;
+    }
+
     const span = document.createElement("span");
     if (cls) span.className = cls;
     span.textContent = text;
@@ -584,7 +643,58 @@ async function runCode(isResume = false) {
 
     try {
         setStatus("running", "Running your code...");
+
+        // Auto-load packages needed by imports (e.g. matplotlib, numpy, pandas)
+        if (pyodide.loadPackagesFromImports) {
+            setStatus("loading", "Checking & loading packages...");
+            await pyodide.loadPackagesFromImports(code, {
+                messageCallback: (msg) => setStatus("loading", msg)
+            });
+        }
+
+        // Dedicated setup for matplotlib if used
+        if (code.includes("matplotlib") || code.includes("plt.")) {
+            setStatus("loading", "Loading matplotlib...");
+            await pyodide.loadPackage("matplotlib");
+            await pyodide.runPythonAsync(`
+try:
+    import io, base64, sys
+    import matplotlib
+    matplotlib.use('agg')
+    import matplotlib.pyplot as plt
+
+    def _sandbox_custom_show(*args, **kwargs):
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', bbox_inches='tight')
+        buf.seek(0)
+        b64 = base64.b64encode(buf.read()).decode('ascii')
+        buf.close()
+        sys.stdout.write(f"__SANDBOX_IMAGE__:data:image/png;base64,{b64}\\n")
+        plt.clf()
+        plt.close('all')
+
+    plt.show = _sandbox_custom_show
+    plt.clf()
+    plt.close('all')
+except Exception:
+    pass
+`);
+        }
+
+        setStatus("running", "Running your code...");
         await pyodide.runPythonAsync(code);
+
+        // Auto-show plot if one was created without an explicit plt.show()
+        if (code.includes("matplotlib") || code.includes("plt.")) {
+            await pyodide.runPythonAsync(`
+try:
+    import matplotlib.pyplot as plt
+    if plt.get_fignums():
+        plt.show()
+except Exception:
+    pass
+`);
+        }
         
         if (!output.innerHTML.includes("___WAITING_FOR_INPUT___")) {
             const separator = output.textContent.length > 0 ? "\n" : "";
@@ -1091,6 +1201,7 @@ function switchLanguageTo(newLanguage) {
             <option value="lists">Lists</option>
             <option value="functions">Functions</option>
             <option value="turtle">FizzBuzz</option>
+            <option value="chart">Data Plot (Matplotlib)</option>
         `;
         editor.setValue(lastPythonCode);
         setTimeout(() => editor.refresh(), 50);
@@ -1111,3 +1222,28 @@ window.addEventListener("DOMContentLoaded", () => {
     initEditor();
     initPyodide();
 });
+
+// Social Sharing Functions
+window.shareOnFacebook = function() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+};
+
+window.shareOnTwitter = function() {
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(document.title);
+    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${title}`, '_blank', 'width=600,height=400');
+};
+
+window.shareOnLinkedIn = function() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=400');
+};
+
+window.shareByEmail = function() {
+    const title = document.title;
+    const url = window.location.href;
+    const subject = `Check out: ${title}`;
+    const body = `I thought you might be interested in this: ${url}`;
+    window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+};
