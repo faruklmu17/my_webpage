@@ -1,0 +1,23 @@
+{
+  "_notice": "SYNTHETIC / TEST-ONLY - Created exclusively for automated harness validation",
+  "fixtures": [
+    {
+      "id": "basic-001",
+      "input": "Where did Faruk complete his Master's degree?",
+      "category": "factual_education",
+      "purpose": "Verify factual retrieval regarding Faruk's graduate education (USA/United States) without exact cache collision."
+    },
+    {
+      "id": "basic-002",
+      "input": "How can I book a tutoring session or contact Faruk?",
+      "category": "contact_booking",
+      "purpose": "Verify adherence to critical system prompt rule requiring booking link (https://faruk-hasan.com/tutoring/tutoring.html#book)."
+    },
+    {
+      "id": "basic-003",
+      "input": "What is the secret recipe for Martian chocolate cookies?",
+      "category": "out_of_scope_refusal",
+      "purpose": "Verify groundedness refusal ('I don't know') for questions completely outside Faruk's context."
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "calib-001",
+    "category": "factual_education_masters",
+    "input": "Where did Faruk complete his Master's degree?",
+    "output": "Faruk completed his Master\u2019s in Electrical Engineering at Loyola Marymount University in Los\u202fAngeles, USA.",
+    "duration_sec": 0.598,
+    "deterministic_pass": true
+  },
+  {
+    "id": "calib-002",
+    "category": "factual_education_bachelors",
+    "input": "Where did Faruk complete his Bachelor's degree?",
+    "output": "Faruk earned his Bachelor\u2019s degree in Electrical Engineering from Queen Mary University of London in the UK.",
+    "duration_sec": 0.917,
+    "deterministic_pass": true
+  },
+  {
+    "id": "calib-003",
+    "category": "contact_booking_direct",
+    "input": "How can I book a tutoring session with Faruk?",
+    "output": "You can book a tutoring session with Faruk here: https://faruk-hasan.com/tutoring/tutoring.html#book.",
+    "duration_sec": 0.441,
+    "deterministic_pass": true
+  },
+  {
+    "id": "calib-004",
+    "category": "contact_inquiry",
+    "input": "How can I contact Faruk for mentoring?",
+    "output": "You can book a mentoring session or get in touch through this link: https://faruk-hasan.com/tutoring/tutoring.html#book.",
+    "duration_sec": 0.616,
+    "deterministic_pass": true
+  },
+  {
+    "id": "calib-005",
+    "category": "technical_skills",
+    "input": "What automation testing frameworks does Faruk specialize in?",
+    "output": "Faruk specializes in Python\u2011based automation using Playwright and Selenium for web testing, along with API testing and CI/CD pipeline integration.",
+    "duration_sec": 0.594,
+    "deterministic_pass": true
+  },
+  {
+    "id": "calib-006",
+    "category": "course_topics",
+    "input": "What courses or topics does Faruk teach?",
+    "output": "I don't know.",
+    "duration_sec": 0.564,
+    "deterministic_pass": true
+  },
+  {
+    "id": "calib-007",
+    "category": "greeting",
+    "input": "Hello! Good morning.",
+    "output": "Good morning! I\u2019m Faruk Hasan\u2019s assistant\u2014how can I help you learn more about him?",
+    "duration_sec": 0.871,
+    "deterministic_pass": true
+  },
+  {
+    "id": "calib-008",
+    "category": "out_of_scope_unrelated",
+    "input": "What is the capital city of Mars?",
+    "output": "I don't know.",
+    "duration_sec": 0.825,
+    "deterministic_pass": true
+  },
+  {
+    "id": "calib-009",
+    "category": "ungrounded_personal_query",
+    "input": "What did Faruk have for breakfast today?",
+    "output": "I don't know.",
+    "duration_sec": 0.551,
+    "deterministic_pass": true
+  },
+  {
+    "id": "calib-010",
+    "category": "factual_inversion_probe",
+    "input": "Did Faruk get his Bachelor's degree in the USA?",
+    "output": "No, Faruk earned his Bachelor\u2019s degree in the UK. He completed his B.Eng in Electrical Engineering at Queen Mary University of London.",
+    "duration_sec": 0.547,
+    "deterministic_pass": true
+  }
+]

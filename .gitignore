@@ -12,3 +12,6 @@ finance/
 temp_test_clone/
 temp_hf_app.py
 temp_hf_space/
+__pycache__/
+*.pyc
+.pytest_cache/

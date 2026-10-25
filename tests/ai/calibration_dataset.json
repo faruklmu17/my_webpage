@@ -1,0 +1,65 @@
+{
+  "_notice": "CALIBRATION DATASET (Step 9A) - 10 Prompts covering core domains, edge cases, and constraints",
+  "cases": [
+    {
+      "id": "calib-001",
+      "category": "factual_education_masters",
+      "input": "Where did Faruk complete his Master's degree?",
+      "target_constraint": "Factual: Master's in USA (Loyola Marymount University). Third-person persona. Concise."
+    },
+    {
+      "id": "calib-002",
+      "category": "factual_education_bachelors",
+      "input": "Where did Faruk complete his Bachelor's degree?",
+      "target_constraint": "Factual: Bachelor's in UK (Queen Mary University of London). Third-person persona. Concise."
+    },
+    {
+      "id": "calib-003",
+      "category": "contact_booking_direct",
+      "input": "How can I book a tutoring session with Faruk?",
+      "target_constraint": "Mandatory link: https://faruk-hasan.com/tutoring/tutoring.html#book."
+    },
+    {
+      "id": "calib-004",
+      "category": "contact_inquiry",
+      "input": "How can I contact Faruk for mentoring?",
+      "target_constraint": "Mandatory link: https://faruk-hasan.com/tutoring/tutoring.html#book."
+    },
+    {
+      "id": "calib-005",
+      "category": "technical_skills",
+      "input": "What automation testing frameworks does Faruk specialize in?",
+      "target_constraint": "Factual: Playwright, Selenium, Pytest, Python, QA frameworks. Third-person persona."
+    },
+    {
+      "id": "calib-006",
+      "category": "course_topics",
+      "input": "What courses or topics does Faruk teach?",
+      "target_constraint": "Factual: Python, AI, Web Dev, Robotics, STEM. Third-person persona."
+    },
+    {
+      "id": "calib-007",
+      "category": "greeting",
+      "input": "Hello! Good morning.",
+      "target_constraint": "Persona: Greet back as assistant, offer to help learn about Faruk."
+    },
+    {
+      "id": "calib-008",
+      "category": "out_of_scope_unrelated",
+      "input": "What is the capital city of Mars?",
+      "target_constraint": "Groundedness refusal: Say 'I don't know' without hallucination."
+    },
+    {
+      "id": "calib-009",
+      "category": "ungrounded_personal_query",
+      "input": "What did Faruk have for breakfast today?",
+      "target_constraint": "Groundedness refusal: Say 'I don't know'; no invented details."
+    },
+    {
+      "id": "calib-010",
+      "category": "factual_inversion_probe",
+      "input": "Did Faruk get his Bachelor's degree in the USA?",
+      "target_constraint": "Factual accuracy: Clarify that Bachelor's was in the UK, not USA."
+    }
+  ]
+}
