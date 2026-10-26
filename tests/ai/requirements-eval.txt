@@ -1,0 +1,4 @@
+# AI Evaluation Harness Dependencies
+deepeval
+gradio_client>=1.11.0
+pytest>=8.0.0
