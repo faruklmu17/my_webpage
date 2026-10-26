@@ -13,6 +13,9 @@ class AgentState(TypedDict, total=False):
     Shared conversation state passed through all LangGraph nodes.
     total=False allows optional fields to be omitted without raising errors.
     """
+    # Conversation identifier
+    conversation_id: Optional[str]
+
     # Raw conversation message list
     messages: List[Dict[str, Any]]
 

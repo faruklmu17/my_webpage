@@ -26,6 +26,12 @@ from agent.routing import (
     NODE_RECOMMEND_CLASS,
 )
 from agent.graph import create_graph, graph, persistent_graph, default_checkpointer
+from agent.logging import (
+    observe_node,
+    get_session_trace,
+    clear_session_traces,
+    explain_recommendation,
+)
 
 __all__ = [
     "AgentState",
@@ -51,4 +57,8 @@ __all__ = [
     "graph",
     "persistent_graph",
     "default_checkpointer",
+    "observe_node",
+    "get_session_trace",
+    "clear_session_traces",
+    "explain_recommendation",
 ]

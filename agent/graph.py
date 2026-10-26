@@ -54,6 +54,9 @@ from agent.routing import (
 )
 
 
+from agent.logging import observe_node
+
+
 def create_graph(checkpointer: Optional[Any] = None):
     """
     Constructs and compiles the complete LangGraph workflow graph.
@@ -61,15 +64,15 @@ def create_graph(checkpointer: Optional[Any] = None):
     """
     builder = StateGraph(AgentState)
 
-    # 1. Register Nodes
-    builder.add_node("extract_information", extract_information)
-    builder.add_node("classify_intent", classify_intent)
-    builder.add_node(NODE_CHECK_MISSING, check_missing_information)
-    builder.add_node(NODE_GENERAL_RESPONSE, general_response)
-    builder.add_node(NODE_CLARIFICATION, clarification)
-    builder.add_node(NODE_FOLLOWUP_QUESTION, generate_followup_question)
-    builder.add_node(NODE_RECOMMEND_CLASS, recommend_class)
-    builder.add_node("generate_response", generate_response)
+    # 1. Register Nodes with Observability Logging
+    builder.add_node("extract_information", observe_node("extract_information")(extract_information))
+    builder.add_node("classify_intent", observe_node("classify_intent")(classify_intent))
+    builder.add_node(NODE_CHECK_MISSING, observe_node(NODE_CHECK_MISSING)(check_missing_information))
+    builder.add_node(NODE_GENERAL_RESPONSE, observe_node(NODE_GENERAL_RESPONSE)(general_response))
+    builder.add_node(NODE_CLARIFICATION, observe_node(NODE_CLARIFICATION)(clarification))
+    builder.add_node(NODE_FOLLOWUP_QUESTION, observe_node(NODE_FOLLOWUP_QUESTION)(generate_followup_question))
+    builder.add_node(NODE_RECOMMEND_CLASS, observe_node(NODE_RECOMMEND_CLASS)(recommend_class))
+    builder.add_node("generate_response", observe_node("generate_response")(generate_response))
 
     # 2. Sequential Edges
     builder.add_edge(START, "extract_information")
