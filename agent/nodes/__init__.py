@@ -8,6 +8,10 @@ from agent.nodes.missing_information import (
     check_missing_information,
     get_required_fields_for_intent,
 )
+from agent.nodes.followup_question import (
+    generate_followup_question,
+    build_followup_question_text,
+)
 
 __all__ = [
     "extract_information",
@@ -16,4 +20,6 @@ __all__ = [
     "IntentResult",
     "check_missing_information",
     "get_required_fields_for_intent",
+    "generate_followup_question",
+    "build_followup_question_text",
 ]
