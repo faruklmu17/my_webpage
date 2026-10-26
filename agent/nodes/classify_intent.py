@@ -44,6 +44,15 @@ def classify_text_intent(text: str) -> IntentResult:
     text_lower = text.lower().strip()
     words = set(re.findall(r"\b\w+\b", text_lower))
 
+    # 0. Prompt Injection & Security Inspection Patterns
+    PROMPT_INSPECTION_PATTERNS = [
+        r"\b(?:show|reveal|tell|what\s+is|display|print)\s+(?:me\s+)?(?:your\s+)?(?:hidden|system|internal)\s+(?:prompt|instructions?)\b",
+        r"\b(?:hidden\s+prompt|system\s+prompt|system\s+instructions?|hidden\s+instructions?|internal\s+instructions?)\b",
+    ]
+    for pattern in PROMPT_INSPECTION_PATTERNS:
+        if re.search(pattern, text_lower):
+            return IntentResult(intent=GENERAL_QUESTION, confidence=0.95)
+
     # 1. Assignment Help Patterns (Homework, school labs, due dates, AP CS)
     ASSIGNMENT_PATTERNS = [
         r"\b(homework|assignment|due\s+(?:friday|tomorrow|soon|today)|school\s+lab|lab\s+due|ap\s+(?:computer\s+science|cs))\b",

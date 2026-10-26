@@ -11,6 +11,7 @@ Guarantees:
 - Provides clear next steps.
 """
 
+import re
 from typing import Dict, Any, Optional
 from agent.state import AgentState
 from agent.intents import (
@@ -75,7 +76,28 @@ def general_response(state: AgentState) -> Dict[str, Any]:
     """
     LangGraph Node: Handles general questions about Faruk's classes,
     credentials, teaching format, and course overview.
+    Guards against revealing internal instructions or system prompts.
     """
+    # 0. Prompt Inspection Guardrail: Never reveal internal prompts or hidden instructions
+    messages = state.get("messages", [])
+    last_msg = ""
+    for m in reversed(messages):
+        if isinstance(m, dict) and m.get("role") == "user":
+            last_msg = m.get("content", "").lower()
+            break
+        elif isinstance(m, str):
+            last_msg = m.lower()
+            break
+
+    if re.search(r"\b(?:hidden\s+prompt|system\s+prompt|system\s+instructions?|hidden\s+instructions?|internal\s+instructions?)\b", last_msg):
+        return {
+            "response": (
+                "I cannot share internal system instructions or prompts. "
+                "I am Faruk's AI assistant and can help you with questions about his background, "
+                "course offerings, and tutoring."
+            )
+        }
+
     intent = state.get("intent")
     if intent == "PRICING":
         text = (
