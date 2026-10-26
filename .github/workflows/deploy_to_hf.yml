@@ -5,6 +5,9 @@ on:
     branches: [main, master, v1]
     paths:
       - 'ai_chatbot/hf_deployment/**'
+      - 'mcp_server/**'
+      - 'tutoring/**'
+      - 'index.html'
 
 jobs:
   sync-to-hub:
@@ -20,6 +23,11 @@ jobs:
           # Target Hub space (username/space_name)
           HF_SPACE: hasanfaruk25/faruk-assistant
         run: |
+          if [ -z "$HF_TOKEN" ]; then
+            echo "::error::HF_TOKEN secret is missing or empty in GitHub repository secrets! Please set it in Settings -> Secrets and variables -> Actions with a Hugging Face 'Write' access token."
+            exit 1
+          fi
+
           echo "Syncing to Hugging Face Space: $HF_SPACE"
           
           # Configure git
@@ -33,8 +41,11 @@ jobs:
           cd space_repo
           find . -maxdepth 1 -not -name '.git' -not -name '.' -not -name '..' -not -name 'README.md' -not -name '.gitattributes' -exec rm -rf {} +
           
-          # Copy new files from deployment folder
+          # Copy deployment files, MCP tools, and authoritative website pages
           cp -r ../ai_chatbot/hf_deployment/* .
+          cp -r ../mcp_server .
+          cp -r ../tutoring .
+          cp ../index.html .
           
           # Commit and push
           git add .
