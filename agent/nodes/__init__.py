@@ -12,6 +12,11 @@ from agent.nodes.followup_question import (
     generate_followup_question,
     build_followup_question_text,
 )
+from agent.nodes.recommendation import (
+    recommend_class,
+    score_class_for_state,
+    generate_recommendation_reason,
+)
 
 __all__ = [
     "extract_information",
@@ -22,4 +27,7 @@ __all__ = [
     "get_required_fields_for_intent",
     "generate_followup_question",
     "build_followup_question_text",
+    "recommend_class",
+    "score_class_for_state",
+    "generate_recommendation_reason",
 ]
