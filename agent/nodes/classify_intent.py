@@ -122,6 +122,16 @@ def classify_intent(state: AgentState) -> Dict[str, Any]:
 
     result = classify_text_intent(last_user_message)
 
+    # Multi-turn conversational continuity:
+    # If the user is responding to an intake follow-up question (e.g. "Only Scratch", "12 years old"),
+    # do not discard the active workflow intent when the short answer doesn't re-trigger full classification.
+    prior_intent = state.get("intent")
+    if result.confidence < 0.60 and prior_intent in {CLASS_INQUIRY, PROJECT_HELP, ASSIGNMENT_HELP}:
+        return {
+            "intent": prior_intent,
+            "intent_confidence": state.get("intent_confidence", 0.90),
+        }
+
     # Confidence rule: below 0.60 must route to UNKNOWN
     normalized = normalize_intent(result.intent) if result.confidence >= 0.60 else UNKNOWN
 

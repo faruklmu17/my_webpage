@@ -40,7 +40,12 @@ class AgentState(TypedDict, total=False):
 
     # Recommendation outputs
     recommended_class: Optional[str]
+    recommended_class_id: Optional[str]
     recommendation_reason: Optional[str]
+
+    # Final response to user
+    response: Optional[str]
+    last_question_asked: Optional[str]
 
     # Routing control
     next_action: Optional[str]

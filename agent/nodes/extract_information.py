@@ -99,15 +99,15 @@ def _extract_from_text(text: str) -> ExtractedInfo:
         if "ap computer science" in text_lower or "ap cs" in text_lower:
             info.subject = "AP Computer Science"
     # Project Help
-    elif re.search(r"\b(build.*website|build.*app|build.*chatbot|make.*game|project help|personal project|travel website)\b", text_lower):
+    elif re.search(r"\b(build.*website|build.*app|build.*chatbot|make.*game|project help|personal project|travel website|wants help building)\b", text_lower):
         info.request_type = "project_help"
     # Course inquiry
-    elif re.search(r"\b(course|class|classes|curriculum|program|lessons|long[ -]term)\b", text_lower):
+    elif re.search(r"\b(course|class|classes|curriculum|program|lessons|long[ -]term|wants?\s+to\s+learn|learn\s+(?:python|ai|coding|programming|java|react))\b", text_lower):
         info.request_type = "long_term_course"
 
     # Specific goal text extraction
     goal_match = re.search(
-        r"\b(?:wants to|want to|looking to|trying to|needs help)\s+([a-zA-Z0-9\s,\-–—]+?)(?:\.|$|, and)",
+        r"\b(?:wants to|want to|looking to|trying to|needs help|wants help|need help|hoping to)\s+(?:with\s+)?([a-zA-Z0-9\s,\-–—]+?)(?:\.|$|, and)",
         text,
         re.IGNORECASE,
     )

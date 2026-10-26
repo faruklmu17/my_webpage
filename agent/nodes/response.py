@@ -27,10 +27,6 @@ def generate_response(state: AgentState) -> Dict[str, Any]:
     LangGraph Node: Formats final response for workflow recommendations
     or delegates to appropriate conversational format.
     """
-    # If a specific response was already set (e.g. from follow-up generator), retain it
-    if state.get("response"):
-        return {"response": state["response"]}
-
     recommended_class = state.get("recommended_class")
     reason = state.get("recommendation_reason") or ""
     intent = state.get("intent")
@@ -62,6 +58,10 @@ def generate_response(state: AgentState) -> Dict[str, Any]:
                 f"Would you like to schedule a free intro call or discuss next steps for enrolling?"
             )
             return {"response": text}
+
+    # If a specific response was already set (e.g. from follow-up generator) and no recommendation
+    if state.get("response"):
+        return {"response": state["response"]}
 
     # If no recommendation exists and intent is general question
     if intent == GENERAL_QUESTION:

@@ -97,5 +97,7 @@ def generate_followup_question(state: AgentState) -> Dict[str, Any]:
 
     return {
         "messages": messages,
+        "response": question,
+        "last_question_asked": question,
         "next_action": "wait_for_user",
     }
