@@ -249,7 +249,7 @@ def _extract_project_goal(text: str) -> Optional[str]:
 
     # 4. Standard goal pattern
     goal_match = re.search(
-        r"\b(?:wants to|want to|looking to|trying to|needs help|wants help|need help|hoping to)\s+(?:with\s+)?([a-zA-Z0-9\s,\-–—]+?)(?:\.|$|, and)",
+        r"\b(?:where\s+(?:he|she|they)\s+can|wants to|want to|looking to|trying to|needs help|wants help|need help|hoping to)\s+(?:with\s+)?([a-zA-Z0-9\s,\-–—]+?)(?:\.|$|, and)",
         text,
         re.IGNORECASE,
     )
@@ -287,8 +287,15 @@ def _extract_request_type(text_lower: str) -> Tuple[Optional[str], Optional[str]
         req_type = "assignment_help"
     elif re.search(r"\b(build.*website|build.*app|build.*chatbot|make.*game|project help|personal project|travel website|wants help building|fix a bug|tutoring sessions?|private tutoring)\b", text_lower):
         req_type = "project_help"
-    elif re.search(r"\b(course|class|classes|curriculum|program|lessons|long[ -]term|wants?\s+to\s+learn|learn\s+(?:python|ai|coding|programming|java|react))\b", text_lower):
+    elif re.search(r"\b(course|longer[ -]term|long[ -]term|structured\s+course|curriculum|program|lessons)\b", text_lower):
         req_type = "long_term_course"
+    elif re.search(r"\b(class|classes|wants?\s+to\s+learn|learn\s+(?:python|ai|coding|programming|java|react))\b", text_lower):
+        # Generic initial inquiries like "I'm looking for a class for my son" do not preset long_term_course
+        # unless they specify a longer-term/structured course or explicit subject/goal
+        if not re.search(r"\b(?:looking\s+for|need|want|interested\s+in)\s+(?:a\s+)?class\b", text_lower):
+            req_type = "long_term_course"
+        elif re.search(r"\b(?:longer[ -]term|long[ -]term|structured)\b", text_lower):
+            req_type = "long_term_course"
 
     if re.search(r"\b(1-on-1|one on one|private|individual)\b", text_lower):
         pref_format = "1-on-1"

@@ -9,6 +9,7 @@ Rules:
 - Avoids robotic numbered questionnaires.
 """
 
+import re
 from typing import Dict, Any, List, Optional
 from agent.state import AgentState
 from agent.intents import (
@@ -93,7 +94,9 @@ def build_followup_question_text(state: AgentState) -> str:
     if intent == CLASS_INQUIRY or "request_type" in fields_to_ask or "student_age" in fields_to_ask:
         # Case 1: Both age and experience are missing
         if "student_age" in fields_to_ask and "experience_level" in fields_to_ask:
-            candidate = f"How old is the student, and have they had any prior experience with coding before (like Scratch or {target_lang})?"
+            all_content = " ".join(str(m.get("content", "")) for m in state.get("messages", []) if isinstance(m, dict)).lower()
+            is_he = bool(re.search(r"\b(son|boy|he|him|his)\b", all_content))
+            candidate = f"Sure. How old is {'he' if is_he else 'the student'}, and {'has he' if is_he else 'have they'} done any programming before?"
 
         # Case 2: Age is known, but experience is missing
         elif age is not None and "experience_level" in fields_to_ask:
@@ -109,7 +112,12 @@ def build_followup_question_text(state: AgentState) -> str:
 
         # Case 4: Age and experience are both known; only request_type is missing
         elif "request_type" in fields_to_ask:
-            candidate = "Are they looking for a structured course, or do they already have a project they want help building?"
+            all_content = " ".join(str(m.get("content", "")) for m in state.get("messages", []) if isinstance(m, dict)).lower()
+            is_he = bool(re.search(r"\b(son|boy|he|him|his)\b", all_content))
+            if is_he:
+                candidate = "Great. Is he mainly looking for a structured course, or does he already have something specific he wants to build?"
+            else:
+                candidate = "Are they looking for a structured course, or do they already have a project they want help building?"
 
     # --- PROJECT HELP WORKFLOW ---
     elif intent == PROJECT_HELP:
