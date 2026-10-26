@@ -47,7 +47,7 @@ def check_missing_information(state: AgentState) -> Dict[str, Any]:
         # Flexibility check: for assignment help, a known programming_language
         # satisfies the subject requirement (e.g. Java homework)
         if field == "subject" and (val is None or val == ""):
-            if state.get("programming_language"):
+            if state.get("programming_language") or state.get("previous_languages"):
                 continue
         
         if val is None or val == "" or val == []:

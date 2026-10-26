@@ -65,7 +65,7 @@ def route_intent(state: Mapping[str, Any]) -> str:
 
     if normalized in WORKFLOW_INTENTS:
         return NODE_CHECK_MISSING
-    elif normalized == GENERAL_QUESTION:
+    elif normalized in {GENERAL_QUESTION, "PRICING", "TECHNICAL_QUESTION"}:
         return NODE_GENERAL_RESPONSE
     else:
         # UNKNOWN, invalid strings, None

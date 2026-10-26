@@ -200,9 +200,8 @@ def _extract_programming_language(text_lower: str) -> Optional[str]:
     # 3. Standard target language without negation
     for lang in ["python", "java", "javascript", "c++", "html", "react"]:
         neg = re.search(rf"\b(?:not|never|no|instead of)\s+{re.escape(lang)}\b", text_lower)
-        if not neg:
-            if re.search(rf"\b(?:learn|study|teach|class in|course in|help with|knows|wants)\s+{re.escape(lang)}\b", text_lower):
-                return _format_lang(lang)
+        if not neg and re.search(rf"\b{re.escape(lang)}\b", text_lower):
+            return _format_lang(lang)
 
     return None
 
@@ -233,7 +232,18 @@ def _extract_project_goal(text: str) -> Optional[str]:
     if change_m:
         return change_m.group(1).strip()
 
-    # 3. Standard goal pattern
+    # 3. Direct project phrase: "personal project building a mobile app" or "project building an app"
+    proj_m = re.search(
+        r"\b(?:personal\s+project|project)\s+(?:of\s+)?([a-zA-Z0-9\s,\-–—]+?)(?:\.|$|, and|\s+and\s+want|\s+and\s+need)",
+        text,
+        re.IGNORECASE,
+    )
+    if proj_m:
+        extracted = proj_m.group(1).strip()
+        if len(extracted) > 3 and not re.search(r"\b(know|ask|see)\b", extracted.lower()):
+            return extracted
+
+    # 4. Standard goal pattern
     goal_match = re.search(
         r"\b(?:wants to|want to|looking to|trying to|needs help|wants help|need help|hoping to)\s+(?:with\s+)?([a-zA-Z0-9\s,\-–—]+?)(?:\.|$|, and)",
         text,
@@ -271,13 +281,15 @@ def _extract_request_type(text_lower: str) -> Tuple[Optional[str], Optional[str]
 
     if re.search(r"\b(assignment|homework|ap computer science|ap cs|school project|due)\b", text_lower):
         req_type = "assignment_help"
-    elif re.search(r"\b(build.*website|build.*app|build.*chatbot|make.*game|project help|personal project|travel website|wants help building)\b", text_lower):
+    elif re.search(r"\b(build.*website|build.*app|build.*chatbot|make.*game|project help|personal project|travel website|wants help building|fix a bug|tutoring sessions?|private tutoring)\b", text_lower):
         req_type = "project_help"
     elif re.search(r"\b(course|class|classes|curriculum|program|lessons|long[ -]term|wants?\s+to\s+learn|learn\s+(?:python|ai|coding|programming|java|react))\b", text_lower):
         req_type = "long_term_course"
 
     if re.search(r"\b(1-on-1|one on one|private|individual)\b", text_lower):
         pref_format = "1-on-1"
+        if not req_type:
+            req_type = "project_help"
     elif re.search(r"\b(group|cohort|class of students)\b", text_lower):
         pref_format = "group"
 

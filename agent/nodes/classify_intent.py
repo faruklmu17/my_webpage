@@ -21,6 +21,7 @@ from agent.intents import (
     PROJECT_HELP,
     ASSIGNMENT_HELP,
     GENERAL_QUESTION,
+    PRICING,
     UNKNOWN,
     normalize_intent,
 )
@@ -54,7 +55,7 @@ def classify_text_intent(text: str) -> IntentResult:
 
     # 2. Project Help Patterns (Building websites, chatbots, custom apps, APIs)
     PROJECT_PATTERNS = [
-        r"\b(?:build|building|make|making|develop|developing|creating)\s+(?:a|an)?\s*(?:travel\s+website|chatbot|web\s+app|game|app\s+using|portfolio)\b",
+        r"\b(?:build|building|make|making|develop|developing|creating)\s+(?:a|an)?\s*(?:travel\s+website|chatbot|web\s+apps?|web\s+applications?|game|app\s+using|portfolio)\b",
         r"\b(?:help\s+building|help\s+with\s+my\s+project|personal\s+project|open\s+source\s+project)\b",
         r"\bworking\s+on\s+(?:a|my)\s+(?:website|chatbot|app|project)\b",
     ]
@@ -62,13 +63,22 @@ def classify_text_intent(text: str) -> IntentResult:
         if re.search(pattern, text_lower):
             return IntentResult(intent=PROJECT_HELP, confidence=0.90)
 
-    # 3. Class Inquiry Patterns (Courses, age-based enrollment, curriculum, wanting to learn)
+    # 3. Pricing Patterns (checked before course keywords so "tutoring cost" -> PRICING)
+    PRICING_PATTERNS = [
+        r"\b(?:how\s+much|cost|price|pricing|rates?|hourly\s+rate|tuition|fees?)\b",
+    ]
+    for pattern in PRICING_PATTERNS:
+        if re.search(pattern, text_lower):
+            return IntentResult(intent=PRICING, confidence=0.88)
+
+    # 4. Class Inquiry Patterns (Courses, age-based enrollment, curriculum, wanting to learn)
     CLASS_PATTERNS = [
         r"\b(?:which|what)\s+class\s+(?:would\s+be\s+good|is\s+best|do\s+you\s+recommend)\b",
         r"\b(?:looking\s+for|interested\s+in)\s+(?:a\s+)?(?:class|course|lessons|tutoring)\b",
         r"\b(?:my\s+)?\d{1,2}\s*(?:year\s*old|yo)?\s*(?:wants|looking)\s+to\s+learn\b",
         r"\b(?:classes|courses)\s+(?:do\s+you\s+offer|available|for\s+beginners)\b",
-        r"\bwants?\s+to\s+learn\s+(?:python|coding|programming|ai|web\s+dev)\b",
+        r"\bwants?\s+to\s+learn\s+(?:python|coding|programming|ai|artificial\s+intelligence|web\s+dev)\b",
+        r"\b(?:want|looking\s+for|need|interested\s+in)\s+(?:private\s+)?(?:1-on-1\s+)?(?:tutoring|lessons|classes|course)\b",
     ]
     for pattern in CLASS_PATTERNS:
         if re.search(pattern, text_lower):
@@ -78,18 +88,20 @@ def classify_text_intent(text: str) -> IntentResult:
     if any(w in words for w in ["homework", "assignment"]):
         return IntentResult(intent=ASSIGNMENT_HELP, confidence=0.85)
 
-    if any(w in words for w in ["class", "classes", "course", "courses", "curriculum"]):
+    if any(w in words for w in ["class", "classes", "course", "courses", "curriculum", "tutoring", "tutor", "lessons"]):
         return IntentResult(intent=CLASS_INQUIRY, confidence=0.82)
 
     if any(w in words for w in ["project"]):
         return IntentResult(intent=PROJECT_HELP, confidence=0.80)
 
-    # 4. General Question Patterns (Conceptual questions, Faruk bio, technical definitions)
+    # 5. General & Technical Question Patterns
     GENERAL_PATTERNS = [
         r"^(what|why|how|where|who)\s+(?:is|are|does|did|was)\b",
         r"\bdifference\s+between\b",
         r"\b(?:faruk|degree|university|background|education|credentials)\b",
         r"\bwhat\s+is\s+(?:python|java|playwright|selenium|ai|react)\b",
+        r"\b(?:list\s+and\s+a?\s*tuple|tuple\s+vs\s+list)\b",
+        r"\b(?:tell\s+me\s+about|what\s+do\s+you\s+do|who\s+are\s+you|about\s+faruk|overview)\b",
     ]
     for pattern in GENERAL_PATTERNS:
         if re.search(pattern, text_lower):

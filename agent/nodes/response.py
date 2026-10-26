@@ -76,6 +76,16 @@ def general_response(state: AgentState) -> Dict[str, Any]:
     LangGraph Node: Handles general questions about Faruk's classes,
     credentials, teaching format, and course overview.
     """
+    intent = state.get("intent")
+    if intent == "PRICING":
+        text = (
+            "Faruk offers flexible rates for both private 1-on-1 project tutoring and small group courses. "
+            "Pricing depends on the format, meeting frequency, and whether you are seeking short-term assignment help "
+            "or a multi-month curriculum. Introductory consultations are complimentary.\n\n"
+            "Could you share which subject or course you are interested in so I can provide the exact details?"
+        )
+        return {"response": text}
+
     text = (
         "Faruk is a software engineer and educator offering live, interactive 1-on-1 tutoring "
         "and small group courses. Offerings include beginner Python & AI for kids, full-stack AI web "
