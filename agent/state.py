@@ -46,6 +46,7 @@ class AgentState(TypedDict, total=False):
     # Final response to user
     response: Optional[str]
     last_question_asked: Optional[str]
+    questions_asked: Optional[List[str]]
 
     # Routing control
     next_action: Optional[str]
