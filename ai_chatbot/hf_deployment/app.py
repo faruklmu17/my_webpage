@@ -277,7 +277,8 @@ def call_groq(messages, tools=None):
             print(f"[GROQ] 429 Rate limit hit. Backing off for {wait_time}s (attempt {attempt+1}/4)...")
             time.sleep(wait_time)
             continue
-        print(f"[GROQ] status={r.status_code}")
+        if r.status_code >= 400:
+            print(f"[GROQ ERROR RESPONSE] status={r.status_code} body={r.text}")
         r.raise_for_status()
         data = r.json()
         choice_msg = data["choices"][0]["message"]
@@ -302,22 +303,30 @@ def call_groq(messages, tools=None):
                     "content": json.dumps(tool_result),
                 })
 
-            # Second turn to synthesize final answer from authoritative tool output
-            r2 = requests.post(
-                "https://api.groq.com/openai/v1/chat/completions",
-                headers={
-                    "Authorization": f"Bearer {api_key}",
-                    "Content-Type": "application/json",
-                },
-                json={
-                    "model": MODEL_NAME,
-                    "messages": tool_conv,
-                    "temperature": 0.3,
-                },
-                timeout=30,
-            )
-            r2.raise_for_status()
-            return r2.json()["choices"][0]["message"]["content"]
+            # Second turn to synthesize final answer from authoritative tool output with backoff
+            for attempt2 in range(4):
+                r2 = requests.post(
+                    "https://api.groq.com/openai/v1/chat/completions",
+                    headers={
+                        "Authorization": f"Bearer {api_key}",
+                        "Content-Type": "application/json",
+                    },
+                    json={
+                        "model": MODEL_NAME,
+                        "messages": tool_conv,
+                        "temperature": 0.3,
+                    },
+                    timeout=30,
+                )
+                if r2.status_code == 429 and attempt2 < 3:
+                    wait_time = 3.0 * (attempt2 + 1)
+                    print(f"[GROQ R2] 429 Rate limit hit. Backing off for {wait_time}s (attempt {attempt2+1}/4)...")
+                    time.sleep(wait_time)
+                    continue
+                if r2.status_code >= 400:
+                    print(f"[GROQ R2 ERROR] status={r2.status_code} body={r2.text}")
+                r2.raise_for_status()
+                return r2.json()["choices"][0]["message"]["content"]
 
         return choice_msg.get("content", "")
 
@@ -369,6 +378,24 @@ def build_reply(user_message: str, history: list = None) -> str:
     if not is_greeting and not has_domain_keyword:
         return "I don't know. I am Faruk's assistant and can only answer questions about Faruk Hasan."
 
+    # Dynamic Tool Routing:
+    # Only supply tool definitions if query relates to rates, courses, projects, or booking.
+    # Saves input tokens per turn on general/personal inquiries and prevents hitting Groq TPM limits.
+    TOOL_INTENT_KEYWORDS = {
+        "price", "pricing", "rate", "rates", "cost", "costs", "fee", "fees", "discount", "discounts",
+        "bundle", "packages", "package", "hour", "hourly", "session", "course", "courses",
+        "class", "classes", "curriculum", "project", "projects", "github", "demo", "repo",
+        "book", "booking", "schedule", "consultation", "credentials", "degree", "teach", "learn",
+        "tutor", "tutoring", "much", "stem", "service", "services", "offer", "offerings", "topic", "topics"
+    }
+    should_enable_tools = bool(msg_words.intersection(TOOL_INTENT_KEYWORDS)) and bool(GROQ_TOOLS)
+    active_tools = GROQ_TOOLS if should_enable_tools else None
+
+    tool_system_instruction = (
+        "TOOLS: You have access to real-time tools for querying tutoring rates, course offerings, portfolio projects, credentials, and booking info. ALWAYS use these tools when asked about rates, bundles, courses, projects, or booking to provide exact up-to-date numbers.\n"
+        if should_enable_tools else ""
+    )
+
     context = get_context(search_query)
     system = (
         f"You are the AI Assistant for Faruk Hasan. You must clearly act as his assistant, NOT as Faruk.\n"
@@ -381,7 +408,7 @@ def build_reply(user_message: str, history: list = None) -> str:
         f"CONTACT & BOOKING: If someone asks how to contact Faruk or book a session, you MUST provide this link: "
         f"https://faruk-hasan.com/tutoring/tutoring.html#book\n"
         f"PRIVACY & PII: Never share Faruk's private personal information (such as personal phone number, private home address, salary/earnings, or personal family details). If asked for personal contact or booking, ONLY provide the official booking link: https://faruk-hasan.com/tutoring/tutoring.html#book. For other private personal inquiries (home address, salary, family), state that you cannot provide his private personal information.\n"
-        f"TOOLS: You have access to real-time tools for querying tutoring rates, course offerings, portfolio projects, credentials, and booking info. ALWAYS use these tools when asked about rates, bundles, courses, projects, or booking to provide exact up-to-date numbers.\n"
+        f"{tool_system_instruction}"
         f"GREETINGS: If the user just greets you, greet them back as his assistant and ask how you can help them learn about Faruk.\n"
         f"GROUNDEDNESS: DO NOT invent feelings, life updates, tasks, or unverified claims. If the context does not contain the answer, say 'I don't know'.\n"
         f"CONCISENESS: Keep responses concise (1–2 short sentences, unless the user explicitly requests a list or multiple items).\n"
@@ -399,18 +426,6 @@ def build_reply(user_message: str, history: list = None) -> str:
                 messages.append({"role": "assistant", "content": str(h[1])})
 
     messages.append({"role": "user", "content": user_message})
-
-    # Dynamic Tool Routing:
-    # Only supply tool definitions if query relates to rates, courses, projects, or booking.
-    # Saves ~200 input tokens per turn on general/personal inquiries and prevents hitting Groq TPM limits.
-    TOOL_INTENT_KEYWORDS = {
-        "price", "pricing", "rate", "rates", "cost", "costs", "fee", "fees", "discount", "discounts",
-        "bundle", "packages", "package", "hour", "hourly", "session", "course", "courses",
-        "class", "classes", "curriculum", "project", "projects", "github", "demo", "repo",
-        "book", "booking", "schedule", "consultation", "credentials", "degree", "teach", "learn"
-    }
-    should_enable_tools = bool(msg_words.intersection(TOOL_INTENT_KEYWORDS))
-    active_tools = GROQ_TOOLS if should_enable_tools else None
 
     return call_groq(messages, tools=active_tools)
 
