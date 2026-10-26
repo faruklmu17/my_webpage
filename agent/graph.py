@@ -111,5 +111,11 @@ def create_graph(checkpointer: Optional[Any] = None):
     return builder.compile()
 
 
-# Default compiled graph instance (in-memory, stateless execution)
+from langgraph.checkpoint.memory import MemorySaver
+
+# Default compiled graph instance (stateless execution)
 graph = create_graph()
+
+# Default checkpointer and stateful graph for session persistence (Step 15)
+default_checkpointer = MemorySaver()
+persistent_graph = create_graph(checkpointer=default_checkpointer)

@@ -25,7 +25,7 @@ from agent.routing import (
     NODE_FOLLOWUP_QUESTION,
     NODE_RECOMMEND_CLASS,
 )
-from agent.graph import create_graph, graph
+from agent.graph import create_graph, graph, persistent_graph, default_checkpointer
 
 __all__ = [
     "AgentState",
@@ -49,4 +49,6 @@ __all__ = [
     "NODE_RECOMMEND_CLASS",
     "create_graph",
     "graph",
+    "persistent_graph",
+    "default_checkpointer",
 ]
