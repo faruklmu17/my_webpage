@@ -369,7 +369,11 @@ def extract_information(state: AgentState) -> Dict[str, Any]:
     if not last_user_message:
         return {}
 
-    extracted = _extract_from_text(last_user_message)
+    try:
+        extracted = _extract_from_text(last_user_message)
+    except Exception as exc:
+        extracted = ExtractedInfo()
+
     updates: Dict[str, Any] = {}
 
     # Detect if any core state facts are being corrected/modified

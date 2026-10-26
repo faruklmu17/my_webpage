@@ -145,16 +145,31 @@ def recommend_class(state: AgentState) -> Dict[str, Any]:
     """
     LangGraph Node: Evaluates all catalog courses against state facts,
     selects top recommendation, and stores recommendation outputs.
+    Degrades gracefully to a safe default if an evaluation failure occurs.
     """
-    scored = [(score_class_for_state(c, state), c) for c in CLASSES]
-    scored.sort(key=lambda x: x[0], reverse=True)
+    try:
+        scored = [(score_class_for_state(c, state), c) for c in CLASSES]
+        scored.sort(key=lambda x: x[0], reverse=True)
 
-    top_score, top_course = scored[0]
-    reason = generate_recommendation_reason(top_course, state)
+        top_score, top_course = scored[0]
+        reason = generate_recommendation_reason(top_course, state)
 
-    return {
-        "recommended_class": top_course["name"],
-        "recommended_class_id": top_course["id"],
-        "recommendation_reason": reason,
-        "next_action": "generate_response",
-    }
+        return {
+            "recommended_class": top_course["name"],
+            "recommended_class_id": top_course["id"],
+            "recommendation_reason": reason,
+            "next_action": "generate_response",
+        }
+    except Exception:
+        # Fallback to general mentorship offering
+        default_course = CLASSES[0] if CLASSES else {
+            "name": "Private 1-on-1 Tutoring & Project Mentorship",
+            "id": "private_project_tutoring"
+        }
+        return {
+            "recommended_class": default_course["name"],
+            "recommended_class_id": default_course["id"],
+            "recommendation_reason": "Faruk offers personalized 1-on-1 mentorship tailored to your student's learning goals.",
+            "next_action": "generate_response",
+        }
+
