@@ -8,3 +8,4 @@ transformers<5.0
 fastapi
 uvicorn
 python-dotenv
+beautifulsoup4

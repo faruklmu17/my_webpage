@@ -178,9 +178,12 @@ from fastapi import BackgroundTasks, Request
 from gradio import mount_gradio_app
 
 # Load Read-Only MCP Tools
-WORKSPACE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
-if WORKSPACE_ROOT not in sys.path:
-    sys.path.insert(0, WORKSPACE_ROOT)
+for path in [
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")),
+    os.path.abspath(os.path.dirname(__file__)),
+]:
+    if path not in sys.path:
+        sys.path.insert(0, path)
 
 try:
     from mcp_server.tools_schema import GROQ_TOOLS, execute_tool_call
