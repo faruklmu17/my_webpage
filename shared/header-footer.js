@@ -35,7 +35,7 @@ function injectHeader() {
           </div>
           <div class="headline">
             <h1>Faruk Hasan</h1>
-            <p><span class="highlight">Software QA Engineer | Automation & AI-Driven Testing Specialist</span></p>
+            <p><span class="highlight">Senior AI Test Automation Engineer | LLM Evaluation | Agentic AI & Quality Engineering</span></p>
           </div>
         </div>
       <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
@@ -101,7 +101,7 @@ function injectFooter() {
       <div class="footer-content">
         <div class="footer-info">
           <div class="footer-logo">Faruk Hasan</div>
-          <p>QA Engineer | Automation & AI-Driven Testing Specialist</p>
+          <p>Senior AI Test Automation Engineer | LLM Evaluation | Agentic AI & Quality Engineering</p>
           <p>Empowering developers and testers with knowledge and tools for success.</p>
         </div>
 
