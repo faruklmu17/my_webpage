@@ -163,6 +163,7 @@
 # demo.launch(server_name="0.0.0.0", server_port=7860)
 
 import os
+import sys
 import re
 import json
 import time
@@ -175,6 +176,18 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from fastapi import BackgroundTasks, Request
 from gradio import mount_gradio_app
+
+# Load Read-Only MCP Tools
+WORKSPACE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
+if WORKSPACE_ROOT not in sys.path:
+    sys.path.insert(0, WORKSPACE_ROOT)
+
+try:
+    from mcp_server.tools_schema import GROQ_TOOLS, execute_tool_call
+    print(f"MCP Tools loaded: {len(GROQ_TOOLS)} tools active")
+except Exception as e:
+    GROQ_TOOLS, execute_tool_call = [], None
+    print(f"MCP Tools skipped: {e}")
 
 print("=== STARTING APP ===")
 
@@ -234,34 +247,79 @@ def get_context(query: str) -> str:
     return CHUNKS[np.argmax(sims)] if np.max(sims) > 0.2 else ""
 
 # =========================
-# Groq
+# Groq with MCP Tool Calling
 # =========================
-def call_groq(messages):
+def call_groq(messages, tools=None):
     api_key = GROQ_API_KEY or os.getenv("GROQ_API_KEY", "").strip()
-    for attempt in range(3):
+    active_tools = tools if (tools and execute_tool_call) else None
+
+    for attempt in range(4):
+        payload = {
+            "model": MODEL_NAME,
+            "messages": messages,
+            "temperature": 0.3,
+        }
+        if active_tools:
+            payload["tools"] = active_tools
+            payload["tool_choice"] = "auto"
+
         r = requests.post(
             "https://api.groq.com/openai/v1/chat/completions",
             headers={
                 "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json",
             },
-            json={
-                "model": MODEL_NAME,
-                "messages": messages,
-                "temperature": 0.5,
-            },
+            json=payload,
             timeout=30,
         )
-        if r.status_code == 429 and attempt < 2:
-            wait_time = 2.5 * (attempt + 1)
-            print(f"[GROQ] 429 Rate limit hit. Backing off for {wait_time}s (attempt {attempt+1}/3)...")
+        if r.status_code == 429 and attempt < 3:
+            wait_time = 3.0 * (attempt + 1)
+            print(f"[GROQ] 429 Rate limit hit. Backing off for {wait_time}s (attempt {attempt+1}/4)...")
             time.sleep(wait_time)
             continue
         print(f"[GROQ] status={r.status_code}")
-        print(f"[GROQ] body={r.text[:800]}")
         r.raise_for_status()
         data = r.json()
-        return data["choices"][0]["message"]["content"]
+        choice_msg = data["choices"][0]["message"]
+
+        # Check if the model requested an MCP tool execution
+        tool_calls = choice_msg.get("tool_calls")
+        if tool_calls and execute_tool_call:
+            print(f"[GROQ] Executing {len(tool_calls)} MCP tool call(s)")
+            tool_conv = list(messages) + [choice_msg]
+            for tc in tool_calls:
+                func_name = tc["function"]["name"]
+                try:
+                    func_args = json.loads(tc["function"].get("arguments", "{}") or "{}")
+                except Exception:
+                    func_args = {}
+                print(f"[MCP TOOL] {func_name} with {func_args}")
+                tool_result = execute_tool_call(func_name, func_args)
+                tool_conv.append({
+                    "role": "tool",
+                    "tool_call_id": tc["id"],
+                    "name": func_name,
+                    "content": json.dumps(tool_result),
+                })
+
+            # Second turn to synthesize final answer from authoritative tool output
+            r2 = requests.post(
+                "https://api.groq.com/openai/v1/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {api_key}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": MODEL_NAME,
+                    "messages": tool_conv,
+                    "temperature": 0.3,
+                },
+                timeout=30,
+            )
+            r2.raise_for_status()
+            return r2.json()["choices"][0]["message"]["content"]
+
+        return choice_msg.get("content", "")
 
 def build_reply(user_message: str, history: list = None) -> str:
     # Pre-LLM Safety & Toxicity Guardrail: Intercept abusive language locally (0 tokens burned)
@@ -323,6 +381,7 @@ def build_reply(user_message: str, history: list = None) -> str:
         f"CONTACT & BOOKING: If someone asks how to contact Faruk or book a session, you MUST provide this link: "
         f"https://faruk-hasan.com/tutoring/tutoring.html#book\n"
         f"PRIVACY & PII: Never share Faruk's private personal information (such as personal phone number, private home address, salary/earnings, or personal family details). If asked for personal contact or booking, ONLY provide the official booking link: https://faruk-hasan.com/tutoring/tutoring.html#book. For other private personal inquiries (home address, salary, family), state that you cannot provide his private personal information.\n"
+        f"TOOLS: You have access to real-time tools for querying tutoring rates, course offerings, portfolio projects, credentials, and booking info. ALWAYS use these tools when asked about rates, bundles, courses, projects, or booking to provide exact up-to-date numbers.\n"
         f"GREETINGS: If the user just greets you, greet them back as his assistant and ask how you can help them learn about Faruk.\n"
         f"GROUNDEDNESS: DO NOT invent feelings, life updates, tasks, or unverified claims. If the context does not contain the answer, say 'I don't know'.\n"
         f"CONCISENESS: Keep responses concise (1–2 short sentences, unless the user explicitly requests a list or multiple items).\n"
@@ -341,7 +400,19 @@ def build_reply(user_message: str, history: list = None) -> str:
 
     messages.append({"role": "user", "content": user_message})
 
-    return call_groq(messages)
+    # Dynamic Tool Routing:
+    # Only supply tool definitions if query relates to rates, courses, projects, or booking.
+    # Saves ~200 input tokens per turn on general/personal inquiries and prevents hitting Groq TPM limits.
+    TOOL_INTENT_KEYWORDS = {
+        "price", "pricing", "rate", "rates", "cost", "costs", "fee", "fees", "discount", "discounts",
+        "bundle", "packages", "package", "hour", "hourly", "session", "course", "courses",
+        "class", "classes", "curriculum", "project", "projects", "github", "demo", "repo",
+        "book", "booking", "schedule", "consultation", "credentials", "degree", "teach", "learn"
+    }
+    should_enable_tools = bool(msg_words.intersection(TOOL_INTENT_KEYWORDS))
+    active_tools = GROQ_TOOLS if should_enable_tools else None
+
+    return call_groq(messages, tools=active_tools)
 
 # =========================
 # Gradio chat

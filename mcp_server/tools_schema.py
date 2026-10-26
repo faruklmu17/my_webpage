@@ -25,11 +25,11 @@ GROQ_TOOLS: List[Dict[str, Any]] = [
                 "type": "object",
                 "properties": {
                     "course_topic": {
-                        "type": "string",
+                        "type": ["string", "null"],
                         "description": "Optional topic filter e.g. 'python', 'web', 'ai', 'robotics', 'qa'",
                     },
                     "target_age": {
-                        "type": "integer",
+                        "type": ["integer", "null"],
                         "description": "Optional student age e.g. 10, 14",
                     },
                 },
@@ -48,7 +48,7 @@ GROQ_TOOLS: List[Dict[str, Any]] = [
                 "type": "object",
                 "properties": {
                     "category": {
-                        "type": "string",
+                        "type": ["string", "null"],
                         "description": "Optional project category e.g. 'automation', 'ai', 'web', 'games'",
                     },
                 },
