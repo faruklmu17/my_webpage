@@ -16,6 +16,15 @@ from agent.intents import (
     MVP_INTENTS,
     normalize_intent,
 )
+from agent.routing import (
+    route_intent,
+    route_missing_information,
+    NODE_CHECK_MISSING,
+    NODE_GENERAL_RESPONSE,
+    NODE_CLARIFICATION,
+    NODE_FOLLOWUP_QUESTION,
+    NODE_RECOMMEND_CLASS,
+)
 
 __all__ = [
     "AgentState",
@@ -30,4 +39,11 @@ __all__ = [
     "UNKNOWN",
     "MVP_INTENTS",
     "normalize_intent",
+    "route_intent",
+    "route_missing_information",
+    "NODE_CHECK_MISSING",
+    "NODE_GENERAL_RESPONSE",
+    "NODE_CLARIFICATION",
+    "NODE_FOLLOWUP_QUESTION",
+    "NODE_RECOMMEND_CLASS",
 ]
