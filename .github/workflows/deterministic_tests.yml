@@ -1,0 +1,44 @@
+name: Deterministic Quality & Guardrail Tests
+
+on:
+  push:
+    branches: [main, master, v1]
+    paths:
+      - 'ai_chatbot/**'
+      - 'mcp_server/**'
+      - 'tutoring/**'
+      - 'index.html'
+      - 'tests/**'
+      - '.github/workflows/deterministic_tests.yml'
+  pull_request:
+    branches: [main, master, v1]
+  workflow_dispatch:
+
+jobs:
+  test-deterministic:
+    name: Run Deterministic Unit & Guardrail Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest beautifulsoup4 requests numpy scikit-learn sentence-transformers gradio fastapi python-dotenv
+
+      - name: Run Deterministic Test Suite
+        env:
+          DEEPEVAL_TELEMETRY_OPT_OUT: "1"
+        run: |
+          python -m pytest -v \
+            tests/mcp/test_mcp_parsers.py \
+            tests/ai/test_guardrail_logic.py \
+            tests/ai/test_deterministic_checks.py
