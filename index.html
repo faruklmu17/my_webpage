@@ -1346,9 +1346,12 @@
           </ul>
         </div>
 
-        <div class="career-footer">
-          <a href="javascript:void(0)" onclick="openResume()" class="view-more-link premium-btn">
-            Full Portfolio <i class="fas fa-arrow-right"></i>
+        <div class="career-footer" style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
+          <a href="assets/resume.pdf" target="_blank" rel="noopener noreferrer" class="view-more-link premium-btn" id="view-resume-btn">
+            <i class="fas fa-file-pdf"></i> View Resume
+          </a>
+          <a href="assets/resume.pdf" download="Faruk_Hasan_Resume.pdf" class="view-more-link premium-btn" id="download-resume-btn" style="background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.4);">
+            <i class="fas fa-download"></i> Download Resume
           </a>
         </div>
       </div>
@@ -1832,37 +1835,17 @@
 
 <script>
   function openResume() {
-    // Try multiple possible locations
-    const possiblePaths = [
-      'assets/resume.pdf',
-      'Resume.pdf',
-      'assets/resume.pdf',
-      '/Resume.pdf',
-      'assets/resume.pdf',
-      'assets/resume.pdf',
-      'assets/resume.pdf'
-    ];
-
-    // Try to fetch each path to see if the file exists
-    Promise.all(possiblePaths.map(path =>
-      fetch(path, { method: 'HEAD' })
-        .then(response => ({ path, exists: response.ok }))
-        .catch(() => ({ path, exists: false }))
-    )).then(results => {
-      // Find the first path that exists
-      const foundPath = results.find(result => result.exists);
-
-      if (foundPath) {
-        // Open the PDF in a new tab
-        window.open(foundPath.path, '_blank');
-      } else {
-        // Alert the user if no PDF is found
-        alert('Resume PDF not found. Please upload your resume file to the website root directory.');
-      }
-    });
+    window.open('assets/resume.pdf', '_blank', 'noopener,noreferrer');
   }
 
-
+  function downloadResume() {
+    const link = document.createElement('a');
+    link.href = 'assets/resume.pdf';
+    link.download = 'Faruk_Hasan_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script type="module">

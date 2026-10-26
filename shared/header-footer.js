@@ -46,6 +46,7 @@ function injectHeader() {
           <ul>
             <li><a href="${root}index.html">Home</a></li>
             <li><a href="${root}index.html#about">About Me</a></li>
+            <li><a href="${root}assets/resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a></li>
             <li><a href="${root}index.html#courses">Courses</a></li>
             <li><a href="${root}index.html#projects">Projects</a></li>
             <li><a href="${root}blog.html">Blog</a></li>
@@ -127,7 +128,8 @@ function injectFooter() {
       <div class="footer-bottom">
         <p>&copy; 2025 Faruk Hasan. All rights reserved. |
           <a href="${root}index.html">Home</a> |
-          <a href="${root}resources/resources.html">Resources</a>
+          <a href="${root}resources/resources.html">Resources</a> |
+          <a href="${root}assets/resume.pdf" target="_blank" rel="noopener noreferrer">Resume (PDF)</a>
         </p>
       </div>
     </footer>
