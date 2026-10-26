@@ -32,6 +32,13 @@ from agent.logging import (
     clear_session_traces,
     explain_recommendation,
 )
+from agent.api import (
+    ChatRequest,
+    ChatResponse,
+    handle_chat_request,
+    router as chat_router,
+    create_app as create_chat_app,
+)
 
 __all__ = [
     "AgentState",
@@ -61,4 +68,10 @@ __all__ = [
     "get_session_trace",
     "clear_session_traces",
     "explain_recommendation",
+    "ChatRequest",
+    "ChatResponse",
+    "handle_chat_request",
+    "chat_router",
+    "create_chat_app",
 ]
+

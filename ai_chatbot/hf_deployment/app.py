@@ -624,6 +624,13 @@ with gr.Blocks(css=custom_css, title="Faruk's Assistant") as demo:
 # =========================
 api = fastapi.FastAPI()
 
+try:
+    from agent.api import router as chat_router
+    api.include_router(chat_router)
+    print("LangGraph Chat API router mounted: /api/chat and /chat active")
+except Exception as e:
+    print(f"LangGraph Chat API router mounting skipped: {e}")
+
 @api.get("/")
 async def home():
     return PlainTextResponse("App is running. Open /gradio for the chat UI.")
