@@ -11,12 +11,17 @@ Allow: /
 User-agent: *
 Allow: /
 
-# Disallow sensitive or private directories
+# Disallow sensitive, internal, or duplicate directories/files
+Disallow: /testing/
+Disallow: /tests/
+Disallow: /playwright-report/
+Disallow: /test-results/
+Disallow: /index_old.html
+Disallow: /index_main.html
 Disallow: /node_modules/
 Disallow: /temp_hf_space/
 Disallow: /maintenance/
 Disallow: /__pycache__/
-Disallow: /test-results/
 Disallow: /ai_chatbot/
 Disallow: /rag_project/
 Disallow: /.git/
@@ -30,6 +35,7 @@ Allow: /finance/
 Allow: /ai_resources/
 Allow: /projects/
 Allow: /resources/
+Allow: /llms.txt
 
 # Sitemap location
 Sitemap: https://faruk-hasan.com/sitemap.xml
