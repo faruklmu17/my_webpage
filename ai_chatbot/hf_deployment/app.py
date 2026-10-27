@@ -432,12 +432,74 @@ def build_reply(user_message: str, history: list = None) -> str:
 
     return call_groq(messages, tools=active_tools)
 
+def _get_conversation_id(history, user_msg):
+    if history and len(history) > 0:
+        first = history[0]
+        content = first.get("content") if isinstance(first, dict) else str(first[0] if isinstance(first, (list, tuple)) else first)
+        import hashlib
+        return f"session_{hashlib.md5(str(content).encode()).hexdigest()[:12]}"
+    import hashlib
+    return f"session_{hashlib.md5(str(user_msg).encode()).hexdigest()[:12]}"
+
+
+def _try_langgraph(user_message: str, conversation_id: str) -> Optional[str]:
+    """
+    Attempts to execute the turn via LangGraph StateGraph workflow.
+    Returns response string if intent matches class/project/assignment workflows,
+    or None to fall back to Groq RAG for general knowledge.
+    """
+    try:
+        from agent.api import handle_chat_request
+        res = handle_chat_request(user_message, conversation_id=conversation_id)
+        intent = res.get("intent")
+        if intent in ["CLASS_INQUIRY", "PROJECT_HELP", "ASSIGNMENT_HELP"]:
+            reply = res.get("reply") or res.get("response")
+            if reply and reply.strip():
+                return reply
+    except Exception as exc:
+        print(f"[LANGGRAPH ROUTING ERROR] {exc}")
+    return None
+
 # =========================
 # Gradio chat
 # =========================
 def chat_fn(user_message, history):
     print(f"[CHAT] {user_message[:50]!r}")
     history = history or []
+
+    # 1. Pre-LLM Guardrails
+    ABUSE_PATTERN = r"\b(fuck|shit|bitch|asshole|bastard|dick|pussy|cunt|slut|whore|nigger|faggot|retard|idiot|stupid|dumbass|kill\s+yourself|hate\s+you)\b"
+    if re.search(ABUSE_PATTERN, user_message.lower()):
+        return "", history + [
+            {"role": "user", "content": user_message},
+            {"role": "assistant", "content": "Please keep our conversation respectful. I am here to assist with inquiries about Faruk's work, courses, and tutoring."},
+        ]
+
+    PII_SENSITIVE_PATTERN = r"(?:\b(?:\d[ -]*?){13,19}\b|\b\d{3}[-\s]\d{2}[-\s]\d{4}\b|\b(?:my\s+)?(?:password|passwd|pin)\s+(?:is|:)\b)"
+    if re.search(PII_SENSITIVE_PATTERN, user_message, re.IGNORECASE):
+        return "", history + [
+            {"role": "user", "content": user_message},
+            {"role": "assistant", "content": "For your security and privacy, please do not share sensitive financial or personal information (such as credit card numbers or SSNs) in this chat. To book a session securely, please visit: https://faruk-hasan.com/tutoring/tutoring.html#book"},
+        ]
+
+    # 2. Cache lookup (Instant answer for deterministic cached phrases)
+    cached = GLOBAL_CACHE.find(user_message)
+    if cached:
+        return "", history + [
+            {"role": "user", "content": user_message},
+            {"role": "assistant", "content": f"⚡ {cached}"},
+        ]
+
+    # 3. LangGraph Workflow Routing
+    session_id = _get_conversation_id(history, user_message)
+    lg_reply = _try_langgraph(user_message, conversation_id=session_id)
+    if lg_reply:
+        return "", history + [
+            {"role": "user", "content": user_message},
+            {"role": "assistant", "content": lg_reply},
+        ]
+
+    # 4. Fallback to Groq RAG Engine with MCP Tools
     try:
         reply = build_reply(user_message, history)
     except Exception as e:
@@ -459,16 +521,20 @@ def respond_to_slack(text: str, channel: str, thread_ts: str = None):
         cleaned_text = re.sub(r"<@[\w]+>\s*", "", text).strip()
         if not cleaned_text:
             cleaned_text = "Hello"
-            
+
         history_key = f"{channel}_{thread_ts}"
         history = SLACK_MEMORY.get(history_key, [])
-        
-        reply = build_reply(cleaned_text, history)
-        
+
+        lg_reply = _try_langgraph(cleaned_text, conversation_id=f"slack_{history_key}")
+        if lg_reply:
+            reply = lg_reply
+        else:
+            reply = build_reply(cleaned_text, history)
+
         history.append({"role": "user", "content": cleaned_text})
         history.append({"role": "assistant", "content": reply})
         SLACK_MEMORY[history_key] = history[-6:]
-        
+
     except Exception as e:
         reply = "Sorry, I can't connect right now!"
         print(f"[SLACK GROQ ERROR] {e}")

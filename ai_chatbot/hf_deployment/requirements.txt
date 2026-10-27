@@ -9,3 +9,5 @@ fastapi
 uvicorn
 python-dotenv
 beautifulsoup4
+langgraph
+pydantic
