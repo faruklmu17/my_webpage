@@ -35,7 +35,7 @@ function injectHeader() {
           </div>
           <div class="headline">
             <h1>Faruk Hasan</h1>
-            <p><span class="highlight">Software QA Engineer | Automation & AI-Driven Testing Specialist</span></p>
+            <p><span class="highlight">Senior AI Test Automation Engineer | LLM Evaluation | Agentic AI & Quality Engineering</span></p>
           </div>
         </div>
       <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
@@ -46,6 +46,7 @@ function injectHeader() {
           <ul>
             <li><a href="${root}index.html">Home</a></li>
             <li><a href="${root}index.html#about">About Me</a></li>
+            <li><a href="${root}assets/resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a></li>
             <li><a href="${root}index.html#courses">Courses</a></li>
             <li><a href="${root}index.html#projects">Projects</a></li>
             <li><a href="${root}blog.html">Blog</a></li>
@@ -56,9 +57,9 @@ function injectHeader() {
           </ul>
         </nav>
         <div class="social-icons">
-          <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-          <a href="https://www.youtube.com/@kidzcodeai" class="social-icon youtube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-          <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn" target="_blank" rel="me noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.youtube.com/@kidzcodeai" class="social-icon youtube" aria-label="YouTube" target="_blank" rel="me noopener noreferrer"><i class="fab fa-youtube"></i></a>
+          <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook" target="_blank" rel="me noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
         </div>
       </div>
     </div>
@@ -100,17 +101,17 @@ function injectFooter() {
       <div class="footer-content">
         <div class="footer-info">
           <div class="footer-logo">Faruk Hasan</div>
-          <p>QA Engineer | Automation & AI-Driven Testing Specialist</p>
+          <p>Senior AI Test Automation Engineer | LLM Evaluation | Agentic AI & Quality Engineering</p>
           <p>Empowering developers and testers with knowledge and tools for success.</p>
         </div>
 
         <div class="footer-social">
           <h4>Connect With Me</h4>
           <div class="social-icons-footer">
-            <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://www.youtube.com/@kidzcodeai" class="social-icon youtube" aria-label="YouTube" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://github.com/faruklmu17" class="social-icon github" aria-label="GitHub" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/md-faruk-hasan/" class="social-icon linkedin" aria-label="LinkedIn" target="_blank" rel="me noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.youtube.com/@kidzcodeai" class="social-icon youtube" aria-label="YouTube" target="_blank" rel="me noopener noreferrer"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com/HasanMd2020/" class="social-icon facebook" aria-label="Facebook" target="_blank" rel="me noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://github.com/faruklmu17" class="social-icon github" aria-label="GitHub" target="_blank" rel="me noopener noreferrer"><i class="fab fa-github"></i></a>
           </div>
         </div>
 
@@ -125,9 +126,10 @@ function injectFooter() {
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 Faruk Hasan. All rights reserved. |
+        <p>&copy; 2026 Faruk Hasan. All rights reserved. |
           <a href="${root}index.html">Home</a> |
-          <a href="${root}resources/resources.html">Resources</a>
+          <a href="${root}resources/resources.html">Resources</a> |
+          <a href="${root}assets/resume.pdf" target="_blank" rel="noopener noreferrer">Resume (PDF)</a>
         </p>
       </div>
     </footer>

@@ -31,39 +31,143 @@
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&amp;display=swap" rel="stylesheet"/>
 <!-- Add Montserrat font for professional styling -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<!-- JSON-LD Structured Data -->
+<!-- JSON-LD Structured Data (Google Knowledge Graph & AI Overviews) -->
 <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Faruk Hasan",
-    "jobTitle": "Software QA Engineer",
-    "description": "Automation & AI-Driven Testing Specialist with expertise in Playwright, Selenium, and CI/CD pipelines",
-    "url": "https://faruk-hasan.com",
-    "image": "https://faruk-hasan.com/assets/images/me.jpg",
-    "sameAs": [
-      "https://www.linkedin.com/in/md-faruk-hasan/",
-      "https://github.com/faruklmu17",
-      "https://www.youtube.com/@kidz_code",
-      "https://www.facebook.com/HasanMd2020/"
-    ],
-    "knowsAbout": [
-      "Test Automation",
-      "Playwright",
-      "Selenium",
-      "Cypress",
-      "CI/CD",
-      "Quality Assurance",
-      "Python",
-      "JavaScript",
-      "AI-Driven Testing"
-    ],
-    "alumniOf": {
-      "@type": "Organization",
-      "name": "Lincoln Memorial University"
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://faruk-hasan.com/#faruk-hasan",
+      "name": "Faruk Hasan",
+      "url": "https://faruk-hasan.com/",
+      "image": "https://faruk-hasan.com/assets/images/me.jpg",
+      "jobTitle": [
+        "Senior AI Test Automation Engineer",
+        "LLM Evaluation & Agentic AI Specialist",
+        "Senior Software QA Engineer",
+        "Coding Instructor"
+      ],
+      "description": "Senior AI Test Automation Engineer and STEM Educator specializing in LLM evaluation, Agentic AI testing with MCP, Playwright, and CI/CD quality engineering.",
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "Master of Science in Electrical Engineering (MSEE)",
+          "recognizedBy": {
+            "@type": "EducationalOrganization",
+            "name": "Loyola Marymount University",
+            "url": "https://www.lmu.edu"
+          }
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "Bachelor of Engineering in Electrical and Electronic Engineering",
+          "recognizedBy": {
+            "@type": "EducationalOrganization",
+            "name": "Queen Mary University of London",
+            "url": "https://www.qmul.ac.uk"
+          }
+        }
+      ],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Digital.ai",
+        "url": "https://digital.ai"
+      },
+      "alumniOf": [
+        {
+          "@type": "EducationalOrganization",
+          "name": "Loyola Marymount University",
+          "url": "https://www.lmu.edu"
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "Queen Mary University of London",
+          "url": "https://www.qmul.ac.uk"
+        }
+      ],
+      "knowsAbout": [
+        "Artificial Intelligence",
+        "LLM Evaluation",
+        "DeepEval",
+        "Model Context Protocol (MCP)",
+        "Agentic AI",
+        "Software Quality Engineering",
+        "Playwright",
+        "Selenium WebDriver",
+        "Python",
+        "TypeScript",
+        "Continuous Integration and Continuous Delivery (CI/CD)",
+        "STEM Education"
+      ],
+      "sameAs": [
+        "https://outschool.com/teachers/Faruk-Hasan",
+        "https://github.com/faruklmu17",
+        "https://www.linkedin.com/in/md-faruk-hasan/",
+        "https://youtube.com/@kidzcodeai",
+        "https://www.facebook.com/HasanMd2020/",
+        "https://medium.com/@hasanmohammadfaruk"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://faruk-hasan.com/#website",
+      "url": "https://faruk-hasan.com/",
+      "name": "Faruk Hasan Portfolio",
+      "description": "Official personal website and portfolio of Faruk Hasan, Senior AI Test Automation Engineer and STEM Educator.",
+      "publisher": {
+        "@id": "https://faruk-hasan.com/#faruk-hasan"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://faruk-hasan.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Who is Faruk Hasan?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Faruk Hasan is a Senior AI Test Automation Engineer, SDET, and STEM Educator with over 6+ years of specialized experience in software quality engineering, LLM evaluation, autonomous Agentic AI workflows with Model Context Protocol (MCP), and Playwright test automation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are Faruk Hasan's core technical specializations?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Faruk specializes in pioneering LLM evaluation frameworks using DeepEval and LLM-as-a-judge metrics, designing autonomous Agentic AI workflows with Model Context Protocol (MCP), architecting enterprise-grade Playwright frameworks in TypeScript and Python, and automating continuous testing pipelines in TeamCity and Jenkins."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is Faruk Hasan's role and achievements at Digital.ai?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "At Digital.ai, Faruk serves as Senior Software QA Engineer where he implemented LLM evaluation with DeepEval, integrated Model Context Protocol (MCP) agents for browser automation, and built a Playwright framework across 300+ automated tests that cut regression cycle times by 50%."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What tutoring and courses does Faruk Hasan offer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Faruk offers 1-on-1 private tutoring in Python, AI, and test automation, and has taught over 2,000+ students globally with a 4.82/5 rating on Outschool and Udemy (including 'Python Fundamentals: Fun and Practical Projects for Beginners')."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What open source tools has Faruk Hasan created?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Faruk created the Playwright Test Results Chrome Extension (v1.12), the Moltbook Autonomous AI Agent, and the Student Grader RAG system, all available on GitHub at github.com/faruklmu17."
+          }
+        }
+      ]
     }
-  }
-  </script>
+  ]
+}
+</script>
 <style>
     /* Enhanced Chatbot Frame Styling */
     .elegant-chatbot-frame-wrapper {
@@ -792,54 +896,103 @@
 <div class="about-container two-column">
 <!-- Bio Column -->
 <div class="about-bio">
+<div class="section-title-wrapper">
 <h2 class="section-title">About Me</h2>
+<div class="title-underline"></div>
+</div>
 <div class="about-content">
 <div class="about-text">
-<p class="about-intro">Hi, I'm <span class="name-highlight">Faruk Hasan</span> — a QA Engineer, educator,
-              and AI enthusiast with over 5 years of experience in automation testing, CI/CD, and cloud infrastructure.
-            </p>
-<p>I specialize in building advanced testing frameworks using Playwright with TypeScript and Python,
-              ensuring efficient and reliable software delivery. I also design and teach coding and AI courses for
-              middle and high school students, blending real-world tech skills with hands-on learning.</p>
-<p>Currently, I'm exploring AI-driven QA tools to enhance test reliability, identify flaky tests, and
-              optimize automation strategies.</p>
+<p class="about-intro">Hi, I'm <span class="name-highlight">Faruk Hasan</span> — Senior AI Test Automation Engineer, SDET & Tech Mentor.</p>
+
+<div class="role-badges">
+<span class="role-badge"><i class="fas fa-brain"></i> AI & LLM Evaluation</span>
+<span class="role-badge"><i class="fas fa-network-wired"></i> Agentic AI & MCP</span>
+<span class="role-badge"><i class="fas fa-microchip"></i> Playwright / SDET</span>
+<span class="role-badge"><i class="fas fa-graduation-cap"></i> Tech Mentor</span>
+</div>
+
+<p>With over <span class="text-highlight">6+ years of specialized experience</span> in Software Quality Engineering and Test Automation, I bridge cutting-edge artificial intelligence with enterprise-grade quality assurance. My work pioneers LLM evaluation frameworks using <span class="text-highlight">DeepEval</span> and <span class="text-highlight">LLM-as-a-judge</span>, autonomous test automation with <span class="text-highlight">Model Context Protocol (MCP)</span>, and scalable Playwright architectures integrated into high-velocity CI/CD ecosystems.</p>
+
+<p>Beyond the terminal, I hold a Master of Science in Electrical Engineering and am dedicated to mentoring engineers and democratizing STEM education — transforming complex AI, automation, and software engineering concepts into accessible, hands-on innovation.</p>
+
+<div class="interest-tags">
+<span class="tag">#LLMEvaluation</span>
+<span class="tag">#DeepEval</span>
+<span class="tag">#AgenticAI</span>
+<span class="tag">#ModelContextProtocol</span>
+<span class="tag">#Playwright</span>
+<span class="tag">#TypeScript</span>
+<span class="tag">#Python</span>
+<span class="tag">#CICD</span>
+</div>
 </div>
 </div>
 </div>
 <!-- Career Highlights Column -->
 <div class="career-highlights">
-<h2 class="section-title">Career Highlights</h2>
-<div class="career-card compact">
+<div class="section-title-wrapper">
+<h2 class="section-title">Career Milestones</h2>
+<div class="title-underline"></div>
+</div>
+<div class="career-card compact premium">
 <div class="career-header">
+<div class="job-title-row">
 <h3>Senior Software QA Engineer</h3>
-<div class="company-details">
-<span class="company-name">Digital.ai</span>
-<span class="duration">2022 – Present</span>
+<span class="company-badge">Digital.ai</span>
 </div>
+<div class="duration-location">
+<span class="duration"><i class="far fa-calendar-alt"></i> Sept 2022 – Present &bull; Remote</span>
+</div>
+</div>
+<div class="tech-stack-row">
+<span class="tech-tag">Playwright</span>
+<span class="tech-tag">DeepEval</span>
+<span class="tech-tag">MCP & Agents</span>
+<span class="tech-tag">TypeScript</span>
+<span class="tech-tag">Python</span>
+<span class="tech-tag">TeamCity & Jenkins</span>
 </div>
 <ul class="achievements">
-<li>Design and implement Playwright test scripts, increasing test coverage and reducing manual efforts.</li>
-<li>Streamline regression testing, reducing cycle time by 50%.</li>
-<li>Integrate GitHub Actions for automated test execution, improving defect identification speed.</li>
-<li>Lead cross-functional testing initiatives for enterprise-level applications.</li>
+<li><i class="fas fa-brain"></i> <span>Pioneered <strong>LLM evaluation</strong> using <strong>DeepEval</strong> and LLM-as-a-judge (G-Eval metrics for faithfulness, hallucination, relevancy, and bias) to benchmark AI response quality.</span></li>
+<li><i class="fas fa-robot"></i> <span>Engineered autonomous <strong>Agentic AI workflows</strong> using <strong>Model Context Protocol (MCP)</strong> servers (Playwright MCP) for intelligent multi-step browser automation.</span></li>
+<li><i class="fas fa-bolt"></i> <span>Architected scalable <strong>Playwright</strong> framework in TypeScript across <strong>300+ automated tests</strong>, cutting regression cycle time by <strong>50%</strong>.</span></li>
+<li><i class="fas fa-sync"></i> <span>Engineered automated quality gates and continuous testing pipelines in <strong>TeamCity</strong> and <strong>Jenkins</strong> for cloud deployment confidence.</span></li>
+<li><i class="fas fa-users"></i> <span>Mentored engineers and established team standards for Page Object Model (POM), data-driven testing, and flaky test mitigation.</span></li>
 </ul>
 </div>
-<div class="career-card compact">
+<div class="career-card compact premium">
 <div class="career-header">
+<div class="job-title-row">
 <h3>Software Test Engineer</h3>
-<div class="company-details">
-<span class="company-name">M.M.Hayes Co</span>
-<span class="duration">2020 – 2022</span>
+<span class="company-badge grey">M.M. Hayes Co., Inc.</span>
 </div>
+<div class="duration-location">
+<span class="duration"><i class="far fa-calendar-alt"></i> March 2020 – August 2022 &bull; Albany, NY</span>
+</div>
+</div>
+<div class="tech-stack-row">
+<span class="tech-tag">Selenium WebDriver</span>
+<span class="tech-tag">Java</span>
+<span class="tech-tag">TestNG</span>
+<span class="tech-tag">SQL</span>
+<span class="tech-tag">Appium</span>
+<span class="tech-tag">Jira</span>
 </div>
 <ul class="achievements">
-<li>Developed Selenium-based frameworks, boosting test efficiency by 30%.</li>
-<li>Trained junior QA engineers, improving team automation proficiency.</li>
-<li>Reduced regression cycle time by implementing cross-browser testing strategies.</li>
-<li>Collaborated with developers to implement CI/CD pipelines for continuous testing.</li>
+<li><i class="fas fa-code"></i> <span>Developed and maintained automated test suites using <strong>Selenium WebDriver</strong>, <strong>Java</strong>, and <strong>TestNG</strong> for critical enterprise business workflows.</span></li>
+<li><i class="fas fa-database"></i> <span>Executed backend validation with complex <strong>SQL queries</strong> to ensure transaction integrity, data consistency, and stored procedure reliability.</span></li>
+<li><i class="fas fa-mobile-alt"></i> <span>Automated mobile testing with <strong>Appium</strong> across iOS/Android and Point of Sale (POS) hardware integrations.</span></li>
+<li><i class="fas fa-check-circle"></i> <span>Authored test plans, strategies, and traceability matrices in Jira to guarantee 100% requirements coverage for enterprise releases.</span></li>
 </ul>
 </div>
-<a class="view-more-link" href="javascript:void(0)" onclick="openResume()">View Full Career <i class="fas fa-arrow-right"></i></a>
+<div class="career-footer" style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
+<a href="assets/resume.pdf" target="_blank" rel="noopener noreferrer" class="view-more-link premium-btn" id="view-resume-btn">
+<i class="fas fa-file-pdf"></i> View Resume
+</a>
+<a href="assets/resume.pdf" download="Faruk_Hasan_Resume.pdf" class="view-more-link premium-btn" id="download-resume-btn" style="background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.4);">
+<i class="fas fa-download"></i> Download Resume
+</a>
+</div>
 </div>
 </div>
 </section>
@@ -1324,35 +1477,18 @@ ight test results in real-time using TypeScript, JavaScript, and HTML/CSS.</p>
 </html>
 <script>
   function openResume() {
-    // Try multiple possible locations
-    const possiblePaths = [
-      'assets/resume.pdf',
-      'Resume.pdf',
-      'assets/resume.pdf',
-      '/Resume.pdf',
-      'assets/resume.pdf',
-      'assets/resume.pdf',
-      'assets/resume.pdf'
-    ];
-
-    // Try to fetch each path to see if the file exists
-    Promise.all(possiblePaths.map(path =>
-      fetch(path, { method: 'HEAD' })
-        .then(response => ({ path, exists: response.ok }))
-        .catch(() => ({ path, exists: false }))
-    )).then(results => {
-      // Find the first path that exists
-      const foundPath = results.find(result => result.exists);
-
-      if (foundPath) {
-        // Open the PDF in a new tab
-        window.open(foundPath.path, '_blank');
-      } else {
-        // Alert the user if no PDF is found
-        alert('Resume PDF not found. Please upload your resume file to the website root directory.');
-      }
-    });
+    window.open('assets/resume.pdf', '_blank', 'noopener,noreferrer');
   }
+
+  function downloadResume() {
+    const link = document.createElement('a');
+    link.href = 'assets/resume.pdf';
+    link.download = 'Faruk_Hasan_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+</script>
 
   /*
     // Add Chart.js and XLSX libraries

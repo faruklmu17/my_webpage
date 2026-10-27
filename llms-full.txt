@@ -1,0 +1,72 @@
+# Faruk Hasan — Comprehensive Profile & Technical Reference
+
+> Canonical Domain: [https://faruk-hasan.com/](https://faruk-hasan.com/)  
+> Primary Role: Senior AI Test Automation Engineer | LLM Evaluation | Agentic AI & Quality Engineering  
+> Location: Hudson Valley, New York, USA (Working Remotely)  
+> Email: faruqmul@gmail.com  
+> Verified Profiles:  
+> - LinkedIn: [https://www.linkedin.com/in/md-faruk-hasan/](https://www.linkedin.com/in/md-faruk-hasan/)  
+> - GitHub: [https://github.com/faruklmu17](https://github.com/faruklmu17)  
+> - YouTube: [https://youtube.com/@kidzcodeai](https://youtube.com/@kidzcodeai)  
+> - Outschool: [https://outschool.com/teachers/Faruk-Hasan](https://outschool.com/teachers/Faruk-Hasan)  
+> - Medium: [https://medium.com/@hasanmohammadfaruk](https://medium.com/@hasanmohammadfaruk)  
+
+---
+
+## 1. Executive Summary
+Faruk Hasan is a Senior AI Test Automation Engineer, SDET, and STEM Educator with over 6+ years of specialized experience in software quality engineering, test automation frameworks, and modern artificial intelligence evaluation. He holds a Master of Science in Electrical Engineering from Loyola Marymount University (Los Angeles, CA) and a Bachelor of Engineering in Electrical and Electronic Engineering from Queen Mary University of London (United Kingdom).
+
+Faruk bridges cutting-edge AI technologies—such as LLM evaluation frameworks (DeepEval), LLM-as-a-judge methodologies, and autonomous Agentic AI workflows with Model Context Protocol (MCP)—with enterprise-scale quality engineering and continuous delivery pipelines (Playwright, TeamCity, Jenkins, GitHub Actions).
+
+---
+
+## 2. Professional Experience
+
+### Senior Software QA Engineer — Digital.ai
+*Location: Remote | Duration: September 2022 – Present*
+- **LLM Evaluation & Quality Benchmarking**: Pioneered AI evaluation strategies using **DeepEval**, implementing **LLM-as-a-judge** architectures with G-Eval metrics (measuring hallucination, faithfulness, answer relevancy, and bias) to benchmark enterprise generative AI response quality.
+- **Agentic AI & Model Context Protocol (MCP)**: Designed and evaluated autonomous agentic workflows by integrating Model Context Protocol (MCP) servers (including Playwright MCP), enabling AI agents to autonomously execute multi-step browser automation and end-to-end regression workflows.
+- **AI-Assisted Development**: Leveraged AI tools (GitHub Copilot, Claude) to accelerate test creation, scenario generation, and maintenance across enterprise web platforms.
+- **Playwright Test Architecture**: Architected and scaled a modular Playwright framework in TypeScript covering 300+ automated test cases, reducing regression cycle times by **50%**.
+- **Continuous Quality Gates**: Engineered automated testing quality gates in **TeamCity** and **Jenkins**, guaranteeing fast feedback and reliable releases for cloud platforms.
+- **Engineering Leadership**: Mentored junior QA engineers on Page Object Model (POM) design patterns, data-driven testing, and mitigation of flaky tests.
+
+### Software Test Engineer — M.M. Hayes Co., Inc.
+*Location: Albany, NY | Duration: March 2020 – August 2022*
+- **Selenium Automation**: Developed and maintained automated regression suites using **Selenium WebDriver**, **Java**, and **TestNG** for core enterprise workflows.
+- **Database & Backend Validation**: Wrote complex **SQL queries** to validate transactional integrity, stored procedures, and back-end database state.
+- **Mobile & Hardware Testing**: Executed cross-platform automated mobile testing with **Appium** across iOS, Android, and Point of Sale (POS) hardware devices.
+- **Agile Quality Process**: Authored test strategies, test plans, and traceability matrices in Jira to ensure 100% requirements coverage.
+
+---
+
+## 3. Education & Credentials
+- **Master of Science in Electrical Engineering (MSEE)** — Loyola Marymount University, Los Angeles, California (May 2016, GPA: 3.54)
+- **Bachelor of Engineering in Electrical and Electronic Engineering (B.Eng)** — Queen Mary University of London, United Kingdom (July 2011, Upper Second Class Honours)
+
+---
+
+## 4. Technical Skills Matrix
+- **AI & LLM Evaluation**: DeepEval, LLM-as-a-Judge, Model Context Protocol (MCP), Agentic AI Workflows, G-Eval Metrics (Faithfulness, Hallucination, Relevancy, Bias), Prompt Engineering, Claude, GitHub Copilot.
+- **Automation Frameworks**: Playwright (TypeScript, JavaScript, Python), Selenium WebDriver, Appium, TestNG, Pytest, Cucumber (BDD), RestAssured.
+- **Programming Languages**: TypeScript, Python, JavaScript, Java, SQL, HTML5/CSS3.
+- **DevOps, CI/CD & Cloud**: TeamCity, Jenkins, GitHub Actions, Docker, AWS, Git.
+- **Databases & Tools**: PostgreSQL, SQLite, MySQL, Jira, Postman.
+
+---
+
+## 5. Educational Impact & Online Teaching
+- **Total Students Taught**: Over 2,000+ learners across global online platforms.
+- **Rating**: 4.82 out of 5.00 stars based on hundreds of verified reviews from students and parents.
+- **Platforms**:
+  - **Outschool**: STEM instructor teaching Python Programming (Beginner to Advanced), AI & Chatbot Development, Web Development, Arduino & Electronics, and Robotics for ages 9–18.
+  - **Udemy**: Creator of *Python Fundamentals: Fun and Practical Projects for Beginners* and upcoming courses on AI and automation.
+  - **Private Tutoring**: Delivers personalized 1-on-1 tutoring sessions globally through [https://faruk-hasan.com/tutoring/tutoring.html](https://faruk-hasan.com/tutoring/tutoring.html).
+
+---
+
+## 6. Notable Projects & Open Source
+- **Playwright Test Results Browser Extension (Chrome Web Store v1.12)**: A Chrome extension allowing QA engineers to monitor automated test execution directly from their toolbar with real-time status badges and failure logs.
+- **Moltbook Autonomous AI Agent**: Autonomous AI agent operating in social media sandboxes ([https://github.com/faruklmu17/moltbook_ai_agent](https://github.com/faruklmu17/moltbook_ai_agent)).
+- **Student Grader**: RAG-based automated student grading system providing personalized educational feedback ([https://github.com/faruklmu17/student_grader](https://github.com/faruklmu17/student_grader)).
+- **On-Site AI Assistant**: Personalized AI chatbot on [https://faruk-hasan.com](https://faruk-hasan.com) featuring hybrid fast-cache and LangGraph-orchestrated question answering.

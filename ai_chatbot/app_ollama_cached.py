@@ -18,11 +18,11 @@ class ChatbotCache:
         """Load predefined Q&A pairs for common questions"""
         return {
             # About Faruk - Basic Info
-            "who is faruk": "Faruk Hasan is a Senior Software QA Engineer at Digital.ai with 5+ years of experience in automation testing, CI/CD, and cloud infrastructure. He's also an educator who teaches coding and AI courses.",
+            "who is faruk": "Faruk Hasan is a Senior AI Test Automation Engineer and STEM Educator with over 6+ years of specialized experience in software quality engineering, LLM evaluation (DeepEval, LLM-as-a-judge), autonomous Agentic AI workflows with Model Context Protocol (MCP), and Playwright test automation.",
             
-            "what does faruk do": "Faruk works as a Senior Software QA Engineer specializing in Playwright automation testing. He also teaches Python, AI, and web development courses on Udemy and provides tutoring services.",
+            "what does faruk do": "Faruk works as a Senior AI Test Automation Engineer at Digital.ai specializing in LLM evaluation, Agentic AI with MCP, and Playwright automation frameworks. He also teaches Python, AI, and robotics courses and provides 1-on-1 tutoring services.",
             
-            "faruk experience": "Faruk has 5+ years of QA engineering experience, currently working at Digital.ai since 2022. He previously worked at M.M.Hayes Co and specializes in Playwright, Python, and test automation frameworks.",
+            "faruk experience": "Faruk has 6+ years of specialized automation and quality engineering experience. Currently at Digital.ai since Sept 2022, he leads LLM evaluation with DeepEval, builds Agentic AI workflows with Model Context Protocol (MCP), and architected a 300+ test Playwright framework cutting regression cycles by 50%. Previously, he was a Software Test Engineer at M.M. Hayes Co., Inc. focusing on Selenium WebDriver and backend SQL validation.",
             
             # Contact Information
             "contact faruk": "You can contact Faruk at faruqmul@gmail.com. He's also available on LinkedIn at linkedin.com/in/md-faruk-hasan/",

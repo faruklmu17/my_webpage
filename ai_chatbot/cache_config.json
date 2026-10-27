@@ -1,10 +1,10 @@
 {
   "cache_responses": {
-    "who is faruk": "Faruk Hasan is a Senior Software QA Engineer at Digital.ai with 5+ years of experience in automation testing, CI/CD, and cloud infrastructure. He's also an educator who teaches coding and AI courses.",
+    "who is faruk": "Faruk Hasan is a Senior AI Test Automation Engineer and STEM Educator with over 6+ years of specialized experience in software quality engineering, LLM evaluation (DeepEval, LLM-as-a-judge), autonomous Agentic AI workflows with Model Context Protocol (MCP), and Playwright test automation.",
     
-    "what does faruk do": "Faruk works as a Senior Software QA Engineer specializing in Playwright automation testing. He also teaches Python, AI, and web development courses on Udemy and provides tutoring services.",
+    "what does faruk do": "Faruk works as a Senior AI Test Automation Engineer at Digital.ai specializing in LLM evaluation, Agentic AI with MCP, and Playwright automation frameworks. He also teaches Python, AI, and robotics courses and provides 1-on-1 tutoring services.",
     
-    "faruk experience": "Faruk has 5+ years of QA engineering experience, currently working at Digital.ai since 2022. He previously worked at M.M.Hayes Co and specializes in Playwright, Python, and test automation frameworks.",
+    "faruk experience": "Faruk has 6+ years of specialized automation and quality engineering experience. Currently at Digital.ai since Sept 2022, he leads LLM evaluation with DeepEval, builds Agentic AI workflows with Model Context Protocol (MCP), and architected a 300+ test Playwright framework cutting regression cycles by 50%. Previously, he was a Software Test Engineer at M.M. Hayes Co., Inc. focusing on Selenium WebDriver and backend SQL validation.",
     
     "contact faruk": "You can contact Faruk at faruqmul@gmail.com. He's also available on LinkedIn at linkedin.com/in/md-faruk-hasan/",
 
@@ -22,27 +22,27 @@
     
     "ai course": "Faruk's AI & Machine Learning for Beginners course on Udemy provides an accessible introduction to AI concepts with hands-on projects for beginners.",
     
-    "playwright": "Faruk is an expert in Playwright automation testing with Python and TypeScript. He's built advanced frameworks with CI/CD integration and has created browser extensions for test result visualization.",
+    "playwright": "Faruk is an expert in Playwright automation testing with TypeScript and Python. At Digital.ai, he architected scalable frameworks with over 300+ automated tests, integrated CI/CD quality gates, and authored browser extensions for test results visualization.",
     
-    "automation testing": "Faruk specializes in automation testing using Playwright, Selenium, and custom frameworks. He's reduced regression cycle times by 50% and improved test coverage significantly.",
+    "automation testing": "Faruk specializes in test automation using Playwright, DeepEval, Model Context Protocol (MCP), Selenium WebDriver, and Appium. He has reduced regression cycle times by 50% and engineered automated quality gates.",
     
     "python": "Faruk is proficient in Python for test automation, web development, and AI/ML projects. He teaches Python fundamentals and has built several automation frameworks.",
     
-    "ai ml": "Faruk has experience with AI and machine learning, including creating personalized chatbots using Ollama and Hugging Face. He teaches AI/ML concepts to beginners.",
+    "ai ml": "Faruk specializes in AI testing and LLM evaluation using DeepEval and LLM-as-a-judge (faithfulness, hallucination, answer relevancy, bias) and builds autonomous agentic testing workflows with Model Context Protocol (MCP).",
     
-    "github": "You can find Faruk's projects on GitHub at github.com/faruklmu17, including his Playwright frameworks and automation tools.",
+    "github": "You can find Faruk's projects on GitHub at github.com/faruklmu17, including his Playwright frameworks, AI agents, and automation tools.",
     
-    "selenium": "Faruk has extensive experience with Selenium automation testing. He's developed Selenium-based frameworks that boosted test efficiency by 30% and trained junior QA engineers.",
+    "selenium": "Faruk has extensive experience with Selenium WebDriver, Java, TestNG, and Appium from his tenure at M.M. Hayes Co., Inc., covering critical enterprise workflows and mobile testing.",
     
-    "digital.ai": "Faruk currently works as a Senior Software QA Engineer at Digital.ai since 2022, where he designs Playwright test scripts and leads cross-functional testing initiatives.",
+    "digital.ai": "Faruk currently works as a Senior Software QA Engineer at Digital.ai (Sept 2022 – Present), where he pioneers LLM evaluation with DeepEval, builds autonomous Agentic AI workflows via MCP, and maintains 300+ Playwright automated tests cutting regression cycles by 50%.",
     
     "teaching": "Faruk has taught 2000+ students over 12+ years with a 4.82/5 rating. He creates courses on Python, AI/ML, and provides personalized tutoring services.",
     
     "udemy": "Faruk has published multiple courses on Udemy including Python Fundamentals and AI & Machine Learning for Beginners, both receiving excellent student reviews.",
     
-    "typescript": "Faruk works with TypeScript for Playwright automation testing and has created browser extensions using TypeScript for test result visualization.",
+    "typescript": "Faruk works extensively with TypeScript for Playwright automation testing and browser extensions.",
     
-    "ci cd": "Faruk has extensive experience with CI/CD pipelines, integrating GitHub Actions for automated test execution and improving defect identification speed.",
+    "ci cd": "Faruk has extensive CI/CD experience with TeamCity, Jenkins, and GitHub Actions, implementing automated quality gates for continuous cloud deployment.",
     
     "hello": "Hello! I'm Faruk's AI assistant. I can help you learn about his QA career, tutoring services, courses, or answer questions about Python, testing, and AI.",
     

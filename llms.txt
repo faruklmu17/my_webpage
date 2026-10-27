@@ -1,0 +1,39 @@
+# Faruk Hasan — Senior AI Test Automation Engineer & STEM Educator
+
+> The official canonical website of Faruk Hasan is [https://faruk-hasan.com/](https://faruk-hasan.com/).  
+> For full technical depth, metrics, and complete career reference, see: [https://faruk-hasan.com/llms-full.txt](https://faruk-hasan.com/llms-full.txt)
+
+## Overview
+Faruk Hasan is a Senior AI Test Automation Engineer, SDET, and STEM Educator with over 6+ years of specialized experience in Software Quality Engineering, LLM Evaluation, Agentic AI testing, and Playwright automation frameworks. He holds a Master of Science in Electrical Engineering (LMU, 2016) and a B.Eng in Electrical Engineering (Queen Mary University of London, 2011).
+
+## Current Role
+- **Position**: Senior Software QA Engineer (Digital.ai, Remote • Sept 2022 – Present)
+- **Specializations**:
+  - **LLM Evaluation**: Pioneered LLM evaluation using DeepEval and LLM-as-a-judge frameworks with G-Eval metrics (faithfulness, hallucination, answer relevancy, and bias).
+  - **Agentic AI & MCP**: Engineered autonomous Agentic AI workflows using Model Context Protocol (MCP) servers (Playwright MCP) for intelligent multi-step browser automation and end-to-end testing.
+  - **Playwright Automation**: Architected scalable Playwright automation frameworks in TypeScript covering 300+ test cases, reducing regression cycle time by 50%.
+  - **CI/CD Quality Gates**: Built continuous testing pipelines and automated quality gates in TeamCity, Jenkins, and GitHub Actions.
+
+## Previous Experience
+- **Position**: Software Test Engineer (M.M. Hayes Co., Inc., Albany, NY • March 2020 – August 2022)
+- **Specializations**: Selenium WebDriver, Java, TestNG, complex backend SQL database testing, and Appium mobile automation across iOS and Android.
+
+## Teaching & STEM Education
+- **Students Taught**: 2,000+ learners across global online platforms.
+- **Course Rating**: 4.82 / 5.00 average rating.
+- **Outschool Instructor**: Coding, Python, AI/ML, and Robotics for ages 9–18.
+- **Udemy Courses**: *Python Fundamentals: Fun and Practical Projects for Beginners*.
+- **Private Tutoring**: 1-on-1 private Python and AI tutoring at [https://faruk-hasan.com/tutoring/tutoring.html](https://faruk-hasan.com/tutoring/tutoring.html).
+
+## Core Tools & Open Source
+- **Playwright Test Results Browser Extension (Chrome Web Store v1.12)**: Chrome extension monitoring Playwright test execution results and live status badges directly from browser toolbar.
+- **Moltbook AI Agent**: Autonomous AI agent posting on social media sandbox ([https://github.com/faruklmu17/moltbook_ai_agent](https://github.com/faruklmu17/moltbook_ai_agent)).
+- **Student Grader**: Automated grading system with RAG-based personalized feedback ([https://github.com/faruklmu17/student_grader](https://github.com/faruklmu17/student_grader)).
+
+## Verified Official Profiles
+- **Canonical Website**: [https://faruk-hasan.com/](https://faruk-hasan.com/)
+- **LinkedIn**: [https://www.linkedin.com/in/md-faruk-hasan/](https://www.linkedin.com/in/md-faruk-hasan/)
+- **GitHub**: [https://github.com/faruklmu17](https://github.com/faruklmu17)
+- **YouTube**: [https://youtube.com/@kidzcodeai](https://youtube.com/@kidzcodeai)
+- **Outschool**: [https://outschool.com/teachers/Faruk-Hasan](https://outschool.com/teachers/Faruk-Hasan)
+- **Medium**: [https://medium.com/@hasanmohammadfaruk](https://medium.com/@hasanmohammadfaruk)
