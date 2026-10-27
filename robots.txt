@@ -36,6 +36,7 @@ Allow: /ai_resources/
 Allow: /projects/
 Allow: /resources/
 Allow: /llms.txt
+Allow: /llms-full.txt
 
 # Sitemap location
 Sitemap: https://faruk-hasan.com/sitemap.xml

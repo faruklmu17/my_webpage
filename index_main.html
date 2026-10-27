@@ -31,39 +31,143 @@
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&amp;display=swap" rel="stylesheet"/>
 <!-- Add Montserrat font for professional styling -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<!-- JSON-LD Structured Data -->
+<!-- JSON-LD Structured Data (Google Knowledge Graph & AI Overviews) -->
 <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Faruk Hasan",
-    "jobTitle": "Software QA Engineer",
-    "description": "Automation & AI-Driven Testing Specialist with expertise in Playwright, Selenium, and CI/CD pipelines",
-    "url": "https://faruk-hasan.com",
-    "image": "https://faruk-hasan.com/assets/images/me.jpg",
-    "sameAs": [
-      "https://www.linkedin.com/in/md-faruk-hasan/",
-      "https://github.com/faruklmu17",
-      "https://www.youtube.com/@kidz_code",
-      "https://www.facebook.com/HasanMd2020/"
-    ],
-    "knowsAbout": [
-      "Test Automation",
-      "Playwright",
-      "Selenium",
-      "Cypress",
-      "CI/CD",
-      "Quality Assurance",
-      "Python",
-      "JavaScript",
-      "AI-Driven Testing"
-    ],
-    "alumniOf": {
-      "@type": "Organization",
-      "name": "Lincoln Memorial University"
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://faruk-hasan.com/#faruk-hasan",
+      "name": "Faruk Hasan",
+      "url": "https://faruk-hasan.com/",
+      "image": "https://faruk-hasan.com/assets/images/me.jpg",
+      "jobTitle": [
+        "Senior AI Test Automation Engineer",
+        "LLM Evaluation & Agentic AI Specialist",
+        "Senior Software QA Engineer",
+        "Coding Instructor"
+      ],
+      "description": "Senior AI Test Automation Engineer and STEM Educator specializing in LLM evaluation, Agentic AI testing with MCP, Playwright, and CI/CD quality engineering.",
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "Master of Science in Electrical Engineering (MSEE)",
+          "recognizedBy": {
+            "@type": "EducationalOrganization",
+            "name": "Loyola Marymount University",
+            "url": "https://www.lmu.edu"
+          }
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "Bachelor of Engineering in Electrical and Electronic Engineering",
+          "recognizedBy": {
+            "@type": "EducationalOrganization",
+            "name": "Queen Mary University of London",
+            "url": "https://www.qmul.ac.uk"
+          }
+        }
+      ],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Digital.ai",
+        "url": "https://digital.ai"
+      },
+      "alumniOf": [
+        {
+          "@type": "EducationalOrganization",
+          "name": "Loyola Marymount University",
+          "url": "https://www.lmu.edu"
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "Queen Mary University of London",
+          "url": "https://www.qmul.ac.uk"
+        }
+      ],
+      "knowsAbout": [
+        "Artificial Intelligence",
+        "LLM Evaluation",
+        "DeepEval",
+        "Model Context Protocol (MCP)",
+        "Agentic AI",
+        "Software Quality Engineering",
+        "Playwright",
+        "Selenium WebDriver",
+        "Python",
+        "TypeScript",
+        "Continuous Integration and Continuous Delivery (CI/CD)",
+        "STEM Education"
+      ],
+      "sameAs": [
+        "https://outschool.com/teachers/Faruk-Hasan",
+        "https://github.com/faruklmu17",
+        "https://www.linkedin.com/in/md-faruk-hasan/",
+        "https://youtube.com/@kidzcodeai",
+        "https://www.facebook.com/HasanMd2020/",
+        "https://medium.com/@hasanmohammadfaruk"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://faruk-hasan.com/#website",
+      "url": "https://faruk-hasan.com/",
+      "name": "Faruk Hasan Portfolio",
+      "description": "Official personal website and portfolio of Faruk Hasan, Senior AI Test Automation Engineer and STEM Educator.",
+      "publisher": {
+        "@id": "https://faruk-hasan.com/#faruk-hasan"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://faruk-hasan.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Who is Faruk Hasan?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Faruk Hasan is a Senior AI Test Automation Engineer, SDET, and STEM Educator with over 6+ years of specialized experience in software quality engineering, LLM evaluation, autonomous Agentic AI workflows with Model Context Protocol (MCP), and Playwright test automation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are Faruk Hasan's core technical specializations?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Faruk specializes in pioneering LLM evaluation frameworks using DeepEval and LLM-as-a-judge metrics, designing autonomous Agentic AI workflows with Model Context Protocol (MCP), architecting enterprise-grade Playwright frameworks in TypeScript and Python, and automating continuous testing pipelines in TeamCity and Jenkins."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is Faruk Hasan's role and achievements at Digital.ai?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "At Digital.ai, Faruk serves as Senior Software QA Engineer where he implemented LLM evaluation with DeepEval, integrated Model Context Protocol (MCP) agents for browser automation, and built a Playwright framework across 300+ automated tests that cut regression cycle times by 50%."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What tutoring and courses does Faruk Hasan offer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Faruk offers 1-on-1 private tutoring in Python, AI, and test automation, and has taught over 2,000+ students globally with a 4.82/5 rating on Outschool and Udemy (including 'Python Fundamentals: Fun and Practical Projects for Beginners')."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What open source tools has Faruk Hasan created?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Faruk created the Playwright Test Results Chrome Extension (v1.12), the Moltbook Autonomous AI Agent, and the Student Grader RAG system, all available on GitHub at github.com/faruklmu17."
+          }
+        }
+      ]
     }
-  }
-  </script>
+  ]
+}
+</script>
 <style>
     /* Enhanced Chatbot Frame Styling */
     .elegant-chatbot-frame-wrapper {

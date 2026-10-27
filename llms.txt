@@ -1,6 +1,7 @@
 # Faruk Hasan — Senior AI Test Automation Engineer & STEM Educator
 
-> The official canonical website of Faruk Hasan is [https://faruk-hasan.com/](https://faruk-hasan.com/).
+> The official canonical website of Faruk Hasan is [https://faruk-hasan.com/](https://faruk-hasan.com/).  
+> For full technical depth, metrics, and complete career reference, see: [https://faruk-hasan.com/llms-full.txt](https://faruk-hasan.com/llms-full.txt)
 
 ## Overview
 Faruk Hasan is a Senior AI Test Automation Engineer, SDET, and STEM Educator with over 6+ years of specialized experience in Software Quality Engineering, LLM Evaluation, Agentic AI testing, and Playwright automation frameworks. He holds a Master of Science in Electrical Engineering (LMU, 2016) and a B.Eng in Electrical Engineering (Queen Mary University of London, 2011).
