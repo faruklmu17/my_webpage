@@ -335,7 +335,10 @@ def _extract_from_text(text: str) -> ExtractedInfo:
         has_mention = bool(re.search(rf"\b{re.escape(lang)}\b", text_lower))
 
         if has_mention and not has_neg:
-            learn_pattern = rf"\b(?:wants to learn|want to learn|learn|interested in|study)\s+{re.escape(lang)}\b"
+            learn_pattern = (
+                rf"\b(?:wants to learn|want to learn|learn|interested in|study|need a|looking for a|take a|taking a)\s+{re.escape(lang)}\b|"
+                rf"\b{re.escape(lang)}\s+(?:class|classes|course|courses|lessons?|tutoring|training)\b"
+            )
             if re.search(learn_pattern, text_lower):
                 if not info.programming_language:
                     info.programming_language = _format_lang(lang)
