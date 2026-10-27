@@ -126,7 +126,7 @@ function injectFooter() {
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 Faruk Hasan. All rights reserved. |
+        <p>&copy; 2026 Faruk Hasan. All rights reserved. |
           <a href="${root}index.html">Home</a> |
           <a href="${root}resources/resources.html">Resources</a> |
           <a href="${root}assets/resume.pdf" target="_blank" rel="noopener noreferrer">Resume (PDF)</a>

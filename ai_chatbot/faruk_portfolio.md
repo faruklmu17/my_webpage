@@ -7,9 +7,9 @@
 - Grew up moving due to father’s job at **Biman Bangladesh Airlines**
 - Major cities lived in: **Dhaka**, **London**, **Los Angeles**, and **New York City**
 - Currently living in the **Hudson Valley, New York (USA)**
-- Year reference: **2025**
+- Year reference: **2026**
 - Roles:
-  - **Senior QA Automation Engineer (SDET)**
+  - **Senior AI Test Automation Engineer (LLM Evaluation & Agentic AI)**
   - **STEM Educator & Course Creator**
 
 ---
@@ -26,9 +26,9 @@ After many years of studying, moving across countries, and navigating career unc
 
 - **14** countries visited  
 - **37** years of life experience  
-- **5+** years working in tech  
+- **6+** years working in tech  
 - **3** countries lived in  
-- **1,894+** learners taught on Outschool  
+- **2,000+** learners taught on Outschool and online platforms  
 - **4.82 / 5.00** average class rating  
 - **1,945+** followers on teaching platforms  
 
@@ -108,30 +108,24 @@ I am very grateful to my father for giving me such beautiful travel experiences 
 
 ---
 
-## Tech Career Evolution (QA / SDET)
+## Tech Career Evolution (AI Quality Engineering & SDET)
 
-- **2016–2020 – Early Career Challenges**  
-  - After my master’s, I faced difficulty finding work due to visa constraints.  
-  - Took on various roles:
-    - Teaching **science and math** at charter schools  
-    - Working as a **lecturer at a community college**  
-    - Driving for **Uber** to support myself  
-  - These years taught me resilience, adaptability, and perseverance.
+- **2022–Present – Senior Software QA Engineer (Digital.ai, Remote)**  
+  - Pioneered **LLM evaluation** strategies using **DeepEval**, implementing LLM-as-a-judge frameworks with G-Eval metrics (faithfulness, hallucination, answer relevancy, and bias) to benchmark AI response quality.
+  - Designed and evaluated autonomous **Agentic AI workflows**, integrating **Model Context Protocol (MCP)** servers (e.g., Playwright MCP) to enable AI agents to perform complex multi-step browser automation and end-to-end testing.
+  - Leveraged AI developer tools (GitHub Copilot, Claude) to accelerate test script generation and test maintenance.
+  - Architected and maintained a scalable **Playwright** framework in TypeScript across **300+ automated test cases**, reducing regression test cycles by **50%**.
+  - Engineered continuous testing workflows in **TeamCity** and **Jenkins**, integrating automated quality gates into deployment pipelines.
+  - Mentored junior engineers and conducted code reviews on POM, data-driven testing, and flaky test mitigation.
 
-- **2020 – Breaking into Tech**  
-  - Landed my first role as a **QA Engineer**.  
-  - Relocated from **New York City to Albany, New York**.  
-  - This was a turning point that launched my **technology career**.
+- **2020–2022 – Software Test Engineer (M.M. Hayes Co., Inc., Albany, NY)**  
+  - Developed and maintained automated test suites using **Selenium WebDriver**, **Java**, and **TestNG** for core enterprise business workflows.
+  - Performed comprehensive database testing using complex **SQL queries** to validate transactional integrity and stored procedure behavior.
+  - Executed automated mobile application testing using **Appium** across iOS/Android and Point of Sale (POS) hardware.
+  - Authored test plans, strategies, and traceability matrices in Jira to guarantee 100% requirements coverage.
 
-- **2020–Present – Senior QA Automation Engineer (SDET)**  
-  - Grew into a **Senior QA Automation Engineer** role.  
-  - Core skills and tools:
-    - **Python** for scripting and automation  
-    - **Playwright** and **Selenium** for web automation  
-    - **API testing** and backend validation  
-    - **CI/CD pipelines** (e.g., GitHub, branching, releases)  
-    - **LLM-assisted testing workflows** and experimentation with AI in QA  
-  - I bring this real-world testing and automation experience into my teaching, especially for older students interested in software careers.
+- **2016–2020 – Early Career Foundation**  
+  - Taught STEM and math, worked as college lecturer, and developed early software projects before entering enterprise test engineering in 2020.
 
 ---
 

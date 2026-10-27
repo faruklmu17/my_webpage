@@ -1373,35 +1373,18 @@ ight test results in real-time using TypeScript, JavaScript, and HTML/CSS.</p>
 </html>
 <script>
   function openResume() {
-    // Try multiple possible locations
-    const possiblePaths = [
-      'assets/resume.pdf',
-      'Resume.pdf',
-      'assets/resume.pdf',
-      '/Resume.pdf',
-      'assets/resume.pdf',
-      'assets/resume.pdf',
-      'assets/resume.pdf'
-    ];
-
-    // Try to fetch each path to see if the file exists
-    Promise.all(possiblePaths.map(path =>
-      fetch(path, { method: 'HEAD' })
-        .then(response => ({ path, exists: response.ok }))
-        .catch(() => ({ path, exists: false }))
-    )).then(results => {
-      // Find the first path that exists
-      const foundPath = results.find(result => result.exists);
-
-      if (foundPath) {
-        // Open the PDF in a new tab
-        window.open(foundPath.path, '_blank');
-      } else {
-        // Alert the user if no PDF is found
-        alert('Resume PDF not found. Please upload your resume file to the website root directory.');
-      }
-    });
+    window.open('assets/resume.pdf', '_blank', 'noopener,noreferrer');
   }
+
+  function downloadResume() {
+    const link = document.createElement('a');
+    link.href = 'assets/resume.pdf';
+    link.download = 'Faruk_Hasan_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+</script>
 
   /*
     // Add Chart.js and XLSX libraries
