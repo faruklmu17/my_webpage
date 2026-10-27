@@ -100,6 +100,10 @@ def classify_text_intent(text: str) -> IntentResult:
     if any(w in words for w in ["class", "classes", "course", "courses", "curriculum", "tutoring", "tutor", "lessons"]):
         return IntentResult(intent=CLASS_INQUIRY, confidence=0.82)
 
+    # Check for student project samples / inquiries first
+    if re.search(r"\bprojects?\s+.*?\b(?:can\s+(?:they|students|we|i)\s+do|students?\s+(?:can\s+)?(?:do|completed?|built))\b|\b(?:sample|example)s?\s+(?:of\s+)?(?:student\s+)?projects?\b|\bstudent\s+projects?\b", text_lower):
+        return IntentResult(intent=GENERAL_QUESTION, confidence=0.92)
+
     if any(w in words for w in ["project"]):
         return IntentResult(intent=PROJECT_HELP, confidence=0.80)
 

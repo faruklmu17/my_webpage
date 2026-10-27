@@ -327,3 +327,31 @@ Outside of work, I enjoy:
 - Planning future travels and adventures with my family
 
 The curiosity and love for exploration that began in my childhood still guide my decisions, whether I’m building a new class, designing an AI assistant, or helping a student ship their first project.
+
+---
+
+## Sample Student Projects & What Students Build
+
+My students are currently working on several web development, AI, API, and database projects using both AI and coding. Here are a few examples you can check out:
+
+1. **Building an AI chatbot and integrating it into a website**:
+   Here is an example that I made for myself for demo: [https://hasanfaruk25-faruk-assistant.hf.space/gradio/](https://hasanfaruk25-faruk-assistant.hf.space/gradio/)
+2. **Creating a full-stack mortgage calculator website**:
+   [https://mortgagepayofflab.com/](https://mortgagepayofflab.com/)
+3. **Developing a gymnastics-focused website**:
+   [https://github.com/LiamCz1/gymnastics_store](https://github.com/LiamCz1/gymnastics_store)
+4. **Creating a travel website that uses APIs to provide up-to-date information about flights, destinations, and more**:
+   [https://github.com/AbhishekHari156/travel_app](https://github.com/AbhishekHari156/travel_app)
+5. **Learning to build Chrome extensions**:
+   Here is an example I created that is live on the Chrome Web Store: [Playwright Automation Extension](https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh?utm_source=item-share-cb)
+
+---
+
+## Contact & Booking
+
+Visitors can contact me or book sessions through the following dedicated links:
+
+- **Tutoring & General Inquiries:** [Book a Session / Contact Me](https://faruk-hasan.com/tutoring/tutoring.html#book)
+  - This link automatically opens the booking form on the tutoring page.
+
+

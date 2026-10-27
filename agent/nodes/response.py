@@ -98,6 +98,18 @@ def general_response(state: AgentState) -> Dict[str, Any]:
             )
         }
 
+    # Student Project Examples Check
+    if re.search(r"\bprojects?\s+.*?\b(?:can\s+(?:they|students|we|i)\s+do|students?\s+(?:can\s+)?(?:do|completed?|built))\b|\b(?:sample|example)s?\s+(?:of\s+)?(?:student\s+)?projects?\b|\bstudent\s+projects?\b", last_msg):
+        text = (
+            "My students are currently working on several web development, AI, API, and database projects using both AI and coding. Here are a few examples you can check out:\n\n"
+            "1. Building an AI chatbot and integrating it into a website. Here is an example that I made for myself for demo: https://hasanfaruk25-faruk-assistant.hf.space/gradio/\n"
+            "2. Creating a full-stack mortgage calculator website: https://mortgagepayofflab.com/\n"
+            "3. Developing a gymnastics-focused website: https://github.com/LiamCz1/gymnastics_store\n"
+            "4. Creating a travel website that uses APIs to provide up-to-date information about flights, destinations, and more: https://github.com/AbhishekHari156/travel_app\n"
+            "5. Learning to build Chrome extensions. Here is an example I created that is live on the Chrome Web Store: https://chromewebstore.google.com/detail/cnbifhpjofgeaobfppnfnngfkkjniodh?utm_source=item-share-cb"
+        )
+        return {"response": text}
+
     intent = state.get("intent")
     if intent == "PRICING":
         text = (
