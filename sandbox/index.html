@@ -1082,6 +1082,59 @@
             justify-content: flex-end;
             margin-top: 1.5rem;
         }
+        /* ----- Multi-file tabs ----- */
+        .file-tabs {
+            display: flex;
+            align-items: stretch;
+            gap: 2px;
+            padding: 0 0.5rem;
+            background: #0b1120;
+            border-bottom: 1px solid #1e293b;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+        .file-tab {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.45rem 0.75rem;
+            color: #94a3b8;
+            cursor: pointer;
+            white-space: nowrap;
+            border-top: 2px solid transparent;
+            user-select: none;
+        }
+        .file-tab:hover { color: #e2e8f0; background: #111827; }
+        .file-tab.active {
+            color: #f8fafc;
+            background: #282a36; /* matches the dracula editor background */
+            border-top-color: #60a5fa;
+        }
+        .file-tab:focus-visible { outline: 2px solid #60a5fa; outline-offset: -2px; }
+        .file-tab-close {
+            background: none;
+            border: none;
+            color: inherit;
+            opacity: 0.6;
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1;
+            padding: 0 2px;
+            border-radius: 4px;
+        }
+        .file-tab-close:hover { opacity: 1; color: #f87171; background: rgba(248, 113, 113, 0.12); }
+        .file-tab-add {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            padding: 0 0.7rem;
+            font-size: 0.8rem;
+        }
+        .file-tab-add:hover { color: #60a5fa; }
     </style>
 </head>
 
@@ -1173,6 +1226,7 @@
                     </span>
                     <span id="editorLangBadge"><i class="fab fa-python"></i> Python 3</span>
                 </div>
+                <div class="file-tabs" id="fileTabs" role="tablist" aria-label="Project files"></div>
                 <textarea id="codeEditor"></textarea>
             </div>
 
@@ -1359,7 +1413,8 @@
     <!-- Pyodide -->
     <script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"></script>
 
-    <script src="sandbox.js?v=2.4"></script>
+    <script src="files.js?v=1.0"></script>
+    <script src="sandbox.js?v=2.5"></script>
 </body>
 
 </html>
