@@ -361,6 +361,28 @@ function initEditor() {
         extraKeys: {
             "Ctrl-Enter": runCode,
             "Cmd-Enter": runCode,
+            "Cmd-/": "toggleComment",
+            "Ctrl-/": "toggleComment",
+            // Explicit add / remove comment (Sublime-style)
+            "Cmd-K Cmd-C": function (cm) { cm.lineComment(cm.getCursor("from"), cm.getCursor("to")); },
+            "Ctrl-K Ctrl-C": function (cm) { cm.lineComment(cm.getCursor("from"), cm.getCursor("to")); },
+            "Cmd-K Cmd-U": function (cm) { cm.uncomment(cm.getCursor("from"), cm.getCursor("to")); },
+            "Ctrl-K Ctrl-U": function (cm) { cm.uncomment(cm.getCursor("from"), cm.getCursor("to")); },
+            // Block comment (HTML <!-- --> / Python line comments)
+            "Shift-Alt-A": "toggleComment",
+            // VS Code-style line editing
+            "Shift-Cmd-K": "deleteLine",
+            "Shift-Ctrl-K": "deleteLine",
+            "Alt-Up": "swapLineUp",
+            "Alt-Down": "swapLineDown",
+            "Shift-Alt-Up": function (cm) { cm.execCommand("duplicateLine"); cm.execCommand("goLineUp"); },
+            "Shift-Alt-Down": "duplicateLine",
+            "Cmd-]": "indentMore",
+            "Cmd-[": "indentLess",
+            "Ctrl-]": "indentMore",
+            "Ctrl-[": "indentLess",
+            "Cmd-D": "selectNextOccurrence",
+            "Ctrl-D": "selectNextOccurrence",
             "Ctrl-Space": "autocomplete",
             Tab: function (cm) {
                 if (cm.somethingSelected()) {
