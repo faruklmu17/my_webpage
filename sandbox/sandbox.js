@@ -206,6 +206,7 @@ print("Chart generated successfully!")
 };
 
 let editor = null;
+window.editor = null;
 let pyodide = null;
 let inputBuffer = []; // Global buffer for stdin inputs
 let currentLevel = 1; // Tracks the student's current learning level (1-7)
@@ -393,6 +394,7 @@ function initEditor() {
             }
         }
     });
+    window.editor = editor;
 
     // Trigger autocomplete automatically as the student types
     editor.on("inputRead", function (cm, change) {
@@ -1163,6 +1165,45 @@ function wireUI() {
         }
     });
 
+    // Live Share UI Wiring
+    const liveBtn = document.getElementById("liveShareBtn");
+    if (liveBtn) {
+        liveBtn.addEventListener("click", () => {
+            if (SandboxLiveShare.isConnected()) {
+                SandboxLiveShare.openLiveModal(SandboxLiveShare.getRoomId());
+            } else {
+                SandboxLiveShare.startSession(null, true);
+            }
+        });
+    }
+
+    const liveShareCloseBtn = document.getElementById("liveShareCloseBtn");
+    if (liveShareCloseBtn) liveShareCloseBtn.addEventListener("click", SandboxLiveShare.closeLiveModal);
+
+    const closeLiveModalBtn = document.getElementById("closeLiveModalBtn");
+    if (closeLiveModalBtn) closeLiveModalBtn.addEventListener("click", SandboxLiveShare.closeLiveModal);
+
+    const copyLiveUrlBtn = document.getElementById("copyLiveUrlBtn");
+    if (copyLiveUrlBtn) {
+        copyLiveUrlBtn.addEventListener("click", async () => {
+            const input = document.getElementById("liveShareUrlInput");
+            if (input) {
+                await navigator.clipboard.writeText(input.value);
+                const original = copyLiveUrlBtn.innerHTML;
+                copyLiveUrlBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => { copyLiveUrlBtn.innerHTML = original; }, 1500);
+            }
+        });
+    }
+
+    const stopLiveSessionBtn = document.getElementById("stopLiveSessionBtn");
+    if (stopLiveSessionBtn) {
+        stopLiveSessionBtn.addEventListener("click", () => {
+            SandboxLiveShare.stopSession();
+            SandboxLiveShare.closeLiveModal();
+        });
+    }
+
     document.getElementById("examplesSelect").addEventListener("change", (e) => {
         const key = e.target.value;
         if (!key) return;
@@ -1332,6 +1373,9 @@ window.addEventListener("DOMContentLoaded", () => {
     wireUI();
     initEditor();
     initPyodide();
+    if (window.SandboxLiveShare && typeof window.SandboxLiveShare.checkUrlForSession === 'function') {
+        window.SandboxLiveShare.checkUrlForSession();
+    }
 });
 
 // Social Sharing Functions

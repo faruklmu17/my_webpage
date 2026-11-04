@@ -1161,6 +1161,9 @@
                 <button class="btn btn-secondary btn-sm" id="shareBtn" title="Get shareable link">
                     <i class="fas fa-share-nodes"></i> Share
                 </button>
+                <button class="btn btn-secondary btn-sm" id="liveShareBtn" style="color: #ef4444;" title="Start Realtime Live Pair Programming">
+                    <i class="fas fa-tower-broadcast"></i> Live Share
+                </button>
                 <button class="btn btn-secondary btn-sm" id="helpBtn" title="Editor shortcuts &amp; help">
                     <i class="fas fa-circle-question"></i> Help
                 </button>
@@ -1328,6 +1331,26 @@
         </div>
     </div>
 
+    <!-- Live Share Modal -->
+    <div class="modal-backdrop" id="liveShareModal" role="dialog" aria-modal="true" aria-labelledby="liveShareTitle">
+        <div class="modal" style="max-width: 520px; text-align: center;">
+            <button class="modal-close" id="liveShareCloseBtn" aria-label="Close">&times;</button>
+            <div style="font-size: 2.5rem; color: #ef4444; margin-bottom: 0.75rem;">
+                <i class="fas fa-tower-broadcast"></i>
+            </div>
+            <h2 id="liveShareTitle" style="justify-content: center; margin-bottom: 0.5rem;">Live Pair Programming</h2>
+            <p class="modal-sub" style="margin-bottom: 1.25rem;">Share this private link with your teacher or classmate to write and edit code together in real-time!</p>
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem;">
+                <input type="text" id="liveShareUrlInput" readonly style="flex: 1; padding: 0.55rem 0.75rem; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: #f8fafc; font-family: monospace; font-size: 0.85rem;" />
+                <button class="btn btn-primary" id="copyLiveUrlBtn"><i class="fas fa-copy"></i> Copy</button>
+            </div>
+            <div style="display: flex; gap: 0.75rem; justify-content: center;">
+                <button class="btn btn-secondary" id="closeLiveModalBtn">Keep Working</button>
+                <button class="btn btn-secondary" id="stopLiveSessionBtn" style="color: #ef4444;"><i class="fas fa-stop"></i> End Session</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Help Modal -->
     <div class="modal-backdrop" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
         <div class="modal">
@@ -1413,8 +1436,11 @@
     <!-- Pyodide -->
     <script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"></script>
 
+    <!-- Yjs Collaborative Realtime Bundle -->
+    <script src="y-bundle.js"></script>
     <script src="files.js?v=1.0"></script>
-    <script src="sandbox.js?v=2.5"></script>
+    <script src="liveshare.js?v=1.0"></script>
+    <script src="sandbox.js?v=2.6"></script>
 </body>
 
 </html>

@@ -23,6 +23,9 @@ const SandboxFiles = (() => {
     let lang = "python";
     let tabsEl = null;
     let fileNameEl = null;
+    let persist = true;      // false while visiting someone else's live session
+    let listener = null;     // notified of local create/rename/remove (used by Live Share)
+    const notify = (type, ...args) => { if (listener) listener(type, ...args); };
 
     const storageKey = (l) => `sandbox.project.${l}`;
     const extOf = (name) => (name.split(".").pop() || "").toLowerCase();
@@ -78,7 +81,7 @@ const SandboxFiles = (() => {
     }
 
     function save(l = lang) {
-        if (!projects[l]) return;
+        if (!projects[l] || !persist) return;
         try {
             localStorage.setItem(storageKey(l), JSON.stringify({
                 version: 1,
@@ -119,6 +122,9 @@ const SandboxFiles = (() => {
         p.active = name;
         showActive();
         save();
+        if (window.SandboxLiveShare && typeof window.SandboxLiveShare.attachCodeMirrorBinding === 'function') {
+            window.SandboxLiveShare.attachCodeMirrorBinding();
+        }
         cm.focus();
     }
 
@@ -162,6 +168,7 @@ const SandboxFiles = (() => {
         p.active = name;
         showActive();
         save();
+        notify("create", name);
         const doc = docs[lang][name];
         doc.setCursor(doc.lineCount(), 0);
         cm.focus();
@@ -185,6 +192,7 @@ const SandboxFiles = (() => {
         if (p.active === oldName) p.active = name;
         showActive();
         save();
+        notify("rename", oldName, name);
     }
 
     function remove(name) {
@@ -196,6 +204,34 @@ const SandboxFiles = (() => {
         if (p.active === name) p.active = MAIN_FILE[lang];
         showActive();
         save();
+        notify("remove", name);
+    }
+
+    // ----- Programmatic changes (used by Live Share; no prompts, no notifications) -----
+
+    /** Make the file list match `names` exactly, creating missing files with given contents. */
+    function syncFiles(names, contentFor) {
+        const p = projects[lang];
+        const main = MAIN_FILE[lang];
+        for (const name of names) {
+            if (!docs[lang][name]) docs[lang][name] = new CodeMirror.Doc(contentFor(name), modeFor(name));
+        }
+        for (const name of p.order) {
+            if (!names.includes(name) && name !== main) delete docs[lang][name];
+        }
+        p.order = [main, ...names.filter(n => n !== main && docs[lang][n])];
+        if (!docs[lang][p.active]) p.active = main;
+        showActive();
+        save();
+    }
+
+    function getDoc(name) { return docs[lang] && docs[lang][name]; }
+    function setPersist(on) { persist = on; }
+    function setListener(fn) { listener = fn; }
+    /** Re-read a saved project from localStorage (e.g. after leaving a live session). */
+    function reload(l) {
+        loadProject(l, "");
+        if (l === lang && cm) showActive();
     }
 
     /** Replace a whole project (used by share links). */
@@ -268,6 +304,9 @@ const SandboxFiles = (() => {
     return {
         init, setLanguage, open, openMain, create, rename, remove, importProject,
         getFiles, getFile, save,
+        syncFiles, getDoc, setPersist, setListener, reload,
+        language: () => lang,
+        names: () => (projects[lang] ? [...projects[lang].order] : []),
         activeName: () => projects[lang] && projects[lang].active,
         mainName: () => MAIN_FILE[lang],
         isMainActive: () => projects[lang] && projects[lang].active === MAIN_FILE[lang],
