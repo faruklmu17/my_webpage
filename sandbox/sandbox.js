@@ -211,6 +211,7 @@ let pyodide = null;
 let inputBuffer = []; // Global buffer for stdin inputs
 let currentLevel = 1; // Tracks the student's current learning level (1-7)
 let currentLanguage = 'python'; // Tracks the current coding language ('python' or 'html')
+window.currentLanguage = currentLanguage;
 let isNewStudentDemo = false; // Tracks if the user is currently doing the new student demo
 
 // Global bridge for Python to get inputs
@@ -533,6 +534,7 @@ async function initPyodide() {
         pyodide = await loadPyodide({
             indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.2/full/"
         });
+        window.pyodide = pyodide;
 
         // Redirect Python's stdout / stderr to our output panel
         pyodide.setStdout({
@@ -870,6 +872,11 @@ function buildHTMLDocument() {
         return `<style data-file="${href}">\n${css.replace(/<\/style/gi, "<\\/style")}\n</style>`;
     });
     html = html.replace(/<script\b([^>]*?)\bsrc\s*=\s*["']([^"']+)["']([^>]*)>\s*<\/script>/gi, (tag, before, src, after) => {
+        const js = lookup(src);
+        if (js === undefined || !/\.js$/i.test(src)) return tag;
+        return `<script${before}${after} data-file="${src}">\n${js.replace(/<\/script/gi, "<\\/script")}\n</script>`;
+    });
+    html = html.replace(/<script\b([^>]*?)\bsrc\s*=\s*["']([^"']+)["']([^>]*)\/>/gi, (tag, before, src, after) => {
         const js = lookup(src);
         if (js === undefined || !/\.js$/i.test(src)) return tag;
         return `<script${before}${after} data-file="${src}">\n${js.replace(/<\/script/gi, "<\\/script")}\n</script>`;
@@ -1307,6 +1314,7 @@ function wireUI() {
 function switchLanguageTo(newLanguage) {
     // Each language keeps its own multi-file project (auto-saved by SandboxFiles)
     currentLanguage = newLanguage;
+    window.currentLanguage = newLanguage;
     try { localStorage.setItem("sandbox.lastLanguage", newLanguage); } catch (e) { /* blocked */ }
     
     // Sync dropdown if called programmatically
