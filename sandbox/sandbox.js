@@ -1341,6 +1341,9 @@ function switchLanguageTo(newLanguage) {
             <option value="html_shapes">CSS Shapes & Hover</option>
         `;
         SandboxFiles.setLanguage('html');
+        if (window.SandboxLiveShare && typeof window.SandboxLiveShare.onLanguageChanged === 'function') {
+            window.SandboxLiveShare.onLanguageChanged('html');
+        }
         setTimeout(() => editor.refresh(), 50);
         setStatus("ready", "Switched to HTML Mode.");
     } else {
@@ -1369,6 +1372,9 @@ function switchLanguageTo(newLanguage) {
             <option value="chart">Data Plot (Matplotlib)</option>
         `;
         SandboxFiles.setLanguage('python');
+        if (window.SandboxLiveShare && typeof window.SandboxLiveShare.onLanguageChanged === 'function') {
+            window.SandboxLiveShare.onLanguageChanged('python');
+        }
         setTimeout(() => editor.refresh(), 50);
         setStatus("ready", "Switched to Python Mode.");
     }

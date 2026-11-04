@@ -98,6 +98,12 @@ window.SandboxLiveShare = (() => {
                 if (!isSynced) return;
 
                 if (!isHost) {
+                    // Sync project language if specified by host
+                    const remoteLang = ymeta.get('language');
+                    if (remoteLang && remoteLang !== SandboxFiles.language() && typeof window.switchLanguageTo === 'function') {
+                        window.switchLanguageTo(remoteLang);
+                    }
+
                     // Guest sync files from Yjs on join
                     const names = yfiles.toArray();
                     if (names.length > 0) {
@@ -110,6 +116,14 @@ window.SandboxLiveShare = (() => {
 
                 // Attach binding once initial sync completes
                 attachCodeMirrorBinding();
+            });
+
+            // Watch for remote language switch (e.g. from Python to HTML)
+            ymeta.observe(() => {
+                const remoteLang = ymeta.get('language');
+                if (remoteLang && remoteLang !== SandboxFiles.language() && typeof window.switchLanguageTo === 'function') {
+                    window.switchLanguageTo(remoteLang);
+                }
             });
 
             // Watch for remote file creations/deletions
@@ -243,6 +257,26 @@ window.SandboxLiveShare = (() => {
         }
     }
 
+    function onLanguageChanged(newLang) {
+        if (!ydoc || !provider) return;
+        const ymeta = ydoc.getMap('meta');
+        const yfiles = ydoc.getArray('file_list');
+        ymeta.set('language', newLang);
+        ymeta.set('active', SandboxFiles.activeName());
+
+        // Update yfiles list for the new language
+        const currentFiles = SandboxFiles.getFiles();
+        yfiles.delete(0, yfiles.length);
+        for (const f of currentFiles) {
+            yfiles.push([f.name]);
+            const yt = ydoc.getText('file:' + f.name);
+            if (yt.length === 0) {
+                yt.insert(0, f.content);
+            }
+        }
+        attachCodeMirrorBinding();
+    }
+
     return {
         startSession,
         stopSession,
@@ -250,6 +284,7 @@ window.SandboxLiveShare = (() => {
         closeLiveModal,
         checkUrlForSession,
         attachCodeMirrorBinding,
+        onLanguageChanged,
         isConnected: () => isConnected,
         getRoomId: () => currentRoomId,
         debugInfo: () => ({
