@@ -9,7 +9,7 @@ window.SandboxLiveShare = (() => {
     const DEFAULT_SERVER_URL = window.LIVESHARE_SERVER_URL ||
         (location.hostname === 'localhost' || location.hostname === '127.0.0.1'
             ? 'ws://localhost:1234'
-            : 'wss://imaging-camp-supposed-factor.trycloudflare.com');
+            : 'wss://hardwood-ceiling-trademarks-cooking.trycloudflare.com');
 
     let ydoc = null;
     let provider = null;
