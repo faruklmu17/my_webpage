@@ -221,9 +221,11 @@ window.SandboxLiveShare = (() => {
     function openLiveModal(roomId) {
         const modal = document.getElementById('liveShareModal');
         const linkInput = document.getElementById('liveShareUrlInput');
-        if (modal && linkInput) {
-            const url = `${window.location.origin}${window.location.pathname}?live=${roomId}`;
-            linkInput.value = url;
+        const teacherInput = document.getElementById('liveShareTeacherUrlInput');
+        if (modal) {
+            const baseUrl = `${window.location.origin}${window.location.pathname}?live=${roomId}`;
+            if (linkInput) linkInput.value = baseUrl;
+            if (teacherInput) teacherInput.value = `${baseUrl}&role=teacher`;
             modal.classList.add('show');
         }
     }

@@ -1196,6 +1196,19 @@ function wireUI() {
         });
     }
 
+    const copyTeacherLiveUrlBtn = document.getElementById("copyTeacherLiveUrlBtn");
+    if (copyTeacherLiveUrlBtn) {
+        copyTeacherLiveUrlBtn.addEventListener("click", async () => {
+            const input = document.getElementById("liveShareTeacherUrlInput");
+            if (input) {
+                await navigator.clipboard.writeText(input.value);
+                const original = copyTeacherLiveUrlBtn.innerHTML;
+                copyTeacherLiveUrlBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => { copyTeacherLiveUrlBtn.innerHTML = original; }, 1500);
+            }
+        });
+    }
+
     const stopLiveSessionBtn = document.getElementById("stopLiveSessionBtn");
     if (stopLiveSessionBtn) {
         stopLiveSessionBtn.addEventListener("click", () => {
