@@ -206,10 +206,12 @@ print("Chart generated successfully!")
 };
 
 let editor = null;
+window.editor = null;
 let pyodide = null;
 let inputBuffer = []; // Global buffer for stdin inputs
 let currentLevel = 1; // Tracks the student's current learning level (1-7)
 let currentLanguage = 'python'; // Tracks the current coding language ('python' or 'html')
+window.currentLanguage = currentLanguage;
 let isNewStudentDemo = false; // Tracks if the user is currently doing the new student demo
 
 // Global bridge for Python to get inputs
@@ -256,7 +258,7 @@ const PY_BUILTINS = ["print", "input", "len", "range", "int", "float", "str",
 
 // Custom Python hint function
 function pythonHint(cm) {
-    if (currentLanguage !== 'python') return null;
+    if (currentLanguage !== 'python' || !SandboxFiles.activeIsPython()) return null;
     const cursor = cm.getCursor();
     const line = cm.getLine(cursor.line);
     const beforeCursor = line.slice(0, cursor.ch);
@@ -324,7 +326,7 @@ function pythonHint(cm) {
 
 // Async linter: runs Python's compile() on the source and returns SyntaxErrors
 function pythonLinter(text, callback) {
-    if (!pyodide || currentLanguage !== 'python') { callback([]); return; }
+    if (!pyodide || currentLanguage !== 'python' || !SandboxFiles.activeIsPython()) { callback([]); return; }
     try {
         pyodide.globals.set("_sandbox_src", text);
         const json = pyodide.runPython("_sandbox_lint(_sandbox_src)");
@@ -361,6 +363,28 @@ function initEditor() {
         extraKeys: {
             "Ctrl-Enter": runCode,
             "Cmd-Enter": runCode,
+            "Cmd-/": "toggleComment",
+            "Ctrl-/": "toggleComment",
+            // Explicit add / remove comment (Sublime-style)
+            "Cmd-K Cmd-C": function (cm) { cm.lineComment(cm.getCursor("from"), cm.getCursor("to")); },
+            "Ctrl-K Ctrl-C": function (cm) { cm.lineComment(cm.getCursor("from"), cm.getCursor("to")); },
+            "Cmd-K Cmd-U": function (cm) { cm.uncomment(cm.getCursor("from"), cm.getCursor("to")); },
+            "Ctrl-K Ctrl-U": function (cm) { cm.uncomment(cm.getCursor("from"), cm.getCursor("to")); },
+            // Block comment (HTML <!-- --> / Python line comments)
+            "Shift-Alt-A": "toggleComment",
+            // VS Code-style line editing
+            "Shift-Cmd-K": "deleteLine",
+            "Shift-Ctrl-K": "deleteLine",
+            "Alt-Up": "swapLineUp",
+            "Alt-Down": "swapLineDown",
+            "Shift-Alt-Up": function (cm) { cm.execCommand("duplicateLine"); cm.execCommand("goLineUp"); },
+            "Shift-Alt-Down": "duplicateLine",
+            "Cmd-]": "indentMore",
+            "Cmd-[": "indentLess",
+            "Ctrl-]": "indentMore",
+            "Ctrl-[": "indentLess",
+            "Cmd-D": "selectNextOccurrence",
+            "Ctrl-D": "selectNextOccurrence",
             "Ctrl-Space": "autocomplete",
             Tab: function (cm) {
                 if (cm.somethingSelected()) {
@@ -371,6 +395,7 @@ function initEditor() {
             }
         }
     });
+    window.editor = editor;
 
     // Trigger autocomplete automatically as the student types
     editor.on("inputRead", function (cm, change) {
@@ -381,64 +406,57 @@ function initEditor() {
         }
     });
 
-    // Restore code: prioritize Shared Link (#code=) then LocalStorage (auto-save)
-    const hash = window.location.hash;
-    let restored = false;
-
-    if (hash && hash.startsWith("#code=")) {
-        try {
-            const encoded = hash.substring(6);
-            const decoded = decodeURIComponent(escape(atob(encoded)));
-            if (decoded) {
-                editor.setValue(decoded);
-                restored = true;
-                // Clear hash to keep URL clean
-                history.replaceState(null, null, ' ');
-            }
-        } catch (e) { console.error("Failed to decode share link", e); }
-    }
-
-    // Restore language mode
+    // Old single-file saves become the starting main file (migration)
     const savedLang = localStorage.getItem("sandbox.lastLanguage") || 'python';
-    
-    if (!restored) {
-        // We need to know which code to restore based on the saved language
-        const savedPython = localStorage.getItem("sandbox.lastPythonCode");
-        const savedHTML = localStorage.getItem("sandbox.lastHTMLCode");
-        
-        if (savedPython) lastPythonCode = savedPython;
-        if (savedHTML) lastHTMLCode = savedHTML;
-        
-        // If we have a general "lastCode" from older versions, use it for Python
-        const legacySaved = localStorage.getItem("sandbox.lastCode");
-        if (legacySaved && !savedPython) lastPythonCode = legacySaved;
+    const savedPython = localStorage.getItem("sandbox.lastPythonCode");
+    const savedHTML = localStorage.getItem("sandbox.lastHTMLCode");
+    if (savedPython) lastPythonCode = savedPython;
+    if (savedHTML) lastHTMLCode = savedHTML;
 
-        // Safety Check: If the "Python" code we just restored looks like HTML, 
-        // it's probably from a legacy session. Reset it to default Python.
-        if (lastPythonCode.trim().toLowerCase().startsWith("<!doctype") || 
-            lastPythonCode.trim().toLowerCase().startsWith("<html")) {
-            console.log("Legacy HTML found in Python slot, resetting to default Python.");
-            lastPythonCode = DEFAULT_CODE;
-        }
+    // If we have a general "lastCode" from older versions, use it for Python
+    const legacySaved = localStorage.getItem("sandbox.lastCode");
+    if (legacySaved && !savedPython) lastPythonCode = legacySaved;
 
-        // Apply the saved language and its corresponding code
-        if (savedLang === 'html') {
-            switchLanguageTo('html');
-        } else {
-            currentLanguage = 'python';
-            editor.setValue(lastPythonCode);
-        }
+    // Safety Check: If the "Python" code we just restored looks like HTML,
+    // it's probably from a legacy session. Reset it to default Python.
+    if (lastPythonCode.trim().toLowerCase().startsWith("<!doctype") ||
+        lastPythonCode.trim().toLowerCase().startsWith("<html")) {
+        console.log("Legacy HTML found in Python slot, resetting to default Python.");
+        lastPythonCode = DEFAULT_CODE;
     }
 
-    // Auto-save on every change
-    editor.on("change", () => {
-        if (currentLanguage === 'python') {
-            lastPythonCode = editor.getValue();
-            localStorage.setItem("sandbox.lastPythonCode", lastPythonCode);
-        } else {
-            lastHTMLCode = editor.getValue();
-            localStorage.setItem("sandbox.lastHTMLCode", lastHTMLCode);
+    SandboxFiles.init(editor, 'python', { python: lastPythonCode, html: lastHTMLCode });
+
+    // Shared links: #project= (multi-file) or legacy #code= (single Python file)
+    let startLang = savedLang === 'html' ? 'html' : 'python';
+    const hash = window.location.hash;
+    try {
+        if (hash.startsWith("#project=")) {
+            const data = JSON.parse(decodeURIComponent(escape(atob(hash.substring(9)))));
+            if (data && Array.isArray(data.files) && (data.language === 'python' || data.language === 'html')) {
+                SandboxFiles.importProject(data.language, data.files, data.active);
+                startLang = data.language;
+            }
+            history.replaceState(null, null, ' ');
+        } else if (hash.startsWith("#code=")) {
+            const decoded = decodeURIComponent(escape(atob(hash.substring(6))));
+            if (decoded) {
+                SandboxFiles.importProject('python', [{ name: 'main.py', content: decoded }], 'main.py');
+                startLang = 'python';
+            }
+            history.replaceState(null, null, ' ');
         }
+    } catch (e) { console.error("Failed to decode share link", e); }
+
+    if (startLang === 'html') {
+        switchLanguageTo('html');
+    } else {
+        currentLanguage = 'python';
+        SandboxFiles.setLanguage('python');
+    }
+
+    // Remember the language (file contents are auto-saved by SandboxFiles)
+    editor.on("change", () => {
         localStorage.setItem("sandbox.lastLanguage", currentLanguage);
     });
 
@@ -516,6 +534,7 @@ async function initPyodide() {
         pyodide = await loadPyodide({
             indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.2/full/"
         });
+        window.pyodide = pyodide;
 
         // Redirect Python's stdout / stderr to our output panel
         pyodide.setStdout({
@@ -618,7 +637,12 @@ async function runCode(isResume = false) {
     }
 
     if (!pyodide) return;
-    const code = editor.getValue();
+    // Always run main.py, no matter which file tab is open
+    const projectFiles = SandboxFiles.getFiles('python');
+    const mainFile = projectFiles.find(f => f.name === 'main.py');
+    const code = mainFile ? mainFile.content : editor.getValue();
+    // All Python sources, used to detect packages/matplotlib across files
+    const allPython = projectFiles.filter(f => f.name.endsWith('.py')).map(f => f.content).join("\n");
     
     // Always grab the previous input before clearing the output panel!
     if (isResume) {
@@ -647,13 +671,13 @@ async function runCode(isResume = false) {
         // Auto-load packages needed by imports (e.g. matplotlib, numpy, pandas)
         if (pyodide.loadPackagesFromImports) {
             setStatus("loading", "Checking & loading packages...");
-            await pyodide.loadPackagesFromImports(code, {
+            await pyodide.loadPackagesFromImports(allPython, {
                 messageCallback: (msg) => setStatus("loading", msg)
             });
         }
 
         // Dedicated setup for matplotlib if used
-        if (code.includes("matplotlib") || code.includes("plt.")) {
+        if (allPython.includes("matplotlib") || allPython.includes("plt.")) {
             setStatus("loading", "Loading matplotlib...");
             await pyodide.loadPackage("matplotlib");
             await pyodide.runPythonAsync(`
@@ -723,10 +747,11 @@ except Exception:
         }
 
         setStatus("running", "Running your code...");
-        await pyodide.runPythonAsync(code);
+        syncPythonFiles(projectFiles);
+        await pyodide.runPythonAsync(code, { filename: "main.py" });
 
         // Auto-show plot if one was created without an explicit plt.show()
-        if (code.includes("matplotlib") || code.includes("plt.")) {
+        if (allPython.includes("matplotlib") || allPython.includes("plt.")) {
             await pyodide.runPythonAsync(`
 try:
     import matplotlib.pyplot as plt
@@ -807,15 +832,67 @@ function handleInteractiveInput() {
     });
 }
 
+// Write every project file into Pyodide's in-memory file system so that
+// `import helpers` and `open("data.txt")` work from main.py.
+const PY_PROJECT_DIR = "/home/pyodide/project";
+function syncPythonFiles(files) {
+    const FS = pyodide.FS;
+    try { FS.mkdirTree(PY_PROJECT_DIR); } catch (e) { /* exists */ }
+    // Remove files from the previous run (deleted/renamed files must disappear)
+    for (const name of FS.readdir(PY_PROJECT_DIR)) {
+        if (name === "." || name === "..") continue;
+        const path = `${PY_PROJECT_DIR}/${name}`;
+        try { if (FS.isFile(FS.stat(path).mode)) FS.unlink(path); } catch (e) { /* ignore */ }
+    }
+    for (const f of files) FS.writeFile(`${PY_PROJECT_DIR}/${f.name}`, f.content);
+    // Forget previously imported student modules so edits take effect
+    pyodide.runPython(`
+import os, sys, importlib
+sys.dont_write_bytecode = True
+os.chdir(${JSON.stringify(PY_PROJECT_DIR)})
+if ${JSON.stringify(PY_PROJECT_DIR)} not in sys.path:
+    sys.path.insert(0, ${JSON.stringify(PY_PROJECT_DIR)})
+for _name, _mod in list(sys.modules.items()):
+    if (getattr(_mod, "__file__", None) or "").startswith(${JSON.stringify(PY_PROJECT_DIR)}):
+        del sys.modules[_name]
+importlib.invalidate_caches()
+`);
+}
+
+// Build a single HTML page from index.html, inlining linked project CSS/JS files.
+function buildHTMLDocument() {
+    const files = {};
+    for (const f of SandboxFiles.getFiles('html')) files[f.name.toLowerCase()] = f.content;
+    const lookup = (src) => files[src.replace(/^\.\//, "").toLowerCase()];
+    let html = files["index.html"] ?? editor.getValue();
+
+    html = html.replace(/<link\b[^>]*?\bhref\s*=\s*["']([^"']+)["'][^>]*>/gi, (tag, href) => {
+        const css = lookup(href);
+        if (css === undefined || !/\.css$/i.test(href)) return tag;
+        return `<style data-file="${href}">\n${css.replace(/<\/style/gi, "<\\/style")}\n</style>`;
+    });
+    html = html.replace(/<script\b([^>]*?)\bsrc\s*=\s*["']([^"']+)["']([^>]*)>\s*<\/script>/gi, (tag, before, src, after) => {
+        const js = lookup(src);
+        if (js === undefined || !/\.js$/i.test(src)) return tag;
+        return `<script${before}${after} data-file="${src}">\n${js.replace(/<\/script/gi, "<\\/script")}\n</script>`;
+    });
+    html = html.replace(/<script\b([^>]*?)\bsrc\s*=\s*["']([^"']+)["']([^>]*)\/>/gi, (tag, before, src, after) => {
+        const js = lookup(src);
+        if (js === undefined || !/\.js$/i.test(src)) return tag;
+        return `<script${before}${after} data-file="${src}">\n${js.replace(/<\/script/gi, "<\\/script")}\n</script>`;
+    });
+    return html;
+}
+
 function runHTML() {
-    const code = editor.getValue();
     const preview = document.getElementById("previewFrame");
-    preview.srcdoc = code;
+    preview.srcdoc = buildHTMLDocument();
     setStatus("ready", "Website preview updated!");
 }
 
 async function startNewStudentDemo() {
     isNewStudentDemo = true;
+    SandboxFiles.openMain();
     editor.setValue("");
     clearOutput();
     appendOutput("🌟 Welcome to Python! 🌟\n\n", "ok");
@@ -1014,7 +1091,10 @@ function wireUI() {
     const resetConfirmBtn = document.getElementById("resetConfirmBtn");
     if (resetConfirmBtn) {
         resetConfirmBtn.addEventListener("click", () => {
-            if (currentLanguage === 'html') {
+            // Resets only the open file: main file -> starter code, other files -> empty
+            if (!SandboxFiles.isMainActive()) {
+                editor.setValue("");
+            } else if (currentLanguage === 'html') {
                 editor.setValue(EXAMPLES.html_hello);
             } else {
                 editor.setValue(DEFAULT_CODE);
@@ -1032,7 +1112,7 @@ function wireUI() {
 
     document.getElementById("launchBtn").addEventListener("click", () => {
         if (currentLanguage === 'html') {
-            const code = editor.getValue();
+            const code = buildHTMLDocument();
             const newWindow = window.open();
             newWindow.document.write(code);
             newWindow.document.close();
@@ -1067,11 +1147,15 @@ function wireUI() {
 
     document.getElementById("shareBtn").addEventListener("click", async () => {
         try {
-            const code = editor.getValue();
-            // Base64 encode the code for the URL
+            // Share the whole project (all files) in the URL
+            const payload = JSON.stringify({
+                language: currentLanguage,
+                files: SandboxFiles.getFiles(currentLanguage),
+                active: SandboxFiles.activeName()
+            });
             // We use btoa(unescape(encodeURIComponent(str))) for robust Unicode support
-            const encoded = btoa(unescape(encodeURIComponent(code)));
-            const shareUrl = window.location.origin + window.location.pathname + "#code=" + encoded;
+            const encoded = btoa(unescape(encodeURIComponent(payload)));
+            const shareUrl = window.location.origin + window.location.pathname + "#project=" + encoded;
             
             await navigator.clipboard.writeText(shareUrl);
             
@@ -1088,11 +1172,64 @@ function wireUI() {
         }
     });
 
+    // Live Share UI Wiring
+    const liveBtn = document.getElementById("liveShareBtn");
+    if (liveBtn) {
+        liveBtn.addEventListener("click", () => {
+            if (SandboxLiveShare.isConnected()) {
+                SandboxLiveShare.openLiveModal(SandboxLiveShare.getRoomId());
+            } else {
+                SandboxLiveShare.startSession(null, true);
+            }
+        });
+    }
+
+    const liveShareCloseBtn = document.getElementById("liveShareCloseBtn");
+    if (liveShareCloseBtn) liveShareCloseBtn.addEventListener("click", SandboxLiveShare.closeLiveModal);
+
+    const closeLiveModalBtn = document.getElementById("closeLiveModalBtn");
+    if (closeLiveModalBtn) closeLiveModalBtn.addEventListener("click", SandboxLiveShare.closeLiveModal);
+
+    const copyLiveUrlBtn = document.getElementById("copyLiveUrlBtn");
+    if (copyLiveUrlBtn) {
+        copyLiveUrlBtn.addEventListener("click", async () => {
+            const input = document.getElementById("liveShareUrlInput");
+            if (input) {
+                await navigator.clipboard.writeText(input.value);
+                const original = copyLiveUrlBtn.innerHTML;
+                copyLiveUrlBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => { copyLiveUrlBtn.innerHTML = original; }, 1500);
+            }
+        });
+    }
+
+    const copyTeacherLiveUrlBtn = document.getElementById("copyTeacherLiveUrlBtn");
+    if (copyTeacherLiveUrlBtn) {
+        copyTeacherLiveUrlBtn.addEventListener("click", async () => {
+            const input = document.getElementById("liveShareTeacherUrlInput");
+            if (input) {
+                await navigator.clipboard.writeText(input.value);
+                const original = copyTeacherLiveUrlBtn.innerHTML;
+                copyTeacherLiveUrlBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => { copyTeacherLiveUrlBtn.innerHTML = original; }, 1500);
+            }
+        });
+    }
+
+    const stopLiveSessionBtn = document.getElementById("stopLiveSessionBtn");
+    if (stopLiveSessionBtn) {
+        stopLiveSessionBtn.addEventListener("click", () => {
+            SandboxLiveShare.stopSession();
+            SandboxLiveShare.closeLiveModal();
+        });
+    }
+
     document.getElementById("examplesSelect").addEventListener("change", (e) => {
         const key = e.target.value;
         if (!key) return;
         const example = EXAMPLES[key];
         if (example) {
+            SandboxFiles.openMain(); // examples always load into main.py / index.html
             if (typeof example === 'string') {
                 editor.setValue(example);
                 persistentBuffer = [];
@@ -1175,13 +1312,10 @@ function wireUI() {
 
 
 function switchLanguageTo(newLanguage) {
-    const oldLanguage = currentLanguage;
-    
-    // Save current code
-    if (oldLanguage === 'python') lastPythonCode = editor.getValue();
-    else lastHTMLCode = editor.getValue();
-    
+    // Each language keeps its own multi-file project (auto-saved by SandboxFiles)
     currentLanguage = newLanguage;
+    window.currentLanguage = newLanguage;
+    try { localStorage.setItem("sandbox.lastLanguage", newLanguage); } catch (e) { /* blocked */ }
     
     // Sync dropdown if called programmatically
     const langSelect = document.getElementById("languageSelect");
@@ -1199,7 +1333,6 @@ function switchLanguageTo(newLanguage) {
     const clearOutputBtn = document.getElementById("clearOutputBtn");
     
     if (newLanguage === 'html') {
-        editor.setOption("mode", "htmlmixed");
         outputDiv.style.display = "none";
         previewFrame.style.display = "block";
         launchBtn.style.display = "flex";
@@ -1215,11 +1348,13 @@ function switchLanguageTo(newLanguage) {
             <option value="html_hello">Hello Website</option>
             <option value="html_shapes">CSS Shapes & Hover</option>
         `;
-        editor.setValue(lastHTMLCode);
+        SandboxFiles.setLanguage('html');
+        if (window.SandboxLiveShare && typeof window.SandboxLiveShare.onLanguageChanged === 'function') {
+            window.SandboxLiveShare.onLanguageChanged('html');
+        }
         setTimeout(() => editor.refresh(), 50);
         setStatus("ready", "Switched to HTML Mode.");
     } else {
-        editor.setOption("mode", "python");
         outputDiv.style.display = "block";
         previewFrame.style.display = "none";
         launchBtn.style.display = "none";
@@ -1244,7 +1379,10 @@ function switchLanguageTo(newLanguage) {
             <option value="turtle">FizzBuzz</option>
             <option value="chart">Data Plot (Matplotlib)</option>
         `;
-        editor.setValue(lastPythonCode);
+        SandboxFiles.setLanguage('python');
+        if (window.SandboxLiveShare && typeof window.SandboxLiveShare.onLanguageChanged === 'function') {
+            window.SandboxLiveShare.onLanguageChanged('python');
+        }
         setTimeout(() => editor.refresh(), 50);
         setStatus("ready", "Switched to Python Mode.");
     }
@@ -1262,6 +1400,9 @@ window.addEventListener("DOMContentLoaded", () => {
     wireUI();
     initEditor();
     initPyodide();
+    if (window.SandboxLiveShare && typeof window.SandboxLiveShare.checkUrlForSession === 'function') {
+        window.SandboxLiveShare.checkUrlForSession();
+    }
 });
 
 // Social Sharing Functions
