@@ -35,7 +35,7 @@ test.describe('Space Typing Hero Game', () => {
         // Type all characters accurately
         for (let i = 0; i < count; i++) {
             const charText = await charElements.nth(i).innerText();
-            const keyToPress = charText === '' || charText === ' ' ? 'Space' : charText;
+            const keyToPress = charText === '' || charText === ' ' || charText === '␣' ? 'Space' : charText;
             await page.keyboard.press(keyToPress);
             await page.waitForTimeout(30);
         }

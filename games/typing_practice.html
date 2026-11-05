@@ -346,11 +346,21 @@
         }
 
         .char.space {
-            min-width: 26px;
+            min-width: 32px;
+            font-size: 28px;
+            color: rgba(255, 255, 255, 0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+            margin: 0 2px;
         }
 
         .char.space.current {
+            color: #fbbf24;
             border-bottom: 4px solid #fbbf24;
+            background: rgba(251, 191, 36, 0.15);
+            border-radius: 6px;
         }
 
         .char.space.wrong {
@@ -358,12 +368,25 @@
             border-radius: 4px;
         }
 
-        /* Hands Visuals */
+        .char.space.correct {
+            color: #4ade80;
+            text-shadow: 0 0 12px #4ade80;
+        }
+
+        /* Keyboard & Spacebar Guide */
+        .keyboard-guide-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 16px;
+            width: 100%;
+        }
+
         .hands-container {
             display: flex;
             justify-content: center;
-            gap: 36px;
-            margin-bottom: 16px;
+            gap: 40px;
+            margin-bottom: 12px;
         }
 
         .hand {
@@ -401,6 +424,79 @@
             fill: #fbbf24;
             stroke: #fbbf24;
             filter: drop-shadow(0 0 8px #fbbf24);
+        }
+
+        /* Dedicated Spacebar Key */
+        .spacebar-container {
+            width: min(440px, 92%);
+            margin-top: 2px;
+        }
+
+        .spacebar-key {
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 14px;
+            padding: 10px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #94a3b8;
+            font-weight: 800;
+            font-size: 13px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .spacebar-key.active {
+            background: linear-gradient(180deg, #f59e0b 0%, #b45309 100%);
+            border-color: #fde047;
+            border-bottom: 3px solid #78350f;
+            color: #ffffff;
+            box-shadow: 0 0 25px rgba(251, 191, 36, 0.65), 0 0 45px rgba(245, 158, 11, 0.35);
+            transform: translateY(2px);
+            animation: spaceGlow 0.8s infinite alternate;
+        }
+
+        @keyframes spaceGlow {
+            from { filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.5)); }
+            to { filter: drop-shadow(0 0 18px rgba(251, 191, 36, 0.9)); }
+        }
+
+        .space-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 16px;
+            color: #f1f5f9;
+            letter-spacing: 1px;
+        }
+
+        .spacebar-key.active .space-badge {
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .space-symbol {
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .space-thumb-indicator {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #64748b;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .spacebar-key.active .space-thumb-indicator {
+            color: #fef08a;
         }
 
         /* Controls */
@@ -588,32 +684,46 @@
             </div>
         </div>
 
-        <!-- Interactive Hands Visual -->
-        <div class="hands-container">
-            <!-- Left Hand -->
-            <div class="hand" id="leftHand">
-                <label>Left Hand</label>
-                <svg viewBox="0 0 100 120">
-                    <path class="finger" d="M10,60 Q10,30 20,30 Q30,30 30,60 L30,90" id="l-pinky"></path>
-                    <path class="finger" d="M32,50 Q32,15 42,15 Q52,15 52,50 L52,90" id="l-ring"></path>
-                    <path class="finger" d="M54,45 Q54,5 64,5 Q74,5 74,45 L74,90" id="l-middle"></path>
-                    <path class="finger" d="M76,50 Q76,15 86,15 Q96,15 96,50 L96,90" id="l-index"></path>
-                    <path class="finger thumb" d="M80,95 Q100,105 90,120 M76,90 L96,90" id="l-thumb"></path>
-                    <rect fill="#334155" height="30" rx="10" width="60" x="20" y="90"></rect>
-                </svg>
+        <!-- Interactive Hands & Spacebar Visual Guide -->
+        <div class="keyboard-guide-wrap">
+            <div class="hands-container">
+                <!-- Left Hand -->
+                <div class="hand" id="leftHand">
+                    <label>Left Hand</label>
+                    <svg viewBox="0 0 100 120">
+                        <path class="finger" d="M10,60 Q10,30 20,30 Q30,30 30,60 L30,90" id="l-pinky"></path>
+                        <path class="finger" d="M32,50 Q32,15 42,15 Q52,15 52,50 L52,90" id="l-ring"></path>
+                        <path class="finger" d="M54,45 Q54,5 64,5 Q74,5 74,45 L74,90" id="l-middle"></path>
+                        <path class="finger" d="M76,50 Q76,15 86,15 Q96,15 96,50 L96,90" id="l-index"></path>
+                        <path class="finger thumb" d="M78,82 Q102,96 86,116 L74,94" id="l-thumb"></path>
+                        <rect fill="#334155" height="30" rx="10" width="60" x="20" y="90"></rect>
+                    </svg>
+                </div>
+
+                <!-- Right Hand -->
+                <div class="hand" id="rightHand">
+                    <label>Right Hand</label>
+                    <svg viewBox="0 0 100 120">
+                        <path class="finger" d="M4,50 Q4,15 14,15 Q24,15 24,50 L24,90" id="r-index"></path>
+                        <path class="finger" d="M26,45 Q26,5 36,5 Q46,5 46,45 L46,90" id="r-middle"></path>
+                        <path class="finger" d="M48,50 Q48,15 58,15 Q68,15 68,50 L68,90" id="r-ring"></path>
+                        <path class="finger" d="M70,60 Q70,30 80,30 Q90,30 90,60 L90,90" id="r-pinky"></path>
+                        <path class="finger thumb" d="M22,82 Q-2,96 14,116 L26,94" id="r-thumb"></path>
+                        <rect fill="#334155" height="30" rx="10" width="60" x="20" y="90"></rect>
+                    </svg>
+                </div>
             </div>
 
-            <!-- Right Hand -->
-            <div class="hand" id="rightHand">
-                <label>Right Hand</label>
-                <svg viewBox="0 0 100 120">
-                    <path class="finger" d="M4,50 Q4,15 14,15 Q24,15 24,50 L24,90" id="r-index"></path>
-                    <path class="finger" d="M26,45 Q26,5 36,5 Q46,5 46,45 L46,90" id="r-middle"></path>
-                    <path class="finger" d="M48,50 Q48,15 58,15 Q68,15 68,50 L68,90" id="r-ring"></path>
-                    <path class="finger" d="M70,60 Q70,30 80,30 Q90,30 90,60 L90,90" id="r-pinky"></path>
-                    <path class="finger thumb" d="M10,95 Q-10,105 10,120" id="r-thumb"></path>
-                    <rect fill="#334155" height="30" rx="10" width="60" x="20" y="90"></rect>
-                </svg>
+            <!-- Dedicated Spacebar Key with Thumb Guides -->
+            <div class="spacebar-container">
+                <div class="spacebar-key" id="spacebarKey">
+                    <div class="space-thumb-indicator left"><i class="fas fa-hand-point-down"></i> Left Thumb</div>
+                    <div class="space-badge">
+                        <span class="space-symbol">␣</span>
+                        <span class="space-text">SPACEBAR</span>
+                    </div>
+                    <div class="space-thumb-indicator right">Right Thumb <i class="fas fa-hand-point-down"></i></div>
+                </div>
             </div>
         </div>
 
@@ -889,6 +999,9 @@
 
         function highlightFinger(char) {
             document.querySelectorAll('.finger').forEach(f => f.classList.remove('active'));
+            const spaceKey = document.getElementById('spacebarKey');
+            if (spaceKey) spaceKey.classList.remove('active');
+
             if (!char) return;
             const fingerId = FINGER_MAP[char.toLowerCase()];
             if (fingerId) {
@@ -898,6 +1011,7 @@
             if (char === ' ') {
                 document.getElementById('l-thumb')?.classList.add('active');
                 document.getElementById('r-thumb')?.classList.add('active');
+                if (spaceKey) spaceKey.classList.add('active');
             }
         }
 
@@ -906,7 +1020,7 @@
             targetText.split('').forEach((char, idx) => {
                 const span = document.createElement('div');
                 span.className = 'char ' + (char === ' ' ? 'space' : '');
-                span.textContent = char;
+                span.textContent = char === ' ' ? '␣' : char;
                 if (idx < currentIndex) span.classList.add('correct');
                 if (idx === currentIndex) {
                     span.classList.add('current');
@@ -916,6 +1030,7 @@
             });
             if (currentIndex >= targetText.length) {
                 document.querySelectorAll('.finger').forEach(f => f.classList.remove('active'));
+                document.getElementById('spacebarKey')?.classList.remove('active');
             }
         }
 
