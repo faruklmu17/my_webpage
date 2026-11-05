@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Games & Simulations - Faruk Hasan</title>
+  <link rel="canonical" href="https://faruk-hasan.com/games/" />
+  <meta name="description"
+    content="Play fun and educational browser games: AI Planet Builder simulation, Space Typing Hero for kids, Robo-Balance reinforcement learning, Pro Curling 2026, and more.">
+  <meta name="keywords"
+    content="educational games, typing game, space typing hero, ai planet builder, reinforcement learning game, cartpole balance, physics simulation, browser games, kidzcodeai">
+  <link rel="stylesheet" href="../styles.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .games-hero {
+      text-align: center;
+      padding: 50px 20px 30px;
+      background: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.15) 0%, rgba(15, 23, 42, 0) 70%);
+    }
+
+    .games-hero h1 {
+      font-size: 2.8rem;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      background: linear-gradient(135deg, #38bdf8 0%, #ec4899 50%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+
+    .games-hero p {
+      color: #94a3b8;
+      font-size: 1.15rem;
+      max-width: 720px;
+      margin: 0 auto 20px;
+      line-height: 1.6;
+    }
+
+    .games-hero .breadcrumbs {
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-bottom: 15px;
+    }
+
+    .games-hero .breadcrumbs a {
+      color: #38bdf8;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .games-hero .breadcrumbs a:hover {
+      color: #7dd3fc;
+    }
+
+    .games-container {
+      max-width: 1200px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+      flex: 1;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 28px;
+    }
+
+    .game-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.5), 0 0 25px rgba(56, 189, 248, 0.2);
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+
+    .game-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--card-accent, linear-gradient(90deg, #38bdf8, #818cf8));
+    }
+
+    .game-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.06);
+      color: #cbd5e1;
+      width: fit-content;
+      margin-bottom: 16px;
+    }
+
+    .game-icon-wrap {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .game-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 10px;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .game-desc {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 22px;
+      flex: 1;
+    }
+
+    .game-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .game-tag {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(15, 23, 42, 0.6);
+      color: #94a3b8;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .play-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #ffffff;
+      text-decoration: none;
+      background: var(--btn-gradient, linear-gradient(135deg, #38bdf8, #2563eb));
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+      transition: all 0.25s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .play-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(37, 99, 235, 0.45);
+      filter: brightness(1.1);
+    }
+
+    @media (max-width: 768px) {
+      .games-hero h1 {
+        font-size: 2.1rem;
+      }
+      .games-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header injected by ../shared/header-footer.js -->
+
+  <header class="games-hero">
+    <div class="breadcrumbs">
+      <a href="../index.html"><i class="fas fa-home"></i> Home</a> &rsaquo;
+      <a href="../resources/resources.html">Resources</a> &rsaquo;
+      <span>Games</span>
+    </div>
+    <h1>🎮 Interactive Games & Simulations</h1>
+    <p>Dive into fun, educational simulations and games—master keyboard typing, experiment with planetary AI balance, test reinforcement learning physics, and more!</p>
+  </header>
+
+  <main class="games-container">
+    <div class="games-grid">
+
+      <!-- AI Planet Builder -->
+      <article class="game-card" style="--card-accent: linear-gradient(90deg, #10b981, #06b6d4); --btn-gradient: linear-gradient(135deg, #10b981, #0891b2);">
+        <div>
+          <span class="game-badge"><i class="fas fa-globe-americas"></i> Simulation & Strategy</span>
+          <div class="game-icon-wrap" style="color: #34d399;">🌍</div>
+          <h2 class="game-title">AI Planet Builder</h2>
+          <p class="game-desc">
+            Scale AI compute power while keeping your planet alive. Manage CPU arrays, clean energy grids, and thermal regulation to prevent ecological collapse in this cyber-planet simulator.
+          </p>
+          <div class="game-tags">
+            <span class="game-tag">Sandbox Sim</span>
+            <span class="game-tag">Cyber-Physics</span>
+            <span class="game-tag">Ecology</span>
+          </div>
+        </div>
+        <a href="ai_civilization/index.html" class="play-btn">
+          <i class="fas fa-play"></i> Play Simulation
+        </a>
+      </article>
+
+      <!-- Space Typing Hero -->
+      <article class="game-card" style="--card-accent: linear-gradient(90deg, #ec4899, #8b5cf6); --btn-gradient: linear-gradient(135deg, #ec4899, #8b5cf6);">
+        <div>
+          <span class="game-badge"><i class="fas fa-rocket"></i> Kids & Keyboard Skills</span>
+          <div class="game-icon-wrap" style="color: #f472b6;">🚀</div>
+          <h2 class="game-title">Space Typing Hero</h2>
+          <p class="game-desc">
+            A fast-paced, space-themed typing game designed for kids and beginners. Fuel your rocket across galaxies by typing letters and words accurately with fun sound effects!
+          </p>
+          <div class="game-tags">
+            <span class="game-tag">Typing Practice</span>
+            <span class="game-tag">Kids Friendly</span>
+            <span class="game-tag">Keyboard Mastery</span>
+          </div>
+        </div>
+        <a href="typing_practice.html" class="play-btn">
+          <i class="fas fa-keyboard"></i> Start Typing Game
+        </a>
+      </article>
+
+      <!-- Robo-Balance: CartPole RL -->
+      <article class="game-card" style="--card-accent: linear-gradient(90deg, #a855f7, #6366f1); --btn-gradient: linear-gradient(135deg, #8b5cf6, #4f46e5);">
+        <div>
+          <span class="game-badge"><i class="fas fa-robot"></i> AI & Machine Learning</span>
+          <div class="game-icon-wrap" style="color: #c084fc;">🤖</div>
+          <h2 class="game-title">Robo-Balance (CartPole)</h2>
+          <p class="game-desc">
+            Interactive Reinforcement Learning (RL) game based on the classic CartPole challenge. Discover how AI learns balance through reward states and physics simulations.
+          </p>
+          <div class="game-tags">
+            <span class="game-tag">Reinforcement Learning</span>
+            <span class="game-tag">Physics Engine</span>
+            <span class="game-tag">AI Education</span>
+          </div>
+        </div>
+        <a href="cartpole_balance.html" class="play-btn">
+          <i class="fas fa-brain"></i> Play Robo-Balance
+        </a>
+      </article>
+
+      <!-- Pro Curling 2026 -->
+      <article class="game-card" style="--card-accent: linear-gradient(90deg, #38bdf8, #0284c7); --btn-gradient: linear-gradient(135deg, #38bdf8, #0284c7);">
+        <div>
+          <span class="game-badge"><i class="fas fa-snowflake"></i> Sports & Physics</span>
+          <div class="game-icon-wrap" style="color: #7dd3fc;">🥌</div>
+          <h2 class="game-title">Pro Curling 2026</h2>
+          <p class="game-desc">
+            Step onto the ice sheet! Realistic stone delivery, sweeping physics, and target strategy in a browser winter sports simulator. Master the curl and land on the button.
+          </p>
+          <div class="game-tags">
+            <span class="game-tag">Ice Physics</span>
+            <span class="game-tag">Winter Sports</span>
+            <span class="game-tag">Strategy</span>
+          </div>
+        </div>
+        <a href="curling.html" class="play-btn">
+          <i class="fas fa-bullseye"></i> Play Curling
+        </a>
+      </article>
+
+      <!-- Realistic Fishing Adventure -->
+      <article class="game-card" style="--card-accent: linear-gradient(90deg, #0ea5e9, #0d9488); --btn-gradient: linear-gradient(135deg, #0ea5e9, #0d9488);">
+        <div>
+          <span class="game-badge"><i class="fas fa-water"></i> Casual Arcade</span>
+          <div class="game-icon-wrap" style="color: #38bdf8;">🎣</div>
+          <h2 class="game-title">Realistic Fishing Game</h2>
+          <p class="game-desc">
+            A relaxing fishing game featuring cast power meters, underwater fish swimming behaviors, and satisfying catch logs. Great for a quick fun break.
+          </p>
+          <div class="game-tags">
+            <span class="game-tag">Arcade</span>
+            <span class="game-tag">HTML5 Canvas</span>
+            <span class="game-tag">Casual</span>
+          </div>
+        </div>
+        <a href="fishing_game.html" class="play-btn">
+          <i class="fas fa-fish"></i> Go Fishing
+        </a>
+      </article>
+
+      <!-- Python Sandbox Shortcut -->
+      <article class="game-card" style="--card-accent: linear-gradient(90deg, #f59e0b, #ef4444); --btn-gradient: linear-gradient(135deg, #f59e0b, #d97706);">
+        <div>
+          <span class="game-badge"><i class="fab fa-python"></i> Coding Playground</span>
+          <div class="game-icon-wrap" style="color: #fbbf24;">💻</div>
+          <h2 class="game-title">Python & Web Sandbox</h2>
+          <p class="game-desc">
+            Ready to build your own game? Open the full online code editor with multi-file project support, real-time live share pair programming, and Pyodide.
+          </p>
+          <div class="game-tags">
+            <span class="game-tag">Multi-File</span>
+            <span class="game-tag">Live Share</span>
+            <span class="game-tag">Pyodide</span>
+          </div>
+        </div>
+        <a href="../sandbox/index.html" class="play-btn">
+          <i class="fas fa-code"></i> Launch Sandbox
+        </a>
+      </article>
+
+    </div>
+  </main>
+
+  <script src="../shared/header-footer.js"></script>
+</body>
+</html>
+

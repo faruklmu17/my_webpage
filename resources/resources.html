@@ -137,6 +137,14 @@
       box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
     }
 
+    .category-button.games {
+      background: linear-gradient(135deg, #ec4899, #8b5cf6);
+      /* Vibrant Fuchsia to Violet for Games */
+      box-shadow: 0 4px 12px rgba(236, 72, 153, 0.35);
+      border: none;
+      font-weight: 600;
+    }
+
     /* Modern sleek button style updates */
     .category-button {
       background-color: #0077b5;
@@ -744,6 +752,22 @@
             style="background: linear-gradient(135deg, #38bdf8, #818cf8); border: none; display: inline-block; text-decoration: none; font-weight: 700; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);">Python Sandbox 💻</a>
         </div>
 
+        <!-- Interactive Games Category -->
+        <div class="quiz-category">
+          <button class="category-button games">Games & Simulations 🎮</button>
+          <div class="quiz-dropdown">
+            <h3>Interactive Games</h3>
+            <ul>
+              <li><a href="../games/ai_civilization/index.html" class="direct-link">🌍 AI Planet Builder (Civilization Sim)</a></li>
+              <li><a href="../games/typing_practice.html" class="direct-link">🚀 Space Typing Hero (Typing Practice)</a></li>
+              <li><a href="../games/cartpole_balance.html" class="direct-link">🤖 Robo-Balance: CartPole (RL)</a></li>
+              <li><a href="../games/curling.html" class="direct-link">🥌 Pro Curling 2026 (Physics)</a></li>
+              <li><a href="../games/fishing_game.html" class="direct-link">🎣 Realistic Fishing Game</a></li>
+              <li><a href="../games/index.html" class="direct-link" style="color: #ec4899; font-weight: bold; border-top: 1px dashed #e2e8f0; margin-top: 4px; padding-top: 8px;">🎮 Browse All Games Hub...</a></li>
+            </ul>
+          </div>
+        </div>
+
         <div class="quiz-category">
           <button class="category-button python">Python Quizzes</button>
           <div class="quiz-dropdown">
@@ -950,6 +974,11 @@
     // Updated script to handle quiz selection and navigation
     document.querySelectorAll('.quiz-dropdown a').forEach(link => {
       link.addEventListener('click', function (e) {
+        // Direct navigation for games and custom direct links
+        const targetHref = this.getAttribute('href') || '';
+        if (this.classList.contains('direct-link') || targetHref.startsWith('../games/')) {
+          return; // Let browser navigate directly
+        }
         e.preventDefault();
         const quizName = this.textContent;
         const contentArea = document.querySelector('.content-area');
