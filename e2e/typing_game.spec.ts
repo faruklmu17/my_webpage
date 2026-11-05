@@ -40,11 +40,16 @@ test.describe('Space Typing Hero Game', () => {
             await page.waitForTimeout(30);
         }
 
-        // Round completes and Next Round button is displayed
+        // Round completes and Next Round countdown button is displayed
         await expect(page.locator('#mainBtn')).toBeVisible();
         await expect(page.locator('#mainBtn')).toContainText('Next Round');
         
-        // Verify score increased
+        // Tap Space to instantly start Round 2 without waiting
+        await page.keyboard.press('Space');
+
+        // Round 2 is now playing!
+        await expect(page.locator('#roundDisplay')).toHaveText('Round 2/5');
+        await expect(page.locator('#typingBox .char').first()).toBeVisible();
         const scoreText = await page.locator('#scoreDisplay').innerText();
         expect(parseInt(scoreText, 10)).toBeGreaterThan(0);
 

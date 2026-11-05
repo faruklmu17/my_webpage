@@ -747,6 +747,7 @@
         let retriesForCurrentRound = 0;
         let timeLeft = 20;
         let timerInterval = null;
+        let countdownTimer = null;
         let activeRoundStartTime = 0;
         let totalTimeSpentMsAcrossLevel = 0;
         let totalCorrectCharsAcrossLevel = 0;
@@ -1020,6 +1021,10 @@
         }
 
         function startGame() {
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
+            }
             isPlaying = true;
             score = 0;
             streak = 0;
@@ -1047,6 +1052,10 @@
         }
 
         function nextLevel() {
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
+            }
             if (currentLevel < LEVELS.length - 1) {
                 currentLevel++;
                 levelSelect.value = String(currentLevel);
@@ -1062,6 +1071,15 @@
 
         // Key Press Handling
         function handleKey(e) {
+            // If waiting for next round, tapping Enter or Space skips immediately
+            if (countdownTimer) {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    triggerNextRoundNow();
+                    return;
+                }
+            }
+
             if (!isPlaying) return;
             if (e.ctrlKey || e.altKey || e.metaKey) return;
             if (e.key.length !== 1) return;
@@ -1153,6 +1171,18 @@
             }, 2000);
         }
 
+        function triggerNextRoundNow() {
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
+            }
+            round++;
+            const lvl = LEVELS[currentLevel];
+            roundDisplay.textContent = `Round ${round}/${lvl.rounds}`;
+            mainBtn.style.display = 'none';
+            nextRound();
+        }
+
         function finishRound() {
             stopTimer();
             if (activeRoundStartTime > 0) {
@@ -1166,8 +1196,21 @@
             const lvl = LEVELS[currentLevel];
 
             if (round < lvl.rounds) {
-                mainBtn.innerHTML = '<i class="fas fa-arrow-right"></i> Next Round';
-                mainBtn.style.display = 'inline-block';
+                let seconds = 3;
+                mainBtn.innerHTML = `<i class="fas fa-forward"></i> Next Round (${seconds}s) [Enter]`;
+                mainBtn.style.display = 'inline-flex';
+                infoMsg.innerHTML = `Great round! Next round in <strong>${seconds}s</strong> (or press <strong>Enter / Space</strong> to skip)`;
+
+                if (countdownTimer) clearInterval(countdownTimer);
+                countdownTimer = setInterval(() => {
+                    seconds--;
+                    if (seconds > 0) {
+                        mainBtn.innerHTML = `<i class="fas fa-forward"></i> Next Round (${seconds}s) [Enter]`;
+                        infoMsg.innerHTML = `Great round! Next round in <strong>${seconds}s</strong> (or press <strong>Enter / Space</strong> to skip)`;
+                    } else {
+                        triggerNextRoundNow();
+                    }
+                }, 1000);
             } else {
                 handleLevelComplete();
             }
@@ -1176,6 +1219,10 @@
         function handleLevelComplete() {
             isPlaying = false;
             stopTimer();
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
+            }
 
             // Calculate overall speed and accuracy
             const timeInMinutes = (totalTimeSpentMsAcrossLevel / 60000) || 0.1;
@@ -1198,12 +1245,8 @@
         }
 
         mainBtn.addEventListener('click', () => {
-            if (mainBtn.textContent.includes("Next Round")) {
-                round++;
-                const lvl = LEVELS[currentLevel];
-                roundDisplay.textContent = `Round ${round}/${lvl.rounds}`;
-                mainBtn.style.display = 'none';
-                nextRound();
+            if (countdownTimer || mainBtn.textContent.includes("Next Round")) {
+                triggerNextRoundNow();
             } else {
                 startGame();
             }
