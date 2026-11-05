@@ -1,193 +1,262 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>Space Typing Hero - Kids Typing Practice Game</title>
-<meta content="A fun, free space-themed typing game for kids. Help the rocket fly by typing letters correctly! Learn default keys A, B, C, D and Space effectively." name="description"/>
-<meta content="typing game for kids, learn to type, space game, educational game, free typing practice, alphabet game" name="keywords"/>
-<meta content="Space Typing Hero - Learn to Type" property="og:title"/>
-<meta content="Blast off into learning! A fun interactive game to practice keyboard skills." property="og:description"/>
-<meta content="website" property="og:type"/>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&amp;family=Nunito:wght@600;800&amp;display=swap" rel="stylesheet"/>
-<style>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport"/>
+    <title>Space Typing Hero 🚀 - Kids Typing Practice Game</title>
+    <link href="https://faruk-hasan.com/games/typing_practice.html" rel="canonical"/>
+    <meta content="A fun, educational space-themed typing game for kids. Master touch-typing finger positions, explore the galaxy, dodge asteroids, and boost your rocket across 8 cosmic missions!" name="description"/>
+    <meta content="typing game for kids, touch typing, learn to type, space typing hero, space game, educational games, free typing practice, kids coding" name="keywords"/>
+    <meta content="Space Typing Hero 🚀 - Learn to Type" property="og:title"/>
+    <meta content="Blast off into typing mastery! 8 levels from Home Row to Deep Space missions with live hands visual guide, WPM tracking, and streaks." property="og:description"/>
+    <meta content="website" property="og:type"/>
+
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;700;800;900&family=Outfit:wght@600;800&display=swap" rel="stylesheet"/>
+
+    <style>
+        :root {
+            --space-bg: radial-gradient(circle at 50% 20%, #1e1b4b 0%, #0f172a 70%, #020617 100%);
+            --accent-gold: #fbbf24;
+            --accent-green: #4ade80;
+            --accent-cyan: #38bdf8;
+            --accent-pink: #ec4899;
+            --accent-red: #f87171;
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
         body {
             margin: 0;
             font-family: 'Nunito', sans-serif;
-            background: radial-gradient(circle at center, #1e1b4b 0%, #0f172a 100%);
-            color: white;
-            height: 100vh;
-            overflow: hidden;
+            background: var(--space-bg);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
+            position: relative;
+        }
+
+        /* Top Navigation Bar */
+        .top-nav {
+            width: 100%;
+            max-width: 1100px;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 50;
+            position: relative;
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-pill {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #e2e8f0;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .nav-pill:hover {
+            background: rgba(255, 255, 255, 0.18);
+            color: #ffffff;
+            transform: translateY(-2px);
+            border-color: var(--accent-cyan);
+        }
+
+        .level-select-dropdown {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            color: #fbbf24;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 14px;
+            padding: 8px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .level-select-dropdown:hover {
+            border-color: #fbbf24;
         }
 
         /* Animated Stars Background */
-        .stars {
-            position: absolute;
+        .stars-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             z-index: 0;
+            pointer-events: none;
             background-image:
                 radial-gradient(2px 2px at 20px 30px, #eee, rgba(0, 0, 0, 0)),
                 radial-gradient(2px 2px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
                 radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0, 0, 0, 0)),
                 radial-gradient(2px 2px at 90px 40px, #fff, rgba(0, 0, 0, 0)),
-                radial-gradient(2px 2px at 130px 80px, #fff, rgba(0, 0, 0, 0));
-            background-size: 200px 200px;
-            animation: starMove 100s linear infinite;
+                radial-gradient(2px 2px at 130px 80px, #fff, rgba(0, 0, 0, 0)),
+                radial-gradient(3px 3px at 170px 120px, #38bdf8, rgba(0, 0, 0, 0)),
+                radial-gradient(2px 2px at 190px 180px, #ec4899, rgba(0, 0, 0, 0));
+            background-size: 220px 220px;
+            animation: starMove 90s linear infinite;
         }
 
         @keyframes starMove {
-            from {
-                background-position: 0 0;
-            }
-
-            to {
-                background-position: 0 1000px;
-            }
+            from { background-position: 0 0; }
+            to { background-position: 0 1000px; }
         }
 
+        /* Confetti Canvas */
+        #confettiCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* Main Game Container */
         .game-container {
             position: relative;
             z-index: 10;
-            width: min(900px, 95%);
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 30px;
-            padding: 30px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            width: min(920px, 95%);
+            background: rgba(30, 41, 59, 0.65);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-radius: 28px;
+            padding: 26px 30px;
+            border: 2px solid rgba(255, 255, 255, 0.12);
             text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 35px rgba(56, 189, 248, 0.15);
+            margin: 10px auto 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         @keyframes popIn {
-            from {
-                transform: scale(0.9);
-                opacity: 0;
-            }
+            from { transform: scale(0.92); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
 
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+        .header-title-wrap {
+            margin-bottom: 8px;
         }
 
         h1 {
             font-family: 'Fredoka One', cursive;
-            font-size: 42px;
+            font-size: 38px;
             color: #fbbf24;
-            text-shadow: 0 6px 0 #b45309;
-            margin: 0 0 10px;
-            letter-spacing: 2px;
+            text-shadow: 0 4px 0 #b45309, 0 0 25px rgba(251, 191, 36, 0.4);
+            margin: 0 0 6px;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
         }
 
         p.sub {
             color: #cbd5e1;
-            font-size: 18px;
-            margin-bottom: 20px;
+            font-size: 16px;
+            margin: 0 0 16px;
+            font-weight: 700;
         }
 
+        .mission-badge {
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            color: #38bdf8;
+            padding: 4px 14px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 800;
+            display: inline-block;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        /* Stats Bar */
         .stats-bar {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 10px;
+            margin-bottom: 18px;
             flex-wrap: wrap;
+            width: 100%;
         }
 
         .stat-pill {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 8px 16px;
-            border-radius: 20px;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 6px 14px;
+            border-radius: 16px;
             font-weight: 800;
-            font-size: 18px;
+            font-size: 15px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            border: 2px solid rgba(255, 255, 255, 0.05);
+            gap: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
             color: #e2e8f0;
+            transition: all 0.2s;
         }
 
         .stat-pill.highlight {
             border-color: #fbbf24;
             color: #fbbf24;
+            background: rgba(251, 191, 36, 0.1);
         }
 
-        .icon {
-            font-size: 20px;
+        .stat-pill.streak {
+            border-color: #f97316;
+            color: #fdba74;
+            background: rgba(249, 115, 22, 0.12);
         }
 
-        /* Typing Area */
-        .typing-box {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 24px;
-            padding: 30px 20px;
-            margin-bottom: 20px;
-            position: relative;
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 4px;
-            min-height: 60px;
-            width: 100%;
-        }
-
-        .char {
-            font-family: 'Fredoka One', monospace;
-            font-size: 48px;
-            width: 40px;
-            color: rgba(255, 255, 255, 0.3);
-            transition: all 0.1s;
-            position: relative;
-        }
-
-        .char.correct {
-            color: #4ade80;
-            text-shadow: 0 0 15px #4ade80;
-            transform: scale(1.2) translateY(-5px);
-        }
-
-        .char.wrong {
-            color: #f87171;
-            animation: shake 0.4s;
-        }
-
-        .char.current {
-            color: #fff;
-            border-bottom: 4px solid #fbbf24;
-        }
-
-        /* Space special styling */
-        .char.space {
-            width: 30px;
-        }
-
-        .char.space.current {
-            border-bottom: 4px solid #fbbf24;
-        }
-
-        .char.space.wrong {
-            background: rgba(248, 113, 113, 0.3);
-            border-radius: 4px;
+        .stat-pill.wpm {
+            border-color: #4ade80;
+            color: #86efac;
+            background: rgba(74, 222, 128, 0.1);
         }
 
         /* Rocket Track */
         .track-container {
             position: relative;
-            background: rgba(255, 255, 255, 0.1);
-            height: 12px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 14px;
             border-radius: 10px;
-            margin: 0 20px 20px;
+            margin: 10px 0 22px;
             width: 100%;
         }
 
@@ -196,10 +265,11 @@
             left: 0;
             top: 0;
             bottom: 0;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            background: linear-gradient(90deg, #38bdf8, #818cf8, #ec4899);
             border-radius: 10px;
             width: 0%;
-            transition: width 0.3s;
+            transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
         }
 
         .rocket {
@@ -208,16 +278,115 @@
             left: 0%;
             font-size: 32px;
             transform: translateX(-50%) rotate(45deg);
-            transition: left 0.3s;
-            filter: drop-shadow(0 0 8px #f59e0b);
+            transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 0 10px #fbbf24);
+            cursor: default;
         }
 
-        /* Hand Visuals */
+        .rocket.thrusting {
+            animation: rocketPulse 0.15s infinite alternate;
+            filter: drop-shadow(0 0 16px #f97316) drop-shadow(0 0 25px #ef4444);
+        }
+
+        @keyframes rocketPulse {
+            from { transform: translateX(-50%) rotate(45deg) scale(1); }
+            to { transform: translateX(-50%) rotate(47deg) scale(1.15); }
+        }
+
+        /* Typing Area */
+        .typing-box {
+            background: rgba(15, 23, 42, 0.75);
+            border-radius: 22px;
+            padding: 24px 20px;
+            margin-bottom: 18px;
+            position: relative;
+            border: 3px solid rgba(255, 255, 255, 0.12);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            min-height: 80px;
+            width: 100%;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+        }
+
+        .char {
+            font-family: 'Fredoka One', monospace;
+            font-size: 44px;
+            min-width: 32px;
+            color: rgba(255, 255, 255, 0.3);
+            transition: all 0.12s ease;
+            position: relative;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .char.correct {
+            color: #4ade80;
+            text-shadow: 0 0 15px #4ade80;
+            transform: scale(1.15) translateY(-3px);
+        }
+
+        .char.wrong {
+            color: #f87171;
+            animation: shake 0.35s ease-in-out;
+        }
+
+        .char.current {
+            color: #ffffff;
+            border-bottom: 4px solid #fbbf24;
+            animation: blinkUnderline 1s infinite;
+        }
+
+        @keyframes blinkUnderline {
+            0%, 100% { border-color: #fbbf24; }
+            50% { border-color: rgba(251, 191, 36, 0.2); }
+        }
+
+        .char.space {
+            min-width: 32px;
+            font-size: 28px;
+            color: rgba(255, 255, 255, 0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+            margin: 0 2px;
+        }
+
+        .char.space.current {
+            color: #fbbf24;
+            border-bottom: 4px solid #fbbf24;
+            background: rgba(251, 191, 36, 0.15);
+            border-radius: 6px;
+        }
+
+        .char.space.wrong {
+            background: rgba(248, 113, 113, 0.35);
+            border-radius: 4px;
+        }
+
+        .char.space.correct {
+            color: #4ade80;
+            text-shadow: 0 0 12px #4ade80;
+        }
+
+        /* Keyboard & Spacebar Guide */
+        .keyboard-guide-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 16px;
+            width: 100%;
+        }
+
         .hands-container {
             display: flex;
             justify-content: center;
             gap: 40px;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
 
         .hand {
@@ -227,295 +396,537 @@
         }
 
         .hand label {
-            font-size: 14px;
+            font-size: 13px;
             color: #94a3b8;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             text-transform: uppercase;
             font-weight: 800;
+            letter-spacing: 0.5px;
         }
 
         .hand svg {
-            width: 120px;
-            height: 140px;
+            width: 110px;
+            height: 125px;
             fill: none;
-            stroke: rgba(255, 255, 255, 0.2);
+            stroke: rgba(255, 255, 255, 0.25);
             stroke-width: 4;
             stroke-linecap: round;
             stroke-linejoin: round;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
         }
 
         .finger {
-            transition: all 0.2s;
-            fill: rgba(255, 255, 255, 0.05);
+            transition: all 0.15s ease;
+            fill: rgba(255, 255, 255, 0.04);
         }
 
         .finger.active {
             fill: #fbbf24;
             stroke: #fbbf24;
+            filter: drop-shadow(0 0 8px #fbbf24);
         }
 
-        .finger.thumb {
-            /* Thumb styling handled by base .finger class */
+        /* Dedicated Spacebar Key */
+        .spacebar-container {
+            width: min(440px, 92%);
+            margin-top: 2px;
+        }
+
+        .spacebar-key {
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 14px;
+            padding: 10px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #94a3b8;
+            font-weight: 800;
+            font-size: 13px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .spacebar-key.active {
+            background: linear-gradient(180deg, #f59e0b 0%, #b45309 100%);
+            border-color: #fde047;
+            border-bottom: 3px solid #78350f;
+            color: #ffffff;
+            box-shadow: 0 0 25px rgba(251, 191, 36, 0.65), 0 0 45px rgba(245, 158, 11, 0.35);
+            transform: translateY(2px);
+            animation: spaceGlow 0.8s infinite alternate;
+        }
+
+        @keyframes spaceGlow {
+            from { filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.5)); }
+            to { filter: drop-shadow(0 0 18px rgba(251, 191, 36, 0.9)); }
+        }
+
+        .space-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 16px;
+            color: #f1f5f9;
+            letter-spacing: 1px;
+        }
+
+        .spacebar-key.active .space-badge {
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .space-symbol {
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .space-thumb-indicator {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #64748b;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .spacebar-key.active .space-thumb-indicator {
+            color: #fef08a;
         }
 
         /* Controls */
         .controls-area {
             display: flex;
-            gap: 15px;
-            margin-top: 10px;
+            gap: 14px;
+            margin-top: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        button {
+        button.btn-action {
             font-family: 'Fredoka One', cursive;
-            font-size: 24px;
-            padding: 14px 40px;
+            font-size: 22px;
+            padding: 12px 36px;
             border: none;
             border-radius: 16px;
             background: linear-gradient(to bottom, #fbbf24, #d97706);
-            color: #fff;
+            color: #ffffff;
             cursor: pointer;
-            box-shadow: 0 6px 0 #92400e;
-            transition: all 0.1s;
+            box-shadow: 0 5px 0 #92400e, 0 8px 20px rgba(245, 158, 11, 0.3);
+            transition: all 0.15s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        button:hover {
+        button.btn-action:hover {
             filter: brightness(1.1);
+            transform: translateY(-2px);
         }
 
-        button:active {
-            transform: translateY(6px);
-            box-shadow: 0 0 0 #92400e;
+        button.btn-action:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #92400e;
         }
 
-        button.locked {
+        button.btn-action.locked {
             filter: grayscale(100%);
             opacity: 0.5;
             cursor: not-allowed;
             pointer-events: none;
             display: none;
-            /* Hidden until unlocked */
             background: #cbd5e1;
-            box-shadow: 0 6px 0 #64748b;
+            box-shadow: 0 5px 0 #64748b;
         }
 
-        button.locked.unlocked {
-            /* Unlocked button styling - currently handled by removing .locked class */
-            display: inline-block;
+        .info-msg {
+            margin-top: 12px;
+            font-size: 17px;
+            color: #4ade80;
+            font-weight: 800;
+            min-height: 26px;
+            line-height: 1.4;
         }
 
-        /* Feedback Overlay */
+        /* Floating Feedback Badge */
         .feedback-overlay {
             position: absolute;
-            top: 50%;
+            top: 45%;
             left: 50%;
             transform: translate(-50%, -50%);
             font-family: 'Fredoka One', cursive;
-            font-size: 80px;
-            color: #fff;
-            text-shadow: 0 10px 0 rgba(0, 0, 0, 0.5);
+            font-size: 64px;
+            color: #ffffff;
+            text-shadow: 0 6px 0 rgba(0, 0, 0, 0.6), 0 0 30px #fbbf24;
             pointer-events: none;
             opacity: 0;
             z-index: 100;
         }
 
         .feedback-overlay.show {
-            animation: popUpFade 1s forwards;
+            animation: popUpFade 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        .info-msg {
-            margin-top: 15px;
-            font-size: 18px;
-            color: #4ade80;
-            font-weight: 800;
-            min-height: 27px;
+        /* Hidden input for mobile keyboard triggering */
+        #mobileKeySink {
+            position: absolute;
+            opacity: 0;
+            left: -9999px;
+            top: -9999px;
+            width: 1px;
+            height: 1px;
         }
 
         @keyframes shake {
-
-            0%,
-            100% {
-                transform: translateX(0);
-            }
-
-            20% {
-                transform: translateX(-6px);
-            }
-
-            40% {
-                transform: translateX(6px);
-            }
-
-            60% {
-                transform: translateX(-6px);
-            }
-
-            80% {
-                transform: translateX(6px);
-            }
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-7px); }
+            40% { transform: translateX(7px); }
+            60% { transform: translateX(-6px); }
+            80% { transform: translateX(6px); }
         }
 
         @keyframes popUpFade {
             0% {
                 opacity: 0;
-                transform: translate(-50%, -30%) scale(0.5);
+                transform: translate(-50%, -20%) scale(0.6);
             }
-
             50% {
                 opacity: 1;
-                transform: translate(-50%, -60%) scale(1.2);
+                transform: translate(-50%, -50%) scale(1.15);
             }
-
             100% {
                 opacity: 0;
-                transform: translate(-50%, -80%) scale(1);
+                transform: translate(-50%, -80%) scale(0.95);
             }
         }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 30px; }
+            .game-container { padding: 20px 16px; border-radius: 20px; }
+            .char { font-size: 34px; min-width: 24px; }
+            .hand svg { width: 90px; height: 105px; }
+            .stat-pill { font-size: 13px; padding: 5px 10px; }
+            button.btn-action { font-size: 18px; padding: 10px 24px; }
+        }
     </style>
-<link href="https://faruk-hasan.com/games/typing_practice.html" rel="canonical"/></head>
+</head>
+
 <body>
-<div class="stars"></div>
-<div class="game-container">
-<h1>Space Typing Hero 🚀</h1>
-<p class="sub">Help the rocket fly! Use the correct fingers.</p>
-<div class="stats-bar">
-<div class="stat-pill"><span class="icon">⭐</span> <span id="lvlDisplay">Level 1</span></div>
-<div class="stat-pill"><span class="icon">🔄</span> <span id="roundDisplay">Round 1/20</span></div>
-<div class="stat-pill"><span class="icon">⏳</span> <span id="timerDisplay">20s</span></div>
-<div class="stat-pill highlight"><span class="icon">🎯</span> <span id="scoreDisplay">0</span></div>
-<div class="stat-pill"><span class="icon">❤️</span> <span id="accDisplay">0%</span></div>
-</div>
-<!-- Progress Track -->
-<div class="track-container">
-<div class="track-fill" id="trackFill"></div>
-<div class="rocket" id="rocket">🚀</div>
-</div>
-<!-- The typing words go here -->
-<div class="typing-box" id="typingBox">
-<div style="font-size:24px; color:rgba(255,255,255,0.5); margin-top:10px;">Press Start to Play!</div>
-</div>
-<!-- Hands Visual -->
-<div class="hands-container">
-<!-- Left Hand -->
-<div class="hand" id="leftHand">
-<label>Left Hand</label>
-<svg viewbox="0 0 100 120">
-<path class="finger" d="M10,60 Q10,30 20,30 Q30,30 30,60 L30,90" id="l-pinky"></path>
-<path class="finger" d="M32,50 Q32,15 42,15 Q52,15 52,50 L52,90" id="l-ring"></path>
-<path class="finger" d="M54,45 Q54,5 64,5 Q74,5 74,45 L74,90" id="l-middle"></path>
-<path class="finger" d="M76,50 Q76,15 86,15 Q96,15 96,50 L96,90" id="l-index"></path>
-<path class="finger thumb" d="M80,95 Q100,105 90,120 M76,90 L96,90" id="l-thumb"></path>
-<rect fill="#334155" height="30" rx="10" width="60" x="20" y="90"></rect>
-</svg>
-</div>
-<!-- Right Hand -->
-<div class="hand" id="rightHand">
-<label>Right Hand</label>
-<svg viewbox="0 0 100 120">
-<path class="finger" d="M4,50 Q4,15 14,15 Q24,15 24,50 L24,90" id="r-index"></path>
-<path class="finger" d="M26,45 Q26,5 36,5 Q46,5 46,45 L46,90" id="r-middle"></path>
-<path class="finger" d="M48,50 Q48,15 58,15 Q68,15 68,50 L68,90" id="r-ring"></path>
-<path class="finger" d="M70,60 Q70,30 80,30 Q90,30 90,60 L90,90" id="r-pinky"></path>
-<path class="finger thumb" d="M10,95 Q-10,105 10,120" id="r-thumb"></path>
-<rect fill="#334155" height="30" rx="10" width="60" x="20" y="90"></rect>
-</svg>
-</div>
-</div>
-<div class="controls-area">
-<button id="mainBtn">Start Mission</button>
-<button class="locked" id="nextLvlBtn">Next Level 🔓</button>
-</div>
-<div class="info-msg" id="infoMsg"></div>
-</div>
-<div class="feedback-overlay" id="feedback">Awesome!</div>
-<script>
-        // Game Config
+    <div class="stars-bg"></div>
+    <canvas id="confettiCanvas"></canvas>
+
+    <!-- Hidden keyboard sink for mobile devices -->
+    <input id="mobileKeySink" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+
+    <!-- Top Navigation -->
+    <header class="top-nav">
+        <div class="nav-left">
+            <a href="index.html" class="nav-pill">
+                <i class="fas fa-gamepad"></i> Games Hub
+            </a>
+            <a href="../resources/resources.html" class="nav-pill">
+                <i class="fas fa-book-open"></i> Resources
+            </a>
+        </div>
+        <div class="nav-right">
+            <select id="levelSelect" class="level-select-dropdown" title="Select Mission Level">
+                <option value="0">Lvl 1: Launch Pad (A S D F)</option>
+                <option value="1">Lvl 2: Mission Control (J K L ;)</option>
+                <option value="2">Lvl 3: Full Orbit (Home Row)</option>
+                <option value="3">Lvl 4: Sky Rocket (Top Row)</option>
+                <option value="4">Lvl 5: Moon Rover (Bottom Row)</option>
+                <option value="5">Lvl 6: Galaxy Explorer (Words)</option>
+                <option value="6">Lvl 7: Deep Space (Missions)</option>
+                <option value="7">Lvl 8: Supernova Boss (Speed)</option>
+            </select>
+            <button id="soundToggleBtn" class="nav-pill" title="Toggle Sound Effects">
+                <i class="fas fa-volume-up"></i> Sound ON
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Game Window -->
+    <main class="game-container">
+        <div class="header-title-wrap">
+            <h1>Space Typing Hero 🚀</h1>
+            <span class="mission-badge" id="missionBadge">Mission 1: Launch Pad (Home Row Left)</span>
+            <p class="sub">Fly your rocket across the galaxy! Touch the correct keys with the highlighted fingers.</p>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-pill"><span class="icon">⭐</span> <span id="lvlDisplay">Level 1</span></div>
+            <div class="stat-pill"><span class="icon">🔄</span> <span id="roundDisplay">Round 1/5</span></div>
+            <div class="stat-pill"><span class="icon">⏳</span> <span id="timerDisplay">20s</span></div>
+            <div class="stat-pill wpm"><span class="icon">⚡</span> <span id="wpmDisplay">0 WPM</span></div>
+            <div class="stat-pill streak"><span class="icon">🔥</span> <span id="streakDisplay">0 Streak</span></div>
+            <div class="stat-pill highlight"><span class="icon">🎯</span> <span id="scoreDisplay">0</span></div>
+            <div class="stat-pill"><span class="icon">❤️</span> <span id="accDisplay">100%</span></div>
+        </div>
+
+        <!-- Progress Track with Rocket -->
+        <div class="track-container">
+            <div class="track-fill" id="trackFill"></div>
+            <div class="rocket" id="rocket">🚀</div>
+        </div>
+
+        <!-- Live Typing Box -->
+        <div class="typing-box" id="typingBox">
+            <div style="font-size:22px; color:rgba(255,255,255,0.6); font-weight:700;">
+                Click "Start Mission" to Blast Off!
+            </div>
+        </div>
+
+        <!-- Interactive Hands & Spacebar Visual Guide -->
+        <div class="keyboard-guide-wrap">
+            <div class="hands-container">
+                <!-- Left Hand -->
+                <div class="hand" id="leftHand">
+                    <label>Left Hand</label>
+                    <svg viewBox="0 0 100 120">
+                        <path class="finger" d="M10,60 Q10,30 20,30 Q30,30 30,60 L30,90" id="l-pinky"></path>
+                        <path class="finger" d="M32,50 Q32,15 42,15 Q52,15 52,50 L52,90" id="l-ring"></path>
+                        <path class="finger" d="M54,45 Q54,5 64,5 Q74,5 74,45 L74,90" id="l-middle"></path>
+                        <path class="finger" d="M76,50 Q76,15 86,15 Q96,15 96,50 L96,90" id="l-index"></path>
+                        <path class="finger thumb" d="M78,82 Q102,96 86,116 L74,94" id="l-thumb"></path>
+                        <rect fill="#334155" height="30" rx="10" width="60" x="20" y="90"></rect>
+                    </svg>
+                </div>
+
+                <!-- Right Hand -->
+                <div class="hand" id="rightHand">
+                    <label>Right Hand</label>
+                    <svg viewBox="0 0 100 120">
+                        <path class="finger" d="M4,50 Q4,15 14,15 Q24,15 24,50 L24,90" id="r-index"></path>
+                        <path class="finger" d="M26,45 Q26,5 36,5 Q46,5 46,45 L46,90" id="r-middle"></path>
+                        <path class="finger" d="M48,50 Q48,15 58,15 Q68,15 68,50 L68,90" id="r-ring"></path>
+                        <path class="finger" d="M70,60 Q70,30 80,30 Q90,30 90,60 L90,90" id="r-pinky"></path>
+                        <path class="finger thumb" d="M22,82 Q-2,96 14,116 L26,94" id="r-thumb"></path>
+                        <rect fill="#334155" height="30" rx="10" width="60" x="20" y="90"></rect>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Dedicated Spacebar Key with Thumb Guides -->
+            <div class="spacebar-container">
+                <div class="spacebar-key" id="spacebarKey">
+                    <div class="space-thumb-indicator left"><i class="fas fa-hand-point-down"></i> Left Thumb</div>
+                    <div class="space-badge">
+                        <span class="space-symbol">␣</span>
+                        <span class="space-text">SPACEBAR</span>
+                    </div>
+                    <div class="space-thumb-indicator right">Right Thumb <i class="fas fa-hand-point-down"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls-area">
+            <button id="mainBtn" class="btn-action"><i class="fas fa-play"></i> Start Mission</button>
+            <button id="nextLvlBtn" class="btn-action locked"><i class="fas fa-unlock"></i> Next Level 🔓</button>
+        </div>
+
+        <!-- Informational message banner -->
+        <div class="info-msg" id="infoMsg"></div>
+    </main>
+
+    <!-- Floating Pop Up Feedback -->
+    <div class="feedback-overlay" id="feedback">Awesome!</div>
+
+    <script>
+        // ==========================================
+        // 8 PROGRESSIVE TOUCH-TYPING LEVELS
+        // ==========================================
         const LEVELS = [
-            { id: 1, chars: ['a', 'b', 'c', 'd', ' '], min: 6, max: 10 },
-            { id: 2, chars: ['a', 'b', 'c', 'd', 'e', 'f', ' '], min: 8, max: 14 },
-            { id: 3, chars: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', ' '], min: 10, max: 16 }
+            {
+                id: 1,
+                name: "Launch Pad: Left Home Row (A S D F)",
+                badge: "Mission 1: Left Home Row",
+                words: ["as", "sad", "dad", "fad", "fa", "da", "saf", "fads", "dads", "add", "adds", "af", "sa"],
+                chars: ['a', 's', 'd', 'f', ' '],
+                rounds: 5,
+                timeLimit: 22
+            },
+            {
+                id: 2,
+                name: "Mission Control: Right Home Row (J K L ;)",
+                badge: "Mission 2: Right Home Row",
+                words: ["all", "fall", "flask", "salad", "asks", "lad", "flak", "dallas", "kall", "falla"],
+                chars: ['a', 's', 'd', 'f', 'j', 'k', 'l', ';', ' '],
+                rounds: 5,
+                timeLimit: 22
+            },
+            {
+                id: 3,
+                name: "Full Orbit: Complete Home Row",
+                badge: "Mission 3: Full Home Row",
+                words: ["flash", "dash", "glad", "half", "flag", "glass", "gash", "slash", "shall", "halls"],
+                chars: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', ' '],
+                rounds: 5,
+                timeLimit: 20
+            },
+            {
+                id: 4,
+                name: "Sky Rocket: Top Row Navigators",
+                badge: "Mission 4: Top Row Keys",
+                words: ["star", "orbit", "rocket", "solar", "laser", "fuel", "flare", "trail", "suit", "radio", "pilot"],
+                chars: ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', ' '],
+                rounds: 5,
+                timeLimit: 22
+            },
+            {
+                id: 5,
+                name: "Moon Rover: Bottom Row Explorers",
+                badge: "Mission 5: Bottom Row Keys",
+                words: ["moon", "zoom", "comet", "rover", "cabin", "beam", "metal", "beacon", "crater", "zone"],
+                chars: ['z', 'x', 'c', 'v', 'b', 'n', 'm', ' '],
+                rounds: 5,
+                timeLimit: 22
+            },
+            {
+                id: 6,
+                name: "Galaxy Explorer: Space Vocabulary",
+                badge: "Mission 6: Space Vocabulary",
+                words: ["galaxy", "planet", "gravity", "nebula", "astronaut", "shuttle", "meteor", "saturn", "jupiter", "apollo"],
+                chars: [],
+                rounds: 5,
+                timeLimit: 24
+            },
+            {
+                id: 7,
+                name: "Deep Space: Flight Commands",
+                badge: "Mission 7: Space Phrases",
+                sentences: [
+                    "blast off to the stars",
+                    "the eagle has landed",
+                    "prepare for hyperspace",
+                    "explore the alien galaxy",
+                    "zero gravity is awesome",
+                    "touch down on mars rover",
+                    "satellite orbit confirmed"
+                ],
+                rounds: 5,
+                timeLimit: 28
+            },
+            {
+                id: 8,
+                name: "Supernova Boss: Hyperdrive Rush",
+                badge: "Mission 8: Supernova Boss",
+                words: ["supernova", "blackhole", "hyperdrive", "lightspeed", "cosmic pulse", "warp drive ready", "save the galaxy"],
+                chars: [],
+                rounds: 6,
+                timeLimit: 18
+            }
         ];
 
-        const MAX_ROUNDS = 20;
-        const TARGET_ACCURACY = 95;
-        const POINTS_PER_ROUND = 5;
-        const TIME_LIMIT = 20;
-
-        // Finger Mapping
+        // Complete standard QWERTY Touch-Typing Finger Map
         const FINGER_MAP = {
-            'a': 'l-pinky',
-            'b': 'l-index',
-            'c': 'l-middle',
-            'd': 'l-middle',
-            'e': 'l-middle',
-            'f': 'l-index',
-            'g': 'l-index',
-            'h': 'r-index',
-            ' ': 'l-thumb'
+            'a': 'l-pinky', 'q': 'l-pinky', 'z': 'l-pinky', '1': 'l-pinky', '!': 'l-pinky',
+            's': 'l-ring', 'w': 'l-ring', 'x': 'l-ring', '2': 'l-ring', '@': 'l-ring',
+            'd': 'l-middle', 'e': 'l-middle', 'c': 'l-middle', '3': 'l-middle', '#': 'l-middle',
+            'f': 'l-index', 'r': 'l-index', 'v': 'l-index', 't': 'l-index', 'g': 'l-index', 'b': 'l-index',
+            '4': 'l-index', '5': 'l-index', '$': 'l-index', '%': 'l-index',
+            ' ': 'l-thumb', // spacebar works for both thumbs
+            'j': 'r-index', 'u': 'r-index', 'm': 'r-index', 'h': 'r-index', 'y': 'r-index', 'n': 'r-index',
+            '6': 'r-index', '7': 'r-index', '^': 'r-index', '&': 'r-index',
+            'k': 'r-middle', 'i': 'r-middle', ',': 'r-middle', '8': 'r-middle', '*': 'r-middle',
+            'l': 'r-ring', 'o': 'r-ring', '.': 'r-ring', '9': 'r-ring', '(': 'r-ring',
+            ';': 'r-pinky', 'p': 'r-pinky', '/': 'r-pinky', '\'': 'r-pinky', '-': 'r-pinky',
+            '0': 'r-pinky', ')': 'r-pinky'
         };
 
-        // State
+        // Game State
         let currentLevel = 0;
         let round = 1;
         let targetText = "";
         let currentIndex = 0;
         let isPlaying = false;
         let score = 0;
+        let streak = 0;
+        let bestStreak = 0;
         let totalKeysInRound = 0;
         let correctKeysInRound = 0;
         let mistakesInRound = 0;
-        let previousRoundsPoints = 0;
         let retriesForCurrentRound = 0;
-        let timeLeft = TIME_LIMIT;
+        let timeLeft = 20;
         let timerInterval = null;
+        let countdownTimer = null;
         let activeRoundStartTime = 0;
         let totalTimeSpentMsAcrossLevel = 0;
         let totalCorrectCharsAcrossLevel = 0;
+        let soundEnabled = localStorage.getItem("spaceTyping_sound") !== "false";
 
-        // Audio
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        // Web Audio Synthesizer
+        let audioCtx = null;
 
-        function playSound(type) {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            if (type === 'hit') {
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(400, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.1);
-                gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.1);
-            } else if (type === 'error') {
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(150, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.2);
-                gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.2);
-            } else if (type === 'win') {
-                osc.type = 'triangle';
-                [0, 0.1, 0.2].forEach((t, i) => {
-                    const o = audioCtx.createOscillator();
-                    const g = audioCtx.createGain();
-                    o.connect(g);
-                    g.connect(audioCtx.destination);
-                    o.frequency.value = 400 * (i + 1);
-                    g.gain.setValueAtTime(0.05, audioCtx.currentTime + t);
-                    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + t + 0.3);
-                    o.start(audioCtx.currentTime + t);
-                    o.stop(audioCtx.currentTime + t + 0.3);
-                });
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
         }
 
-        // Elements
+        function playSound(type) {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'hit') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(420, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(700, ctx.currentTime + 0.08);
+                    gain.gain.setValueAtTime(0.06, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.08);
+                } else if (type === 'error') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(160, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + 0.18);
+                    gain.gain.setValueAtTime(0.06, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.18);
+                } else if (type === 'win') {
+                    osc.type = 'triangle';
+                    [0, 0.08, 0.16, 0.24].forEach((t, i) => {
+                        const o = ctx.createOscillator();
+                        const g = ctx.createGain();
+                        o.connect(g);
+                        g.connect(ctx.destination);
+                        o.frequency.value = 350 + (i * 150);
+                        g.gain.setValueAtTime(0.05, ctx.currentTime + t);
+                        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t + 0.25);
+                        o.start(ctx.currentTime + t);
+                        o.stop(ctx.currentTime + t + 0.25);
+                    });
+                } else if (type === 'streak') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(520, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(1040, ctx.currentTime + 0.15);
+                    gain.gain.setValueAtTime(0.08, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.15);
+                }
+            } catch (e) { /* AudioContext might be blocked until user gesture */ }
+        }
+
+        // DOM Elements
         const typingBox = document.getElementById('typingBox');
         const rocket = document.getElementById('rocket');
         const trackFill = document.getElementById('trackFill');
@@ -526,22 +937,60 @@
         const lvlDisplay = document.getElementById('lvlDisplay');
         const roundDisplay = document.getElementById('roundDisplay');
         const timerDisplay = document.getElementById('timerDisplay');
+        const wpmDisplay = document.getElementById('wpmDisplay');
+        const streakDisplay = document.getElementById('streakDisplay');
+        const missionBadge = document.getElementById('missionBadge');
         const feedback = document.getElementById('feedback');
         const infoMsg = document.getElementById('infoMsg');
+        const levelSelect = document.getElementById('levelSelect');
+        const soundToggleBtn = document.getElementById('soundToggleBtn');
+        const mobileKeySink = document.getElementById('mobileKeySink');
+
+        // Sound Toggle Handler
+        function updateSoundUI() {
+            if (soundEnabled) {
+                soundToggleBtn.innerHTML = '<i class="fas fa-volume-up"></i> Sound ON';
+                soundToggleBtn.style.color = '#4ade80';
+            } else {
+                soundToggleBtn.innerHTML = '<i class="fas fa-volume-mute"></i> Sound OFF';
+                soundToggleBtn.style.color = '#94a3b8';
+            }
+        }
+        updateSoundUI();
+
+        soundToggleBtn.addEventListener('click', () => {
+            soundEnabled = !soundEnabled;
+            localStorage.setItem("spaceTyping_sound", soundEnabled);
+            updateSoundUI();
+        });
 
         function randInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
 
+        // Generate Text according to Level specifications
         function generateText() {
             const lvl = LEVELS[currentLevel];
-            const len = randInt(lvl.min, lvl.max);
+            // Level with sentences
+            if (lvl.sentences && lvl.sentences.length > 0) {
+                return lvl.sentences[randInt(0, lvl.sentences.length - 1)];
+            }
+            // Level with words
+            if (lvl.words && lvl.words.length > 0) {
+                const count = (currentLevel === 0 || currentLevel === 1) ? randInt(3, 4) : randInt(3, 5);
+                const picked = [];
+                for (let i = 0; i < count; i++) {
+                    picked.push(lvl.words[randInt(0, lvl.words.length - 1)]);
+                }
+                return picked.join(' ');
+            }
+            // Fallback for character levels
+            const len = randInt(8, 14);
             let str = "";
             for (let i = 0; i < len; i++) {
-                // limit spaces
                 let char = lvl.chars[randInt(0, lvl.chars.length - 1)];
                 if (char === ' ' && (i === 0 || str[i - 1] === ' ')) {
-                    char = 'a'; // fallback to prevent double space or leading space
+                    char = lvl.chars[0];
                 }
                 str += char;
             }
@@ -550,14 +999,19 @@
 
         function highlightFinger(char) {
             document.querySelectorAll('.finger').forEach(f => f.classList.remove('active'));
+            const spaceKey = document.getElementById('spacebarKey');
+            if (spaceKey) spaceKey.classList.remove('active');
+
+            if (!char) return;
             const fingerId = FINGER_MAP[char.toLowerCase()];
             if (fingerId) {
                 const el = document.getElementById(fingerId);
                 if (el) el.classList.add('active');
             }
             if (char === ' ') {
-                document.getElementById('l-thumb').classList.add('active');
-                document.getElementById('r-thumb').classList.add('active');
+                document.getElementById('l-thumb')?.classList.add('active');
+                document.getElementById('r-thumb')?.classList.add('active');
+                if (spaceKey) spaceKey.classList.add('active');
             }
         }
 
@@ -566,7 +1020,7 @@
             targetText.split('').forEach((char, idx) => {
                 const span = document.createElement('div');
                 span.className = 'char ' + (char === ' ' ? 'space' : '');
-                span.textContent = char;
+                span.textContent = char === ' ' ? '␣' : char;
                 if (idx < currentIndex) span.classList.add('correct');
                 if (idx === currentIndex) {
                     span.classList.add('current');
@@ -576,32 +1030,49 @@
             });
             if (currentIndex >= targetText.length) {
                 document.querySelectorAll('.finger').forEach(f => f.classList.remove('active'));
+                document.getElementById('spacebarKey')?.classList.remove('active');
             }
         }
 
         function updateProgress() {
-            const pct = (currentIndex / targetText.length) * 100;
+            const pct = targetText.length > 0 ? (currentIndex / targetText.length) * 100 : 0;
             rocket.style.left = pct + '%';
             trackFill.style.width = pct + '%';
         }
 
-        function showFeedback(text) {
+        function showFeedback(text, isStreak = false) {
             feedback.textContent = text;
             feedback.classList.remove('show');
             void feedback.offsetWidth;
             feedback.classList.add('show');
-            playSound('win');
+            if (isStreak) {
+                playSound('streak');
+            } else {
+                playSound('win');
+            }
+        }
+
+        function updateLiveWpm() {
+            if (!activeRoundStartTime || !isPlaying) return;
+            const elapsedMins = (Date.now() - activeRoundStartTime) / 60000;
+            if (elapsedMins > 0.02) {
+                const words = correctKeysInRound / 5;
+                const wpm = Math.round(words / elapsedMins);
+                wpmDisplay.textContent = `${wpm} WPM`;
+            }
         }
 
         function startTimer() {
-            stopTimer(); // ensure clear
-            timeLeft = TIME_LIMIT;
+            stopTimer();
+            const lvl = LEVELS[currentLevel];
+            timeLeft = lvl.timeLimit || 22;
             timerDisplay.textContent = timeLeft + 's';
             timerDisplay.style.color = '#e2e8f0';
 
             timerInterval = setInterval(() => {
                 timeLeft--;
                 timerDisplay.textContent = timeLeft + 's';
+                updateLiveWpm();
 
                 if (timeLeft <= 5) {
                     timerDisplay.style.color = '#f87171';
@@ -632,15 +1103,16 @@
             renderText();
             updateProgress();
 
-            updateMasteryDisplay();
+            const lvl = LEVELS[currentLevel];
+            roundDisplay.textContent = `Round ${round}/${lvl.rounds}`;
+            missionBadge.textContent = lvl.badge;
 
-            if (round <= MAX_ROUNDS) {
+            if (round <= lvl.rounds) {
                 mainBtn.style.display = 'none';
-                // Clear message if not game over
-                if (infoMsg.innerText.includes("Level Complete") || infoMsg.innerText.includes("Level Finished")) {
+                if (infoMsg.innerText.includes("Mission Complete") || infoMsg.innerText.includes("Failed")) {
                     infoMsg.innerText = "";
                 } else if (round > 1) {
-                    infoMsg.innerText = `Keep going! 1 mistake allowed.`;
+                    infoMsg.innerText = `Keep the rhythm! Watch the finger guides below.`;
                 }
                 startTimer();
             }
@@ -652,60 +1124,84 @@
             totalKeysInRound = 0;
             correctKeysInRound = 0;
             mistakesInRound = 0;
+            streak = 0;
+            streakDisplay.textContent = `0 Streak`;
 
             renderText();
             updateProgress();
-            updateMasteryDisplay();
 
             mainBtn.style.display = 'none';
-            infoMsg.innerText = `Retry attempt #${retriesForCurrentRound}. Good luck!`;
+            infoMsg.innerText = `Refueling rocket for retry attempt... Type accurately!`;
             startTimer();
         }
 
         function startGame() {
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
+            }
             isPlaying = true;
             score = 0;
+            streak = 0;
             round = 1;
-            previousRoundsPoints = 0;
             totalTimeSpentMsAcrossLevel = 0;
             totalCorrectCharsAcrossLevel = 0;
 
+            const lvl = LEVELS[currentLevel];
             scoreDisplay.textContent = score;
-            accDisplay.textContent = '0%';
-            lvlDisplay.textContent = 'Level ' + (currentLevel + 1);
-            roundDisplay.textContent = 'Round ' + round + '/' + MAX_ROUNDS;
+            streakDisplay.textContent = '0 Streak';
+            accDisplay.textContent = '100%';
+            wpmDisplay.textContent = '0 WPM';
+            lvlDisplay.textContent = `Level ${currentLevel + 1}`;
+            roundDisplay.textContent = `Round ${round}/${lvl.rounds}`;
+            missionBadge.textContent = lvl.badge;
             nextLvlBtn.style.display = 'none';
-            infoMsg.innerHTML = "Type the letters. Max 1 error per round!";
+            infoMsg.innerHTML = "Type each key using the highlighted finger. Stay accurate!";
 
-            document.addEventListener('keydown', handleKey);
+            levelSelect.value = String(currentLevel);
+
+            // Focus typing sink on touch devices
+            mobileKeySink.focus();
+
             nextRound();
         }
 
         function nextLevel() {
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
+            }
             if (currentLevel < LEVELS.length - 1) {
                 currentLevel++;
+                levelSelect.value = String(currentLevel);
                 startGame();
             }
         }
 
+        // Level Select dropdown change
+        levelSelect.addEventListener('change', (e) => {
+            currentLevel = parseInt(e.target.value, 10);
+            startGame();
+        });
+
+        // Key Press Handling
         function handleKey(e) {
-            if (!isPlaying) return;
-            if (e.ctrlKey || e.altKey || e.metaKey) return;
-            if (e.key.length !== 1) return;
-
-            // Ignore input if timer is 0
-            if (timeLeft <= 0) return;
-
-            if (mainBtn.style.display !== 'none' && document.activeElement !== mainBtn) {
-                if (mainBtn.textContent.includes("Next Round")) {
-                    if (e.key === "Enter") {
-                        round++;
-                        updateRoundUI();
-                        return;
-                    }
+            // If waiting for next round, tapping Enter or Space skips immediately
+            if (countdownTimer) {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    triggerNextRoundNow();
                     return;
                 }
             }
+
+            if (!isPlaying) return;
+            if (e.ctrlKey || e.altKey || e.metaKey) return;
+            if (e.key.length !== 1) return;
+            if (timeLeft <= 0) return;
+
+            // Spacebar page scroll prevention
+            if (e.key === " ") e.preventDefault();
 
             const targetChar = targetText[currentIndex];
             totalKeysInRound++;
@@ -715,10 +1211,27 @@
                 correctKeysInRound++;
                 totalCorrectCharsAcrossLevel++;
                 currentIndex++;
+                streak++;
+                if (streak > bestStreak) bestStreak = streak;
+
+                // Points & Combos
                 score += 10;
+                if (streak % 5 === 0) {
+                    const bonus = streak * 10;
+                    score += bonus;
+                    showFeedback(`🔥 ${streak} STREAK! +${bonus}`, true);
+                }
+
+                scoreDisplay.textContent = score;
+                streakDisplay.textContent = `🔥 ${streak} Streak`;
+
+                // Rocket Thruster Ignition
+                rocket.classList.add('thrusting');
+                setTimeout(() => rocket.classList.remove('thrusting'), 200);
 
                 renderText();
                 updateProgress();
+                updateLiveWpm();
 
                 if (currentIndex >= targetText.length) {
                     finishRound();
@@ -727,6 +1240,8 @@
             } else {
                 playSound('error');
                 mistakesInRound++;
+                streak = 0;
+                streakDisplay.textContent = `0 Streak`;
 
                 const spans = typingBox.children;
                 if (spans[currentIndex]) {
@@ -734,122 +1249,119 @@
                     setTimeout(() => spans[currentIndex].classList.remove('wrong'), 400);
                 }
 
-                if (mistakesInRound >= 2) {
-                    failRound("2 Errors!");
+                if (mistakesInRound >= 3) {
+                    failRound("3 Errors!");
                     return;
                 }
             }
 
-            updateMasteryDisplay();
+            // Accuracy %
+            const totalCharsTyped = totalCorrectCharsAcrossLevel + mistakesInRound;
+            const accuracy = totalCharsTyped > 0 ? Math.round((totalCorrectCharsAcrossLevel / totalCharsTyped) * 100) : 100;
+            accDisplay.textContent = `${accuracy}%`;
         }
+
+        document.addEventListener('keydown', handleKey);
+
+        // Mobile touch to focus input
+        typingBox.addEventListener('click', () => {
+            mobileKeySink.focus();
+        });
 
         function failRound(reason) {
             stopTimer();
-            // Accumulate time spent even on failure
             if (activeRoundStartTime > 0) {
                 totalTimeSpentMsAcrossLevel += (Date.now() - activeRoundStartTime);
             }
 
             showFeedback("Oops!");
-            infoMsg.innerText = `${reason} Round Failed. Try Again.`;
-
+            infoMsg.innerText = `${reason} Round Failed. Restarting in 2 seconds...`;
             retriesForCurrentRound++;
 
             document.body.style.backgroundColor = "#7f1d1d";
             setTimeout(() => { document.body.style.backgroundColor = ""; }, 300);
 
-            // Auto-restart for all failure types
-            if (reason === "Time's Up!") {
-                infoMsg.innerText = "Time's Up! Restarting in 2 seconds...";
-            } else {
-                infoMsg.innerText = `${reason} Round Failed. Restarting in 2 seconds...`;
-            }
-
             setTimeout(() => {
                 if (isPlaying) retryRound();
             }, 2000);
-
-            totalKeysInRound = 0;
-            correctKeysInRound = 0;
-            updateMasteryDisplay();
         }
 
-        function updateMasteryDisplay() {
-            scoreDisplay.textContent = score;
-
-            let potentialPoints = Math.max(1, POINTS_PER_ROUND - retriesForCurrentRound);
-            let currentRoundPoints = (correctKeysInRound / targetText.length) * potentialPoints;
-
-            let totalPct = previousRoundsPoints + currentRoundPoints;
-            accDisplay.textContent = Math.round(totalPct) + '%';
-        }
-
-        function finishRound() {
-            stopTimer();
-            // Accumulate time spent
-            if (activeRoundStartTime > 0) {
-                totalTimeSpentMsAcrossLevel += (Date.now() - activeRoundStartTime);
+        function triggerNextRoundNow() {
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
             }
-
-            showFeedback(["Awesome!", "Good!", "Nice!"][randInt(0, 2)]);
-
-            let pointsEarned = Math.max(1, POINTS_PER_ROUND - retriesForCurrentRound);
-
-            previousRoundsPoints += pointsEarned;
-            accDisplay.textContent = Math.round(previousRoundsPoints) + '%';
-
-            correctKeysInRound = 0;
-            totalKeysInRound = 0;
-            targetText = "";
-
-            if (round < MAX_ROUNDS) {
-                mainBtn.textContent = "Next Round";
-                mainBtn.style.display = 'inline-block';
-            } else {
-                handleLevelComplete(previousRoundsPoints);
-            }
-        }
-
-        function updateRoundUI() {
-            roundDisplay.textContent = 'Round ' + round + '/' + MAX_ROUNDS;
+            round++;
+            const lvl = LEVELS[currentLevel];
+            roundDisplay.textContent = `Round ${round}/${lvl.rounds}`;
             mainBtn.style.display = 'none';
             nextRound();
         }
 
-        function handleLevelComplete(mastery) {
+        function finishRound() {
+            stopTimer();
+            if (activeRoundStartTime > 0) {
+                totalTimeSpentMsAcrossLevel += (Date.now() - activeRoundStartTime);
+            }
+
+            const praise = ["Awesome! 🚀", "Great Job! ⭐", "Super Fast! ⚡", "Spot On! 🎯", "Orbit Achieved! 🌌"];
+            showFeedback(praise[randInt(0, praise.length - 1)]);
+
+            targetText = "";
+            const lvl = LEVELS[currentLevel];
+
+            if (round < lvl.rounds) {
+                let seconds = 3;
+                mainBtn.innerHTML = `<i class="fas fa-forward"></i> Next Round (${seconds}s) [Enter]`;
+                mainBtn.style.display = 'inline-flex';
+                infoMsg.innerHTML = `Great round! Next round in <strong>${seconds}s</strong> (or press <strong>Enter / Space</strong> to skip)`;
+
+                if (countdownTimer) clearInterval(countdownTimer);
+                countdownTimer = setInterval(() => {
+                    seconds--;
+                    if (seconds > 0) {
+                        mainBtn.innerHTML = `<i class="fas fa-forward"></i> Next Round (${seconds}s) [Enter]`;
+                        infoMsg.innerHTML = `Great round! Next round in <strong>${seconds}s</strong> (or press <strong>Enter / Space</strong> to skip)`;
+                    } else {
+                        triggerNextRoundNow();
+                    }
+                }, 1000);
+            } else {
+                handleLevelComplete();
+            }
+        }
+
+        function handleLevelComplete() {
             isPlaying = false;
             stopTimer();
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
+            }
 
-            let finalPct = Math.round(mastery);
+            // Calculate overall speed and accuracy
+            const timeInMinutes = (totalTimeSpentMsAcrossLevel / 60000) || 0.1;
+            const wpm = Math.round((totalCorrectCharsAcrossLevel / 5) / timeInMinutes);
 
-            if (finalPct >= 90) { // Slightly lower threshold to be forgiving
-                // Speed calculation: (Characters / 5) / (Time in Minutes)
-                let timeInMinutes = totalTimeSpentMsAcrossLevel / 60000;
-                let wpm = timeInMinutes > 0 ? Math.round((totalCorrectCharsAcrossLevel / 5) / timeInMinutes) : 0;
+            // Celebration Confetti
+            launchConfetti();
 
-                infoMsg.innerHTML = `🎉 Level Complete! Mastery: ${finalPct}% <br> Speed: ${wpm} WPM! You are a Pro!`;
+            infoMsg.innerHTML = `🎉 <strong>Mission ${currentLevel + 1} Accomplished!</strong><br>Speed: <strong>${wpm} WPM</strong> | High Streak: <strong>${bestStreak}</strong> | Score: <strong>${score}</strong>`;
 
-                if (currentLevel < LEVELS.length - 1) {
-                    nextLvlBtn.classList.remove('locked');
-                    nextLvlBtn.style.display = 'inline-block';
-                    mainBtn.style.display = 'none';
-                } else {
-                    infoMsg.innerHTML += "<br>You finished ALL levels!";
-                    mainBtn.textContent = "Play Again";
-                    mainBtn.style.display = 'inline-block';
-                }
+            if (currentLevel < LEVELS.length - 1) {
+                nextLvlBtn.classList.remove('locked');
+                nextLvlBtn.style.display = 'inline-block';
+                mainBtn.style.display = 'none';
             } else {
-                infoMsg.innerHTML = `Level Finished. Mastery: ${finalPct}% - Need 90%+<br>Restarting level in 3 seconds...`;
-                setTimeout(() => {
-                    startGame(); // Auto-restart the level
-                }, 3000);
+                infoMsg.innerHTML += "<br>🌟 <strong>YOU CONQUERED THE ENTIRE GALAXY! YOU ARE A MASTER TYPIST!</strong> 🌟";
+                mainBtn.innerHTML = '<i class="fas fa-redo"></i> Play Again';
+                mainBtn.style.display = 'inline-block';
             }
         }
 
         mainBtn.addEventListener('click', () => {
-            if (mainBtn.textContent.includes("Next Round")) {
-                round++;
-                updateRoundUI();
+            if (countdownTimer || mainBtn.textContent.includes("Next Round")) {
+                triggerNextRoundNow();
             } else {
                 startGame();
             }
@@ -857,6 +1369,66 @@
 
         nextLvlBtn.addEventListener('click', nextLevel);
 
+        // ==========================================
+        // STAR CONFETTI CELEBRATION EFFECT
+        // ==========================================
+        const canvas = document.getElementById("confettiCanvas");
+        const ctx = canvas.getContext("2d");
+        let confetti = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+
+        function launchConfetti() {
+            confetti = [];
+            const colors = ["#fbbf24", "#38bdf8", "#ec4899", "#4ade80", "#a855f7", "#ffffff"];
+            for (let i = 0; i < 90; i++) {
+                confetti.push({
+                    x: canvas.width / 2,
+                    y: canvas.height / 2,
+                    vx: (Math.random() - 0.5) * 16,
+                    vy: (Math.random() - 0.5) * 16 - 3,
+                    size: Math.random() * 8 + 4,
+                    color: colors[randInt(0, colors.length - 1)],
+                    alpha: 1,
+                    rotation: Math.random() * 360,
+                    vRot: (Math.random() - 0.5) * 10
+                });
+            }
+            animateConfetti();
+        }
+
+        function animateConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let active = false;
+            confetti.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.25; // gravity
+                p.alpha -= 0.012;
+                p.rotation += p.vRot;
+
+                if (p.alpha > 0) {
+                    active = true;
+                    ctx.save();
+                    ctx.globalAlpha = Math.max(0, p.alpha);
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate((p.rotation * Math.PI) / 180);
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                    ctx.restore();
+                }
+            });
+            if (active) {
+                requestAnimationFrame(animateConfetti);
+            } else {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
     </script>
 </body>
 </html>
