@@ -1,0 +1,23 @@
+{
+  "name": "sandbox-liveshare-server",
+  "version": "1.0.0",
+  "description": "Realtime Yjs relay for the faruk-hasan.com sandbox",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "ws": "^8.22.1",
+    "y-codemirror": "^3.0.1",
+    "y-websocket": "^1.5.4",
+    "yjs": "^13.6.33"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}
