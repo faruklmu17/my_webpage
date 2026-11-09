@@ -15,3 +15,6 @@ temp_hf_space/
 __pycache__/
 *.pyc
 .pytest_cache/
+.env
+.env.*
+!.env.example

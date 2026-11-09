@@ -13,8 +13,14 @@ Step 16 enhancements:
 """
 
 import re
+import os
+import json
+import requests
 from typing import Optional, List, Dict, Any, Tuple
 from pydantic import BaseModel, Field
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from agent.state import AgentState
 
@@ -384,6 +390,91 @@ def _extract_from_text(text: str, last_question: Optional[str] = None) -> Extrac
     return info
 
 
+def _extract_via_llm(user_message: str, last_question: Optional[str] = None) -> Optional[ExtractedInfo]:
+    """
+    Uses Groq structured JSON output to extract student facts dynamically from conversation.
+    Falls back gracefully if GROQ_API_KEY is unset, offline, or request fails.
+    """
+    api_key = os.getenv("GROQ_API_KEY", "").strip()
+    if not api_key:
+        return None
+
+    model_name = os.getenv("GROQ_MODEL", "openai/gpt-oss-20b")
+
+    prompt = (
+        "You are an intake parser for a tutoring chatbot. Extract facts from the user message into JSON.\n"
+        "Return ONLY a JSON object with these keys:\n"
+        "- student_age: integer or null (e.g., 12)\n"
+        "- experience_level: 'beginner', 'intermediate', 'advanced', or null. (If user says 'no', 'none', or 'first time' to having programmed before, value is 'beginner')\n"
+        "- previous_languages: list of strings (e.g., ['Scratch', 'Python'])\n"
+        "- request_type: 'long_term_course', 'project_help', 'assignment_help', or null\n"
+        "- project_goal: string or null (e.g., 'build a discord bot')\n"
+        "- programming_language: string or null (target language they want to learn)\n"
+        "- preferred_class_type: '1-on-1', 'group', or null\n\n"
+        f"Previous assistant question: \"{last_question or ''}\"\n"
+        f"User message: \"{user_message}\"\n"
+    )
+
+    try:
+        r = requests.post(
+            "https://api.groq.com/openai/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": model_name,
+                "messages": [{"role": "user", "content": prompt}],
+                "temperature": 0.0,
+                "response_format": {"type": "json_object"},
+            },
+            timeout=5,
+        )
+        if r.status_code != 200:
+            return None
+
+        data = r.json()["choices"][0]["message"]["content"]
+        parsed = json.loads(data)
+
+        age = parsed.get("student_age")
+        if isinstance(age, (int, float)):
+            age = int(age)
+            if not (5 <= age <= 60):
+                age = None
+        else:
+            age = None
+
+        exp = parsed.get("experience_level")
+        if exp not in ["beginner", "intermediate", "advanced"]:
+            exp = None
+
+        req_type = parsed.get("request_type")
+        if req_type not in ["long_term_course", "project_help", "assignment_help"]:
+            req_type = None
+
+        pref_format = parsed.get("preferred_class_type")
+        if pref_format not in ["1-on-1", "group"]:
+            pref_format = None
+
+        prev_langs = parsed.get("previous_languages") or []
+        if isinstance(prev_langs, list):
+            prev_langs = [_format_lang(l) for l in prev_langs if isinstance(l, str)]
+        else:
+            prev_langs = []
+
+        return ExtractedInfo(
+            student_age=age,
+            experience_level=exp,
+            previous_languages=prev_langs,
+            request_type=req_type,
+            project_goal=parsed.get("project_goal"),
+            programming_language=parsed.get("programming_language"),
+            preferred_class_type=pref_format,
+        )
+    except Exception:
+        return None
+
+
 def extract_information(state: AgentState) -> Dict[str, Any]:
     """
     LangGraph Node: Extracts new structured information from conversation context.
@@ -408,10 +499,40 @@ def extract_information(state: AgentState) -> Dict[str, Any]:
         return {}
 
     last_q = state.get("last_question_asked")
+
+    # 1. Deterministic regex extraction (0ms local execution)
     try:
         extracted = _extract_from_text(last_user_message, last_question=last_q)
-    except Exception as exc:
-        extracted = ExtractedInfo()
+    except Exception:
+        # Corrupted tokens or regex errors degrade gracefully without crashing
+        return {}
+
+    # 2. If key fields are missing or ambiguous, leverage fast LLM structured extraction
+    needs_llm = (
+        extracted.student_age is None
+        or extracted.experience_level is None
+        or extracted.request_type is None
+    )
+    if needs_llm and os.getenv("GROQ_API_KEY"):
+        try:
+            llm_info = _extract_via_llm(last_user_message, last_question=last_q)
+            if llm_info:
+                if extracted.student_age is None and llm_info.student_age is not None:
+                    extracted.student_age = llm_info.student_age
+                if extracted.experience_level is None and llm_info.experience_level is not None:
+                    extracted.experience_level = llm_info.experience_level
+                if not extracted.previous_languages and llm_info.previous_languages:
+                    extracted.previous_languages = llm_info.previous_languages
+                if extracted.request_type is None and llm_info.request_type is not None:
+                    extracted.request_type = llm_info.request_type
+                if extracted.project_goal is None and llm_info.project_goal is not None:
+                    extracted.project_goal = llm_info.project_goal
+                if extracted.programming_language is None and llm_info.programming_language is not None:
+                    extracted.programming_language = llm_info.programming_language
+                if extracted.preferred_class_type is None and llm_info.preferred_class_type is not None:
+                    extracted.preferred_class_type = llm_info.preferred_class_type
+        except Exception:
+            pass
 
     updates: Dict[str, Any] = {}
 
