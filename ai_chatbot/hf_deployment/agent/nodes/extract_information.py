@@ -407,7 +407,7 @@ def _extract_via_llm(user_message: str, last_question: Optional[str] = None) -> 
         "- student_age: integer or null (e.g., 12)\n"
         "- experience_level: 'beginner', 'intermediate', 'advanced', or null. (If user says 'no', 'none', or 'first time' to having programmed before, value is 'beginner')\n"
         "- previous_languages: list of strings (e.g., ['Scratch', 'Python'])\n"
-        "- request_type: 'long_term_course', 'project_help', 'assignment_help', or null\n"
+        "- request_type: 'long_term_course' (ONLY if user explicitly specifies structured course, weekly lessons, or curriculum), 'project_help' (if user specifies 1-on-1 tutoring or building a specific project/app), 'assignment_help' (if homework or school assignment), or null if not yet explicitly specified\n"
         "- project_goal: string or null (e.g., 'build a discord bot')\n"
         "- programming_language: string or null (target language they want to learn)\n"
         "- preferred_class_type: '1-on-1', 'group', or null\n\n"

@@ -130,3 +130,4 @@ def evaluate_recommendation_accuracy(run, example) -> Dict[str, Any]:
         "score": 1.0 if is_match else 0.0,
         "comment": f"Recommended: {actual_class}" if is_match else f"Expected {expected_course_name or expected_course_id}, got {actual_class}",
     }
+

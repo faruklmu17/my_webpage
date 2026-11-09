@@ -10,4 +10,5 @@ uvicorn
 python-dotenv
 beautifulsoup4
 langgraph
+langsmith>=0.10.15
 pydantic
