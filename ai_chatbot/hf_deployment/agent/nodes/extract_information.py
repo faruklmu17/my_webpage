@@ -120,13 +120,14 @@ def _extract_age(text_lower: str) -> Optional[int]:
     return None
 
 
-def _extract_experience_level(text_lower: str) -> Optional[str]:
+def _extract_experience_level(text_lower: str, last_question: Optional[str] = None) -> Optional[str]:
     """
-    Extracts experience level with explicit correction support.
+    Extracts experience level with explicit correction and conversational context support.
     Handles:
     - "advanced, not beginner" -> advanced
     - "not beginner, he is advanced" -> advanced
     - "I said beginner, but he actually knows Python pretty well." -> intermediate
+    - "12 no" / "no" / "none" / "first time" -> beginner
     """
     # 0. Prompt injection / imperative command guardrail
     if re.search(r"\b(?:set|make|force)\s+(?:my|the)\s+(?:experience|level|skill)\b", text_lower):
@@ -157,7 +158,14 @@ def _extract_experience_level(text_lower: str) -> Optional[str]:
         if re.search(r"\b(?:beginner|novice|starting out|scratch only)\b", text_lower):
             return "beginner"
 
-    # 4. Standard Intermediate / Advanced (ensuring not preceded by "not")
+    # 4. Contextual response to a previous question asking about experience
+    if last_question and re.search(r"(?:programming|coding|code)\s+before|first time|prior experience", last_question.lower()):
+        if re.search(r"\b(no|nope|none|never|not yet|first time|zero|not really)\b", text_lower):
+            return "beginner"
+        if re.search(r"\b(yes|yeah|yep|yup|some|a bit|a little)\b", text_lower):
+            return "intermediate"
+
+    # 5. Standard Intermediate / Advanced (ensuring not preceded by "not")
     adv_match = re.search(r"\b(?:not|isn't)\s+(?:intermediate|advanced|expert)\b", text_lower)
     if not adv_match:
         if re.search(r"\b(already knows|pretty well|intermediate|advanced|experienced|taken classes|building apps)\b", text_lower):
@@ -165,12 +173,21 @@ def _extract_experience_level(text_lower: str) -> Optional[str]:
                 return "advanced"
             return "intermediate"
 
-    # 5. Standard Beginner (ensuring not preceded by "not")
+    # 6. Standard Beginner (ensuring not preceded by "not")
     beg_match = re.search(r"\b(?:not|isn't)\s+(?:a\s+)?beginner\b", text_lower)
     if not beg_match:
         if (
-            re.search(r"\b(only scratch|beginner|fresh|new to|starting (?:fresh|out)|no (?:coding|programming|prior)|never (?:programmed|coded|done))\b", text_lower)
+            re.search(
+                r"\b(only scratch|beginner|fresh|new to|starting (?:fresh|out)|"
+                r"no (?:coding|programming|prior|experience)|"
+                r"never (?:programmed|coded|done)|"
+                r"first time|very first time|brand new|from scratch|"
+                r"zero experience|hasn't done|have not done|has not done|neither)\b",
+                text_lower,
+            )
             or re.search(r"\bnever\s+(?:used|done|learned|knows|coded in)?\s*(?:python|programming|coding|java)\b", text_lower)
+            or re.search(r"\b\d{1,2}\s*(?:,|\s+)(?:no|nope|none|never)\b|\b(?:no|nope|none|never)\s*(?:,|\s+)\d{1,2}\b", text_lower)
+            or re.search(r"^(?:no|nope|none|not yet|never)\b|\b(?:no|nope|none|not yet)\s*$", text_lower)
         ):
             return "beginner"
 
@@ -307,7 +324,7 @@ def _extract_request_type(text_lower: str) -> Tuple[Optional[str], Optional[str]
     return req_type, pref_format
 
 
-def _extract_from_text(text: str) -> ExtractedInfo:
+def _extract_from_text(text: str, last_question: Optional[str] = None) -> ExtractedInfo:
     """
     Extracts facts deterministically from natural language text.
     Ensures zero hallucination on generic inquiries and handles corrections cleanly.
@@ -347,8 +364,8 @@ def _extract_from_text(text: str) -> ExtractedInfo:
                 if formatted not in info.previous_languages:
                     info.previous_languages.append(formatted)
 
-    # 4. Experience level extraction with corrections
-    info.experience_level = _extract_experience_level(text_lower)
+    # 4. Experience level extraction with corrections and question context
+    info.experience_level = _extract_experience_level(text_lower, last_question=last_question)
     if not info.experience_level and "scratch" in text_lower:
         if not re.search(r"\b(?:python|java|javascript|c\+\+|react)\b", " ".join(info.previous_languages).lower()):
             info.experience_level = "beginner"
@@ -390,8 +407,9 @@ def extract_information(state: AgentState) -> Dict[str, Any]:
     if not last_user_message:
         return {}
 
+    last_q = state.get("last_question_asked")
     try:
-        extracted = _extract_from_text(last_user_message)
+        extracted = _extract_from_text(last_user_message, last_question=last_q)
     except Exception as exc:
         extracted = ExtractedInfo()
 

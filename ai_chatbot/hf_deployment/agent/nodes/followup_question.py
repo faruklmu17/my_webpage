@@ -100,7 +100,19 @@ def build_followup_question_text(state: AgentState) -> str:
 
         # Case 2: Age is known, but experience is missing
         elif age is not None and "experience_level" in fields_to_ask:
-            candidate = f"Has your {age}-year-old done any programming before (like Scratch or blocks), or would this be their first time?"
+            last_q = state.get("last_question_asked") or ""
+            already_asked_exp = bool(re.search(r"(?:programming|coding|code)\s+before|first time", last_q.lower()))
+            if already_asked_exp and "request_type" in truly_missing:
+                all_content = " ".join(str(m.get("content", "")) for m in state.get("messages", []) if isinstance(m, dict)).lower()
+                is_he = bool(re.search(r"\b(son|boy|he|him|his)\b", all_content))
+                if is_he:
+                    candidate = "Great. Is he mainly looking for a structured course, or does he already have something specific he wants to build?"
+                else:
+                    candidate = "Are they looking for a structured course, or do they already have a project they want help building?"
+            elif already_asked_exp:
+                candidate = f"Have they written any text code before, or would this be their very first time coding?"
+            else:
+                candidate = f"Has your {age}-year-old done any programming before (like Scratch or blocks), or would this be their first time?"
 
         # Case 3: Age is missing, but experience is already known
         elif "student_age" in fields_to_ask and age is None:
