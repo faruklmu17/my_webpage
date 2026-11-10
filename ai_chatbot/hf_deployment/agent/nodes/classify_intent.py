@@ -53,9 +53,9 @@ def classify_text_intent(text: str) -> IntentResult:
         if re.search(pattern, text_lower):
             return IntentResult(intent=GENERAL_QUESTION, confidence=0.95)
 
-    # 1. Assignment Help Patterns (Homework, school labs, due dates, AP CS)
+    # 1. Assignment Help Patterns (Homework, school labs, due dates, AP CS / AP CSA)
     ASSIGNMENT_PATTERNS = [
-        r"\b(homework|assignment|due\s+(?:friday|tomorrow|soon|today)|school\s+lab|lab\s+due|ap\s+(?:computer\s+science|cs))\b",
+        r"\b(homework|assignment|due\s+(?:friday|tomorrow|soon|today)|school\s+lab|lab\s+due|ap\s+(?:computer\s+science|csa?))\b",
         r"\bhelp\s+with\s+(?:my\s+)?(?:java|python|coding|cs)\s+(?:homework|assignment|lab)\b",
     ]
     for pattern in ASSIGNMENT_PATTERNS:
@@ -72,7 +72,7 @@ def classify_text_intent(text: str) -> IntentResult:
         if re.search(pattern, text_lower):
             return IntentResult(intent=PROJECT_HELP, confidence=0.90)
 
-    # 3. Pricing Patterns (checked before course keywords so "tutoring cost" -> PRICING)
+    # 3. Pricing & Contact/Booking Patterns (checked before course keywords)
     PRICING_PATTERNS = [
         r"\b(?:how\s+much|cost|price|pricing|rates?|hourly\s+rate|tuition|fees?)\b",
     ]
@@ -80,13 +80,16 @@ def classify_text_intent(text: str) -> IntentResult:
         if re.search(pattern, text_lower):
             return IntentResult(intent=PRICING, confidence=0.88)
 
+    if re.search(r"\b(?:how\s+(?:can|do)\s+i\s+(?:book|contact|schedule|reach)|contact\s+faruk)\b", text_lower):
+        return IntentResult(intent=GENERAL_QUESTION, confidence=0.90)
+
     # 4. Class Inquiry Patterns (Courses, age-based enrollment, curriculum, wanting to learn)
     CLASS_PATTERNS = [
         r"\b(?:which|what)\s+class\s+(?:would\s+be\s+good|is\s+best|do\s+you\s+recommend)\b",
         r"\b(?:looking\s+for|interested\s+in)\s+(?:a\s+)?(?:class|course|lessons|tutoring)\b",
-        r"\b(?:my\s+)?\d{1,2}\s*(?:year\s*old|yo)?\s*(?:wants|looking)\s+to\s+learn\b",
+        r"\b(?:my\s+)?\d{1,2}\s*(?:year\s*old|yo|-year-old)?\s*(?:daughter|son|kid|child|student)?\s*(?:wants|looking)\s+to\s+learn\b",
         r"\b(?:classes|courses)\s+(?:do\s+you\s+offer|available|for\s+beginners)\b",
-        r"\bwants?\s+to\s+learn\s+(?:python|coding|programming|ai|artificial\s+intelligence|web\s+dev)\b",
+        r"\bwants?\s+to\s+learn\s+(?:to\s+code|how\s+to\s+code|code|python|coding|programming|ai|artificial\s+intelligence|web\s+dev)\b",
         r"\b(?:want|looking\s+for|need|interested\s+in)\s+(?:private\s+)?(?:1-on-1\s+)?(?:tutoring|lessons|classes|course)\b",
     ]
     for pattern in CLASS_PATTERNS:

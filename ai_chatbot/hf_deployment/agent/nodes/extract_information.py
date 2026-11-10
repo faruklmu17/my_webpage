@@ -56,13 +56,44 @@ class ExtractedInfo(BaseModel):
 def _format_lang(l: str) -> str:
     """Standardizes programming language naming."""
     lower = l.lower().strip()
-    if lower == "javascript":
+    if lower in ("javascript", "js"):
         return "JavaScript"
     if lower == "c++":
         return "C++"
     if lower == "c#":
         return "C#"
+    if lower == "html":
+        return "HTML"
+    if lower == "css":
+        return "CSS"
     return lower.capitalize()
+
+
+def _lang_pattern(lang: str) -> str:
+    """Builds a safe regex boundary pattern for language names including C++ and C#."""
+    escaped = re.escape(lang)
+    if lang[-1].isalnum():
+        return rf"\b{escaped}\b"
+    return rf"\b{escaped}(?!\w)"
+
+
+_WORD_TO_AGE = {
+    "six": 6,
+    "seven": 7,
+    "eight": 8,
+    "nine": 9,
+    "ten": 10,
+    "eleven": 11,
+    "twelve": 12,
+    "thirteen": 13,
+    "fourteen": 14,
+    "fifteen": 15,
+    "sixteen": 16,
+    "seventeen": 17,
+    "eighteen": 18,
+    "nineteen": 19,
+    "twenty": 20,
+}
 
 
 def _extract_age(text_lower: str) -> Optional[int]:
@@ -72,8 +103,8 @@ def _extract_age(text_lower: str) -> Optional[int]:
     - "14, not 13" -> 14
     - "not 13, she is 14" -> 14
     - "said 11 by mistake, she turned 12" -> 12
-    - "actually 14" -> 14
-    - standard "is 12" / "13 years old" -> 12 / 13
+    - "actually 14" / "she's 11 actually" -> 14 / 11
+    - standard "is 12" / "13 years old" / "13 y/o" / spelled-out numbers -> 12 / 13
     """
     # 1. Pattern: "14, not 13" or "14 instead of 13"
     corr_a = re.search(
@@ -99,29 +130,49 @@ def _extract_age(text_lower: str) -> Optional[int]:
     if corr_c:
         return int(corr_c.group(2))
 
-    # 4. Pattern: "actually 14" or "meant 14"
+    # 4. Pattern: "actually 14", "meant 14", or "she's 11 actually"
     corr_d = re.search(
-        r"\b(?:actually|meant|correction:?)\s*(?:is|'s|he's|she's)?\s*([6-9]|1\d|2[0-5])\b",
+        r"\b(?:actually|meant|correction:?)\s*(?:is|'s|he's|she's)?\s*([6-9]|1\d|2[0-5])\b"
+        r"|\b(?:is|'s|he's|she's)\s*([6-9]|1\d|2[0-5])\s+actually\b",
         text_lower,
     )
     if corr_d:
-        return int(corr_d.group(1))
+        return int(corr_d.group(1) or corr_d.group(2))
 
-    # 5. Standard age extraction with negation filter
+    # 5. Target student disambiguation when siblings are mentioned (e.g., "the younger one is 9, her brother is 15")
+    target_sibling = re.search(
+        r"\b(?:younger|older)\s+one\s+is\s+([6-9]|1\d|2[0-5])\b",
+        text_lower,
+    )
+    if target_sibling:
+        return int(target_sibling.group(1))
+
+    # 6. Standard numeric age extraction with negation & duration filter
     matches = re.finditer(
-        r"\b(?:is|turned|age(?:d)?|daughter|son|kid|student)?\s*([6-9]|1\d|2[0-5])\s*(?:years?\s*old|yo|-year-old|\b)",
+        r"\b(?:is|turned|almost|age(?:d)?|daughter|son|kid|student)?\s*([6-9]|1\d|2[0-5])\s*(?:years?\s*old|years?\b|yo\b|y/o\b|-year-old|\b)",
         text_lower,
     )
     for m in matches:
         start_idx = m.start()
+        end_idx = m.end()
         prefix = text_lower[max(0, start_idx - 15):start_idx]
-        if not re.search(r"\b(?:not|instead of|wasn't|isn't)\s*$", prefix):
-            try:
-                val = int(m.group(1))
-                if 5 <= val <= 25:
-                    return val
-            except (ValueError, TypeError):
-                continue
+        suffix = text_lower[end_idx:end_idx + 15]
+        if re.search(r"\b(?:not|instead of|wasn't|isn't)\s*$", prefix):
+            continue
+        # Avoid capturing durations like "for 3 years" or "2 weeks"
+        if re.search(r"\b(?:for|last|past)\s*$", prefix) or re.search(r"^\s*(?:weeks?|months?|days?|hours?)\b", suffix):
+            continue
+        try:
+            val = int(m.group(1))
+            if 5 <= val <= 25:
+                return val
+        except (ValueError, TypeError):
+            continue
+
+    # 7. Spelled-out age words (e.g. "she's eleven", "turned ten", "fourteen.")
+    for word, age_val in _WORD_TO_AGE.items():
+        if re.search(rf"\b{word}\b", text_lower):
+            return age_val
 
     return None
 
@@ -166,7 +217,11 @@ def _extract_experience_level(text_lower: str, last_question: Optional[str] = No
 
     # 4. Contextual response to a previous question asking about experience
     if last_question and re.search(r"(?:programming|coding|code)\s+before|first time|prior experience", last_question.lower()):
-        if re.search(r"\b(no|nope|none|never|not yet|first time|zero|not really)\b", text_lower):
+        if re.search(r"\b(no|nope|none|never|not yet|first time|zero|not really|newbie)\b", text_lower):
+            return "beginner"
+        if re.search(r"\b(scratch|block|blocks|code\.org)\b", text_lower) and not re.search(
+            r"\b(python|java|javascript|js|c\+\+|c#|react)\b", text_lower
+        ):
             return "beginner"
         if re.search(r"\b(yes|yeah|yep|yup|some|a bit|a little)\b", text_lower):
             return "intermediate"
@@ -184,9 +239,10 @@ def _extract_experience_level(text_lower: str, last_question: Optional[str] = No
     if not beg_match:
         if (
             re.search(
-                r"\b(only scratch|beginner|fresh|new to|starting (?:fresh|out)|"
+                r"\b(only scratch|only code\.org|beginner|newbie|total newbie|fresh|new to|starting (?:fresh|out)|"
                 r"no (?:coding|programming|prior|experience)|"
-                r"never (?:programmed|coded|done)|"
+                r"never (?:programmed|coded|done|written|tried)|"
+                r"hasn't (?:really )?tried|has not (?:really )?tried|"
                 r"first time|very first time|brand new|from scratch|"
                 r"zero experience|hasn't done|have not done|has not done|neither)\b",
                 text_lower,
@@ -214,9 +270,9 @@ def _extract_programming_language(text_lower: str) -> Optional[str]:
         for l2 in KNOWN_LANGUAGES:
             if l1 == l2:
                 continue
-            if re.search(rf"\b{re.escape(l1)}\s*(?:,\s*|\s+)(?:not|instead of)\s*{re.escape(l2)}\b", text_lower):
+            if re.search(rf"{_lang_pattern(l1)}\s*(?:,\s*|\s+)(?:not|instead of)\s*{_lang_pattern(l2)}", text_lower):
                 return _format_lang(l1)
-            if re.search(rf"\b(?:not|instead of)\s*{re.escape(l2)}\b.*?\b(?:wants?|learn|study|switch to|change to|actually)?\s*{re.escape(l1)}\b", text_lower):
+            if re.search(rf"\b(?:not|instead of)\s*{_lang_pattern(l2)}.*?\b(?:wants?|learn|study|switch to|change to|actually)?\s*{_lang_pattern(l1)}", text_lower):
                 return _format_lang(l1)
 
     # 2. "change to C++" / "switch to Java" / "meant JavaScript"
@@ -226,8 +282,8 @@ def _extract_programming_language(text_lower: str) -> Optional[str]:
 
     # 3. Standard target language without negation
     for lang in ["python", "java", "javascript", "c++", "html", "react"]:
-        neg = re.search(rf"\b(?:not|never|no|instead of)\s+{re.escape(lang)}\b", text_lower)
-        if not neg and re.search(rf"\b{re.escape(lang)}\b", text_lower):
+        neg = re.search(rf"\b(?:not|never|no|instead of)\s+{_lang_pattern(lang)}", text_lower)
+        if not neg and re.search(_lang_pattern(lang), text_lower):
             return _format_lang(lang)
 
     return None
@@ -306,13 +362,13 @@ def _extract_request_type(text_lower: str) -> Tuple[Optional[str], Optional[str]
     req_type = None
     pref_format = None
 
-    if re.search(r"\b(assignment|homework|ap computer science|ap cs|school project|due)\b", text_lower):
+    if re.search(r"\b(assignment|homework|ap computer science|ap csa?|school project|due)\b", text_lower):
         req_type = "assignment_help"
     elif re.search(r"\b(build.*website|build.*app|build.*chatbot|make.*game|project help|personal project|travel website|wants help building|fix a bug|tutoring sessions?|private tutoring)\b", text_lower):
         req_type = "project_help"
     elif re.search(r"\b(course|longer[ -]term|long[ -]term|structured\s+course|curriculum|program|lessons)\b", text_lower):
         req_type = "long_term_course"
-    elif re.search(r"\b(class|classes|wants?\s+to\s+learn|learn\s+(?:python|ai|coding|programming|java|react))\b", text_lower):
+    elif re.search(r"\b(class|classes|wants?\s+to\s+learn|learn\s+(?:to\s+code|code|python|ai|coding|programming|java|react))\b", text_lower):
         # Generic initial inquiries like "I'm looking for a class for my son" do not preset long_term_course
         # unless they specify a longer-term/structured course or explicit subject/goal
         if not re.search(r"\b(?:looking\s+for|need|want|interested\s+in)\s+(?:a\s+)?class\b", text_lower):
@@ -352,15 +408,16 @@ def _extract_from_text(text: str, last_question: Optional[str] = None) -> Extrac
     info.programming_language = _extract_programming_language(text_lower)
 
     # 3. Previous languages extraction
-    for lang in KNOWN_LANGUAGES:
-        neg_pattern = rf"\b(?:never|not|no|hasn't|has not)\s+(?:used|done|learned|knows|coded in)?\s*{re.escape(lang)}\b"
+    for lang in KNOWN_LANGUAGES + ["js"]:
+        lang_pat = _lang_pattern(lang)
+        neg_pattern = rf"\b(?:never|not|no|hasn't|has not)\s+(?:used|done|learned|knows|coded in)?\s*{lang_pat}"
         has_neg = bool(re.search(neg_pattern, text_lower))
-        has_mention = bool(re.search(rf"\b{re.escape(lang)}\b", text_lower))
+        has_mention = bool(re.search(lang_pat, text_lower))
 
         if has_mention and not has_neg:
             learn_pattern = (
-                rf"\b(?:wants to learn|want to learn|learn|interested in|study|need a|looking for a|take a|taking a)\s+{re.escape(lang)}\b|"
-                rf"\b{re.escape(lang)}\s+(?:class|classes|course|courses|lessons?|tutoring|training)\b"
+                rf"\b(?:wants to learn|want to learn|learn|interested in|study|need a|looking for a|take a|taking a)\s+{lang_pat}|"
+                rf"{lang_pat}\s+(?:class|classes|course|courses|lessons?|tutoring|training)\b"
             )
             if re.search(learn_pattern, text_lower):
                 if not info.programming_language:
@@ -369,6 +426,9 @@ def _extract_from_text(text: str, last_question: Optional[str] = None) -> Extrac
                 formatted = _format_lang(lang)
                 if formatted not in info.previous_languages:
                     info.previous_languages.append(formatted)
+                # Roblox Studio scripting uses Lua
+                if formatted == "Roblox" and "Lua" not in info.previous_languages:
+                    info.previous_languages.append("Lua")
 
     # 4. Experience level extraction with corrections and question context
     info.experience_level = _extract_experience_level(text_lower, last_question=last_question)
@@ -381,7 +441,7 @@ def _extract_from_text(text: str, last_question: Optional[str] = None) -> Extrac
     info.request_type = req_type
     info.preferred_class_type = pref_format
 
-    if "ap computer science" in text_lower or "ap cs" in text_lower:
+    if re.search(r"\bap\s+(?:computer\s+science|csa?)\b", text_lower):
         info.subject = "AP Computer Science"
 
     # 6. Specific project goal with corrections
@@ -521,8 +581,10 @@ def extract_information(state: AgentState) -> Dict[str, Any]:
                     extracted.student_age = llm_info.student_age
                 if extracted.experience_level is None and llm_info.experience_level is not None:
                     extracted.experience_level = llm_info.experience_level
-                if not extracted.previous_languages and llm_info.previous_languages:
-                    extracted.previous_languages = llm_info.previous_languages
+                if llm_info.previous_languages:
+                    extracted.previous_languages = list(
+                        dict.fromkeys(extracted.previous_languages + llm_info.previous_languages)
+                    )
                 if extracted.request_type is None and llm_info.request_type is not None:
                     extracted.request_type = llm_info.request_type
                 if extracted.project_goal is None and llm_info.project_goal is not None:

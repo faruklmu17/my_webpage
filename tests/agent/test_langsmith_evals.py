@@ -97,3 +97,14 @@ class TestLangSmithEvaluationSuite:
 
         assert results is not None
         print(f"\n[LangSmith] View experiment results at: {results}")
+
+        # 3. Verify that all evaluated metrics achieved 1.0 across the dataset
+        failures = []
+        for row in results:
+            conv_id = (row["example"].inputs or {}).get("conversation_id", "unknown")
+            eval_list = (row.get("evaluation_results") or {}).get("results", [])
+            for res in eval_list:
+                if res.score is not None and res.score < 1.0:
+                    failures.append(f"{conv_id} [{res.key}]: score={res.score} ({res.comment})")
+
+        assert not failures, "LangSmith benchmark failures:\n" + "\n".join(failures)

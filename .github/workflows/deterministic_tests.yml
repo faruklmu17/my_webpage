@@ -2,7 +2,7 @@ name: Deterministic Quality & Guardrail Tests
 
 on:
   push:
-    branches: [main, master, v1, feature/langgraph-workflow]
+    branches: [main, master, v1, feature/langgraph-workflow, feature/langsmith-tests, 'feature/**']
     paths:
       - 'agent/**'
       - 'ai_chatbot/**'
@@ -33,11 +33,15 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest beautifulsoup4 requests numpy scikit-learn sentence-transformers gradio fastapi python-dotenv langgraph langchain-core
+          pip install pytest beautifulsoup4 requests numpy scikit-learn sentence-transformers gradio fastapi python-dotenv langgraph langchain-core "langsmith>=0.10.15"
 
       - name: Run Deterministic Test Suite
         env:
           DEEPEVAL_TELEMETRY_OPT_OUT: "1"
+          LANGSMITH_TRACING: "true"
+          LANGSMITH_PROJECT: "faruk-assistant-evals"
+          LANGSMITH_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
           python -m pytest -v \
             tests/mcp/test_mcp_parsers.py \

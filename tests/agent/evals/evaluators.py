@@ -60,7 +60,15 @@ def evaluate_state_extraction(run, example) -> Dict[str, Any]:
         else:
             details.append(f"Intent mismatch: expected {expected['expected_intent']}, got {actual_intent}")
 
-    score = 1.0 if (total_checks > 0 and checks_passed == total_checks) else (0.0 if total_checks > 0 else 1.0)
+    if total_checks == 0:
+        # Nothing to check for this example: skip instead of counting as a pass.
+        return {
+            "key": "state_extraction_accuracy",
+            "score": None,
+            "comment": "N/A (no expected state fields)",
+        }
+
+    score = 1.0 if checks_passed == total_checks else 0.0
     comment = "All state fields matched" if score == 1.0 else "; ".join(details)
 
     return {
@@ -80,6 +88,14 @@ def evaluate_no_repetition(run, example) -> Dict[str, Any]:
     expected = example.outputs or {}
 
     forbidden_phrases = expected.get("forbidden_in_reply") or []
+    if not forbidden_phrases:
+        # No repetition criteria defined: skip instead of counting as a pass.
+        return {
+            "key": "no_question_repetition",
+            "score": None,
+            "comment": "N/A (no forbidden phrases defined)",
+        }
+
     for phrase in forbidden_phrases:
         if phrase.lower() in reply:
             return {
@@ -104,21 +120,35 @@ def evaluate_recommendation_accuracy(run, example) -> Dict[str, Any]:
     expected_course_id = expected.get("expected_course_id")
     expected_course_name = expected.get("expected_course_name")
 
+    # Resolve the authoritative course name from the catalog when only an ID is given,
+    # since the API response exposes the course name rather than the ID.
+    if expected_course_id and not expected_course_name:
+        try:
+            from agent.data.classes import get_class_by_id
+            course = get_class_by_id(expected_course_id)
+            if course:
+                expected_course_name = course["name"]
+        except ImportError:
+            pass
+
     if not expected_course_id and not expected_course_name:
-        # Not a recommendation turn; N/A
+        # Not a recommendation turn: skip instead of counting as a pass.
         return {
             "key": "recommendation_accuracy",
-            "score": 1.0,
+            "score": None,
             "comment": "N/A (Intake turn)",
         }
 
     outputs = run.outputs or {}
     state = outputs.get("state") or {}
     actual_class = state.get("recommended_class") or outputs.get("recommended_class")
+    actual_class_id = state.get("recommended_class_id") or outputs.get("recommended_class_id")
     reply = outputs.get("reply") or outputs.get("response") or ""
 
     is_match = False
-    if expected_course_name and expected_course_name.lower() in str(actual_class).lower():
+    if expected_course_id and actual_class_id and expected_course_id.lower() == str(actual_class_id).lower():
+        is_match = True
+    elif expected_course_name and expected_course_name.lower() in str(actual_class).lower():
         is_match = True
     elif expected_course_name and expected_course_name.lower() in reply.lower():
         is_match = True
