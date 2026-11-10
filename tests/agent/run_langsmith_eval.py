@@ -59,7 +59,8 @@ def main():
     print("🚀 Running Faruk AI Chatbot Evaluation on LangSmith")
     print("=" * 60)
 
-    client = Client()
+    api_key = (os.getenv("LANGSMITH_API_KEY") or os.getenv("LANGCHAIN_API_KEY") or "").strip()
+    client = Client(api_key=api_key or None)
     print("✓ Connected to LangSmith")
 
     print(f"✓ Syncing dataset '{DATASET_NAME}'...")
