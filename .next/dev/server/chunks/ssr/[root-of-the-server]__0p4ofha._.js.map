@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 10, "column": 0}, "map": {"version":3,"sources":["file:///Users/farukhasan/Desktop/Projects/portfolio-website/app/page.tsx"],"sourcesContent":["export default function Home() {\n  return (\n    <main>\n      <div>Hello world!</div>\n    </main>\n  );\n}\n"],"names":["Home"],"mappings":";;;;;;AAAe,SAASA;IACtB,qBACE,8OAAC;kBACC,cAAA,8OAAC;sBAAI;;;;;;;;;;;AAGX"}}]
-}
