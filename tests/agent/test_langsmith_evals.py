@@ -66,10 +66,10 @@ class TestLangSmithEvaluationSuite:
     @pytest.fixture(scope="session")
     def langsmith_client(self):
         """Initializes and verifies the LangSmith client."""
-        api_key = os.getenv("LANGSMITH_API_KEY") or os.getenv("LANGCHAIN_API_KEY")
+        api_key = (os.getenv("LANGSMITH_API_KEY") or os.getenv("LANGCHAIN_API_KEY") or "").strip()
         if not api_key or "your_actual_key" in api_key:
             pytest.skip("LANGSMITH_API_KEY not configured in .env")
-        return Client()
+        return Client(api_key=api_key)
 
     def test_run_langsmith_benchmark_experiment(self, langsmith_client):
         """
