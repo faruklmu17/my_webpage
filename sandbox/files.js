@@ -46,53 +46,7 @@ const SandboxFiles = (() => {
             case "py": return `# ${name}\n# Use this file from main.py with: import ${name.slice(0, -3)}\n\n`;
             case "css": return `/* ${name} - link it in index.html with: <link rel="stylesheet" href="${name}"> */\n`;
             case "js": return `// ${name} - add it to index.html with: <script src="${name}"></script>\n`;
-            case "html":
-                if (name.toLowerCase() === "index.html") {
-                    return `<!DOCTYPE html>\n<html>\n<body>\n\n</body>\n</html>\n`;
-                }
-                return `<!DOCTYPE html>
-<html>
-<head>
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      text-align: center;
-      background: #f0f4f8;
-      margin: 0;
-      padding: 40px 20px;
-    }
-    .card {
-      background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-      display: inline-block;
-      max-width: 420px;
-    }
-    h1 { color: #2563eb; margin-bottom: 10px; }
-    p { color: #64748b; margin-bottom: 24px; }
-    button {
-      background: #2563eb;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    button:hover { background: #1d4ed8; }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <h1>Welcome to ${name} 📄</h1>
-    <p>You navigated to a new HTML page!</p>
-    <button onclick="window.location.href='index.html'">⬅ Back to Home</button>
-  </div>
-</body>
-</html>
-`;
+            case "html": return `<!DOCTYPE html>\n<html>\n<body>\n\n</body>\n</html>\n`;
             default: return "";
         }
     }
@@ -225,16 +179,17 @@ const SandboxFiles = (() => {
     }
 
     function create(defaultExt) {
+        const extHint = typeof defaultExt === "string" ? defaultExt : "";
         const p = projects[lang];
         if (p.order.length >= MAX_FILES) { alert(`You can have up to ${MAX_FILES} files.`); return; }
         const example = lang === "python"
             ? "helpers.py"
-            : (defaultExt === "html" ? "page2.html" : "page2.html or style.css");
+            : (extHint === "html" ? "page2.html" : "page2.html or style.css");
         const raw = prompt(`New file name (example: ${example})`, "");
         if (raw === null) return;
         let name = raw.trim();
         if (name && !name.includes(".")) {
-            name += defaultExt ? `.${defaultExt.replace(/^\./, "")}` : (lang === "python" ? ".py" : ".html");
+            name += extHint ? `.${extHint.replace(/^\./, "")}` : (lang === "python" ? ".py" : ".html");
         }
         createFile(name);
     }
