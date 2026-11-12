@@ -46,7 +46,53 @@ const SandboxFiles = (() => {
             case "py": return `# ${name}\n# Use this file from main.py with: import ${name.slice(0, -3)}\n\n`;
             case "css": return `/* ${name} - link it in index.html with: <link rel="stylesheet" href="${name}"> */\n`;
             case "js": return `// ${name} - add it to index.html with: <script src="${name}"></script>\n`;
-            case "html": return `<!DOCTYPE html>\n<html>\n<body>\n\n</body>\n</html>\n`;
+            case "html":
+                if (name.toLowerCase() === "index.html") {
+                    return `<!DOCTYPE html>\n<html>\n<body>\n\n</body>\n</html>\n`;
+                }
+                return `<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      text-align: center;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 40px 20px;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      display: inline-block;
+      max-width: 420px;
+    }
+    h1 { color: #2563eb; margin-bottom: 10px; }
+    p { color: #64748b; margin-bottom: 24px; }
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover { background: #1d4ed8; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Welcome to ${name} 📄</h1>
+    <p>You navigated to a new HTML page!</p>
+    <button onclick="window.location.href='index.html'">⬅ Back to Home</button>
+  </div>
+</body>
+</html>
+`;
             default: return "";
         }
     }
@@ -109,6 +155,9 @@ const SandboxFiles = (() => {
         render();
         if (typeof cm.performLint === "function") setTimeout(() => cm.performLint(), 0);
         setTimeout(() => cm.refresh(), 0);
+        window.dispatchEvent(new CustomEvent("sandbox:files-changed", {
+            detail: { lang, active: p.active, files: [...p.order] }
+        }));
     }
 
     function setLanguage(l) {
@@ -153,17 +202,17 @@ const SandboxFiles = (() => {
         return confirm(`Heads up: naming your file "${name}" will hide Python's built-in "${stem}" module, so "import ${stem}" will load your file instead.\n\nCreate it anyway?`);
     }
 
-    function create() {
+    function createFile(rawName, customContent) {
         const p = projects[lang];
-        if (p.order.length >= MAX_FILES) { alert(`You can have up to ${MAX_FILES} files.`); return; }
-        const example = lang === "python" ? "helpers.py" : "style.css";
-        const raw = prompt(`New file name (example: ${example})`, "");
-        if (raw === null) return;
-        const name = raw.trim();
+        if (p.order.length >= MAX_FILES) { alert(`You can have up to ${MAX_FILES} files.`); return null; }
+        let name = (rawName || "").trim();
+        if (name && !name.includes(".")) {
+            name += lang === "python" ? ".py" : ".html";
+        }
         const err = validateName(name);
-        if (err) { alert(err); return; }
-        if (!confirmShadowing(name)) return;
-        docs[lang][name] = new CodeMirror.Doc(starterFor(name), modeFor(name));
+        if (err) { alert(err); return null; }
+        if (!confirmShadowing(name)) return null;
+        docs[lang][name] = new CodeMirror.Doc(customContent ?? starterFor(name), modeFor(name));
         p.order.push(name);
         p.active = name;
         showActive();
@@ -172,6 +221,22 @@ const SandboxFiles = (() => {
         const doc = docs[lang][name];
         doc.setCursor(doc.lineCount(), 0);
         cm.focus();
+        return name;
+    }
+
+    function create(defaultExt) {
+        const p = projects[lang];
+        if (p.order.length >= MAX_FILES) { alert(`You can have up to ${MAX_FILES} files.`); return; }
+        const example = lang === "python"
+            ? "helpers.py"
+            : (defaultExt === "html" ? "page2.html" : "page2.html or style.css");
+        const raw = prompt(`New file name (example: ${example})`, "");
+        if (raw === null) return;
+        let name = raw.trim();
+        if (name && !name.includes(".")) {
+            name += defaultExt ? `.${defaultExt.replace(/^\./, "")}` : (lang === "python" ? ".py" : ".html");
+        }
+        createFile(name);
     }
 
     function rename(oldName) {
@@ -302,7 +367,7 @@ const SandboxFiles = (() => {
     }
 
     return {
-        init, setLanguage, open, openMain, create, rename, remove, importProject,
+        init, setLanguage, open, openMain, create, createFile, rename, remove, importProject,
         getFiles, getFile, save,
         syncFiles, getDoc, setPersist, setListener, reload,
         language: () => lang,

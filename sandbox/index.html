@@ -1135,6 +1135,95 @@
             font-size: 0.8rem;
         }
         .file-tab-add:hover { color: #60a5fa; }
+
+        /* ----- HTML Preview Navigation Bar ----- */
+        .preview-nav-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.35rem 0.65rem;
+            background: #0b1120;
+            border-bottom: 1px solid #1e293b;
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+        .preview-nav-controls {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .preview-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: #1e293b;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 0.25rem 0.55rem;
+            font-size: 0.76rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .preview-nav-btn:hover:not(:disabled) {
+            background: #334155;
+            color: #ffffff;
+            border-color: #475569;
+        }
+        .preview-nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .preview-address-bar {
+            flex: 1;
+            min-width: 120px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 0.18rem 0.55rem;
+            color: #94a3b8;
+        }
+        .preview-address-icon {
+            color: #38bdf8;
+            font-size: 0.78rem;
+        }
+        .preview-page-select {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #f8fafc;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 500;
+            outline: none;
+            cursor: pointer;
+        }
+        .preview-page-select option {
+            background: #0f172a;
+            color: #f8fafc;
+        }
+        .preview-add-page-btn {
+            background: rgba(56, 189, 248, 0.12);
+            color: #38bdf8;
+            border-color: rgba(56, 189, 248, 0.3);
+        }
+        .preview-add-page-btn:hover:not(:disabled) {
+            background: rgba(56, 189, 248, 0.22);
+            color: #7dd3fc;
+            border-color: rgba(56, 189, 248, 0.5);
+        }
+        #previewFrame {
+            transition: opacity 0.16s ease;
+        }
+        #previewFrame.preview-transitioning {
+            opacity: 0.3;
+        }
     </style>
 </head>
 
@@ -1248,6 +1337,31 @@
                         </button>
                         <span><i class="fas fa-terminal" id="outputIcon"></i></span>
                     </div>
+                </div>
+                <div class="preview-nav-bar" id="previewNavBar" style="display: none;">
+                    <div class="preview-nav-controls">
+                        <button type="button" class="preview-nav-btn" id="previewBackBtn" disabled title="Go back to previous page">
+                            <i class="fas fa-arrow-left"></i> <span>Back</span>
+                        </button>
+                        <button type="button" class="preview-nav-btn" id="previewForwardBtn" disabled title="Go forward to next page">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <button type="button" class="preview-nav-btn" id="previewHomeBtn" title="Go to index.html (Home)">
+                            <i class="fas fa-house"></i>
+                        </button>
+                        <button type="button" class="preview-nav-btn" id="previewReloadBtn" title="Reload current page">
+                            <i class="fas fa-rotate-right"></i>
+                        </button>
+                    </div>
+                    <div class="preview-address-bar" title="Current HTML page (switch to any page in your project)">
+                        <i class="fas fa-globe preview-address-icon"></i>
+                        <select id="previewPageSelect" class="preview-page-select" aria-label="Current preview page">
+                            <option value="index.html">index.html</option>
+                        </select>
+                    </div>
+                    <button type="button" class="preview-nav-btn preview-add-page-btn" id="previewNewPageBtn" title="Create a new HTML page">
+                        <i class="fas fa-plus"></i> <span>Page</span>
+                    </button>
                 </div>
                 <div class="output" id="output"><span class="muted">Output will appear here after you click Run...</span></div>
                 <iframe id="previewFrame" style="display:none; width:100%; height:clamp(480px, calc(100vh - 200px), 760px); border:none; background:white;"></iframe>
@@ -1448,9 +1562,9 @@
 
     <!-- Yjs Collaborative Realtime Bundle -->
     <script src="y-bundle.js"></script>
-    <script src="files.js?v=1.0"></script>
+    <script src="files.js?v=1.1"></script>
     <script src="liveshare.js?v=1.0"></script>
-    <script src="sandbox.js?v=2.6"></script>
+    <script src="sandbox.js?v=2.7"></script>
 </body>
 
 </html>
