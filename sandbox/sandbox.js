@@ -866,10 +866,10 @@ let previewHistoryIndex = 0;
 function rewriteNavigationJS(js) {
     if (!js || typeof js !== "string") return js;
     return js
-        .replace(/(^|[^.\w$])(?:(?:window|document|self|top|parent)\s*\.\s*)?location\s*\.\s*(href|assign|replace|reload|pathname|search|hash)\b/g, "$1window.__sandboxLoc.$2")
-        .replace(/(^|[^.\w$])(?:window|document|self|top|parent)\s*\.\s*location\s*=(?!=)/g, "$1window.__sandboxLoc.href =")
+        .replace(/(^|[^.\w$])(?:(?:window|document|self|top|parent)\s*\.\s*)*location\s*\.\s*(href|assign|replace|reload|pathname|search|hash)\b/g, "$1window.__sandboxLoc.$2")
+        .replace(/(^|[^.\w$])(?:(?:window|document|self|top|parent)\s*\.\s*)+location\s*=(?!=)/g, "$1window.__sandboxLoc.href =")
         .replace(/(^|[;{}\(\)\[\]\?\:\,\!\|\&\n\r]|(?:\b(?:return|yield|=>)\s+))\s*location\s*=(?!=)/g, "$1 window.__sandboxLoc.href =")
-        .replace(/(^|[^.\w$])(?:window\s*\.\s*)?history\s*\.\s*(back|forward|go)\b/g, "$1window.__sandboxHistory.$2");
+        .replace(/(^|[^.\w$])(?:(?:window|self|top|parent)\s*\.\s*)*history\s*\.\s*(back|forward|go)\b/g, "$1window.__sandboxHistory.$2");
 }
 
 function parseHTMLTarget(rawTarget) {
@@ -1047,6 +1047,26 @@ function compileSingleHTMLPage(pageName, filesMap, options = {}) {
         return `${prefix}'javascript:${rewriteNavigationJS(sq)}'`;
     });
 
+    // Rewrite relative <a href="..."> so the browser never natively navigates to /sandbox/index.html
+    html = html.replace(/<a\b([^>]*?)\bhref\s*=\s*(?:"([^"]*)"|'([^']*)')([^>]*)>/gi, (match, before, dq, sq, after) => {
+        const rawHref = (dq !== undefined ? dq : sq).trim();
+        if (!rawHref || /^(?:https?:|mailto:|tel:|javascript:|#|data:|blob:)/i.test(rawHref)) {
+            return match;
+        }
+        const safeAttr = rawHref.replace(/"/g, "&quot;");
+        return `<a${before}href="javascript:void(0)" data-sandbox-href="${safeAttr}"${after}>`;
+    });
+
+    // Rewrite relative <form action="..."> so form submit never natively navigates to /sandbox/index.html
+    html = html.replace(/<form\b([^>]*?)\baction\s*=\s*(?:"([^"]*)"|'([^']*)')([^>]*)>/gi, (match, before, dq, sq, after) => {
+        const rawAction = (dq !== undefined ? dq : sq).trim();
+        if (!rawAction || /^(?:https?:|mailto:|tel:|javascript:|#|data:|blob:)/i.test(rawAction)) {
+            return match;
+        }
+        const safeAttr = rawAction.replace(/"/g, "&quot;");
+        return `<form${before}action="javascript:void(0)" data-sandbox-action="${safeAttr}"${after}>`;
+    });
+
     const standalonePayload = options.standalonePages
         ? JSON.stringify(options.standalonePages).replace(/<\/script/gi, "<\\/script")
         : "null";
@@ -1179,10 +1199,18 @@ html { animation: __sandboxPageFadeIn 0.16s ease-out; }
     return origOpen ? origOpen.call(window, url, target, features) : null;
   };
 
-  document.addEventListener('click', function(e) {
-    var link = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+  window.addEventListener('click', function(e) {
+    var el = e.target && e.target.nodeType === 1 ? e.target : (e.target && e.target.parentElement);
+    if (!el || !el.closest) return;
+    var link = el.closest('a[data-sandbox-href], a[href]');
+    if (!link) {
+      var parentBtn = el.closest('button');
+      if (parentBtn && parentBtn.querySelector) {
+        link = parentBtn.querySelector('a[data-sandbox-href], a[href]');
+      }
+    }
     if (link) {
-      var rawHref = link.getAttribute('href');
+      var rawHref = link.getAttribute('data-sandbox-href') || link.getAttribute('href');
       if (!rawHref || /^javascript:/i.test(rawHref)) return;
       if (rawHref.charAt(0) === '#') {
         e.preventDefault();
@@ -1199,7 +1227,7 @@ html { animation: __sandboxPageFadeIn 0.16s ease-out; }
       window.__sandboxNavigate(rawHref, false);
       return;
     }
-    var actionBtn = e.target && e.target.closest ? e.target.closest('button[formaction], input[formaction], [data-href]') : null;
+    var actionBtn = el.closest('button[formaction], input[formaction], [data-href]');
     if (actionBtn) {
       var dest = actionBtn.getAttribute('formaction') || actionBtn.getAttribute('data-href');
       if (dest && !/^(https?:|mailto:|tel:|javascript:|#)/i.test(dest)) {
@@ -1210,10 +1238,10 @@ html { animation: __sandboxPageFadeIn 0.16s ease-out; }
     }
   }, true);
 
-  document.addEventListener('submit', function(e) {
+  window.addEventListener('submit', function(e) {
     var form = e.target;
     if (!form || !form.getAttribute) return;
-    var action = form.getAttribute('action');
+    var action = form.getAttribute('data-sandbox-action') || form.getAttribute('action');
     if (action && !/^(https?:|mailto:|tel:|javascript:|#)/i.test(action)) {
       e.preventDefault();
       e.stopPropagation();
@@ -1647,10 +1675,8 @@ function wireUI() {
                 const loc = previewFrameEl.contentWindow && previewFrameEl.contentWindow.location;
                 if (loc && loc.href && !loc.href.startsWith("about:")) {
                     const pathname = decodeURIComponent(loc.pathname || "");
-                    const fileName = pathname.split("/").pop();
-                    if (fileName && !pathname.endsWith("/sandbox/index.html")) {
-                        navigatePreviewTo(fileName + (loc.search || "") + (loc.hash || ""), { pushHistory: true, animate: true });
-                    }
+                    const fileName = pathname.split("/").pop() || "index.html";
+                    navigatePreviewTo(fileName + (loc.search || "") + (loc.hash || ""), { pushHistory: true, animate: true });
                 }
             } catch (err) { /* ignore cross-origin */ }
         });
