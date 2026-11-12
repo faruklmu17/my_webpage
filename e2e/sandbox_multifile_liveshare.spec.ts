@@ -120,6 +120,82 @@ test.describe('Sandbox Multi-File and Realtime Live Share', () => {
     expect(bodyData).toBe('loaded-from-js');
   });
 
+  test('Multi-page HTML navigation: button redirect, link navigation, and back/forward controls', async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem('sandbox.helpSeen', '1');
+    });
+
+    const answers: string[] = [];
+    page.on('dialog', async dialog => {
+      if (dialog.type() === 'prompt') {
+        await dialog.accept(answers.shift() ?? '');
+      } else {
+        await dialog.accept();
+      }
+    });
+
+    await page.goto('/sandbox/index.html');
+    await page.selectOption('#languageSelect', 'html');
+    await page.waitForTimeout(300);
+
+    // 1. Create page2.html using the + Page button
+    answers.push('page2.html');
+    await page.click('#previewNewPageBtn');
+    await page.evaluate(() => {
+      (window as any).editor.setValue(
+        '<!DOCTYPE html><html><body><h1 id="title">Welcome to Page 2</h1><button id="inPageBackBtn" onclick="history.back()">Go Back</button></body></html>'
+      );
+    });
+
+    // 2. Switch to index.html and add a button that redirects to page2.html
+    await page.click('.file-tab:has-text("index.html")');
+    await page.evaluate(() => {
+      (window as any).editor.setValue(
+        '<!DOCTYPE html><html><body><h1 id="title">Home Page</h1><button id="goPage2Btn" onclick="window.location.href=\'page2.html\'">Go to Page 2</button></body></html>'
+      );
+    });
+
+    await page.click('#runBtn');
+    await page.waitForTimeout(300);
+
+    const getPreviewFrame = () => page.frame({ url: /about:srcdoc/ }) || page.frames()[1];
+    let frame = getPreviewFrame();
+    expect(await frame!.$eval('#title', el => el.textContent)).toBe('Home Page');
+    expect(await page.isDisabled('#previewBackBtn')).toBe(true);
+
+    // 3. Click button inside preview to redirect to page2.html
+    await frame!.click('#goPage2Btn');
+    await page.waitForTimeout(300);
+
+    frame = getPreviewFrame();
+    expect(await frame!.$eval('#title', el => el.textContent)).toBe('Welcome to Page 2');
+    expect(await page.isDisabled('#previewBackBtn')).toBe(false);
+    expect(await page.$eval('#previewPageSelect', el => (el as HTMLSelectElement).value)).toBe('page2.html');
+
+    // 4. Click Sandbox Back button (#previewBackBtn) to return to index.html
+    await page.click('#previewBackBtn');
+    await page.waitForTimeout(300);
+
+    frame = getPreviewFrame();
+    expect(await frame!.$eval('#title', el => el.textContent)).toBe('Home Page');
+    expect(await page.isDisabled('#previewBackBtn')).toBe(true);
+    expect(await page.isDisabled('#previewForwardBtn')).toBe(false);
+
+    // 5. Click Sandbox Forward button (#previewForwardBtn) to go forward to page2.html
+    await page.click('#previewForwardBtn');
+    await page.waitForTimeout(300);
+
+    frame = getPreviewFrame();
+    expect(await frame!.$eval('#title', el => el.textContent)).toBe('Welcome to Page 2');
+
+    // 6. Click in-page Back button (onclick="history.back()") to return to index.html
+    await frame!.click('#inPageBackBtn');
+    await page.waitForTimeout(300);
+
+    frame = getPreviewFrame();
+    expect(await frame!.$eval('#title', el => el.textContent)).toBe('Home Page');
+  });
+
   test('Realtime Live Share: bidirectional pair programming between Student and Teacher', async ({ browser }) => {
     // 1. Student context (Host)
     const studentContext = await browser.newContext();

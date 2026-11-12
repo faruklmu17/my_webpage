@@ -859,12 +859,159 @@ importlib.invalidate_caches()
 `);
 }
 
-// Build a single HTML page from index.html, inlining linked project CSS/JS files.
-function buildHTMLDocument() {
-    const files = {};
-    for (const f of SandboxFiles.getFiles('html')) files[f.name.toLowerCase()] = f.content;
-    const lookup = (src) => files[src.replace(/^\.\//, "").toLowerCase()];
-    let html = files["index.html"] ?? editor.getValue();
+let currentPreviewPage = "index.html";
+let previewHistory = ["index.html"];
+let previewHistoryIndex = 0;
+
+function rewriteNavigationJS(js) {
+    if (!js || typeof js !== "string") return js;
+    return js
+        .replace(/(^|[^.\w$])(?:(?:window|document|self|top|parent)\s*\.\s*)?location\s*\.\s*(href|assign|replace|reload|pathname|search|hash)\b/g, "$1window.__sandboxLoc.$2")
+        .replace(/(^|[^.\w$])(?:window|document|self|top|parent)\s*\.\s*location\s*=(?!=)/g, "$1window.__sandboxLoc.href =")
+        .replace(/(^|[;{}\(\)\[\]\?\:\,\!\|\&\n\r]|(?:\b(?:return|yield|=>)\s+))\s*location\s*=(?!=)/g, "$1 window.__sandboxLoc.href =")
+        .replace(/(^|[^.\w$])(?:window\s*\.\s*)?history\s*\.\s*(back|forward|go)\b/g, "$1window.__sandboxHistory.$2");
+}
+
+function parseHTMLTarget(rawTarget) {
+    const raw = String(rawTarget || "").trim();
+    let hash = "";
+    let search = "";
+    let pathPart = raw;
+    const hashIdx = pathPart.indexOf("#");
+    if (hashIdx !== -1) {
+        hash = pathPart.slice(hashIdx);
+        pathPart = pathPart.slice(0, hashIdx);
+    }
+    const qIdx = pathPart.indexOf("?");
+    if (qIdx !== -1) {
+        search = pathPart.slice(qIdx);
+        pathPart = pathPart.slice(0, qIdx);
+    }
+    pathPart = pathPart.replace(/^(?:\.\/|\/|\.\.\/)+/, "").trim();
+    const baseName = pathPart.split("/").pop() || "";
+
+    const projectFiles = SandboxFiles.getFiles('html');
+    const htmlFiles = projectFiles.filter(f => /\.html$/i.test(f.name));
+
+    if (!baseName) {
+        return { found: true, pageName: "index.html", hash, search };
+    }
+
+    const exact = htmlFiles.find(f => f.name.toLowerCase() === baseName.toLowerCase());
+    if (exact) {
+        return { found: true, pageName: exact.name, hash, search };
+    }
+
+    if (!baseName.includes(".")) {
+        const withExt = htmlFiles.find(f => f.name.toLowerCase() === (baseName + ".html").toLowerCase());
+        if (withExt) {
+            return { found: true, pageName: withExt.name, hash, search };
+        }
+    }
+
+    const fallbackName = /\.html$/i.test(baseName) ? baseName : `${baseName}.html`;
+    return { found: false, pageName: fallbackName, hash, search };
+}
+
+function buildMissingPageHTML(missingPageName) {
+    const safeName = String(missingPageName).replace(/[<>&"']/g, "");
+    return `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      margin: 0;
+      padding: 48px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 75vh;
+    }
+    .missing-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 440px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+    }
+    .missing-icon {
+      font-size: 2.4rem;
+      margin-bottom: 12px;
+    }
+    h2 {
+      margin: 0 0 8px;
+      font-size: 1.25rem;
+      color: #0f172a;
+    }
+    code {
+      background: #f1f5f9;
+      color: #2563eb;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    p {
+      color: #64748b;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      margin: 0 0 22px;
+    }
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+    }
+    .btn-back {
+      background: #f1f5f9;
+      color: #334155;
+      border-color: #cbd5e1;
+    }
+    .btn-back:hover { background: #e2e8f0; }
+    .btn-create {
+      background: #2563eb;
+      color: #ffffff;
+    }
+    .btn-create:hover { background: #1d4ed8; }
+  </style>
+</head>
+<body>
+  <div class="missing-card">
+    <div class="missing-icon">📄</div>
+    <h2><code>${safeName}</code> Not Found Yet</h2>
+    <p>Your button or link navigated to <code>${safeName}</code>, which hasn't been created in your project tabs yet.</p>
+    <div class="btn-row">
+      <button class="btn-back" onclick="window.__sandboxHistory.back()">⬅ Go Back</button>
+      <button class="btn-create" onclick="window.__sandboxCreatePage('${safeName}')">＋ Create ${safeName}</button>
+    </div>
+  </div>
+</body>
+</html>`;
+}
+
+// Compile a single HTML file (inlining project CSS/JS and rewriting navigation calls)
+function compileSingleHTMLPage(pageName, filesMap, options = {}) {
+    const lookup = (src) => filesMap[src.replace(/^(?:\.\/|\/)+/, "").toLowerCase()];
+    const lowerTarget = (pageName || "index.html").toLowerCase();
+    let html = filesMap[lowerTarget];
+    if (html === undefined) {
+        html = buildMissingPageHTML(pageName || "index.html");
+    }
 
     html = html.replace(/<link\b[^>]*?\bhref\s*=\s*["']([^"']+)["'][^>]*>/gi, (tag, href) => {
         const css = lookup(href);
@@ -874,20 +1021,340 @@ function buildHTMLDocument() {
     html = html.replace(/<script\b([^>]*?)\bsrc\s*=\s*["']([^"']+)["']([^>]*)>\s*<\/script>/gi, (tag, before, src, after) => {
         const js = lookup(src);
         if (js === undefined || !/\.js$/i.test(src)) return tag;
-        return `<script${before}${after} data-file="${src}">\n${js.replace(/<\/script/gi, "<\\/script")}\n</script>`;
+        return `<script${before}${after} data-file="${src}">\n${rewriteNavigationJS(js).replace(/<\/script/gi, "<\\/script")}\n</script>`;
     });
     html = html.replace(/<script\b([^>]*?)\bsrc\s*=\s*["']([^"']+)["']([^>]*)\/>/gi, (tag, before, src, after) => {
         const js = lookup(src);
         if (js === undefined || !/\.js$/i.test(src)) return tag;
-        return `<script${before}${after} data-file="${src}">\n${js.replace(/<\/script/gi, "<\\/script")}\n</script>`;
+        return `<script${before}${after} data-file="${src}">\n${rewriteNavigationJS(js).replace(/<\/script/gi, "<\\/script")}\n</script>`;
     });
+
+    // Rewrite inline <script> blocks
+    html = html.replace(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi, (match, attrs, body) => {
+        if (/\bdata-sandbox-nav\b|\bdata-file\b/i.test(attrs)) return match;
+        return `<script${attrs}>${rewriteNavigationJS(body)}</script>`;
+    });
+
+    // Rewrite inline event handlers (e.g., onclick="window.location.href='page2.html'")
+    html = html.replace(/(\bon[a-z]+\s*=\s*)(?:"([^"]*)"|'([^']*)')/gi, (match, prefix, dq, sq) => {
+        if (dq !== undefined) return `${prefix}"${rewriteNavigationJS(dq)}"`;
+        return `${prefix}'${rewriteNavigationJS(sq)}'`;
+    });
+
+    // Rewrite href="javascript:..."
+    html = html.replace(/(\bhref\s*=\s*)(?:"javascript:([^"]*)"|'javascript:([^']*)')/gi, (match, prefix, dq, sq) => {
+        if (dq !== undefined) return `${prefix}"javascript:${rewriteNavigationJS(dq)}"`;
+        return `${prefix}'javascript:${rewriteNavigationJS(sq)}'`;
+    });
+
+    const standalonePayload = options.standalonePages
+        ? JSON.stringify(options.standalonePages).replace(/<\/script/gi, "<\\/script")
+        : "null";
+
+    const navRuntime = `<style data-sandbox-nav="1">
+@keyframes __sandboxPageFadeIn {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+html { animation: __sandboxPageFadeIn 0.16s ease-out; }
+</style>
+<script data-sandbox-nav="1">
+(function() {
+  window.__sandboxCurrentPage = ${JSON.stringify(pageName || "index.html")};
+  window.__sandboxCurrentHash = ${JSON.stringify(options.hash || "")};
+  window.__sandboxCurrentSearch = ${JSON.stringify(options.search || "")};
+  var standalonePages = ${standalonePayload};
+
+  window.__sandboxNavigate = function(target, replace) {
+    if (target === undefined || target === null) return;
+    var str = String(target).trim();
+    if (!str) return;
+    if (str.charAt(0) === '#') {
+      window.__sandboxCurrentHash = str;
+      var el = document.querySelector(str);
+      if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+    if (/^(https?:|mailto:|tel:)/i.test(str)) {
+      window.open(str, '_blank', 'noopener');
+      return;
+    }
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({
+        type: 'sandbox-navigate',
+        target: str,
+        replace: !!replace
+      }, '*');
+      return;
+    }
+    if (standalonePages) {
+      var clean = str.split('#')[0].split('?')[0].replace(/^(?:\\.\\/|\\/|\\.\\.\\/)+/, '').trim() || 'index.html';
+      var key = clean.toLowerCase();
+      if (!key.includes('.')) key += '.html';
+      var nextHtml = standalonePages[key];
+      if (nextHtml) {
+        try {
+          var hist = JSON.parse(sessionStorage.getItem('__sandboxStandaloneHist') || '["index.html"]');
+          if (replace) hist[hist.length - 1] = key;
+          else hist.push(key);
+          sessionStorage.setItem('__sandboxStandaloneHist', JSON.stringify(hist));
+        } catch (e) {}
+        document.open();
+        document.write(nextHtml);
+        document.close();
+      }
+    }
+  };
+
+  window.__sandboxCreatePage = function(name) {
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({ type: 'sandbox-create-page', pageName: name }, '*');
+    }
+  };
+
+  window.__sandboxHistory = {
+    back: function() {
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ type: 'sandbox-history', delta: -1 }, '*');
+        return;
+      }
+      if (standalonePages) {
+        try {
+          var hist = JSON.parse(sessionStorage.getItem('__sandboxStandaloneHist') || '["index.html"]');
+          if (hist.length > 1) {
+            hist.pop();
+            var prev = hist[hist.length - 1] || 'index.html';
+            sessionStorage.setItem('__sandboxStandaloneHist', JSON.stringify(hist));
+            if (standalonePages[prev]) {
+              document.open();
+              document.write(standalonePages[prev]);
+              document.close();
+            }
+          }
+        } catch (e) {}
+      }
+    },
+    forward: function() {
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ type: 'sandbox-history', delta: 1 }, '*');
+      }
+    },
+    go: function(delta) {
+      var d = Number(delta) || 0;
+      if (d === 0) {
+        window.__sandboxNavigate(window.__sandboxCurrentPage, true);
+      } else if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ type: 'sandbox-history', delta: d }, '*');
+      }
+    }
+  };
+
+  window.__sandboxLoc = {
+    get href() { return window.__sandboxCurrentPage + (window.__sandboxCurrentSearch || '') + (window.__sandboxCurrentHash || ''); },
+    set href(val) { window.__sandboxNavigate(val, false); },
+    get pathname() { return '/' + window.__sandboxCurrentPage; },
+    set pathname(val) { window.__sandboxNavigate(val, false); },
+    get search() { return window.__sandboxCurrentSearch || ''; },
+    set search(val) {
+      var s = val ? (String(val).charAt(0) === '?' ? String(val) : '?' + val) : '';
+      window.__sandboxNavigate(window.__sandboxCurrentPage + s + (window.__sandboxCurrentHash || ''), false);
+    },
+    get hash() { return window.__sandboxCurrentHash || ''; },
+    set hash(val) {
+      var h = val ? (String(val).charAt(0) === '#' ? String(val) : '#' + val) : '';
+      window.__sandboxNavigate(h || '#');
+    },
+    assign: function(val) { window.__sandboxNavigate(val, false); },
+    replace: function(val) { window.__sandboxNavigate(val, true); },
+    reload: function() { window.__sandboxNavigate(window.__sandboxCurrentPage, true); },
+    toString: function() { return this.href; }
+  };
+
+  var origOpen = window.open;
+  window.open = function(url, target, features) {
+    if (url && typeof url === 'string' && !/^(https?:|mailto:|tel:|javascript:|about:|blob:|data:)/i.test(url)) {
+      window.__sandboxNavigate(url, false);
+      return window;
+    }
+    return origOpen ? origOpen.call(window, url, target, features) : null;
+  };
+
+  document.addEventListener('click', function(e) {
+    var link = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (link) {
+      var rawHref = link.getAttribute('href');
+      if (!rawHref || /^javascript:/i.test(rawHref)) return;
+      if (rawHref.charAt(0) === '#') {
+        e.preventDefault();
+        window.__sandboxNavigate(rawHref);
+        return;
+      }
+      if (/^(https?:|mailto:|tel:)/i.test(rawHref)) {
+        e.preventDefault();
+        if (origOpen) origOpen.call(window, rawHref, '_blank', 'noopener');
+        return;
+      }
+      e.preventDefault();
+      e.stopPropagation();
+      window.__sandboxNavigate(rawHref, false);
+      return;
+    }
+    var actionBtn = e.target && e.target.closest ? e.target.closest('button[formaction], input[formaction], [data-href]') : null;
+    if (actionBtn) {
+      var dest = actionBtn.getAttribute('formaction') || actionBtn.getAttribute('data-href');
+      if (dest && !/^(https?:|mailto:|tel:|javascript:|#)/i.test(dest)) {
+        e.preventDefault();
+        e.stopPropagation();
+        window.__sandboxNavigate(dest, false);
+      }
+    }
+  }, true);
+
+  document.addEventListener('submit', function(e) {
+    var form = e.target;
+    if (!form || !form.getAttribute) return;
+    var action = form.getAttribute('action');
+    if (action && !/^(https?:|mailto:|tel:|javascript:|#)/i.test(action)) {
+      e.preventDefault();
+      e.stopPropagation();
+      window.__sandboxNavigate(action, false);
+    }
+  }, true);
+
+  window.addEventListener('DOMContentLoaded', function() {
+    if (window.__sandboxCurrentHash) {
+      var targetEl = document.querySelector(window.__sandboxCurrentHash);
+      if (targetEl && targetEl.scrollIntoView) targetEl.scrollIntoView();
+    }
+  });
+})();
+</script>`;
+
+    if (/<head\b[^>]*>/i.test(html)) {
+        html = html.replace(/<head\b[^>]*>/i, (m) => `${m}\n${navRuntime}`);
+    } else if (/<html\b[^>]*>/i.test(html)) {
+        html = html.replace(/<html\b[^>]*>/i, (m) => `${m}\n<head>${navRuntime}</head>`);
+    } else {
+        html = navRuntime + "\n" + html;
+    }
+
     return html;
 }
 
-function runHTML() {
+// Build a single HTML page (defaulting to currentPreviewPage / index.html), inlining linked project CSS/JS files.
+function buildHTMLDocument(targetPageName, options = {}) {
+    const filesMap = {};
+    const projectFiles = SandboxFiles.getFiles('html');
+    for (const f of projectFiles) filesMap[f.name.toLowerCase()] = f.content;
+    if (!filesMap["index.html"] && editor) {
+        filesMap["index.html"] = editor.getValue();
+    }
+
+    const pageName = targetPageName || currentPreviewPage || "index.html";
+
+    if (options.standalone) {
+        const standalonePages = {};
+        for (const f of projectFiles) {
+            if (/\.html$/i.test(f.name)) {
+                standalonePages[f.name.toLowerCase()] = compileSingleHTMLPage(f.name, filesMap);
+            }
+        }
+        return compileSingleHTMLPage(pageName, filesMap, { ...options, standalonePages });
+    }
+
+    return compileSingleHTMLPage(pageName, filesMap, options);
+}
+
+function updatePreviewNavUI() {
+    const backBtn = document.getElementById("previewBackBtn");
+    const forwardBtn = document.getElementById("previewForwardBtn");
+    const pageSelect = document.getElementById("previewPageSelect");
+    const outputTitle = document.getElementById("outputTitle");
+
+    if (backBtn) backBtn.disabled = previewHistoryIndex <= 0;
+    if (forwardBtn) forwardBtn.disabled = previewHistoryIndex >= previewHistory.length - 1;
+
+    if (pageSelect) {
+        const htmlFiles = SandboxFiles.getFiles('html')
+            .filter(f => /\.html$/i.test(f.name))
+            .map(f => f.name);
+        if (!htmlFiles.includes("index.html")) htmlFiles.unshift("index.html");
+        const existsInList = htmlFiles.some(n => n.toLowerCase() === currentPreviewPage.toLowerCase());
+        if (!existsInList && currentPreviewPage) {
+            htmlFiles.push(currentPreviewPage);
+        }
+
+        pageSelect.innerHTML = "";
+        for (const name of htmlFiles) {
+            const opt = document.createElement("option");
+            opt.value = name;
+            const fileExists = SandboxFiles.getFiles('html').some(f => f.name.toLowerCase() === name.toLowerCase());
+            opt.textContent = fileExists ? name : `${name} (not created)`;
+            if (name.toLowerCase() === currentPreviewPage.toLowerCase()) {
+                opt.selected = true;
+            }
+            pageSelect.appendChild(opt);
+        }
+    }
+
+    if (outputTitle && currentLanguage === 'html') {
+        outputTitle.textContent = `Website Preview — ${currentPreviewPage}`;
+    }
+}
+
+function navigatePreviewTo(rawTarget, options = {}) {
+    const { pushHistory = true, replaceHistory = false, animate = false } = options;
+    const resolved = parseHTMLTarget(rawTarget);
+    const pageName = resolved.pageName;
+
+    if (replaceHistory) {
+        previewHistory[previewHistoryIndex] = pageName;
+    } else if (pushHistory && previewHistory[previewHistoryIndex]?.toLowerCase() !== pageName.toLowerCase()) {
+        previewHistory = previewHistory.slice(0, previewHistoryIndex + 1);
+        previewHistory.push(pageName);
+        previewHistoryIndex = previewHistory.length - 1;
+    }
+
+    currentPreviewPage = pageName;
     const preview = document.getElementById("previewFrame");
-    preview.srcdoc = buildHTMLDocument();
-    setStatus("ready", "Website preview updated!");
+    if (!preview) return;
+
+    if (animate) {
+        preview.classList.add("preview-transitioning");
+    }
+
+    preview.srcdoc = buildHTMLDocument(pageName, {
+        hash: resolved.hash,
+        search: resolved.search
+    });
+
+    if (animate) {
+        requestAnimationFrame(() => {
+            setTimeout(() => preview.classList.remove("preview-transitioning"), 60);
+        });
+    } else {
+        preview.classList.remove("preview-transitioning");
+    }
+
+    updatePreviewNavUI();
+    setStatus("ready", resolved.found ? `Viewing ${pageName}` : `${pageName} not created yet`);
+}
+
+function navigatePreviewHistory(delta) {
+    const nextIdx = previewHistoryIndex + delta;
+    if (nextIdx < 0 || nextIdx >= previewHistory.length) return;
+    previewHistoryIndex = nextIdx;
+    const targetPage = previewHistory[previewHistoryIndex];
+    navigatePreviewTo(targetPage, { pushHistory: false, replaceHistory: false, animate: true });
+}
+
+function runHTML() {
+    const activeFile = SandboxFiles.activeName();
+    const targetPage = (activeFile && /\.html$/i.test(activeFile))
+        ? activeFile
+        : (currentPreviewPage || "index.html");
+    navigatePreviewTo(targetPage, { pushHistory: true, animate: false });
+    setStatus("ready", `Website preview updated (${targetPage})!`);
 }
 
 async function startNewStudentDemo() {
@@ -1112,10 +1579,86 @@ function wireUI() {
 
     document.getElementById("launchBtn").addEventListener("click", () => {
         if (currentLanguage === 'html') {
-            const code = buildHTMLDocument();
+            const code = buildHTMLDocument(currentPreviewPage || "index.html", { standalone: true });
             const newWindow = window.open();
-            newWindow.document.write(code);
-            newWindow.document.close();
+            if (newWindow) {
+                newWindow.document.write(code);
+                newWindow.document.close();
+            }
+        }
+    });
+
+    // Preview Navigation Bar Controls
+    const previewBackBtn = document.getElementById("previewBackBtn");
+    if (previewBackBtn) {
+        previewBackBtn.addEventListener("click", () => navigatePreviewHistory(-1));
+    }
+    const previewForwardBtn = document.getElementById("previewForwardBtn");
+    if (previewForwardBtn) {
+        previewForwardBtn.addEventListener("click", () => navigatePreviewHistory(1));
+    }
+    const previewHomeBtn = document.getElementById("previewHomeBtn");
+    if (previewHomeBtn) {
+        previewHomeBtn.addEventListener("click", () => navigatePreviewTo("index.html", { pushHistory: true, animate: true }));
+    }
+    const previewReloadBtn = document.getElementById("previewReloadBtn");
+    if (previewReloadBtn) {
+        previewReloadBtn.addEventListener("click", () => navigatePreviewTo(currentPreviewPage || "index.html", { pushHistory: false, animate: true }));
+    }
+    const previewPageSelect = document.getElementById("previewPageSelect");
+    if (previewPageSelect) {
+        previewPageSelect.addEventListener("change", (e) => {
+            if (e.target.value) {
+                navigatePreviewTo(e.target.value, { pushHistory: true, animate: true });
+            }
+        });
+    }
+    const previewNewPageBtn = document.getElementById("previewNewPageBtn");
+    if (previewNewPageBtn) {
+        previewNewPageBtn.addEventListener("click", () => {
+            SandboxFiles.create("html");
+        });
+    }
+
+    // Listen for navigation and page-creation messages from the preview iframe
+    window.addEventListener("message", (e) => {
+        if (!e.data || typeof e.data !== "object") return;
+        if (e.data.type === "sandbox-navigate" && e.data.target) {
+            navigatePreviewTo(e.data.target, {
+                pushHistory: !e.data.replace,
+                replaceHistory: !!e.data.replace,
+                animate: true
+            });
+        } else if (e.data.type === "sandbox-history" && typeof e.data.delta === "number") {
+            navigatePreviewHistory(e.data.delta);
+        } else if (e.data.type === "sandbox-create-page" && e.data.pageName) {
+            const created = SandboxFiles.createFile(e.data.pageName);
+            if (created) {
+                navigatePreviewTo(created, { replaceHistory: true, animate: true });
+            }
+        }
+    });
+
+    // Fallback: intercept native iframe navigation if any script bypasses srcdoc router
+    const previewFrameEl = document.getElementById("previewFrame");
+    if (previewFrameEl) {
+        previewFrameEl.addEventListener("load", () => {
+            try {
+                const loc = previewFrameEl.contentWindow && previewFrameEl.contentWindow.location;
+                if (loc && loc.href && !loc.href.startsWith("about:")) {
+                    const pathname = decodeURIComponent(loc.pathname || "");
+                    const fileName = pathname.split("/").pop();
+                    if (fileName && !pathname.endsWith("/sandbox/index.html")) {
+                        navigatePreviewTo(fileName + (loc.search || "") + (loc.hash || ""), { pushHistory: true, animate: true });
+                    }
+                }
+            } catch (err) { /* ignore cross-origin */ }
+        });
+    }
+
+    window.addEventListener("sandbox:files-changed", (e) => {
+        if (currentLanguage === 'html') {
+            updatePreviewNavUI();
         }
     });
 
@@ -1323,6 +1866,7 @@ function switchLanguageTo(newLanguage) {
     
     const outputDiv = document.getElementById("output");
     const previewFrame = document.getElementById("previewFrame");
+    const previewNavBar = document.getElementById("previewNavBar");
     const examplesSelect = document.getElementById("examplesSelect");
     const editorGrid = document.querySelector(".editor-grid");
     const launchBtn = document.getElementById("launchBtn");
@@ -1335,10 +1879,11 @@ function switchLanguageTo(newLanguage) {
     if (newLanguage === 'html') {
         outputDiv.style.display = "none";
         previewFrame.style.display = "block";
+        if (previewNavBar) previewNavBar.style.display = "flex";
         launchBtn.style.display = "flex";
         levelSelect.style.display = "none";
         if (clearOutputBtn) clearOutputBtn.style.display = "none";
-        outputTitle.textContent = "Website Preview";
+        outputTitle.textContent = `Website Preview — ${currentPreviewPage || "index.html"}`;
         editorFileName.textContent = "index.html";
         editorLangBadge.innerHTML = '<i class="fas fa-code"></i> HTML / Web';
         editorGrid.style.gridTemplateColumns = "1fr 1fr";
@@ -1349,6 +1894,8 @@ function switchLanguageTo(newLanguage) {
             <option value="html_shapes">CSS Shapes & Hover</option>
         `;
         SandboxFiles.setLanguage('html');
+        updatePreviewNavUI();
+        runHTML();
         if (window.SandboxLiveShare && typeof window.SandboxLiveShare.onLanguageChanged === 'function') {
             window.SandboxLiveShare.onLanguageChanged('html');
         }
@@ -1357,6 +1904,7 @@ function switchLanguageTo(newLanguage) {
     } else {
         outputDiv.style.display = "block";
         previewFrame.style.display = "none";
+        if (previewNavBar) previewNavBar.style.display = "none";
         launchBtn.style.display = "none";
         levelSelect.style.display = "inline-block";
         if (clearOutputBtn) clearOutputBtn.style.display = "inline-flex";
