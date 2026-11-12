@@ -1367,6 +1367,239 @@
       font-size: 1.1rem;
     }
 
+    /* ====== WHATSAPP QUICK MESSAGE WIDGET ====== */
+    .wa-instant-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(37, 211, 102, 0.14);
+      border: 1px solid rgba(37, 211, 102, 0.35);
+      color: #4ade80;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      margin: 0 auto 0.75rem;
+    }
+
+    .wa-widget-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9997;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      font-family: inherit;
+    }
+
+    .wa-widget-panel {
+      display: none;
+      width: 340px;
+      max-width: calc(100vw - 32px);
+      background: #0f172a;
+      border: 1px solid rgba(37, 211, 102, 0.35);
+      border-radius: 16px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(37, 211, 102, 0.15);
+      margin-bottom: 14px;
+      overflow: hidden;
+      transform: translateY(12px) scale(0.96);
+      opacity: 0;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .wa-widget-panel.active {
+      display: block;
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    .wa-widget-header {
+      background: linear-gradient(135deg, #128C7E, #25D366);
+      color: #fff;
+      padding: 1rem 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .wa-widget-header-info {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .wa-widget-header-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      flex-shrink: 0;
+    }
+
+    .wa-widget-header h3 {
+      margin: 0;
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .wa-widget-header p {
+      margin: 2px 0 0;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .wa-widget-close {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0.2rem;
+    }
+
+    .wa-widget-close:hover {
+      color: #fff;
+    }
+
+    .wa-widget-body {
+      padding: 1.1rem 1.15rem 1.2rem;
+    }
+
+    .wa-chat-bubble {
+      background: rgba(255, 255, 255, 0.06);
+      border-left: 3px solid #25D366;
+      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
+      font-size: 0.83rem;
+      color: #cbd5e1;
+      margin-bottom: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .wa-widget-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .wa-widget-form input,
+    .wa-widget-form textarea {
+      width: 100%;
+      padding: 0.7rem 0.9rem;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 8px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.88rem;
+      box-sizing: border-box;
+    }
+
+    .wa-widget-form input:focus,
+    .wa-widget-form textarea:focus {
+      outline: none;
+      border-color: #25D366;
+    }
+
+    .wa-widget-submit {
+      background: #25D366;
+      color: #062814;
+      border: none;
+      border-radius: 8px;
+      padding: 0.78rem 1rem;
+      font-weight: 800;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+    }
+
+    .wa-widget-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45);
+    }
+
+    .wa-widget-toggle {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 0.8rem 1.2rem;
+      font-weight: 800;
+      font-size: 0.92rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .wa-widget-toggle:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 12px 28px rgba(37, 211, 102, 0.55);
+    }
+
+    .wa-widget-toggle i {
+      font-size: 1.3rem;
+    }
+
+    .wa-form-status {
+      display: none;
+      margin-top: 0.6rem;
+      padding: 0.65rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .wa-form-status.success {
+      display: block;
+      background: rgba(37, 211, 102, 0.15);
+      border: 1px solid rgba(37, 211, 102, 0.4);
+      color: #4ade80;
+    }
+
+    .wa-form-status.error {
+      display: block;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #f87171;
+    }
+
+    @media (max-width: 768px) {
+      .wa-widget-container {
+        bottom: 88px;
+        right: 16px;
+      }
+      .wa-widget-toggle span {
+        display: none;
+      }
+      .wa-widget-toggle {
+        width: 54px;
+        height: 54px;
+        padding: 0;
+        justify-content: center;
+        border-radius: 50%;
+      }
+      .wa-widget-toggle i {
+        font-size: 1.6rem;
+      }
+    }
+
     /* ====== PORTFOLIO ====== */
     #portfolio {
       position: relative;
@@ -2231,23 +2464,70 @@
   <div class="tutoring-modal-overlay" id="tutoringModalOverlay" onclick="closeTutoringModal(event)">
     <div class="tutoring-modal" onclick="event.stopPropagation()">
       <button class="close-btn" onclick="closeTutoringModal()">&times;</button>
+      <div style="text-align: center;">
+        <span class="wa-instant-badge"><i class="fa-brands fa-whatsapp"></i> Instant WhatsApp &amp; Email Notification</span>
+      </div>
       <h2>Request Availability</h2>
-      <p class="sub">Spots are currently limited. Fill out your details below and I'll get back to you with my availability to schedule a session.</p>
+      <p class="sub">Spots are currently limited. Fill out your details below and your message will go straight to my WhatsApp &amp; inbox.</p>
       
-      <!-- Using Formspree for email processing -->
-      <form action="https://formspree.io/f/xqewdkny" method="POST" class="tutoring-form">
+      <!-- Using Formspree for email & WhatsApp plugin processing -->
+      <form action="https://formspree.io/f/xqewdkny" method="POST" class="tutoring-form" id="tutoringModalForm" onsubmit="submitFormspreeAjax(event, this, 'modalFormStatus', 'Send Request <i class=\'fa-solid fa-paper-plane\' style=\'margin-left: 5px;\'></i>')">
         <input type="hidden" name="_subject" value="New Tutoring Request from Faruk-Hasan.com">
-        <!-- Redirects the user back to your site after they click submit -->
+        <!-- Redirects the user back to your site after they click submit (fallback if JS disabled) -->
         <input type="hidden" name="_next" value="https://faruk-hasan.com/tutoring/tutoring.html">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
         
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="email" placeholder="Your Email Address" required>
-        <input type="tel" name="phone" placeholder="Phone Number (Optional)">
+        <input type="tel" name="phone" placeholder="Phone / WhatsApp Number (Optional)">
         <textarea name="message" rows="4" placeholder="How can I help? Please include your typical availability (e.g. Weekdays after 5pm EST)..." required></textarea>
         
         <button type="submit">Send Request <i class="fa-solid fa-paper-plane" style="margin-left: 5px;"></i></button>
+        <div id="modalFormStatus" class="wa-form-status" role="status" aria-live="polite"></div>
       </form>
     </div>
+  </div>
+
+  <!-- ===== Floating WhatsApp Quick-Message Widget (Formspree WhatsApp Plugin) ===== -->
+  <div class="wa-widget-container" id="waWidgetContainer">
+    <div class="wa-widget-panel" id="waWidgetPanel" role="dialog" aria-label="Send a WhatsApp message to Faruk">
+      <div class="wa-widget-header">
+        <div class="wa-widget-header-info">
+          <div class="wa-widget-header-icon">
+            <i class="fa-brands fa-whatsapp"></i>
+          </div>
+          <div>
+            <h3>Message Faruk</h3>
+            <p>Instant WhatsApp alert via Formspree</p>
+          </div>
+        </div>
+        <button type="button" class="wa-widget-close" onclick="toggleWhatsAppWidget(false)" aria-label="Close WhatsApp message panel">&times;</button>
+      </div>
+      <div class="wa-widget-body">
+        <div class="wa-chat-bubble">
+          👋 Hi! Have a quick question about 1-on-1 coding sessions or availability? Send a note below and it'll ping my WhatsApp right away.
+        </div>
+        <form action="https://formspree.io/f/xqewdkny" method="POST" class="wa-widget-form" id="waQuickForm" onsubmit="submitFormspreeAjax(event, this, 'waWidgetStatus', '<i class=\'fa-brands fa-whatsapp\'></i> Send to WhatsApp')">
+          <input type="hidden" name="_subject" value="New WhatsApp Quick Message (STEM Tutoring Hub)">
+          <input type="hidden" name="source" value="WhatsApp Floating Widget - STEM Tutoring Hub">
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+          <input type="text" name="name" id="wa-quick-name" placeholder="Your Name *" required aria-label="Your Name">
+          <input type="text" name="contact" placeholder="Your Email or WhatsApp # *" required aria-label="Your Email or WhatsApp Number">
+          <textarea name="message" rows="3" placeholder="Type your message (e.g., child's age, topic, or question)..." required aria-label="Your Message"></textarea>
+
+          <button type="submit" class="wa-widget-submit">
+            <i class="fa-brands fa-whatsapp"></i> Send to WhatsApp
+          </button>
+          <div id="waWidgetStatus" class="wa-form-status" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+
+    <button type="button" class="wa-widget-toggle" id="waWidgetToggle" onclick="toggleWhatsAppWidget()" aria-expanded="false" aria-controls="waWidgetPanel">
+      <i class="fa-brands fa-whatsapp"></i>
+      <span>Message on WhatsApp</span>
+    </button>
   </div>
 
   <footer style="background: rgba(10,15,30,0.9); border-top: 1px solid rgba(0,240,255,0.1); padding: 3rem 0; text-align: center;">
@@ -2298,6 +2578,70 @@
       // Remove hash when closing
       if (window.location.hash === '#book') {
         history.pushState(null, null, window.location.pathname + window.location.search);
+      }
+    }
+
+    // WhatsApp Quick-Message Widget & Formspree AJAX Submission
+    function toggleWhatsAppWidget(forceState) {
+      const panel = document.getElementById('waWidgetPanel');
+      const toggle = document.getElementById('waWidgetToggle');
+      if (!panel || !toggle) return;
+
+      const isOpen = typeof forceState === 'boolean' ? forceState : !panel.classList.contains('active');
+      panel.classList.toggle('active', isOpen);
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+      if (isOpen) {
+        setTimeout(() => {
+          const input = document.getElementById('wa-quick-name');
+          if (input) input.focus();
+        }, 50);
+      }
+    }
+
+    async function submitFormspreeAjax(event, form, statusElementId, defaultBtnHtml) {
+      event.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      const statusEl = document.getElementById(statusElementId);
+
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = 'Sending... <i class="fa-solid fa-spinner fa-spin" style="margin-left: 6px;"></i>';
+      }
+      if (statusEl) {
+        statusEl.className = 'wa-form-status';
+        statusEl.textContent = '';
+      }
+
+      try {
+        const response = await fetch(form.action, {
+          method: form.method || 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          form.reset();
+          if (statusEl) {
+            statusEl.className = 'wa-form-status success';
+            statusEl.innerHTML = '<i class="fa-brands fa-whatsapp"></i> Sent! Faruk received your message on WhatsApp.';
+          }
+        } else {
+          if (statusEl) {
+            statusEl.className = 'wa-form-status error';
+            statusEl.textContent = 'Could not send right now. Please try again.';
+          }
+        }
+      } catch (err) {
+        if (statusEl) {
+          statusEl.className = 'wa-form-status error';
+          statusEl.textContent = 'Network error. Please check your connection and try again.';
+        }
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = defaultBtnHtml;
+        }
       }
     }
 
