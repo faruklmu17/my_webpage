@@ -1085,6 +1085,33 @@ html { animation: __sandboxPageFadeIn 0.16s ease-out; }
   window.__sandboxCurrentSearch = ${JSON.stringify(options.search || "")};
   var standalonePages = ${standalonePayload};
 
+  function getStandalonePages() {
+    if (standalonePages) return standalonePages;
+    try {
+      var raw = sessionStorage.getItem('__sandboxStandalonePages');
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+
+  function loadStandalonePage(targetKey) {
+    var pages = getStandalonePages();
+    if (!pages) return false;
+    var nextHtml = pages[targetKey];
+    if (!nextHtml) return false;
+    document.open();
+    document.write(nextHtml);
+    document.close();
+    return true;
+  }
+
+  if (standalonePages) {
+    try {
+      sessionStorage.setItem('__sandboxStandalonePages', JSON.stringify(standalonePages));
+      sessionStorage.setItem('__sandboxStandaloneHist', JSON.stringify([(window.__sandboxCurrentPage || 'index.html').toLowerCase()]));
+      sessionStorage.setItem('__sandboxStandaloneHistIdx', '0');
+    } catch (e) {}
+  }
+
   window.__sandboxNavigate = function(target, replace) {
     if (target === undefined || target === null) return;
     var str = String(target).trim();
@@ -1107,21 +1134,27 @@ html { animation: __sandboxPageFadeIn 0.16s ease-out; }
       }, '*');
       return;
     }
-    if (standalonePages) {
+    var pages = getStandalonePages();
+    if (pages) {
       var clean = str.split('#')[0].split('?')[0].replace(/^(?:\\.\\/|\\/|\\.\\.\\/)+/, '').trim() || 'index.html';
       var key = clean.toLowerCase();
       if (!key.includes('.')) key += '.html';
-      var nextHtml = standalonePages[key];
-      if (nextHtml) {
+      if (pages[key]) {
         try {
           var hist = JSON.parse(sessionStorage.getItem('__sandboxStandaloneHist') || '["index.html"]');
-          if (replace) hist[hist.length - 1] = key;
-          else hist.push(key);
+          var idx = parseInt(sessionStorage.getItem('__sandboxStandaloneHistIdx') || String(hist.length - 1), 10);
+          if (isNaN(idx) || idx < 0 || idx >= hist.length) idx = hist.length - 1;
+          if (replace) {
+            hist[idx] = key;
+          } else {
+            hist = hist.slice(0, idx + 1);
+            hist.push(key);
+            idx = hist.length - 1;
+          }
           sessionStorage.setItem('__sandboxStandaloneHist', JSON.stringify(hist));
+          sessionStorage.setItem('__sandboxStandaloneHistIdx', String(idx));
         } catch (e) {}
-        document.open();
-        document.write(nextHtml);
-        document.close();
+        loadStandalonePage(key);
       }
     }
   };
@@ -1132,32 +1165,35 @@ html { animation: __sandboxPageFadeIn 0.16s ease-out; }
     }
   };
 
+  function navigateStandaloneHistory(delta) {
+    var pages = getStandalonePages();
+    if (!pages) return;
+    try {
+      var hist = JSON.parse(sessionStorage.getItem('__sandboxStandaloneHist') || '["index.html"]');
+      var idx = parseInt(sessionStorage.getItem('__sandboxStandaloneHistIdx') || String(hist.length - 1), 10);
+      if (isNaN(idx)) idx = hist.length - 1;
+      var nextIdx = idx + delta;
+      if (nextIdx < 0 || nextIdx >= hist.length) return;
+      var targetKey = hist[nextIdx] || 'index.html';
+      sessionStorage.setItem('__sandboxStandaloneHistIdx', String(nextIdx));
+      loadStandalonePage(targetKey);
+    } catch (e) {}
+  }
+
   window.__sandboxHistory = {
     back: function() {
       if (window.parent && window.parent !== window) {
         window.parent.postMessage({ type: 'sandbox-history', delta: -1 }, '*');
         return;
       }
-      if (standalonePages) {
-        try {
-          var hist = JSON.parse(sessionStorage.getItem('__sandboxStandaloneHist') || '["index.html"]');
-          if (hist.length > 1) {
-            hist.pop();
-            var prev = hist[hist.length - 1] || 'index.html';
-            sessionStorage.setItem('__sandboxStandaloneHist', JSON.stringify(hist));
-            if (standalonePages[prev]) {
-              document.open();
-              document.write(standalonePages[prev]);
-              document.close();
-            }
-          }
-        } catch (e) {}
-      }
+      navigateStandaloneHistory(-1);
     },
     forward: function() {
       if (window.parent && window.parent !== window) {
         window.parent.postMessage({ type: 'sandbox-history', delta: 1 }, '*');
+        return;
       }
+      navigateStandaloneHistory(1);
     },
     go: function(delta) {
       var d = Number(delta) || 0;
@@ -1165,6 +1201,8 @@ html { animation: __sandboxPageFadeIn 0.16s ease-out; }
         window.__sandboxNavigate(window.__sandboxCurrentPage, true);
       } else if (window.parent && window.parent !== window) {
         window.parent.postMessage({ type: 'sandbox-history', delta: d }, '*');
+      } else {
+        navigateStandaloneHistory(d);
       }
     }
   };
@@ -1334,12 +1372,13 @@ function navigatePreviewTo(rawTarget, options = {}) {
     const { pushHistory = true, replaceHistory = false, animate = false } = options;
     const resolved = parseHTMLTarget(rawTarget);
     const pageName = resolved.pageName;
+    const fullEntry = pageName + (resolved.search || "") + (resolved.hash || "");
 
     if (replaceHistory) {
-        previewHistory[previewHistoryIndex] = pageName;
-    } else if (pushHistory && previewHistory[previewHistoryIndex]?.toLowerCase() !== pageName.toLowerCase()) {
+        previewHistory[previewHistoryIndex] = fullEntry;
+    } else if (pushHistory && (previewHistory[previewHistoryIndex] || "").toLowerCase() !== fullEntry.toLowerCase()) {
         previewHistory = previewHistory.slice(0, previewHistoryIndex + 1);
-        previewHistory.push(pageName);
+        previewHistory.push(fullEntry);
         previewHistoryIndex = previewHistory.length - 1;
     }
 
@@ -1667,16 +1706,25 @@ function wireUI() {
         }
     });
 
-    // Fallback: intercept native iframe navigation if any script bypasses srcdoc router
+    // Fallback: intercept native iframe navigation or browser-back srcdoc restoration
     const previewFrameEl = document.getElementById("previewFrame");
     if (previewFrameEl) {
         previewFrameEl.addEventListener("load", () => {
             try {
-                const loc = previewFrameEl.contentWindow && previewFrameEl.contentWindow.location;
+                const win = previewFrameEl.contentWindow;
+                const loc = win && win.location;
                 if (loc && loc.href && !loc.href.startsWith("about:")) {
                     const pathname = decodeURIComponent(loc.pathname || "");
                     const fileName = pathname.split("/").pop() || "index.html";
                     navigatePreviewTo(fileName + (loc.search || "") + (loc.hash || ""), { pushHistory: true, animate: true });
+                } else if (win && win.__sandboxCurrentPage) {
+                    const loadedPage = win.__sandboxCurrentPage;
+                    if (loadedPage.toLowerCase() !== (currentPreviewPage || "").toLowerCase()) {
+                        currentPreviewPage = loadedPage;
+                        const matchIdx = previewHistory.findIndex(h => h.split(/[?#]/)[0].toLowerCase() === loadedPage.toLowerCase());
+                        if (matchIdx !== -1) previewHistoryIndex = matchIdx;
+                        updatePreviewNavUI();
+                    }
                 }
             } catch (err) { /* ignore cross-origin */ }
         });
