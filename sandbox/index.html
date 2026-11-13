@@ -1453,7 +1453,11 @@
                 <i class="fas fa-tower-broadcast"></i>
             </div>
             <h2 id="liveShareTitle" style="justify-content: center; margin-bottom: 0.5rem;">Live Pair Programming</h2>
-            <p class="modal-sub" style="margin-bottom: 1.25rem;">Share this private link with your teacher or classmate to write and edit code together in real-time!</p>
+            <p class="modal-sub" style="margin-bottom: 0.75rem;">Share this private link with your teacher or classmate to write and edit code together in real-time!</p>
+            <div id="liveShareStatusBadge" style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.3rem 0.75rem; border-radius: 99px; font-size: 0.8rem; font-weight: 600; margin-bottom: 1rem; background: #fef3c7; color: #92400e;">
+                <span id="liveShareStatusDot" style="width: 8px; height: 8px; border-radius: 50%; background: #f59e0b;"></span>
+                <span id="liveShareStatusText">Connecting to relay server...</span>
+            </div>
             <div style="margin-bottom: 0.75rem; text-align: left;">
                 <label style="font-size: 0.8rem; color: #94a3b8; font-weight: 500; display: block; margin-bottom: 0.25rem;">Student Link:</label>
                 <div style="display: flex; gap: 0.5rem;">
@@ -1461,13 +1465,20 @@
                     <button class="btn btn-primary" id="copyLiveUrlBtn"><i class="fas fa-copy"></i> Copy</button>
                 </div>
             </div>
-            <div style="margin-bottom: 1.25rem; text-align: left;">
+            <div style="margin-bottom: 1rem; text-align: left;">
                 <label style="font-size: 0.8rem; color: #10b981; font-weight: 500; display: block; margin-bottom: 0.25rem;"><i class="fas fa-chalkboard-user"></i> Teacher Link (Faruk):</label>
                 <div style="display: flex; gap: 0.5rem;">
                     <input type="text" id="liveShareTeacherUrlInput" readonly style="flex: 1; padding: 0.55rem 0.75rem; background: #0f172a; border: 1px solid #065f46; border-radius: 6px; color: #34d399; font-family: monospace; font-size: 0.85rem;" />
                     <button class="btn btn-secondary" id="copyTeacherLiveUrlBtn"><i class="fas fa-copy"></i> Copy</button>
                 </div>
             </div>
+            <details id="liveShareServerDetails" style="margin-bottom: 1.25rem; text-align: left; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.6rem 0.75rem;">
+                <summary style="font-size: 0.8rem; font-weight: 600; color: #475569; cursor: pointer;">Relay Server Settings (if disconnected)</summary>
+                <div style="margin-top: 0.6rem; display: flex; gap: 0.5rem;">
+                    <input type="text" id="liveShareServerInput" placeholder="wss://your-relay-url" style="flex: 1; padding: 0.45rem 0.65rem; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 6px; color: #0f172a; font-family: monospace; font-size: 0.8rem;" />
+                    <button class="btn btn-secondary btn-sm" id="liveShareReconnectBtn" type="button">Reconnect</button>
+                </div>
+            </details>
             <div style="display: flex; gap: 0.75rem; justify-content: center;">
                 <button class="btn btn-secondary" id="closeLiveModalBtn">Keep Working</button>
                 <button class="btn btn-secondary" id="stopLiveSessionBtn" style="color: #ef4444;"><i class="fas fa-stop"></i> End Session</button>
@@ -1563,8 +1574,8 @@
     <!-- Yjs Collaborative Realtime Bundle -->
     <script src="y-bundle.js"></script>
     <script src="files.js?v=1.2"></script>
-    <script src="liveshare.js?v=1.0"></script>
-    <script src="sandbox.js?v=2.9"></script>
+    <script src="liveshare.js?v=1.1"></script>
+    <script src="sandbox.js?v=3.0"></script>
 </body>
 
 </html>

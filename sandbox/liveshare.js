@@ -7,6 +7,46 @@
 
 window.SandboxLiveShare = (() => {
     const DEFAULT_SERVER_URL = window.LIVESHARE_SERVER_URL || 'wss://hardwood-ceiling-trademarks-cooking.trycloudflare.com';
+    const SERVER_STORAGE_KEY = 'sandbox.liveShareServer';
+
+    function getServerUrl() {
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
+            const paramServer = urlParams.get('server');
+            if (paramServer && /^wss?:\/\//i.test(paramServer.trim())) {
+                return paramServer.trim().replace(/\/+$/, '');
+            }
+            const saved = localStorage.getItem(SERVER_STORAGE_KEY);
+            if (saved && /^wss?:\/\//i.test(saved.trim())) {
+                return saved.trim().replace(/\/+$/, '');
+            }
+        } catch (e) {}
+        return DEFAULT_SERVER_URL;
+    }
+
+    function setConnectionStatus(state, message) {
+        const badge = document.getElementById('liveShareStatusBadge');
+        const dot = document.getElementById('liveShareStatusDot');
+        const text = document.getElementById('liveShareStatusText');
+        const details = document.getElementById('liveShareServerDetails');
+        if (text) text.textContent = message;
+        if (badge && dot) {
+            if (state === 'connected') {
+                badge.style.background = '#dcfce7';
+                badge.style.color = '#166534';
+                dot.style.background = '#10b981';
+            } else if (state === 'error') {
+                badge.style.background = '#fee2e2';
+                badge.style.color = '#991b1b';
+                dot.style.background = '#ef4444';
+                if (details) details.open = true;
+            } else {
+                badge.style.background = '#fef3c7';
+                badge.style.color = '#92400e';
+                dot.style.background = '#f59e0b';
+            }
+        }
+    }
 
     let ydoc = null;
     let provider = null;
@@ -75,7 +115,11 @@ window.SandboxLiveShare = (() => {
             }
 
             const docName = currentRoomId;
-            provider = new window.WebsocketProvider(DEFAULT_SERVER_URL, docName, ydoc);
+            const serverUrl = getServerUrl();
+            const serverInput = document.getElementById('liveShareServerInput');
+            if (serverInput) serverInput.value = serverUrl;
+            setConnectionStatus('connecting', 'Connecting to relay server...');
+            provider = new window.WebsocketProvider(serverUrl, docName, ydoc);
 
             provider.awareness.setLocalStateField('user', {
                 name: userName,
@@ -83,15 +127,32 @@ window.SandboxLiveShare = (() => {
                 role: role
             });
 
+            let connectTimer = setTimeout(() => {
+                if (!isConnected) {
+                    setConnectionStatus('error', 'Relay server unreachable. Start or update relay URL below.');
+                }
+            }, 5000);
+
             provider.on('status', event => {
                 if (event.status === 'connected') {
+                    clearTimeout(connectTimer);
                     isConnected = true;
+                    setConnectionStatus('connected', 'Connected (Live)');
                     if (liveBtn) {
                         liveBtn.classList.add('btn-active');
                         liveBtn.innerHTML = '<i class="fas fa-tower-broadcast"></i> Live';
                     }
                     updateShareUrl();
+                } else if (event.status === 'disconnected') {
+                    isConnected = false;
+                    setConnectionStatus('error', 'Disconnected from relay server.');
                 }
+            });
+
+            provider.on('connection-error', () => {
+                clearTimeout(connectTimer);
+                isConnected = false;
+                setConnectionStatus('error', 'Relay server unreachable. Start or update relay URL below.');
             });
 
             provider.on('sync', isSynced => {
@@ -236,12 +297,28 @@ window.SandboxLiveShare = (() => {
         const modal = document.getElementById('liveShareModal');
         const linkInput = document.getElementById('liveShareUrlInput');
         const teacherInput = document.getElementById('liveShareTeacherUrlInput');
+        const serverInput = document.getElementById('liveShareServerInput');
         if (modal) {
-            const baseUrl = `${window.location.origin}${window.location.pathname}?live=${roomId}`;
+            const serverUrl = getServerUrl();
+            const serverSuffix = serverUrl !== DEFAULT_SERVER_URL ? `&server=${encodeURIComponent(serverUrl)}` : '';
+            const baseUrl = `${window.location.origin}${window.location.pathname}?live=${roomId}${serverSuffix}`;
             if (linkInput) linkInput.value = baseUrl;
             if (teacherInput) teacherInput.value = `${baseUrl}&role=teacher`;
+            if (serverInput) serverInput.value = serverUrl;
             modal.classList.add('show');
         }
+    }
+
+    function setCustomServerAndReconnect(newUrl) {
+        const cleaned = (newUrl || '').trim().replace(/\/+$/, '');
+        if (!/^wss?:\/\//i.test(cleaned)) {
+            alert('Please enter a valid WebSocket URL starting with wss:// or ws://');
+            return;
+        }
+        try { localStorage.setItem(SERVER_STORAGE_KEY, cleaned); } catch (e) {}
+        const roomToReuse = currentRoomId;
+        const wasHost = isHost;
+        startSession(roomToReuse, wasHost);
     }
 
     function closeLiveModal() {
@@ -282,6 +359,7 @@ window.SandboxLiveShare = (() => {
         stopSession,
         openLiveModal,
         closeLiveModal,
+        setCustomServerAndReconnect,
         checkUrlForSession,
         attachCodeMirrorBinding,
         onLanguageChanged,
