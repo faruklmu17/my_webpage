@@ -1841,6 +1841,14 @@ function wireUI() {
         });
     }
 
+    const liveShareReconnectBtn = document.getElementById("liveShareReconnectBtn");
+    if (liveShareReconnectBtn) {
+        liveShareReconnectBtn.addEventListener("click", () => {
+            const input = document.getElementById("liveShareServerInput");
+            if (input) SandboxLiveShare.setCustomServerAndReconnect(input.value);
+        });
+    }
+
     document.getElementById("examplesSelect").addEventListener("change", (e) => {
         const key = e.target.value;
         if (!key) return;
