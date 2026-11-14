@@ -1,151 +1,95 @@
-# Project Status
+# Faruk Hasan — Portfolio Website & AI Assistant
 
-**Status:** 🟢 Live
-
-Version: 1.0.0
-
-Last Updated: November 2026
-
-Current Goal:
-Maintain live website.
-
-Next Task:
-Add new blog posts.
-
-Known Issues:
-- Initial scaffold only
+Personal website (`https://faruk-hasan.com/`), tutoring portal, interactive projects, and the **Faruk AI Assistant** chatbot.
 
 ---
 
-# Portfolio Website
+## Key Components
 
-Personal website.
-
----
-
-## Purpose
-
-Why was this project created?
+- **Static Portfolio & Tutoring Site:** Built with HTML, CSS, JavaScript, and Node.js tooling (career, courses, blog, interactive games/tools, and tutoring booking).
+- **AI Chatbot (`agent/` & `ai_chatbot/hf_deployment/`):** Conversational assistant deployed on Hugging Face Spaces using **FastAPI**, **Gradio**, **LangGraph**, **Groq** (`llama-3.1-8b-instant`), and the **Slack Events API**.
+- **Automated Testing & Evaluations (`tests/`):** End-to-end website tests with **Playwright** and multi-turn chatbot unit/E2E/evaluation suites with **pytest** and **LangSmith**.
 
 ---
 
-## Features
+## AI Chatbot Architecture (LangGraph + LangSmith)
 
-- Feature 1
-- Feature 2
-- Feature 3
+The chatbot combines deterministic caching, a stateful **LangGraph** workflow, and a **Groq** RAG fallback:
+
+1. **Pre-LLM Guardrails & Smart Cache (`ai_chatbot/hf_deployment/app.py`):** Filters abusive/sensitive inputs and serves instant cached answers via `cache_config.json`.
+2. **LangGraph `StateGraph` Workflow (`agent/graph.py`):** Handles multi-turn `CLASS_INQUIRY`, `PROJECT_HELP`, and `ASSIGNMENT_HELP` conversations with persistent conversation state:
+   ```text
+   START → extract_information → classify_intent → route_intent
+     ├── GENERAL_QUESTION → general_response → END
+     ├── UNKNOWN          → clarification → END
+     └── [CLASS_INQUIRY / PROJECT_HELP / ASSIGNMENT_HELP]
+           → check_missing_information → route_missing_information
+               ├── missing info  → generate_followup_question → END
+               └── complete info → recommend_class → generate_response → END
+   ```
+3. **Groq RAG Fallback:** Answers general questions about Faruk's background, portfolio, and resources using `faruk_context.md`.
+4. **LangSmith Evaluations (`tests/agent/`):** Benchmarks multi-turn state extraction, repetition prevention, and course recommendation accuracy against the `faruk-assistant-eval-dataset` dataset on LangSmith.
 
 ---
 
-## Technologies
+## Tech Stack
 
-- Node.js
-- Docker
-- FastAPI
-- Python
-- SQLite
-- Playwright
-- React
+- **Frontend:** HTML, CSS, JavaScript
+- **AI / Agent Orchestration:** LangGraph, FastAPI, Gradio, Groq API, Sentence Transformers / Scikit-learn
+- **Observability & Evals:** LangSmith (`langsmith>=0.10.15`), pytest
+- **Browser Testing:** Playwright (`@playwright/test`)
+- **Deployment:** GitHub Pages (website) & Docker on Hugging Face Spaces (AI assistant)
 
 ---
 
 ## Folder Structure
 
-```
-project/
-│
-├── src/
-├── config/
+```text
+portfolio-website/
+├── agent/                          # LangGraph StateGraph, nodes, routing, state & FastAPI router
+├── ai_chatbot/
+│   └── hf_deployment/              # Hugging Face Spaces deployment (app.py, Dockerfile, requirements.txt)
 ├── tests/
-├── docs/
-├── docker-compose.yml
-├── .env.example
-└── README.md
-```
-
----
-
-## Installation
-
-Clone
-
-```bash
-git clone ...
+│   └── agent/                      # LangGraph pytest suite & LangSmith evals (evals/, run_langsmith_eval.py)
+├── e2e/                            # Playwright end-to-end website tests
+├── index.html                      # Main portfolio page
+├── tutoring/                       # Tutoring & course pages
+├── package.json                    # Playwright & local serve scripts
+└── LANGGRAPH_PLAYBOOK.md           # LangGraph implementation playbook
 ```
 
 ---
 
 ## Environment Variables
 
-Create
+Create a `.env` file in `portfolio-website/` (or set secrets in Hugging Face Spaces) for the AI assistant and evaluations:
 
-```
-.env
-```
+- `GROQ_API_KEY` — Groq API key for LLM inference
+- `SLACK_BOT_TOKEN` — Slack bot token for `/slack/events`
+- `LANGSMITH_API_KEY` (or `LANGCHAIN_API_KEY`) — Required for LangSmith tracing and running benchmark evaluations
 
 ---
 
-## Running
+## Running & Testing
 
+### Serve the Website Locally
 ```bash
-npm start
+npm run serve
 ```
 
----
-
-## Docker
-
+### Run Playwright Tests
 ```bash
-docker compose up -d
+npm test
 ```
 
----
-
-## Screenshots
-
-(Add screenshots here)
-
----
-
-## Architecture
-
-Describe how the project works.
-
----
-
-## API
-
-Example
-
-GET
-
-```
-/health
+### Run LangGraph Agent Tests
+```bash
+pytest tests/agent
 ```
 
----
-
-## TODO
-
-- [ ] Add authentication
-- [ ] Improve logging
-- [ ] Dockerize
-- [ ] Add tests
-
----
-
-## Future Ideas
-
-Ideas that are not implemented yet.
-
----
-
-## Lessons Learned
-
-Things learned while building this project.
-
----
-
-## License
-
-MIT
+### Run LangSmith Benchmark Evaluations
+```bash
+python tests/agent/run_langsmith_eval.py
+# or via pytest:
+pytest tests/agent/test_langsmith_evals.py
+```
