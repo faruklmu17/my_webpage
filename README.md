@@ -14,10 +14,11 @@ Personal website (`https://faruk-hasan.com/`), tutoring portal, interactive proj
 
 ## AI Chatbot Architecture (LangGraph + LangSmith)
 
-The chatbot combines deterministic caching, a stateful **LangGraph** workflow, and a **Groq** RAG fallback:
+The portfolio website embeds the **Faruk AI Assistant** (deployed on Hugging Face Spaces with **FastAPI**, **Gradio**, and **Slack Events API**). Incoming messages flow through four stages in `ai_chatbot/hf_deployment/app.py`:
 
-1. **Pre-LLM Guardrails & Smart Cache (`ai_chatbot/hf_deployment/app.py`):** Filters abusive/sensitive inputs and serves instant cached answers via `cache_config.json`.
-2. **LangGraph `StateGraph` Workflow (`agent/graph.py`):** Handles multi-turn `CLASS_INQUIRY`, `PROJECT_HELP`, and `ASSIGNMENT_HELP` conversations with persistent conversation state:
+1. **Pre-LLM Guardrails:** Blocks abusive inputs and warns against sharing sensitive PII (credit card numbers, SSNs, passwords).
+2. **Smart Cache Lookup (`cache_config.json`):** Serves instant responses for common deterministic questions.
+3. **LangGraph `StateGraph` Workflow (`agent/graph.py`):** Handles multi-turn `CLASS_INQUIRY`, `PROJECT_HELP`, and `ASSIGNMENT_HELP` conversations with persistent conversation state:
    ```text
    START → extract_information → classify_intent → route_intent
      ├── GENERAL_QUESTION → general_response → END
@@ -27,8 +28,18 @@ The chatbot combines deterministic caching, a stateful **LangGraph** workflow, a
                ├── missing info  → generate_followup_question → END
                └── complete info → recommend_class → generate_response → END
    ```
-3. **Groq RAG Fallback:** Answers general questions about Faruk's background, portfolio, and resources using `faruk_context.md`.
-4. **LangSmith Evaluations (`tests/agent/`):** Benchmarks multi-turn state extraction, repetition prevention, and course recommendation accuracy against the `faruk-assistant-eval-dataset` dataset on LangSmith.
+4. **Groq RAG Fallback:** Answers general questions about Faruk's background, portfolio, and resources using `faruk_context.md` and `llama-3.1-8b-instant`.
+
+### Chatbot Endpoints (`ai_chatbot/hf_deployment/app.py` & `agent/api.py`)
+
+- `GET /` — Health check / landing message
+- `GET /gradio` — Mounted Gradio web chat interface
+- `POST /api/chat` & `POST /chat` — FastAPI endpoints invoking the compiled LangGraph workflow
+- `GET / POST /slack/events` — Slack Events API webhook (`url_verification`, `app_mention`, and direct `message` events)
+
+### LangSmith Evaluations (`tests/agent/`)
+
+Benchmarks multi-turn state extraction, repetition prevention, and course recommendation accuracy against the `faruk-assistant-eval-dataset` dataset on LangSmith.
 
 ---
 
