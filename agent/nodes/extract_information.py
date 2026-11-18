@@ -362,7 +362,7 @@ def _extract_request_type(text_lower: str) -> Tuple[Optional[str], Optional[str]
     req_type = None
     pref_format = None
 
-    if re.search(r"\b(assignment|homework|ap computer science|ap csa?|school project|due)\b", text_lower):
+    if re.search(r"\b(assignment|homework|ap computer science|ap csa?p?|school project|due)\b", text_lower):
         req_type = "assignment_help"
     elif re.search(r"\b(build.*website|build.*app|build.*chatbot|make.*game|project help|personal project|travel website|wants help building|fix a bug|tutoring sessions?|private tutoring)\b", text_lower):
         req_type = "project_help"
@@ -441,7 +441,9 @@ def _extract_from_text(text: str, last_question: Optional[str] = None) -> Extrac
     info.request_type = req_type
     info.preferred_class_type = pref_format
 
-    if re.search(r"\bap\s+(?:computer\s+science|csa?)\b", text_lower):
+    if re.search(r"\bap\s+(?:computer\s+science\s+principles|csp)\b", text_lower):
+        info.subject = "AP Computer Science Principles"
+    elif re.search(r"\bap\s+(?:computer\s+science|csa?)\b", text_lower):
         info.subject = "AP Computer Science"
 
     # 6. Specific project goal with corrections

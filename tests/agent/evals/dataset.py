@@ -91,6 +91,19 @@ BENCHMARK_EXAMPLES: List[Dict[str, Any]] = [
             "expected_course_id": "ap_computer_science_java",
         },
     },
+    {
+        "inputs": {
+            "conversation_id": "eval_ap_csp",
+            "messages": [
+                {"role": "user", "content": "My daughter is 16 and needs tutoring for AP Computer Science Principles"},
+            ],
+            "last_user_message": "My daughter is 16 and needs tutoring for AP Computer Science Principles",
+        },
+        "outputs": {
+            "expected_intent": "ASSIGNMENT_HELP",
+            "expected_course_id": "ap_computer_science_principles",
+        },
+    },
 ]
 
 # ---------------------------------------------------------------------------

@@ -55,7 +55,7 @@ def classify_text_intent(text: str) -> IntentResult:
 
     # 1. Assignment Help Patterns (Homework, school labs, due dates, AP CS / AP CSA)
     ASSIGNMENT_PATTERNS = [
-        r"\b(homework|assignment|due\s+(?:friday|tomorrow|soon|today)|school\s+lab|lab\s+due|ap\s+(?:computer\s+science|csa?))\b",
+        r"\b(homework|assignment|due\s+(?:friday|tomorrow|soon|today)|school\s+lab|lab\s+due|ap\s+(?:computer\s+science|csa?|csp))\b",
         r"\bhelp\s+with\s+(?:my\s+)?(?:java|python|coding|cs)\s+(?:homework|assignment|lab)\b",
     ]
     for pattern in ASSIGNMENT_PATTERNS:
