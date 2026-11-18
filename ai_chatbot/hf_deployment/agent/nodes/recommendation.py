@@ -27,7 +27,10 @@ def score_class_for_state(course: Dict[str, Any], state: AgentState) -> float:
 
     # 1. Assignment Help Intent Matching
     if req_type == "assignment_help" or "homework" in goal:
-        if "ap computer science" in subject or "java" in lang or "java" in goal:
+        if "principles" in subject or "csp" in subject:
+            if course["id"] == "ap_computer_science_principles":
+                score += 60.0
+        elif "ap computer science" in subject or "java" in lang or "java" in goal:
             if course["id"] == "ap_computer_science_java":
                 score += 60.0
         elif course["id"] == "private_project_tutoring":
@@ -126,6 +129,9 @@ def generate_recommendation_reason(course: Dict[str, Any], state: AgentState) ->
 
     elif cid == "ap_computer_science_java":
         return "Offers targeted 1-on-1 coaching covering AP Computer Science Java coursework, object-oriented concepts, and assignment problem-solving."
+
+    elif cid == "ap_computer_science_principles":
+        return "Offers targeted 1-on-1 tutoring for AP Computer Science Principles, covering core computing concepts, programming, and the Create performance task."
 
     elif cid == "robotics_hardware_arduino":
         return "Hands-on engineering curriculum teaching circuit design, microcontrollers, and IoT programming with Arduino."

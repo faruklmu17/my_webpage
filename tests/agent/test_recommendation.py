@@ -116,6 +116,18 @@ class TestRecommendationEngine:
         res = recommend_class(state)
         assert res["recommended_class_id"] == "ap_computer_science_java"
 
+    def test_7b_assignment_help_ap_csp(self):
+        """AP Computer Science Principles -> ap_computer_science_principles (not the Java course)."""
+        state: AgentState = {
+            "intent": ASSIGNMENT_HELP,
+            "student_age": 16,
+            "request_type": "assignment_help",
+            "subject": "AP Computer Science Principles",
+            "project_goal": "help with the Create performance task",
+        }
+        res = recommend_class(state)
+        assert res["recommended_class_id"] == "ap_computer_science_principles"
+
     def test_8_unclear_goal_age_fallback(self):
         """Scenario 8: Unclear goal defaults safely to age-appropriate curriculum."""
         state: AgentState = {
