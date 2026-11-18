@@ -96,3 +96,13 @@ class TestInformationExtractionNode:
         assert state["student_age"] == 13
         assert state["experience_level"] == "beginner"
         assert state["programming_language"] == "Python"
+
+
+    def test_ap_csp_subject_extraction(self):
+        """AP CSP must be detected as its own subject, distinct from AP CSA."""
+        for text in ["She needs help with AP CSP.", "Tutoring for AP Computer Science Principles please."]:
+            info = _extract_from_text(text)
+            assert info.subject == "AP Computer Science Principles"
+            assert info.request_type == "assignment_help"
+        info = _extract_from_text("He is taking AP Computer Science A in Java.")
+        assert info.subject == "AP Computer Science"

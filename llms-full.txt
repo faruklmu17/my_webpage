@@ -61,7 +61,7 @@ Faruk bridges cutting-edge AI technologies—such as LLM evaluation frameworks (
 - **Platforms**:
   - **Outschool**: STEM instructor teaching Python Programming (Beginner to Advanced), AI & Chatbot Development, Web Development, Arduino & Electronics, and Robotics for ages 9–18.
   - **Udemy**: Creator of *Python Fundamentals: Fun and Practical Projects for Beginners* and upcoming courses on AI and automation.
-  - **Private Tutoring**: Delivers personalized 1-on-1 tutoring sessions globally through [https://faruk-hasan.com/tutoring/tutoring.html](https://faruk-hasan.com/tutoring/tutoring.html).
+  - **Private Tutoring**: Delivers personalized 1-on-1 tutoring sessions globally through [https://faruk-hasan.com/tutoring/tutoring.html](https://faruk-hasan.com/tutoring/tutoring.html), including academic support for AP Computer Science A (Java), AP Computer Science Principles (Python or JavaScript), and school coding courses.
 
 ---
 

@@ -123,7 +123,7 @@ def general_response(state: AgentState) -> Dict[str, Any]:
     text = (
         "Faruk is a software engineer and educator offering live, interactive 1-on-1 tutoring "
         "and small group courses. Offerings include beginner Python & AI for kids, full-stack AI web "
-        "development (React, Python, APIs, and databases), AP Computer Science prep (Java), robotics "
+        "development (React, Python, APIs, and databases), AP Computer Science prep (Java and Principles), robotics "
         "with Arduino, and professional QA test automation training.\n\n"
         "All sessions are live online and customized to each student's pace and goals. "
         "Could you tell me a little about what you or your student are hoping to learn?"
